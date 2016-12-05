@@ -85,6 +85,11 @@ task('nginx:restart', function () {
     run('sudo systemctl restart nginx.service');
 });
 
+task('deploy:assetic:dump', function () {
+    if (get('dump_assets')) {
+        run('{{env_vars}} {{bin/php}} {{bin/console}} assetic:dump --forks=12 {{console_options}}');
+    }
+})->desc('Dump assets');
 
 task('install', [
     'timezone',
@@ -122,7 +127,7 @@ task('deploy', [
     'deploy:create_cache_dir',
     'deploy:shared',
     //'deploy:assets',
-    'deploy:copy_dirs',
+    //'deploy:copy_dirs',
     'symfony:env_vars',
     'deploy:vendors',
     //'deploy:assets:install',
