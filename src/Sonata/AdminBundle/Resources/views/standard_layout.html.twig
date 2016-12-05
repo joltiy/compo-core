@@ -1,0 +1,19 @@
+{% extends '@SonataAdmin/standard_layout.html.twig' %}
+
+{% block side_bar_after_nav %}
+    {# COMPO Ссылка на компанию под навигацией в админке #}
+    <p class="text-center small" style="border-top: 1px solid #444444; padding-top: 10px">
+        {% block side_bar_after_nav_content %}
+            <a href="http://www.compo.ru" rel="noreferrer" target="_blank">www.compo.ru</a>
+        {% endblock %}
+    </p>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {# COMPO Временный хак, маршрут для AJAX подгрузки производителей #}
+    <script>
+        document.admin_compo_manufacture_manufacturecollection_select2 = '{{ path('admin_compo_manufacture_manufacturecollection_select2') }}';
+    </script>
+{% endblock %}

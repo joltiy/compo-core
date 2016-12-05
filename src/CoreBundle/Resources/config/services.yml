@@ -1,0 +1,47 @@
+services:
+    compo_core.abstract_container_aware:
+        abstract:  true
+        calls:
+            - [setContainer, ["@service_container"]]
+
+    compo_core.translator.extractor:
+        class: Compo\CoreBundle\Translation\AdminExtractor
+        tags: [{name: jms_translation.extractor, alias: compo_admin}]
+        arguments:
+            - "@sonata.admin.pool"
+
+    compo_core.twig_extension:
+        class: Compo\CoreBundle\Twig\ColorExtension
+        public: false
+        tags:
+            - { name: twig.extension }
+
+    compo_core.twig.show_more_extension:
+        class: Compo\CoreBundle\Twig\ShowMoreExtension
+        tags:
+            - { name: twig.extension }
+
+    compo_core.settings_schema.meta:
+        class: Compo\CoreBundle\Settings\AdminSettingsSchema
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: "sylius.settings_schema", namespace: "compo_core_settings", alias: "compo_core_settings" }
+
+
+    compo_core.admin.settings:
+        class: Compo\CoreBundle\Admin\SettingsAdmin
+        parent: compo_core.abstract_container_aware
+        arguments: [~, Sylius\Bundle\SettingsBundle\Model\Settings, CompoCoreBundle:SettingsAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: core_settings, label_translator_strategy: sonata.admin.label.strategy.underscore }
+
+
+    knp_paginator.subscriber.sliding_pagination:
+        class: Compo\CoreBundle\Subscriber\SlidingPaginationSubscriber
+        arguments: [{defaultPaginationTemplate: "%knp_paginator.template.pagination%", defaultSortableTemplate: "%knp_paginator.template.sortable%", defaultFiltrationTemplate: "%knp_paginator.template.filtration%", defaultPageRange: "%knp_paginator.page_range%"}]
+        tags:
+            - { name: knp_paginator.subscriber }
+            - { name: kernel.event_listener, event: "kernel.request", method: "onKernelRequest" }
+
+
+

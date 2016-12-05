@@ -1,0 +1,10 @@
+{% extends 'SonataAdminBundle:CRUD:base_list.html.twig' %}
+{% block tab_menu %}
+    {% include 'CompoSonataAdminBundle:Tree:list_tab_menu.html.twig' with {
+    'mode':        'tree',
+    'action':      action,
+    'admin':       admin
+    } only %}
+{% endblock %}
+{% block list_filters_actions %}
+{% endblock %}

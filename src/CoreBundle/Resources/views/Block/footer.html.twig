@@ -1,0 +1,83 @@
+<div id="footer">
+
+    {% block footer_page %}
+        {% if page is defined %}
+            {{ sonata_page_render_container('footer', page) }}
+        {% endif %}
+    {% endblock %}
+
+    {% block footer_global %}
+        {{ sonata_page_render_container('footer', 'global') }}
+    {% endblock %}
+
+    <div class="row" itemtype="http://schema.org/Organization" itemscope="">
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+
+            <a href="javascript:goPage('/')" class="logo"></a>
+
+            <div class="copy-wrap">
+                <div class="copy">
+                    {{ compo_core_settings.footer_copyright|raw }}
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2">
+            <!--noindex-->
+            <div>
+                <div class="title">Покупателю</div>
+
+                {{ sonata_block_render({ 'type': 'compo_menu.block.service.menu' }, {
+                    'alias': 'footer', 'class': 'menu-footer', 'template': 'CompoMenuBundle:Menu:list_menu.html.twig'
+                }) }}
+            </div>
+            <!--/noindex-->
+        </div>
+        <div class="col-xs-6 col-sm-5 col-md-5 col-lg-5 col-contacts">
+
+            <div class="title">Контакты</div>
+
+            <ul class="contacts">
+                <li class="address">
+                    <i class="font-icon fa fa-map-marker"></i>
+
+                    <div itemprop="address">
+                        {{ compo_core_settings.footer_address|raw }}
+                    </div>
+                </li>
+
+                <li class="phone">
+                    <i class="font-icon fa fa-phone"></i>
+
+                    <div itemprop="telephone">
+                        {{ compo_core_settings.footer_phones|raw }}
+                    </div>
+                </li>
+
+                <li class="email">
+                    <i class="font-icon fa fa-envelope"></i>
+
+                    <div itemprop="email">
+                        <a href="mailto:{{ compo_core_settings.email }}">{{ compo_core_settings.email }}</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-right">
+            <div class="title">Принимаем к оплате</div>
+            <div class="payment">
+                {{ compo_core_settings.footer_payments|raw }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row bottom">
+        <div class="col-lg-7 col-lg-offset-3 compo">
+            Разработка и создание интернет-магазина: <a href="http://www.compo.ru/" target="_blank"></a>
+        </div>
+        <div class="col-lg-2">
+            <div class="counters">
+
+            </div>
+        </div>
+    </div>
+</div>

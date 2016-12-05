@@ -1,0 +1,19 @@
+jms_security_extra:
+    secure_all_services: false
+
+jms_serializer:
+    metadata:
+        directories:
+            - { path: "%kernel.root_dir%/../vendor/sonata-project/user-bundle/Resources/config/serializer/FOSUserBundle", namespace_prefix: 'FOS\UserBundle' }
+            - { path: "%kernel.root_dir%/../vendor/sonata-project/datagrid-bundle/Resources/config/serializer", namespace_prefix: 'Sonata\DatagridBundle' }
+
+
+jms_translation:
+    configs:
+        app:
+            dirs: ["%kernel.root_dir%/../src/"]
+            output_dir: "%kernel.root_dir%/Resources/translations"
+            ignored_domains: [routes]
+            excluded_names: ["*TestCase.php", "*Test.php"]
+            excluded_dirs: [cache, data, logs]
+            extractors: [compo_admin]

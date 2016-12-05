@@ -1,0 +1,23 @@
+{#
+Двухколоночный шаблон
+#}
+{% extends 'CompoCoreBundle::layout.html.twig' %}
+
+{% block layout %}
+    <div id="layout" class="2columns-layout">
+
+        <div class="row">
+            <div class="offcanvas layout-sidebar-col col-sm-4 col-md-3 col-lg-3">
+                {% block sidebar %}
+                    {% include '@CompoCore/Block/sidebar.html.twig' %}
+                {% endblock %}
+            </div>
+
+            <div class="layout-content-col col-sm-8 col-md-9 col-lg-9">
+                {% block content %}
+                    {% include '@CompoCore/Block/content.html.twig' %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

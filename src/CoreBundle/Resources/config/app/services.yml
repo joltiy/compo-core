@@ -1,0 +1,24 @@
+services:
+  gedmo.listener.softdeleteable:
+      class: Gedmo\SoftDeleteable\SoftDeleteableListener
+      tags:
+          - { name: doctrine.event_subscriber, connection: default }
+      calls:
+          - [ setAnnotationReader, [ '@annotation_reader' ] ]
+
+  gedmo.listener.tree:
+      class: Gedmo\Tree\TreeListener
+      tags:
+          - { name: doctrine.event_subscriber, connection: default }
+      calls:
+          - [ setAnnotationReader, [ '@annotation_reader' ] ]
+
+  twig.text_extension:
+      class: Twig_Extensions_Extension_Text
+      tags:
+          - name: twig.extension
+
+  compo.sonata.admin.tabmenu.extension:
+      class: Compo\Sonata\AdminBundle\Extension\TabMenuExtension
+      tags:
+          - { name: sonata.admin.extension, global: true }

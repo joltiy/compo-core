@@ -1,0 +1,101 @@
+<div id="header">
+
+    {% block header_global %}
+        {{ sonata_page_render_container('header', 'global') }}
+    {% endblock %}
+
+    {% block header_page %}
+        {% if page is defined %}
+            {{ sonata_page_render_container('header', page) }}
+        {% endif %}
+    {% endblock %}
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="navbar navbar-default visible-xs-12 hidden-sm hidden-md hidden-lg" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target=".sidebar-nav">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand logo" href="/"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 offcanvas">
+            <div class="row header-top">
+                <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 hidden-xs">
+                    <a href="/" class="logo"></a>
+                </div>
+
+                <div class="col-xs-5 col-sm-5 col-md-2 col-lg-2 hidden-xs hidden-sm">
+                    <div class="blob"></div>
+                </div>
+
+                <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                    <div class="row">
+                        <div class="col-lg-12 opening-times">
+                            <span class="value">{{ compo_core_settings.header_timework|raw }}</span>
+                            <span class="range hidden-xs" data-toggle="tooltip" data-placement="right" data-title="{{ compo_core_settings.header_timework_description }}" data-html="true"></span>
+                        </div>
+
+                        <div class="col-lg-12 ht-contacts">
+                            {{ compo_core_settings.header_phones|raw }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-6 col-sm-3 col-md-2 col-lg-2">
+                    <div class="contact-mail">
+                        <a href="mailto:{{ compo_core_settings.email }}">{{ compo_core_settings.email }}</a>
+                    </div>
+                    <div class="recall">
+                        <span class="link fancybox-ajax recall-btn" data-href="/ajax/recallform/">Обратный звонок</span>
+                    </div>
+
+                    <div class="feedback-principal">
+                        <a href="/feedback_principal/">Написать директору</a>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                    <!--noindex-->
+                    <div id="compoBasket" class="">
+                        <a href="/login/" class="btn btn-info login"><span class="font-icon fa fa-user"></span> Войти</a>
+
+                        <button type="button" class="btn btn-info cart"><span class="font-icon fa fa-shopping-cart"></span> 0</button>
+                    </div>
+                    <!--/noindex-->
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 offcanvas">
+            <div class="menu">
+                <nav class="navbar navbar-default ">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-8 col-lg-8">
+                            {{ sonata_block_render({ 'type': 'compo_menu.block.service.menu' }, {
+                                'alias': 'main'
+                            }) }}
+                        </div>
+
+                        <div class="col-sm-12 col-md-4 col-lg-4">
+                            <form method="get" action="/search/" class="navbar-form navbar-right search" role="search">
+                                <div class="row form-group ">
+                                    <input class="form-control" autocomplete="off" type="text" name="keyword" placeholder="Поиск по интернет-магазину" value=""/>
+                                    <button type="submit" class="btn-search" title="Найти"><span class="font-icon fa fa-search" aria-hidden="true"></span></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+</div>

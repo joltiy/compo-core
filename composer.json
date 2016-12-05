@@ -1,0 +1,15 @@
+{
+    "name": "comporu/compo-core",
+    "type": "symfony-bundle",
+    "description": "compo-core",
+    "require": {
+        "php": "^5.3 || ^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Compo\\CoreBundle\\": "src/CoreBundle",
+            "Compo\\MenuBundle\\": "src/MenuBundle",
+            "Compo\\Sonata\\": "src/Sonata"
+        }
+    }
+}

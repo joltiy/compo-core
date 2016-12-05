@@ -1,0 +1,16 @@
+services:
+    compo_menu.admin.menu:
+        class: Compo\MenuBundle\Admin\MenuAdmin
+        arguments: [~, Compo\MenuBundle\Entity\Menu, CompoMenuBundle:MenuAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: menu, label_translator_strategy: sonata.admin.label.strategy.underscore }
+
+    compo_menu.block.service.menu:
+        class: Compo\MenuBundle\Block\MenuBlockService
+        arguments: ["compo_menu.block.service.menu", "@templating"]
+        tags:
+            - { name: sonata.block }
+        calls:
+            - [ setContainer, ["@service_container"]]
+
+

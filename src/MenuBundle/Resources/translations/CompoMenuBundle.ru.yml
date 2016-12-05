@@ -1,0 +1,11 @@
+breadcrumb:
+    link_menu_batch: 'Действия над меню'
+    link_menu_create: 'Создание меню'
+    link_menu_delete: 'Удаление меню'
+    link_menu_edit: 'Редактирование меню'
+    link_menu_list: 'Список меню'
+    link_menu_update: 'Обвновление меню'
+
+menu: Меню
+
+form.label_parent: 'Родительский элемент'

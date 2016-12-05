@@ -1,0 +1,196 @@
+sonata_admin:
+    # default value, change it to sonata.admin.security.handler.acl to use ACL
+    security:
+        handler: sonata.admin.security.handler.acl
+        # acl security information
+        information:
+            GUEST:    [VIEW, LIST]
+            STAFF:    [EDIT, LIST, CREATE]
+            EDITOR:   [OPERATOR, EXPORT]
+            ADMIN:    [MASTER]
+        # permissions not related to an object instance and also to be available when objects do not exist
+        # the DELETE admin permission means the user is allowed to batch delete objects
+        admin_permissions: [CREATE, LIST, DELETE, UNDELETE, EXPORT, OPERATOR, MASTER]
+        # permission related to the objects
+        object_permissions: [VIEW, EDIT, DELETE, UNDELETE, OPERATOR, MASTER, OWNER]
+
+    title:      "Compo Standard"
+    title_logo: "/bundles/compocore/images/compo_logo.png"
+
+    options:
+        html5_validate: true # does not use html5 validation
+        pager_links: 5        # pager max links to display
+        use_select2:    true # disable select2
+        lock_protection: false
+        form_type: horizontal
+        sort_admins:          true
+        confirm_exit:         true
+        use_icheck:           true
+        use_stickyforms:      true
+        title_mode:           "single_image"
+
+    persist_filters:      false
+    show_mosaic_button:   false
+
+    templates:
+        layout:  SonataAdminBundle::standard_layout.html.twig
+        ajax:    SonataAdminBundle::ajax_layout.html.twig
+        list:    SonataAdminBundle:CRUD:list.html.twig
+        show:    SonataAdminBundle:CRUD:show.html.twig
+        edit:    SonataAdminBundle:CRUD:edit.html.twig
+
+    dashboard:
+        blocks:
+            -
+                class:    col-md-4
+                position: top
+                type:     sonata.admin.block.stats
+                settings:
+                    code:  compo_order.admin.order
+                    icon:  fa-shopping-cart
+                    text:  'orders'
+                    color: bg-yellow
+
+            -
+                class:    col-md-4
+                position: top
+                type:     sonata.admin.block.stats
+                settings:
+                    code:  compo_product.admin.product
+                    icon:  fa-usd
+                    text:  'products'
+                    color: bg-green
+
+            -
+                class:    col-md-4
+                position: top
+                type:     sonata.admin.block.stats
+                settings:
+                    code:  sonata.user.admin.user
+                    icon:  fa-user
+                    text:  'users'
+                    color: bg-green
+
+            - { class: "col-md-12", position: top, type: sonata.timeline.block.timeline, settings: { context: SONATA_ADMIN, max_per_page: 25, title: "Журнал действий" }}
+
+        groups:
+            sonata.admin.group.ecommerce:
+                label:           ecommerce
+                label_catalogue: CompoCoreBundle
+                icon:            '<i class="fa fa-usd"></i>'
+                items:
+                    - compo_catalog.admin.catalog
+                    - compo_product.admin.product
+
+                    - compo_features.admin.feature_attribute
+
+                    - compo_manufacture.admin.manufacture
+                    - compo_manufacture.admin.manufacture_collection
+                    - compo_country.admin.country
+
+                    - compo_supplier.admin.supplier
+                    - compo_product.admin.product_special_collection
+
+                    - compo_product.admin.product_availability
+                    - compo_currency.admin.currency
+
+            sonata.admin.group.orders:
+                label:           orders
+                label_catalogue: CompoOrderBundle
+                icon:            '<i class="fa fa-shopping-cart"></i>'
+                items:
+
+                    - compo_order.admin.order
+
+                    - compo_order.admin.order_state
+
+                    - compo_payment.admin.payment_state
+                    - compo_delivery.admin.delivery_state
+
+                    - compo_payment.admin.payment_method
+                    - compo_delivery.admin.delivery_method
+
+                    - compo_order.admin.order_reason_cancel
+                    - compo_order.admin.order_tag
+
+            sonata.admin.group.site_builder:
+                label:           content
+                label_catalogue: CompoCoreBundle
+                icon:            '<i class="fa fa-puzzle-piece"></i>'
+                items:
+                    - sonata.page.admin.page
+                    - compo_menu.admin.menu
+
+            sonata.admin.group.administration:
+                label:           sonata_administration
+                label_catalogue: CompoCoreBundle
+                icon:            '<i class="fa fa-users"></i>'
+                items:
+                    - sonata.user.admin.user
+                    - sonata.user.admin.group
+                    - sonata.notification.admin.message
+
+            sonata.admin.group.settings:
+                label:           sonata_admin.group_settings
+                label_catalogue: CompoCoreBundle
+                icon:            '<i class="fa fa-cogs"></i>'
+                items:
+                    - sonata.page.admin.site
+                    - compo_core.admin.settings
+                    - compo_catalog.admin.settings
+
+
+            sonata.admin.group.classification:
+                label:           sonata_classification
+                label_catalogue: CompoCoreBundle
+                icon:            '<i class="fa fa-sitemap"></i>'
+                items:
+                    - sonata.comment.admin.thread
+                    - sonata.classification.admin.category
+                    - sonata.classification.admin.tag
+                    - sonata.classification.admin.collection
+                    - sonata.classification.admin.context
+                    - sonata.media.admin.media
+                    - sonata.media.admin.gallery
+                    - compo_features.admin.feature_type
+                    - compo_features.admin.feature_unit
+                    - compo_features.admin.feature_variant
+                    - compo_features.admin.feature_value
+
+    extensions:
+        compo.sonata.admin.tabmenu.extension:
+            instanceof:
+                - \Sonata\AdminBundle\Admin\Admin
+
+        compo_seo.seo.extension:
+            implements:
+                - \Compo\SeoBundle\Extension\SeoExtensionInterface
+
+    assets:
+        javascripts:
+            - assetic/sonata_admin_vendor_js.js
+            - assetic/sonata_admin_core_js.js
+            - assetic/sonata_admin_js.js
+
+            - bundles/sonataformatter/vendor/ckeditor/ckeditor.js
+
+            - bundles/composonataadmin/js/nestedSortable.js
+
+            - bundles/composonataadmin/js/admin.js
+
+
+        stylesheets:
+            - assetic/sonata_admin_vendor_css.css
+            - assetic/sonata_admin_core_css.css
+            - assetic/sonata_admin_css.css
+
+            - bundles/composonataadmin/css/admin.css
+            - bundles/composonataadmin/css/tree.css
+
+sonata_doctrine_orm_admin:
+    templates:
+        form:
+            - "CompoSonataAdminBundle::SonataDoctrineORMAdminBundle/Form/form_admin_fields.html.twig"
+
+    audit:
+        force: true

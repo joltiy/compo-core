@@ -1,0 +1,187 @@
+assetic:
+    debug:                '%kernel.debug%'
+    use_controller:
+        enabled:              false
+        profiler:             false
+
+    write_to: "%kernel.root_dir%/../web"
+
+
+    bundles:        [CompoCoreBundle] # disable bundles parsing
+
+    filters:
+        cssrewrite: ~
+        yui_js:  { jar: "%kernel.root_dir%/../src/Compo/CoreBundle/Resources/bin/yuicompressor.jar" }
+        yui_css: { jar: "%kernel.root_dir%/../src/Compo/CoreBundle/Resources/bin/yuicompressor.jar" }
+
+
+    workers:
+        cache_busting: true
+
+    assets:
+        sonata_admin_vendor_js:
+            inputs:
+                - "bundles/sonatacore/vendor/jquery/dist/jquery.js"
+                - "bundles/sonataadmin/vendor/jqueryui/ui/jquery-ui.js"
+                - "bundles/sonataadmin/vendor/jquery.scrollTo/jquery.scrollTo.js"
+                - "bundles/sonataadmin/vendor/jquery-form/jquery.form.js"
+                - "bundles/sonataadmin/jquery/jquery.confirmExit.js"
+                - "bundles/sonataadmin/vendor/slimScroll/jquery.slimscroll.min.js"
+                - "bundles/sonataadmin/vendor/waypoints/lib/noframework.waypoints.min.js"
+                - "bundles/sonataadmin/vendor/waypoints/lib/shortcuts/sticky.min.js"
+                - "bundles/sonatacore/vendor/moment/min/moment.min.js"
+                - "bundles/sonatacore/vendor/select2/select2.js"
+                - "bundles/sonataadmin/vendor/iCheck/icheck.min.js"
+                - "bundles/sonatacore/vendor/bootstrap/dist/js/bootstrap.js"
+                - "bundles/sonatacore/vendor/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js"
+                - "bundles/sonataadmin/vendor/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.js"
+                - "bundles/composonataadmin/vendor/bootstrap-switch-master/dist/js/bootstrap-switch.min.js"
+                - "bundles/sonataformatter/vendor/markitup-markitup/markitup/jquery.markitup.js"
+                - "bundles/sonataformatter/markitup/sets/html/set.js"
+
+            filters:
+                - ?yui_js
+
+        sonata_admin_core_js:
+            inputs:
+                - "bundles/sonataadmin/vendor/admin-lte/dist/js/app.min.js"
+
+            filters:
+                - ?yui_js
+
+        sonata_admin_js:
+            inputs:
+                - "bundles/sonatapage/sonata-page.back.js"
+                - "bundles/sonataadmin/Admin.js"
+                - "bundles/sonataadmin/treeview.js"
+
+            filters:
+                - ?yui_js
+
+
+
+        sonata_admin_vendor_css:
+            inputs:
+                - "bundles/sonatacore/vendor/components-font-awesome/css/font-awesome.min.css"
+                - "bundles/sonatacore/vendor/bootstrap/dist/css/bootstrap.min.css"
+                - "bundles/sonataadmin/vendor/jqueryui/themes/base/jquery-ui.css"
+                - "bundles/sonataadmin/vendor/jqueryui/themes/flick/jquery-ui.min.css"
+                - "bundles/sonataadmin/vendor/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css"
+                - "bundles/sonatacore/vendor/select2/select2.css"
+                - "bundles/sonatacore/vendor/select2/select2-bootstrap.css"
+                - "bundles/sonatacore/vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css"
+                - "bundles/sonataadmin/vendor/iCheck/skins/square/blue.css"
+                - "bundles/composonataadmin/vendor/bootstrap-switch-master/dist/css/bootstrap3/bootstrap-switch.min.css"
+                - "bundles/sonataformatter/markitup/skins/sonata/style.css"
+                - "bundles/sonataformatter/markitup/sets/html/style.css"
+            filters:
+                - cssrewrite
+                - ?yui_css
+
+        sonata_admin_core_css:
+            inputs:
+                - "bundles/sonataadmin/vendor/admin-lte/dist/css/AdminLTE.css"
+                - "bundles/sonataadmin/vendor/admin-lte/dist/css/skins/skin-black.min.css"
+
+            filters:
+                - cssrewrite
+                - ?yui_css
+
+        sonata_admin_css:
+            inputs:
+                - "bundles/sonataadmin/css/styles.css"
+                - "bundles/sonataadmin/css/layout.css"
+                - "bundles/sonataadmin/css/tree.css"
+                - "bundles/sonatapage/sonata-page.back.css"
+
+            filters:
+                - cssrewrite
+                - ?yui_css
+
+
+        sonata_front_vendor_core_js:
+            inputs:
+                - "vendor/jquery/dist/jquery.js"
+                - "vendor/jquery-ui/jquery-ui.js"
+                - "vendor/bootstrap/dist/js/bootstrap.js"
+            filters:
+                - ?yui_js
+
+        sonata_front_vendor_js:
+            inputs:
+                - "vendor/jquery-mousewheel/jquery.mousewheel.js"
+                - "vendor/fancyBox/source/jquery.fancybox.js"
+                - "vendor/seiyria-bootstrap-slider/js/bootstrap-slider.js"
+                - "vendor/sweetalert/dist/sweetalert.min.js"
+                - "vendor/jquery-listnav/jquery-listnav.js"
+                - "vendor/jquery.maskedinput/dist/jquery.maskedinput.js"
+                - "vendor/jquery-smooth-scroll/jquery.smooth-scroll.js"
+                - "vendor/jquery-validation/dist/jquery.validate.js"
+                - "vendor/jquery-validation/dist/additional-methods.js"
+                - "vendor/jquery-validation/src/localization/messages_ru.js"
+                - "vendor/jquery-highlight/jquery.highlight.js"
+                - "vendor/chosen_v1.2.0/chosen.jquery.js"
+                - "vendor/pikachoose-bower/lib/jquery.pikachoose.js"
+                - "vendor/jScrollPane/script/jquery.jscrollpane.js"
+                - "vendor/slick-carousel/slick/slick.js"
+                - "vendor/drmonty-garlicjs/js/garlic.min.js"
+                - "vendor/jquery.cookie/jquery.cookie.js"
+                - "vendor/history.js/scripts/bundled/html4+html5/jquery.history.js"
+#                - "vendor/bootstrap-star-rating/js/star-rating.js"
+                - "vendor/json/json2.js"
+                - "opt/jstorage.js"
+                - "js/fuckadblock.js"
+            filters:
+                - ?yui_js
+
+
+        sonata_front_js:
+            inputs:
+                - "js/widgets/*.js"
+                - "js/functions.js"
+                - "js/analyticsEvents.js"
+                - "js/onload.js"
+            filters:
+                - ?yui_js
+
+        sonata_front_vendor_core_css:
+            inputs:
+                - "vendor/jquery-ui/themes/redmond/jquery-ui.min.css"
+                - "vendor/bootstrap/dist/css/bootstrap.min.css"
+                - "vendor/fontawesome/css/font-awesome.min.css"
+            filters:
+                - cssrewrite
+                - ?yui_css
+
+
+        sonata_front_vendor_css:
+            inputs:
+                - "vendor/fancyBox/source/jquery.fancybox.css"
+                - "vendor/chosen_v1.2.0/chosen.min.css"
+                - "vendor/jScrollPane/style/jquery.jscrollpane.css"
+                - "vendor/jquery-listnav/css/listnav.css"
+                - "vendor/pikachoose-bower/styles/base.css"
+                - "vendor/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css"
+                - "vendor/slick-carousel/slick/slick.css"
+                - "vendor/slick-carousel/slick/slick-theme.css"
+                - "vendor/world-flags-sprite/stylesheets/flags16.css"
+                - "vendor/world-flags-sprite/stylesheets/flags32.css"
+#                - "vendor/bootstrap-star-rating/css/star-rating.min.css"
+                - "vendor/sweetalert/dist/sweetalert.css"
+                - "vendor/animate.css/animate.min.css"
+            filters:
+                - cssrewrite
+                - ?yui_css
+
+        sonata_front_css:
+            inputs:
+                - "css/base/*.css"
+                - "css/blocks/*.css"
+                - "css/bundles/*.css"
+                - "css/bundles/index/*.css"
+                - "css/bundles/market/*.css"
+                - "css/sidebar/*.css"
+                - "css/*.css"
+            filters:
+                - cssrewrite
+                - ?yui_css

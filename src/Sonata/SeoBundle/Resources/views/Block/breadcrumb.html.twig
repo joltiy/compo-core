@@ -1,0 +1,35 @@
+{#
+
+This file is part of the Sonata package.
+
+(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
+{% extends 'knp_menu_ordered.html.twig' %}
+{%- block label %}{% spaceless %}
+    {% if 'breadcrumb' in item.label %}
+        {{ item.label|trans(item.getExtra('translation_params', {}), item.getExtra('translation_domain', 'SonataSeoBundle')) }}
+    {% else %}
+        {{ item.label }}
+    {% endif %}
+{% endspaceless %}{% endblock %}
+
+{% block list %}
+{% spaceless %}
+        {{ parent() }}
+{% endspaceless %}
+{% endblock %}
+
+{% block root %}
+    <div class="breadcrumb-block">
+        <div class="row">
+            <div class="col-lg-12">
+                {{ parent() }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

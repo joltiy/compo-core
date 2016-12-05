@@ -1,0 +1,99 @@
+imports:
+    - { resource: assetic.yml }
+    - { resource: security.yml }
+
+    - { resource: mopa/mopa_bootstrap.yml }
+
+    - { resource: knp/knp_paginator.yml }
+
+    - { resource: fos/fos_comment.yml }
+    - { resource: fos/fos_rest.yml }
+    - { resource: fos/fos_user.yml }
+    - { resource: fos/fos_elastica.yml }
+
+    - { resource: sonata/sonata_block.yml }
+    - { resource: sonata/sonata_formatter.yml }
+    - { resource: sonata/sonata_cache.yml }
+    - { resource: sonata/sonata_seo.yml }
+    - { resource: sonata/sonata_timeline.yml }
+    - { resource: sonata/sonata_intl.yml }
+    - { resource: sonata/sonata_core.yml }
+
+    - { resource: sonata/sonata_admin.yml }
+    - { resource: sonata/sonata_comment.yml }
+    - { resource: sonata/sonata_page.yml }
+    - { resource: sonata/sonata_media.yml }
+    - { resource: sonata/sonata_user.yml }
+    - { resource: sonata/sonata_notification.yml }
+    - { resource: sonata/sonata_classification.yml }
+
+    - { resource: jms.yml }
+    - { resource: doctrine.yml }
+    - { resource: twig.yml }
+    - { resource: services.yml }
+
+    - { resource: compo.yml }
+
+    - { resource: '@CompoSonataAdminBundle/Resources/config/services.yml' }
+
+
+framework:
+    esi: { enabled: true }
+    translator:      { fallbacks: ["en"] }
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:                    true
+    csrf_protection:         true
+    validation:      { enable_annotations: true }
+    #serializer:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # handler_id set to null will use default session handler from php.ini
+        handler_id:  ~
+        #upsave_path:           "%kernel.root_dir%/cache/sessions"
+
+    fragments:       ~
+    http_method_override: true
+
+
+
+
+sensio_framework_extra:
+    view:    { annotations: false }
+    router:  { annotations: true }
+    request: { converters:  true }
+
+
+swiftmailer:
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+#    spool:     { type: memory }
+
+nelmio_api_doc: ~
+
+
+sylius_settings:
+    driver: doctrine/orm
+
+doctrine_cache:
+    providers:
+        sylius_settings:
+            type: file_system
+
+
+fos_js_routing:
+    cache_control:
+        # All are optional, defaults shown
+        public: true   # can be true (public) or false (private)
+        maxage: 300    # integer value, e.g. 300
+        smaxage: 300   # integer value, e.g. 300
+        expires: "5 minutes"   # anything that can be fed to "new \DateTime($expires)", e.g. "5 minutes"
+        vary: [Cookie, Accept]        # string or array, e.g. "Cookie" or [ Cookie, Accept ]

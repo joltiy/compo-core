@@ -1,0 +1,363 @@
+/* Fix. Высота кнопок */
+.btn {
+    padding: 4px 12px;
+}
+
+/* Fix. Высота */
+label {
+    line-height: 30px;
+}
+
+/* Fix. Положение чекбокса */
+.form-inline .checkbox div[class^="icheckbox"], .form-inline .checkbox-inline div[class^="icheckbox"], .form-inline .radio div[class^="iradio"], .form-inline .radio-inline div[class^="iradio"] {
+    margin-top: -2px;
+}
+
+/* Fix. Пагинация. Вертикальное выравниквание */
+.num_pages, .num_results{
+    line-height: 30px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Fix. Выпадающий список, иконка. Вертикальное выравниквание */
+.btn .caret {
+    top: -2px;
+    position: relative;
+}
+
+/* Fix. Список объектов, действия. Вертикальное выравниквание */
+.sonata-ba-list-field-name-_action .btn-group {
+    white-space: nowrap;
+    vertical-align: top;
+}
+
+.sonata-ba-list-field-name-_action .btn-group a {
+    vertical-align: top;
+}
+
+
+/* Fix. Список объектов. Вертикальное выравниквание */
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    line-height: 28px;
+}
+
+/* Sidebar, поле поиска. Вертикальное выравнивание */
+.skin-black .sidebar-form {
+    margin: 15px 10px;
+}
+
+/* Основное меню списка объектов. Вертикальное выравнивание */
+.content-header {
+    padding: 8px 15px 0 15px;
+}
+
+/* Контент. Отступ от меню */
+.content {
+    padding-top: 7px;
+}
+
+/* Редактирование. Поле. Минимальная высота. */
+.form-control {
+    height: 35px;
+}
+
+@media (min-width: 768px) {
+    .form-horizontal .control-label {
+        padding-top: 3px;
+    }
+}
+
+/* Редактирование. Поле. Select2 Минимальная высота. */
+.sonata-ba-field .select2-container {
+    padding-top: 2px;
+}
+
+/* Форма редактирования настроек. Вкладки, отступы. */
+.settings-form .tab-pane {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.box-body.settings-form {
+    padding-top: 0;
+}
+
+
+
+
+
+
+
+
+
+.page-tree {
+    padding-top: 15px;
+}
+
+
+.select2-container .select2-choice {
+    line-height: 30px;
+    height: 30px;
+}
+
+.icheckbox_square-blue, .iradio_square-blue {
+    position: relative;
+    top: -1px;
+    margin-right: 5px;
+}
+
+.page-composer__block-type-selector label {
+    margin-right: 10px;
+}
+
+#list_batch_checkbox,
+input[name="all_elements"],
+.sonata-ba-list-field-batch input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    vertical-align: top;
+}
+
+th.sonata-ba-list-field-header.sonata-ba-list-field-header-batch {
+    width: 1%;
+}
+
+.sonata-ba-list-field-header-batch {
+    height: 40px !important;
+    vertical-align: top;
+}
+
+.sonata-ba-list-field-batch {
+    vertical-align: top;
+}
+
+.box-footer {
+    min-height: 55px;
+}
+
+.sonata-ba-list-field-header-actions {
+    width: 1%;
+    text-align: left;
+}
+
+.sonata-ba-list-field-boolean,
+.sonata-ba-list-field-header-boolean {
+    width: 1%;
+    text-align: center;
+}
+
+.sonata-ba-list-field-actions {
+    white-space: nowrap;
+    min-width: 215px;
+}
+
+.col-sm-9.checkbox-widget {
+    padding-left: 35px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.row-sonata_media_type_widget {
+    margin-top: 7px;
+}
+
+.col-sonata_media_type_widget-form_widget {
+    padding-top: 25px;
+}
+
+.col-sonata_media_type_widget-form_widget input[type="file"] {
+    padding-top: 5px;
+}
+
+td[class*=_delete] label {
+    display: none;
+}
+
+td[class*=_delete] .checkbox {
+    padding: 0;
+}
+
+.badge {
+    top: -3px;
+    position: relative;
+}
+
+div[id*='productAdditionalImages'] div[id*='image_unlink'] {
+    display: none !important;
+}
+
+#reformal_tab {
+    right: 50px !important;
+}
+
+th.table-th-_delete, th.table-th-position {
+    width: 1%;
+    white-space: nowrap;
+}
+
+td[class*='-_delete'],
+td[class*='-position'] {
+    text-align: center;
+}
+
+td[class*='-_delete'] .checkbox-widget {
+    width: 100% !important;
+    padding-right: 0;
+    padding-left: 0;
+    margin: 0 auto;
+    text-align: center;
+    float: none;
+    margin-left: 13px;
+}
+
+td[class*='-position'] .sonata-ba-sortable-handler {
+    float: none;
+    margin: 0 auto;
+    margin-top: 8px;
+}
+
+.sonata-ba-field-list-natural {
+    white-space: nowrap;
+}
+
+/*
+.field-short-description {
+    max-width: 508px;
+    overflow: hidden;
+}
+*/
+
+
+.media-description {
+    max-width: 300px;
+    overflow: hidden;
+    display: block;
+
+    font-weight: bold;
+    padding-top: 10px;
+}
+
+
+div[id*='catalogAdditionals'].field-container .select2-search-choice {
+    float: none !important;
+    display: block;
+    line-height: 20px;
+}
+
+div[id*='catalogAdditionals'].field-container .select2-search-choice div{
+    line-height: 20px;
+}
+
+div[id*='catalogAdditionals'].field-container .select2-container-multi .select2-search-choice-close {
+    top: 6px;
+}
+
+.table-th-_delete {
+    cursor: pointer;
+    color: #c71616;
+}
+
+.sonata-ba-list-field-header-id {
+    width: 1%;
+}
+
+.sonata-ba-list tr:hover {
+    background-color: #fffce6 !important;
+}
+
+
+
+.sonata-ba-list-field-header-_action {
+    width: 1%;
+    text-align: center;
+}
+
+.sonata-ba-list-field-name-_action .btn-group a {
+    float: none;
+}
+
+.sonata-ba-list-field-name-_action .btn-group {
+    white-space: nowrap;
+}
+
+
+
+.input-group {
+    width: 100%;
+}
+.input-group.date {
+    max-width: 220px;
+}
+
+.page-composer__block-type-selector label {
+    position: relative;
+    top: 3px;
+}
+
+.page-composer__container__child-count .badge, .page-composer__container__child .badge {
+    top: -1px;
+    margin-left: 5px;
+}
+
+.page-composer__container__child__edit .fa {
+    margin-right: 6px;
+}
+
+.page-composer__container__child h4 {
+    margin-bottom: 10px !important;
+}
+
+.page-composer__container__child__name__input {
+    width: 50%;
+}
+
+th.table-th-quantity {
+    width: 1%;
+    white-space: nowrap;
+    min-width: 100px;
+}
+
+th.table-th-price {
+    width: 1%;
+    white-space: nowrap;
+    min-width: 120px;
+}
+
+th.table-th-total {
+    width: 1%;
+    white-space: nowrap;
+    min-width: 160px;
+}
+
+
+
+/* Fix. Chekbox switch position */
+.col-sm-9.checkbox-widget {
+    padding-left: 8px;
+    padding-top: 0;
+    padding-bottom: 7px;
+}
+.col-sm-9.checkbox-widget label.control-label.col-sm-3 {
+    display: none;
+}
+
+.form-horizontal .checkbox-row .control-label {
+    padding-top: 0 !important;
+    margin-bottom: 0;
+    text-align: right;
+    margin-left: 0;
+}
+
+.form-horizontal .checkbox, .form-horizontal .checkbox-inline, .form-horizontal .radio, .form-horizontal .radio-inline {
+    padding-top: 0;
+}
+
+
+
+
+/* Действия для поля в форме, например "Добавить" у выбодащего списка M:1 */
+.sonata-ba-field-standard-natural .field-actions {
+    text-align: right;
+}

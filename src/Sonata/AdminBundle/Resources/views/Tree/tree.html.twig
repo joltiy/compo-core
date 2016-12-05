@@ -1,0 +1,57 @@
+{# COMPO Отрисовка дерева, сортировка drag&drop #}
+
+{% extends 'SonataAdminBundle:CRUD:base_list.html.twig' %}
+
+{% import _self as tree %}
+
+{% macro renderNodes(nodesList, admin, lvl) %}
+    <ul {% if lvl > 0 %}class="tree-list"{% endif %}>
+        {% for node in nodesList %}
+            {% set aliasName = admin.class|split('\\') %}
+            <li data-move-url="{{ admin.routeGenerator.generateUrl(admin, 'move', { id: node.id} ) }}">
+                <div class="node">
+                    {% if lvl > 0 %}<a class="sort"><i class="fa fa-sort"></i></a>{% endif %}
+                    {% if lvl > 0 %}<a class="move"><i class="fa fa-arrows"></i></a>{% endif %}
+                    <a class="node-item{% if node.__children|length %} open-tree{% endif %}" data-id="{{ node.id }}"
+                       data-alias="{{ aliasName[aliasName|length-1] }}">
+                        <i class="fa {% if node.__children|length %}fa-folder{% else %}fa-folder-o{% endif %}"></i>
+                    </a>
+
+                    <div class="pull-right">
+                        <a class="btn btn-sm btn-default"
+                           href="{{ admin.routeGenerator.generateUrl(admin, 'create', { parentId: node.id} ) }}"><i
+                                    class="fa fa-plus"></i></a>
+                        <a class="btn btn-sm btn-default"
+                           href="{{ admin.routeGenerator.generateUrl(admin, 'edit', { id: node.id} ) }}"><i class="fa fa-pencil"></i></a>
+                        <a class="btn btn-sm btn-default"
+                           href="{{ admin.routeGenerator.generateUrl(admin, 'delete', { id: node.id} ) }}"><i
+                                    class="glyphicon glyphicon-remove"></i></a>
+                    </div>
+                </div>
+                {% if node.__children|length %}
+                    {{ _self.renderNodes(node.__children, admin, node.lvl+1 ) }}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endmacro %}
+
+{% block tab_menu %}
+    {% include 'CompoSonataAdminBundle:Tree:list_tab_menu.html.twig' with {
+    'mode':        'tree',
+    'action':      action,
+    'admin':       admin
+    } only %}
+{% endblock %}
+
+{% block list_table %}
+    <div class="col-xs-12 col-md-12">
+        <div class="box box-primary">
+            <div class="box-content">
+                <div class="tree">
+                    {{ tree.renderNodes(nodes, admin, 0) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

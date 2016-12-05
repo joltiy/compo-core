@@ -1,0 +1,97 @@
+compo_product:
+    resource: "@CompoProductBundle/Resources/config/routing.yml"
+    prefix:   /
+
+compo_catalog:
+    resource: "@CompoCatalogBundle/Resources/config/routing.yml"
+    prefix:   /
+
+compo_features:
+    resource: "@CompoFeaturesBundle/Resources/config/routing.yml"
+    prefix:   /
+
+compo_supplier:
+    resource: "@CompoSupplierBundle/Resources/config/routing.yml"
+    prefix:   /
+
+compo_manufacture:
+    resource: "@CompoManufactureBundle/Resources/config/routing.yml"
+    prefix:   /
+
+compo_delivery:
+    resource: "@CompoDeliveryBundle/Resources/config/routing.yml"
+    prefix:   /
+
+compo_payment:
+    resource: "@CompoPaymentBundle/Resources/config/routing.yml"
+    prefix:   /
+
+compo_order:
+    resource: "@CompoOrderBundle/Resources/config/routing.yml"
+    prefix:   /
+
+sonata_user_security:
+    resource: "@SonataUserBundle/Resources/config/routing/sonata_security_1.xml"
+
+sonata_user_resetting:
+    resource: "@SonataUserBundle/Resources/config/routing/sonata_resetting_1.xml"
+    prefix: /resetting
+
+sonata_user_profile:
+    resource: "@SonataUserBundle/Resources/config/routing/sonata_profile_1.xml"
+    prefix: /profile
+
+sonata_user_register:
+    resource: "@SonataUserBundle/Resources/config/routing/sonata_registration_1.xml"
+    prefix: /register
+
+sonata_user_change_password:
+    resource: "@SonataUserBundle/Resources/config/routing/sonata_change_password_1.xml"
+    prefix: /profile
+
+sonata_cache_cache:
+    resource: '@SonataCacheBundle/Resources/config/routing/cache.xml'
+    prefix: /
+
+sonata_page_cache:
+    resource: '@SonataPageBundle/Resources/config/routing/cache.xml'
+    prefix: /
+
+sonata_page_exceptions:
+    resource: '@SonataPageBundle/Resources/config/routing/exceptions.xml'
+    prefix: /page
+
+sonata_media_gallery:
+    resource: '@SonataMediaBundle/Resources/config/routing/gallery.xml'
+    prefix: /media/gallery
+
+sonata_media_media:
+    resource: '@SonataMediaBundle/Resources/config/routing/media.xml'
+    prefix: /media
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+fos_comment:
+    type: rest
+    resource: "@FOSCommentBundle/Resources/config/routing.yml"
+    prefix: /comments
+    defaults: { _format: html }
+
+_admin:
+    resource: routing_admin.yml
+    prefix:   /admin
+
+_api:
+    resource: routing_api.yml
+    prefix:   /api
+
+# Internal routing configuration to handle ESI
+#_internal:
+#   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
+#   prefix:   /_internal
+#
+# Support for LiipImagineBundle
+#_imagine:
+#    resource: .
+#    type:     imagine

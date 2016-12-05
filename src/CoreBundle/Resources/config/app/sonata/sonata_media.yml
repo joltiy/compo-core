@@ -1,0 +1,217 @@
+#
+# more information can be found here https://sonata-project.org/bundles/media
+#
+sonata_media:
+    class:
+        media:             Compo\Sonata\MediaBundle\Entity\Media
+        gallery:           Compo\Sonata\MediaBundle\Entity\Gallery
+        gallery_has_media: Compo\Sonata\MediaBundle\Entity\GalleryHasMedia
+        category:          Compo\Sonata\ClassificationBundle\Entity\Category
+
+    db_driver:       doctrine_orm
+    default_context: default
+    contexts:
+        default:
+            download:
+                mode: http
+            providers:
+                - sonata.media.provider.youtube
+                - sonata.media.provider.image
+                - sonata.media.provider.file
+
+            formats:
+                small: { width: 100, quality: 100}
+                medium: { width: 200, quality: 100}
+                big:   { width: 970 , quality: 100}
+
+        image:
+            download:
+                mode: http
+            providers:
+                - sonata.media.provider.image
+
+            formats:
+                small: { width: 100, quality: 100}
+                medium: { width: 200, quality: 100}
+                big:   { width: 970 , quality: 100}
+
+        file:
+            download:
+                mode: http
+            providers:
+                - sonata.media.provider.file
+
+            formats:
+                small: { width: 100, quality: 100}
+                medium: { width: 200, quality: 100}
+                big:   { width: 970 , quality: 100}
+
+        video:
+            download:
+                mode: http
+            providers:
+                - sonata.media.provider.youtube
+
+            formats:
+                small: { width: 100, quality: 100}
+                medium: { width: 200, quality: 100}
+                big:   { width: 970 , quality: 100}
+
+
+        sonata_collection:
+            providers:
+              - sonata.media.provider.image
+
+            formats:
+                preview: { width: 100, quality: 100}
+                wide:    { width: 820, quality: 100}
+
+        sonata_category:
+            providers:
+              - sonata.media.provider.image
+
+            formats:
+                preview: { width: 100, quality: 100}
+                wide:    { width: 820, quality: 100}
+
+    cdn:
+        # define the public base url for the uploaded media
+        server:
+            path:      "%sonata_media_cdn_host%"
+
+    filesystem:
+        # define where the uploaded file will be stored
+        local:
+            directory:  "%kernel.root_dir%/../web/uploads/media"
+            create:     true
+
+    providers:
+        # ...
+        file:
+            # the resizer must be set to false, otherwhise this can delete icon files from the fs
+            resizer:    false
+            allowed_extensions:
+              - gif
+              - png
+              - jpeg
+              - jpg
+              - ico
+            allowed_mime_types:
+              - image/gif
+              - image/png
+              - image/jpeg
+              - image/jpg
+              - image/x-icon
+        image:
+           thumbnail: sonata.media.thumbnail.format          # default value
+#           thumbnail: sonata.media.thumbnail.consumer.format # can be used to dispatch the resize action to async task
+#           thumbnail: sonata.media.thumbnail.liip_imagine    # use the LiipImagineBundle to resize the image
+           allowed_extensions:
+              - gif
+              - png
+              - jpeg
+              - jpg
+              - ico
+           allowed_mime_types:
+              - image/gif
+              - image/png
+              - image/jpeg
+              - image/jpg
+              - image/x-icon
+        youtube:
+            thumbnail: sonata.media.thumbnail.format          # default value
+#           thumbnail: sonata.media.thumbnail.consumer.format # can be used to dispatch the resize action to async task
+#           thumbnail: sonata.media.thumbnail.liip_imagine    # use the LiipImagineBundle to resize the image
+
+    pixlr:
+        enabled:  true
+        referrer: Demo - Sonata Project
+
+    resizer:
+        simple:
+#            mode:  outbound
+            mode:  inset
+
+#
+# The LiipImagineBundle can be used if you want to convert on demand an image
+# to a specific format. (ie a controller render the file)
+#    more information can be found here : https://github.com/liip/LiipImagineBundle
+#
+#liip_imagine:
+#    filter_sets:
+#
+#        # this configuration match the sonata_media configuration format definition
+#        catalog_preview:
+#            quality: 75
+#            controller_action: 'SonataMediaBundle:Media:liipImagineFilter'
+#            filters:
+#                thumbnail: { size: [100, 100], mode: outbound }
+#
+#        catalog_small:
+#            quality: 75
+#            controller_action: 'SonataMediaBundle:Media:liipImagineFilter'
+#            filters:
+#                thumbnail: { size: [200, 100], mode: outbound }
+#
+#        catalog_large:
+#            quality: 75
+#            controller_action: 'SonataMediaBundle:Media:liipImagineFilter'
+#            filters:
+#                thumbnail: { size: [600, 100], mode: outbound }
+#
+#        news_abstract:
+#            quality: 75
+#            controller_action: 'SonataMediaBundle:Media:liipImagineFilter'
+#            filters:
+#                thumbnail: { size: [100, 100], mode: outbound }
+#
+#        news_wide:
+#            quality: 75
+#            controller_action: 'SonataMediaBundle:Media:liipImagineFilter'
+#            filters:
+#                thumbnail: { size: [820, 100], mode: outbound }
+#
+#        sonata_collection_preview:
+#            quality: 75
+#            controller_action: 'SonataMediaBundle:Media:liipImagineFilter'
+#            filters:
+#                thumbnail: { size: [100, 100], mode: outbound }
+#
+#        sonata_collection_wide:
+#            quality: 75
+#            controller_action: 'SonataMediaBundle:Media:liipImagineFilter'
+#            filters:
+#                thumbnail: { size: [820, 100], mode: outbound }
+#
+#        sonata_category_preview:
+#            quality: 75
+#            controller_action: 'SonataMediaBundle:Media:liipImagineFilter'
+#            filters:
+#                thumbnail: { size: [100, 100], mode: outbound }
+#
+#        sonata_category_wide:
+#            quality: 75
+#            controller_action: 'SonataMediaBundle:Media:liipImagineFilter'
+#            filters:
+#                thumbnail: { size: [820, 100], mode: outbound }
+#
+#        default_small:
+#            quality: 75
+#            controller_action: 'SonataMediaBundle:Media:liipImagineFilter'
+#            filters:
+#                thumbnail: { size: [100, 100], mode: outbound }
+#
+#        default_big:
+#            quality: 75
+#            controller_action: 'SonataMediaBundle:Media:liipImagineFilter'
+#            filters:
+#                thumbnail: { size: [820, 70], mode: outbound }
+
+# Enable Doctrine to map the provided entities
+doctrine:
+    orm:
+        entity_managers:
+            default:
+                mappings:
+                    SonataMediaBundle: ~
+                    CompoSonataMediaBundle: ~

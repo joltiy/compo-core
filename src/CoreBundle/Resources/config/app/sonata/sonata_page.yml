@@ -1,0 +1,215 @@
+#
+# more information can be found here https://sonata-project.org/bundles/page
+#
+cmf_routing:
+    chain:
+        routers_by_id:
+            # enable the DynamicRouter with high priority to allow overwriting configured routes with content
+            #symfony_cmf_routing_extra.dynamic_router: 200
+            # enable the symfony default router with a lower priority
+            sonata.page.router: 150
+            router.default: 100
+
+sonata_page:
+    class:
+        site:     Compo\Sonata\PageBundle\Entity\Site
+        snapshot: Compo\Sonata\PageBundle\Entity\Snapshot
+        page:     Compo\Sonata\PageBundle\Entity\Page
+        block:    Compo\Sonata\PageBundle\Entity\Block
+
+    direct_publication: true
+    hide_disabled_blocks: true
+    multisite:             host_with_path # host
+    use_streamed_response: true # set the value to false in debug mode or if the reverse proxy does not handle streamed response
+    slugify_service: sonata.core.slugify.cocur
+    is_inline_edition_on: false
+
+    ignore_uri_patterns:
+        - ^/admin(.*)
+        - ^/api/(.*)
+
+    ignore_route_patterns:
+        - (.*)admin(.*)     # ignore admin route, ie route containing 'admin'
+        - ^_(.*)            # ignore symfony routes
+
+    ignore_routes:
+        - sonata_page_cache_esi
+        - sonata_page_cache_ssi
+        - sonata_page_js_sync_cache
+        - sonata_page_js_async_cache
+        - sonata_cache_esi
+        - sonata_cache_ssi
+        - sonata_cache_js_async
+        - sonata_cache_js_sync
+        - sonata_cache_apc
+
+    cache_invalidation:
+        service:  sonata.page.cache.invalidation.simple
+        recorder: sonata.page.cache.recorder
+        classes:
+            "Compo\Sonata\PageBundle\Entity\Block": getId
+
+
+
+    default_template: 2columns
+
+    templates:
+
+        2columns:
+            path: 'CompoCoreBundle::2columns_layout.html.twig'
+            name: 'Двухколоночный'
+            containers:
+                 header:
+                     name: "Шапка"
+                     blocks:
+                        - sonata.block.service.template
+                        - sonata.block.service.text
+                        - sonata.formatter.block.formatter
+                        - compo_menu.block.service.menu
+                 content_top:
+                     name: "Вверху"
+                     blocks:
+                        - sonata.block.service.template
+                        - sonata.block.service.text
+                        - sonata.formatter.block.formatter
+                        - compo_menu.block.service.menu
+                 sidebar:
+                     name: "Сайдбар"
+                     blocks:
+                        - sonata.block.service.template
+                        - sonata.block.service.text
+                        - sonata.formatter.block.formatter
+                        - compo_menu.block.service.menu
+                        - compo_catalog.block.menu_sidebar
+
+                 content:
+                     name: "Контент"
+                     blocks:
+                        - sonata.block.service.template
+                        - sonata.block.service.text
+                        - sonata.formatter.block.formatter
+                        - compo_menu.block.service.menu
+                        - compo_product.block.service.products
+                        - compo_product.block.service.products_similar
+                        - compo_product.block.service.products_last_viewed
+
+                 content_bottom:
+                     name: "Внизу"
+                     blocks:
+                        - sonata.block.service.template
+                        - sonata.block.service.text
+                        - sonata.formatter.block.formatter
+                        - compo_menu.block.service.menu
+                 footer:
+                     name: "Подвал"
+                     blocks:
+                        - sonata.block.service.template
+                        - sonata.block.service.text
+                        - sonata.formatter.block.formatter
+                        - compo_menu.block.service.menu
+            matrix:
+                 layout: |
+                     HHHHHHHH
+                     TTTTTTTT
+                     SSSCCCCC
+                     BBBBBBBB
+                     FFFFFFFF
+
+                 mapping:
+                     H: header
+                     T: content_top
+                     S: sidebar
+                     C: content
+                     B: content_bottom
+                     F: footer
+
+
+
+        default:
+            path: 'CompoCoreBundle::1columns_layout.html.twig'
+            name: 'Базовый'
+            containers:
+                 header:
+                     name: "Шапкка"
+                     blocks:
+                        - sonata.block.service.template
+                        - sonata.block.service.text
+                        - sonata.formatter.block.formatter
+                        - compo_menu.block.service.menu
+
+                 content_top:
+                     name: 'Вверху'
+                     blocks:
+                        - sonata.block.service.template
+                        - sonata.block.service.text
+                        - sonata.formatter.block.formatter
+                        - compo_menu.block.service.menu
+
+                 content:
+                     name: "Контент"
+                     blocks:
+                        - sonata.block.service.template
+                        - sonata.block.service.text
+                        - sonata.formatter.block.formatter
+                        - compo_menu.block.service.menu
+                        - compo_product.block.service.products
+                        - compo_product.block.service.products_similar
+                        - compo_product.block.service.products_last_viewed
+
+                 content_bottom:
+                     name: "Внизу"
+                     blocks:
+                        - sonata.block.service.template
+                        - sonata.block.service.text
+                        - sonata.formatter.block.formatter
+                        - compo_menu.block.service.menu
+                 footer:
+                     name: "Подвал"
+                     blocks:
+                        - sonata.block.service.template
+                        - sonata.block.service.text
+                        - sonata.formatter.block.formatter
+                        - compo_menu.block.service.menu
+            matrix:
+                 layout: |
+                     HHHHHHHH
+                     TTTTTTTT
+                     CCCCCCCC
+                     BBBBBBBB
+                     FFFFFFFF
+
+                 mapping:
+                     H: header
+                     T: content_top
+                     C: content
+                     B: content_bottom
+                     F: footer
+
+
+
+    page_defaults:
+        page_slug: { decorate: true, enabled: true }
+
+    caches:
+        esi:
+            token:    add an unique token here # default is a random value
+            version:  3                        # version 3 is the default on debian wheezy ...
+            servers:
+                # you need to ajust this configuration to match your varnish configuration
+                - 'if [ ! -r "/etc/varnish/secret" ]; then echo "VALID ERROR :/"; else varnishadm -S /etc/varnish/secret -T 127.0.0.1:6082 {{ COMMAND }} "{{ EXPRESSION }}"; fi;'
+        ssi:
+            token:    add an unique token here # default is a random value
+
+    catch_exceptions:
+        not_found: [404]    # render 404 page with "not_found" key (name generated: _page_internal_error_{key})
+        fatal:     [500]    # so you can use the same page for different http errors or specify specific page for each error
+
+
+# Enable Doctrine to map the provided entities
+doctrine:
+    orm:
+        entity_managers:
+            default:
+                mappings:
+                    SonataPageBundle: ~
+                    CompoSonataPageBundle: ~

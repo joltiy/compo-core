@@ -1,0 +1,7 @@
+{% if object is defined %}
+    <a class="btn btn-sm btn-default"
+       href="{{ admin.routeGenerator.generateUrl(admin, 'create', { parentId: object.id} ) }}"
+    >
+        <i class="fa fa-plus"></i>
+    </a>
+{% endif %}

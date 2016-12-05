@@ -1,0 +1,13 @@
+{{ knp_menu_render(admin.sidemenu(action), {'currentClass' : 'active'}, 'list') }}
+<p>
+<div class="btn-group">
+    <a type="button" class="btn {% if action == 'list' %}btn-info active{% else %}btn-default{% endif %}"
+       href="{{ admin.generateUrl('list', { filter : { list : 'true' } }) }}">
+        <i class="fa fa-list"></i> {{ 'list_mode'|trans({}, 'SonataAdminBundle') }}
+    </a>
+    <a type="button" class="btn {% if action == 'tree' %}btn-info active{% else %}btn-default{% endif %}"
+       href="{{ admin.generateUrl('tree') }}">
+        <i class="fa fa-sitemap"></i> {{ 'tree_mode'|trans({}, 'SonataAdminBundle') }}
+    </a>
+</div>
+</p>

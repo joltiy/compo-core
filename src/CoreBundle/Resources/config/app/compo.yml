@@ -1,0 +1,19 @@
+parameters:
+    locale: "ru"
+    sonata.page.service.default.class: Compo\Sonata\PageBundle\Page\Service\DefaultPageService
+
+    sonata.page.manager.page.class: Compo\Sonata\PageBundle\Entity\PageManager
+
+    sonata.page.admin.page.class: Compo\Sonata\PageBundle\Admin\PageAdmin
+    sonata.page.admin.site.class: Compo\Sonata\PageBundle\Admin\SiteAdmin
+    sonata.page.admin.block.class: Compo\Sonata\PageBundle\Admin\BlockAdmin
+    sonata.page.admin.shared_block.class: Compo\Sonata\PageBundle\Admin\SharedBlockAdmin
+
+    sonata.user.admin.user.class: Compo\Sonata\UserBundle\Admin\UserAdmin
+
+    sonata_user.google_authenticator.server:  compo-standard.localhost.ru
+
+    sonata.media.admin.media.class: Compo\Sonata\MediaBundle\Admin\MediaAdmin
+
+    translator.class: Compo\CoreBundle\Translation\FallbackTranslator
+    sylius.settings.form_factory.class: Compo\CoreBundle\Form\Factory\SettingsFormFactory

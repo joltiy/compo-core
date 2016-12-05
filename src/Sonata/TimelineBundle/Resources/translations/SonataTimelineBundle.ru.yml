@@ -1,0 +1,12 @@
+actions.sonata.admin.create: "%subject% создал %target%"
+actions.sonata.admin.update: "%subject% обновил %target%"
+actions.sonata.admin.delete: "%subject% удалил %target%"
+no_action: "Нет действий ..."
+element_deleted: "Удалён"
+element_reference_deleted: "Связь '%reference%' удалёна"
+form.label_title: "Title"
+form.label_max_per_page: "Элементов на страницу"
+
+actions.icon.sonata.admin.create: 'fa fa-plus-circle bg-green'
+actions.icon.sonata.admin.update: 'fa fa-save bg-blue'
+actions.icon.sonata.admin.delete: 'fa fa-minus-circle bg-red'
