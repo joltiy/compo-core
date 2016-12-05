@@ -19,7 +19,7 @@ set('clear_paths', []);
 set('assets', []);
 //set('assets', ['web/css', 'web/images', 'web/js']);
 
-set('dump_assets', false);
+set('dump_assets', true);
 set('writable_use_sudo', false);
 
 set('composer_command', '{{bin/php}} ~/composer.phar');
