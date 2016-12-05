@@ -11,8 +11,8 @@ assetic:
 
     filters:
         cssrewrite: ~
-        yui_js:  { jar: "%kernel.root_dir%/../src/Compo/CoreBundle/Resources/bin/yuicompressor.jar" }
-        yui_css: { jar: "%kernel.root_dir%/../src/Compo/CoreBundle/Resources/bin/yuicompressor.jar" }
+        yui_js:  { jar: "%kernel.root_dir%/../vendor/comporu/compo-core/src/CoreBundle/Resources/bin/yuicompressor.jar" }
+        yui_css: { jar: "%kernel.root_dir%/../vendor/comporu/compo-core/src/CoreBundle/Resources/bin/yuicompressor.jar" }
 
 
     workers:
