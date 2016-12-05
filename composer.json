@@ -2,9 +2,12 @@
     "name": "comporu/compo-core",
     "type": "library",
     "description": "compo-core",
-    "require": {
-        "php": "^5.3 || ^7.0"
-    },
+    "authors": [
+        {
+            "name": "comporu",
+            "email": "info@compo.ru"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "Compo\\CoreBundle\\": "src/CoreBundle",
