@@ -1,13 +1,12 @@
 assetic:
-    debug:                '%kernel.debug%'
+    debug:                true #'%kernel.debug%'
     use_controller:
         enabled:              false
         profiler:             false
 
     write_to: "%kernel.root_dir%/../web"
 
-
-    bundles:        [CompoCoreBundle] # disable bundles parsing
+    bundles:        [CompoCoreBundle]
 
     filters:
         cssrewrite: ~
