@@ -22,7 +22,6 @@ set('assets', []);
 set('dump_assets', true);
 set('writable_use_sudo', false);
 
-set('composer_command', '{{bin/php}} ~/composer.phar');
 set('bin/php', function () {
     return get('bin_php');
 });
@@ -79,6 +78,14 @@ task('php-fpm:restart', function () {
 after('deploy:symlink', 'php-fpm:restart');
 */
 
+
+task('nginx:restart', function () {
+    // The user must have rights for restart service
+    // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart nginx.service
+    run('sudo systemctl restart nginx.service');
+});
+
+
 task('install', [
     'timezone',
     'deploy:prepare',
@@ -98,6 +105,7 @@ task('install', [
     //'deploy:cache:warmup',
     'deploy:writable',
     'deploy:symlink',
+    'nginx:restart',
     'compo:install',
     'deploy:unlock',
     'cleanup',
@@ -122,6 +130,7 @@ task('deploy', [
     //'deploy:cache:warmup',
     'deploy:writable',
     'deploy:symlink',
+    'nginx:restart',
     'compo:update',
     'deploy:unlock',
     'cleanup',
