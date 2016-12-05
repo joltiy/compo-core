@@ -16,7 +16,7 @@ assetic:
 
 
     workers:
-        cache_busting: true
+        cache_busting: false
 
     assets:
         sonata_admin_vendor_js:
