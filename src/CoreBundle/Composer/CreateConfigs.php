@@ -74,11 +74,11 @@ class CreateConfigs
             file_put_contents($root_dir . '/config/php-fpm.conf', $twig->render('php-fpm.conf.twig', $parameters));
         }
 
-        if (!file_exists($root_dir . '/config/servers.conf')) {
+        if (!file_exists($root_dir . '/config/servers.yml')) {
             file_put_contents($root_dir . '/config/servers.yml', $twig->render('servers.yml.dist', $parameters));
         }
 
-        if (!file_exists($root_dir . '/config/ansible_hosts.conf')) {
+        if (!file_exists($root_dir . '/config/ansible_hosts.yml')) {
             file_put_contents($root_dir . '/config/ansible_hosts.yml', $twig->render('ansible_hosts.yml.dist', $parameters));
         }
 
