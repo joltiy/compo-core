@@ -15,8 +15,8 @@ assetic:
         yui_css: { jar: "%kernel.root_dir%/../src/Compo/CoreBundle/Resources/bin/yuicompressor.jar" }
 
 
-    workers:
-        cache_busting: true
+#    workers:
+#        cache_busting: true
 
     assets:
         sonata_admin_vendor_js:
