@@ -13,7 +13,8 @@
       "Compo\\CoreBundle\\": "src/CoreBundle",
       "Compo\\MenuBundle\\": "src/MenuBundle",
       "Compo\\SeoBundle\\": "src/SeoBundle",
-      "Compo\\Sonata\\": "src/Sonata"
+      "Compo\\Sonata\\": "src/Sonata",
+      "Pix\\SortableBehaviorBundle": "src/PixSortableBehaviorBundle"
     }
   },
   "require": {
@@ -103,7 +104,6 @@
     "sonata-project/timeline-bundle": "^3.0",
     "sonata-project/user-bundle": "^3.0",
     "picoss/sonata-extra-admin-bundle": "^2.2",
-    "pixassociates/sortable-behavior-bundle": "1.1.x-dev",
     "liip/theme-bundle": "^1.4",
     "stephpy/timeline": "^1.0",
     "swiftmailer/swiftmailer": "^5.4",
