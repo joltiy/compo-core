@@ -12,6 +12,7 @@
         "psr-4": {
             "Compo\\CoreBundle\\": "src/CoreBundle",
             "Compo\\MenuBundle\\": "src/MenuBundle",
+            "Compo\\SeoBundle\\": "src/SeoBundle",
             "Compo\\Sonata\\": "src/Sonata"
         }
     }

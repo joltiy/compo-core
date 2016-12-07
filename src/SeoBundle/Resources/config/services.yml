@@ -1,0 +1,5 @@
+services:
+    compo_seo.seo.extension:
+        class: Compo\SeoBundle\Extension\SeoExtension
+        tags:
+            - { name: sonata.admin.extension, target: compo_product.admin.product }
