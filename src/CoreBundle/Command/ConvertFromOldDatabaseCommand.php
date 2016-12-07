@@ -6,6 +6,7 @@ use Compo\CatalogBundle\Entity\Catalog;
 use Compo\CountryBundle\Entity\Country;
 use Compo\CurrencyBundle\Entity\Currency;
 use Compo\FeaturesBundle\Entity\FeatureAttribute;
+use Compo\FeaturesBundle\Entity\FeatureType;
 use Compo\FeaturesBundle\Entity\FeatureValue;
 use Compo\FeaturesBundle\Entity\FeatureVariant;
 use Compo\ManufactureBundle\Entity\Manufacture;
@@ -908,6 +909,46 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
         $integerType = $featureTypeRepository->findOneBy(array('code' => 'integer'));
 
         $feature_type = $this->oldConnection->fetchAll('SELECT * FROM `feature_type` WHERE parent = 0 OR parent IS NULL');
+
+
+        $featureTypes = array(
+            'decimal' => array(
+                'code' => 'decimal',
+                'name' => 'Дробное число'
+            ),
+
+            'integer' => array(
+                'code' => 'integer',
+                'name' => 'Целое число'
+            ),
+
+            'variant' => array(
+                'code' => 'variant',
+                'name' => 'Список'
+            ),
+
+            'string' => array(
+                'code' => 'string',
+                'name' => 'Строка'
+            ),
+
+        );
+
+
+
+        foreach ($featureTypes as $featureTypes_item) {
+
+            $feature_type_object = $featureTypeRepository->findOneBy(array('code' => $featureTypes_item['code']));
+
+            if (!$feature_type_object) {
+                $feature_type_object = new FeatureType();
+                $feature_type_object->setName($featureTypes_item['name']);
+                $feature_type_object->setCode($featureTypes_item['code']);
+                $this->em->persist($feature_type_object);
+                $this->em->flush();
+            }
+        }
+
 
 
 
