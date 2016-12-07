@@ -49,6 +49,8 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
 
     public $oldFilesPath = 'http://www.dlyavann.ru/files/';
 
+    public $rootCatalog;
+
 
     public $dbpics = array();
     public $tables = array();
@@ -169,6 +171,7 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
     public function process()
     {
         $this->processMedia();
+        $this->processRootCatalog();
 
         if (in_array('main', $this->tables)) $this->processCurrency();
         if (in_array('main', $this->tables)) $this->processProductAvailability();
@@ -590,11 +593,30 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
         $this->em->flush();
     }
 
+    public function processRootCatalog()
+    {
+        $catalogRepository = $this->em->getRepository('CompoCatalogBundle:Catalog');
 
+        if ($newCatalogItem = $catalogRepository->findOneBy(array('lvl' => 0))) {
+            $this->rootCatalog = $newCatalogItem;
+        } else {
+            $newCatalogItem = new Catalog();
+            $newCatalogItem->setName('Каталог');
+            $newCatalogItem->setEnabled(true);
+            $newCatalogItem->setDescription('');
+
+            $this->em->persist($newCatalogItem);
+            $this->em->flush();
+
+            $this->rootCatalog = $newCatalogItem;
+        }
+
+    }
 
 
     public function processCatalog()
     {
+
 
         $catalogRepository = $this->em->getRepository('CompoCatalogBundle:Catalog');
 
@@ -634,6 +656,8 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
 
             if ($oldCatalogItem['parent']) {
                 $newCatalogItem->setParent($newCatalog[$oldCatalogItem['parent']]);
+            } else {
+                $newCatalogItem->setParent($this->rootCatalog);
             }
 
             if (!$newCatalogItem->getImage() && $oldCatalogItem['pic']) {
@@ -1186,10 +1210,13 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
                     $newCatalogItem->setName($old_complect_type['header']);
                     $newCatalogItem->setEnabled(1);
                     $newCatalogItem->setSlug($this->getContainer()->get('sonata.core.slugify.cocur')->slugify($old_complect_type['header']));
+                    $newCatalogItem->setParent($this->rootCatalog);
 
                     $metadata = $this->em->getClassMetaData(get_class($newCatalogItem));
                     $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_AUTO);
                     $metadata->setIdGenerator(new \Doctrine\ORM\Id\IdentityGenerator());
+
+
 
                     $this->em->persist($newCatalogItem);
                     $this->em->flush();
@@ -1353,6 +1380,7 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
                     $newCatalogItem->setName($old_complect_type['header']);
                     $newCatalogItem->setEnabled(1);
                     $newCatalogItem->setSlug($this->getContainer()->get('sonata.core.slugify.cocur')->slugify($old_complect_type['header']));
+                    $newCatalogItem->setParent($this->rootCatalog);
 
                     $metadata = $this->em->getClassMetaData(get_class($newCatalogItem));
                     $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_AUTO);
