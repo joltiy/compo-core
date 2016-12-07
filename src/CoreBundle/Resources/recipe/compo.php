@@ -19,10 +19,9 @@ set('clear_paths', []);
 set('assets', []);
 //set('assets', ['web/css', 'web/images', 'web/js']);
 
-set('dump_assets', false);
+set('dump_assets', true);
 set('writable_use_sudo', false);
 
-set('composer_command', '{{bin/php}} ~/composer.phar');
 set('bin/php', function () {
     return get('bin_php');
 });
@@ -79,6 +78,19 @@ task('php-fpm:restart', function () {
 after('deploy:symlink', 'php-fpm:restart');
 */
 
+
+task('nginx:restart', function () {
+    // The user must have rights for restart service
+    // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart nginx.service
+    run('sudo systemctl restart nginx.service');
+});
+
+task('deploy:assetic:dump', function () {
+    if (get('dump_assets')) {
+        run('{{env_vars}} {{bin/php}} {{bin/console}} assetic:dump --forks=12 {{console_options}}');
+    }
+})->desc('Dump assets');
+
 task('install', [
     'timezone',
     'deploy:prepare',
@@ -94,10 +106,11 @@ task('install', [
     'symfony:env_vars',
     'deploy:vendors',
     //'deploy:assets:install',
-    //'deploy:assetic:dump',
+    'deploy:assetic:dump',
     //'deploy:cache:warmup',
     'deploy:writable',
     'deploy:symlink',
+    'nginx:restart',
     'compo:install',
     'deploy:unlock',
     'cleanup',
@@ -114,14 +127,15 @@ task('deploy', [
     'deploy:create_cache_dir',
     'deploy:shared',
     //'deploy:assets',
-    'deploy:copy_dirs',
+    //'deploy:copy_dirs',
     'symfony:env_vars',
     'deploy:vendors',
     //'deploy:assets:install',
-    //'deploy:assetic:dump',
+    'deploy:assetic:dump',
     //'deploy:cache:warmup',
     'deploy:writable',
     'deploy:symlink',
+    'nginx:restart',
     'compo:update',
     'deploy:unlock',
     'cleanup',

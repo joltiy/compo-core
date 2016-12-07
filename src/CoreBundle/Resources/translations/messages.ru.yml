@@ -132,3 +132,13 @@ show:
     label_price: 'Цена'
     label_short_description: 'Описание (краткое)'
     label_header_menu: 'Название в меню'
+
+
+
+"This is the user profile template. Feel free to override it.": "This is the block"
+"This is the user authentication edition template. Feel free to override it.": "This is the block"
+"This is the user profile edition template. Feel free to override it.": "This is the block"
+"This is the media view template. Feel free to override it.": "This is the block"
+"This is the gallery index template. Feel free to override it.": "This is the block"
+"This is the gallery view template. Feel free to override it.": "This is the block"
+"This is the timeline block.": "This is the block"

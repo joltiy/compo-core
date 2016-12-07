@@ -1,22 +1,21 @@
 assetic:
-    debug:                '%kernel.debug%'
+    debug:                true #'%kernel.debug%'
     use_controller:
         enabled:              false
         profiler:             false
 
     write_to: "%kernel.root_dir%/../web"
 
-
-    bundles:        [CompoCoreBundle] # disable bundles parsing
+    bundles:        [CompoCoreBundle]
 
     filters:
         cssrewrite: ~
-        yui_js:  { jar: "%kernel.root_dir%/../src/Compo/CoreBundle/Resources/bin/yuicompressor.jar" }
-        yui_css: { jar: "%kernel.root_dir%/../src/Compo/CoreBundle/Resources/bin/yuicompressor.jar" }
+        yui_js:  { jar: "%kernel.root_dir%/../vendor/comporu/compo-core/src/CoreBundle/Resources/bin/yuicompressor.jar" }
+        yui_css: { jar: "%kernel.root_dir%/../vendor/comporu/compo-core/src/CoreBundle/Resources/bin/yuicompressor.jar" }
 
 
     workers:
-        cache_busting: true
+        cache_busting: false
 
     assets:
         sonata_admin_vendor_js:
