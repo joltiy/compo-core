@@ -130,7 +130,7 @@ task('install', [
     'deploy:symlink',
 
     'compo:install',
-    'php7.0-fpm:reload',
+    'php-fpm:reload',
     'nginx:reload',
 
     'deploy:unlock',
@@ -156,7 +156,7 @@ task('deploy', [
     //'deploy:cache:warmup',
     'deploy:writable',
     'deploy:symlink',
-    'php7.0-fpm:reload',
+    'php-fpm:reload',
     'nginx:reload',
     'compo:update',
     'deploy:unlock',
