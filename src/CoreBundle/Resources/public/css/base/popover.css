@@ -1,0 +1,23 @@
+
+
+
+.popover-content {
+    background-color: #F9F5DA;
+    width: auto;
+    max-width: none;
+}
+.popover.bottom>.arrow:after {
+    border-bottom-color: #fffde2;
+}
+
+.popover.top>.arrow:after {
+    border-bottom-color: #fffde2;
+}
+.popover.top>.arrow:after {
+    border-top-color: #fffde2;
+}
+
+
+*[data-toggle="popover"] {
+    cursor: pointer;
+}

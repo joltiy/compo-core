@@ -1,0 +1,101 @@
+.btn-group-justified {
+    border-collapse: collapse;
+}
+
+.btn-default.focus,
+.btn-default:focus,
+.btn-default:hover,
+.btn-default.active,
+.btn-default:active,
+.open > .dropdown-toggle.btn-default,
+.btn-default.active.focus,
+.btn-default.active:focus,
+.btn-default.active:hover,
+.btn-default:active.focus,
+.btn-default:active:focus,
+.btn-default:active:hover,
+.open > .dropdown-toggle.btn-default.focus,
+.open > .dropdown-toggle.btn-default:focus,
+.open > .dropdown-toggle.btn-default:hover {
+    background-color: #D6F1FC;
+    border-color: #41B0DC;
+    outline: none;
+}
+
+.btn-extend.focus,
+.btn-extend:focus,
+.btn-extend:hover,
+.btn-extend.active,
+.btn-extend:active,
+.open > .dropdown-toggle.btn-extend,
+.btn-extend.active.focus,
+.btn-extend.active:focus,
+.btn-extend.active:hover,
+.btn-extend:active.focus,
+.btn-extend:active:focus,
+.btn-extend:active:hover,
+.open > .dropdown-toggle.btn-extend.focus,
+.open > .dropdown-toggle.btn-extend:focus,
+.open > .dropdown-toggle.btn-extend:hover {
+    color: #FFF;
+}
+
+.btn-not-found {
+    opacity: 0.2;
+}
+
+.btn-extend {
+    display: inline-block;
+    font-weight: bold;
+    color: #fff;
+    font-size: 15px;
+    border-radius: 20px;
+    padding: 0 20px;
+    text-decoration: none;
+    text-transform: uppercase;
+    line-height: 40px;
+    margin: 0 0 10px;
+    text-align: center;
+    height: 40px;
+    -webkit-text-shadow: 1px 1px 1px #1296b5;
+    -moz-text-shadow: 1px 1px 1px #1296b5;
+    text-shadow: 1px 1px 1px #1296b5;
+    background: 
+    
+    
+    
+    -webkit-linear-gradient(to bottom, #16d2f0, #0fb8e7);
+    background: 
+    
+    
+    
+    -moz-linear-gradient(to bottom, #16d2f0, #0fb8e7);
+    background: linear-gradient(to bottom, #16d2f0, #0fb8e7);
+    position: relative;
+    outline: none !important;
+}
+
+.btn-extend:hover {
+    background: -webkit-linear-gradient(to bottom, #0fb8e7, #16d2f0);
+    background: -moz-linear-gradient(to bottom, #0fb8e7, #16d2f0);
+    background: linear-gradient(to bottom, #0fb8e7, #16d2f0);
+}
+
+.btn-number {
+    padding: 0;
+    line-height: 28px;
+    height: 30px;
+    width: 26px;
+    text-align: center;
+}
+.btn-number .font-icon {
+    margin: 0 !important;
+}
+
+
+.btn-list-buttons-wrap {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}

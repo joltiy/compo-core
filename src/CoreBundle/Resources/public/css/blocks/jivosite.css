@@ -1,0 +1,37 @@
+.mobile-version div#jivo-label {
+    margin-bottom: 45px;
+    position: fixed;
+}
+
+div#jivo-label {
+    height: 50px !important;
+}
+
+div#jivo-label-wrapper {
+    height: 50px !important;
+    line-height: 50px !important;
+    padding-top: 8px;
+}
+
+.jivo-noise.jivo-noise-pattern-dark {
+    background: #41B0DC none !important;
+}
+div#jivo-iframe-container {
+    bottom: 51px !important;
+}
+
+
+
+.page-compare div#jivo-iframe-container.jivo-iframe-container-left {
+    display: none !important;
+}
+
+@media (max-width: 992px) {
+    div#jivo-iframe-container.jivo-c-mobile {
+        display: none !important;
+    }
+}
+
+.jivo-iframe-container-bottom.jivo-c-mobile#jivo-iframe-container {
+    display: none !important;
+}

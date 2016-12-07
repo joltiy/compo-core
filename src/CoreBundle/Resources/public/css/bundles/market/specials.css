@@ -1,0 +1,122 @@
+.specials .font-icon {
+    font-weight: bold;
+    line-height: 20px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.specials .list-group a {
+    font-weight: bold;
+    text-shadow: 0 0 2px #FFF;
+}
+
+.specials .list-group a:hover {
+    text-shadow: none;
+}
+
+.specials .list-group a:hover .font-icon {
+    color: #FFF;
+}
+
+.specials .font-icon.glyphicon-bookmark {
+    right: 2px;
+    top: 2px;
+}
+
+.specials .font-icon.glyphicon-discount {
+    right: 1px;
+}
+
+.specials .font-icon.glyphicon-discount:after {
+    content: '%';
+}
+
+.specials-tabs .more {
+    clear: both;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.specials-tabs .font-icon {
+    margin-left: 10px;
+}
+
+.specials-tabs .font-icon.glyphicon-discount {
+    margin-top: -2px;
+}
+
+.specials-tabs .tab-content {
+    border-left: 1px solid #DDD;
+    border-right: 1px solid #DDD;
+    border-bottom: 1px solid #DDD;
+    border-radius: 0 0 4px 4px;
+    padding: 10px 15px 9px;
+}
+
+.specials-tabs .tab-pane {
+    position: relative;
+}
+
+.specials-tabs .nav-tabs a {
+    font-weight: bold;
+    line-height: 20px;
+}
+
+.specials.specials-tabs {
+    margin-bottom: 20px;
+}
+
+.specials .panel-heading .font-icon {
+    margin-right: 2px;
+    width: 16px;
+}
+
+.specials .panel-heading .font-icon.glyphicon-bookmark {
+    top: 2px;
+}
+
+.panel-specials > .panel-heading a:hover {
+}
+
+.specials .panel-heading {
+    color: #555;
+}
+
+.specials .panel-heading:hover {
+    color: #0C6398;
+    cursor: pointer;
+}
+
+.specials-label.label-actions {
+    background-color: #EB8927;
+}
+.specials-label.label-hits {
+    background-color: #EB8927;
+}
+.specials-label.label-noveltys {
+    background-color: #6DB040;
+}
+.specials-label.label-sales {
+    background-color: #B31024;
+}
+.specials-label.label-specials {
+    background-color: #B31024;
+}
+.specials-label.label-populars {
+    background-color: #B31024;
+}
+
+.specials-label {
+    margin-top: 2px;
+    text-transform: uppercase;
+    color: #FFF;
+    font-weight: bold;
+    padding: 0 10px 0 10px;
+    line-height: 20px;
+    font-size: 12px;
+    border-radius: 0 3px 3px 0;
+}
+
+
+
+

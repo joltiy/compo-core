@@ -1,0 +1,95 @@
+.index-news .thumbnail,
+.index-articles .thumbnail {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin: 0 0 0 -1px;
+    min-height: 105px;
+    padding: 0;
+}
+
+.index-articles .thumbnail img.img-responsive,
+.index-news .thumbnail img.img-responsive {
+    vertical-align: middle;
+    line-height: 157px;
+    width: auto;
+    height: 103px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.index-news,
+.index-articles {
+    /* padding-right: 15px; */
+}
+
+.index-news > div,
+.index-articles > div {
+    /* margin: 0; */
+    /* padding: 0; */
+}
+
+.index-news .panel,
+.index-articles .panel {
+    /* margin-bottom: 10px; */
+    /* border-top-right-radius: 0; */
+    /* border-bottom-right-radius: 0; */
+}
+
+.index-news .panel-heading,
+.index-articles .panel-heading {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.index-news .panel-body,
+.index-articles .panel-body {
+    margin-bottom: 0;
+    min-height: 62px;
+    max-height: 63px;
+}
+
+.index-news .panel-body a,
+.index-articles .panel-body a {
+    display: block;
+    display: -webkit-box;
+    margin: 0 auto;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.index-artices-blocks ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.index-artices-blocks li {
+    line-height: 20px;
+    display: block;
+    width: auto;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.index-artices-blocks .date {
+    font-size: 13px;
+    line-height: 20px;
+    color: #777;
+    display: inline-block;
+    width: 19%;
+    vertical-align: top;
+    white-space: nowrap;
+}
+
+.index-artices-blocks a {
+    line-height: 20px;
+    /* width: 100%; */
+    /* max-width: 100%; */
+    display: inline-block;
+    width: 80%;
+    /* max-width: 80%; */
+    /* margin-right: 25px; */
+    /* padding-right: 20px; */
+}

@@ -1,0 +1,11 @@
+.sidebar-item .specials {
+}
+
+.sidebar-item .specials .list-group {
+    margin: 0;
+}
+
+.sidebar-item .specials .font-icon {
+    margin: 0;
+    float: right;
+}

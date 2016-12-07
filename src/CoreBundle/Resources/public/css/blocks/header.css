@@ -1,0 +1,167 @@
+#header {
+    margin-top: -2px;
+}
+
+#header .logo {
+    display: inline-block;
+    background: url('../../img/logo.png') 0 0 no-repeat;
+    height: 45px;
+    width: 100%;
+    background-size: initial;
+    margin: 30px 0 20px;
+}
+
+#header .blob {
+    width: 91px;
+    height: 96px;
+    background: url('../../img/kaplia-index.png') 0 0 no-repeat;
+    position: relative;
+    bottom: -10px;
+    z-index: 10;
+    display: block;
+    margin: 0 auto;
+}
+
+#header .contact-mail {
+    margin-top: 35px;
+    line-height: 15px;
+}
+
+#header .contact-mail a {
+    line-height: 15px;
+    font-size: 13px;
+    display: inline-block;
+}
+
+#header .recall {
+    line-height: 15px;
+    margin-top: 5px;
+}
+
+#header .recall .link,
+#header .recall a {
+    line-height: 15px;
+    font-size: 13px;
+    display: inline-block;
+    border-bottom: 1px dotted #337AB7;
+}
+
+#header .recall a:hover {
+    border-bottom: 1px solid #23527C;
+    text-decoration: none;
+}
+
+
+#header .feedback-principal {
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+#header .opening-times {
+    padding-top: 5px;
+    text-align: right;
+    padding-bottom: 4px;
+}
+
+#header .opening-times .value {
+    font-size: 12px;
+    color: #999;
+    text-align: right;
+    line-height: 20px;
+    padding-top: 10px;
+}
+
+#header .opening-times .range {
+    width: 33px;
+    height: 9px;
+    background: url('../../img/sprite.png') 0 0 no-repeat;
+    cursor: pointer;
+    display: inline-block;
+    margin: 2px 5px 0 8px;
+}
+
+#header .opening-times .tooltip .tooltip-inner {
+    text-align: left;
+    min-width: 200px;
+    font-style: normal;
+    margin-top: 5px;
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 19px;
+}
+
+#header .opening-times .tooltip-arrow {
+    border-right-color: #41B0DC;
+}
+
+#header .ht-contacts {
+    text-align: right;
+    display: block;
+    line-height: 20px;
+    font-family: 'myriad-light', sans-serif;
+    font-size: 20px;
+    color: #2C2C2C;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#header .ht-contacts span {
+    display: block;
+    font-size: 0.9em;
+}
+
+#header .navbar-default {
+    background-color: #FFF;
+    border-color: #CCC;
+    box-shadow: 0 1px 4px #D6D6D6;
+}
+
+@media (max-width: 380px) {
+    #header .ht-contacts {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 767px) {
+    #header .ht-contacts,
+    #header .feedback-principal,
+    #header .opening-times {
+        text-align: center;
+    }
+
+    #header .opening-times .tooltip .tooltip-inner {
+        max-width: 180px;
+        min-width: 159px;
+    }
+
+    #header .contact-mail {
+        margin-top: 40px;
+        text-align: center;
+    }
+
+    #header .recall {
+        margin-bottom: 5px;
+        text-align: center;
+    }
+
+    #header .navbar-header .logo {
+        width: 190px;
+        background-size: contain;
+        margin: 10px 0 10px 10px;
+    }
+
+    #header .navbar-default .navbar-toggle {
+        margin-top: 15px;
+    }
+
+    #header {
+        margin-top: 10px;
+    }
+
+    .additional-phone-buttons {
+        right: 20px !important;
+        top: 31px !important;
+    }
+}
+
+

@@ -1,0 +1,27 @@
+{
+  "name": "pikachoose-bower",
+  "version": "4.5.1",
+  "homepage": "https://github.com/christrude/PikaChoose",
+  "authors": [
+    "Jeremy Fry <jeremy.m.fry@gmail.com>",
+    "Chris Trude <christrude@gmail.com>"
+  ],
+  "description": "My port of Pikachoose to allow bower installs",
+  "main": "lib/jquery.pikachoose.js",
+  "keywords": [
+    "pikachoose",
+    "slider"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "jcarousel": "~0.3.1"
+  }
+}

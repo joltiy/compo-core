@@ -1,0 +1,90 @@
+.articles .item.row {
+    border: 1px solid #DDD;
+    border-radius: 4px;
+    padding: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 18px;
+    display: block;
+    width: auto;
+}
+
+.articles .photo {
+    margin: 0;
+    border-right: 1px solid #DDD;
+    overflow: hidden;
+    padding: 0 10px 0 0;
+}
+
+.articles .thumbnail {
+    border: none;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+    line-height: 150px;
+    height: 150px;
+    margin: 5px;
+    overflow: hidden;
+    padding: 0;
+}
+
+.articles .thumbnail img {
+    display: inline-block;
+    vertical-align: middle;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.articles .meta {
+    padding: 10px 15px;
+}
+
+.articles .anons {
+    max-height: 100px;
+    display: block;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 10px auto;
+}
+
+.articles-item .date,
+.articles .date {
+    font-size: 12px;
+    line-height: 20px;
+    color: #666;
+}
+
+.articles-item .text {
+    clear: left;
+    margin-top: 50px;
+}
+
+.articles-item .thumbnail {
+    margin-left: 20px;
+}
+
+.page-news .articles,
+.page-articles .articles {
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.articles-item .text iframe {
+    border: 1px solid #000;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 0;
+}
+
+@media (max-width: 500px) {
+    .articles-item .thumbnail {
+        width: 100%;
+        margin: 0 0 20px;
+    }
+}

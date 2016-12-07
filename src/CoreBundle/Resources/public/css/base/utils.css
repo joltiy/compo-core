@@ -1,0 +1,162 @@
+.no-border {
+    border: 0 !important;
+}
+
+.img-right {
+    float: right;
+}
+
+.page-header {
+    padding: 0;
+    margin: 0 0 19px;
+}
+
+.box-grey {
+    overflow: hidden;
+    background-color: #f5f5f5;
+    margin-bottom: 40px;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -o-border-radius: 4px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+    -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+    -o-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+    padding: 0 20px 20px;
+}
+
+.fll {
+    float: left;
+}
+
+.flr {
+    float: right;
+}
+
+.show-more-button {
+    margin-top: 15px;
+}
+
+.show-more-complete {
+    display: none;
+}
+
+
+.ya-site-form__wrap {
+    margin-left: -15px;
+}
+
+.product-review-item__title {
+    font-weight: bold;
+}
+
+.show-more-line {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f9f9f9+0,ffffff+100&0+0,1+50 */
+    background: -moz-linear-gradient(top,  rgba(249,249,249,0) 0%, rgba(252,252,252,1) 50%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(249,249,249,0) 0%,rgba(252,252,252,1) 50%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(249,249,249,0) 0%,rgba(252,252,252,1) 50%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00f9f9f9', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+
+    height: 60px;
+    margin-top: -55px;
+    position: relative;
+    margin-bottom: -20px;
+}
+
+
+
+#sets ul.des {
+    width: 100%;
+}
+
+
+
+
+
+.sonata-page-top-bar .divider:after {
+    display: none !important;
+}
+
+
+.opening-times .value > div {
+    display: inline-block;
+}
+
+.menu-footer li {
+    list-style: none;
+}
+
+.menu-footer ul {
+    margin: 0;
+    padding: 0;
+}
+
+.block-container-content .block-item {
+    margin-bottom: 20px;
+}
+
+
+body.is-editor #container {
+    margin-top: 60px;
+}
+
+#footer .payment ul {
+    padding-left: 0;
+}
+
+.pagination-block {
+    text-align: center;
+}
+
+#header .ht-contacts {
+    text-align: right;
+    display: block;
+    line-height: 20px !important;
+    font-family: sans-serif;
+    font-size: 18px;
+    color: #444040;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-weight: normal;
+}
+
+
+
+.pagination-page,
+.pagination-show-more-block {
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #999;
+    background-color: #e6ebf2;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.pagination-show-more-block a {
+    text-decoration: none;
+}
+
+.pagination-wrap {
+    text-align: center;
+}
+
+.brands-wrap .not-found,
+.filter-item .not-found {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+
+.brands-wrap .collections {
+    padding-left: 15px;
+}
+
+.brands-wrap .collections .link-ajax {
+    margin-bottom: 10px;
+}

@@ -1,0 +1,27 @@
+.news .date {
+    font-size: 12px;
+    color: #999;
+    line-height: 20px;
+}
+
+.news li {
+    border-bottom: 1px solid #DDD;
+    padding-bottom: 10px;
+    margin-bottom: 9px;
+}
+
+.news ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.news li:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.news a {
+    display: block;
+}

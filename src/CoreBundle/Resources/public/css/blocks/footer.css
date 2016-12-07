@@ -1,0 +1,148 @@
+#footer {
+    clear: both;
+    background-color: #EDEEEF;
+    position: relative;
+    margin-left: -15px;
+    margin-right: -15px;
+    padding-top: 20px;
+    padding-bottom: 0;
+    color: #8590A2;
+    font-size: 12px;
+    line-height: 20px;
+}
+
+#footer > div {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#footer .logo {
+    display: block;
+    width: 169px;
+    height: 33px;
+    background: url('../../img/logo-footer.png') 0 0 no-repeat;
+}
+
+#footer .copy-wrap {
+    margin-left: 39px;
+    margin-top: 22px;
+    line-height: 20px;
+}
+
+#footer .title {
+    margin-top: 5px;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+#footer .menu-footer {
+    padding: 0;
+    list-style: none;
+}
+
+#footer p {
+    margin-bottom: 0;
+}
+
+#footer .contacts {
+    padding: 0;
+    list-style-type: none;
+
+}
+
+#footer .contacts li {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+#footer .phone span {
+    display: block;
+    font-weight: bold;
+    line-height: 20px;
+    margin-bottom: 10px;
+}
+
+#footer .phone a {
+    display: block;
+    font-weight: bold;
+}
+
+#footer .font-icon {
+    position: absolute;
+    left: -25px;
+    font-size: 16px;
+    top: 2px;
+}
+
+#footer .payment {
+    list-style: none;
+    padding: 0;
+    text-align: right;
+    max-width: 160px;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+#footer .payment li {
+    display: inline-block;
+    padding: 5px 0 5px 0;
+}
+
+#footer .social img {
+    width: 165px;
+    height: auto;
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+#footer .compo a {
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: middle;
+    width: 73px;
+    height: 17px;
+    background: url('../../img/logo-compo.png') 0 0 no-repeat;
+}
+
+#footer .bottom {
+    padding-top: 0;
+}
+
+#footer .compo {
+    border-top: 1px solid #CCCCCC;
+    padding-top: 9px;
+    padding-bottom: 10px;
+    line-height: 30px;
+}
+
+#footer .counters {
+    border-top: 1px solid #CCC;
+    padding-top: 9px;
+    text-align: right;
+    padding-bottom: 10px;
+}
+
+#footer .social {
+    margin-top: 10px;
+}
+
+#footer .menu-footer li {
+    margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+    #footer .copy-wrap {
+        margin: 20px 0;
+    }
+
+    #footer .col-contacts {
+        text-align: right;
+    }
+    #footer .font-icon {
+        display: none;
+    }
+}
+
+

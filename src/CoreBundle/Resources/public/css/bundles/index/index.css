@@ -1,0 +1,12 @@
+.index-content img {
+    margin-bottom: 20px;
+    clear: both;
+    margin-left: 20px;
+}
+
+@media (max-width: 500px) {
+    .index-content img {
+        width: 100%;
+        height: auto !important;
+    }
+}

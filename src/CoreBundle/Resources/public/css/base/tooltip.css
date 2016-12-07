@@ -1,0 +1,8 @@
+.tooltip.bottom .tooltip-arrow {
+    border-bottom-color: #D6F1FC;
+}
+
+.tooltip-inner {
+    background-color: #D6F1FC;
+    color: #000;
+}

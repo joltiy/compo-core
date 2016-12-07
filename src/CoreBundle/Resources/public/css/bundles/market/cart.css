@@ -1,0 +1,566 @@
+.nav-basket {
+    list-style: none;
+    margin: 0;
+    padding: 5px 0;
+    float: right;
+}
+
+.nav-basket > li {
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.nav-basket a {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.icon-money {
+    background-position: -64px -32px;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    width: 16px;
+    height: 16px;
+    margin-top: 0;
+    display: inline-block;
+    margin-right: .4em;
+    line-height: 16px;
+    vertical-align: text-top;
+    background: url("/img/icons.png") no-repeat 0 0;
+}
+
+.nav-basket a u {
+    text-decoration: none;
+    display: inline;
+    border-bottom: 1px dotted #2e4473;
+}
+
+#CompoBasketMain {
+    position: relative;
+}
+
+#CompoBasketMain > i {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 40px;
+    background-color: #e9f2fb;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -o-border-radius: 4px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    -o-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+
+
+.icon-urna {
+    background-position: -48px -48px;
+}
+
+
+#CompoBasketMain .img {
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+    position: relative;
+    background-position: 50%;
+    background-size: contain;
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    padding: 5px;
+    margin-right: 20px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+#CompoBasketMain a.h1 {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 30px;
+    vertical-align: top;
+    display: inline-block;
+    margin: 0;
+}
+
+#CompoBasketMain .items .price {
+    font-size: 14px;
+    color: #000;
+    line-height: 30px;
+    display: inline-block;
+}
+
+#CompoBasketMain .items .count input {
+    width: 35px;
+    text-align: center;
+    padding: 0;
+    line-height: 30px;
+    height: 30px;
+}
+
+.input-basket {
+}
+
+#CompoBasketMain .trash {
+    text-align: center;
+}
+
+#CompoBasketMain .title-img {
+
+}
+
+#CompoBasketMain sup {
+    color: #F00;
+    top: 5px;
+    font-size: 20px;
+    margin-right: 5px;
+    margin-left: 3px;
+}
+
+#CompoBasketMain .price,
+#CompoBasketMain .sum
+{
+    white-space: nowrap;
+    text-align: center;
+}
+#CompoBasketMain .price
+{
+    text-align: right;
+}
+#CompoBasketMain .sum
+{
+    text-align: left;
+}
+
+#CompoBasketMain .count {
+    white-space: nowrap;
+    text-align: center;
+    padding: 0;
+}
+
+#CompoBasketMain .title {
+    vertical-align: middle;
+}
+
+.input-basket a {
+    display: block;
+    width: 23px;
+    height: 30px;
+    float: left;
+}
+
+.input-basket a + a {
+    float: right;
+}
+
+.input-basket input[type="text"] {
+    display: block;
+    overflow: hidden;
+    background: none;
+    border: none;
+    text-align: center;
+    color: #000;
+    font-size: 14px;
+    width: 52px;
+    padding: 7px 0;
+    outline: none;
+}
+
+#CompoBasketMain a.del {
+    display: block;
+    width: 17px;
+    height: 17px;
+    background: url('/img/sprite.png') -42px -48px no-repeat;
+}
+
+#CompoBasketMain tbody td, #CompoBasketMain tfoot td {
+    padding: 10px 5px;
+    border-top: 1px solid #ddd;
+    line-height: 20px;
+}
+
+.settings {
+}
+
+.settings > div:first-child {
+}
+
+.list-divel {
+    padding-right: 40px;
+}
+
+.list-divel .ic-men {
+    background: url('/img/icon-men.png') 100% 50% no-repeat;
+}
+
+
+
+
+.list-divel .ic-car {
+    background: url('/img/icon-car.png') 100% 50% no-repeat;
+}
+
+.list-divel .ic-bag {
+    background: url('/img/icon-bagaj.png') 100% 50% no-repeat;
+}
+
+.h-ttu {
+    text-transform: uppercase;
+    color: #555;
+    font-size: 14px;
+}
+
+.settings > div > span {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.settings .input {
+    padding: 0 10px;
+    background-color: #fff;
+    border: 1px solid #e3e3e3;
+    border-top-color: #ababab;
+    box-shadow: 1px 1px 1px #e3e3e3 inset;
+    -moz-box-shadow: 1px 1px 1px #e3e3e3 inset;
+    -o-box-shadow: 1px 1px 1px #e3e3e3 inset;
+    -webkit-box-shadow: 1px 1px 1px #e3e3e3 inset;
+    margin-bottom: 18px;
+}
+
+.settings .input input[type="text"], .settings .input textarea {
+    width: 100%;
+    padding: 6px 0;
+    background: none;
+    border: none;
+    resize: none;
+    outline: none;
+}
+
+.color-black {
+    color: #000;
+}
+
+.list-pay {
+    /* list-style: none; */
+    /* margin: 0 0 40px 0; */
+    /* overflow: hidden; */
+    /* padding: 5px 0 0 0; */
+}
+
+.list-pay li:first-child {
+    margin-top: 0;
+    margin-left: 0;
+}
+
+.list-pay .ic-nal {
+    background: url('/img/icon-stmon.png') 20px 0 no-repeat;
+}
+
+.list-pay label {
+    display: block;
+    padding: 35px 0 0 20px;
+    position: relative;
+}
+
+.list-pay label input[type="radio"] {
+    position: absolute;
+    left: 0;
+    top: 35px;
+}
+
+.list-pay label span {
+    /* display: block; */
+    /* color: #2e4473; */
+    /* margin-bottom: 4px; */
+}
+
+.list-pay .ic-beznal {
+    background: url('/img/ic-card.png') 20px 0 no-repeat;
+}
+
+.list-pay .ic-kredit {
+    background: url('/img/ic-cart2.png') 20px 0 no-repeat;
+}
+
+.line2 {
+    margin: 20px 0;
+    height: 1px;
+    clear: both;
+    background-color: #ddd;
+}
+
+.settings .price {
+    text-align: right;
+}
+
+.settings .price span {
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+}
+
+ul.nav-basket2 {
+    list-style: none;
+    margin-bottom: 20px;
+    padding-left: 0;
+}
+
+ul.nav-basket2 li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+#payment {
+    padding: 30px;
+    background-color: #fff;
+    width: 520px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+#payment {
+    padding: 30px;
+    background-color: #fff;
+    width: 520px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+a.delbasket {
+    color: #BD0000;
+    font-size: 20px;
+}
+
+#CompoBasketMain .img a {
+    background-position: 50%;
+    background-size: contain;
+    height: 109px;
+    width: 109px;
+    display: inline-block;
+}
+
+input#km {
+    margin-left: 0;
+    display: inline-block;
+    width: 40px;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding: 0;
+    text-align: center;
+    line-height: 30px;
+    height: 30px;
+}
+
+b#delivery_price {
+    display: inline-block;
+    line-height: 20px;
+    height: 20px;
+}
+
+.row.list-divel > div {
+    background-position: 41px 12px;
+}
+
+a.countkm {
+    margin-left: 15px;
+    display: inline-block;
+    /* top: -2px; */
+    position: relative;
+    line-height: 20px;
+    top: 3px;
+}
+
+.list-pay .descrition,
+.list-divel .descrition {
+    color: #777;
+    margin: 6px 50px 0 20px;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+.row.list-pay > div {
+    background-position: 40px 9px;
+}
+
+.note {
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.btn-order {
+    margin: 0 auto;
+    float: none;
+    display: block;
+}
+
+#orderform .price {
+    line-height: 40px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#orderform .descrition {
+    margin-top: 16px;
+    margin-bottom: 8px;
+    line-height: 20px;
+    color: #555;
+}
+
+#CompoBasketMain h2 {
+    text-align: center;
+}
+
+.nav-basket2 .font-icon {
+    color: #00B0DC;
+    border-radius: 9px;
+    line-height: 20px;
+    text-align: center;
+    font-size: 16px;
+    margin-right: 6px;
+    top: 1px;
+    position: relative;
+}
+
+
+#kilometers > .input-group {
+    display: table;
+    width: 88px;
+    float: left;
+}
+
+
+.terms {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+.additional-phone-buttons {
+    float: right;
+    position: absolute;
+    right: -15px;
+    top: 5px;
+}
+
+.additional-phone-buttons button {
+    padding: 0px 5px;
+}
+
+.form-group.additional-phone-item {
+    position: relative;
+}
+
+.additional-phone-template .remove {
+    display: none;
+}
+
+.additional-phone-item .create {
+    display: none;
+}
+.additional-phone-item label {
+    visibility: hidden;
+}
+.additional-phone-template .create {
+    display: inline-block;
+}
+.additional-phone-template label {
+    visibility: visible;
+}
+
+.quick-buy #phone-error {
+    display: none !important;
+}
+
+
+#CompoBasketMain .items-wrap-col .header {
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+#CompoBasketMain .items .product-row {
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#CompoBasketMain .trash a {
+    width: 28px;
+    display: inline-block;
+}
+
+#CompoBasketMain .count .input-group {
+    width: 80px;
+    margin: 0 auto;
+
+}
+
+
+#CompoBasketMain a.h1 {
+    display: inline;
+}
+
+#CompoBasketMain .img {
+    float: left;
+}
+
+
+
+#CompoBasketMain .title {
+    vertical-align: middle;
+    margin-bottom: 0px;
+}
+
+#CompoBasketMain .order-foot {
+    text-align: right;
+}
+
+#CompoBasketMain .order-foot .price {
+    text-align: left;
+}
+
+
+.lifting-label {
+    padding-left: 10px !important;
+}
+
+@media (max-width: 767px) {
+    #CompoBasketMain .items  .title {
+        margin-bottom: 15px;
+    }
+
+    #CompoBasketMain .trash {
+        text-align: center;
+        line-height: 90px;
+    }
+    #CompoBasketMain .items .price {
+        text-align: center;
+    }
+    #CompoBasketMain .items .sum {
+        text-align: center;
+    }
+
+}
+
+
+@media (max-aspect-ratio: 320/480){
+    #CompoBasketMain .trash {
+        width: 100%;
+    }
+    #CompoBasketMain .meta {
+        width: 100%;
+    }
+
+
+}

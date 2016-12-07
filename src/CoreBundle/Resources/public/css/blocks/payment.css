@@ -1,0 +1,13 @@
+#payment ul {
+    list-style: none;
+    padding: 0;
+}
+
+#payment ul img {
+    float: left;
+    margin-right: 20px;
+}
+
+#payment ul li {
+    margin-bottom: 10px;
+}

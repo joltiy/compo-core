@@ -1,0 +1,17 @@
+.catalog-sorting-block {
+    margin-bottom: 0;
+    font-size: 14px;
+    color: #999;
+    line-height: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.catalog-sorting-block .method {
+    opacity: 0.5;
+}
+
+.catalog-sorting-block .method:hover,
+.catalog-sorting-block .method.active {
+    opacity: 1;
+}

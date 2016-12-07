@@ -1,0 +1,19 @@
+.breadcrumbs ol.breadcrumb {
+    padding: 3px 10px;
+    line-height: 20px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+}
+
+@media (max-width: 768px) {
+    .breadcrumbs ol.breadcrumb {
+        white-space: normal;
+        line-height: 30px;
+    }
+}
+

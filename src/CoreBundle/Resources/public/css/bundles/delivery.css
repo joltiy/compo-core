@@ -1,0 +1,88 @@
+#list-delivery .h1 {
+    font-size: 21px;
+    display: block;
+    clear: both;
+    margin-top: 10px;
+    height: 36px;
+}
+
+#list-delivery .h1:hover {
+    text-decoration: none;
+}
+
+#list-delivery .h1 img {
+    float: left;
+    position: relative;
+    left: 0;
+    margin-right: 20px;
+    min-width: 40px;
+    top: -5px;
+}
+
+#list-delivery #d3 ul {
+    /* list-style-type: none; */
+}
+
+#list-delivery #d3 ul li {
+    /* float: left; */
+    /* margin-right: 20px; */
+}
+
+
+div#list-delivery {
+    margin-top: 40px;
+}
+
+
+.list-item {
+margin-bottom: 40px;}
+.table-style {
+    width: 100%;
+    font-size: 13px;
+    color: #211C1C;
+    margin-bottom: 30px;
+    position: relative;
+}
+.table-style table {
+    width: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+.table-style td:first-child {
+    padding-left: 20px;
+}
+
+.table-style tbody td {
+    padding: 10px;
+}
+
+
+.list-item .box-grey ul {
+
+
+list-style: none;padding: 0;width: 100%;display: table;margin: 0;margin-bottom: -20px;}
+
+
+.list-item .box-grey ul img {
+
+
+padding: 15px 10px;}
+
+.list-item .box-grey ul a {
+
+
+    padding: 15px 10px;}
+
+
+.list-item .box-grey li {
+
+
+    padding: 15px 10px;display: table-cell;width: 20%;}
+
+
+.list-item .box-grey li {
+    padding: 15px 10px;
+    display: inline-block;
+    width: auto;
+}

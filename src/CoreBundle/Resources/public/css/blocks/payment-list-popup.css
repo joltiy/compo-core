@@ -1,0 +1,13 @@
+.payment-list-popup {
+    list-style: none;
+}
+
+.payment-list-popup img {
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 0;
+}
+
+.payment-list-popup li {
+    margin-bottom: 20px;
+}

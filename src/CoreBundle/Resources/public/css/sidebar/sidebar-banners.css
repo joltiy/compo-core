@@ -1,0 +1,13 @@
+.sidebar-item.banners p {
+    margin: 10px 0 20px;
+}
+
+.sidebar-item.banners p:last-of-type {
+    margin-bottom: 10px
+}
+
+.sidebar-item.banners img {
+    width: 100% !important;
+    max-width: 100%;
+    height: auto !important;
+}

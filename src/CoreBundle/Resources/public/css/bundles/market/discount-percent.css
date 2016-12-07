@@ -1,0 +1,28 @@
+.discount-percent {
+    position: absolute;
+    background-position: 50%;
+    background-size: cover;
+    line-height: 44px;
+    width: 44px;
+    text-align: center;
+    font-weight: bold;
+    top: -4px;
+    right: -2px;
+    z-index: 1;
+}
+
+.discount-percent-25 {
+    background-image: url('/img/sun-orange.png');
+    color: #FF7F00;
+}
+
+.discount-percent-50 {
+    background-image: url('/img/sun-red.png');
+    color: #F00;
+}
+
+.catalog-block-item-simple .discount-percent {
+
+    top: 1px;
+    right: 0;
+}

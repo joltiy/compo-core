@@ -1,0 +1,13 @@
+.catalog-brands ul {
+    list-style: none;
+    padding: 0;
+    display: block;
+    margin: 0 0 20px;
+}
+
+.catalog-brands ul li {
+    display: inline-block;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+}

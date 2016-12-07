@@ -1,0 +1,19 @@
+.catalog-sorting-block .title {
+    margin-right: 5px;
+}
+
+.catalog-sorting-block .method {
+    margin-right: 15px;
+}
+
+
+
+
+@media screen and (max-width: 767px) {
+    .catalog-sorting-block .method {
+        display: block;
+        float: right;
+        clear: right;
+        margin-bottom: 10px;
+    }
+}

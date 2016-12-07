@@ -1,0 +1,30 @@
+.form-group {
+    margin-bottom: 10px;
+}
+
+textarea.form-control {
+    height: auto;
+    margin-bottom: 6px;
+}
+
+.label-inner {
+    display: inline;
+    font-weight: bold;
+    color: #555;
+    white-space: normal;
+    margin-left: 40px;
+}
+
+.error {
+    color: #9A1212;
+}
+
+.disable-spin::-webkit-outer-spin-button,
+.disable-spin::-webkit-inner-spin-button,
+.input-number::-webkit-outer-spin-button,
+.input-number::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+    -moz-appearance:textfield;
+}

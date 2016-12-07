@@ -1,0 +1,10 @@
+.slider-input-wrap {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-bottom: 7px;
+    padding-top: 2px;
+}
+
+.slider.slider-horizontal {
+    width: 100%;
+}

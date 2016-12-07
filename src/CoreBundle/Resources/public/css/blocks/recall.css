@@ -1,0 +1,14 @@
+#recall {
+    /* max-width: 500px; */
+    padding: 10px 20px;
+}
+
+form#recall_form {
+    max-width: 300px;
+}
+
+form#recall_form .btn {
+    margin: 0 auto;
+    display: block;
+    float: none !important;
+}

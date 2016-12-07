@@ -1,0 +1,155 @@
+.page-about .advantages .btn-group {
+    display: table-cell;
+    height: auto;
+    vertical-align: top;
+    border: none;
+    /* float: left; */
+    min-width: 25%;
+    width: 25%;
+    position: initial;
+}
+
+.page-about .advantages .btn-group .btn {
+    display: table-cell;
+    height: 100%;
+    /* border: none; */
+    position: initial;
+    float: none;
+    font-weight: bold;
+    border: none;
+}
+
+.page-about .advantages .description {
+    display: block;
+    font-size: 13px;
+    font-weight: normal;
+    margin-top: 5px;
+    margin-bottom: 22px;
+}
+
+.page-about .list-managers {
+    padding: 0;
+
+    text-align: justify;
+    width: 100%;
+    display: table;
+    font-size: 13px;
+    margin-top: 22px;
+}
+
+.page-about .list-managers li {
+    width: 45%;
+    text-align: left;
+    display: table-cell;
+    vertical-align: top;
+    margin-top: 40px;
+    padding-right: 20px;
+}
+
+.page-about .list-managers li > img {
+    float: left;
+    margin: 0 20px 20px 0;
+    width: 123px !important;
+}
+
+.page-about .pika-stage {
+    height: auto !important;
+}
+
+.page-about .pika-stage > a {
+    max-height: 500px;
+    height: auto;
+}
+
+.page-about .pika-stage img {
+    height: auto;
+}
+
+.page-about .pika-thumbs li {
+    width: auto;
+    display: table-cell;
+    float: none;
+    height: auto;
+    max-height: none;
+}
+
+.page-about .pika-thumbs li .clip {
+    height: auto;
+    width: auto;
+}
+
+.page-about .pika-thumbs .clip img {
+    max-height: 100px;
+    width: 100%;
+}
+
+.page-about .pika-thumbs {
+    text-align: center;
+    display: table;
+    width: 100%;
+    height: auto;
+    max-height: 100px;
+    margin: 0 auto;
+    list-style: none;
+    clear: both;
+}
+
+.list-serv {
+    font-size: 15px;
+    color: #424a57;
+    line-height: 15px;
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    margin-top: 25px;
+}
+
+.list-serv > ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: justify;
+    text-align-last: justify;
+}
+
+.list-serv > ul > li {
+    width: 24%;
+    position: relative;
+    text-align: center;
+    padding: 0;
+    display: table-cell;
+    vertical-align: top;
+    font-size: 13px;
+    color: #555;
+}
+
+.list-serv > ul > li span {
+    display: block;
+    padding-bottom: 10px;
+    font-size: 15px;
+    color: #000;
+    line-height: 15px;
+}
+
+.page-about .box-grey h3.h3-side {
+    text-align: center;
+}
+
+
+.page-about .slider {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.page-about .slider img {
+    max-width: 100%;
+    height: auto;
+}
+
+.page-about .list-serv > ul {
+    text-align: center;
+    text-align-last: center;
+}

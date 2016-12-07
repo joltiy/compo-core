@@ -1,0 +1,3 @@
+(function ($) {
+    $.compo = $.compo || {};
+})(jQuery);

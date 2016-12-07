@@ -1,0 +1,52 @@
+
+.btn-list-buttons ul,
+.catalog .collections ul {
+    list-style: none;
+    padding: 0;
+    display: block;
+    margin-bottom: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.btn-list-buttons ul li,
+.catalog .collections ul li {
+    display: inline-block;
+    margin-right: 5px;
+    margin-bottom: 6px;
+    margin-top: 3px;
+}
+
+.btn-list-buttons ul li {
+    margin-right: 0px;
+    margin-left: 15px;
+}
+
+.catalog .collections .panel-heading h3 {
+    margin: 0;
+    font-size: 20px;
+    line-height: 39px;
+}
+
+.catalog .collections .panel-body {
+}
+
+.btn-list-buttons {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    max-height: 280px;
+    overflow: auto;
+    border-top: 1px solid #ddd;
+}
+
+
+ul.list-group.list-group-links.list-group-links-lists-tree {
+    max-height: 281px;
+    overflow: auto;
+    padding-bottom: 1px;
+}
+
+.list-group-links-lists-tree .font-icon {
+    margin-right: 10px;
+}

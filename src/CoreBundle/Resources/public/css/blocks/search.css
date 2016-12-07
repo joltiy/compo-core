@@ -1,0 +1,62 @@
+ul.search.ui-autocomplete li {
+    display: block;
+}
+
+ul.search.ui-autocomplete a {
+    display: table;
+    font-size: 12px;
+    width: 100%;
+}
+
+ul.search.ui-autocomplete img {
+    height: 48px;
+    display: table-cell;
+    vertical-align: top;
+    min-width: 48px;
+    max-width: 48px;
+}
+
+ul.search.ui-autocomplete .wrap {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0 0 0 10px;
+    width: 100%;
+}
+
+ul.search.ui-autocomplete .title {
+    color: #0079AE;
+    text-decoration: underline;
+    padding-bottom: 5px;
+}
+
+ul.search.ui-autocomplete .price {
+    font-family: sans-serif;
+}
+
+ul.search.ui-autocomplete span.highlight {
+    color: #E00000;
+}
+
+.page-searchid #content .search .form-group,
+.page-search #content .search .form-group {
+    margin-right: 130px;
+}
+
+.page-searchid #content .search .btn-search,
+.page-search #content .search .btn-search {
+    width: 120px;
+    position: absolute;
+    top: -4px;
+    right: 15px;
+}
+
+.page-search #content .searched-word .value,
+.page-search #content .searched-count .value,
+.page-searchid #content .searched-word .value,
+.page-searchid #content .searched-count .value {
+    font-weight: bold;
+}
+.page-search .catalog-sorting-block,
+.page-searchid .catalog-sorting-block {
+    display: none;
+}

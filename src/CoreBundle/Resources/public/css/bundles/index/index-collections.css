@@ -1,0 +1,32 @@
+.index-collections .thumbnail {
+    /* margin: 10px; */
+    padding: 9px 10px;
+    margin-bottom: 20px;
+}
+
+.index-collections .row {
+    /* padding: 0; */
+    /* margin-left: -5px; */
+    /* margin-right: -5px; */
+}
+
+.index-collections .row > div {
+    /* padding: 0 5px; */
+}
+
+.index-collections .panel {
+    margin-bottom: 0;
+}
+
+.index-collections .thumbnail > img {
+    max-height: 260px;
+    min-height: 260px;
+}
+
+.index-collections {
+    margin-bottom: 0;
+}
+
+.index-collections .panel-body {
+    padding-bottom: 0;
+}

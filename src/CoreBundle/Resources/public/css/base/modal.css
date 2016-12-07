@@ -1,0 +1,42 @@
+.modal {
+    text-align: center;
+}
+
+.modal-open {
+    padding-right: 0 !important;
+}
+
+.modal-open .modal {
+    padding-right: 0 !important;
+}
+
+.modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.modal-body .close {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    z-index: 100;
+    width: 20px;
+}
+
+.modal-body {
+    padding: 0 30px 20px 30px;
+}
+
+.modal-body-padding {
+    padding-top: 20px;
+}
+
+@media screen and (min-width: 768px) {
+    .modal:before {
+        display: inline-block;
+        vertical-align: middle;
+        content: " ";
+        height: 100%;
+    }
+}

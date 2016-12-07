@@ -1,0 +1,209 @@
+.advantages {
+    margin-bottom: 20px;
+    min-height: 80px;
+}
+
+.advantages .icon {
+    margin: 0 auto 14px auto;
+    display: block;
+}
+
+.advantages .task .icon {
+    background: url('../../img/sprite.png') -224px 0 no-repeat;
+    width: 30px;
+    height: 32px;
+}
+
+.advantages .map .icon {
+    background: url('../../img/sprite.png') -254px 0 no-repeat;
+    width: 46px;
+    height: 32px;
+}
+
+.advantages .purse .icon {
+    background: url('../../img/sprite.png') -301px 0 no-repeat;
+    width: 29px;
+    height: 32px;
+}
+
+.advantages .list .icon {
+    background: url('../../img/sprite.png') -330px 0 no-repeat;
+    width: 22px;
+    height: 32px;
+}
+
+.advantages .nav .task:focus .icon,
+.advantages .nav .task:active .icon,
+.advantages .nav .active .task .icon,
+.advantages .nav .task:hover .icon {
+    background-position: -224px -62px;
+}
+
+.advantages .nav .map:focus .icon,
+.advantages .nav .map:active .icon,
+.advantages .nav .active .map .icon,
+.advantages .nav .map:hover .icon {
+    background-position: -255px -62px;
+}
+
+.advantages .nav .purse:focus .icon,
+.advantages .nav .purse:active .icon,
+.advantages .nav .active .purse .icon,
+.advantages .nav .purse:hover .icon {
+    background-position: -301px -62px;
+}
+
+.advantages .nav .list:focus .icon,
+.advantages .nav .list:active .icon,
+.advantages .nav .active .list .icon,
+.advantages .nav .list:hover .icon {
+    background-position: -330px -62px;
+}
+
+.advantages .btn-default:focus,
+.advantages .btn-default:active,
+.advantages .btn-default:hover,
+.advantages .btn-default:active,
+.advantages .btn-default:focus,
+.advantages .nav > li:focus,
+.advantages .nav > li:hover,
+.advantages .nav-tabs.nav-justified > .active,
+.advantages .nav-tabs.nav-justified > .active:focus,
+.advantages .nav-tabs.nav-justified > .active:hover,
+.advantages .nav > li > a:focus,
+.advantages .nav > li > a:hover,
+.advantages .nav-tabs.nav-justified > .active > a,
+.advantages .nav-tabs.nav-justified > .active > a:focus,
+.advantages .nav-tabs.nav-justified > .active > a:hover {
+    background-color: #11BFEA;
+    color: #FFF;
+}
+
+.advantages .nav > li:focus:after,
+.advantages .nav > li:hover:after,
+.advantages .nav-tabs.nav-justified > .active:after,
+.advantages .nav-tabs.nav-justified > .active:focus:after,
+.advantages .nav-tabs.nav-justified > .active:hover:after {
+    border-left: 7px solid rgba(0, 0, 0, 0);
+    border-right: 7px solid rgba(0, 0, 0, 0);
+    border-top: 7px solid #11BFEA;
+    content: '';
+    height: 0;
+    left: 50%;
+    margin-left: -7px;
+    position: absolute;
+    top: 100%;
+    width: 0;
+}
+
+.advantages .nav li a {
+    border: none !important;
+    border-radius: 0;
+    padding-bottom: 10px;
+    padding-top: 15px;
+}
+
+.advantages .nav-tabs.nav-justified {
+    margin-bottom: 30px;
+}
+
+.advantages .btn-group .btn {
+    white-space: normal;
+}
+
+.advantages .btn-group .btn {
+    border-right-width: 0;
+    outline: none;
+}
+
+.advantages .btn-group:last-of-type .btn {
+    border-right-width: 1px;
+}
+
+.advantages .btn-group .btn .title {
+    min-height: 40px;
+    vertical-align: middle;
+    display: inline-block;
+    line-height: 40px;
+}
+
+.advantages .btn-group .btn .title span {
+    vertical-align: middle;
+    line-height: 20px;
+    display: inline-block;
+}
+
+.advantages .btn-group .btn {
+    border-top-width: 0;
+    border-bottom-width: 0;
+}
+
+.advantages .btn-group .btn {
+    border-color: #ededed;
+}
+
+.advantages .btn-group:last-of-type .btn {
+    border-right-width: 0;
+}
+
+.advantages .btn-group:first-of-type .btn {
+    border-left-width: 0;
+}
+
+.btn-group > .btn-group:not(:first-child) > .btn {
+    border-left-width: 1px;
+}
+
+.advantages .btn-default:focus,
+.advantages .btn-default:active,
+.advantages .btn-default:hover {
+    background-color: #FFF;
+    color: #424a57;
+    box-shadow: none;
+}
+
+.advantages .btn-group .btn:hover .title span {
+    text-decoration: underline;
+}
+
+.advantages .btn-group .btn.active,
+.advantages .btn-group .btn:active {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.advantages {
+    margin-bottom: 20px;
+}
+
+.advantages .btn {
+    white-space: normal;
+    border: none;
+}
+
+.advantages .btn .title span {
+    border-bottom: 1px dotted;
+}
+
+.advantages .btn:hover {
+    color: #0C6398;
+}
+
+.advantages .buttons > div {
+    text-align: center;
+    border-right: 1px solid #DDD;
+    margin-bottom: 2px;
+    padding-right: 14px;
+}
+
+.advantages .buttons > div:last-of-type {
+    border-right: 0;
+}
+
+@media (max-width: 992px) {
+    .advantages .buttons > div:nth-of-type(2) {
+        border-right: 0;
+    }
+}
+
+

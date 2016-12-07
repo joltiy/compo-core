@@ -1,0 +1,146 @@
+#login-form h1 {
+    margin-top: 0;
+}
+
+.btn-send-password {
+
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.btn-registration,
+.btn-login  {
+    width: 100%;
+    margin: 0;
+}
+
+.btn-registration {
+    -webkit-text-shadow: 1px 1px 1px #1296b5;
+    -moz-text-shadow: 1px 1px 1px #1296b5;
+    text-shadow: 1px 1px 1px #1296b5;
+    background: -webkit-linear-gradient(to bottom, #16F0A0, #1FBF3A);
+    background: -moz-linear-gradient(to bottom, #16F0A0, #1FBF3A);
+    background: linear-gradient(to bottom, #16F0A0, #1FBF3A);
+}
+
+.divider-wrap {
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.divider {
+    text-align: center;
+}
+.divider:after {
+    content: "";
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    display: block;
+    height: 1px;
+    border-top: 1px solid #41B0DC;
+    position: absolute;
+    top: 50%;
+    margin-top: -1px;
+    z-index: 1;
+}
+
+.divider .text {
+    line-height: 1;
+    font-size: 18px;
+    color: #767676;
+    font-weight: 400;
+    z-index: 2;
+    position: relative;
+    display: inline-block;
+    background-color: #F4F5F7;
+    padding: 0 8px 0 7px;
+}
+
+
+#login-form .buttons {
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+
+
+.user_private .success,
+.user_private .error
+{
+    margin-top: 20px;
+}
+
+.user_private .success .text,
+.user_private .error .text,
+#login-form .success .text,
+#login-form .error .text {
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+#login-form .ht_contacts span {
+    display: block;
+}
+
+#login-form .ht_contacts {
+    text-align: center;
+}
+
+.user_private_form .form-group:last-of-type {
+    margin-bottom: 0px;
+}
+
+.user_history .product-row,
+.user_history .row-order-item {
+    border-bottom: 1px solid #CCC;
+    padding-bottom: 20px;
+
+    margin-bottom: 20px;
+}
+
+.user_history .order-meta > div {
+    margin-bottom: 10px;
+}
+
+.user_history .items-wrap {
+    margin-bottom: 20px;
+}
+
+.cabinet-tab {
+    margin-top: 20px;
+
+}
+.cabinet-tab {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+
+.user_order .items-wrap .header {
+    font-weight: bold;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #CCC;
+    padding-bottom: 10px;
+}
+
+.meta-item {
+    margin-bottom: 15px;
+}
+
+.meta-item b {
+    color: #555;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.user_order .items-wrap {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #CCC;
+    padding-bottom: 10px;
+}
+
+.items-header {
+
+}

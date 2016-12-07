@@ -1,0 +1,20 @@
+.link {
+    color: #337AB7;
+    cursor: pointer;
+}
+
+.link:hover {
+    border-bottom: none;
+    color: #23527C;
+    text-decoration: underline;
+}
+
+.link-ajax {
+    border-bottom: 1px dotted;
+    text-decoration: none;
+}
+
+.link-ajax:hover {
+    border-bottom: 1px solid;
+    text-decoration: none;
+}

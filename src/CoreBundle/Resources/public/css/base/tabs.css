@@ -1,0 +1,10 @@
+.nav.nav-tabs > li > a {
+    position: relative;
+    display: block;
+    padding: 9px 15px;
+}
+
+.tab-pane-padding {
+    padding-left: 15px;
+    padding-right: 15px;
+}
