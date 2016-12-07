@@ -71,18 +71,36 @@ task('symfony:env_vars', function () {
 /*
 desc('Restart PHP-FPM service');
 task('php-fpm:restart', function () {
-    // The user must have rights for restart service
+    // The user must have rights for restart service php7.0-fpm.service
     // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart php-fpm.service
     run('sudo systemctl restart php-fpm.service');
 });
 after('deploy:symlink', 'php-fpm:restart');
 */
 
+task('php7.0-fpm:restart', function () {
+    // The user must have rights for restart service
+    // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart nginx.service
+    run('sudo systemctl restart php7.0-fpm.service');
+});
+
+task('php7.0-fpm:reload', function () {
+    // The user must have rights for restart service
+    // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart nginx.service
+    run('sudo systemctl reload php7.0-fpm.service');
+});
+
 
 task('nginx:restart', function () {
     // The user must have rights for restart service
     // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart nginx.service
     run('sudo systemctl restart nginx.service');
+});
+
+task('nginx:reload', function () {
+    // The user must have rights for restart service
+    // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart nginx.service
+    run('sudo systemctl reload nginx.service');
 });
 
 task('deploy:assetic:dump', function () {
@@ -110,8 +128,11 @@ task('install', [
     //'deploy:cache:warmup',
     'deploy:writable',
     'deploy:symlink',
-    'nginx:restart',
+
     'compo:install',
+    'php7.0-fpm:reload',
+    'nginx:reload',
+
     'deploy:unlock',
     'cleanup',
 ])->desc('Install your project');
@@ -135,7 +156,8 @@ task('deploy', [
     //'deploy:cache:warmup',
     'deploy:writable',
     'deploy:symlink',
-    'nginx:restart',
+    'php7.0-fpm:reload',
+    'nginx:reload',
     'compo:update',
     'deploy:unlock',
     'cleanup',
