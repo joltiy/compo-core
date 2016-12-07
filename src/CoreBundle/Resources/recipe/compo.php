@@ -78,13 +78,13 @@ task('php-fpm:restart', function () {
 after('deploy:symlink', 'php-fpm:restart');
 */
 
-task('php7.0-fpm:restart', function () {
+task('php-fpm:restart', function () {
     // The user must have rights for restart service
     // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart nginx.service
     run('sudo systemctl restart php7.0-fpm.service');
 });
 
-task('php7.0-fpm:reload', function () {
+task('php-fpm:reload', function () {
     // The user must have rights for restart service
     // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart nginx.service
     run('sudo systemctl reload php7.0-fpm.service');
