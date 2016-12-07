@@ -47,7 +47,6 @@ class AppKernel extends Kernel
             new \Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new \Spy\TimelineBundle\SpyTimelineBundle(),
             new \Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
-            //new \Liip\ImagineBundle\LiipImagineBundle(),
 
             new \WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
 
