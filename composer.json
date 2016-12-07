@@ -14,7 +14,7 @@
       "Compo\\MenuBundle\\": "src/MenuBundle",
       "Compo\\SeoBundle\\": "src/SeoBundle",
       "Compo\\Sonata\\": "src/Sonata",
-      "Pix\\SortableBehaviorBundle": "src/PixSortableBehaviorBundle"
+      "Pix\\SortableBehaviorBundle\\": "src/PixSortableBehaviorBundle"
     }
   },
   "require": {
