@@ -643,6 +643,7 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
 
                 $newCatalogItem = new Catalog();
             }
+            $this->changeIdGenerator($newCatalogItem);
 
             $newCatalogItem->setName($oldCatalogItem['header']);
             $newCatalogItem->setEnabled((bool)$oldCatalogItem['visible']);
@@ -653,7 +654,6 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
 
             $newCatalogItem->setDeliveryCost($oldCatalogItem['local_delivery_cost']);
 
-            $this->changeIdGenerator($newCatalogItem);
 
             if ($oldCatalogItem['parent']) {
                 $newCatalogItem->setParent($newCatalog[$oldCatalogItem['parent']]);
