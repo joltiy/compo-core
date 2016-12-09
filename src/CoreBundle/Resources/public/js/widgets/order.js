@@ -357,7 +357,7 @@
                 var title = $('option:selected', $(this)).text().trim();
 
                 $.post(
-                    "/ajax/setpayment/",
+                    Routing.generate('compo_basket_setpayment'),
                     {
                         id: pid
                     },
@@ -389,7 +389,7 @@
                 var title = $('option:selected', $(this)).text().trim();
 
                 $.post(
-                    "/ajax/setdelivery/",
+                    Routing.generate('compo_basket_setdelivery'),
                     {
                         id: pid
                     },
