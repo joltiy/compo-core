@@ -1251,7 +1251,7 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
                     $newCatalogItem->setName($old_complect_type['header']);
                     $newCatalogItem->setEnabled(1);
                     $newCatalogItem->setSlug($this->getContainer()->get('sonata.core.slugify.cocur')->slugify($old_complect_type['header']));
-                    $newCatalogItem->setParent($this->rootCatalog);
+                    $newCatalogItem->setParent($catalogRepository->findOneBy(array('lvl' => 0)));
 
                     $metadata = $this->em->getClassMetaData(get_class($newCatalogItem));
                     $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_AUTO);
@@ -1421,7 +1421,7 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
                     $newCatalogItem->setName($old_complect_type['header']);
                     $newCatalogItem->setEnabled(1);
                     $newCatalogItem->setSlug($this->getContainer()->get('sonata.core.slugify.cocur')->slugify($old_complect_type['header']));
-                    $newCatalogItem->setParent($this->rootCatalog);
+                    $newCatalogItem->setParent($catalogRepository->findOneBy(array('lvl' => 0)));
 
                     $metadata = $this->em->getClassMetaData(get_class($newCatalogItem));
                     $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_AUTO);

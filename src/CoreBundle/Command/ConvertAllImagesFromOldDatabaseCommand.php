@@ -215,6 +215,7 @@ class ConvertAllImagesFromOldDatabaseCommand extends ContainerAwareCommand
 
                 $command = $console . ' compo:convert_image_from_old_database --no-debug --name=' . $item_data['id'] . '.' . $item_data['type'] . ' --path=' . $this->oldMediaPath . $item_data['id'] . '.' . $item_data['type'];
 
+                $this->output->writeln($command);
 
                 $process = new Process($command);
 
