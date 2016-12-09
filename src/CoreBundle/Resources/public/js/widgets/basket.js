@@ -28,7 +28,9 @@
                 //$('body').append('<iframe style="display:none" name="storage" src="https://' + window.location.host + '/assets/compo/storage.html"></iframe>');
             }
 
-            if (basket_data == undefined || basket_data == null) {
+            if (true) {
+
+            //if (basket_data == undefined || basket_data == null) {
                 self.load();
             } else {
                 $(window).trigger("compo.basket.update", [basket_data]);
@@ -177,9 +179,10 @@
                 return;
             }
             self.is_process_load_data = true;
-            
+
+
             $.get(
-                "/ajax/getbasketdata/",
+                Routing.generate('compo_basket_data'),
                 {
                 },
                 function (data) {
@@ -274,7 +277,7 @@
         add: function (data) {
             var self = this;
 
-            var url = '/ajax/addproduct/';
+            var url = Routing.generate('compo_basket_add_product');
 
             $.post(
                 url,
@@ -321,7 +324,7 @@
             var self = this;
 
             $.post(
-                "/ajax/deleteproduct/",
+                Routing.generate('compo_basket_delete_product'),
                 {
                     id: data.item.id,
                     type: data.item.type
@@ -337,7 +340,7 @@
         changeQuantity: function (data) {
             var self = this;
 
-            var url = '/ajax/recountitem/';
+            var url = Routing.generate('compo_basket_recount_product');
 
             $.get(
                 url,

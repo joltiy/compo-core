@@ -6,6 +6,10 @@
         _create: function () {
             var self = this;
 
+            
+
+
+
             self.refreshVisible();
 
             self.element.find('.compare .value').text(compo.productsCompare.getCount() + ' шт.');

@@ -7,6 +7,7 @@ $(function ($) {
         pattern: "Неверный формат"
     });
 
+
     compo.analytics  = $.compo.analytics({
         yandexMetrikaId: window.yandex_metrika_id || '',
         userId: window.userId || null,
@@ -19,13 +20,20 @@ $(function ($) {
 
     compo.offer = $.compo.offer();
 
-    //compo.basket = $.compo.basket();
+    compo.basket = $.compo.basket();
 
-    //compo.order = $.compo.order();
+    compo.order = $.compo.order();
     
     compo.user = $.compo.user();
 
-    //compo.orderNavigation = $.compo.orderNavigation();
+
+
+
+
+
+
+
+    compo.orderNavigation = $.compo.orderNavigation();
 
     $.compo.reviews();
 

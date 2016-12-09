@@ -92,7 +92,8 @@
                     $('.order-wrap').show();
                 }
 
-                $('#compoBasket').html(data.top_basket);
+
+                $('#top_basket_products').html(data.stats.products);
 
 
                 $('.order-foot').replaceWith(data.order_foot_html);
@@ -212,6 +213,8 @@
                 });
             });
 
+
+
             $('.count input', row).change(function(){
                 var el = this;
 
@@ -220,6 +223,7 @@
                     type: $(el).data('type'),
                     count: $(el).val()
                 };
+
 
                 compo.basket.changeQuantity({item: item});
             });
