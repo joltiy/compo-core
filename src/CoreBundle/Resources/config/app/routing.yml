@@ -1,3 +1,7 @@
+compo_basket:
+    resource: "@CompoBasketBundle/Resources/config/routing.yml"
+    prefix:   /
+
 compo_product:
     resource: "@CompoProductBundle/Resources/config/routing.yml"
     prefix:   /
