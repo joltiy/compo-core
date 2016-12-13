@@ -1,9 +1,7 @@
-Compo Standard
-==============
+Compo Core
+==========
 
-http://engine.optipro.ru - Stage
-
-http://compo-standard.compodev24.ru
+Основные компоненты движка.
 
 ## Документация
 
@@ -40,3 +38,8 @@ http://compo-standard.compodev24.ru
   - [Создание админки](./doc/examples/create-admin.md)
   - [Создание CRUD](./doc/examples/create-crud.md)
   - [Создание переводов](./doc/examples/create-translations.md)
+
+### Проекты
+  - https://github.com/comporu/dlyavann
+  - https://github.com/comporu/keram
+  - https://github.com/comporu/mirplitki
