@@ -84,7 +84,7 @@
 
             $(window).on("compo.basket.update", function (event, data) {
 
-                if (data.stats.total == 0) {
+                if (data.quantity == 0) {
                     $('.order-empty').show();
                     $('.order-wrap').hide();
                 } else {
@@ -93,12 +93,12 @@
                 }
 
 
-                $('#top_basket_products').html(data.stats.products);
+                $('#top_basket_products').html(data.quantity);
 
 
                 $('.order-foot').replaceWith(data.order_foot_html);
 
-                $('.delivery-price-value').html(data.delivery);
+                $('.delivery-price-value').html(data.delivery_cost);
 
                 $('.payment-description').hide();
 
@@ -109,24 +109,8 @@
                 $('#delivery_description_id_' + data.delivery_id).show();
 
 
-                if (data.delivery_id != 3) {
-                    $('.address-wrap').show();
-                    //$('.lifting-wrap').show();
 
-                    $('#address').addClass('required');
-                } else {
-                    $('.address-wrap').hide();
-                    //$('.lifting-wrap').hide();
 
-                    $('#address').removeClass('required');
-
-                }
-
-                if (data.delivery_id == 4) {
-                    $('#kilometers').show();
-                } else {
-                    $('#kilometers').hide();
-                }
 
                 self.updateBasketIntems(data);
             });
@@ -159,7 +143,7 @@
 
             var products = {};
 
-            if (data.stats.total == 0) {
+            if (data.quantity == 0) {
                 $('.order-empty').show();
                 $('.order-wrap').hide();
             } else {
@@ -175,8 +159,8 @@
                 var product_id = $(this).data('id');
 
                 if (products[product_id] != undefined) {
-                    $('#product' + product_id).val(products[product_id].total);
-                    $('#total_' + product_id).html('<span>' + number_format(products[product_id].total_price, 0, ',', ' ') + ' р.</span>');
+                    $('#product' + product_id).val(products[product_id].quantity);
+                    $('#total_' + product_id).html('<span>' + number_format(products[product_id].total, 0, ',', ' ') + ' р.</span>');
 
                 } else {
                     $('#product_row_' + product_id).remove();
@@ -251,7 +235,7 @@
 
             var basket_data = compo.basket.getData();
 
-            if (basket_data != undefined && basket_data.stats.total == 0) {
+            if (basket_data != undefined && basket_data.quantity == 0) {
                 $('.order-empty').show();
                 $('.order-wrap').hide();
             } else {

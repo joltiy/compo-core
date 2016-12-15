@@ -39,7 +39,7 @@
             }
 
 
-            self.listenCookieChange();
+            //self.listenCookieChange();
 
             self.updateData();
 
@@ -78,25 +78,7 @@
 
         },
 
-        listenCookieChange: function () {
-            var self = this;
 
-            setInterval(function() {
-                if ($.cookie('basket_data_update') == 1) {
-                    if (window.location.protocol == 'http:' && $.cookie('basket_data_update_http') == 0) {
-                        $.cookie('basket_data_update', 0, { expires: 36000, path: '/', secure: false, domain: window.location.host });
-
-                        self.load();
-                    }
-
-                    if (window.location.protocol == 'https:' && $.cookie('basket_data_update_http') == 1) {
-                        $.cookie('basket_data_update', 0, { expires: 36000, path: '/', secure: false, domain: window.location.host });
-
-                        self.load();
-                    }
-                }
-            }, 1000);
-        },
 
         getData: function () {
             var self = this;
@@ -107,7 +89,7 @@
                 var data = self.data;
             }
 
-            if ($('#delivery-select option[value="' + 1 + '"]').length > 0) {
+            if ($('#delivery-select option').length > 0) {
 
 
                 if (data != undefined && data != null && data.delivery_id != undefined && data.delivery_id != null && $('#delivery-select option:selected').val() != data.delivery_id) {
@@ -116,13 +98,7 @@
                     $('#delivery-select').change();
                 }
 
-                if (data != undefined && data != null && data.delivery_min != undefined && data.delivery_min != null && parseInt(data.delivery_min) >= 800) {
-                    $('#delivery-select option[value="' + 1 + '"]').hide();
-                    $('#delivery-select option[value="' + 2 + '"]').hide();
-                } else {
-                    $('#delivery-select option[value="' + 1 + '"]').show();
-                    $('#delivery-select option[value="' + 2 + '"]').show();
-                }
+
             }
 
 
@@ -155,21 +131,8 @@
 
             $(window).trigger("compo.basket.update", [data]);
 
-            if (window.location.protocol == 'http:') {
-                $.cookie('basket_data_update_http', 1, { expires: 36000, path: '/', secure: false, domain: window.location.host });
-            } else {
-                $.cookie('basket_data_update_http', 0, { expires: 36000, path: '/', secure: false, domain: window.location.host });
-            }
 
             $.cookie('basket_data_update', 1, { expires: 36000, path: '/', secure: false, domain: window.location.host });
-
-            if (data != undefined && data != null && data.delivery_min != undefined && data.delivery_min != null && parseInt(data.delivery_min) >= 800) {
-                $('#delivery-select option[value="' + 1 + '"]').hide();
-                $('#delivery-select option[value="' + 2 + '"]').hide();
-            } else {
-                $('#delivery-select option[value="' + 1 + '"]').show();
-                $('#delivery-select option[value="' + 2 + '"]').show();
-            }
         },
 
         load: function () {
@@ -215,8 +178,8 @@
 
             var data = self.getData();
 
-            if (data != null && data.stats != undefined && data.stats.products != undefined) {
-                return data.stats.products;
+            if (data != null && data.quantity != undefined) {
+                return data.quantity;
             } else {
                 compo.basket.load();
 
@@ -229,8 +192,8 @@
 
             var data = self.getData();
 
-            if (data != null && data.stats != undefined && data.stats.total != undefined) {
-                return data.stats.total;
+            if (data != null && data.total != undefined) {
+                return data.total;
             } else {
                 compo.basket.load();
 

@@ -64,8 +64,8 @@
             $(window).on("compo.basket.update", function (event, data) {
                 self.element.find('.compare .value').text(data.compare.count + ' шт.');
 
-                self.element.find('.basket .count').text(data.stats.products + ' шт.');
-                self.element.find('.basket .sum').text(number_format(data.stats.total, 0, '.', ' ') + ' руб.');
+                self.element.find('.basket .count').text(data.quantity + ' шт.');
+                self.element.find('.basket .sum').text(number_format(data.total, 0, '.', ' ') + ' руб.');
 
 
                 self.refreshVisible();
@@ -89,7 +89,7 @@
             if (
                 compo.basket.getCount() == 0 && compo.productsCompare.getCount() == 0
             ||
-                (body.hasClass('page-compare') || body.hasClass('page-cart') || body.hasClass('page-order'))
+                (body.hasClass('page-compare') || body.hasClass('page-cart') || body.hasClass('page-order') || body.hasClass('compo_basket_cart'))
             ) {
                 self.element.hide();
                 $('.line-greyfix .basket').popover('hide');
@@ -100,7 +100,7 @@
             if (
                 compo.basket.getCount() == 0
                 &&
-                !(body.hasClass('page-compare') || body.hasClass('page-cart') || body.hasClass('page-order'))
+                !(body.hasClass('page-compare') || body.hasClass('page-cart') || body.hasClass('page-order') || body.hasClass('compo_basket_cart'))
             ) {
                 $('.line-greyfix .basket').popover('hide');
                 $('.order-empty').hide();
@@ -143,7 +143,7 @@
 
                 var basket_data = compo.basket.getData();
 
-                if (!basket_data.stats.total) {
+                if (!basket_data.quantity) {
                     return;
                 }
 
@@ -187,7 +187,7 @@
             }).on("click", function (e) {
                 var basket_data = compo.basket.getData();
 
-                if (!basket_data.stats.total) {
+                if (!basket_data.quantity) {
                     return;
                 }
 
@@ -203,7 +203,7 @@
 
                 var basket_data = compo.basket.getData();
 
-                if (basket_data.stats.total == 0) {
+                if (basket_data.quantity == 0) {
                     $('.order-empty').show();
                     $('.order-wrap').hide();
                 } else {

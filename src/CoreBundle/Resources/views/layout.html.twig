@@ -30,6 +30,7 @@
             <link rel="stylesheet" href="{{ asset_url }}" media="all"/>
             {% endstylesheets %}
 
+
             {% stylesheets
             '@sonata_front_css'
             output='assetic/sonata_front_css.css'
@@ -40,7 +41,7 @@
     </head>
 {% endblock %}
 
-{% set body_class = '' %}
+{% set body_class = app.request.get('_route') %}
 
 {% if sonata_page.isEditor or ( app.user and is_granted('ROLE_PREVIOUS_ADMIN') ) %}
     {% set body_class = body_class ~ ' is-editor' %}

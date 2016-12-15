@@ -84,7 +84,7 @@
     margin-bottom: 15px;
     width: 109px;
     height: 32px;
-    background: url('/img/sprite.png') -445px 0 no-repeat;
+    background: url('../../../img/sprite.png') -445px 0 no-repeat;
 }
 
 .goods-table .box-buy a.add-compare {
@@ -100,7 +100,7 @@
     top: 3px;
     width: 24px;
     height: 24px;
-    background: url('/img/sprite.png') -42px -24px no-repeat;
+    background: url('../../../img/sprite.png') -42px -24px no-repeat;
 }
 
 .goods-table a.h1 {
@@ -248,7 +248,7 @@
     display: block;
     width: 24px;
     height: 24px;
-    background: url('/img/checkbox-fn.png') 0 0 no-repeat;
+    background: url('../../../img/checkbox-fn.png') 0 0 no-repeat;
     cursor: pointer;
 }
 

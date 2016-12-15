@@ -12,12 +12,12 @@
 }
 
 .discount-percent-25 {
-    background-image: url('/img/sun-orange.png');
+    background-image: url('../../../img/sun-orange.png');
     color: #FF7F00;
 }
 
 .discount-percent-50 {
-    background-image: url('/img/sun-red.png');
+    background-image: url('../../../img/sun-red.png');
     color: #F00;
 }
 

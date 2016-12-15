@@ -214,7 +214,7 @@ div#tab-description {
     margin-right: .4em;
     line-height: 16px;
     vertical-align: text-top;
-    background: url("/img/icons.png") no-repeat 0 0;
+    background: url("../../../img/icons.png") no-repeat 0 0;
 }
 
 .icon-money {
@@ -304,7 +304,7 @@ ul.features.features-options {
     top: 0;
     right: 0;
     height: 150px;
-    background: #e5ecf2 url('/img/bg-in.jpg') 0 0 no-repeat;
+    background: #e5ecf2 url('../../../img/bg-in.jpg') 0 0 no-repeat;
     padding: 0 0 0 0px;
     width: 158px;
     color: #999;
@@ -376,13 +376,13 @@ ul.features.features-options {
 
 #slider-sostav .nav-sostav a.pre {
     float: right;
-    background: url('/img/sprite.png') -165px -24px no-repeat;
+    background: url('../../../img/sprite.png') -165px -24px no-repeat;
     margin-right: 18px;
 }
 
 #slider-sostav .nav-sostav a.next {
     float: left;
-    background: url('/img/sprite.png') -141px -24px no-repeat;
+    background: url('../../../img/sprite.png') -141px -24px no-repeat;
 }
 
 #slider-sostav .body-sostav .blovk {
@@ -420,7 +420,7 @@ ul.features.features-options {
     top: -15px;
     width: 119px;
     height: 176px;
-    background: url('/img/gerb.png') 0 0 no-repeat;
+    background: url('../../../img/gerb.png') 0 0 no-repeat;
     z-index: 1;
     cursor: default;
 }

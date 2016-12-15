@@ -1,6 +1,6 @@
 .review-nf {
     padding: 18px 30px 15px 80px;
-    background: #e9f2fb url('/img/qw.png') 30px 19px no-repeat;
+    background: #e9f2fb url('../../../img/qw.png') 30px 19px no-repeat;
     margin-top: 25px;
     position: relative;
     min-height: 20px;

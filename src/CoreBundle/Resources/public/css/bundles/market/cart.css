@@ -27,7 +27,7 @@
     margin-right: .4em;
     line-height: 16px;
     vertical-align: text-top;
-    background: url("/img/icons.png") no-repeat 0 0;
+    background: url("../../../img/icons.png") no-repeat 0 0;
 }
 
 .nav-basket a u {
@@ -176,7 +176,7 @@
     display: block;
     width: 17px;
     height: 17px;
-    background: url('/img/sprite.png') -42px -48px no-repeat;
+    background: url('../../../img/sprite.png') -42px -48px no-repeat;
 }
 
 #CompoBasketMain tbody td, #CompoBasketMain tfoot td {
@@ -196,18 +196,18 @@
 }
 
 .list-divel .ic-men {
-    background: url('/img/icon-men.png') 100% 50% no-repeat;
+    background: url('../../../img/icon-men.png') 100% 50% no-repeat;
 }
 
 
 
 
 .list-divel .ic-car {
-    background: url('/img/icon-car.png') 100% 50% no-repeat;
+    background: url('../../../img/icon-car.png') 100% 50% no-repeat;
 }
 
 .list-divel .ic-bag {
-    background: url('/img/icon-bagaj.png') 100% 50% no-repeat;
+    background: url('../../../img/icon-bagaj.png') 100% 50% no-repeat;
 }
 
 .h-ttu {
@@ -259,7 +259,7 @@
 }
 
 .list-pay .ic-nal {
-    background: url('/img/icon-stmon.png') 20px 0 no-repeat;
+    background: url('../../../img/icon-stmon.png') 20px 0 no-repeat;
 }
 
 .list-pay label {
@@ -281,11 +281,11 @@
 }
 
 .list-pay .ic-beznal {
-    background: url('/img/ic-card.png') 20px 0 no-repeat;
+    background: url('../../../img/ic-card.png') 20px 0 no-repeat;
 }
 
 .list-pay .ic-kredit {
-    background: url('/img/ic-cart2.png') 20px 0 no-repeat;
+    background: url('../../../img/ic-cart2.png') 20px 0 no-repeat;
 }
 
 .line2 {

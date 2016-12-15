@@ -145,11 +145,15 @@ body.is-editor #container {
     text-align: center;
 }
 
+.filter-item.not-found .inputs,
+.filter-item.not-found .slider-input-wrap,
+.filter-item.not-found .filter-label,
 .brands-wrap .not-found,
 .filter-item .not-found {
     opacity: 0.5;
     cursor: not-allowed;
 }
+
 
 
 
@@ -159,4 +163,17 @@ body.is-editor #container {
 
 .brands-wrap .collections .link-ajax {
     margin-bottom: 10px;
+    display: inline-block;
+}
+
+.catalog-filter-block .panel-title.active {
+    color: #DE6000;
+}
+
+.catalog-filter-block .panel-title.active:hover {
+    color: #FFF;
+}
+
+.catalog-filter-block .panel-heading {
+    padding-right: 0;
 }
