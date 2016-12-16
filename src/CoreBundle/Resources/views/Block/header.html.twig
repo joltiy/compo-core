@@ -67,7 +67,9 @@
                     <div id="compoBasket" class="">
                         <a href="/login/" class="btn btn-info login"><span class="font-icon fa fa-user"></span> Войти</a>
 
-                        <button type="button" class="btn btn-info cart"><span class="font-icon fa fa-shopping-cart"></span> <span id="top_basket_products">0</span></button>
+
+                        <a href="{{ path('compo_basket_cart') }}" rel="nofollow" class="btn btn-success cart"><span class="font-icon fa fa-shopping-cart"></span> <span class="count"><b><span id="top_basket_products">0</span></b></span></a>
+
                     </div>
                     <!--/noindex-->
                 </div>
