@@ -306,10 +306,10 @@
 
 
                 $(this).find('.btn').button('loading');
-
+// compo_order_create
                 $.ajax({
                     type: "POST",
-                    url: "/order/",
+                    url: Routing.generate('compo_order_create'),
                     data: data,
                     success: function(response){
                         swal(
