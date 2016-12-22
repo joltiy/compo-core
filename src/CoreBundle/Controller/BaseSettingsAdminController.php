@@ -26,7 +26,7 @@ class BaseSettingsAdminController extends SettingsController
     /**
      * @param string $translationDomain
      */
-    public function setTranslationDomain(string $translationDomain)
+    public function setTranslationDomain( $translationDomain)
     {
         $this->translationDomain = $translationDomain;
     }

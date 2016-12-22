@@ -52,7 +52,7 @@ class BaseSettingsAdmin extends Admin
     /**
      * @return string
      */
-    public function getNamespase(): string
+    public function getNamespase()
     {
         return $this->namespase;
     }
@@ -60,7 +60,7 @@ class BaseSettingsAdmin extends Admin
     /**
      * @param string $namespase
      */
-    public function setNamespase(string $namespase)
+    public function setNamespase( $namespase)
     {
         $this->namespase = $namespase;
     }
@@ -68,7 +68,7 @@ class BaseSettingsAdmin extends Admin
     /**
      * @return string
      */
-    public function getBaseRouteName(): string
+    public function getBaseRouteName()
     {
         return $this->baseRouteName;
     }
@@ -76,7 +76,7 @@ class BaseSettingsAdmin extends Admin
     /**
      * @param string $baseRouteName
      */
-    public function setBaseRouteName(string $baseRouteName)
+    public function setBaseRouteName( $baseRouteName)
     {
         $this->baseRouteName = $baseRouteName;
 
@@ -86,7 +86,7 @@ class BaseSettingsAdmin extends Admin
     /**
      * @return string
      */
-    public function getBaseRoutePattern(): string
+    public function getBaseRoutePattern()
     {
         return $this->baseRoutePattern;
     }
@@ -94,7 +94,7 @@ class BaseSettingsAdmin extends Admin
     /**
      * @param string $baseRoutePattern
      */
-    public function setBaseRoutePattern(string $baseRoutePattern)
+    public function setBaseRoutePattern( $baseRoutePattern)
     {
         $this->baseRoutePattern = $baseRoutePattern;
     }

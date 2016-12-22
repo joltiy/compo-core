@@ -24,7 +24,7 @@ class BaseAdminSettingsSchema implements SchemaInterface
     /**
      * @return string
      */
-    public function getBaseRouteName(): string
+    public function getBaseRouteName()
     {
         return $this->baseRouteName;
     }
@@ -32,7 +32,7 @@ class BaseAdminSettingsSchema implements SchemaInterface
     /**
      * @param string $baseRouteName
      */
-    public function setBaseRouteName(string $baseRouteName)
+    public function setBaseRouteName( $baseRouteName)
     {
         $this->baseRouteName = $baseRouteName;
     }
@@ -41,7 +41,7 @@ class BaseAdminSettingsSchema implements SchemaInterface
     /**
      * @return string
      */
-    public function getTranslationDomain(): string
+    public function getTranslationDomain()
     {
         return $this->translationDomain;
     }
@@ -49,7 +49,7 @@ class BaseAdminSettingsSchema implements SchemaInterface
     /**
      * @param string $translationDomain
      */
-    public function setTranslationDomain(string $translationDomain)
+    public function setTranslationDomain( $translationDomain)
     {
         $this->translationDomain = $translationDomain;
     }

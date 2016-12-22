@@ -19,4 +19,8 @@ twig:
 
     globals:
         catalog_manager: "@compo_catalog.manager.catalog"
+        product_manager: "@compo_product.manager.product"
+        manufacture_manager: "@compo_manufacture.manager.manufacture"
+        manufacture_collection_manager: "@compo_manufacture.manager.manufacture_collection"
+
         ivory_ck_editor_plugin_manager: "@ivory_ck_editor.plugin_manager"
