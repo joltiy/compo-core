@@ -14,7 +14,7 @@ trait ImageEntityTrait
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     protected $image;
-    
+
     /**
      * @return mixed
      */

@@ -208,24 +208,17 @@ class Admin extends BaseAdmin
     }
 
     /**
-     * @param \Sonata\AdminBundle\Route\RouteCollection $collection
+     * @param null $name
+     *
+     * @return \Doctrine\Common\Persistence\ObjectRepository
      */
-    protected function configureRoutes(RouteCollection $collection)
+    public function getRepository($name = null)
     {
-        parent::configureRoutes($collection);
-
-        if ($this->treeEnabled) {
-            $collection->add('tree', 'tree', array('_controller' => $this->baseControllerName . ':tree'));
-            $collection->add('move', 'move', array('_controller' => $this->baseControllerName . ':move'));
+        if ($name) {
+            return $this->getDoctrine()->getRepository($name);
+        } else {
+            return $this->getDoctrine()->getRepository($this->getClass());
         }
-    }
-
-    /**
-     * @return null|\Symfony\Component\DependencyInjection\ContainerInterface
-     */
-    public function getContainer()
-    {
-        return $this->getConfigurationPool()->getContainer();
     }
 
     /**
@@ -237,16 +230,23 @@ class Admin extends BaseAdmin
     }
 
     /**
-     * @param null $name
-     *
-     * @return \Doctrine\Common\Persistence\ObjectRepository
+     * @return null|\Symfony\Component\DependencyInjection\ContainerInterface
      */
-    public function getRepository($name = null)
+    public function getContainer()
     {
-        if ($name) {
-            return $this->getDoctrine()->getRepository($name);
-        } else {
-            return $this->getDoctrine()->getRepository($this->getClass());
+        return $this->getConfigurationPool()->getContainer();
+    }
+
+    /**
+     * @param \Sonata\AdminBundle\Route\RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        parent::configureRoutes($collection);
+
+        if ($this->treeEnabled) {
+            $collection->add('tree', 'tree', array('_controller' => $this->baseControllerName . ':tree'));
+            $collection->add('move', 'move', array('_controller' => $this->baseControllerName . ':move'));
         }
     }
 }

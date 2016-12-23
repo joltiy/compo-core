@@ -23,6 +23,8 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class TreeSelectorType extends AbstractType
 {
+    /** @noinspection PhpDeprecationInspection */
+    /** @noinspection PhpDeprecationInspection */
 
     /**
      * {@inheritdoc}

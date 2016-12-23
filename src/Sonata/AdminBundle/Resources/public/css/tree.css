@@ -19,9 +19,11 @@
     margin-top: -1px;
     overflow: hidden;
 }
+
 .tree ul li > div.node {
     background-color: #FFF;
 }
+
 .tree ul li.node-placeholder {
     margin: 5px 0;
     background: #f1f5c9;

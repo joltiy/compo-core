@@ -20,8 +20,8 @@ function fillmanufactureCollection() {
 
             $("select.manufactureCollection-select2").append('<option value=""></option>');
 
-            $.each(data, function( index, value ) {
-                var option = $('<option value="'+value.id+'">' + value.text + '</option>');
+            $.each(data, function (index, value) {
+                var option = $('<option value="' + value.id + '">' + value.text + '</option>');
 
                 if (value.id == manufactureCollection) {
                     option.attr('selected', 'selected');
@@ -37,8 +37,6 @@ function fillmanufactureCollection() {
 }
 
 
-
-
 function setCookie(key, value) {
     var expires = new Date();
     expires.setTime(expires.getTime() + (1 * 24 * 60 * 60 * 1000));
@@ -50,10 +48,8 @@ function getCookie(key) {
 }
 
 
-
-
 function initOrderElements() {
-    $('div[id*=_elements] td[class*=elements-quantity] input').change(function(){
+    $('div[id*=_elements] td[class*=elements-quantity] input').change(function () {
         var quantity_input = $(this);
 
 
@@ -66,8 +62,7 @@ function initOrderElements() {
     });
 
 
-
-    $('div[id*=_elements] td[class*=elements-price] input').change(function(){
+    $('div[id*=_elements] td[class*=elements-price] input').change(function () {
         var price_input = $(this);
 
 
@@ -79,7 +74,7 @@ function initOrderElements() {
         total_input.change();
     });
 
-    $('div[id*=_elements] td[class*=elements-total] input').change(function(){
+    $('div[id*=_elements] td[class*=elements-total] input').change(function () {
 
         var total = 0;
 
@@ -99,7 +94,6 @@ function initOrderElements() {
         var order_delivery_cost = $('.order_delivery_cost');
 
 
-
         $('.order_total_cost').val(parseFloat(order_delivery_cost.val()) + total);
 
     });
@@ -107,7 +101,7 @@ function initOrderElements() {
 }
 
 
-Admin.shared_setup = function(subject) {
+Admin.shared_setup = function (subject) {
     Admin.log("[core|shared_setup] Register services on", subject);
     Admin.set_object_field_value(subject);
     Admin.add_filters(subject);
@@ -128,14 +122,9 @@ Admin.shared_setup = function(subject) {
 };
 
 
-
-
 $(document).ready(function () {
 
     initOrderElements();
-
-
-
 
 
     $('.order_delivery_cost').change(function () {
@@ -145,12 +134,6 @@ $(document).ready(function () {
 
         $('.order_total_cost').val(parseFloat(order_delivery_cost.val()) + parseFloat(order_total.val()));
     });
-
-
-
-
-
-
 
 
     // Fix for row width on sortable
@@ -195,29 +178,6 @@ $(document).ready(function () {
     });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     $('.table-th-_delete').click(function () {
         var el = $(this);
 
@@ -235,10 +195,6 @@ $(document).ready(function () {
     });
 
 
-
-
-
-
     $(".sonata-ba-collapsed-fields [name*=enabled],.sonata-ba-collapsed-fields [name*=noIndexEnabled],.sonata-ba-collapsed-fields [name*=yandexMarketEnabled]")
         .bootstrapSwitch({
             size: 'mini',
@@ -249,14 +205,11 @@ $(document).ready(function () {
         .css('background-image', 'none');
 
 
-
-
-
     var tab_active = $('.sonata-ba-form .nav-tabs li.active a');
 
     if (tab_active.length > 0) {
-        var form = $( tab_active ).closest( "form" );
-        var el = $( tab_active );
+        var form = $(tab_active).closest("form");
+        var el = $(tab_active);
 
         form.attr('action', form.attr('action') + '&current_tab_index=' + el.data('index'));
 
@@ -266,21 +219,13 @@ $(document).ready(function () {
 
     $(document).on('click', '.sonata-ba-form .nav-tabs a', function (event) {
 
-        var form = $( event.target ).closest( "form" );
-        var el = $( event.target );
+        var form = $(event.target).closest("form");
+        var el = $(event.target);
 
         form.attr('action', form.attr('action') + '&current_tab_index=' + el.data('index'));
 
         history.replaceState(history.state, document.title, event.target.href);
     });
-
-
-
-
-
-
-
-
 
 
     $('.product-catalog-tree li').each(function () {
@@ -301,7 +246,6 @@ $(document).ready(function () {
             badge_first.text(count);
         }
     });
-
 
 
     $('.tree ul.tree-list').nestedSortable({
@@ -341,7 +285,6 @@ $(document).ready(function () {
             var id = ui.item.find('.node-item').first().data('id');
 
 
-
             ui.item.css('background', '#f1f5c9');
 
 
@@ -373,7 +316,7 @@ $(document).ready(function () {
                     }
 
                 });
-            } else if((lvl !== lvl_old || position == 'append') && root == target) {
+            } else if ((lvl !== lvl_old || position == 'append') && root == target) {
 
             } else if (target != id) {
                 $.get(ui.item.data('move-url') + '&target=' + target + '&position=' + position, function (data) {
@@ -404,9 +347,6 @@ $(document).ready(function () {
     });
 
 
-
-
-
     $('a.open-tree').each(function () {
         if (getCookie($(this).data('alias') + '.' + $(this).data('id')) == 'opened') {
             $(this).find('i').removeClass('fa-folder').addClass('fa-folder-open');
@@ -427,14 +367,6 @@ $(document).ready(function () {
         }
         return false;
     });
-
-
-
-
-
-
-
-
 
 
     $(".manufacture-select2").on("change", function (e) {

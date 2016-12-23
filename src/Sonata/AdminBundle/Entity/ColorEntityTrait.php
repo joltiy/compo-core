@@ -18,18 +18,9 @@ trait ColorEntityTrait
      */
     protected $color;
 
-    /**
-     * Set color
-     *
-     * @param string $color
-     *
-     * @return self
-     */
-    public function setColor($color)
+    public function getColorHtml()
     {
-        $this->color = $color;
-
-        return $this;
+        return '<i class="fa fa-square" style="color: ' . $this->getColor() . ';"></i>';
     }
 
     /**
@@ -42,8 +33,17 @@ trait ColorEntityTrait
         return $this->color;
     }
 
+    /**
+     * Set color
+     *
+     * @param string $color
+     *
+     * @return self
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
 
-    public function getColorHtml() {
-        return '<i class="fa fa-square" style="color: ' . $this->getColor(). ';"></i>';
+        return $this;
     }
 }

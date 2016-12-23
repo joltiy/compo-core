@@ -15,7 +15,7 @@ file that was distributed with this source code.
     <div class="col-xs-12 col-md-12">
         {% set batchactions = admin.batchactions %}
         {% if admin.hasRoute('batch') and batchactions|length %}
-        <form action="{{ admin.generateUrl('batch', {'filter': admin.filterParameters}) }}" method="POST" >
+        <form action="{{ admin.generateUrl('batch', {'filter': admin.filterParameters}) }}" method="POST">
             <input type="hidden" name="_sonata_csrf_token" value="{{ csrf_token }}">
             {% endif %}
 
@@ -104,7 +104,7 @@ file that was distributed with this source code.
                             <div class="form-inline clearfix">
                                 {% if not app.request.isXmlHttpRequest %}
                                     <div class="pull-left">
-                                        {% if admin.hasRoute('batch') and batchactions|length > 0  %}
+                                        {% if admin.hasRoute('batch') and batchactions|length > 0 %}
                                             {% block batch %}
                                                 <script>
                                                     {% block batch_javascript %}

@@ -14,7 +14,7 @@ label {
 }
 
 /* Fix. Пагинация. Вертикальное выравниквание */
-.num_pages, .num_results{
+.num_pages, .num_results {
     line-height: 30px;
     display: inline-block;
     vertical-align: middle;
@@ -36,9 +36,8 @@ label {
     vertical-align: top;
 }
 
-
 /* Fix. Список объектов. Вертикальное выравниквание */
-.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
     line-height: 28px;
 }
 
@@ -83,18 +82,9 @@ label {
     padding-top: 0;
 }
 
-
-
-
-
-
-
-
-
 .page-tree {
     padding-top: 15px;
 }
-
 
 .select2-container .select2-choice {
     line-height: 30px;
@@ -229,7 +219,6 @@ td[class*='-position'] .sonata-ba-sortable-handler {
 }
 */
 
-
 .media-description {
     max-width: 300px;
     overflow: hidden;
@@ -239,14 +228,13 @@ td[class*='-position'] .sonata-ba-sortable-handler {
     padding-top: 10px;
 }
 
-
 div[id*='catalogAdditionals'].field-container .select2-search-choice {
     float: none !important;
     display: block;
     line-height: 20px;
 }
 
-div[id*='catalogAdditionals'].field-container .select2-search-choice div{
+div[id*='catalogAdditionals'].field-container .select2-search-choice div {
     line-height: 20px;
 }
 
@@ -267,8 +255,6 @@ div[id*='catalogAdditionals'].field-container .select2-container-multi .select2-
     background-color: #fffce6 !important;
 }
 
-
-
 .sonata-ba-list-field-header-_action {
     width: 1%;
     text-align: center;
@@ -282,11 +268,10 @@ div[id*='catalogAdditionals'].field-container .select2-container-multi .select2-
     white-space: nowrap;
 }
 
-
-
 .input-group {
     width: 100%;
 }
+
 .input-group.date {
     max-width: 220px;
 }
@@ -331,14 +316,13 @@ th.table-th-total {
     min-width: 160px;
 }
 
-
-
 /* Fix. Chekbox switch position */
 .col-sm-9.checkbox-widget {
     padding-left: 8px;
     padding-top: 0;
     padding-bottom: 7px;
 }
+
 .col-sm-9.checkbox-widget label.control-label.col-sm-3 {
     display: none;
 }
@@ -353,9 +337,6 @@ th.table-th-total {
 .form-horizontal .checkbox, .form-horizontal .checkbox-inline, .form-horizontal .radio, .form-horizontal .radio-inline {
     padding-top: 0;
 }
-
-
-
 
 /* Действия для поля в форме, например "Добавить" у выбодащего списка M:1 */
 .sonata-ba-field-standard-natural .field-actions {

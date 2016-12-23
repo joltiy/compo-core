@@ -15,6 +15,15 @@ trait AliasEntityTrait
      */
     protected $alias;
 
+    /**
+     * Get alias
+     *
+     * @return string
+     */
+    public function getAlias()
+    {
+        return $this->alias;
+    }
 
     /**
      * Set alias
@@ -28,15 +37,5 @@ trait AliasEntityTrait
         $this->alias = $alias;
 
         return $this;
-    }
-
-    /**
-     * Get alias
-     *
-     * @return string
-     */
-    public function getAlias()
-    {
-        return $this->alias;
     }
 }

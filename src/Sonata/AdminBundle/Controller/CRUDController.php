@@ -143,14 +143,14 @@ class CRUDController extends BaseCRUDController
                     break;
                 case 'after':
                     $repo->persistAsNextSiblingOf($currentNode, $targetNode);
-/*
-                    if ($currentNode->getLft() < $targetNode->getLft() ) {
-                        $repo->persistAsNextSiblingOf($currentNode, $targetNode);
+                    /*
+                                        if ($currentNode->getLft() < $targetNode->getLft() ) {
+                                            $repo->persistAsNextSiblingOf($currentNode, $targetNode);
 
-                    } else {
-                        $repo->persistAsNextSiblingOf($targetNode, $currentNode);
-                    }
-*/
+                                        } else {
+                                            $repo->persistAsNextSiblingOf($targetNode, $currentNode);
+                                        }
+                    */
                     break;
                 case 'append':
                     $repo->persistAsLastChildOf($currentNode, $targetNode);
@@ -274,7 +274,21 @@ class CRUDController extends BaseCRUDController
 
     }
 
+    /**
+     * @return Admin
+     */
+    public function getAdmin()
+    {
+        return $this->admin;
+    }
 
+    /**
+     * @param Admin $admin
+     */
+    public function setAdmin(Admin $admin)
+    {
+        $this->admin = $admin;
+    }
 
     /**
      * Contextualize the admin class depends on the current request
@@ -284,13 +298,12 @@ class CRUDController extends BaseCRUDController
     protected function configure()
     {
         parent::configure();
-        
+
         if (isset($this->admin->treeEnabled) && $this->admin->treeEnabled) {
             $this->admin->setTemplate('tree', 'CompoSonataAdminBundle:Tree:tree.html.twig');
             $this->admin->setTemplate('list', 'CompoSonataAdminBundle:Tree:list.html.twig');
         }
     }
-
 
     /**
      * {@inheritDoc}
@@ -339,22 +352,6 @@ class CRUDController extends BaseCRUDController
         }
 
         return new RedirectResponse($url);
-    }
-
-    /**
-     * @return Admin
-     */
-    public function getAdmin()
-    {
-        return $this->admin;
-    }
-
-    /**
-     * @param Admin $admin
-     */
-    public function setAdmin(Admin $admin)
-    {
-        $this->admin = $admin;
     }
 
 
