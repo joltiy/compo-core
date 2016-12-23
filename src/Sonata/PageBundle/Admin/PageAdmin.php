@@ -11,10 +11,9 @@
 
 namespace Compo\Sonata\PageBundle\Admin;
 
-use Doctrine\DBAL\Query\QueryBuilder;
-use Elastica\QueryBuilder\DSL\Query;
-use Knp\Menu\ItemInterface as MenuItemInterface;
+
 use Compo\Sonata\AdminBundle\Admin\Admin;
+use Knp\Menu\ItemInterface as MenuItemInterface;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -29,6 +28,9 @@ use Sonata\PageBundle\Model\SiteInterface;
 use Sonata\PageBundle\Model\SiteManagerInterface;
 
 
+/**
+ * {@inheritDoc}
+ */
 class PageAdmin extends Admin
 {
 

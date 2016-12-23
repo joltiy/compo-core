@@ -35,13 +35,12 @@ class MediaAdmin extends \Sonata\MediaBundle\Admin\ORM\MediaAdmin
             ->add('enabled')
             ->add('width')
             ->add('height')
-            ->add('contentType')
-        ;
+            ->add('contentType');
 
         $providers = array();
 
         /** @noinspection PhpMethodParametersCountMismatchInspection */
-        $providerNames = (array) $this->pool->getProviderNamesByContext($this->getPersistentParameter('context', $this->pool->getDefaultContext()));
+        $providerNames = (array)$this->pool->getProviderNamesByContext($this->getPersistentParameter('context', $this->pool->getDefaultContext()));
         foreach ($providerNames as $name) {
             $providers[$name] = $name;
         }
@@ -67,8 +66,7 @@ class MediaAdmin extends \Sonata\MediaBundle\Admin\ORM\MediaAdmin
             ->add('description')
             ->add('size')
             ->add('createdAt')
-            ->add('enabled')
-        ;
+            ->add('enabled');
     }
 
     /**

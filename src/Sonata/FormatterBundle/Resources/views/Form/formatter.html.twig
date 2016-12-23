@@ -13,24 +13,24 @@
     <script>
         var {{ source_id }}_rich_instance = false;
 
-        jQuery(document).ready(function() {
+        jQuery(document).ready(function () {
 
             // This code requires CKEDITOR and jQuery MarkItUp
             if (typeof CKEDITOR === 'undefined' || jQuery().markItUp == undefined) {
                 return;
             }
 
-            var isInstanceActive = isInstanceActive || function(instance){
-                return instance && instance.status !== "destroyed";
-            };
+            var isInstanceActive = isInstanceActive || function (instance) {
+                    return instance && instance.status !== "destroyed";
+                };
 
-            jQuery('#{{ form.children[format_field].vars.id }}').parents("form").on('click', function() {
+            jQuery('#{{ form.children[format_field].vars.id }}').parents("form").on('click', function () {
                 if (isInstanceActive({{ source_id }}_rich_instance)) {
                     {{ source_id }}_rich_instance.updateElement();
                 }
             });
 
-            jQuery('#{{ form.children[format_field].vars.id }}').change(function() {
+            jQuery('#{{ form.children[format_field].vars.id }}').change(function () {
                 var elms = jQuery('#{{ form.children[source_field].vars.id }}');
                 elms.markItUpRemove();
                 if (isInstanceActive({{ source_id }}_rich_instance)) {
@@ -39,7 +39,7 @@
 
                 var val = jQuery(this).val();
                 var appendClass = val;
-                switch(val) {
+                switch (val) {
                     case 'textile':
                         elms.markItUp(markitup_sonataTextileSettings);
                         break;
@@ -55,13 +55,11 @@
                         break;
                     case 'richhtml':
 
-                        {% for plugin_name, plugin in ivory_ck_editor_plugin_manager.plugins %}
-                        {{ ckeditor_plugin(plugin_name, plugin) }}
-                        {% endfor %}
+                    {% for plugin_name, plugin in ivory_ck_editor_plugin_manager.plugins %}
+                    {{ ckeditor_plugin(plugin_name, plugin) }}
+                    {% endfor %}
 
-                        {{ source_id }}_rich_instance = {{
-                            ckeditor_widget(form.children[source_field].vars.id, ckeditor_configuration)
-                        }};
+                        {{ source_id }}_rich_instance = {{ ckeditor_widget(form.children[source_field].vars.id, ckeditor_configuration) }};
                 }
 
                 var parent = elms.parents('div.markItUp');
@@ -89,7 +87,7 @@
     {{ form_widget(form) }}
 
     <script>
-        jQuery(document).ready(function() {
+        jQuery(document).ready(function () {
             // This code requires CKEDITOR and jQuery MarkItUp
             if (typeof CKEDITOR === 'undefined' || jQuery().markItUp == undefined) {
                 return;
@@ -98,19 +96,19 @@
             var elms = jQuery('#{{ form.vars.id }}');
 
             {% if format == 'textile' %}
-                elms.markItUp(markitup_sonataTextileSettings);
+            elms.markItUp(markitup_sonataTextileSettings);
             {% elseif format == 'markdown' %}
-                elms.markItUp(markitup_sonataMarkdownSettings);
+            elms.markItUp(markitup_sonataMarkdownSettings);
             {% elseif format == 'bbcode' %}
-                elms.markItUp(markitup_sonataBBCodeSettings);
+            elms.markItUp(markitup_sonataBBCodeSettings);
             {% elseif format == 'rawhtml' %}
-                elms.markItUp(markitup_sonataHtmlSettings);
+            elms.markItUp(markitup_sonataHtmlSettings);
             {% elseif format == 'richhtml' %}
-                {% for plugin_name, plugin in ivory_ck_editor_plugin_manager.plugins %}
-                {{ ckeditor_plugin(plugin_name, plugin) }}
-                {% endfor %}
+            {% for plugin_name, plugin in ivory_ck_editor_plugin_manager.plugins %}
+            {{ ckeditor_plugin(plugin_name, plugin) }}
+            {% endfor %}
 
-                {{ ckeditor_widget(form.vars.id, ckeditor_configuration) }}
+            {{ ckeditor_widget(form.vars.id, ckeditor_configuration) }}
             {% endif %}
 
             var parent = elms.parents('div.markItUp');

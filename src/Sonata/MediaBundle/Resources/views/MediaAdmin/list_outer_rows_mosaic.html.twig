@@ -23,10 +23,10 @@ file that was distributed with this source code.
         ({{ object.length }})
     {% endif %}
 
-    <br />
+    <br/>
 
     {% if object.authorname is not empty %}
-       {{ object.authorname }}
+        {{ object.authorname }}
     {% endif %}
 
     {% if object.copyright is not empty and object.authorname is not empty %}
@@ -35,8 +35,8 @@ file that was distributed with this source code.
 
     {% if object.copyright is not empty %}
         &copy; {{ object.copyright }}
-    {% endif  %}
-    <br />
+    {% endif %}
+    <br/>
 
     {{ object.createdAt|date("d.m.Y H:i:s") }}
 
