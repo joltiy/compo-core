@@ -44,6 +44,7 @@ sonata_block:
         compo_catalog.block.sorting:
         compo_manufacture.block.manufacture_country_list:
         compo_catalog.block.filter:
+        compo_manufacture.block.catalog_menu:
 
         # PageBundle's Blocks
         sonata.page.block.container:

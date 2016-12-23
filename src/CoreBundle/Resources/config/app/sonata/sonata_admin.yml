@@ -93,6 +93,7 @@ sonata_admin:
 
                     - compo_product.admin.product_availability
                     - compo_currency.admin.currency
+                    - compo_tagging.admin.tagging
 
             sonata.admin.group.orders:
                 label:           orders
