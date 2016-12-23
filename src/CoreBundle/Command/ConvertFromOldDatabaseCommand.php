@@ -124,9 +124,7 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
                 InputOption::VALUE_REQUIRED,
                 'Tables',
                 false
-            )
-
-        ;
+            );
 
     }
 
@@ -186,7 +184,7 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
 
         if (in_array('product', $this->tables)) $this->processProduct();
 
-        if (in_array('features', $this->tables))  $this->processFeatures();
+        if (in_array('features', $this->tables)) $this->processFeatures();
 
         if (in_array('accessory', $this->tables)) $this->processProductVariation();
 
@@ -243,7 +241,25 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
         }
     }
 
+    public function processRootCatalog()
+    {
+        $catalogRepository = $this->em->getRepository('CompoCatalogBundle:Catalog');
 
+        if ($newCatalogItem = $catalogRepository->findOneBy(array('lvl' => 0))) {
+            $this->rootCatalog = $newCatalogItem;
+        } else {
+            $newCatalogItem = new Catalog();
+            $newCatalogItem->setName('Каталог');
+            $newCatalogItem->setEnabled(true);
+            $newCatalogItem->setDescription('');
+
+            $this->em->persist($newCatalogItem);
+            $this->em->flush();
+
+            $this->rootCatalog = $newCatalogItem;
+        }
+
+    }
 
     public function processCurrency()
     {
@@ -316,6 +332,15 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
         }
 
         $this->em->flush();
+    }
+
+    public function changeIdGenerator($newItem)
+    {
+        $metadata = $this->em->getClassMetaData(get_class($newItem));
+        /** @noinspection PhpUndefinedMethodInspection */
+        $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
+        /** @noinspection PhpUndefinedMethodInspection */
+        $metadata->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());
     }
 
     public function processProductAvailability()
@@ -458,7 +483,6 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
             }
 
 
-
             if (!$newItem) {
                 $this->output->writeln($name . '. ' . $i . ': ' . $oldDataItem['header']);
 
@@ -480,8 +504,6 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
 
         $this->em->flush();
     }
-
-
 
     public function processManufacture()
     {
@@ -539,8 +561,18 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
         $this->em->flush();
     }
 
+    public function downloadMedia($id)
+    {
+        if (isset($this->dbpics[$id]) && $this->dbpics[$id]['media_id']) {
+            $container = $this->getContainer();
 
+            $mediaManager = $container->get('sonata.media.manager.media');
 
+            return $mediaManager->find($this->dbpics[$id]['media_id']);
+        } else {
+            return null;
+        }
+    }
 
     public function processCollection()
     {
@@ -596,27 +628,6 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
 
         $this->em->flush();
     }
-
-    public function processRootCatalog()
-    {
-        $catalogRepository = $this->em->getRepository('CompoCatalogBundle:Catalog');
-
-        if ($newCatalogItem = $catalogRepository->findOneBy(array('lvl' => 0))) {
-            $this->rootCatalog = $newCatalogItem;
-        } else {
-            $newCatalogItem = new Catalog();
-            $newCatalogItem->setName('Каталог');
-            $newCatalogItem->setEnabled(true);
-            $newCatalogItem->setDescription('');
-
-            $this->em->persist($newCatalogItem);
-            $this->em->flush();
-
-            $this->rootCatalog = $newCatalogItem;
-        }
-
-    }
-
 
     public function processCatalog()
     {
@@ -678,6 +689,8 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
         $this->em->flush();
     }
 
+
+    // Дополнительные комплектации (старые): complects_additional - complectset
 
     public function processProduct()
     {
@@ -791,7 +804,7 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
 
                 $isset_photo = $ProductAdditionalImagesRepository->findOneBy(array(
                     'id' => $oldDataPhotos_item['id'],
-                   // 'product' => $newItem
+                    // 'product' => $newItem
                 ));
 
                 if (!$isset_photo) {
@@ -894,6 +907,45 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
 
     }
 
+    // Комплектации (старые): Товар - варианты
+
+    public function downloadFile($id, $oldDataPhotos_item)
+    {
+        try {
+            $kernel = $this->getContainer()->get('kernel');
+            $cache_dir = $kernel->getCacheDir();
+
+            $mediaManager = $this->getContainer()->get('sonata.media.manager.media');
+
+            $file_path = $cache_dir . '/' . $id;
+
+            file_put_contents($file_path, file_get_contents($this->oldFilesPath . $id));
+
+            if ($http_response_header[0] != 'HTTP/1.1 200 OK') {
+                return null;
+            }
+
+
+            $media = new Media();
+            $media->setBinaryContent($file_path);
+            $media->setContext('default');
+            $media->setProviderName('sonata.media.provider.file');
+            $media->setName($id);
+            $media->setDescription($oldDataPhotos_item['header']);
+
+            $mediaManager->save($media, false);
+
+
+            return $media;
+        } catch (\Exception $e) {
+            return null;
+        }
+
+    }
+
+
+    // Акксесуары - Доп. комплектации 2.0: Товар - Товар
+
     public function processFeatures()
     {
 
@@ -933,7 +985,6 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
         );
 
 
-
         foreach ($featureTypes as $featureTypes_item) {
 
             $feature_type_object = $featureTypeRepository->findOneBy(array('code' => $featureTypes_item['code']));
@@ -946,8 +997,6 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
                 $this->em->flush();
             }
         }
-
-
 
 
         $name = 'processFeatures';
@@ -983,7 +1032,7 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
 
             $fa->setName($feature_type_item['header']);
 
-            if (trim(strip_tags($fa->getDescription()) ) == '' && trim(strip_tags($feature_type_item['description'])) != '' ) {
+            if (trim(strip_tags($fa->getDescription())) == '' && trim(strip_tags($feature_type_item['description'])) != '') {
                 $fa->setDescription($feature_type_item['description']);
             }
 
@@ -1023,7 +1072,7 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
                         $fv = new FeatureVariant();
                     }
 
-                    if (trim($fv->getDescription()) == '' && trim(strip_tags($feature_values_item['description'])) != '' ) {
+                    if (trim($fv->getDescription()) == '' && trim(strip_tags($feature_values_item['description'])) != '') {
                         $fv->setDescription($feature_values_item['description']);
                     }
 
@@ -1060,7 +1109,7 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
         $feature_bind = $this->oldConnection->fetchAll('SELECT * FROM `feature_bind`');
 
         $feature_bind_tovar = array();
-        
+
         foreach ($feature_bind as $feature_bind_item) {
             if (!isset($feature_bind_tovar[$feature_bind_item['tovar_id']])) {
                 $feature_bind_tovar[$feature_bind_item['tovar_id']] = array();
@@ -1094,7 +1143,7 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
             //$oldProductFeatures = $this->oldConnection->fetchAll('SELECT * FROM `feature_bind` WHERE tovar_id=' . $product->getId());
 
             foreach ($oldProductFeatures as $oldProductFeaturesItem) {
-                
+
                 $featureValue = $featureValuesRepos->find($oldProductFeaturesItem['id']);
 
                 if (!$featureValue) {
@@ -1105,7 +1154,7 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
                     if (isset($this->features[$oldProductFeaturesItem['feature_id']])) {
                         /** @var FeatureAttribute $featureAttribute */
                         $featureAttribute = $this->features[$oldProductFeaturesItem['feature_id']]['feature'];
-                        
+
                         if ($featureAttribute->getType()->getCode() == 'variant') {
                             if (isset($this->features[$oldProductFeaturesItem['feature_id']]['variants'][$oldProductFeaturesItem['header']])) {
                                 $featureValue->setValueVariant($this->features[$oldProductFeaturesItem['feature_id']]['variants'][$oldProductFeaturesItem['header']]);
@@ -1152,27 +1201,23 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
 
             ++$i;
         }
-        
+
         $this->em->flush();
         $this->em->clear('CompoProductBundle:Product');
         $this->em->clear('CompoProductBundle:FeatureValue');
     }
 
+    // Варианты - Комплектации 2.0: Товар - Товар
 
-
-
-    // Дополнительные комплектации (старые): complects_additional - complectset
-    public function processProductAccessory2()
+    public function processProductVariation()
     {
-        $catalogRepository = $this->em->getRepository('CompoCatalogBundle:Catalog');
+        $ProductVariationRepository = $this->em->getRepository('CompoProductBundle:ProductVariation');
 
-        $ProductVariationRepository = $this->em->getRepository('CompoProductBundle:ProductAccessory');
-
-        $name = 'ProductAccessory2';
+        $name = 'ProductVariation';
 
         $currentRepository = $this->em->getRepository('CompoProductBundle:Product');
 
-        $oldData = $this->oldConnection->fetchAll('SELECT * FROM `complects_additional`');
+        $oldData = $this->oldConnection->fetchAll('SELECT * FROM `complect_link`');
 
         $this->output->writeln($name . '. Count: ' . count($oldData));
 
@@ -1180,126 +1225,24 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
 
         foreach ($oldData as $oldDataItem) {
             $i++;
-
-            $newItem = $currentRepository->findOneBy(array(
-                'name' => $oldDataItem['header'],
-                'sku' => $oldDataItem['articul'],
-                'price' => $oldDataItem['price']
-            ));
-
-
-            $this->output->writeln($name . '. ' . $i . ': ' . $oldDataItem['header']);
-
-
-            if (!$newItem) {
-                $newItem = new Product();
-
-
-
-            }
-
-            $newItem->setName($oldDataItem['header']);
-            $newItem->setSku($oldDataItem['articul']);
-            $newItem->setEnabled((bool)$oldDataItem['visible']);
-
-            if (!$newItem->getImage() && $oldDataItem['picture']) {
-                $picture = $this->downloadMedia($oldDataItem['picture']);
-
-                $newItem->setImage($picture);
-            }
-
-            $newItem->setDescription($oldDataItem['text']);
-
-            $newItem->setPrice((int)$oldDataItem['price']);
-            $newItem->setPriceOriginal((int)$oldDataItem['price']);
-
-
-            $currency_code = $oldDataItem['currency'];
-
-            $currency_code = str_replace('rur', 'RUR', $currency_code);
-            $currency_code = str_replace('usd', 'USD', $currency_code);
-            $currency_code = str_replace('euro', 'EUR', $currency_code);
-
-
-
-            $newItem->setCurrency($this->em->getRepository('CompoCurrencyBundle:Currency')->findOneBy(array('code' => $currency_code)));
-
-            if ($oldDataItem['manufacture_id']) {
-                $newItem->setManufacture($this->em->getRepository('CompoManufactureBundle:Manufacture')->find($oldDataItem['manufacture_id']));
-
-            }
-
-
-            $newItem->setSlug($this->getContainer()->get('sonata.core.slugify.cocur')->slugify($oldDataItem['header']));
-
-
-            $newItem->setAvailability($this->em->getRepository('CompoProductBundle:ProductAvailability')->find(10));
-
-
-            $old_complect_type = $this->oldConnection->fetchAll('SELECT * FROM `complect_types` WHERE id = ' . $oldDataItem['colcat_id']);
-
-            if ($old_complect_type) {
-                $old_complect_type = $old_complect_type[0];
-
-                if ($complect_type = $catalogRepository->findOneBy(
-                    array(
-                        'name' => $old_complect_type['header'],
-                    )
-                )
-                ) {
-                    $newItem->setCatalog($complect_type);
-                } else {
-                    $newCatalogItem = new Catalog();
-                    $newCatalogItem->setName($old_complect_type['header']);
-                    $newCatalogItem->setEnabled(1);
-                    $newCatalogItem->setSlug($this->getContainer()->get('sonata.core.slugify.cocur')->slugify($old_complect_type['header']));
-                    $newCatalogItem->setParent($catalogRepository->findOneBy(array('lvl' => 0)));
-
-                    $metadata = $this->em->getClassMetaData(get_class($newCatalogItem));
-                    /** @noinspection PhpUndefinedMethodInspection */
-                    $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_AUTO);
-                    /** @noinspection PhpUndefinedMethodInspection */
-                    $metadata->setIdGenerator(new \Doctrine\ORM\Id\IdentityGenerator());
-
-
-
-                    $this->em->persist($newCatalogItem);
-                    $this->em->flush();
-
-
-                    $newItem->setCatalog($newCatalogItem);
-                }
-            }
-
-
-            $this->em->persist($newItem);
-
-
-            $variation = $newItem;
+            $product = $currentRepository->find($oldDataItem['link_id']);
+            $variation = $currentRepository->find($oldDataItem['tovar_id']);
 
             $this->output->writeln($name . '. ' . $i . ' (SKIP): ');
 
-
-            $complectset = $this->oldConnection->fetchAll('SELECT * FROM `complectset` WHERE complect_id=' . $oldDataItem['id']);
-
-
-            foreach ($complectset as $complectset_item) {
-                $product = $currentRepository->find($complectset_item['tovar_id']);
-
-                if ($product && $variation) {
-                    if (!$ProductVariationRepository->findOneBy(array('product' => $product, 'accessory' => $variation))) {
-                        $productVariation = new ProductAccessory();
-                        $productVariation->setProduct($product);
-                        $productVariation->setAccessory($variation);
+            if ($product && $variation) {
+                if (!$ProductVariationRepository->findOneBy(array('product' => $product, 'variation' => $variation))) {
+                    $productVariation = new ProductVariation();
+                    $productVariation->setProduct($product);
+                    $productVariation->setVariation($variation);
 
 
-                        $this->em->persist($productVariation);
-                    }
+                    $this->em->persist($productVariation);
                 }
             }
 
 
-            //if (($i % 100) === 0) {
+            if (($i % 200) === 0) {
                 $this->em->flush();
 
                 $this->em->clear('CompoProductBundle:Product');
@@ -1313,185 +1256,17 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
 
                 gc_enable();
                 gc_collect_cycles();
-            //}
+            }
 
             $this->output->writeln('Memmory: ' . number_format((memory_get_usage()), 0, ',', ' ') . ' B');
 
-        }
-    }
-
-    // Комплектации (старые): Товар - варианты
-    public function processProductVariation2()
-    {
-        $catalogRepository = $this->em->getRepository('CompoCatalogBundle:Catalog');
-
-        $ProductVariationRepository = $this->em->getRepository('CompoProductBundle:ProductVariation');
-
-        $name = 'ProductVariation2';
-
-        $currentRepository = $this->em->getRepository('CompoProductBundle:Product');
-
-        $oldData = $this->oldConnection->fetchAll('SELECT * FROM `complects`');
-
-        $this->output->writeln($name . '. Count: ' . count($oldData));
-
-        $i = 0;
-
-        foreach ($oldData as $oldDataItem_key => $oldDataItem) {
-            $i++;
-
-            $newItem = $currentRepository->findOneBy(array(
-                'name' => $oldDataItem['header'],
-                'sku' => $oldDataItem['articul'],
-                'price' => $oldDataItem['price']
-            ));
-
-            if (!$product = $currentRepository->find($oldDataItem['parent_id'])) {
-                continue;
-            }
-
-            $this->output->writeln($name . '. ' . $i . ': ' . $oldDataItem['header']);
-
-            if (!$newItem) {
-                $newItem = new Product();
-            }
-
-            $newItem->setName($oldDataItem['header']);
-            $newItem->setSku($oldDataItem['articul']);
-            $newItem->setEnabled((bool)$oldDataItem['visible']);
-
-            if (!$newItem->getImage() && $oldDataItem['picture']) {
-                $picture = $this->downloadMedia($oldDataItem['picture']);
-
-                $newItem->setImage($picture);
-            }
-
-            $newItem->setDescription($oldDataItem['text']);
-
-            $newItem->setPrice((int)$oldDataItem['price']);
-            $newItem->setPriceOriginal((int)$oldDataItem['price']);
-
-
-            $currency_code = $oldDataItem['currency'];
-
-            $currency_code = str_replace('rur', 'RUR', $currency_code);
-            $currency_code = str_replace('usd', 'USD', $currency_code);
-            $currency_code = str_replace('euro', 'EUR', $currency_code);
-
-
-
-
-            $newItem->setCurrency($this->em->getRepository('CompoCurrencyBundle:Currency')->findOneBy(array('code' => $currency_code)));
-
-            if ($oldDataItem['manufacture_id']) {
-                $newItem->setManufacture($this->em->getRepository('CompoManufactureBundle:Manufacture')->find($oldDataItem['manufacture_id']));
-
-            }
-
-            if ($oldDataItem['supplier_id']) {
-                $newItem->setSupplier($this->em->getRepository('CompoSupplierBundle:Supplier')->find($oldDataItem['supplier_id']));
-
-            }
-
-
-
-            $newItem->setSlug(str_replace('.html', '', $oldDataItem['url']));
-
-
-            $newItem->setAvailability($this->em->getRepository('CompoProductBundle:ProductAvailability')->find(10));
-
-            $old_complect_type = $this->oldConnection->fetchAll('SELECT * FROM `complect_types` WHERE id = ' . $oldDataItem['colcat_id']);
-
-            if ($old_complect_type) {
-                $old_complect_type = $old_complect_type[0];
-
-                if ($complect_type = $catalogRepository->findOneBy(
-                    array(
-                        'name' => $old_complect_type['header'],
-                    )
-                )
-                ) {
-                    $newItem->setCatalog($complect_type);
-                } else {
-                    $newCatalogItem = new Catalog();
-                    $newCatalogItem->setName($old_complect_type['header']);
-                    $newCatalogItem->setEnabled(1);
-                    $newCatalogItem->setSlug($this->getContainer()->get('sonata.core.slugify.cocur')->slugify($old_complect_type['header']));
-                    $newCatalogItem->setParent($catalogRepository->findOneBy(array('lvl' => 0)));
-
-                    $metadata = $this->em->getClassMetaData(get_class($newCatalogItem));
-                    /** @noinspection PhpUndefinedMethodInspection */
-                    $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_AUTO);
-                    /** @noinspection PhpUndefinedMethodInspection */
-                    $metadata->setIdGenerator(new \Doctrine\ORM\Id\IdentityGenerator());
-
-                    $this->em->persist($newCatalogItem);
-                    $this->em->flush();
-
-                    $newItem->setCatalog($newCatalogItem);
-                }
-            }
-
-            $this->em->persist($newItem);
-
-
-
-
-            $variation = $newItem;
-
-            $this->output->writeln($name . '. ' . $i . ' (SKIP): ');
-
-            if ($product && $variation) {
-                if (!$ProductVariationRepository->findOneBy(array('product' => $product, 'variation' => $variation))) {
-                    $productVariation = new ProductVariation();
-                    $productVariation->setProduct($product);
-                    $productVariation->setVariation($variation);
-
-
-                    $this->em->persist($productVariation);
-
-                }
-            }
-
-
-            if (($i % 100) === 0) {
-                $this->em->flush();
-
-                $this->em->clear('CompoProductBundle:Product');
-                $this->em->clear('CompoProductBundle:ProductAdditionalFiles');
-                $this->em->clear('CompoProductBundle:ProductAdditionalImages');
-
-                $this->em->clear('CompoSonataMediaBundle:Media');
-                $this->em->clear('SonataMediaBundle:MediaManager');
-
-                $this->em->clear('CompoProductBundle:ProductAccessory');
-                $this->em->clear('CompoProductBundle:ProductVariation');
-
-                gc_collect_cycles();
-            }
-
-
-
-            $this->output->writeln('Memmory: ' . number_format((memory_get_usage()), 0, ',', ' ') . ' B');
 
         }
-
         $this->em->flush();
-
-        $this->em->clear('CompoProductBundle:Product');
-        $this->em->clear('CompoProductBundle:ProductAdditionalFiles');
-        $this->em->clear('CompoProductBundle:ProductAdditionalImages');
-
-        $this->em->clear('CompoSonataMediaBundle:Media');
-        $this->em->clear('SonataMediaBundle:MediaManager');
-
-        $this->em->clear('CompoProductBundle:ProductAccessory');
-        $this->em->clear('CompoProductBundle:ProductVariation');
+        $this->em->clear();
 
     }
 
-
-    // Акксесуары - Доп. комплектации 2.0: Товар - Товар
     public function processProductAccessory()
     {
         $ProductVariationRepository = $this->em->getRepository('CompoProductBundle:ProductAccessory');
@@ -1571,25 +1346,118 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
         $this->em->clear();
     }
 
-    // Варианты - Комплектации 2.0: Товар - Товар
-    public function processProductVariation()
+    public function processProductVariation2()
     {
+        $catalogRepository = $this->em->getRepository('CompoCatalogBundle:Catalog');
+
         $ProductVariationRepository = $this->em->getRepository('CompoProductBundle:ProductVariation');
 
-        $name = 'ProductVariation';
+        $name = 'ProductVariation2';
 
         $currentRepository = $this->em->getRepository('CompoProductBundle:Product');
 
-        $oldData = $this->oldConnection->fetchAll('SELECT * FROM `complect_link`');
+        $oldData = $this->oldConnection->fetchAll('SELECT * FROM `complects`');
 
         $this->output->writeln($name . '. Count: ' . count($oldData));
 
         $i = 0;
 
-        foreach ($oldData as $oldDataItem) {
+        foreach ($oldData as $oldDataItem_key => $oldDataItem) {
             $i++;
-            $product = $currentRepository->find($oldDataItem['link_id']);
-            $variation = $currentRepository->find($oldDataItem['tovar_id']);
+
+            $newItem = $currentRepository->findOneBy(array(
+                'name' => $oldDataItem['header'],
+                'sku' => $oldDataItem['articul'],
+                'price' => $oldDataItem['price']
+            ));
+
+            if (!$product = $currentRepository->find($oldDataItem['parent_id'])) {
+                continue;
+            }
+
+            $this->output->writeln($name . '. ' . $i . ': ' . $oldDataItem['header']);
+
+            if (!$newItem) {
+                $newItem = new Product();
+            }
+
+            $newItem->setName($oldDataItem['header']);
+            $newItem->setSku($oldDataItem['articul']);
+            $newItem->setEnabled((bool)$oldDataItem['visible']);
+
+            if (!$newItem->getImage() && $oldDataItem['picture']) {
+                $picture = $this->downloadMedia($oldDataItem['picture']);
+
+                $newItem->setImage($picture);
+            }
+
+            $newItem->setDescription($oldDataItem['text']);
+
+            $newItem->setPrice((int)$oldDataItem['price']);
+            $newItem->setPriceOriginal((int)$oldDataItem['price']);
+
+
+            $currency_code = $oldDataItem['currency'];
+
+            $currency_code = str_replace('rur', 'RUR', $currency_code);
+            $currency_code = str_replace('usd', 'USD', $currency_code);
+            $currency_code = str_replace('euro', 'EUR', $currency_code);
+
+
+            $newItem->setCurrency($this->em->getRepository('CompoCurrencyBundle:Currency')->findOneBy(array('code' => $currency_code)));
+
+            if ($oldDataItem['manufacture_id']) {
+                $newItem->setManufacture($this->em->getRepository('CompoManufactureBundle:Manufacture')->find($oldDataItem['manufacture_id']));
+
+            }
+
+            if ($oldDataItem['supplier_id']) {
+                $newItem->setSupplier($this->em->getRepository('CompoSupplierBundle:Supplier')->find($oldDataItem['supplier_id']));
+
+            }
+
+
+            $newItem->setSlug(str_replace('.html', '', $oldDataItem['url']));
+
+
+            $newItem->setAvailability($this->em->getRepository('CompoProductBundle:ProductAvailability')->find(10));
+
+            $old_complect_type = $this->oldConnection->fetchAll('SELECT * FROM `complect_types` WHERE id = ' . $oldDataItem['colcat_id']);
+
+            if ($old_complect_type) {
+                $old_complect_type = $old_complect_type[0];
+
+                if ($complect_type = $catalogRepository->findOneBy(
+                    array(
+                        'name' => $old_complect_type['header'],
+                    )
+                )
+                ) {
+                    $newItem->setCatalog($complect_type);
+                } else {
+                    $newCatalogItem = new Catalog();
+                    $newCatalogItem->setName($old_complect_type['header']);
+                    $newCatalogItem->setEnabled(1);
+                    $newCatalogItem->setSlug($this->getContainer()->get('sonata.core.slugify.cocur')->slugify($old_complect_type['header']));
+                    $newCatalogItem->setParent($catalogRepository->findOneBy(array('lvl' => 0)));
+
+                    $metadata = $this->em->getClassMetaData(get_class($newCatalogItem));
+                    /** @noinspection PhpUndefinedMethodInspection */
+                    $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_AUTO);
+                    /** @noinspection PhpUndefinedMethodInspection */
+                    $metadata->setIdGenerator(new \Doctrine\ORM\Id\IdentityGenerator());
+
+                    $this->em->persist($newCatalogItem);
+                    $this->em->flush();
+
+                    $newItem->setCatalog($newCatalogItem);
+                }
+            }
+
+            $this->em->persist($newItem);
+
+
+            $variation = $newItem;
 
             $this->output->writeln($name . '. ' . $i . ' (SKIP): ');
 
@@ -1601,11 +1469,12 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
 
 
                     $this->em->persist($productVariation);
+
                 }
             }
 
 
-            if (($i % 200) === 0) {
+            if (($i % 100) === 0) {
                 $this->em->flush();
 
                 $this->em->clear('CompoProductBundle:Product');
@@ -1616,77 +1485,182 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
                 $this->em->clear('SonataMediaBundle:MediaManager');
 
                 $this->em->clear('CompoProductBundle:ProductAccessory');
+                $this->em->clear('CompoProductBundle:ProductVariation');
 
-                gc_enable();
                 gc_collect_cycles();
             }
 
+
             $this->output->writeln('Memmory: ' . number_format((memory_get_usage()), 0, ',', ' ') . ' B');
 
-
         }
+
         $this->em->flush();
-        $this->em->clear();
+
+        $this->em->clear('CompoProductBundle:Product');
+        $this->em->clear('CompoProductBundle:ProductAdditionalFiles');
+        $this->em->clear('CompoProductBundle:ProductAdditionalImages');
+
+        $this->em->clear('CompoSonataMediaBundle:Media');
+        $this->em->clear('SonataMediaBundle:MediaManager');
+
+        $this->em->clear('CompoProductBundle:ProductAccessory');
+        $this->em->clear('CompoProductBundle:ProductVariation');
 
     }
 
-
-
-
-
-    public function changeIdGenerator($newItem)
+    public function processProductAccessory2()
     {
-        $metadata = $this->em->getClassMetaData(get_class($newItem));
-        /** @noinspection PhpUndefinedMethodInspection */
-        $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
-        /** @noinspection PhpUndefinedMethodInspection */
-        $metadata->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());
-    }
+        $catalogRepository = $this->em->getRepository('CompoCatalogBundle:Catalog');
 
-    public function downloadMedia($id)
-    {
-        if (isset($this->dbpics[$id]) && $this->dbpics[$id]['media_id']) {
-            $container = $this->getContainer();
+        $ProductVariationRepository = $this->em->getRepository('CompoProductBundle:ProductAccessory');
 
-            $mediaManager = $container->get('sonata.media.manager.media');
+        $name = 'ProductAccessory2';
 
-            return $mediaManager->find($this->dbpics[$id]['media_id']);
-        } else {
-            return null;
-        }
-    }
+        $currentRepository = $this->em->getRepository('CompoProductBundle:Product');
 
-    public function downloadFile($id, $oldDataPhotos_item)
-    {
-        try {
-            $kernel = $this->getContainer()->get('kernel');
-            $cache_dir = $kernel->getCacheDir();
+        $oldData = $this->oldConnection->fetchAll('SELECT * FROM `complects_additional`');
 
-            $mediaManager = $this->getContainer()->get('sonata.media.manager.media');
+        $this->output->writeln($name . '. Count: ' . count($oldData));
 
-            $file_path = $cache_dir . '/' . $id;
+        $i = 0;
 
-            file_put_contents($file_path, file_get_contents($this->oldFilesPath . $id));
+        foreach ($oldData as $oldDataItem) {
+            $i++;
 
-            if ($http_response_header[0] != 'HTTP/1.1 200 OK') {
-                return null;
+            $newItem = $currentRepository->findOneBy(array(
+                'name' => $oldDataItem['header'],
+                'sku' => $oldDataItem['articul'],
+                'price' => $oldDataItem['price']
+            ));
+
+
+            $this->output->writeln($name . '. ' . $i . ': ' . $oldDataItem['header']);
+
+
+            if (!$newItem) {
+                $newItem = new Product();
+
+
+            }
+
+            $newItem->setName($oldDataItem['header']);
+            $newItem->setSku($oldDataItem['articul']);
+            $newItem->setEnabled((bool)$oldDataItem['visible']);
+
+            if (!$newItem->getImage() && $oldDataItem['picture']) {
+                $picture = $this->downloadMedia($oldDataItem['picture']);
+
+                $newItem->setImage($picture);
+            }
+
+            $newItem->setDescription($oldDataItem['text']);
+
+            $newItem->setPrice((int)$oldDataItem['price']);
+            $newItem->setPriceOriginal((int)$oldDataItem['price']);
+
+
+            $currency_code = $oldDataItem['currency'];
+
+            $currency_code = str_replace('rur', 'RUR', $currency_code);
+            $currency_code = str_replace('usd', 'USD', $currency_code);
+            $currency_code = str_replace('euro', 'EUR', $currency_code);
+
+
+            $newItem->setCurrency($this->em->getRepository('CompoCurrencyBundle:Currency')->findOneBy(array('code' => $currency_code)));
+
+            if ($oldDataItem['manufacture_id']) {
+                $newItem->setManufacture($this->em->getRepository('CompoManufactureBundle:Manufacture')->find($oldDataItem['manufacture_id']));
+
             }
 
 
-            $media = new Media();
-            $media->setBinaryContent($file_path);
-            $media->setContext('default');
-            $media->setProviderName('sonata.media.provider.file');
-            $media->setName($id);
-            $media->setDescription($oldDataPhotos_item['header']);
-
-            $mediaManager->save($media, false);
+            $newItem->setSlug($this->getContainer()->get('sonata.core.slugify.cocur')->slugify($oldDataItem['header']));
 
 
-            return $media;
-        } catch (\Exception $e) {
-            return null;
+            $newItem->setAvailability($this->em->getRepository('CompoProductBundle:ProductAvailability')->find(10));
+
+
+            $old_complect_type = $this->oldConnection->fetchAll('SELECT * FROM `complect_types` WHERE id = ' . $oldDataItem['colcat_id']);
+
+            if ($old_complect_type) {
+                $old_complect_type = $old_complect_type[0];
+
+                if ($complect_type = $catalogRepository->findOneBy(
+                    array(
+                        'name' => $old_complect_type['header'],
+                    )
+                )
+                ) {
+                    $newItem->setCatalog($complect_type);
+                } else {
+                    $newCatalogItem = new Catalog();
+                    $newCatalogItem->setName($old_complect_type['header']);
+                    $newCatalogItem->setEnabled(1);
+                    $newCatalogItem->setSlug($this->getContainer()->get('sonata.core.slugify.cocur')->slugify($old_complect_type['header']));
+                    $newCatalogItem->setParent($catalogRepository->findOneBy(array('lvl' => 0)));
+
+                    $metadata = $this->em->getClassMetaData(get_class($newCatalogItem));
+                    /** @noinspection PhpUndefinedMethodInspection */
+                    $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_AUTO);
+                    /** @noinspection PhpUndefinedMethodInspection */
+                    $metadata->setIdGenerator(new \Doctrine\ORM\Id\IdentityGenerator());
+
+
+                    $this->em->persist($newCatalogItem);
+                    $this->em->flush();
+
+
+                    $newItem->setCatalog($newCatalogItem);
+                }
+            }
+
+
+            $this->em->persist($newItem);
+
+
+            $variation = $newItem;
+
+            $this->output->writeln($name . '. ' . $i . ' (SKIP): ');
+
+
+            $complectset = $this->oldConnection->fetchAll('SELECT * FROM `complectset` WHERE complect_id=' . $oldDataItem['id']);
+
+
+            foreach ($complectset as $complectset_item) {
+                $product = $currentRepository->find($complectset_item['tovar_id']);
+
+                if ($product && $variation) {
+                    if (!$ProductVariationRepository->findOneBy(array('product' => $product, 'accessory' => $variation))) {
+                        $productVariation = new ProductAccessory();
+                        $productVariation->setProduct($product);
+                        $productVariation->setAccessory($variation);
+
+
+                        $this->em->persist($productVariation);
+                    }
+                }
+            }
+
+
+            //if (($i % 100) === 0) {
+            $this->em->flush();
+
+            $this->em->clear('CompoProductBundle:Product');
+            $this->em->clear('CompoProductBundle:ProductAdditionalFiles');
+            $this->em->clear('CompoProductBundle:ProductAdditionalImages');
+
+            $this->em->clear('CompoSonataMediaBundle:Media');
+            $this->em->clear('SonataMediaBundle:MediaManager');
+
+            $this->em->clear('CompoProductBundle:ProductAccessory');
+
+            gc_enable();
+            gc_collect_cycles();
+            //}
+
+            $this->output->writeln('Memmory: ' . number_format((memory_get_usage()), 0, ',', ' ') . ' B');
+
         }
-
     }
 }

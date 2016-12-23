@@ -68,7 +68,7 @@ class TranslationCommand extends ContainerAwareCommand
                     '--output-format' => 'yml',
                     '--default-output-format' => 'yml',
                     '--dir' => array($bundle_dir),
-                    
+
                     '--keep',
                     '--domain' => array($key),
                     '--ignore-domain' => $domains

@@ -2,22 +2,6 @@
 
 namespace Compo\CoreBundle\Command;
 
-use Compo\CatalogBundle\Entity\Catalog;
-use Compo\CountryBundle\Entity\Country;
-use Compo\CurrencyBundle\Entity\Currency;
-use Compo\FeaturesBundle\Entity\FeatureAttribute;
-use Compo\FeaturesBundle\Entity\FeatureValue;
-use Compo\FeaturesBundle\Entity\FeatureVariant;
-use Compo\ManufactureBundle\Entity\Manufacture;
-use Compo\ManufactureBundle\Entity\ManufactureCollection;
-use Compo\ProductBundle\Entity\Product;
-use Compo\ProductBundle\Entity\ProductAccessory;
-use Compo\ProductBundle\Entity\ProductAdditionalFiles;
-use Compo\ProductBundle\Entity\ProductAdditionalImages;
-use Compo\ProductBundle\Entity\ProductAvailability;
-use Compo\ProductBundle\Entity\ProductVariation;
-use Compo\Sonata\MediaBundle\Entity\Media;
-use Compo\SupplierBundle\Entity\Supplier;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -115,9 +99,7 @@ class ConvertAllImagesFromOldDatabaseCommand extends ContainerAwareCommand
                 InputOption::VALUE_REQUIRED,
                 'oldMediaPath',
                 $this->oldMediaPath
-            )
-
-        ;
+            );
 
     }
 

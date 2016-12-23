@@ -15,31 +15,6 @@ class ColorExtension extends \Twig_Extension
      */
     const COLORPERCENT = 2.55;
 
-
-    /**
-     * @return array
-     */
-    public function getFunctions()
-    {
-        return array(
-            new \Twig_SimpleFunction('color_lighten', '\Compo\CoreBundle\Twig\ColorExtension::lighten'),
-            new \Twig_SimpleFunction('color_darken', '\Compo\CoreBundle\Twig\ColorExtension::darken'),
-            new \Twig_SimpleFunction('color_red', '\Compo\CoreBundle\Twig\ColorExtension::red'),
-            new \Twig_SimpleFunction('color_green', '\Compo\CoreBundle\Twig\ColorExtension::green'),
-            new \Twig_SimpleFunction('color_blue', '\Compo\CoreBundle\Twig\ColorExtension::blue'),
-            new \Twig_SimpleFunction('color_alpha', '\Compo\CoreBundle\Twig\ColorExtension::alpha'),
-            new \Twig_SimpleFunction('color_mix', '\Compo\CoreBundle\Twig\ColorExtension::mix'),
-        );
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'color_extension';
-    }
-
     /**
      * @param $color
      * @param $percent
@@ -57,6 +32,78 @@ class ColorExtension extends \Twig_Extension
             }
         }
         return self::resolveColor($color, $mode);
+    }
+
+    /**
+     * @param      $color
+     * @param null $mode
+     *
+     * @return array|mixed|string
+     */
+    protected static function normalizeColor($color, &$mode = null)
+    {
+        $color = strtolower($color);
+        if (strpos($color, 'rgb') !== false) {
+            $mode = 'rgb';
+            $color = trim($color, 'rgba()');
+            $color = str_replace(' ', '', $color);
+            $color = explode(',', $color);
+            $count = count($color);
+            for ($i = 0; $i <= $count; $i++) {
+                $color[$i] = ($i == 3) ? (float)$color[$i] : (int)$color[$i];
+            }
+        } else {
+            $mode = 'hex';
+            $color = str_replace('#', '', $color);
+            if (strlen($color) == 3) {
+                $color = str_repeat(substr($color, 0, 1), 2) . str_repeat(substr($color, 1, 1), 2) . str_repeat(substr($color, 2, 1), 2);
+            }
+            $color = [
+                hexdec(substr($color, 0, 2)),
+                hexdec(substr($color, 2, 2)),
+                hexdec(substr($color, 4, 2))
+            ];
+        }
+        return $color;
+    }
+
+    /**
+     * @param        $color
+     * @param string $mode
+     *
+     * @return string
+     */
+    protected static function resolveColor($color, $mode = 'hex')
+    {
+        switch ($mode) {
+            case "hex":
+                $red = sprintf('%02x', ($color[0]));
+                $green = sprintf('%02x', ($color[1]));
+                $blue = sprintf('%02x', ($color[2]));
+                $color = '#' . $red . $green . $blue;
+                break;
+            case "rgb":
+                $colorStr = (self::hasAlpha($color)) ? 'rgba(' : 'rgb(';
+
+                $colorStr .= '' . $color[0] . ',' . $color[1] . ',' . $color[2];
+
+                $colorStr .= (self::hasAlpha($color)) ? ',' . number_format($color[3], 2, '.', ',') . ')' : ')';
+                $color = $colorStr;
+                break;
+            default:
+                $color = "";
+        }
+        return $color;
+    }
+
+    /**
+     * @param $color
+     *
+     * @return bool
+     */
+    protected static function hasAlpha($color)
+    {
+        return (count($color) > 3) ? true : false;
     }
 
     /**
@@ -206,74 +253,26 @@ class ColorExtension extends \Twig_Extension
     }
 
     /**
-     * @param      $color
-     * @param null $mode
-     *
-     * @return array|mixed|string
+     * @return array
      */
-    protected static function normalizeColor($color, &$mode = null)
+    public function getFunctions()
     {
-        $color = strtolower($color);
-        if (strpos($color, 'rgb') !== false) {
-            $mode = 'rgb';
-            $color = trim($color, 'rgba()');
-            $color = str_replace(' ', '', $color);
-            $color = explode(',', $color);
-            $count = count($color);
-            for ($i = 0; $i <= $count; $i++) {
-                $color[$i] = ($i == 3) ? (float)$color[$i] : (int)$color[$i];
-            }
-        } else {
-            $mode = 'hex';
-            $color = str_replace('#', '', $color);
-            if (strlen($color) == 3) {
-                $color = str_repeat(substr($color, 0, 1), 2) . str_repeat(substr($color, 1, 1), 2) . str_repeat(substr($color, 2, 1), 2);
-            }
-            $color = [
-                hexdec(substr($color, 0, 2)),
-                hexdec(substr($color, 2, 2)),
-                hexdec(substr($color, 4, 2))
-            ];
-        }
-        return $color;
+        return array(
+            new \Twig_SimpleFunction('color_lighten', '\Compo\CoreBundle\Twig\ColorExtension::lighten'),
+            new \Twig_SimpleFunction('color_darken', '\Compo\CoreBundle\Twig\ColorExtension::darken'),
+            new \Twig_SimpleFunction('color_red', '\Compo\CoreBundle\Twig\ColorExtension::red'),
+            new \Twig_SimpleFunction('color_green', '\Compo\CoreBundle\Twig\ColorExtension::green'),
+            new \Twig_SimpleFunction('color_blue', '\Compo\CoreBundle\Twig\ColorExtension::blue'),
+            new \Twig_SimpleFunction('color_alpha', '\Compo\CoreBundle\Twig\ColorExtension::alpha'),
+            new \Twig_SimpleFunction('color_mix', '\Compo\CoreBundle\Twig\ColorExtension::mix'),
+        );
     }
 
     /**
-     * @param        $color
-     * @param string $mode
-     *
      * @return string
      */
-    protected static function resolveColor($color, $mode = 'hex')
+    public function getName()
     {
-        switch ($mode) {
-            case "hex":
-                $red = sprintf('%02x', ($color[0]));
-                $green = sprintf('%02x', ($color[1]));
-                $blue = sprintf('%02x', ($color[2]));
-                $color = '#' . $red . $green . $blue;
-                break;
-            case "rgb":
-                $colorStr = (self::hasAlpha($color)) ? 'rgba(' : 'rgb(';
-
-                $colorStr .= '' . $color[0] . ',' . $color[1] . ',' . $color[2];
-
-                $colorStr .= (self::hasAlpha($color)) ? ',' . number_format($color[3], 2, '.', ',') . ')' : ')';
-                $color = $colorStr;
-                break;
-            default:
-                $color = "";
-        }
-        return $color;
-    }
-
-    /**
-     * @param $color
-     *
-     * @return bool
-     */
-    protected static function hasAlpha($color)
-    {
-        return (count($color) > 3) ? true : false;
+        return 'color_extension';
     }
 }

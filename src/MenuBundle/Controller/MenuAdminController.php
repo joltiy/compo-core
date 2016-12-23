@@ -7,6 +7,9 @@ use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
+/**
+ * {@inheritDoc}
+ */
 class MenuAdminController extends CRUDController
 {
     /**

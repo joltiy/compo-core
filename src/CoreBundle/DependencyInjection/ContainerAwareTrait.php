@@ -17,6 +17,14 @@ trait ContainerAwareTrait
     protected $container;
 
     /**
+     * @return ContainerInterface
+     */
+    public function getContainer()
+    {
+        return $this->container;
+    }
+
+    /**
      * Sets the container.
      *
      * @param ContainerInterface|null $container A ContainerInterface instance or null
@@ -24,13 +32,5 @@ trait ContainerAwareTrait
     public function setContainer(ContainerInterface $container = null)
     {
         $this->container = $container;
-    }
-
-    /**
-     * @return ContainerInterface
-     */
-    public function getContainer()
-    {
-        return $this->container;
     }
 }

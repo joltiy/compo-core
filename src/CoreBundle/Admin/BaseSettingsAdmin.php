@@ -3,11 +3,9 @@
 namespace Compo\CoreBundle\Admin;
 
 use Compo\Sonata\AdminBundle\Admin\Admin;
-use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
-use Knp\Menu\ItemInterface;
-use Knp\Menu\ItemInterface as MenuItemInterface;
+
 /**
  * Class SettingsAdmin
  *
@@ -29,6 +27,40 @@ class BaseSettingsAdmin extends Admin
 
 
     protected $namespase = 'compo_core_settings';
+
+    /**
+     * @return string
+     */
+    public function getBaseRouteName()
+    {
+        return $this->baseRouteName;
+    }
+
+    /**
+     * @param string $baseRouteName
+     */
+    public function setBaseRouteName($baseRouteName)
+    {
+        $this->baseRouteName = $baseRouteName;
+
+        $this->setBaseRoutePattern('/' . $baseRouteName);
+    }
+
+    /**
+     * @return string
+     */
+    public function getBaseRoutePattern()
+    {
+        return $this->baseRoutePattern;
+    }
+
+    /**
+     * @param string $baseRoutePattern
+     */
+    public function setBaseRoutePattern($baseRoutePattern)
+    {
+        $this->baseRoutePattern = $baseRoutePattern;
+    }
 
     /**
      * @param RouteCollection $collection
@@ -60,45 +92,10 @@ class BaseSettingsAdmin extends Admin
     /**
      * @param string $namespase
      */
-    public function setNamespase( $namespase)
+    public function setNamespase($namespase)
     {
         $this->namespase = $namespase;
     }
-
-    /**
-     * @return string
-     */
-    public function getBaseRouteName()
-    {
-        return $this->baseRouteName;
-    }
-
-    /**
-     * @param string $baseRouteName
-     */
-    public function setBaseRouteName( $baseRouteName)
-    {
-        $this->baseRouteName = $baseRouteName;
-
-        $this->setBaseRoutePattern('/' . $baseRouteName);
-    }
-
-    /**
-     * @return string
-     */
-    public function getBaseRoutePattern()
-    {
-        return $this->baseRoutePattern;
-    }
-
-    /**
-     * @param string $baseRoutePattern
-     */
-    public function setBaseRoutePattern( $baseRoutePattern)
-    {
-        $this->baseRoutePattern = $baseRoutePattern;
-    }
-
 
 
 }

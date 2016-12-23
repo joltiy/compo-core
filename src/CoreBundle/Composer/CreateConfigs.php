@@ -2,10 +2,7 @@
 
 namespace Compo\CoreBundle\Composer;
 
-use /** @noinspection PhpUndefinedClassInspection */
-    /** @noinspection PhpUndefinedNamespaceInspection */
-    Composer\Script\Event;
-
+use Composer\Script\Event;
 use Symfony\Component\Yaml\Yaml;
 
 /**

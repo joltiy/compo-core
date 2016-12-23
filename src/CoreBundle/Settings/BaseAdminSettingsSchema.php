@@ -25,56 +25,6 @@ class BaseAdminSettingsSchema implements SchemaInterface
     protected $baseRouteName = 'compo_core_settings';
 
     /**
-     * @return string
-     */
-    public function getBaseRouteName()
-    {
-        return $this->baseRouteName;
-    }
-
-    /**
-     * @param string $baseRouteName
-     */
-    public function setBaseRouteName( $baseRouteName)
-    {
-        $this->baseRouteName = $baseRouteName;
-    }
-
-
-    /**
-     * @return string
-     */
-    public function getTranslationDomain()
-    {
-        return $this->translationDomain;
-    }
-
-    /**
-     * @param string $translationDomain
-     */
-    public function setTranslationDomain( $translationDomain)
-    {
-        $this->translationDomain = $translationDomain;
-    }
-
-
-    /**
-     * @return Container
-     */
-    public function getContainer()
-    {
-        return $this->container;
-    }
-
-    /**
-     * @param Container $container
-     */
-    public function setContainer($container)
-    {
-        $this->container = $container;
-    }
-
-    /**
      * @param SettingsBuilderInterface $builder
      */
     public function buildSettings(SettingsBuilderInterface $builder)
@@ -93,10 +43,58 @@ class BaseAdminSettingsSchema implements SchemaInterface
     public function getDefaultOptions()
     {
         return array(
-            'action' => $this->getContainer()->get('router')->generate($this->getBaseRouteName() . '_update').'?',
+            'action' => $this->getContainer()->get('router')->generate($this->getBaseRouteName() . '_update') . '?',
             'label_format' => 'form.label_settings_%name%',
             'translation_domain' => $this->getTranslationDomain(),
         );
 
+    }
+
+    /**
+     * @return Container
+     */
+    public function getContainer()
+    {
+        return $this->container;
+    }
+
+    /**
+     * @param Container $container
+     */
+    public function setContainer($container)
+    {
+        $this->container = $container;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBaseRouteName()
+    {
+        return $this->baseRouteName;
+    }
+
+    /**
+     * @param string $baseRouteName
+     */
+    public function setBaseRouteName($baseRouteName)
+    {
+        $this->baseRouteName = $baseRouteName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTranslationDomain()
+    {
+        return $this->translationDomain;
+    }
+
+    /**
+     * @param string $translationDomain
+     */
+    public function setTranslationDomain($translationDomain)
+    {
+        $this->translationDomain = $translationDomain;
     }
 }
