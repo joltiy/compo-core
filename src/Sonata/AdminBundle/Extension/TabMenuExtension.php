@@ -3,11 +3,17 @@
 namespace Compo\Sonata\AdminBundle\Extension;
 
 use Knp\Menu\ItemInterface as MenuItemInterface;
-use Sonata\AdminBundle\Admin\AdminExtension;
+use Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use Sonata\AdminBundle\Admin\AdminInterface;
 
-class TabMenuExtension extends AdminExtension
+/**
+ * {@inheritDoc}
+ */
+class TabMenuExtension extends AbstractAdminExtension
 {
+    /**
+     * {@inheritDoc}
+     */
     public function configureTabMenu(AdminInterface $admin, MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
     {
         $menu->setCurrent($admin->getRequest()->getBaseUrl() . $admin->getRequest()->getPathInfo());

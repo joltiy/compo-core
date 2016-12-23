@@ -11,6 +11,6 @@ services:
         tags:
             - { name: sonata.block }
         calls:
-            - [ setContainer, ["@service_container"]]
+            - [ setContainer, ['@service_container']]
 
 

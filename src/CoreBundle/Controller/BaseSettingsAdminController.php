@@ -18,7 +18,7 @@ class BaseSettingsAdminController extends SettingsController
     /**
      * @return string
      */
-    public function getTranslationDomain(): string
+    public function getTranslationDomain()
     {
         return $this->translationDomain;
     }
@@ -34,7 +34,7 @@ class BaseSettingsAdminController extends SettingsController
     /**
      * @return string
      */
-    public function getNamespase(): string
+    public function getNamespase()
     {
         return $this->namespase;
     }
@@ -42,7 +42,7 @@ class BaseSettingsAdminController extends SettingsController
     /**
      * @param string $namespase
      */
-    public function setNamespase(string $namespase)
+    public function setNamespase($namespase)
     {
         $this->namespase = $namespase;
     }

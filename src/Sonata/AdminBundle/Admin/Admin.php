@@ -13,6 +13,9 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\FormatterBundle\Formatter\Pool as FormatterPool;
 
+/**
+ * {@inheritDoc}
+ */
 class Admin extends BaseAdmin
 {
     public $positionEnabled = false;

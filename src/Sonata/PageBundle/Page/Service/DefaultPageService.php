@@ -48,6 +48,8 @@ class DefaultPageService extends \Sonata\PageBundle\Page\Service\DefaultPageServ
         $this->name = $name;
         $this->templateManager = $templateManager;
         $this->seoPage = $seoPage;
+
+        parent::__construct($name, $templateManager);
     }
 
     /**

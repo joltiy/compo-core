@@ -92,8 +92,8 @@ class Menu
      * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
      */
     private $root;
-    
-    
+
+
     /**
      * Constructor
      */
@@ -101,8 +101,6 @@ class Menu
     {
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
-
 
 
     /**
@@ -113,6 +111,16 @@ class Menu
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 
     /**
@@ -130,13 +138,13 @@ class Menu
     }
 
     /**
-     * Get title
+     * Get url
      *
      * @return string
      */
-    public function getTitle()
+    public function getUrl()
     {
-        return $this->title;
+        return $this->url;
     }
 
     /**
@@ -154,13 +162,13 @@ class Menu
     }
 
     /**
-     * Get url
+     * Get alias
      *
      * @return string
      */
-    public function getUrl()
+    public function getAlias()
     {
-        return $this->url;
+        return $this->alias;
     }
 
     /**
@@ -178,13 +186,13 @@ class Menu
     }
 
     /**
-     * Get alias
+     * Get lft
      *
-     * @return string
+     * @return integer
      */
-    public function getAlias()
+    public function getLft()
     {
-        return $this->alias;
+        return $this->lft;
     }
 
     /**
@@ -202,13 +210,13 @@ class Menu
     }
 
     /**
-     * Get lft
+     * Get lvl
      *
      * @return integer
      */
-    public function getLft()
+    public function getLvl()
     {
-        return $this->lft;
+        return $this->lvl;
     }
 
     /**
@@ -226,13 +234,13 @@ class Menu
     }
 
     /**
-     * Get lvl
+     * Get rgt
      *
      * @return integer
      */
-    public function getLvl()
+    public function getRgt()
     {
-        return $this->lvl;
+        return $this->rgt;
     }
 
     /**
@@ -250,13 +258,13 @@ class Menu
     }
 
     /**
-     * Get rgt
+     * Get root
      *
      * @return integer
      */
-    public function getRgt()
+    public function getRoot()
     {
-        return $this->rgt;
+        return $this->root;
     }
 
     /**
@@ -274,13 +282,13 @@ class Menu
     }
 
     /**
-     * Get root
+     * Get parent
      *
-     * @return integer
+     * @return \Compo\MenuBundle\Entity\Menu
      */
-    public function getRoot()
+    public function getParent()
     {
-        return $this->root;
+        return $this->parent;
     }
 
     /**
@@ -295,16 +303,6 @@ class Menu
         $this->parent = $parent;
 
         return $this;
-    }
-
-    /**
-     * Get parent
-     *
-     * @return \Compo\MenuBundle\Entity\Menu
-     */
-    public function getParent()
-    {
-        return $this->parent;
     }
 
     /**

@@ -9,14 +9,17 @@
 namespace Compo\CoreBundle\Twig;
 
 use Twig_Extension;
-use Twig_Filter_Method;
+use Twig_SimpleFilter;
 
 class ShowMoreExtension extends Twig_Extension
 {
+    /**
+     * {@inheritDoc}
+     */
     public function getFilters()
     {
         return array(
-            'show_more' => new Twig_Filter_Method($this, 'showMoreFilter'),
+            'show_more' => new Twig_SimpleFilter($this, 'showMoreFilter'),
         );
     }
 
@@ -44,6 +47,9 @@ class ShowMoreExtension extends Twig_Extension
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getName()
     {
         return 'show_more_extension';

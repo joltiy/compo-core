@@ -48,6 +48,7 @@ final class SettingsFormFactory implements SettingsFormFactoryInterface
         $schema = $this->schemaRegistry->get($schemaAlias);
 
 
+        /** @noinspection PhpUndefinedMethodInspection */
         $builder = $this->formFactory->createBuilder('form', $data, array_merge_recursive(
             ['data_class' => null], $options, $schema->getDefaultOptions()
         ));

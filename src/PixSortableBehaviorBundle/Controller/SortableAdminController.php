@@ -14,12 +14,17 @@ use Pix\SortableBehaviorBundle\Services\PositionHandler;
 use Sonata\AdminBundle\Controller\CRUDController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
+/**
+ * {@inheritDoc}
+ */
 class SortableAdminController extends CRUDController
 {
     /**
      * Move element
      *
      * @param string $position
+     *
+     * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function moveAction($position)
     {

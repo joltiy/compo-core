@@ -23,8 +23,10 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Process\Process;
 
+/**
+ * {@inheritDoc}
+ */
 class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
 {
     /**
@@ -139,7 +141,7 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
         $this->em = $em;
 
         $oldHost = $input->getOption('host');
-        $oldPort = $input->getOption('port');
+        //$oldPort = $input->getOption('port');
         $oldLogin = $input->getOption('login');
         $oldPassword = $input->getOption('password');
         $oldDatabase = $input->getOption('database');
@@ -210,6 +212,7 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
 
         $media_isset = array();
 
+        /** @noinspection PhpUndefinedMethodInspection */
         $media = $this->em->getConnection()->fetchAll('SELECT * FROM `media__media` ORDER BY id ASC ');
 
 
@@ -678,13 +681,6 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
 
     public function processProduct()
     {
-        $manufactureRepository = $this->em->getRepository('CompoManufactureBundle:Manufacture');
-        $collectionRepository = $this->em->getRepository('CompoManufactureBundle:ManufactureCollection');
-        $catalogRepository = $this->em->getRepository('CompoCatalogBundle:Catalog');
-        $currencyRepository = $this->em->getRepository('CompoCurrencyBundle:Currency');
-        $availabilityRepository = $this->em->getRepository('CompoProductBundle:ProductAvailability');
-        $supplierRepository = $this->em->getRepository('CompoSupplierBundle:Supplier');
-
         $ProductAdditionalImagesRepository = $this->em->getRepository('CompoProductBundle:ProductAdditionalImages');
         $ProductAdditionalFilesRepository = $this->em->getRepository('CompoProductBundle:ProductAdditionalFiles');
 
@@ -722,7 +718,9 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
                 $newItem->setId($oldDataItem['id']);
             } else {
                 $metadata = $this->em->getClassMetaData(get_class($newItem));
+                /** @noinspection PhpUndefinedMethodInspection */
                 $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_AUTO);
+                /** @noinspection PhpUndefinedMethodInspection */
                 $metadata->setIdGenerator(new \Doctrine\ORM\Id\IdentityGenerator());
             }
 
@@ -1050,8 +1048,10 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
         $batchSize = 100;
         $i = 0;
 
+        /** @noinspection PhpUndefinedMethodInspection */
         $q = $this->em->createQuery('SELECT p FROM CompoProductBundle:Product p ORDER BY p.id ASC');
 
+        /** @noinspection PhpUndefinedMethodInspection */
         $iterableResult = $q->iterate();
 
         $name = 'Features';
@@ -1076,6 +1076,7 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
         foreach ($iterableResult as $row_key => $row) {
             $this->output->writeln('Memmory: ' . number_format((memory_get_usage()), 0, ',', ' ') . ' B');
 
+            /** @var Product $product */
             $product = $row[0];
 
             $this->output->writeln($name . '. ' . $i . ' (OLD): ' . $product->getName());
@@ -1102,6 +1103,7 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
                     $featureValue->setId($oldProductFeaturesItem['id']);
 
                     if (isset($this->features[$oldProductFeaturesItem['feature_id']])) {
+                        /** @var FeatureAttribute $featureAttribute */
                         $featureAttribute = $this->features[$oldProductFeaturesItem['feature_id']]['feature'];
                         
                         if ($featureAttribute->getType()->getCode() == 'variant') {
@@ -1254,7 +1256,9 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
                     $newCatalogItem->setParent($catalogRepository->findOneBy(array('lvl' => 0)));
 
                     $metadata = $this->em->getClassMetaData(get_class($newCatalogItem));
+                    /** @noinspection PhpUndefinedMethodInspection */
                     $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_AUTO);
+                    /** @noinspection PhpUndefinedMethodInspection */
                     $metadata->setIdGenerator(new \Doctrine\ORM\Id\IdentityGenerator());
 
 
@@ -1319,15 +1323,7 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
     // Комплектации (старые): Товар - варианты
     public function processProductVariation2()
     {
-        $manufactureRepository = $this->em->getRepository('CompoManufactureBundle:Manufacture');
-        $collectionRepository = $this->em->getRepository('CompoManufactureBundle:ManufactureCollection');
         $catalogRepository = $this->em->getRepository('CompoCatalogBundle:Catalog');
-        $currencyRepository = $this->em->getRepository('CompoCurrencyBundle:Currency');
-        $availabilityRepository = $this->em->getRepository('CompoProductBundle:ProductAvailability');
-        $supplierRepository = $this->em->getRepository('CompoSupplierBundle:Supplier');
-
-        $ProductAdditionalImagesRepository = $this->em->getRepository('CompoProductBundle:ProductAdditionalImages');
-        $ProductAdditionalFilesRepository = $this->em->getRepository('CompoProductBundle:ProductAdditionalFiles');
 
         $ProductVariationRepository = $this->em->getRepository('CompoProductBundle:ProductVariation');
 
@@ -1424,7 +1420,9 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
                     $newCatalogItem->setParent($catalogRepository->findOneBy(array('lvl' => 0)));
 
                     $metadata = $this->em->getClassMetaData(get_class($newCatalogItem));
+                    /** @noinspection PhpUndefinedMethodInspection */
                     $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_AUTO);
+                    /** @noinspection PhpUndefinedMethodInspection */
                     $metadata->setIdGenerator(new \Doctrine\ORM\Id\IdentityGenerator());
 
                     $this->em->persist($newCatalogItem);
@@ -1639,7 +1637,9 @@ class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
     public function changeIdGenerator($newItem)
     {
         $metadata = $this->em->getClassMetaData(get_class($newItem));
+        /** @noinspection PhpUndefinedMethodInspection */
         $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
+        /** @noinspection PhpUndefinedMethodInspection */
         $metadata->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());
     }
 

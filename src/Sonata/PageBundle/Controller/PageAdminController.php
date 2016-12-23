@@ -11,7 +11,10 @@
 
 namespace Compo\Sonata\PageBundle\Controller;
 
+use Compo\Sonata\PageBundle\Entity\Page;
+use Compo\Sonata\PageBundle\Entity\Site;
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Sonata\BlockBundle\Model\BlockInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,6 +43,7 @@ class PageAdminController extends Controller
             throw new AccessDeniedException();
         }
 
+        /** @var Page $page */
         foreach ($query->execute() as $page) {
             $this->get('sonata.notification.backend')
                 ->createAndPublish('sonata.page.create_snapshot', array(
@@ -77,6 +81,8 @@ class PageAdminController extends Controller
 
         $currentSite = null;
         $siteId = $request->get('site');
+
+        /** @var Site $site */
         foreach ($sites as $site) {
             if ($siteId && $site->getId() == $siteId) {
                 $currentSite = $site;
@@ -124,8 +130,10 @@ class PageAdminController extends Controller
             $sites = $this->get('sonata.page.manager.site')->findBy(array());
 
             if (count($sites) == 1) {
+                /** @var Site $site */
+                $site = $sites[0];
                 return $this->redirect($this->admin->generateUrl('create', array(
-                    'siteId' => $sites[0]->getId(),
+                    'siteId' => $site->getId(),
                     'uniqid' => $this->admin->getUniqid(),
                 )));
             }
@@ -183,6 +191,7 @@ class PageAdminController extends Controller
 
         // 'attach' containers to corresponding template area, otherwise add it to orphans
         foreach ($page->getBlocks() as $block) {
+            /** @var BlockInterface $block */
             $blockCode = $block->getSetting('code');
             if ($block->getParent() === null) {
                 if (isset($containers[$blockCode])) {
@@ -248,6 +257,7 @@ class PageAdminController extends Controller
         $blockServices = $this->get('sonata.block.manager')->getServicesByContext('sonata_page_bundle', false);
 
         // filter service using the template configuration
+        /** @var Page $page */
         if ($page = $block->getPage()) {
             $template = $this->get('sonata.page.template_manager')->get($page->getTemplateCode());
 

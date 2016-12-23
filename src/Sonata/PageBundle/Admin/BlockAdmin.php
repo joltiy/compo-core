@@ -7,10 +7,17 @@
 namespace Compo\Sonata\PageBundle\Admin;
 
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\PageBundle\Entity\BaseBlock;
 
 
+/**
+ * {@inheritDoc}
+ */
 class BlockAdmin extends \Sonata\PageBundle\Admin\BlockAdmin
 {
+    /**
+     * {@inheritDoc}
+     */
     public function postPersist($object)
     {
         parent::postPersist($object);
@@ -22,6 +29,9 @@ class BlockAdmin extends \Sonata\PageBundle\Admin\BlockAdmin
         ));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function preRemove($object)
     {
         parent::preRemove($object);
@@ -49,6 +59,9 @@ class BlockAdmin extends \Sonata\PageBundle\Admin\BlockAdmin
         ));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function postUpdate($object)
     {
         parent::postUpdate($object);

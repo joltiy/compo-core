@@ -10,7 +10,9 @@
 
 namespace Pix\SortableBehaviorBundle\Services;
 
-use Doctrine\ODM\MongoDB\DocumentManager;
+use/** @noinspection PhpUndefinedNamespaceInspection */
+    /** @noinspection PhpUndefinedClassInspection */
+    Doctrine\ODM\MongoDB\DocumentManager;
 
 class PositionODMHandler extends PositionHandler
 {
@@ -19,7 +21,8 @@ class PositionODMHandler extends PositionHandler
      */
     protected $dm;
 
-    public function __construct(DocumentManager $documentManager)
+    public function __construct(/** @noinspection PhpUndefinedClassInspection */
+        DocumentManager $documentManager)
     {
         $this->dm = $documentManager;
     }
@@ -27,6 +30,7 @@ class PositionODMHandler extends PositionHandler
     public function getLastPosition($entity)
     {
         $positionFields = $this->getPositionFieldByEntity($entity);
+        /** @noinspection PhpUndefinedMethodInspection */
         $result = $this->dm
             ->createQueryBuilder($entity)
             ->hydrate(false)

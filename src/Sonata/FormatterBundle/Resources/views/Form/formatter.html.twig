@@ -24,13 +24,13 @@
                 return instance && instance.status !== "destroyed";
             };
 
-            jQuery('#{{ form.children[format_field].vars.id }}').parents("form").on('click', function(event) {
+            jQuery('#{{ form.children[format_field].vars.id }}').parents("form").on('click', function() {
                 if (isInstanceActive({{ source_id }}_rich_instance)) {
                     {{ source_id }}_rich_instance.updateElement();
                 }
             });
 
-            jQuery('#{{ form.children[format_field].vars.id }}').change(function(event) {
+            jQuery('#{{ form.children[format_field].vars.id }}').change(function() {
                 var elms = jQuery('#{{ form.children[source_field].vars.id }}');
                 elms.markItUpRemove();
                 if (isInstanceActive({{ source_id }}_rich_instance)) {
@@ -67,7 +67,9 @@
                 var parent = elms.parents('div.markItUp');
 
                 if (parent) {
+                    //noinspection JSUndeclaredVariable
                     for (name in ['textile', 'markdown', 'bbcode', 'rawhtml', 'richhtml', 'rawhtml']) {
+                        //noinspection JSUnfilteredForInLoop
                         parent.removeClass(name)
                     }
 
@@ -108,9 +110,7 @@
                 {{ ckeditor_plugin(plugin_name, plugin) }}
                 {% endfor %}
 
-
-
-                {{ ckeditor_widget(form.vars.id, ckeditor_configuration) }};
+                {{ ckeditor_widget(form.vars.id, ckeditor_configuration) }}
             {% endif %}
 
             var parent = elms.parents('div.markItUp');

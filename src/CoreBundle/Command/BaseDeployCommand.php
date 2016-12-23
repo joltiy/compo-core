@@ -125,7 +125,7 @@ class BaseDeployCommand extends ContainerAwareCommand
     /**
      * Очистка и прогрев кеша
      *
-     * @throws \Symfony\Component\Console\Exception\ExceptionInterface
+     * @param bool $warmup
      */
     public function runCacheClear($warmup = true)
     {

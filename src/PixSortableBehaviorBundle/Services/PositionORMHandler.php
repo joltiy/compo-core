@@ -14,6 +14,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class PositionORMHandler extends PositionHandler
 {
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      *

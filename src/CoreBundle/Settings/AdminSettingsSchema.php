@@ -6,6 +6,9 @@ use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/**
+ * {@inheritDoc}
+ */
 class AdminSettingsSchema extends BaseAdminSettingsSchema
 {
     /**

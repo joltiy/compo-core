@@ -3,7 +3,6 @@
 namespace Compo\MenuBundle\Admin;
 
 use Compo\Sonata\AdminBundle\Admin\Admin;
-
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -11,13 +10,15 @@ use Sonata\AdminBundle\Show\ShowMapper;
 
 class MenuAdmin extends Admin
 {
+    /**
+     * {@inheritDoc}
+     */
     public function configure()
     {
         $this->setTranslationDomain('CompoMenuBundle');
 
         $this->configureTree(true);
     }
-
 
 
     /**
@@ -33,8 +34,7 @@ class MenuAdmin extends Admin
             ->add('url')
             ->add('position')
             ->add('createdAt')
-            ->add('updatedAt')
-        ;
+            ->add('updatedAt');
     }
 
     /**
@@ -46,7 +46,6 @@ class MenuAdmin extends Admin
             ->add('id')
             ->addIdentifier('name')
             ->add('url')
-
             ->add('enabled', null, array(
                 'editable' => true,
                 'required' => true
@@ -72,7 +71,7 @@ class MenuAdmin extends Admin
 
         $id = $subject->getId();
 
-        $queryBuilder = $this->getModelManager()->getEntityManager('CompoMenuBundle:Menu')->createQueryBuilder()
+        $queryBuilder = $this->getDoctrine()->getManager()->getRepository('CompoMenuBundle:Menu')->createQueryBuilder('c')
             ->select('c')
             ->from($this->getClass(), 'c')
             ->orderBy('c.root, c.lft', 'ASC');
@@ -88,14 +87,11 @@ class MenuAdmin extends Admin
         $formMapper
             ->tab('form.tab_main')
             ->with('main_tab', array('name' => false))
-
             ->add('enabled')
             ->add('name')
             ->add('title')
             ->add('url')
             ->add('alias')
-
-
             ->add('parent', 'compo_tree_selector', array(
                 'model_manager' => $this->getModelManager(),
                 'class' => $this->getClass(),
@@ -104,11 +100,9 @@ class MenuAdmin extends Admin
             ));
 
 
-
         $formMapper
             ->end()
-            ->end()
-        ;
+            ->end();
     }
 
     /**

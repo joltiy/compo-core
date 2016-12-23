@@ -7,6 +7,9 @@ use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/**
+ * {@inheritDoc}
+ */
 class BaseAdminSettingsSchema implements SchemaInterface
 {
     /**

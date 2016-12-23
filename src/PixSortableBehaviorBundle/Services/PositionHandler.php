@@ -25,23 +25,6 @@ abstract class PositionHandler
     }
 
     /**
-     * @param $entity
-     *
-     * @return string
-     */
-    public function getPositionFieldByEntity($entity)
-    {
-        if (is_object($entity)) {
-            $entity = \Doctrine\Common\Util\ClassUtils::getClass($entity);
-        }
-        if (isset($this->positionField['entities'][$entity])) {
-            return $this->positionField['entities'][$entity];
-        } else {
-            return $this->positionField['default'];
-        }
-    }
-
-    /**
      * @param $object
      * @param $position
      * @param $lastPosition
@@ -80,5 +63,22 @@ abstract class PositionHandler
         }
 
         return $newPosition;
+    }
+
+    /**
+     * @param $entity
+     *
+     * @return string
+     */
+    public function getPositionFieldByEntity($entity)
+    {
+        if (is_object($entity)) {
+            $entity = \Doctrine\Common\Util\ClassUtils::getClass($entity);
+        }
+        if (isset($this->positionField['entities'][$entity])) {
+            return $this->positionField['entities'][$entity];
+        } else {
+            return $this->positionField['default'];
+        }
     }
 }

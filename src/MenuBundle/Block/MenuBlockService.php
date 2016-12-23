@@ -11,12 +11,14 @@
 
 namespace Compo\MenuBundle\Block;
 
+use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 use Knp\Menu\Matcher\Matcher;
 use Knp\Menu\MenuFactory;
+use Knp\Menu\MenuItem;
 use Knp\Menu\Renderer\ListRenderer;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\BlockBundle\Block\BaseBlockService;
 use Sonata\BlockBundle\Block\BlockContextInterface;
+use Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Sonata\BlockBundle\Model\BlockInterface;
 use Sonata\CoreBundle\Model\Metadata;
 use Symfony\Component\DependencyInjection\Container;
@@ -26,7 +28,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * @author     Thomas Rabaix <thomas.rabaix@sonata-project.org>
  */
-class MenuBlockService extends BaseBlockService
+class MenuBlockService extends AbstractBlockService
 {
     /**
      * @var Container
@@ -62,6 +64,7 @@ class MenuBlockService extends BaseBlockService
 
         $menu = null;
 
+        /** @var NestedTreeRepository $repo */
         $repo = $em->getRepository("CompoMenuBundle:Menu");
 
 
@@ -73,7 +76,6 @@ class MenuBlockService extends BaseBlockService
         $menu = $factory->createItem($settings['alias']);
 
         $this->renderMenu($menu, $tree);
-
 
 
         $renderer = new ListRenderer(new Matcher());
@@ -88,21 +90,25 @@ class MenuBlockService extends BaseBlockService
     }
 
 
-
-    public function renderMenu($menu, $nodesList) {
+    /**
+     * @param $menu MenuItem
+     * @param $nodesList
+     */
+    public function renderMenu($menu, $nodesList)
+    {
         foreach ($nodesList as $item) {
-            $node = $menu->addChild($item['name'], array('uri' => $item['url']));
 
+            /** @var MenuItem $node */
+            $node = $menu->addChild($item['name'], array('uri' => $item['url']));
 
 
             if ($item['url'] === $this->container->get('request')->getRequestUri()) {
                 // URL's completely match
                 $node->setCurrent(true);
-            } else if($item['url'] !== $this->container->get('request')->getBaseUrl().'/' && (substr($this->container->get('request')->getRequestUri(), 0, strlen($item['url'])) === $item['url'])) {
+            } else if ($item['url'] !== $this->container->get('request')->getBaseUrl() . '/' && (substr($this->container->get('request')->getRequestUri(), 0, strlen($item['url'])) === $item['url'])) {
                 // URL isn't just "/" and the first container of the URL match
                 $node->setCurrent(true);
             }
-
 
 
             if (count($item['__children'])) {
@@ -112,12 +118,13 @@ class MenuBlockService extends BaseBlockService
     }
 
 
-
     /**
      * {@inheritdoc}
      */
     public function buildEditForm(FormMapper $formMapper, BlockInterface $block)
     {
+        $block->getEnabled();
+
         $formMapper->add('settings', 'sonata_type_immutable_array', array(
             'keys' => array(
                 array('alias', 'text', array('required' => false)),

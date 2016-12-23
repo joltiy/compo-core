@@ -11,8 +11,10 @@
 
 namespace Compo\Sonata\PageBundle\Admin;
 
+use Doctrine\DBAL\Query\QueryBuilder;
+use Elastica\QueryBuilder\DSL\Query;
 use Knp\Menu\ItemInterface as MenuItemInterface;
-use Sonata\AdminBundle\Admin\Admin;
+use Compo\Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -161,7 +163,7 @@ class PageAdmin extends Admin
     }
 
     /**
-     * @return SiteInterface|bool
+     * @return bool|object|SiteInterface
      *
      * @throws \RuntimeException
      */
@@ -217,8 +219,12 @@ class PageAdmin extends Admin
         $this->cacheManager = $cacheManager;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function createQuery($context = 'list')
     {
+        /** @var \Doctrine\ORM\QueryBuilder $query */
         $query = parent::createQuery($context);
 
         if ($context != 'list') {
@@ -326,6 +332,9 @@ class PageAdmin extends Admin
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     protected function configureFormFields(FormMapper $formMapper)
     {
         $site = $this->getSites();

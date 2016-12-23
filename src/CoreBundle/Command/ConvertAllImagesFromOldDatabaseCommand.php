@@ -24,10 +24,13 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 
+/**
+ * {@inheritDoc}
+ */
 class ConvertAllImagesFromOldDatabaseCommand extends ContainerAwareCommand
 {
     /**
-     * @var \Doctrine\Common\Persistence\ObjectManager
+     * @var \Doctrine\Common\Persistence\AbstractManagerRegistry
      */
     public $em;
 
@@ -129,7 +132,7 @@ class ConvertAllImagesFromOldDatabaseCommand extends ContainerAwareCommand
         $this->em = $em;
 
         $oldHost = $input->getOption('host');
-        $oldPort = $input->getOption('port');
+        //$oldPort = $input->getOption('port');
         $oldLogin = $input->getOption('login');
         $oldPassword = $input->getOption('password');
         $oldDatabase = $input->getOption('database');

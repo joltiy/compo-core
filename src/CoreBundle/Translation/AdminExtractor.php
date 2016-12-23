@@ -10,7 +10,7 @@ use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\AdminBundle\Security\Handler\SecurityHandlerInterface;
 use Sonata\AdminBundle\Translator\LabelTranslatorStrategyInterface;
-use Symfony\Component\HttpKernel\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
@@ -31,17 +31,17 @@ class AdminExtractor implements ExtractorInterface, TranslatorInterface, Securit
     private $adminPool;
 
     /**
-     * @var string|bool
+     * @var string|bool|\Symfony\Component\Translation\MessageCatalogue
      */
     private $catalogue;
 
     /**
-     * @var string|bool
+     * @var string|bool|TranslatorInterface
      */
     private $translator;
 
     /**
-     * @var string|bool
+     * @var string|bool|LabelTranslatorStrategyInterface
      */
     private $labelStrategy;
 
@@ -148,7 +148,7 @@ class AdminExtractor implements ExtractorInterface, TranslatorInterface, Securit
     /**
      * @param string $id
      *
-     * @return AdminInterface
+     * @return object|AdminInterface
      */
     private function getAdmin($id)
     {

@@ -14,6 +14,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 class OverrideServiceCompilerPass implements CompilerPassInterface
 {
+    /**
+     * {@inheritDoc}
+     */
     public function process(ContainerBuilder $container)
     {
         $definition = $container->getDefinition('sonata.timeline.twig.extension');

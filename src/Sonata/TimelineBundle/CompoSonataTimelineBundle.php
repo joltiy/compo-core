@@ -32,6 +32,9 @@ class CompoSonataTimelineBundle extends Bundle
         return 'SonataTimelineBundle';
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function build(ContainerBuilder $container)
     {
         parent::build($container);

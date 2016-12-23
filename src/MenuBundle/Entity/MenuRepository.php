@@ -10,6 +10,9 @@ namespace Compo\MenuBundle\Entity;
  */
 class MenuRepository extends \Gedmo\Tree\Entity\Repository\NestedTreeRepository
 {
+    /**
+     * {@inheritDoc}
+     */
     public function findAll()
     {
         return $this->findBy(array(), array('root' => 'ASC', 'lft' => 'ASC'));
@@ -44,8 +47,8 @@ class MenuRepository extends \Gedmo\Tree\Entity\Repository\NestedTreeRepository
             $els[$opts['id']] = $path . $opts['name'];
             if (isset($opts['__children']) && is_array($opts['__children']) && sizeof($opts['__children'])) {
                 $r = $this->toFlat($opts['__children'], $sep, ($path . $opts['name'] . $sep));
-                foreach ($r as $id => $title) {
-                    $els[$id] = $title;
+                foreach ($r as $r_id => $title) {
+                    $els[$r_id] = $title;
                 }
             }
         }

@@ -37,6 +37,7 @@ class PageManager extends \Sonata\PageBundle\Entity\PageManager
 
         $pages = $query->execute();
 
+        /** @var Page $page */
         foreach ($pages as $page) {
             $parent = $page->getParent();
 
@@ -45,8 +46,10 @@ class PageManager extends \Sonata\PageBundle\Entity\PageManager
                 continue;
             }
 
-            $pages[$parent->getId()]->disableChildrenLazyLoading();
-            $pages[$parent->getId()]->addChildren($page);
+            /** @var Page $parent_page */
+            $parent_page = $pages[$parent->getId()];
+            $parent_page->disableChildrenLazyLoading();
+            $parent_page->addChildren($page);
         }
 
         return $pages;

@@ -2,14 +2,16 @@
 
 namespace Compo\MenuBundle\Controller;
 
+use Compo\Sonata\AdminBundle\Controller\CRUDController;
+use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-
-use Compo\Sonata\AdminBundle\Controller\CRUDController;
 
 class MenuAdminController extends CRUDController
 {
     /**
+     * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function treeAction(Request $request = null)
@@ -18,10 +20,9 @@ class MenuAdminController extends CRUDController
             throw new AccessDeniedException();
         }
         $em = $this->getDoctrine()->getManager();
+        /** @var NestedTreeRepository $repo */
         $repo = $em->getRepository($this->admin->getClass());
         $tree = $repo->childrenHierarchy();
-
-
 
 
         return $this->render($this->admin->getTemplate('tree'), array(
@@ -30,7 +31,6 @@ class MenuAdminController extends CRUDController
             'form' => $this->admin->getDatagrid()->getForm()->createView(),
         ));
     }
-
 
 
     /**

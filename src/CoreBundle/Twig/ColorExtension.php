@@ -184,7 +184,7 @@ class ColorExtension extends \Twig_Extension
             return "";
         if (count($colors) == 1)
             return $colors[0];
-        $hexColors = [];
+
         $amountColors = count($colors);
         foreach ($colors as $key => $val) {
             $colors[$key] = self::normalizeColor($val);

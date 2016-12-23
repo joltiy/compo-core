@@ -223,14 +223,14 @@
 			$('#serialize').click(function(){
 				serialized = $('ol.sortable').nestedSortable('serialize');
 				$('#serializeOutput').text(serialized+'\n\n');
-			})
+			});
 	
 			$('#toHierarchy').click(function(e){
 				hiered = $('ol.sortable').nestedSortable('toHierarchy', {startDepthCount: 0});
 				hiered = dump(hiered);
 				(typeof($('#toHierarchyOutput')[0].textContent) != 'undefined') ?
 				$('#toHierarchyOutput')[0].textContent = hiered : $('#toHierarchyOutput')[0].innerText = hiered;
-			})
+			});
 	
 			$('#toArray').click(function(e){
 				arraied = $('ol.sortable').nestedSortable('toArray', {startDepthCount: 0});

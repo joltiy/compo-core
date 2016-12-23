@@ -2,21 +2,32 @@
 
 namespace Compo\Sonata\AdminBundle\Extension;
 
-use Sonata\AdminBundle\Admin\AdminExtension;
+use Compo\Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
-class PositionExtension extends AdminExtension
+/**
+ * {@inheritDoc}
+ */
+class PositionExtension extends AbstractAdminExtension
 {
 
+    /**
+     * {@inheritDoc}
+     */
     public function alterNewInstance(AdminInterface $admin, $object)
     {
+        /** @var Admin $admin */
         $last_position = $admin->getConfigurationPool()->getContainer()->get("pix_sortable_behavior.position")->getLastPosition($admin->getRoot()->getClass());
 
         $object->setPosition($last_position);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function configureRoutes(AdminInterface $admin, RouteCollection $collection)
     {
         //$collection->add('move', $admin->getRouterIdParameter() . '/move/{position}');

@@ -12,6 +12,9 @@ use Sonata\AdminBundle\Form\FormMapper;
 class UserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
 {
 
+    /**
+     * {@inheritDoc}
+     */
     protected function configureFormFields(FormMapper $formMapper)
     {
         // define group zoning

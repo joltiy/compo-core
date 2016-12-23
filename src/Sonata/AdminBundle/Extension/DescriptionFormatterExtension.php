@@ -2,21 +2,24 @@
 
 namespace Compo\Sonata\AdminBundle\Extension;
 
-use Sonata\AdminBundle\Admin\AdminExtension;
+use Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use Sonata\AdminBundle\Admin\AdminInterface;
-use Sonata\AdminBundle\Datagrid\ListMapper;
-use Sonata\AdminBundle\Route\RouteCollection;
-use Sonata\AdminBundle\Form\FormMapper;
 
-class DescriptionFormatterExtension extends AdminExtension
+
+/**
+ * {@inheritDoc}
+ */
+class DescriptionFormatterExtension extends AbstractAdminExtension
 {
     /**
      * {@inheritdoc}
      */
     public function prePersist(AdminInterface $admin, $object)
     {
+        /** @noinspection PhpUndefinedFieldInspection */
         if ($admin->descriptionFormatterEnabled) {
             try {
+                /** @noinspection PhpUndefinedFieldInspection */
                 $object->setDescription($admin->formatterPool->transform($object->getDescriptionFormatter(), $object->getRawDescription()));
             } catch (\Exception $e) {
 

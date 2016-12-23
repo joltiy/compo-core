@@ -15,6 +15,9 @@ use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
+/**
+ * {@inheritDoc}
+ */
 class SlidingPaginationSubscriber implements EventSubscriberInterface
 {
     private $route;
@@ -68,6 +71,9 @@ class SlidingPaginationSubscriber implements EventSubscriberInterface
         $event->stopPropagation();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public static function getSubscribedEvents()
     {
         return array(

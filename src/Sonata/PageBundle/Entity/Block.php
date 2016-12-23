@@ -40,6 +40,9 @@ class Block extends BaseBlock
         return $this->id;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getEnabled()
     {
         return (bool)$this->enabled;

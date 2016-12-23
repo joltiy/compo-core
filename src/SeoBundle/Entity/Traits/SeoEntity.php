@@ -119,7 +119,7 @@ trait SeoEntity
     {
         return $this->noIndexEnabled;
     }
-    
+
     /**
      * Get noIndexEnabled
      *
@@ -129,7 +129,7 @@ trait SeoEntity
     {
         return $this->noIndexEnabled;
     }
-    
+
     /**
      * @param boolean $noIndexEnabled
      */

@@ -30,6 +30,7 @@ trait TreeEntityTrait
      * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
      */
     protected $parent;
+
     /**
      * @ORM\OneToMany(targetEntity="Compo\CatalogBundle\Entity\Catalog", mappedBy="parent")
      * @ORM\OrderBy({"lft" = "ASC"})
@@ -60,7 +61,7 @@ trait TreeEntityTrait
      *
      * @param integer $lft
      *
-     * @return Catalog
+     * @return object
      */
     public function setLft($lft)
     {
@@ -84,7 +85,7 @@ trait TreeEntityTrait
      *
      * @param integer $lvl
      *
-     * @return Catalog
+     * @return object
      */
     public function setLvl($lvl)
     {
@@ -108,7 +109,7 @@ trait TreeEntityTrait
      *
      * @param integer $rgt
      *
-     * @return Catalog
+     * @return object
      */
     public function setRgt($rgt)
     {
@@ -132,7 +133,7 @@ trait TreeEntityTrait
      *
      * @param \Compo\CatalogBundle\Entity\Catalog $parent
      *
-     * @return Catalog
+     * @return object
      */
     public function setParent(\Compo\CatalogBundle\Entity\Catalog $parent = null)
     {
@@ -146,7 +147,7 @@ trait TreeEntityTrait
      *
      * @param \Compo\CatalogBundle\Entity\Catalog $children
      *
-     * @return Catalog
+     * @return object
      */
     public function addChild(\Compo\CatalogBundle\Entity\Catalog $children)
     {
@@ -162,6 +163,7 @@ trait TreeEntityTrait
      */
     public function removeChild(\Compo\CatalogBundle\Entity\Catalog $children)
     {
+        /** @noinspection PhpUndefinedMethodInspection */
         $this->children->removeElement($children);
     }
 

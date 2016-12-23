@@ -7,27 +7,27 @@
     <ul {% if dropdown|default(false) %} {% else %}  {% endif %}>
         {% for node in nodesList %}
 
-                {% if node.__children|length %}
+            {% if node.__children|length %}
 
-                    <li >
+                <li>
 
-                        <a title="{{ node.title }}" href="{{ node.url }}" >
-                            {{ node.name }}
-                            <span class="caret"></span>
-                        </a>
+                    <a title="{{ node.title }}" href="{{ node.url }}">
+                        {{ node.name }}
+                        <span class="caret"></span>
+                    </a>
 
-                        {{ _self.renderNodes(node.__children, node.lvl+1, true) }}
-                    </li>
+                    {{ _self.renderNodes(node.__children, node.lvl+1, true) }}
+                </li>
 
-                {% else %}
-                    <li {% if app.request.requestUri == node.url %} class="active" {% endif %}>
+            {% else %}
+                <li {% if app.request.requestUri == node.url %} class="active" {% endif %}>
 
-                        <a title="{{ node.title }}" href="{{ node.url }}">
-                            {{ node.name }}
-                        </a>
-                    </li>
+                    <a title="{{ node.title }}" href="{{ node.url }}">
+                        {{ node.name }}
+                    </a>
+                </li>
 
-                {% endif %}
+            {% endif %}
         {% endfor %}
     </ul>
 {% endmacro %}

@@ -2,7 +2,8 @@
 
 namespace Compo\SeoBundle\Extension;
 
-use Sonata\AdminBundle\Admin\AdminExtension;
+use Compo\Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -11,18 +12,30 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 
-class SeoExtension extends AdminExtension
+/**
+ * {@inheritDoc}
+ */
+class SeoExtension extends AbstractAdminExtension
 {
 
+    /**
+     * {@inheritDoc}
+     */
     public function alterNewInstance(AdminInterface $admin, $object)
     {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function configureRoutes(AdminInterface $admin, RouteCollection $collection)
     {
     }
@@ -42,6 +55,9 @@ class SeoExtension extends AdminExtension
     {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
@@ -75,6 +91,7 @@ class SeoExtension extends AdminExtension
      */
     public function preUpdate(AdminInterface $admin, $object)
     {
+        /** @var $admin Admin */
         /** TODO  */
         if (trim($object->getSlug()) == '') {
             $service = $admin->getConfigurationPool()->getContainer()->get("sonata.core.slugify.cocur");
@@ -88,6 +105,8 @@ class SeoExtension extends AdminExtension
      */
     public function prePersist(AdminInterface $admin, $object)
     {
+        /** @var $admin Admin */
+
         if (trim($object->getSlug()) == '') {
             $service = $admin->getConfigurationPool()->getContainer()->get("sonata.core.slugify.cocur");
 

@@ -9,6 +9,7 @@
 namespace Compo\Sonata\AdminBundle\Controller;
 
 use Compo\Sonata\AdminBundle\Admin\Admin;
+use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 use Pix\SortableBehaviorBundle\Services\PositionHandler;
 use Sonata\AdminBundle\Controller\CRUDController as BaseCRUDController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -16,6 +17,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
+/**
+ * {@inheritDoc}
+ */
 class CRUDController extends BaseCRUDController
 {
     /**
@@ -35,22 +39,22 @@ class CRUDController extends BaseCRUDController
     {
         $request = $this->getRequest();
 
-        $column = 'position';
-
-
         $em = $this->getDoctrine()->getManager();
+
         $repo = $em->getRepository($this->admin->getClass());
 
         $object = $repo->find($request->get('id'));
 
-
+        /** @var \Doctrine\ORM\QueryBuilder $qb */
         $qb = $em->createQueryBuilder();
 
         // Сдвигаем позицию назад, у всех кто после текущего
 
+
         $qb->update($this->admin->getClass(), 'i')
             ->set('i.position', 'i.position - 1')
             ->where('i.position > ' . $object->getPosition());
+
         $qb->getQuery()->execute();
 
         // Получаем позицию элемента, после которого должен стоять текущий
@@ -73,6 +77,7 @@ class CRUDController extends BaseCRUDController
 
         // Обновляем позиции текущего и последующих
 
+        /** @var \Doctrine\ORM\QueryBuilder $qb */
         $qb = $em->createQueryBuilder();
 
         $qb->update($this->admin->getClass(), 'i')
@@ -80,6 +85,7 @@ class CRUDController extends BaseCRUDController
             ->where('i.id = ' . $object->getId());
         $qb->getQuery()->execute();
 
+        /** @var \Doctrine\ORM\QueryBuilder $qb */
         $qb = $em->createQueryBuilder();
 
         $qb->update($this->admin->getClass(), 'i')
@@ -87,6 +93,7 @@ class CRUDController extends BaseCRUDController
             ->where('i.position >= ' . $new_pos);
         $qb->getQuery()->execute();
 
+        /** @var \Doctrine\ORM\QueryBuilder $qb */
         $qb = $em->createQueryBuilder();
 
         $qb->update($this->admin->getClass(), 'i')
@@ -107,7 +114,10 @@ class CRUDController extends BaseCRUDController
     /**
      * Move element
      *
-     * @param string $position
+     * @param Request $request
+     *
+     * @return RedirectResponse|Response
+     * @internal param string $position
      */
     public function moveAction(Request $request)
     {
@@ -120,6 +130,8 @@ class CRUDController extends BaseCRUDController
             $dropPosition = $request->query->get('position');
 
             $em = $this->getDoctrine()->getManager();
+
+            /** @var NestedTreeRepository $repo */
             $repo = $em->getRepository($this->admin->getClass());
 
             $currentNode = $repo->find($id);
@@ -215,11 +227,10 @@ class CRUDController extends BaseCRUDController
     }
 
 
-
-
-
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param Request $request
+     *
+     * @return Response
      */
     public function listAction(Request $request = null)
     {
@@ -233,16 +244,22 @@ class CRUDController extends BaseCRUDController
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param Request $request
+     *
+     * @return Response
      */
     public function treeAction(Request $request = null)
     {
+        $request->getBasePath();
+
         if (isset($this->admin->treeEnabled) && $this->admin->treeEnabled) {
 
             if (false === $this->admin->isGranted('LIST')) {
                 throw new AccessDeniedException();
             }
             $em = $this->getDoctrine()->getManager();
+
+            /** @var NestedTreeRepository $repo */
             $repo = $em->getRepository($this->admin->getClass());
             $tree = $repo->childrenHierarchy();
 
@@ -275,6 +292,9 @@ class CRUDController extends BaseCRUDController
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     protected function redirectTo($object)
     {
         $request = $this->getRequest();
@@ -324,7 +344,7 @@ class CRUDController extends BaseCRUDController
     /**
      * @return Admin
      */
-    public function getAdmin(): Admin
+    public function getAdmin()
     {
         return $this->admin;
     }

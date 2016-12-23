@@ -14,6 +14,9 @@ namespace Compo\Sonata\PageBundle\Admin;
 use Sonata\AdminBundle\Form\FormMapper;
 
 
+/**
+ * {@inheritDoc}
+ */
 class SharedBlockAdmin extends \Sonata\PageBundle\Admin\SharedBlockAdmin
 {
     /**

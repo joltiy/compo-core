@@ -17,9 +17,6 @@
       "homepage": "http://www.larentis.eu"
     }
   ],
-  "ignore": [
-    "docs"
-  ],
   "extra": {
     "component": {
       "name": "bootstrap-switch",
