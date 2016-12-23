@@ -19,7 +19,7 @@ class ShowMoreExtension extends Twig_Extension
     public function getFilters()
     {
         return array(
-            'show_more' => new Twig_SimpleFilter($this, 'showMoreFilter'),
+            'show_more' => new Twig_SimpleFilter('show_more', array($this, 'showMoreFilter')),
         );
     }
 
