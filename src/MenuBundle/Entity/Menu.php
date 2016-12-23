@@ -13,7 +13,22 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @Gedmo\Loggable
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  *
- * @ORM\Table()
+ * @ORM\Table(
+ *     indexes={
+ *          @ORM\Index(name="enabled", columns={"enabled" }),
+ *          @ORM\Index(name="deleted_at", columns={"deleted_at" }),
+ *          @ORM\Index(name="enabled_deleted_at", columns={"enabled", "deleted_at" }),
+ *          @ORM\Index(name="rgt", columns={"rgt" }),
+ *          @ORM\Index(name="lft", columns={"lft" }),
+ *          @ORM\Index(name="root", columns={"root" }),
+ *          @ORM\Index(name="root_lft", columns={"root", "lft" }),
+ *          @ORM\Index(name="id_deleted_at", columns={"id", "deleted_at" }),
+ *          @ORM\Index(name="lvl", columns={"lvl" }),
+ *          @ORM\Index(name="lvl_deleted_at", columns={"lvl", "deleted_at" }),
+ *          @ORM\Index(name="alias", columns={"alias" }),
+ *          @ORM\Index(name="alias_deleted_at", columns={"alias", "deleted_at" })
+ *     }
+ * )
  * @ORM\Entity(repositoryClass="Compo\MenuBundle\Entity\MenuRepository")
  */
 class Menu
