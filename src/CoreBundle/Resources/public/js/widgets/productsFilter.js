@@ -473,7 +473,6 @@
                 ) {
                     if (args['filter_feature'] == undefined) {
                         args['filter_feature'] = {};
-
                     }
 
                     if (args['filter_feature'][wrap.data('id')] == undefined) {

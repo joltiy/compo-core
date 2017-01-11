@@ -25,7 +25,7 @@ sonata_admin:
         form_type: horizontal
         sort_admins:          true
         confirm_exit:         true
-        use_icheck:           false
+        use_icheck:           true
         use_stickyforms:      true
         title_mode:           "single_image"
 
