@@ -10,22 +10,6 @@ use Symfony\Component\Yaml\Yaml;
  *
  * composer.json
  *
- * "pre-install-cmd": [
- *      "Compo\\CoreBundle\\Composer\\HerokuEnvironment::populateEnvironment"
- * ],
- *
- * "extra": {
- *      "heroku": {
- *          "framework": "symfony2",
- *          "document-root": "web",
- *          "php-config": [
- *              "date.timezone=Europe/Moscow",
- *              "display_errors=off",
- *              "short_open_tag=off"
- *          ]
- *      }
- * }
- *
  * @package Compo\CoreBundle\Composer
  */
 class CreateConfigs
@@ -58,7 +42,6 @@ class CreateConfigs
             'nginx.conf.twig' => file_get_contents($root_dir . '/config/nginx.conf.twig'),
             'php-fpm.conf.twig' => file_get_contents($root_dir . '/config/php-fpm.conf.twig'),
             'servers.yml.dist' => file_get_contents($root_dir . '/config/servers.yml.dist'),
-            'ansible_hosts.yml.dist' => file_get_contents($root_dir . '/config/ansible_hosts.yml.dist'),
         ));
 
         $twig = new \Twig_Environment($loader, array('autoescape' => false, 'debug' => false));
@@ -73,10 +56,6 @@ class CreateConfigs
 
         if (!file_exists($root_dir . '/config/servers.yml')) {
             file_put_contents($root_dir . '/config/servers.yml', $twig->render('servers.yml.dist', $parameters));
-        }
-
-        if (!file_exists($root_dir . '/config/ansible_hosts.yml')) {
-            file_put_contents($root_dir . '/config/ansible_hosts.yml', $twig->render('ansible_hosts.yml.dist', $parameters));
         }
 
         if (!file_exists($root_dir . '/config/htpasswd.conf')) {
