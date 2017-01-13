@@ -2,7 +2,7 @@ fos_elastica:
     clients:
         default:
             host:                               localhost
-            port:                               9200
+            port:                               9300
 
     indexes:
         product_search:
@@ -15,8 +15,6 @@ fos_elastica:
                                 language: Russian
 
             index_name: product_search
-
-
 
             client:                             default
 
