@@ -89,6 +89,9 @@ class AppKernel extends Kernel
 
             new \Compo\CoreBundle\CompoCoreBundle(),
             new \Compo\SeoBundle\CompoSeoBundle(),
+            new \Compo\MenuBundle\CompoMenuBundle(),
+
+            new \Compo\EcommerceBundle\CompoEcommerceBundle(),
             new \Compo\ProductBundle\CompoProductBundle(),
             new \Compo\CurrencyBundle\CompoCurrencyBundle(),
             new \Compo\FeaturesBundle\CompoFeaturesBundle(),
@@ -96,7 +99,6 @@ class AppKernel extends Kernel
             new \Compo\CountryBundle\CompoCountryBundle(),
             new \Compo\CatalogBundle\CompoCatalogBundle(),
             new \Compo\SupplierBundle\CompoSupplierBundle(),
-            new \Compo\MenuBundle\CompoMenuBundle(),
             new \Compo\DeliveryBundle\CompoDeliveryBundle(),
             new \Compo\PaymentBundle\CompoPaymentBundle(),
             new \Compo\OrderBundle\CompoOrderBundle(),
@@ -108,7 +110,6 @@ class AppKernel extends Kernel
             new \JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new \JMS\SerializerBundle\JMSSerializerBundle($this),
             new \JMS\TranslationBundle\JMSTranslationBundle(),
-
         );
 
         // Бандлы для test/dev окружения

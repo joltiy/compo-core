@@ -41,36 +41,6 @@ sonata_admin:
 
     dashboard:
         blocks:
-            -
-                class:    col-md-4
-                position: top
-                type:     sonata.admin.block.stats
-                settings:
-                    code:  compo_order.admin.order
-                    icon:  fa-shopping-cart
-                    text:  'orders'
-                    color: bg-yellow
-
-            -
-                class:    col-md-4
-                position: top
-                type:     sonata.admin.block.stats
-                settings:
-                    code:  compo_product.admin.product
-                    icon:  fa-usd
-                    text:  'products'
-                    color: bg-green
-
-            -
-                class:    col-md-4
-                position: top
-                type:     sonata.admin.block.stats
-                settings:
-                    code:  sonata.user.admin.user
-                    icon:  fa-user
-                    text:  'users'
-                    color: bg-green
-
             - { class: "col-md-12", position: top, type: sonata.timeline.block.timeline, settings: { context: SONATA_ADMIN, max_per_page: 25, title: "Журнал действий" }}
 
         groups:
