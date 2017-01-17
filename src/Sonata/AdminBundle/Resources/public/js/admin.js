@@ -1,40 +1,42 @@
 function fillmanufactureCollection() {
-    if ($(".manufacture-select2 option:selected").length) {
-        var request_data = {
-            manufacture: $(".manufacture-select2 option:selected").val()
-        };
-    } else {
-        var request_data = {};
+    if ($('.select.manufactureCollection-select').length) {
+        if ($(".manufacture-select2 option:selected").length) {
+            var request_data = {
+                manufacture: $(".manufacture-select2 option:selected").val()
+            };
+        } else {
+            var request_data = {};
+        }
+
+        var manufactureCollection = $("select.manufactureCollection-select2 option:selected").val();
+
+        $.ajax({
+
+            url: Routing.generate('admin_compo_manufacture_manufacturecollection_select2')
+            data: request_data,
+            success: function (data) {
+                $("select.manufactureCollection-select2").select2("destroy");
+
+
+                $("select.manufactureCollection-select2").html('');
+
+                $("select.manufactureCollection-select2").append('<option value=""></option>');
+
+                $.each(data, function (index, value) {
+                    var option = $('<option value="' + value.id + '">' + value.text + '</option>');
+
+                    if (value.id == manufactureCollection) {
+                        option.attr('selected', 'selected');
+                    }
+
+                    $("select.manufactureCollection-select2").append(option);
+                });
+
+                Admin.setup_select2($("select.manufactureCollection-select2").parent());
+            },
+            dataType: 'json'
+        });
     }
-
-    var manufactureCollection = $("select.manufactureCollection-select2 option:selected").val();
-
-    $.ajax({
-
-        url: Routing.generate('admin_compo_manufacture_manufacturecollection_select2')
-        data: request_data,
-        success: function (data) {
-            $("select.manufactureCollection-select2").select2("destroy");
-
-
-            $("select.manufactureCollection-select2").html('');
-
-            $("select.manufactureCollection-select2").append('<option value=""></option>');
-
-            $.each(data, function (index, value) {
-                var option = $('<option value="' + value.id + '">' + value.text + '</option>');
-
-                if (value.id == manufactureCollection) {
-                    option.attr('selected', 'selected');
-                }
-
-                $("select.manufactureCollection-select2").append(option);
-            });
-
-            Admin.setup_select2($("select.manufactureCollection-select2").parent());
-        },
-        dataType: 'json'
-    });
 }
 
 
