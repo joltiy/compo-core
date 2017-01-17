@@ -10,19 +10,9 @@ twig:
             - 'SonataFormatterBundle:Form:formatter.html.twig'
             - 'SonataMediaBundle:Form:media_widgets.html.twig'
             - 'SonataCoreBundle:Form:datepicker.html.twig'
-
-            - 'CompoFeaturesBundle:Form:features_widget.html.twig'
             - 'SonataCoreBundle:Form:colorpicker.html.twig'
             - 'MopaBootstrapBundle:Form:fields.html.twig'
-            - 'CompoTaggingBundle:Form:tagging_widget.html.twig'
-
     exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'
 
     globals:
-        catalog_manager: "@compo_catalog.manager.catalog"
-        product_manager: "@compo_product.manager.product"
-        manufacture_manager: "@compo_manufacture.manager.manufacture"
-        manufacture_collection_manager: "@compo_manufacture.manager.manufacture_collection"
-        tagging_manager: "@compo_tagging.manager.tagging"
-
         ivory_ck_editor_plugin_manager: "@ivory_ck_editor.plugin_manager"
