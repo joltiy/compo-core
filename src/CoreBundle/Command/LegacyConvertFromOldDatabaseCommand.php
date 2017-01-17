@@ -27,7 +27,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * {@inheritDoc}
  */
-class ConvertFromOldDatabaseCommand extends ContainerAwareCommand
+class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
 {
     /**
      * @var \Doctrine\Common\Persistence\ObjectManager

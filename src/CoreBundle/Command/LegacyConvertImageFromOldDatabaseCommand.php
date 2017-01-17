@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * {@inheritDoc}
  */
-class ConvertImageFromOldDatabaseCommand extends ContainerAwareCommand
+class LegacyConvertImageFromOldDatabaseCommand extends ContainerAwareCommand
 {
     /**
      * @var \Doctrine\Common\Persistence\ObjectManager

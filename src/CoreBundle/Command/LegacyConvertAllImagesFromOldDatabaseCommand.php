@@ -11,7 +11,7 @@ use Symfony\Component\Process\Process;
 /**
  * {@inheritDoc}
  */
-class ConvertAllImagesFromOldDatabaseCommand extends ContainerAwareCommand
+class LegacyConvertAllImagesFromOldDatabaseCommand extends ContainerAwareCommand
 {
     /**
      * @var \Doctrine\Common\Persistence\AbstractManagerRegistry

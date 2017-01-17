@@ -5,7 +5,7 @@ fos_elastica:
             port:                               9300
 
     indexes:
-        product_search:
+        main:
             settings:
                 index:
                     analysis:
@@ -14,90 +14,6 @@ fos_elastica:
                                 type: snowball
                                 language: Russian
 
-            index_name: product_search
+            index_name: "%fos_elastica_index_name%"
 
             client:                             default
-
-            types:
-                catalog:
-                    persistence:
-                        driver: orm
-                        model: Compo\CatalogBundle\Entity\Catalog
-                        provider: ~
-                        listener:
-                            immediate: ~
-                        finder: ~
-
-                    mappings:
-                        name: { type: string, boost: 3, analyzer: my_analyzer }
-                        enabled: { type: boolean }
-
-                product:
-                    persistence:
-                        driver: orm
-                        model: Compo\ProductBundle\Entity\Product
-                        provider: ~
-                        listener:
-                            immediate: ~
-                        finder: ~
-
-                    mappings:
-                        id: ~
-                        name: { type: string, boost: 3, analyzer: my_analyzer }
-                        price: { type: float,index: not_analyzed }
-                        enabled: { type: boolean }
-
-                        availability:
-                            type: "object"
-                            properties:
-                                id: ~
-                                position: ~
-
-                        catalog:
-                            type: "object"
-                            properties:
-                                id: ~
-                                name: { type: string, boost: 3, analyzer: my_analyzer }
-                                enabled: { type: boolean }
-
-                        manufacture:
-                              type: "object"
-                              properties:
-                                  id: ~
-                                  name: { type: string, boost: 3, analyzer: my_analyzer }
-                                  enabled: { type: boolean }
-                                  country:
-                                      type: "object"
-                                      properties:
-                                          id: ~
-                                          name: { type: string, boost: 3, analyzer: my_analyzer }
-                                          enabled: { type: boolean }
-
-                        manufactureCollection:
-                              type: "object"
-                              properties:
-                                  id: ~
-                                  name: { type: string, boost: 3, analyzer: my_analyzer }
-                                  enabled: { type: boolean }
-
-                        features:
-                            type: "nested"
-                            properties:
-                                id: { type: integer,index: not_analyzed  }
-                                feature_attribute_id:  { type: string,index: not_analyzed }
-                                feature:
-                                    type: "object"
-                                    properties:
-                                        id: { type: integer,index: not_analyzed }
-                                        name: { type: string, boost: 1, analyzer: my_analyzer }
-                                        position: { type: integer,index: not_analyzed }
-
-                                valueInteger: { type: integer,index: not_analyzed }
-                                valueDecimal:  { type: float, index: not_analyzed }
-                                valueString: ~
-                                valueVariant:
-                                    type: "object"
-                                    properties:
-                                        id: ~
-                                        name: { type: string, boost: 1, analyzer: my_analyzer }
-                                        position: { type: integer,index: not_analyzed }
