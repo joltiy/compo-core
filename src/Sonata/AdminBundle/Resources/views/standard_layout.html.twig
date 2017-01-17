@@ -8,12 +8,3 @@
         {% endblock %}
     </p>
 {% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-
-    {# COMPO Временный хак, маршрут для AJAX подгрузки производителей #}
-    <script>
-        document.admin_compo_manufacture_manufacturecollection_select2 = '{{ path('admin_compo_manufacture_manufacturecollection_select2') }}';
-    </script>
-{% endblock %}
