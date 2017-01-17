@@ -1,0 +1,35 @@
+compo_basket:
+    resource: "@CompoBasketBundle/Resources/config/routing.yml"
+    prefix:   /
+
+compo_product:
+    resource: "@CompoProductBundle/Resources/config/routing.yml"
+    prefix:   /
+
+compo_catalog:
+    resource: "@CompoCatalogBundle/Resources/config/routing.yml"
+    prefix:   /
+
+compo_features:
+    resource: "@CompoFeaturesBundle/Resources/config/routing.yml"
+    prefix:   /
+
+compo_supplier:
+    resource: "@CompoSupplierBundle/Resources/config/routing.yml"
+    prefix:   /
+
+compo_manufacture:
+    resource: "@CompoManufactureBundle/Resources/config/routing.yml"
+    prefix:   /
+
+compo_delivery:
+    resource: "@CompoDeliveryBundle/Resources/config/routing.yml"
+    prefix:   /
+
+compo_payment:
+    resource: "@CompoPaymentBundle/Resources/config/routing.yml"
+    prefix:   /
+
+compo_order:
+    resource: "@CompoOrderBundle/Resources/config/routing.yml"
+    prefix:   /
