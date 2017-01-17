@@ -57,12 +57,6 @@ assetic:
                 - "bundles/sonatapage/sonata-page.back.js"
                 - "bundles/sonataadmin/Admin.js"
                 - "bundles/sonataadmin/treeview.js"
-
-                - "bundles/compocore/js/widgets/productsFilter.js"
-
-                - "bundles/compotagging/js/productsFilterAdmin.js"
-                - "bundles/compotagging/js/onload.js"
-
             filters:
                 - ?yui_js
 
@@ -118,39 +112,14 @@ assetic:
                 - ?yui_js
 
         sonata_front_vendor_js:
-            inputs:
-                - "bundles/compocore/vendor/jquery-mousewheel/jquery.mousewheel.js"
-                - "bundles/compocore/vendor/fancyBox/source/jquery.fancybox.js"
-                - "bundles/compocore/vendor/seiyria-bootstrap-slider/js/bootstrap-slider.js"
-                - "bundles/compocore/vendor/sweetalert/dist/sweetalert.min.js"
-                - "bundles/compocore/vendor/jquery-listnav/jquery-listnav.js"
-                - "bundles/compocore/vendor/jquery.maskedinput/dist/jquery.maskedinput.js"
-                - "bundles/compocore/vendor/jquery-smooth-scroll/jquery.smooth-scroll.js"
-                - "bundles/compocore/vendor/jquery-validation/dist/jquery.validate.js"
-                - "bundles/compocore/vendor/jquery-validation/dist/additional-methods.js"
-                - "bundles/compocore/vendor/jquery-validation/src/localization/messages_ru.js"
-                - "bundles/compocore/vendor/jquery-highlight/jquery.highlight.js"
-                - "bundles/compocore/vendor/chosen_v1.2.0/chosen.jquery.js"
-                - "bundles/compocore/vendor/pikachoose-bower/lib/jquery.pikachoose.js"
-                - "bundles/compocore/vendor/jScrollPane/script/jquery.jscrollpane.js"
-                - "bundles/compocore/vendor/slick-carousel/slick/slick.js"
-                - "bundles/compocore/vendor/drmonty-garlicjs/js/garlic.min.js"
-                - "bundles/compocore/vendor/jquery.cookie/jquery.cookie.js"
-                - "bundles/compocore/vendor/history.js/scripts/bundled/html4+html5/jquery.history.js"
-#                - "vendor/bootstrap-star-rating/js/star-rating.js"
-                - "bundles/compocore/vendor/json/json2.js"
-                - "bundles/compocore/opt/jstorage.js"
-                - "bundles/compocore/js/fuckadblock.js"
+            inputs: []
+
             filters:
                 - ?yui_js
 
 
         sonata_front_js:
-            inputs:
-                - "bundles/compocore/js/widgets/*.js"
-                - "bundles/compocore/js/functions.js"
-                - "bundles/compocore/js/analyticsEvents.js"
-                - "bundles/compocore/js/onload.js"
+            inputs: []
             filters:
                 - ?yui_js
 
@@ -165,33 +134,13 @@ assetic:
 
 
         sonata_front_vendor_css:
-            inputs:
-                - "bundles/compocore/vendor/fancyBox/source/jquery.fancybox.css"
-                - "bundles/compocore/vendor/chosen_v1.2.0/chosen.min.css"
-                - "bundles/compocore/vendor/jScrollPane/style/jquery.jscrollpane.css"
-                - "bundles/compocore/vendor/jquery-listnav/css/listnav.css"
-                - "bundles/compocore/vendor/pikachoose-bower/styles/base.css"
-                - "bundles/compocore/vendor/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css"
-                - "bundles/compocore/vendor/slick-carousel/slick/slick.css"
-                - "bundles/compocore/vendor/slick-carousel/slick/slick-theme.css"
-                - "bundles/compocore/vendor/world-flags-sprite/stylesheets/flags16.css"
-                - "bundles/compocore/vendor/world-flags-sprite/stylesheets/flags32.css"
-#                - "vendor/bootstrap-star-rating/css/star-rating.min.css"
-                - "bundles/compocore/vendor/sweetalert/dist/sweetalert.css"
-                - "bundles/compocore/vendor/animate.css/animate.min.css"
+            inputs: []
             filters:
                 - cssrewrite
                 - ?yui_css
 
         sonata_front_css:
-            inputs:
-                - "bundles/compocore/css/base/*.css"
-                - "bundles/compocore/css/blocks/*.css"
-                - "bundles/compocore/css/bundles/*.css"
-                - "bundles/compocore/css/bundles/index/*.css"
-                - "bundles/compocore/css/bundles/market/*.css"
-                - "bundles/compocore/css/sidebar/*.css"
-                - "bundles/compocore/css/*.css"
+            inputs: []
             filters:
                 - cssrewrite
                 - ?yui_css

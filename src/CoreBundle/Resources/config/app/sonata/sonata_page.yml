@@ -80,7 +80,6 @@ sonata_page:
                         - sonata.block.service.text
                         - sonata.formatter.block.formatter
                         - compo_menu.block.service.menu
-                        - compo_catalog.block.menu_sidebar
 
                  content:
                      name: "Контент"
@@ -89,9 +88,6 @@ sonata_page:
                         - sonata.block.service.text
                         - sonata.formatter.block.formatter
                         - compo_menu.block.service.menu
-                        - compo_product.block.service.products
-                        - compo_product.block.service.products_similar
-                        - compo_product.block.service.products_last_viewed
 
                  content_bottom:
                      name: "Внизу"
@@ -152,9 +148,6 @@ sonata_page:
                         - sonata.block.service.text
                         - sonata.formatter.block.formatter
                         - compo_menu.block.service.menu
-                        - compo_product.block.service.products
-                        - compo_product.block.service.products_similar
-                        - compo_product.block.service.products_last_viewed
 
                  content_bottom:
                      name: "Внизу"

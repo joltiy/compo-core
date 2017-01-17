@@ -32,44 +32,10 @@
                     <a href="/" class="logo"></a>
                 </div>
 
-                <div class="col-xs-5 col-sm-5 col-md-2 col-lg-2 hidden-xs hidden-sm">
-                    <div class="blob"></div>
-                </div>
-
-                <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                    <div class="row">
-                        <div class="col-lg-12 opening-times">
-                            <span class="value">{{ compo_core_settings.header_timework|raw }}</span>
-                            <span class="range hidden-xs" data-toggle="tooltip" data-placement="right" data-title="{{ compo_core_settings.header_timework_description }}" data-html="true"></span>
-                        </div>
-
-                        <div class="col-lg-12 ht-contacts">
-                            {{ compo_core_settings.header_phones|raw }}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xs-6 col-sm-3 col-md-2 col-lg-2">
-                    <div class="contact-mail">
-                        <a href="mailto:{{ compo_core_settings.email }}">{{ compo_core_settings.email }}</a>
-                    </div>
-                    <div class="recall">
-                        <span class="link fancybox-ajax recall-btn" data-href="/ajax/recallform/">Обратный звонок</span>
-                    </div>
-
-                    <div class="feedback-principal">
-                        <a href="/feedback_principal/">Написать директору</a>
-                    </div>
-                </div>
-
                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
                     <!--noindex-->
                     <div id="compoBasket" class="">
                         <a href="/login/" class="btn btn-info login"><span class="font-icon fa fa-user"></span> Войти</a>
-
-
-                        <a href="{{ path('compo_basket_cart') }}" rel="nofollow" class="btn btn-success cart"><span class="font-icon fa fa-shopping-cart"></span> <span class="count"><b><span id="top_basket_products">0</span></b></span></a>
-
                     </div>
                     <!--/noindex-->
                 </div>
@@ -84,15 +50,6 @@
                             {{ sonata_block_render({ 'type': 'compo_menu.block.service.menu' }, {
                                 'alias': 'main'
                             }) }}
-                        </div>
-
-                        <div class="col-sm-12 col-md-4 col-lg-4">
-                            <form method="get" action="/search/" class="navbar-form navbar-right search" role="search">
-                                <div class="row form-group ">
-                                    <input class="form-control" autocomplete="off" type="text" name="keyword" placeholder="Поиск по интернет-магазину" value=""/>
-                                    <button type="submit" class="btn-search" title="Найти"><span class="font-icon fa fa-search" aria-hidden="true"></span></button>
-                                </div>
-                            </form>
                         </div>
                     </div>
                 </nav>

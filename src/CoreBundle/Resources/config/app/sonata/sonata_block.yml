@@ -21,7 +21,6 @@ sonata_block:
         sonata.admin_doctrine_orm.block.audit:
             contexts:   [admin]
 
-
         # Builtin Block
         sonata.block.service.text:
         sonata.block.service.container:
@@ -31,20 +30,6 @@ sonata_block:
         sonata.block.service.template:
 
         compo_menu.block.service.menu:
-        compo_catalog.block.menu:
-        compo_catalog.block.menu_sidebar:
-        compo_product.block.service.products:
-        compo_product.block.service.products_similar:
-        compo_product.block.service.products_last_viewed:
-
-        compo_manufacture.block.service.menu:
-        compo_catalog.block.childs:
-        compo_manufacture.block.manufacture_list:
-        compo_manufacture.block.manufacture_collection_list:
-        compo_catalog.block.sorting:
-        compo_manufacture.block.manufacture_country_list:
-        compo_catalog.block.filter:
-        compo_manufacture.block.catalog_menu:
 
         # PageBundle's Blocks
         sonata.page.block.container:
@@ -61,10 +46,7 @@ sonata_block:
         sonata.media.block.gallery:
         sonata.media.block.feature_media:
 
-
-
         # TimelineBundle's Blocks
-
         sonata.timeline.block.timeline:
         sonata.timeline.block.timeline:
             contexts:   [admin]
@@ -89,8 +71,6 @@ sonata_block:
         #sonata.seo.block.twitter.hashtag_button:
         #sonata.seo.block.twitter.mention_button:
         #sonata.seo.block.twitter.embed:
-
-
 
         # Formatter
         sonata.formatter.block.formatter:

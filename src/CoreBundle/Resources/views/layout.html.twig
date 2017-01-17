@@ -68,55 +68,6 @@
             </div>
         {% endblock %}
 
-
-
-        <div class="line-greyfix">
-            <div class="container-fluid container-max-width">
-
-                <div class="row">
-                    <div class="col-xs-12 col-sm-9 col-md-8 col-lg-7 col-xs-offset-0 col-sm-offset-3 col-md-offset-4 col-lg-offset-5 col-popover-basket">
-
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-12 col-order-navigation">
-                        <div class="row">
-
-                            <div class="col-xs-7 col-sm-3 col-md-4 col-lg-7 hidden-xs">
-                        <span class=" phone hidden-sm">
-
-                            <i class="font-icon fa fa-phone"></i>
-                            <span class="value">+7 (495) 582-10-01</span>
-                        </span>
-
-
-                                <span class=" callback ">
-                            <span class="link link-ajax fancybox-ajax recall-btn" data-href="/ajax/recallform/">Обратный звонок</span>
-                        </span>
-                            </div>
-
-
-                            <div class="col-xs-6 col-sm-4 col-md-4 col-lg-2 compare hidden-xs">
-                                <span class="font-icon fa fa-balance-scale"></span>
-                                <span class="value">0 шт.</span>
-                                <button data-href="/compare/" data-fullscreen="1" class="fancybox-iframe btn btn-default">Сравнить</button>
-                            </div>
-
-                            <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3 basket col-basket">
-                                <i class="font-icon fa fa-shopping-cart"></i>
-                                <span class="count">0 шт.</span>
-                                <span class="sum">0 р.</span>
-                                <a href="{{ path('compo_basket_cart') }}" class="btn btn-default btn-extend btn-process-order">Оформить заказ</a>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
         {% block javascripts %}
             <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
             <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
