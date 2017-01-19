@@ -7,7 +7,7 @@ http://symfony.com/doc/current/book/page_creation.html
 ## Генерация
 
 ```
-php app/console generate:bundle --no-interaction --structure --format=yml --dir=src --namespace="Compo\SampleBundle"
+php app/console generate:bundle --no-interaction --format=yml --dir=src --namespace="Compo\SampleBundle"
 ```
 
 Будет сгенерирован бандл по шаблону.

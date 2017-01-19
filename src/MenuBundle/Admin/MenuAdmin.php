@@ -76,7 +76,6 @@ class MenuAdmin extends Admin
 
         $queryBuilder = $this->getDoctrine()->getManager()->getRepository('CompoMenuBundle:Menu')->createQueryBuilder('c')
             ->select('c')
-            ->from($this->getClass(), 'c')
             ->orderBy('c.root, c.lft', 'ASC');
 
         if ($id) {

@@ -12,7 +12,7 @@ function fillmanufactureCollection() {
 
         $.ajax({
 
-            url: Routing.generate('admin_compo_manufacture_manufacturecollection_select2')
+            url: Routing.generate('admin_compo_manufacture_manufacturecollection_select2'),
             data: request_data,
             success: function (data) {
                 $("select.manufactureCollection-select2").select2("destroy");

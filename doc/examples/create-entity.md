@@ -24,7 +24,7 @@ http://doctrine-orm.readthedocs.org/projects/doctrine-orm/en/latest/index.html
 `-n` - Do not ask any interactive question
 
 ```
-php app/console generate:doctrine:entity --with-repository --format=annotation --entity=CompoSampleBundle:Sample -n
+php app/console generate:doctrine:entity --format=annotation --entity=CompoSampleBundle:Sample -n
 ```
 
 Будет сгенерировано два новых класса.
