@@ -104,6 +104,7 @@ class AppKernel extends Kernel
             new \Compo\OrderBundle\CompoOrderBundle(),
             new \Compo\BasketBundle\CompoBasketBundle(),
             new \Compo\TaggingBundle\CompoTaggingBundle(),
+            new \Compo\DiscountBundle\CompoDiscountBundle(),
 
             new \JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new \JMS\AopBundle\JMSAopBundle(),
