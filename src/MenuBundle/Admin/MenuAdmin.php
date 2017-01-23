@@ -19,8 +19,7 @@ class MenuAdmin extends Admin
     public function configure()
     {
         $this->setTranslationDomain('CompoMenuBundle');
-
-        $this->configureTree(true);
+        $this->configurePosition(true);
     }
 
 
@@ -32,10 +31,7 @@ class MenuAdmin extends Admin
         $datagridMapper
             ->add('id')
             ->add('name')
-            ->add('enabled')
-            ->add('title')
-            ->add('url')
-            ->add('position')
+            ->add('alias')
             ->add('createdAt')
             ->add('updatedAt');
     }
@@ -48,11 +44,8 @@ class MenuAdmin extends Admin
         $listMapper
             ->add('id')
             ->addIdentifier('name')
-            ->add('url')
-            ->add('enabled', null, array(
-                'editable' => true,
-                'required' => true
-            ))
+            ->add('alias')
+            ->add('description')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'edit' => array(),
@@ -66,41 +59,13 @@ class MenuAdmin extends Admin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $subject = $this->getSubject();
-
-        if (is_null($subject)) {
-            return;
-        }
-
-        $id = $subject->getId();
-
-        $queryBuilder = $this->getDoctrine()->getManager()->getRepository('CompoMenuBundle:Menu')->createQueryBuilder('c')
-            ->select('c')
-            ->orderBy('c.root, c.lft', 'ASC');
-
-        if ($id) {
-            $queryBuilder->where('c.id <> :id')
-                ->setParameter('id', $id);
-        }
-
-        $tree = $queryBuilder->getQuery()->getResult();
-
-
         $formMapper
             ->tab('form.tab_main')
             ->with('main_tab', array('name' => false))
-            ->add('enabled')
             ->add('name')
-            ->add('title')
-            ->add('url')
             ->add('alias')
-            ->add('parent', 'compo_tree_selector', array(
-                'model_manager' => $this->getModelManager(),
-                'class' => $this->getClass(),
-                'tree' => $tree,
-                'required' => false,
-            ));
-
+            ->add('description')
+        ;
 
         $formMapper
             ->end()

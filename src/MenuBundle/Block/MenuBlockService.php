@@ -117,6 +117,22 @@ class MenuBlockService extends AbstractBlockService
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function buildCreateForm(FormMapper $formMapper, BlockInterface $block)
+    {
+        $block->getEnabled();
+
+        $formMapper->add('settings', 'sonata_type_immutable_array', array(
+            'keys' => array(
+                array('alias', 'text', array('required' => false)),
+                array('class', 'text', array('required' => false)),
+
+                array('template', 'text', array('required' => false)),
+            ),
+        ));
+    }
 
     /**
      * {@inheritdoc}

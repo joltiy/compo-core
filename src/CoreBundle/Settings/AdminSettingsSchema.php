@@ -110,6 +110,8 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
         $footer_tab->add('footer_phones', CKEditorType::class);
         $footer_tab->add('footer_payments', CKEditorType::class);
 
+
+
         $builder
             ->add($main_tab)
             ->add($header_tab)

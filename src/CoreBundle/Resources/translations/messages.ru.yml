@@ -100,6 +100,7 @@ list:
     label_price: 'Цена'
     label_short_description: 'Описание (краткое)'
     label_header_menu: 'Название в меню'
+    label_alias: 'Служебное имя'
 
 show:
     label_created_at: 'Дата создания'
