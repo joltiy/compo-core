@@ -69,12 +69,43 @@ class MenuItem
     protected $alias;
 
     /**
-     * Производитель
-     *
      * @ORM\ManyToOne(targetEntity="Compo\MenuBundle\Entity\Menu", fetch="EAGER")
      * @ORM\JoinColumn(name="menu_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     protected $menu;
+
+    /**
+     * @Gedmo\TreeParent
+     * @ORM\ManyToOne(targetEntity="Compo\MenuBundle\Entity\MenuItem", inversedBy="children")
+     * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
+     */
+    protected $parent;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Compo\MenuBundle\Entity\MenuItem", mappedBy="parent")
+     * @ORM\OrderBy({"lft" = "ASC"})
+     */
+    protected $children;
+
+    /**
+     * @Gedmo\TreeRoot
+     * @ORM\ManyToOne(targetEntity="Compo\MenuBundle\Entity\MenuItem")
+     * @ORM\Column(type="integer")
+     * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
+     */
+    protected $root;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $type;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Compo\Sonata\PageBundle\Entity\Page", fetch="EAGER")
+     * @ORM\JoinColumn(name="page_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+    protected $page;
 
     /**
      * Get id
@@ -85,6 +116,39 @@ class MenuItem
     {
         return $this->id;
     }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPage()
+    {
+        return $this->page;
+    }
+
+    /**
+     * @param mixed $page
+     */
+    public function setPage($page)
+    {
+        $this->page = $page;
+    }
+
 
     /**
      * Get title

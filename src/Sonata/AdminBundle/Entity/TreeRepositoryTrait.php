@@ -15,7 +15,7 @@ trait TreeRepositoryTrait
     }
 
 
-    public function getForTreeSelector($exclude_id = false)
+    public function getForTreeSelector($exclude_id = false, $qb_callback = null)
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = $this->createQueryBuilder('c');
@@ -25,6 +25,10 @@ trait TreeRepositoryTrait
         if ($exclude_id) {
             $queryBuilder->where('c.id <> :id')
                 ->setParameter('id', $exclude_id);
+        }
+
+        if ($qb_callback) {
+            call_user_func_array($qb_callback, array($queryBuilder));
         }
 
         return $queryBuilder->getQuery()->getResult();

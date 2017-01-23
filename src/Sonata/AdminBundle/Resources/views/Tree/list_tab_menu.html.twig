@@ -1,12 +1,33 @@
+{% if action == 'list' %}
+    {% set btn_list_class = 'btn-info active' %}
+    {% set btn_tree_class = 'btn-default' %}
+{% else %}
+    {% set btn_list_class = 'btn-default' %}
+    {% set btn_tree_class = 'btn-info active' %}
+{% endif %}
+
+<ul class="nav navbar-nav navbar-left">
+    <li>
+
+        <div class="btn-group" style="margin-top: 10px">
+            <a type="button"
+               class="btn {{ btn_list_class }}"
+               href="{{ admin.generateUrl('list', { filter : { list : 'true' } }) }}"
+            >
+                <i class="fa fa-list"></i>
+                {{ 'list_tab_menu.list_mode'|trans({}, 'SonataAdminBundle') }}
+            </a>
+
+            <a type="button"
+               class="btn {{ btn_tree_class }}"
+               href="{{ admin.generateUrl('tree') }}"
+            >
+                <i class="fa fa-sitemap"></i>
+                {{ 'list_tab_menu.tree_mode'|trans({}, 'SonataAdminBundle') }}
+            </a>
+        </div>
+
+    </li>
+</ul>
+
 {{ knp_menu_render(admin.sidemenu(action), {'currentClass' : 'active'}, 'list') }}
-<p></p>
-<div class="btn-group">
-    <a type="button" class="btn {% if action == 'list' %}btn-info active{% else %}btn-default{% endif %}"
-       href="{{ admin.generateUrl('list', { filter : { list : 'true' } }) }}">
-        <i class="fa fa-list"></i> {{ 'list_mode'|trans({}, 'SonataAdminBundle') }}
-    </a>
-    <a type="button" class="btn {% if action == 'tree' %}btn-info active{% else %}btn-default{% endif %}"
-       href="{{ admin.generateUrl('tree') }}">
-        <i class="fa fa-sitemap"></i> {{ 'tree_mode'|trans({}, 'SonataAdminBundle') }}
-    </a>
-</div>

@@ -236,7 +236,7 @@ class CRUDController extends BaseCRUDController
     {
         if (isset($this->admin->treeEnabled) && $this->admin->treeEnabled) {
             if (!$request->get('filter')) {
-                return new RedirectResponse($this->admin->generateUrl('tree'));
+                return new RedirectResponse($this->admin->generateUrl('tree', $request->query->all()));
             }
         }
 

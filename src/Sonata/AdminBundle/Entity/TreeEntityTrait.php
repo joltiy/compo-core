@@ -24,6 +24,7 @@ trait TreeEntityTrait
      * @ORM\Column(type="integer")
      */
     protected $rgt;
+
     /**
      * @Gedmo\TreeParent
      * @ORM\ManyToOne(targetEntity="Compo\CatalogBundle\Entity\Catalog", inversedBy="children")
@@ -43,7 +44,7 @@ trait TreeEntityTrait
      * @ORM\Column(type="integer")
      * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
      */
-    private $root;
+    protected $root;
 
 
     /**
@@ -135,7 +136,7 @@ trait TreeEntityTrait
      *
      * @return object
      */
-    public function setParent(\Compo\CatalogBundle\Entity\Catalog $parent = null)
+    public function setParent( $parent = null)
     {
         $this->parent = $parent;
 
@@ -149,7 +150,7 @@ trait TreeEntityTrait
      *
      * @return object
      */
-    public function addChild(\Compo\CatalogBundle\Entity\Catalog $children)
+    public function addChild($children)
     {
         $this->children[] = $children;
 
@@ -161,7 +162,7 @@ trait TreeEntityTrait
      *
      * @param \Compo\CatalogBundle\Entity\Catalog $children
      */
-    public function removeChild(\Compo\CatalogBundle\Entity\Catalog $children)
+    public function removeChild($children)
     {
         /** @noinspection PhpUndefinedMethodInspection */
         $this->children->removeElement($children);

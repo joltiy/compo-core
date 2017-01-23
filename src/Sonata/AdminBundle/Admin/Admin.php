@@ -46,6 +46,19 @@ class Admin extends BaseAdmin
         }
     }
 
+    public function createQuery($context = 'list')
+    {
+        $query = parent::createQuery($context);
+
+        if ($this->treeEnabled && $context == 'list') {
+            $query->andWhere(
+                $query->expr()->gt($query->getRootAliases()[0] . '.lvl', '0')
+            );
+        }
+
+        return $query;
+    }
+
     /**
      * @param \Knp\Menu\ItemInterface                       $menu
      * @param                                               $action

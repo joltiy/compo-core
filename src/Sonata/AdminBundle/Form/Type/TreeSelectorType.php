@@ -36,11 +36,17 @@ class TreeSelectorType extends AbstractType
         /** @noinspection PhpUnusedParameterInspection */
         $resolver->setDefaults(array(
             'tree' => null,
+            'current' => null,
 
             'choice_list' => function (Options $opts, $previousValue) use ($that) {
                 return new ArrayChoiceList($that->getChoices($opts));
             },
         ));
+    }
+
+    public function getChoiceLabel($value, $key, $index)
+    {
+
     }
 
     /**
@@ -56,6 +62,10 @@ class TreeSelectorType extends AbstractType
         $choices = array();
 
         foreach ($tree as $item) {
+            if ($options['current'] && $options['current']->getId() == $item->getId()) {
+                continue;
+            }
+
             /** @noinspection PhpUndefinedMethodInspection */
             if (!is_null($item->getParent())) {
                 continue;
@@ -63,7 +73,7 @@ class TreeSelectorType extends AbstractType
 
             /** @noinspection PhpUndefinedMethodInspection */
             /** @noinspection PhpUndefinedMethodInspection */
-            $choices[$item->getId()] = sprintf('%s', $item->getName());
+            $choices[sprintf('%s', $item->getName())] = $item->getId();
 
             $this->childWalker($item, $options, $choices);
         }
@@ -86,12 +96,16 @@ class TreeSelectorType extends AbstractType
 
         /** @noinspection PhpUndefinedMethodInspection */
         foreach ($category->getChildren() as $child) {
+            if ($options['current'] && $options['current']->getId() == $child->getId()) {
+                continue;
+            }
 
             /** @noinspection PhpUndefinedMethodInspection */
-            $choices[$child->getId()] = sprintf('%s %s', str_repeat(' - - -', $level - 1), $child);
+            $choices[sprintf('%s %s', str_repeat(' - - -', $level - 1), $child->getName())] = $child->getId();
 
             $this->childWalker($child, $options, $choices, $level + 1);
         }
+
     }
 
     /**
