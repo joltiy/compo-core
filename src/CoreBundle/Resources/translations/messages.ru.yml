@@ -43,6 +43,8 @@ filter:
     label_price: 'Цена'
     label_short_description: 'Описание (краткое)'
     label_header_menu: 'Название в меню'
+    label_type: 'Тип'
+    label_percent: 'Процент'
 
 form:
     label_header: 'Заголовок'
@@ -79,6 +81,7 @@ form:
     tab_seo: 'SEO'
     tab_seo_main: 'Основное'
     tab_seo_meta: 'Мета'
+    label_type: 'Тип'
 
 list:
     label__action: 'Действия'
@@ -133,8 +136,9 @@ show:
     label_price: 'Цена'
     label_short_description: 'Описание (краткое)'
     label_header_menu: 'Название в меню'
-
-
+    label_root: 'root'
+    label_type: 'Тип'
+    label_percent: 'Процент'
 
 "This is the user profile template. Feel free to override it.": "This is the block"
 "This is the user authentication edition template. Feel free to override it.": "This is the block"

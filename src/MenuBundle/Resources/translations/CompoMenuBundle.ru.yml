@@ -3,7 +3,17 @@ breadcrumb:
     link_menu_create: 'Создание меню'
     link_menu_delete: 'Удаление меню'
     link_menu_edit: 'Редактирование меню'
+    link_menu_item_batch: 'Действия над элементами меню'
+    link_menu_item_create: 'Создание элемента меню'
+    link_menu_item_delete: 'Удаление элемента меню'
+    link_menu_item_edit: 'Редактирование элемента меню'
+    link_menu_item_list: 'Список элементов меню'
+    link_menu_item_update: 'Обновление элемента меню'
     link_menu_list: 'Список меню'
     link_menu_update: 'Обвновление меню'
+
+form:
+    label_page: 'Страница'
+    label_parent: 'Родительский элемент'
 
 menu: Меню
