@@ -10,6 +10,10 @@ services:
     compo.sonata.admin.extension.description_formatter:
         class: Compo\Sonata\AdminBundle\Extension\DescriptionFormatterExtension
 
+    compo.sonata.admin.extension.list_id_as_integer:
+        class: Compo\Sonata\AdminBundle\Extension\ListIdAsIntegerExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
 
     compo.sonata.admin.form.type.tree_selector:
         class: Compo\Sonata\AdminBundle\Form\Type\TreeSelectorType

@@ -143,11 +143,6 @@ th.sonata-ba-list-field-header.sonata-ba-list-field-header-batch {
     min-width: 215px;
 }
 
-.col-sm-9.checkbox-widget {
-    padding-left: 35px;
-    padding-top: 7px;
-    padding-bottom: 7px;
-}
 
 .row-sonata_media_type_widget {
     margin-top: 7px;
@@ -316,29 +311,34 @@ th.table-th-total {
     min-width: 160px;
 }
 
-/* Fix. Chekbox switch position */
-.col-sm-9.checkbox-widget {
-    padding-left: 8px;
-    padding-top: 0;
-    padding-bottom: 7px;
-}
+
 
 .col-sm-9.checkbox-widget label.control-label.col-sm-3 {
     display: none;
 }
 
-.form-horizontal .checkbox-row .control-label {
-    padding-top: 0 !important;
-    margin-bottom: 0;
-    text-align: right;
-    margin-left: 0;
-}
 
-.form-horizontal .checkbox, .form-horizontal .checkbox-inline, .form-horizontal .radio, .form-horizontal .radio-inline {
-    padding-top: 0;
-}
 
 /* Действия для поля в форме, например "Добавить" у выбодащего списка M:1 */
 .sonata-ba-field-standard-natural .field-actions {
     text-align: right;
+}
+
+
+.checkbox div[class^="icheckbox"], .checkbox-inline div[class^="icheckbox"], .radio div[class^="iradio"], .radio-inline div[class^="iradio"] {
+    margin-left: -15px;
+}
+
+.checkbox label, .radio label {
+    margin-left: 0px;
+}
+
+.sonata-ba-list-field-name-batch .icheckbox_square-blue,
+.sonata-ba-list-field-name-batch .iradio_square-blue {
+    margin-right: 0;
+    width: 22px;
+}
+
+.sonata-ba-list-field-header-batch .icheckbox_square-blue {
+    margin: 0;
 }

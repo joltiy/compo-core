@@ -28,6 +28,8 @@ class Admin extends BaseAdmin
      */
     public $formatterPool;
 
+
+
     /**
      * @param $positionEnabled
      */
