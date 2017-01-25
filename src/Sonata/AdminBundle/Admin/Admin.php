@@ -22,22 +22,42 @@ class Admin extends BaseAdmin
     public $descriptionFormatterEnabled = false;
     public $treeEnabled = false;
     public $em;
+    public $postionRelatedFields = array();
 
     /**
      * @var FormatterPool
      */
     public $formatterPool;
 
+    /**
+     * @return array
+     */
+    public function getPostionRelatedFields()
+    {
+        return $this->postionRelatedFields;
+    }
+
+    /**
+     * @param array $postionRelatedFields
+     */
+    public function setPostionRelatedFields($postionRelatedFields)
+    {
+        $this->postionRelatedFields = $postionRelatedFields;
+    }
+
 
 
     /**
      * @param $positionEnabled
      */
-    public function configurePosition($positionEnabled)
+    public function configurePosition($positionEnabled, $postionRelatedFields = array())
     {
         $this->positionEnabled = $positionEnabled;
 
+        $this->postionRelatedFields = $postionRelatedFields;
+
         if ($positionEnabled) {
+
             $this->datagridValues = array(
                 '_page' => 1,
                 '_sort_order' => 'ASC',
@@ -105,7 +125,7 @@ class Admin extends BaseAdmin
         $this->treeEnabled = $enabled;
 
         if ($enabled) {
-
+            $this->datagridValues['_sort_by'] = 'lft';
         }
     }
 

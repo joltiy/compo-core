@@ -43,7 +43,7 @@ class CRUDController extends BaseCRUDController
 
         $repo = $em->getRepository($this->admin->getClass());
 
-        $object = $repo->find($request->get('id'));
+        $object = $repo->find($request->request->get('id'));
 
         /** @var \Doctrine\ORM\QueryBuilder $qb */
         $qb = $em->createQueryBuilder();
@@ -51,16 +51,23 @@ class CRUDController extends BaseCRUDController
         // Сдвигаем позицию назад, у всех кто после текущего
 
 
+        $positionRelatedFields = $this->admin->getPostionRelatedFields();
+
         $qb->update($this->admin->getClass(), 'i')
             ->set('i.position', 'i.position - 1')
             ->where('i.position > ' . $object->getPosition());
+
+        foreach ($positionRelatedFields as $field) {
+            $qb->andWhere('i.'.$field.'= :position_' . $field);
+            $qb->setParameter('position_' . $field, call_user_func_array(array($object, 'get' . ucfirst($field)), array()));
+        }
 
         $qb->getQuery()->execute();
 
         // Получаем позицию элемента, после которого должен стоять текущий
 
 
-        $after_object = $repo->find($request->get('after_id'));
+        $after_object = $repo->find($request->request->get('after_id'));
 
         if ($after_object) {
             $after_pos = $after_object->getPosition();
@@ -83,6 +90,12 @@ class CRUDController extends BaseCRUDController
         $qb->update($this->admin->getClass(), 'i')
             ->set('i.position', $new_pos)
             ->where('i.id = ' . $object->getId());
+
+        foreach ($positionRelatedFields as $field) {
+            $qb->andWhere('i.'.$field.'= :position_' . $field);
+            $qb->setParameter('position_' . $field, call_user_func_array(array($object, 'get' . ucfirst($field)), array()));
+        }
+
         $qb->getQuery()->execute();
 
         /** @var \Doctrine\ORM\QueryBuilder $qb */
@@ -91,6 +104,12 @@ class CRUDController extends BaseCRUDController
         $qb->update($this->admin->getClass(), 'i')
             ->set('i.position', 'i.position + 1')
             ->where('i.position >= ' . $new_pos);
+
+        foreach ($positionRelatedFields as $field) {
+            $qb->andWhere('i.'.$field.'= :position_' . $field);
+            $qb->setParameter('position_' . $field, call_user_func_array(array($object, 'get' . ucfirst($field)), array()));
+        }
+
         $qb->getQuery()->execute();
 
         /** @var \Doctrine\ORM\QueryBuilder $qb */
@@ -100,6 +119,10 @@ class CRUDController extends BaseCRUDController
             ->set('i.position', $new_pos)
             ->where('i.id = ' . $object->getId());
 
+        foreach ($positionRelatedFields as $field) {
+            $qb->andWhere('i.'.$field.'= :position_' . $field);
+            $qb->setParameter('position_' . $field, call_user_func_array(array($object, 'get' . ucfirst($field)), array()));
+        }
 
         $qb->getQuery()->execute();
 
