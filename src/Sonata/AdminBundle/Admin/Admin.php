@@ -45,7 +45,13 @@ class Admin extends BaseAdmin
         $this->postionRelatedFields = $postionRelatedFields;
     }
 
+    public function setSortOrder($order) {
+        $this->datagridValues['_sort_order'] = $order;
+    }
 
+    public function setSortBy($by) {
+        $this->datagridValues['_sort_by'] = $by;
+    }
 
     /**
      * @param $positionEnabled

@@ -15,7 +15,27 @@ services:
         tags:
             - { name: sonata.admin.extension, global: true }
 
+    compo.sonata.admin.extension.enabled:
+        class: Compo\Sonata\AdminBundle\Extension\EnabledExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+
+    compo.sonata.admin.extension.description:
+        class: Compo\Sonata\AdminBundle\Extension\DescriptionExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+        parent: compo_core.abstract_container_aware
+
+
+
+    compo.sonata.admin.extension.timestampable:
+        class: Compo\Sonata\AdminBundle\Extension\TimestampableExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+        parent: compo_core.abstract_container_aware
+
     compo.sonata.admin.form.type.tree_selector:
         class: Compo\Sonata\AdminBundle\Form\Type\TreeSelectorType
         tags:
             - { name: form.type, alias: compo_tree_selector }
+

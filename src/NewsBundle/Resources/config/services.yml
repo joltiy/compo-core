@@ -1,0 +1,9 @@
+services:
+#    compo_news.example:
+#        class: Compo\NewsBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    compo_news.admin.news:
+        class: Compo\NewsBundle\Admin\NewsAdmin
+        arguments: [~, Compo\NewsBundle\Entity\News, CompoNewsBundle:NewsAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: news, label_translator_strategy: sonata.admin.label.strategy.underscore }

@@ -26,6 +26,10 @@ COMPO field_name в th
         <tr>
             {% for field_name, nested_field in nested_group_field.children %}
                 <td class="
+                        {% if field_name == '_delete' %}
+                            td-delete-field
+                        {% endif %}
+
                         sonata-ba-td-{{ id }}-{{ field_name }}
                         control-group
                         {% if nested_field.vars.errors|length > 0 %} error{% endif %}

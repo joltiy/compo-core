@@ -13,7 +13,7 @@ breadcrumb:
     link_menu_update: 'Обвновление меню'
 
 form:
-    label_page: 'Страница'
+    label_page: Страница
     label_parent: 'Родительский элемент'
 
 menu: Меню

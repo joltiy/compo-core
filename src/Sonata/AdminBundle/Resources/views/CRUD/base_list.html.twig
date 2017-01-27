@@ -11,6 +11,11 @@ file that was distributed with this source code.
 
 {% extends '@SonataAdmin/CRUD/base_list.html.twig' %}
 
+{% block navbar_title %}
+    {{ admin.isChild ? admin.getParent().subject : '' }}
+{% endblock %}
+
+
 {% block list_table %}
     <div class="col-xs-12 col-md-12">
         {% set batchactions = admin.batchactions %}

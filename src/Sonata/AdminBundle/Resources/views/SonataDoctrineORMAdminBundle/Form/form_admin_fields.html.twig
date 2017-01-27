@@ -15,7 +15,9 @@ file that was distributed with this source code.
     {% include 'CompoSonataAdminBundle::SonataDoctrineORMAdminBundle/CRUD/edit_orm_many_to_many.html.twig' %}
 {% endblock %}
 
-
+{% block sonata_admin_orm_one_to_many_widget %}
+    {% include 'CompoSonataAdminBundle::SonataDoctrineORMAdminBundle/CRUD/edit_orm_one_to_many.html.twig' %}
+{% endblock %}
 
 {% block sonata_type_model_list_widget %}
     <div id="field_container_{{ id }}" class="field-container">

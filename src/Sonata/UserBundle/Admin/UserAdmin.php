@@ -40,17 +40,17 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
             ))
             ->end()
             ->with('Profile')
-            ->add('dateOfBirth', 'sonata_type_date_picker', array(
-                'format' => 'dd.MM.y',
-                'required' => false,
-            ))
             ->add('firstname', null, array('required' => false))
             ->add('lastname', null, array('required' => false))
             ->add('gender', 'sonata_user_gender', array(
                 'required' => true,
                 'translation_domain' => $this->getTranslationDomain(),
             ))
-            ->add('timezone', 'timezone', array('required' => false))
+            ->add('dateOfBirth', 'sonata_type_date_picker', array(
+                'format' => 'dd.MM.y',
+                'required' => false,
+            ))
+            //->add('timezone', 'timezone', array('required' => false))
             ->add('phone', null, array('required' => false))
             ->end()
             ->end();
@@ -82,12 +82,6 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
                 ->end();
         }
 
-        $formMapper
-            ->tab('Security')
-            ->with('Keys')
-            ->add('token', null, array('required' => false))
-            ->add('twoStepVerificationCode', null, array('required' => false))
-            ->end()
-            ->end();
+
     }
 }

@@ -9,6 +9,14 @@
     </p>
 {% endblock %}
 
+{% block body_attributes %}
+    {% if (app.request.cookies.get('admin_sidebar_collapse', 0) == 1) %}
+        class="sonata-bc skin-black fixed sidebar-collapse" data-collapse="1"
+    {% else %}
+        class="sonata-bc skin-black fixed" data-collapse="0"
+    {% endif %}
+{% endblock %}
+
 
 {% block sonata_breadcrumb %}
     {# COMPO Add hidden-sm #}

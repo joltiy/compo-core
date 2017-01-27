@@ -1,0 +1,9 @@
+services:
+#    compo_articles.example:
+#        class: Compo\ArticlesBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    compo_articles.admin.articles:
+        class: Compo\ArticlesBundle\Admin\ArticlesAdmin
+        arguments: [~, Compo\ArticlesBundle\Entity\Articles, CompoArticlesBundle:ArticlesAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: articles, label_translator_strategy: sonata.admin.label.strategy.underscore }

@@ -342,3 +342,40 @@ th.table-th-total {
 .sonata-ba-list-field-header-batch .icheckbox_square-blue {
     margin: 0;
 }
+
+
+td.td-delete-field .checkbox .checkbox-widget {
+    text-align: center;
+    margin: 0;
+}
+
+td.td-delete-field .checkbox .checkbox-widget .icheckbox_square-blue {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.table-th-enabled  {
+    text-align: center;
+}
+
+th.sonata-ba-list-field-header-actions.sonata-ba-list-field-header-_action {
+    width: 1%;
+}
+
+.sonata-ba-list-field-name-_action .btn-group {
+    white-space: nowrap;
+    margin: 0 auto;
+    float: none;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}
+
+
+
+.features-product-item .checkbox div[class^="icheckbox"],
+.features-product-item .checkbox-inline div[class^="icheckbox"],
+.features-product-item .radio div[class^="iradio"],
+.features-product-item .radio-inline div[class^="iradio"] {
+    margin-left: 0 !important;
+}

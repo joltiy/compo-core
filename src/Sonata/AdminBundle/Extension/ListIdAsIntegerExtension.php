@@ -17,10 +17,8 @@ class ListIdAsIntegerExtension extends AbstractAdminExtension
      */
     public function configureListFields(ListMapper $listMapper)
     {
-        $field = $listMapper->get('id');
-
-        if ($field) {
-            $field->setTemplate('SonataIntlBundle:CRUD:list_integer.html.twig');
+        if ($listMapper->has('id') && $listMapper->get('id')) {
+            $listMapper->get('id')->setTemplate('SonataIntlBundle:CRUD:list_integer.html.twig');
         }
     }
 }

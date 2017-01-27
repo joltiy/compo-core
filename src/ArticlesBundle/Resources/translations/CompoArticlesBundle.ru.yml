@@ -1,0 +1,12 @@
+articles: Статьи
+
+breadcrumb:
+    link_articles_batch: 'Действия над статьями'
+    link_articles_create: 'Создание статей'
+    link_articles_delete: 'Удаление статей'
+    link_articles_edit: 'Редактирование статьи'
+    link_articles_list: 'Список статей'
+    link_articles_update: 'Обновление статьи'
+
+form:
+    label_publication_at: 'Дата публикации'

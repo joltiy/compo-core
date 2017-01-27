@@ -150,6 +150,15 @@ $(document).ready(function () {
 
     initOrderElements();
 
+    $('.sidebar-toggle').click(function () {
+        if ($('body').data('collapse') == 0) {
+            $('body').data('collapse', 1);
+            setCookie('admin_sidebar_collapse', 1);
+        } else {
+            $('body').data('collapse', 0);
+            setCookie('admin_sidebar_collapse', 0);
+        }
+    });
 
     $('.order_delivery_cost').change(function () {
 
@@ -219,6 +228,14 @@ $(document).ready(function () {
     });
 
 
+    
+    
+    
+    
+    
+    
+    
+
     $(".sonata-ba-collapsed-fields [name*=enabled],.sonata-ba-collapsed-fields [name*=noIndexEnabled],.sonata-ba-collapsed-fields [name*=yandexMarketEnabled]")
         .bootstrapSwitch({
             size: 'mini',
@@ -227,6 +244,16 @@ $(document).ready(function () {
         })
         .closest('.icheckbox_square-blue')
         .css('background-image', 'none');
+
+
+
+
+
+
+
+
+
+
 
 
     var tab_active = $('.sonata-ba-form .nav-tabs li.active a');
@@ -241,6 +268,7 @@ $(document).ready(function () {
     }
 
 
+
     $(document).on('click', '.sonata-ba-form .nav-tabs a', function (event) {
 
         var form = $(event.target).closest("form");
@@ -250,6 +278,13 @@ $(document).ready(function () {
 
         history.replaceState(history.state, document.title, event.target.href);
     });
+
+
+
+
+
+
+
 
 
     $('.product-catalog-tree li').each(function () {

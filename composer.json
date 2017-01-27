@@ -13,6 +13,10 @@
       "Compo\\CoreBundle\\": "src/CoreBundle",
       "Compo\\MenuBundle\\": "src/MenuBundle",
       "Compo\\SeoBundle\\": "src/SeoBundle",
+      "Compo\\ArticlesBundle\\": "src/ArticlesBundle",
+      "Compo\\NewsBundle\\": "src/NewsBundle",
+      "Compo\\SmsProviderBundle\\": "src/SmsProviderBundle",
+
       "Compo\\Sonata\\": "src/Sonata",
       "Pix\\SortableBehaviorBundle\\": "src/PixSortableBehaviorBundle"
     }

@@ -1,0 +1,9 @@
+breadcrumb:
+    link_sms_provider_batch: 'Действия над SMS аккаунтами'
+    link_sms_provider_create: 'Создание SMS аккаунта'
+    link_sms_provider_delete: 'Удаление SMS аккаунта'
+    link_sms_provider_edit: 'Редактирование SMS акаунта'
+    link_sms_provider_list: 'Список SMS акаунтов'
+    link_sms_provider_update: 'Обвноление SMS аккаунта'
+
+sms_provider: 'SMS аккаунты'
