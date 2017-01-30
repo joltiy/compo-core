@@ -70,7 +70,7 @@
     "stecman/symfony-console-completion": "^0.7",
     "sylius/settings-bundle": "^0.18",
 
-    "phpoffice/phpexcel": "^1.8"
+    "liuggio/ExcelBundle": "^2.1"
 
   }
 }
