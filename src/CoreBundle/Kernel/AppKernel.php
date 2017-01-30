@@ -99,9 +99,7 @@ class AppKernel extends Kernel
             new \Compo\ProductBundle\CompoProductBundle(),
             new \Compo\CurrencyBundle\CompoCurrencyBundle(),
             new \Compo\FeaturesBundle\CompoFeaturesBundle(),
-
             new \Compo\ManufactureBundle\CompoManufactureBundle(),
-
             new \Compo\CountryBundle\CompoCountryBundle(),
             new \Compo\CatalogBundle\CompoCatalogBundle(),
             new \Compo\SupplierBundle\CompoSupplierBundle(),
@@ -112,8 +110,8 @@ class AppKernel extends Kernel
             new \Compo\TaggingBundle\CompoTaggingBundle(),
             new \Compo\DiscountBundle\CompoDiscountBundle(),
             new \Compo\UnitBundle\CompoUnitBundle(),
-
-
+            new \Compo\YandexMarketBundle\CompoYandexMarketBundle(),
+            new \Liuggio\ExcelBundle\LiuggioExcelBundle(),
 
             new \JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new \JMS\AopBundle\JMSAopBundle(),
