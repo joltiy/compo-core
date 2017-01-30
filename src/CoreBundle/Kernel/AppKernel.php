@@ -87,9 +87,13 @@ class AppKernel extends Kernel
             new \Compo\Sonata\FormatterBundle\CompoSonataFormatterBundle(),
             new \Compo\Sonata\SeoBundle\CompoSonataSeoBundle(),
 
+
             new \Compo\CoreBundle\CompoCoreBundle(),
             new \Compo\SeoBundle\CompoSeoBundle(),
             new \Compo\MenuBundle\CompoMenuBundle(),
+            new \Compo\NewsBundle\CompoNewsBundle(),
+            new \Compo\ArticlesBundle\CompoArticlesBundle(),
+            new \Compo\SmsProviderBundle\CompoSmsProviderBundle(),
 
             new \Compo\EcommerceBundle\CompoEcommerceBundle(),
             new \Compo\ProductBundle\CompoProductBundle(),
@@ -106,6 +110,10 @@ class AppKernel extends Kernel
             new \Compo\OrderBundle\CompoOrderBundle(),
             new \Compo\BasketBundle\CompoBasketBundle(),
             new \Compo\TaggingBundle\CompoTaggingBundle(),
+            new \Compo\DiscountBundle\CompoDiscountBundle(),
+            new \Compo\UnitBundle\CompoUnitBundle(),
+
+
 
             new \JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new \JMS\AopBundle\JMSAopBundle(),
