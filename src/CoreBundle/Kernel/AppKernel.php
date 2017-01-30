@@ -47,6 +47,7 @@ class AppKernel extends Kernel
             new \Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new \Spy\TimelineBundle\SpyTimelineBundle(),
             new \Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
+            new \Liuggio\ExcelBundle\LiuggioExcelBundle(),
 
             new \WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
 
@@ -111,7 +112,7 @@ class AppKernel extends Kernel
             new \Compo\DiscountBundle\CompoDiscountBundle(),
             new \Compo\UnitBundle\CompoUnitBundle(),
             new \Compo\YandexMarketBundle\CompoYandexMarketBundle(),
-            new \Liuggio\ExcelBundle\LiuggioExcelBundle(),
+            new \Compo\GoogleMerchantBundle\CompoGoogleMerchantBundle(),
 
             new \JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new \JMS\AopBundle\JMSAopBundle(),
