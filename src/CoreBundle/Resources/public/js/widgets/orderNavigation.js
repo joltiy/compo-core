@@ -14,7 +14,7 @@
 
             self.element.find('.compare .value').text(compo.productsCompare.getCount() + ' шт.');
             self.element.find('.basket .count').text(compo.basket.getCount() + ' шт.');
-            self.element.find('.basket .sum').text(number_format(compo.basket.getSum(), 0, '.', ' ') + ' руб.');
+            self.element.find('.basket .sum').text(number_format(compo.basket.getSum(), 0, '.', ' ') + ' р.');
 
 
             var callback = function (event, data) {
@@ -65,7 +65,7 @@
                 self.element.find('.compare .value').text(data.compare.count + ' шт.');
 
                 self.element.find('.basket .count').text(data.quantity + ' шт.');
-                self.element.find('.basket .sum').text(number_format(data.total, 0, '.', ' ') + ' руб.');
+                self.element.find('.basket .sum').text(number_format(data.total, 0, '.', ' ') + ' р.');
 
 
                 self.refreshVisible();

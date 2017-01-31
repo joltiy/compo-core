@@ -101,7 +101,7 @@
                 price.addClass('price');
 
                 if (item.all != 1) {
-                    price.html(item['pricecon'] + ' руб.');
+                    price.html(item['pricecon'] + ' р.');
                 }
 
                 var info = $('<div>');

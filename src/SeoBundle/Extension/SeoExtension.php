@@ -113,17 +113,21 @@ class SeoExtension extends AbstractAdminExtension
 
         $qb = $admin->getRepository()->createQueryBuilder('a');
         $qb->where('a.slug = :slug');
-        $qb->andWhere('a.id != :id');
-
         $qb->setParameter('slug', $object->getSlug());
-        $qb->setParameter('id', $object->getId());
+
+        if ($object->getId()) {
+            $qb->andWhere('a.id != :id');
+            $qb->setParameter('id', $object->getId());
+
+        }
+
 
         $result = $qb->getQuery()->getResult();
 
         if ($result) {
             $this->isUpdateSlug = true;
 
-            $object->setSlug(time().time().time());
+            $object->setSlug('temp_slug_' . time().time().time());
         } else {
             $this->isUpdateSlug = false;
         }
@@ -143,12 +147,13 @@ class SeoExtension extends AbstractAdminExtension
     {
         /** @var $admin Admin */
 
-        if ($this->isUpdateSlug) {
+        if (strpos($object->getSlug(), 'temp_slug_') !== false) {
             $service = $admin->getConfigurationPool()->getContainer()->get("sonata.core.slugify.cocur");
 
             $object->setSlug($service->slugify($object->getName()) . '-' . $object->getId());
 
-            //$admin->getConfigurationPool()->getContainer()->get('doctrine')->getManager()->persist($object);
+            $admin->getConfigurationPool()->getContainer()->get('doctrine')->getManager()->persist($object);
+            $admin->getConfigurationPool()->getContainer()->get('doctrine')->getManager()->flush();
         }
     }
 

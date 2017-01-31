@@ -268,7 +268,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
                 'id' => 1,
                 'name' => 'Рубль',
                 'description' => 'Российский рубль',
-                'symbol' => 'руб.',
+                'symbol' => 'р.',
                 'sign' => '&#8381;',
                 'code' => 'RUR',
                 'rate' => '1',
