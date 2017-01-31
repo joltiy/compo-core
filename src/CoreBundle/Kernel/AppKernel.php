@@ -114,6 +114,7 @@ class AppKernel extends Kernel
             new \Compo\YandexMarketBundle\CompoYandexMarketBundle(),
             new \Compo\GoogleMerchantBundle\CompoGoogleMerchantBundle(),
             new \Compo\ServiceBundle\CompoServiceBundle(),
+            new \Compo\PromotionBundle\CompoPromotionBundle(),
 
             new \JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new \JMS\AopBundle\JMSAopBundle(),
