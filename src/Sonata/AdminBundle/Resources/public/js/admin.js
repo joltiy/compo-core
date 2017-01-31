@@ -1,14 +1,17 @@
 function fillmanufactureCollection() {
-    if ($('.select.manufactureCollection-select').length) {
-        if ($(".manufacture-select2 option:selected").length) {
+    if ($('select.manufactureCollection-select2').length) {
+        if ($("select.manufacture-select2 option:selected").length) {
             var request_data = {
-                manufacture: $(".manufacture-select2 option:selected").val()
+                manufacture: $("select.manufacture-select2 option:selected").val()
             };
         } else {
             var request_data = {};
         }
 
+        console.log(request_data);
+
         var manufactureCollection = $("select.manufactureCollection-select2 option:selected").val();
+
 
         $.ajax({
 
@@ -234,7 +237,8 @@ $(document).ready(function () {
     
     
     
-    
+
+    /*
 
     $(".sonata-ba-collapsed-fields [name*=enabled],.sonata-ba-collapsed-fields [name*=noIndexEnabled],.sonata-ba-collapsed-fields [name*=yandexMarketEnabled]")
         .bootstrapSwitch({
@@ -245,6 +249,7 @@ $(document).ready(function () {
         .closest('.icheckbox_square-blue')
         .css('background-image', 'none');
 
+*/
 
 
 

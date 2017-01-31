@@ -68,8 +68,8 @@ class MenuBlockService extends AbstractBlockService
         $repo = $em->getRepository("CompoMenuBundle:Menu");
 
 
-        $tree = $repo->childrenHierarchy($repo->findOneBy(array('alias' => $settings['alias'])), false, array(), false);
-
+        //$tree = $repo->childrenHierarchy($repo->findOneBy(array('alias' => $settings['alias'])), false, array(), false);
+        $tree = array();
 
         $factory = new MenuFactory();
 

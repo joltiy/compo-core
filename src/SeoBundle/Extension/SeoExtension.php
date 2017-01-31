@@ -17,6 +17,7 @@ use Sonata\AdminBundle\Show\ShowMapper;
  */
 class SeoExtension extends AbstractAdminExtension
 {
+    public $isUpdateSlug = false;
 
     /**
      * {@inheritDoc}
@@ -91,13 +92,7 @@ class SeoExtension extends AbstractAdminExtension
      */
     public function preUpdate(AdminInterface $admin, $object)
     {
-        /** @var $admin Admin */
-        /** TODO  */
-        if (trim($object->getSlug()) == '') {
-            $service = $admin->getConfigurationPool()->getContainer()->get("sonata.core.slugify.cocur");
-
-            $object->setSlug($service->slugify($object->getName()));
-        }
+        $this->createSlug($admin, $object);
     }
 
     /**
@@ -105,12 +100,44 @@ class SeoExtension extends AbstractAdminExtension
      */
     public function prePersist(AdminInterface $admin, $object)
     {
-        /** @var $admin Admin */
+        $this->createSlug($admin, $object);
+    }
 
+    public function createSlug(AdminInterface $admin, $object) {
+        /** @var $admin Admin */
         if (trim($object->getSlug()) == '') {
             $service = $admin->getConfigurationPool()->getContainer()->get("sonata.core.slugify.cocur");
 
             $object->setSlug($service->slugify($object->getName()));
+        }
+
+        if ($admin->getRepository()->findOneBy(array('slug' => $object->getSlug()))) {
+            $this->isUpdateSlug = true;
+
+            $object->setSlug(time().time().time());
+        }
+    }
+
+    public function postUpdate(AdminInterface $admin, $object)
+    {
+        $this->updateSlug($admin, $object);
+    }
+
+    public function postPersist(AdminInterface $admin, $object)
+    {
+        $this->updateSlug($admin, $object);
+    }
+
+    public function updateSlug(AdminInterface $admin, $object)
+    {
+        /** @var $admin Admin */
+
+        if ($this->isUpdateSlug) {
+            $service = $admin->getConfigurationPool()->getContainer()->get("sonata.core.slugify.cocur");
+
+            $object->setSlug($service->slugify($object->getName()) . '-' . $object->getId());
+
+            //$admin->getConfigurationPool()->getContainer()->get('doctrine')->getManager()->persist($object);
         }
     }
 
