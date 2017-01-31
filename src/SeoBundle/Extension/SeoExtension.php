@@ -111,10 +111,21 @@ class SeoExtension extends AbstractAdminExtension
             $object->setSlug($service->slugify($object->getName()));
         }
 
-        if ($admin->getRepository()->findOneBy(array('slug' => $object->getSlug()))) {
+        $qb = $admin->getRepository()->createQueryBuilder('a');
+        $qb->where('a.slug = :slug');
+        $qb->andWhere('a.id != :id');
+
+        $qb->setParameter('slug', $object->getSlug());
+        $qb->setParameter('id', $object->getId());
+
+        $result = $qb->getQuery()->getResult();
+
+        if ($result) {
             $this->isUpdateSlug = true;
 
             $object->setSlug(time().time().time());
+        } else {
+            $this->isUpdateSlug = false;
         }
     }
 
