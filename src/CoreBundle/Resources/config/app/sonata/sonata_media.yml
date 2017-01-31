@@ -20,9 +20,9 @@ sonata_media:
                 - sonata.media.provider.file
 
             formats:
-                small: { width: 100, quality: 100}
-                medium: { width: 200, quality: 100}
-                big:   { width: 970 , quality: 100}
+                small: { width: 256, quality: 100}
+                medium: { width: 512, quality: 100}
+                big:   { width: 1024 , quality: 100}
 
         image:
             download:
@@ -31,9 +31,9 @@ sonata_media:
                 - sonata.media.provider.image
 
             formats:
-                small: { width: 100, quality: 100}
-                medium: { width: 200, quality: 100}
-                big:   { width: 970 , quality: 100}
+                small: { width: 256, quality: 100}
+                medium: { width: 512, quality: 100}
+                big:   { width: 1024 , quality: 100}
 
         file:
             download:
@@ -42,9 +42,9 @@ sonata_media:
                 - sonata.media.provider.file
 
             formats:
-                small: { width: 100, quality: 100}
-                medium: { width: 200, quality: 100}
-                big:   { width: 970 , quality: 100}
+                small: { width: 256, quality: 100}
+                medium: { width: 512, quality: 100}
+                big:   { width: 1024 , quality: 100}
 
         video:
             download:
@@ -53,9 +53,9 @@ sonata_media:
                 - sonata.media.provider.youtube
 
             formats:
-                small: { width: 100, quality: 100}
-                medium: { width: 200, quality: 100}
-                big:   { width: 970 , quality: 100}
+                small: { width: 256, quality: 100}
+                medium: { width: 512, quality: 100}
+                big:   { width: 1024 , quality: 100}
 
 
         sonata_collection:
@@ -63,16 +63,16 @@ sonata_media:
               - sonata.media.provider.image
 
             formats:
-                preview: { width: 100, quality: 100}
-                wide:    { width: 820, quality: 100}
+                preview: { width: 256, quality: 100}
+                wide:    { width: 1024, quality: 100}
 
         sonata_category:
             providers:
               - sonata.media.provider.image
 
             formats:
-                preview: { width: 100, quality: 100}
-                wide:    { width: 820, quality: 100}
+                preview: { width: 256, quality: 100}
+                wide:    { width: 1024, quality: 100}
 
     cdn:
         # define the public base url for the uploaded media
