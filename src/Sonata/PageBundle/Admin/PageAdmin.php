@@ -70,6 +70,9 @@ class PageAdmin extends Admin
         ));
 
         $collection->add('tree', 'tree');
+
+
+        $this->setTemplate('tree', 'CompoSonataPageBundle:CRUD:tree.html.twig');
     }
 
     /**
