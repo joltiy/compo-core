@@ -34,23 +34,30 @@ class NumberRangeFilter extends Filter
 
             // additional data check for ranged items
             if (!array_key_exists('start', $data['value']) || !array_key_exists('end', $data['value'])) {
-                return;
+                //$data['value']['start'] = 0;
+                //return;
             }
 
             if (!$data['value']['start'] || !$data['value']['end']) {
-                return;
+                //return;
             }
 
-            $startQuantity = $this->getNewParameterName($queryBuilder);
-            $endQuantity = $this->getNewParameterName($queryBuilder);
 
 
-            $this->applyWhere($queryBuilder, sprintf('%s.%s %s :%s', $alias, $field, '>=', $startQuantity));
-            $this->applyWhere($queryBuilder, sprintf('%s.%s %s :%s', $alias, $field, '<=', $endQuantity));
+            if (array_key_exists('start', $data['value']) && $data['value']['start'] ) {
+                $startQuantity = $this->getNewParameterName($queryBuilder);
+                $this->applyWhere($queryBuilder, sprintf('%s.%s %s :%s', $alias, $field, '>=', $startQuantity));
+                $queryBuilder->setParameter($startQuantity, $data['value']['start']);
+            }
+
+            if (array_key_exists('end', $data['value']) && $data['value']['end'] ) {
+                $endQuantity = $this->getNewParameterName($queryBuilder);
+                $this->applyWhere($queryBuilder, sprintf('%s.%s %s :%s', $alias, $field, '<=', $endQuantity));
+                $queryBuilder->setParameter($endQuantity, $data['value']['end']);
+            }
 
 
-            $queryBuilder->setParameter($startQuantity, $data['value']['start']);
-            $queryBuilder->setParameter($endQuantity, $data['value']['end']);
+
 
         }
     }
