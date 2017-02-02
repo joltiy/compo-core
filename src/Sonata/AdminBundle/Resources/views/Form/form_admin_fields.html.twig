@@ -11,6 +11,19 @@ file that was distributed with this source code.
 
 {% extends '@SonataAdmin/Form/form_admin_fields.html.twig' %}
 
+{% block compo_admin_type_number_range_widget %}
+    {% spaceless %}
+        <div {{ block('widget_container_attributes') }}>
+            {{ form_errors(form.start) }}
+            {{ form_label(form.start) }}
+            {{ form_widget(form.start) }}
+            {{ form_errors(form.end) }}
+            {{ form_label(form.end) }}
+            {{ form_widget(form.end) }}
+        </div>
+    {% endspaceless %}
+{% endblock acme_admin_type_number_range_widget %}
+
 {% block checkbox_widget -%}
     {% set parent_label_class = parent_label_class|default('') -%}
     {% if 'checkbox-inline' in parent_label_class %}

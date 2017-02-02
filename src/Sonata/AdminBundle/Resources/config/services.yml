@@ -39,3 +39,14 @@ services:
         tags:
             - { name: form.type, alias: compo_tree_selector }
 
+
+
+    compo.sonata.admin.filter.type.number_range:
+        class: Compo\Sonata\AdminBundle\Filter\NumberRangeFilter
+        tags:
+            - { name: sonata.admin.filter.type, alias: doctrine_orm_number_range }
+
+    compo.sonata.admin.form.type.number_range:
+        class: Compo\Sonata\AdminBundle\Form\Type\NumberRangeType
+        tags:
+            - { name: form.type, alias: compo_admin_type_number_range }
