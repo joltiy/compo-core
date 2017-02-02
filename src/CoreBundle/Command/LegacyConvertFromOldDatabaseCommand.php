@@ -6,6 +6,7 @@ use Compo\CatalogBundle\Entity\Catalog;
 use Compo\CountryBundle\Entity\Country;
 use Compo\CurrencyBundle\Entity\Currency;
 use Compo\FeaturesBundle\Entity\FeatureAttribute;
+use Compo\FeaturesBundle\Entity\FeatureCategory;
 use Compo\FeaturesBundle\Entity\FeatureType;
 use Compo\FeaturesBundle\Entity\FeatureValue;
 use Compo\FeaturesBundle\Entity\FeatureVariant;
@@ -950,53 +951,14 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
     {
 
         $featureAttributeRepositoru = $this->em->getRepository('CompoFeaturesBundle:FeatureAttribute');
-        $featureTypeRepository = $this->em->getRepository('CompoFeaturesBundle:FeatureType');
         $featureVariantRepositoru = $this->em->getRepository('CompoFeaturesBundle:FeatureVariant');
         $featureValuesRepos = $this->em->getRepository('CompoFeaturesBundle:FeatureValue');
         $catalogRepos = $this->em->getRepository('CompoCatalogBundle:Catalog');
+        $categoryRepos = $this->em->getRepository('CompoFeaturesBundle:FeatureCategory');
 
-        $variantType = $featureTypeRepository->findOneBy(array('code' => 'variant'));
-        $integerType = $featureTypeRepository->findOneBy(array('code' => 'integer'));
 
         $feature_type = $this->oldConnection->fetchAll('SELECT * FROM `feature_type` WHERE parent = 0 OR parent IS NULL');
 
-
-        $featureTypes = array(
-            'decimal' => array(
-                'code' => 'decimal',
-                'name' => 'Дробное число'
-            ),
-
-            'integer' => array(
-                'code' => 'integer',
-                'name' => 'Целое число'
-            ),
-
-            'variant' => array(
-                'code' => 'variant',
-                'name' => 'Список'
-            ),
-
-            'string' => array(
-                'code' => 'string',
-                'name' => 'Строка'
-            ),
-
-        );
-
-
-        foreach ($featureTypes as $featureTypes_item) {
-
-            $feature_type_object = $featureTypeRepository->findOneBy(array('code' => $featureTypes_item['code']));
-
-            if (!$feature_type_object) {
-                $feature_type_object = new FeatureType();
-                $feature_type_object->setName($featureTypes_item['name']);
-                $feature_type_object->setCode($featureTypes_item['code']);
-                $this->em->persist($feature_type_object);
-                $this->em->flush();
-            }
-        }
 
 
         $name = 'processFeatures';
@@ -1008,25 +970,54 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
             $this->output->writeln($name . '. ' . $i . ' (OLD): ' . $feature_type_item['header']);
 
             $fa = $featureAttributeRepositoru->findOneBy(array(
-                'name' => $feature_type_item['header']
+                'name' => $feature_type_item['header'],
+                'category_id' => $feature_type_item['brunch'],
             ));
 
             if (!$fa) {
                 $fa = new FeatureAttribute();
+                $this->changeIdGenerator($fa);
+
+                $fa->setId($feature_type_item['id']);
             }
 
             if ($feature_type_item['brunch']) {
                 $catalog = $catalogRepos->find($feature_type_item['brunch']);
+                $category = $categoryRepos->find($feature_type_item['brunch']);
 
-                if ($catalog) {
-                    $fa->addCatalog($catalog);
+                if (!$category) {
+                    $category = new FeatureCategory();
+                    $this->changeIdGenerator($category);
+
+                    $category->setId($feature_type_item['brunch']);
+                    $category->setName($catalog->getName());
+                    $category->addCatalog($catalog);
+
+                    $this->em->persist($catalog);
+                    $this->em->persist($category);
+                    $this->em->flush();
+
+
+
+                    $childs = $catalogRepos->childrenHierarchy($catalog);
+
+
+                    /** @var Catalog $child */
+                    foreach ($childs as $childArray) {
+
+                        $child = $catalogRepos->find($childArray['id']);
+
+                        $child->setFeatureCategory($category);
+
+                        $this->em->persist($child);
+
+                    }
+
+
                 }
 
-                $childs = $catalogRepos->childrenHierarchyBy(array('catalog' => $catalog));
+                $fa->setCategory($category);
 
-                foreach ($childs as $childs_item) {
-                    $fa->addCatalog($childs_item);
-                }
             }
 
 
@@ -1041,9 +1032,9 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
             $fa->setEnabled(1);
 
             if ($feature_type_item['mult']) {
-                $fa->setType($variantType);
+                $fa->setType('variant');
             } else {
-                $fa->setType($integerType);
+                $fa->setType('integer');
             }
 
             $this->em->persist($fa);
