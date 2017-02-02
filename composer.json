@@ -45,6 +45,7 @@
 
     "jms/security-extra-bundle": "^1.6",
     "jms/translation-bundle": "^1.2",
+    "jms/job-queue-bundle": "^1.4",
 
     "knplabs/knp-paginator-bundle": "^2.5",
 
