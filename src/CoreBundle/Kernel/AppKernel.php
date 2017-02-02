@@ -71,6 +71,7 @@ class AppKernel extends Kernel
             new \Sonata\NotificationBundle\SonataNotificationBundle(),
             new \Sonata\DatagridBundle\SonataDatagridBundle(),
             new \Sonata\TimelineBundle\SonataTimelineBundle(),
+            new \Sonata\DashboardBundle\SonataDashboardBundle(),
 
             new \Pix\SortableBehaviorBundle\PixSortableBehaviorBundle(),
             new \Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
@@ -87,6 +88,7 @@ class AppKernel extends Kernel
             new \Compo\Sonata\BlockBundle\CompoSonataBlockBundle(),
             new \Compo\Sonata\FormatterBundle\CompoSonataFormatterBundle(),
             new \Compo\Sonata\SeoBundle\CompoSonataSeoBundle(),
+            new \Compo\Sonata\DashboardBundle\CompoSonataDashboardBundle(),
 
 
             new \Compo\CoreBundle\CompoCoreBundle(),
