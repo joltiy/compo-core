@@ -4,3 +4,12 @@ sonata_dashboard:
     class:
         dashboard: Compo\Sonata\DashboardBundle\Entity\Dashboard
         block:     Compo\Sonata\DashboardBundle\Entity\Block
+
+
+doctrine:
+    orm:
+        entity_managers:
+            default:
+                mappings:
+                    CompoSonataDashboardBundle: ~ # only once the ApplicationSonataDashboardBundle is generated
+                    SonataDashboardBundle: ~

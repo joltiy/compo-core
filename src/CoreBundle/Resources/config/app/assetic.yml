@@ -46,6 +46,7 @@ assetic:
         sonata_admin_core_js:
             inputs:
                 - "bundles/sonataadmin/vendor/admin-lte/dist/js/app.min.js"
+                - "bundles/sonatadashboard/sonata-dashboard.back.js"
 
             filters:
                 - ?yui_js
@@ -86,6 +87,7 @@ assetic:
             inputs:
                 - "bundles/sonataadmin/vendor/admin-lte/dist/css/AdminLTE.css"
                 - "bundles/sonataadmin/vendor/admin-lte/dist/css/skins/skin-black.min.css"
+                - "bundles/sonatadashboard/sonata-dashboard.back.css"
 
             filters:
                 - cssrewrite

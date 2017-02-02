@@ -26,6 +26,7 @@ imports:
     - { resource: sonata/sonata_user.yml }
     - { resource: sonata/sonata_notification.yml }
     - { resource: sonata/sonata_classification.yml }
+    - { resource: sonata/sonata_dashboard.yml }
 
     - { resource: jms.yml }
     - { resource: doctrine.yml }
