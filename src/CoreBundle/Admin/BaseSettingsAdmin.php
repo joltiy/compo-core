@@ -25,7 +25,9 @@ class BaseSettingsAdmin extends AbstractAdmin
      */
     protected $baseRoutePattern = '/compo_core_settings';
 
-
+    /**
+     * @var string
+     */
     protected $namespase = 'compo_core_settings';
 
     /**
@@ -96,6 +98,4 @@ class BaseSettingsAdmin extends AbstractAdmin
     {
         $this->namespase = $namespase;
     }
-
-
 }

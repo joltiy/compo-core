@@ -80,10 +80,7 @@ class BaseDeployCommand extends ContainerAwareCommand
         $sites = $this->getSites();
 
         foreach ($sites as $site) {
-            /**
-             * @var $site Site
-             */
-
+            /** @var $site Site */
             $this->runCommand("sonata:page:update-core-routes", array(
                 '--site' => array($site->getId())
             ));
@@ -107,7 +104,6 @@ class BaseDeployCommand extends ContainerAwareCommand
      */
     public function runCreateSnapshots()
     {
-
         $pages = $this->getContainer()->get('sonata.page.manager.page')->findBy(array(
             'edited' => 1
         ));
@@ -119,7 +115,6 @@ class BaseDeployCommand extends ContainerAwareCommand
                 'mode' => 'sync',
             ));
         }
-
     }
 
     /**
@@ -135,7 +130,6 @@ class BaseDeployCommand extends ContainerAwareCommand
             $this->runCommand("cache:clear", array(
                 '--no-warmup' => 1,
             ));
-
         }
     }
 
@@ -166,7 +160,7 @@ class BaseDeployCommand extends ContainerAwareCommand
     }
 
     /**
-     *
+     * @inheritdoc
      */
     protected function configure()
     {
@@ -176,15 +170,10 @@ class BaseDeployCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     *
-     * @return null|int null or 0 if everything went fine, or an error code
+     * @inheritdoc
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->setOutput($output);
-
-        return 0;
     }
 }

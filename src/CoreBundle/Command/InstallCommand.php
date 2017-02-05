@@ -13,7 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class InstallCommand extends BaseDeployCommand
 {
     /**
-     *
+     * @inheritdoc
      */
     protected function configure()
     {
@@ -23,10 +23,7 @@ class InstallCommand extends BaseDeployCommand
     }
 
     /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     *
-     * @return null|int null or 0 if everything went fine, or an error code
+     * @inheritdoc
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -46,8 +43,6 @@ class InstallCommand extends BaseDeployCommand
         $this->runCreateSnapshots();
 
         $this->runCacheClear();
-
-        return 0;
     }
 
     /**

@@ -38,6 +38,9 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
      */
     public $output;
 
+    /**
+     * @var string
+     */
     public $database_name = 'dlyavann';
 
     public $features = array();

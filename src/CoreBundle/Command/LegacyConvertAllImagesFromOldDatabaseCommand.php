@@ -23,8 +23,14 @@ class LegacyConvertAllImagesFromOldDatabaseCommand extends ContainerAwareCommand
      */
     public $output;
 
+    /**
+     * @var string
+     */
     public $database_name = 'dlyavann';
 
+    /**
+     * @var array
+     */
     public $features = array();
 
     /**
@@ -32,15 +38,29 @@ class LegacyConvertAllImagesFromOldDatabaseCommand extends ContainerAwareCommand
      */
     public $oldConnection;
 
+    /**
+     * @var string
+     */
     public $oldMediaPath = 'http://www.dlyavann.ru/dbpics/';
 
+    /**
+     * @var string
+     */
     public $oldFilesPath = 'http://www.dlyavann.ru/files/';
 
-
+    /**
+     * @var array
+     */
     public $dbpics = array();
 
+    /**
+     * @var bool
+     */
     public $limit = false;
 
+    /**
+     * @var array
+     */
     public $data = array(
         'Currency' => array(),
         'ProductAvailability' => array(),
@@ -52,7 +72,7 @@ class LegacyConvertAllImagesFromOldDatabaseCommand extends ContainerAwareCommand
     );
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     protected function configure()
     {
@@ -142,12 +162,17 @@ class LegacyConvertAllImagesFromOldDatabaseCommand extends ContainerAwareCommand
         $this->process();
     }
 
+    /**
+     *
+     */
     public function process()
     {
         $this->processMedia();
     }
 
-
+    /**
+     *
+     */
     public function processMedia()
     {
         $container = $this->getContainer();
@@ -162,7 +187,6 @@ class LegacyConvertAllImagesFromOldDatabaseCommand extends ContainerAwareCommand
 
         $i = 1;
 
-
         $kernel = $container->get('kernel');
 
         $root_dir = $kernel->getRootDir();
@@ -174,7 +198,6 @@ class LegacyConvertAllImagesFromOldDatabaseCommand extends ContainerAwareCommand
 
         $media = $this->em->getConnection()->fetchAll('SELECT * FROM `media__media` ORDER BY id ASC ');
 
-
         foreach ($media as $item) {
             $media_isset[$item['name']] = $item['id'];
         }
@@ -184,20 +207,15 @@ class LegacyConvertAllImagesFromOldDatabaseCommand extends ContainerAwareCommand
         $queue = array();
 
         foreach ($this->dbpics as $id => $item_data) {
-
-
             $this->output->writeln('Media' . '. ' . $i . ': ' . $item_data['id'] . '.' . $item_data['type']);
 
             $this->output->writeln('Memmory: ' . number_format((memory_get_usage()), 0, ',', ' ') . ' B');
 
-
             $item = null;
 
             if (isset($media_isset[$item_data['id'] . '.' . $item_data['type']])) {
-
                 $this->dbpics[$id]['media_id'] = $media_isset[$item_data['id'] . '.' . $item_data['type']];
             } else {
-
                 $command = $console . ' compo:convert_image_from_old_database --no-debug --name=' . $item_data['id'] . '.' . $item_data['type'] . ' --path=' . $this->oldMediaPath . $item_data['id'] . '.' . $item_data['type'];
 
                 $this->output->writeln($command);
@@ -207,7 +225,6 @@ class LegacyConvertAllImagesFromOldDatabaseCommand extends ContainerAwareCommand
                 $process->start();
 
                 $queue[] = $process;
-
 
                 while (count($queue) > 10) {
                     foreach ($queue as $queue_key => $queue_item) {
@@ -229,7 +246,6 @@ class LegacyConvertAllImagesFromOldDatabaseCommand extends ContainerAwareCommand
             $i++;
         }
 
-
         while (count($queue) > 0) {
             foreach ($queue as $queue_key => $queue_item) {
                 if (!$queue_item->isRunning()) {
@@ -239,8 +255,5 @@ class LegacyConvertAllImagesFromOldDatabaseCommand extends ContainerAwareCommand
 
             usleep(100);
         }
-
-
     }
-
 }

@@ -15,7 +15,6 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  */
 class CompoArticlesExtension extends Extension implements PrependExtensionInterface
 {
-
     /**
      * {@inheritDoc}
      */
