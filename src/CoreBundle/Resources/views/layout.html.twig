@@ -18,23 +18,20 @@
         {% block stylesheets %}
             {% stylesheets
             '@sonata_front_vendor_core_css'
-            output='assetic/sonata_front_vendor_core_css.css'
-            %}
+            output='assetic/sonata_front_vendor_core_css.css' %}
             <link rel="stylesheet" href="{{ asset_url }}" media="all"/>
             {% endstylesheets %}
 
             {% stylesheets
             '@sonata_front_vendor_css'
-            output='assetic/sonata_front_vendor_css.css'
-            %}
+            output='assetic/sonata_front_vendor_css.css' %}
             <link rel="stylesheet" href="{{ asset_url }}" media="all"/>
             {% endstylesheets %}
 
 
             {% stylesheets
             '@sonata_front_css'
-            output='assetic/sonata_front_css.css'
-            %}
+            output='assetic/sonata_front_css.css' %}
             <link rel="stylesheet" href="{{ asset_url }}" media="all"/>
             {% endstylesheets %}
         {% endblock %}
@@ -49,50 +46,47 @@
 
 {% block body %}
     <body class="{{ body_class }}">
-        {% block header_admin %}
-            {% include '@CompoCore/Block/header_admin.html.twig' %}
-        {% endblock %}
+    {% block header_admin %}
+        {% include '@CompoCore/Block/header_admin.html.twig' %}
+    {% endblock %}
 
-        {% block container %}
-            <div id="container" class="container-fluid container-max-width">
-                {% block header %}
-                    {% include '@CompoCore/Block/header.html.twig' %}
-                {% endblock %}
+    {% block container %}
+        <div id="container" class="container-fluid container-max-width">
+            {% block header %}
+                {% include '@CompoCore/Block/header.html.twig' %}
+            {% endblock %}
 
-                {% block layout %}
-                {% endblock %}
+            {% block layout %}
+            {% endblock %}
 
-                {% block footer %}
-                    {% include '@CompoCore/Block/footer.html.twig' %}
-                {% endblock %}
-            </div>
-        {% endblock %}
+            {% block footer %}
+                {% include '@CompoCore/Block/footer.html.twig' %}
+            {% endblock %}
+        </div>
+    {% endblock %}
 
-        {% block javascripts %}
-            <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-            <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    {% block javascripts %}
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
 
-            {% javascripts
-            '@sonata_front_vendor_core_js'
-            output='assetic/sonata_front_vendor_core_js.js'
-            %}
-            <script src="{{ asset_url }}" type="text/javascript"></script>
-            {% endjavascripts %}
+        {% javascripts
+        '@sonata_front_vendor_core_js'
+        output='assetic/sonata_front_vendor_core_js.js' %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>
+        {% endjavascripts %}
 
-            {% javascripts
-            '@sonata_front_vendor_js'
-            output='assetic/sonata_front_vendor_js.js'
-            %}
-            <script src="{{ asset_url }}" type="text/javascript"></script>
-            {% endjavascripts %}
+        {% javascripts
+        '@sonata_front_vendor_js'
+        output='assetic/sonata_front_vendor_js.js' %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>
+        {% endjavascripts %}
 
-            {% javascripts
-            '@sonata_front_js'
-            output='assetic/sonata_front_js.js'
-            %}
-            <script src="{{ asset_url }}" type="text/javascript"></script>
-            {% endjavascripts %}
-        {% endblock %}
+        {% javascripts
+        '@sonata_front_js'
+        output='assetic/sonata_front_js.js' %}
+        <script src="{{ asset_url }}" type="text/javascript"></script>
+        {% endjavascripts %}
+    {% endblock %}
     </body>
 {% endblock %}
 </html>

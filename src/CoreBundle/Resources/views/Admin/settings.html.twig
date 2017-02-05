@@ -2,7 +2,7 @@
 
 {% block breadcrumb %}
     <li><a href="{{ url('sonata_admin_dashboard') }}">{% trans %}breadcrumb.link_dashboard{% endtrans %}</a></li>
-    <li class="active">{{ 'settings.header'|trans({}, form.vars.translation_domain) }}</li>
+    <li class="active">{{ 'settings.header'|trans({}, form.vars['translation_domain']) }}</li>
 {% endblock %}
 
 {% block content %}
@@ -13,7 +13,7 @@
 
                     <div class="box-header">
                         <h4 class="box-title">
-                            {{ 'settings.header'|trans({}, form.vars.translation_domain) }}
+                            {{ 'settings.header'|trans({}, form.vars['translation_domain']) }}
                         </h4>
                     </div>
 

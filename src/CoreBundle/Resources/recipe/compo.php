@@ -4,58 +4,81 @@ use function Deployer\{
     add, get, server, set, task
 };
 
+/** @noinspection PhpIncludeInspection */
 require 'recipe/symfony.php';
 
 ini_set('date.timezone', 'Europe/Moscow');
 date_default_timezone_set('Europe/Moscow');
 
+/** @noinspection PhpUndefinedFunctionInspection */
 set('copy_dirs', ['vendor']);
+/** @noinspection PhpUndefinedFunctionInspection */
 set('env', 'prod');
+/** @noinspection PhpUndefinedFunctionInspection */
 set('shared_dirs', array('app/logs', 'web/uploads'));
+/** @noinspection PhpUndefinedFunctionInspection */
 set('shared_files', array('app/config/parameters.yml', 'web/robots.txt'));
+/** @noinspection PhpUndefinedFunctionInspection */
 set('writable_dirs', array('app/cache', 'app/logs', 'web/uploads'));
 
+/** @noinspection PhpUndefinedFunctionInspection */
 set('clear_paths', []);
 //set('clear_paths', ['web/app_*.php', 'web/config.php']);
 
+/** @noinspection PhpUndefinedFunctionInspection */
 set('assets', []);
 //set('assets', ['web/css', 'web/images', 'web/js']);
 
+/** @noinspection PhpUndefinedFunctionInspection */
 set('dump_assets', true);
+/** @noinspection PhpUndefinedFunctionInspection */
 set('writable_use_sudo', false);
 
+/** @noinspection PhpUndefinedFunctionInspection */
 set('bin/php', function () {
+    /** @noinspection PhpUndefinedFunctionInspection */
     return get('bin_php');
 });
 
+/** @noinspection PhpUndefinedFunctionInspection */
 set('timezone', 'Europe/Moscow');
 date_default_timezone_set('Europe/Moscow');
 
+/** @noinspection PhpUndefinedFunctionInspection */
 task('timezone', function () {
+    /** @noinspection PhpUndefinedFunctionInspection */
     set('timezone', 'Europe/Moscow');
     date_default_timezone_set('Europe/Moscow');
 })->desc('timezone');
 
 
+/** @noinspection PhpUndefinedFunctionInspection */
 task('compo:update', function () {
+    /** @noinspection PhpUndefinedFunctionInspection */
     run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console compo:update --env={{env}} --no-debug');
 
     run("cd {{deploy_path}} && ln -sfn current/web public_html");
 
 })->desc('compo:update');
 
+/** @noinspection PhpUndefinedFunctionInspection */
 task('compo:install', function () {
+    /** @noinspection PhpUndefinedFunctionInspection */
     run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console compo:install --env={{env}} --no-debug');
 
     run("cd {{deploy_path}} && ln -sfn current/web public_html");
 
 })->desc('compo:install');
 
+/** @noinspection PhpUndefinedFunctionInspection */
 task('compo:create-configs', function () {
+    /** @noinspection PhpUndefinedFunctionInspection */
     run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console compo:create-configs --env={{env}} --no-debug');
 })->desc('compo:install');
 
+/** @noinspection PhpUndefinedFunctionInspection */
 task('symfony:env_vars', function () {
+    /** @noinspection PhpUndefinedFunctionInspection */
     $parametrs = get('parameters');
 
     $parametrs_array = array();
@@ -66,6 +89,7 @@ task('symfony:env_vars', function () {
 
     $parametrs_array[] = 'SYMFONY_ENV=prod';
 
+    /** @noinspection PhpUndefinedFunctionInspection */
     set('env_vars', implode(' ', $parametrs_array));
 
 })->setPrivate();
@@ -80,12 +104,14 @@ task('php-fpm:restart', function () {
 after('deploy:symlink', 'php-fpm:restart');
 */
 
+/** @noinspection PhpUndefinedFunctionInspection */
 task('php-fpm:restart', function () {
     // The user must have rights for restart service
     // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart nginx.service
     run('sudo systemctl restart php7.0-fpm.service');
 });
 
+/** @noinspection PhpUndefinedFunctionInspection */
 task('php-fpm:reload', function () {
     // The user must have rights for restart service
     // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart nginx.service
@@ -93,24 +119,29 @@ task('php-fpm:reload', function () {
 });
 
 
+/** @noinspection PhpUndefinedFunctionInspection */
 task('nginx:restart', function () {
     // The user must have rights for restart service
     // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart nginx.service
     run('sudo systemctl restart nginx.service');
 });
 
+/** @noinspection PhpUndefinedFunctionInspection */
 task('nginx:reload', function () {
     // The user must have rights for restart service
     // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart nginx.service
     run('sudo systemctl reload nginx.service');
 });
 
+/** @noinspection PhpUndefinedFunctionInspection */
 task('deploy:assetic:dump', function () {
+    /** @noinspection PhpUndefinedFunctionInspection */
     if (get('dump_assets')) {
         run('{{env_vars}} {{bin/php}} {{bin/console}} assetic:dump --forks=12 {{console_options}}');
     }
 })->desc('Dump assets');
 
+/** @noinspection PhpUndefinedFunctionInspection */
 task('install', [
     'timezone',
     'deploy:prepare',
@@ -139,6 +170,7 @@ task('install', [
     'cleanup',
 ])->desc('Install your project');
 
+/** @noinspection PhpUndefinedFunctionInspection */
 task('deploy', [
     'timezone',
     'deploy:prepare',
