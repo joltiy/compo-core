@@ -958,10 +958,9 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
         $featureVariantRepositoru = $this->em->getRepository('CompoFeaturesBundle:FeatureVariant');
         $featureValuesRepos = $this->em->getRepository('CompoFeaturesBundle:FeatureValue');
         $catalogRepos = $this->em->getRepository('CompoCatalogBundle:Catalog');
-        $categoryRepos = $this->em->getRepository('CompoFeaturesBundle:FeatureCategory');
 
 
-        $feature_type = $this->oldConnection->fetchAll('SELECT * FROM `feature_type` WHERE parent = 0 OR parent IS NULL');
+        $feature_type = $this->oldConnection->fetchAll('SELECT * FROM `feature_type` WHERE parent = 0 OR parent IS NULL ORDER BY parent,pos');
 
 
         $name = 'processFeatures';
@@ -987,43 +986,14 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
             if ($feature_type_item['brunch']) {
 
                 $catalog = $catalogRepos->find($feature_type_item['brunch']);
-                $category = $categoryRepos->find($feature_type_item['brunch']);
 
                 if (!$catalog) {
                     continue;
                 }
 
-                if (!$category) {
-                    $category = new FeatureCategory();
-                    $this->changeIdGenerator($category);
-
-                    $category->setId($feature_type_item['brunch']);
-                    $category->setName($catalog->getName());
-                    $category->addCatalog($catalog);
-
-                    $this->em->persist($catalog);
-                    $this->em->persist($category);
-                    $this->em->flush();
 
 
-                    $childs = $catalogRepos->childrenHierarchy($catalog);
-
-
-                    /** @var Catalog $child */
-                    foreach ($childs as $childArray) {
-
-                        $child = $catalogRepos->find($childArray['id']);
-
-                        $child->setFeatureCategory($category);
-
-                        $this->em->persist($child);
-
-                    }
-
-
-                }
-
-                $fa->setCategory($category);
+                $fa->setCatalog($catalog);
 
             }
 
