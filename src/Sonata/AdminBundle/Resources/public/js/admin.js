@@ -106,7 +106,7 @@ function initOrderElements() {
 
 }
 
-Admin.setup_icheck = function(subject) {
+Admin.setup_icheck = function (subject) {
     if (window.SONATA_CONFIG && window.SONATA_CONFIG.USE_ICHECK) {
         Admin.log('[core|setup_icheck] configure iCheck on', subject);
 
@@ -119,7 +119,9 @@ Admin.setup_icheck = function(subject) {
                     radioClass: 'iradio_square-blue'
                 });
 
-                el.on('ifChanged', function (event) { $(event.target).trigger('change'); });
+                el.on('ifChanged', function (event) {
+                    $(event.target).trigger('change');
+                });
 
             }
         });
@@ -231,34 +233,18 @@ $(document).ready(function () {
     });
 
 
-    
-    
-    
-    
-    
-    
-
     /*
 
-    $(".sonata-ba-collapsed-fields [name*=enabled],.sonata-ba-collapsed-fields [name*=noIndexEnabled],.sonata-ba-collapsed-fields [name*=yandexMarketEnabled]")
-        .bootstrapSwitch({
-            size: 'mini',
-            onText: 'да',
-            offText: 'нет'
-        })
-        .closest('.icheckbox_square-blue')
-        .css('background-image', 'none');
+     $(".sonata-ba-collapsed-fields [name*=enabled],.sonata-ba-collapsed-fields [name*=noIndexEnabled],.sonata-ba-collapsed-fields [name*=yandexMarketEnabled]")
+     .bootstrapSwitch({
+     size: 'mini',
+     onText: 'да',
+     offText: 'нет'
+     })
+     .closest('.icheckbox_square-blue')
+     .css('background-image', 'none');
 
-*/
-
-
-
-
-
-
-
-
-
+     */
 
 
     var tab_active = $('.sonata-ba-form .nav-tabs li.active a');
@@ -273,7 +259,6 @@ $(document).ready(function () {
     }
 
 
-
     $(document).on('click', '.sonata-ba-form .nav-tabs a', function (event) {
 
         var form = $(event.target).closest("form");
@@ -283,13 +268,6 @@ $(document).ready(function () {
 
         history.replaceState(history.state, document.title, event.target.href);
     });
-
-
-
-
-
-
-
 
 
     $('.product-catalog-tree li').each(function () {

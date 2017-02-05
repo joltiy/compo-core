@@ -143,7 +143,6 @@ th.sonata-ba-list-field-header.sonata-ba-list-field-header-batch {
     min-width: 215px;
 }
 
-
 .row-sonata_media_type_widget {
     margin-top: 7px;
 }
@@ -311,19 +310,14 @@ th.table-th-total {
     min-width: 160px;
 }
 
-
-
 .col-sm-9.checkbox-widget label.control-label.col-sm-3 {
     display: none;
 }
-
-
 
 /* Действия для поля в форме, например "Добавить" у выбодащего списка M:1 */
 .sonata-ba-field-standard-natural .field-actions {
     text-align: right;
 }
-
 
 .checkbox div[class^="icheckbox"], .checkbox-inline div[class^="icheckbox"], .radio div[class^="iradio"], .radio-inline div[class^="iradio"] {
     margin-left: -15px;
@@ -343,7 +337,6 @@ th.table-th-total {
     margin: 0;
 }
 
-
 td.td-delete-field .checkbox .checkbox-widget {
     text-align: center;
     margin: 0;
@@ -354,7 +347,7 @@ td.td-delete-field .checkbox .checkbox-widget .icheckbox_square-blue {
     margin: 0 auto;
 }
 
-.table-th-enabled  {
+.table-th-enabled {
     text-align: center;
 }
 
@@ -371,17 +364,12 @@ th.sonata-ba-list-field-header-actions.sonata-ba-list-field-header-_action {
     width: 100%;
 }
 
-
-
 .features-product-item .checkbox div[class^="icheckbox"],
 .features-product-item .checkbox-inline div[class^="icheckbox"],
 .features-product-item .radio div[class^="iradio"],
 .features-product-item .radio-inline div[class^="iradio"] {
     margin-left: 0 !important;
 }
-
-
-
 
 .sonata-admin-group-background-icon {
     width: 16px;
