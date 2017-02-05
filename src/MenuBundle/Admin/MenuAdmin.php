@@ -9,9 +9,6 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-use Knp\Menu\ItemInterface as MenuItemInterface;
-use Sonata\AdminBundle\Admin\AdminInterface;
-
 /**
  * {@inheritDoc}
  */
@@ -26,6 +23,39 @@ class MenuAdmin extends AbstractAdmin
         $this->configurePosition(true);
     }
 
+    public function postPersist($menu)
+    {
+        $menuItem = new MenuItem();
+
+        $menuItem->setName($menu->getName());
+
+        $menuItem->setMenu($menu);
+
+        $this->getDoctrine()->getManager()->persist($menuItem);
+
+        $this->getDoctrine()->getManager()->flush();
+    }
+
+    public function postRemove($object)
+    {
+        $menu_item_root = $this->getDoctrine()->getRepository('CompoMenuBundle:MenuItem')->findOneBy(array('menu' => $object));
+
+        if ($menu_item_root) {
+            $menu_item_root->setDeletedAt(new \DateTime());
+            $this->getDoctrine()->getManager()->persist($menu_item_root);
+
+            $items = $this->getDoctrine()->getRepository('CompoMenuBundle:MenuItem')->getChildren($menu_item_root);
+
+            foreach ($items as $item) {
+                $item->setDeletedAt(new \DateTime());
+
+                $this->getDoctrine()->getManager()->persist($item);
+            }
+
+            $this->getDoctrine()->getManager()->flush();
+        }
+
+    }
 
     /**
      * @param DatagridMapper $datagridMapper
@@ -68,8 +98,7 @@ class MenuAdmin extends AbstractAdmin
             ->with('main_tab', array('name' => false))
             ->add('name')
             ->add('alias')
-            ->add('description')
-        ;
+            ->add('description');
 
         $formMapper
             ->end()
@@ -85,8 +114,6 @@ class MenuAdmin extends AbstractAdmin
             ->add('id')
             ->add('name');
     }
-
-
 
     protected function configureTabMenu(\Knp\Menu\ItemInterface $menu, $action, \Sonata\AdminBundle\Admin\AdminInterface $childAdmin = null)
     {
@@ -109,39 +136,5 @@ class MenuAdmin extends AbstractAdmin
             $this->trans('sidemenu.link_view_menu_item'),
             array('uri' => $admin->generateUrl('compo_menu.admin.menu_item.list', array('id' => $id)))
         );
-    }
-
-    public function postPersist($menu)
-    {
-        $menuItem = new MenuItem();
-
-        $menuItem->setName($menu->getName());
-
-        $menuItem->setMenu($menu);
-
-        $this->getDoctrine()->getManager()->persist($menuItem);
-
-        $this->getDoctrine()->getManager()->flush();
-    }
-
-    public function postRemove($object)
-    {
-        $menu_item_root = $this->getDoctrine()->getRepository('CompoMenuBundle:MenuItem')->findOneBy(array('menu' => $object));
-
-        if ($menu_item_root) {
-            $menu_item_root->setDeletedAt(new \DateTime());
-            $this->getDoctrine()->getManager()->persist($menu_item_root);
-
-            $items = $this->getDoctrine()->getRepository('CompoMenuBundle:MenuItem')->getChildren($menu_item_root);
-
-            foreach ($items as $item) {
-                $item->setDeletedAt(new \DateTime());
-
-                $this->getDoctrine()->getManager()->persist($item);
-            }
-
-            $this->getDoctrine()->getManager()->flush();
-        }
-
     }
 }

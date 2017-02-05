@@ -33,7 +33,6 @@ class MenuItemAdmin extends AbstractAdmin
     }
 
 
-
     /**
      * @param ListMapper $listMapper
      */
@@ -48,15 +47,13 @@ class MenuItemAdmin extends AbstractAdmin
                 'editable' => true,
                 'required' => true
             ))
-
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
                 )
-            ))
-        ;
+            ));
     }
 
     /**
@@ -82,12 +79,12 @@ class MenuItemAdmin extends AbstractAdmin
             $root_menu_item = $this->getDoctrine()->getRepository('CompoMenuBundle:MenuItem')->findOneBy(array('menu' => $menu_id));
         }
 
-        /** @var MenuItemRepository$repository */
+        /** @var MenuItemRepository $repository */
         $repository = $this->getRepository();
 
         if ($root_menu_item) {
             // Родительские категории
-            $tree = $repository->getForTreeSelector($id, function ($qb) use ($root_menu_item){
+            $tree = $repository->getForTreeSelector($id, function ($qb) use ($root_menu_item) {
                 $qb->andWhere('c.root = ' . $root_menu_item->getId());
             });
         } else {
@@ -101,15 +98,13 @@ class MenuItemAdmin extends AbstractAdmin
         ));
 
 
-
         $formMapper->with('form.tab_main', array(
             'name' => false
         ))
             ->add('enabled')
             ->add('name')
             ->add('title')
-            ->add('alias')
-        ;
+            ->add('alias');
 
         $formMapper->add('parent', 'compo_tree_selector', array(
             'current' => $subject,
@@ -131,9 +126,7 @@ class MenuItemAdmin extends AbstractAdmin
                 ),
                 'empty_value' => 'Choose an option',
                 'required' => false
-            ))
-        ;
-
+            ));
 
 
         $query = $this->getDoctrine()->getManager()->createQuery('SELECT p FROM Compo\Sonata\PageBundle\Entity\Page p WHERE p.routeName = \'page_slug\' ORDER BY p.parent ASC, p.position ASC');
@@ -146,13 +139,10 @@ class MenuItemAdmin extends AbstractAdmin
         $formMapper->add('url');
 
 
-
-            $formMapper->end();
+        $formMapper->end();
 
         $formMapper->end();
     }
-
-
 
 
     /**
@@ -173,7 +163,6 @@ class MenuItemAdmin extends AbstractAdmin
             ->add('root')
             ->add('createdAt')
             ->add('updatedAt')
-            ->add('deletedAt')
-        ;
+            ->add('deletedAt');
     }
 }
