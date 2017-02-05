@@ -15,22 +15,18 @@ class Articles
     use \Compo\Sonata\AdminBundle\Entity\PositionEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\NameEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\EnabledEntityTrait;
+    use \Compo\Sonata\AdminBundle\Entity\DescriptionEntityTrait;
+    use \Compo\Sonata\AdminBundle\Entity\ImageEntityTrait;
+    use \Compo\SeoBundle\Entity\Traits\SeoEntity;
 
     use \Gedmo\Timestampable\Traits\TimestampableEntity;
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
-
-    use \Compo\SeoBundle\Entity\Traits\SeoEntity;
-
-    use \Compo\Sonata\AdminBundle\Entity\DescriptionEntityTrait;
-    use \Compo\Sonata\AdminBundle\Entity\ImageEntityTrait;
-
 
     /**
      * @var \DateTime
      * @ORM\Column(type="datetime")
      */
     protected $publicationAt;
-
 
     /**
      * @var int

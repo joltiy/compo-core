@@ -14,17 +14,15 @@ use Sonata\AdminBundle\Show\ShowMapper;
 class ArticlesAdmin extends AbstractAdmin
 {
     /**
-     * Конфигурация админки
+     * {@inheritDoc}
      */
     public function configure()
     {
-        // Домен переводов
         $this->setTranslationDomain('CompoArticlesBundle');
-
     }
 
     /**
-     * @param DatagridMapper $datagridMapper
+     * {@inheritDoc}
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
@@ -39,7 +37,7 @@ class ArticlesAdmin extends AbstractAdmin
     }
 
     /**
-     * @param ListMapper $listMapper
+     * {@inheritDoc}
      */
     protected function configureListFields(ListMapper $listMapper)
     {
@@ -60,33 +58,31 @@ class ArticlesAdmin extends AbstractAdmin
     }
 
     /**
-     * @param FormMapper $formMapper
+     * {@inheritDoc}
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
             ->add('enabled', null, array('required' => false))
-            ->add('name');
-
-        $formMapper->add('description');
-        $formMapper->add('publicationAt');
-
-
-        $formMapper->add('image', 'sonata_type_model_list', array(
-            'required' => false,
-            'by_reference' => true,
-        ),
-            array(
-                'link_parameters' => array(
-                    'context' => 'default',
-                    'hide_context' => true,
+            ->add('name')
+            ->add('description')
+            ->add('publicationAt')
+            ->add('image', 'sonata_type_model_list',
+                array(
+                    'required' => false,
+                    'by_reference' => true,
                 ),
-            ));
-
+                array(
+                    'link_parameters' => array(
+                        'context' => 'default',
+                        'hide_context' => true,
+                    ),
+                )
+            );
     }
 
     /**
-     * @param ShowMapper $showMapper
+     * {@inheritDoc}
      */
     protected function configureShowFields(ShowMapper $showMapper)
     {
