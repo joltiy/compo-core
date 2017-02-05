@@ -23,6 +23,9 @@ class MenuAdmin extends AbstractAdmin
         $this->configurePosition(true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function postPersist($menu)
     {
         $menuItem = new MenuItem();
@@ -36,6 +39,9 @@ class MenuAdmin extends AbstractAdmin
         $this->getDoctrine()->getManager()->flush();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function postRemove($object)
     {
         $menu_item_root = $this->getDoctrine()->getRepository('CompoMenuBundle:MenuItem')->findOneBy(array('menu' => $object));
@@ -46,6 +52,7 @@ class MenuAdmin extends AbstractAdmin
 
             $items = $this->getDoctrine()->getRepository('CompoMenuBundle:MenuItem')->getChildren($menu_item_root);
 
+            /** @var MenuItem $item */
             foreach ($items as $item) {
                 $item->setDeletedAt(new \DateTime());
 
@@ -115,6 +122,9 @@ class MenuAdmin extends AbstractAdmin
             ->add('name');
     }
 
+    /**
+     * {@inheritDoc}
+     */
     protected function configureTabMenu(\Knp\Menu\ItemInterface $menu, $action, \Sonata\AdminBundle\Admin\AdminInterface $childAdmin = null)
     {
         parent::configureTabMenu($menu, $action, $childAdmin);

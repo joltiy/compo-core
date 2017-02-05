@@ -4,11 +4,15 @@ namespace Compo\MenuBundle\Admin;
 
 use Compo\MenuBundle\Entity\MenuItemRepository;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
+/**
+ * {@inheritDoc}
+ */
 class MenuItemAdmin extends AbstractAdmin
 {
     /**
@@ -84,7 +88,9 @@ class MenuItemAdmin extends AbstractAdmin
 
         if ($root_menu_item) {
             // Родительские категории
+
             $tree = $repository->getForTreeSelector($id, function ($qb) use ($root_menu_item) {
+                /** @var QueryBuilder $qb */
                 $qb->andWhere('c.root = ' . $root_menu_item->getId());
             });
         } else {

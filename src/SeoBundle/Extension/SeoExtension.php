@@ -2,7 +2,9 @@
 
 namespace Compo\SeoBundle\Extension;
 
+use Compo\SeoBundle\Entity\Traits\SeoEntity;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
+use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -98,18 +100,26 @@ class SeoExtension extends AbstractAdminExtension
     public function createSlug(AdminInterface $admin, $object)
     {
         /** @var $admin AbstractAdmin */
+        /** @var SeoEntity $object */
         if (trim($object->getSlug()) == '') {
             $service = $admin->getConfigurationPool()->getContainer()->get("sonata.core.slugify.cocur");
 
+            /** @noinspection PhpUndefinedMethodInspection */
             $object->setSlug($service->slugify($object->getName()));
         }
 
-        $qb = $admin->getRepository()->createQueryBuilder('a');
+        /** @var EntityRepository $repository */
+        $repository = $admin->getRepository();
+
+        /** @var \Doctrine\ORM\QueryBuilder $qb */
+        $qb = $repository->createQueryBuilder('a');
         $qb->where('a.slug = :slug');
         $qb->setParameter('slug', $object->getSlug());
 
+        /** @noinspection PhpUndefinedMethodInspection */
         if ($object->getId()) {
             $qb->andWhere('a.id != :id');
+            /** @noinspection PhpUndefinedMethodInspection */
             $qb->setParameter('id', $object->getId());
 
         }
@@ -134,6 +144,9 @@ class SeoExtension extends AbstractAdminExtension
         $this->createSlug($admin, $object);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function postUpdate(AdminInterface $admin, $object)
     {
         $this->updateSlug($admin, $object);
@@ -143,9 +156,11 @@ class SeoExtension extends AbstractAdminExtension
     {
         /** @var $admin AbstractAdmin */
 
+        /** @noinspection PhpUndefinedMethodInspection */
         if (strpos($object->getSlug(), 'temp_slug_') !== false) {
             $service = $admin->getConfigurationPool()->getContainer()->get("sonata.core.slugify.cocur");
 
+            /** @noinspection PhpUndefinedMethodInspection */
             $object->setSlug($service->slugify($object->getName()) . '-' . $object->getId());
 
             $admin->getConfigurationPool()->getContainer()->get('doctrine')->getManager()->persist($object);
@@ -153,6 +168,9 @@ class SeoExtension extends AbstractAdminExtension
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function postPersist(AdminInterface $admin, $object)
     {
         $this->updateSlug($admin, $object);

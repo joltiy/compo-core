@@ -58,14 +58,14 @@ class MenuBlockService extends AbstractBlockService
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
 
-        $em = $this->container->get("doctrine.orm.entity_manager");
+        //$em = $this->container->get("doctrine.orm.entity_manager");
 
         $settings = $blockContext->getSettings();
 
         $menu = null;
 
         /** @var NestedTreeRepository $repo */
-        $repo = $em->getRepository("CompoMenuBundle:Menu");
+        //$repo = $em->getRepository("CompoMenuBundle:Menu");
 
 
         //$tree = $repo->childrenHierarchy($repo->findOneBy(array('alias' => $settings['alias'])), false, array(), false);
