@@ -1,6 +1,8 @@
 <?php
 
-use function Deployer\{server, task, run, set, get, add};
+use function Deployer\{
+    add, get, server, set, task
+};
 
 require 'recipe/symfony.php';
 
@@ -59,7 +61,7 @@ task('symfony:env_vars', function () {
     $parametrs_array = array();
 
     foreach ($parametrs as $parametrs_key => $parametrs_val) {
-        $parametrs_array[] = "PARAMETERS__" . strtoupper($parametrs_key). "=" . $parametrs_val;
+        $parametrs_array[] = "PARAMETERS__" . strtoupper($parametrs_key) . "=" . $parametrs_val;
     }
 
     $parametrs_array[] = 'SYMFONY_ENV=prod';

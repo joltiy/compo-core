@@ -51,7 +51,7 @@ class AdminExtractor implements ExtractorInterface, TranslatorInterface, Securit
     private $domain;
 
     /**
-     * @param Pool            $adminPool
+     * @param Pool $adminPool
      * @param LoggerInterface $logger
      */
     public function __construct(Pool $adminPool, LoggerInterface $logger = null)

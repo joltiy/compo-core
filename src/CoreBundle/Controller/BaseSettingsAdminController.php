@@ -17,7 +17,7 @@ class BaseSettingsAdminController extends SettingsController
 
     /**
      * @param Request $request
-     * @param string  $namespace
+     * @param string $namespace
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */

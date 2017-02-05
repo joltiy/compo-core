@@ -26,7 +26,7 @@ class TranslationCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
      *
      * @return null|int null or 0 if everything went fine, or an error code

@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 class CompoCoreExtension extends Extension
 {
     /**
-     * @param array            $configs
+     * @param array $configs
      * @param ContainerBuilder $container
      */
     public function load(array $configs, ContainerBuilder $container)

@@ -667,9 +667,6 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
             $newCatalogItem->setSlug(str_replace('.html', '', $oldCatalogItem['url']));
 
 
-
-
-
             $newCatalogItem->setId($oldCatalogItem['id']);
             $newCatalogItem->setHeaderMenu($oldCatalogItem['menu_title']);
 
