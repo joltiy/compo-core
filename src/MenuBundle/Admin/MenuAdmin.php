@@ -3,7 +3,7 @@
 namespace Compo\MenuBundle\Admin;
 
 use Compo\MenuBundle\Entity\MenuItem;
-use Compo\Sonata\AdminBundle\Admin\Admin;
+use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -15,7 +15,7 @@ use Sonata\AdminBundle\Admin\AdminInterface;
 /**
  * {@inheritDoc}
  */
-class MenuAdmin extends Admin
+class MenuAdmin extends AbstractAdmin
 {
     /**
      * {@inheritDoc}

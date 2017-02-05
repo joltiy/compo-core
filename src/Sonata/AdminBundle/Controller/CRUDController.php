@@ -8,7 +8,7 @@
 
 namespace Compo\Sonata\AdminBundle\Controller;
 
-use Compo\Sonata\AdminBundle\Admin\Admin;
+use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 use Pix\SortableBehaviorBundle\Services\PositionHandler;
 use Sonata\AdminBundle\Controller\CRUDController as BaseCRUDController;
@@ -25,7 +25,7 @@ class CRUDController extends BaseCRUDController
     /**
      * The related Admin class.
      *
-     * @var Admin
+     * @var AbstractAdmin
      */
     protected $admin;
 
@@ -259,7 +259,7 @@ class CRUDController extends BaseCRUDController
     {
         if (isset($this->admin->treeEnabled) && $this->admin->treeEnabled) {
             if (!$request->get('filter')) {
-                return new RedirectResponse($this->admin->generateUrl('tree', $request->query->all()));
+                //return new RedirectResponse($this->admin->generateUrl('tree', $request->query->all()));
             }
         }
 
@@ -298,7 +298,7 @@ class CRUDController extends BaseCRUDController
     }
 
     /**
-     * @return Admin
+     * @return AbstractAdmin
      */
     public function getAdmin()
     {
@@ -306,9 +306,9 @@ class CRUDController extends BaseCRUDController
     }
 
     /**
-     * @param Admin $admin
+     * @param AbstractAdmin $admin
      */
-    public function setAdmin(Admin $admin)
+    public function setAdmin(AbstractAdmin $admin)
     {
         $this->admin = $admin;
     }

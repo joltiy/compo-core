@@ -2,7 +2,7 @@
 
 namespace Compo\Sonata\AdminBundle\Extension;
 
-use Compo\Sonata\AdminBundle\Admin\Admin;
+use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -19,7 +19,7 @@ class PositionExtension extends AbstractAdminExtension
      */
     public function alterNewInstance(AdminInterface $admin, $object)
     {
-        /** @var Admin $admin */
+        /** @var AbstractAdmin $admin */
         $last_position = $admin->getConfigurationPool()->getContainer()->get("pix_sortable_behavior.position")->getLastPosition($admin->getRoot()->getClass());
 
         $object->setPosition($last_position);

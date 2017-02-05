@@ -3,13 +3,13 @@
 namespace Compo\MenuBundle\Admin;
 
 use Compo\MenuBundle\Entity\MenuItemRepository;
-use Compo\Sonata\AdminBundle\Admin\Admin;
+use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class MenuItemAdmin extends Admin
+class MenuItemAdmin extends AbstractAdmin
 {
     /**
      * Конфигурация админки

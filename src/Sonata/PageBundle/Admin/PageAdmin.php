@@ -12,7 +12,7 @@
 namespace Compo\Sonata\PageBundle\Admin;
 
 
-use Compo\Sonata\AdminBundle\Admin\Admin;
+use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -31,7 +31,7 @@ use Sonata\PageBundle\Model\SiteManagerInterface;
 /**
  * {@inheritDoc}
  */
-class PageAdmin extends Admin
+class PageAdmin extends AbstractAdmin
 {
 
     /**

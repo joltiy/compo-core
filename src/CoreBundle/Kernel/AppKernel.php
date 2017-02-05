@@ -99,12 +99,14 @@ class AppKernel extends Kernel
             new \Compo\SmsProviderBundle\CompoSmsProviderBundle(),
 
             new \Compo\EcommerceBundle\CompoEcommerceBundle(),
-            new \Compo\ProductBundle\CompoProductBundle(),
             new \Compo\CurrencyBundle\CompoCurrencyBundle(),
             new \Compo\FeaturesBundle\CompoFeaturesBundle(),
             new \Compo\ManufactureBundle\CompoManufactureBundle(),
             new \Compo\CountryBundle\CompoCountryBundle(),
+
+            new \Compo\ProductBundle\CompoProductBundle(),
             new \Compo\CatalogBundle\CompoCatalogBundle(),
+
             new \Compo\SupplierBundle\CompoSupplierBundle(),
             new \Compo\DeliveryBundle\CompoDeliveryBundle(),
             new \Compo\PaymentBundle\CompoPaymentBundle(),

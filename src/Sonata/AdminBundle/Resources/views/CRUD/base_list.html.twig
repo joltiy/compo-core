@@ -12,12 +12,19 @@ file that was distributed with this source code.
 {% extends '@SonataAdmin/CRUD/base_list.html.twig' %}
 
 {% block navbar_title %}
-    {{ admin.isChild ? admin.getParent().subject : '' }}
+    {% if admin.isChild() %}
+        {% set title_list = "title_list_" ~ admin.getParent().label ~ '_' ~ admin.label %}
+        {{ title_list|trans({'%name%': admin.getParent().subject}, admin.translationDomain) }}
+    {% else %}
+        {% set title_list = "title_list_" ~ admin.label %}
+        {{ title_list|trans({}, admin.translationDomain) }}
+    {% endif %}
 {% endblock %}
 
 
 {% block list_table %}
     <div class="col-xs-12 col-md-12">
+
         {% set batchactions = admin.batchactions %}
         {% if admin.hasRoute('batch') and batchactions|length %}
         <form action="{{ admin.generateUrl('batch', {'filter': admin.filterParameters}) }}" method="POST">

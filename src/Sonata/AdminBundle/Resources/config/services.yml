@@ -4,11 +4,15 @@ services:
         tags:
             - { name: sonata.admin.extension, global: true }
 
+    compo.sonata.admin.sortable.extension:
+        class: Compo\Sonata\AdminBundle\Extension\SortableExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+
+
+
     compo.sonata.admin.extension.position:
         class: Compo\Sonata\AdminBundle\Extension\PositionExtension
-
-    compo.sonata.admin.extension.description_formatter:
-        class: Compo\Sonata\AdminBundle\Extension\DescriptionFormatterExtension
 
     compo.sonata.admin.extension.list_id_as_integer:
         class: Compo\Sonata\AdminBundle\Extension\ListIdAsIntegerExtension

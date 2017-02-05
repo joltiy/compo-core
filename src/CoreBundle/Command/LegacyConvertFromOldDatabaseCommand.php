@@ -6,8 +6,6 @@ use Compo\CatalogBundle\Entity\Catalog;
 use Compo\CountryBundle\Entity\Country;
 use Compo\CurrencyBundle\Entity\Currency;
 use Compo\FeaturesBundle\Entity\FeatureAttribute;
-use Compo\FeaturesBundle\Entity\FeatureCategory;
-use Compo\FeaturesBundle\Entity\FeatureType;
 use Compo\FeaturesBundle\Entity\FeatureValue;
 use Compo\FeaturesBundle\Entity\FeatureVariant;
 use Compo\ManufactureBundle\Entity\Manufacture;
@@ -182,6 +180,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
         if (in_array('main', $this->tables)) $this->processManufacture();
         if (in_array('main', $this->tables)) $this->processCollection();
         if (in_array('main', $this->tables)) $this->processCatalog();
+        if (in_array('catalog', $this->tables)) $this->processCatalog();
 
         if (in_array('product', $this->tables)) $this->processProduct();
 
@@ -663,11 +662,18 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
             $newCatalogItem->setName($oldCatalogItem['header']);
             $newCatalogItem->setEnabled((bool)$oldCatalogItem['visible']);
             $newCatalogItem->setDescription($oldCatalogItem['description'] . '<!--more-->' . $oldCatalogItem['description2']);
+
+
             $newCatalogItem->setSlug(str_replace('.html', '', $oldCatalogItem['url']));
+
+
+
+
+
             $newCatalogItem->setId($oldCatalogItem['id']);
             $newCatalogItem->setHeaderMenu($oldCatalogItem['menu_title']);
 
-            $newCatalogItem->setDeliveryCost($oldCatalogItem['local_delivery_cost']);
+            //$newCatalogItem->setDeliveryCost($oldCatalogItem['local_delivery_cost']);
 
 
             if ($oldCatalogItem['parent']) {
@@ -708,6 +714,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
         } else {
             $limit = '';
         }
+
         $oldData = $this->oldConnection->fetchAll('SELECT * FROM `tovar` ORDER BY id ASC ' . $limit);
 
         $this->output->writeln($name . '. Count: ' . count($oldData));
@@ -960,7 +967,6 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
         $feature_type = $this->oldConnection->fetchAll('SELECT * FROM `feature_type` WHERE parent = 0 OR parent IS NULL');
 
 
-
         $name = 'processFeatures';
         $i = 0;
 
@@ -982,8 +988,13 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
             }
 
             if ($feature_type_item['brunch']) {
+
                 $catalog = $catalogRepos->find($feature_type_item['brunch']);
                 $category = $categoryRepos->find($feature_type_item['brunch']);
+
+                if (!$catalog) {
+                    continue;
+                }
 
                 if (!$category) {
                     $category = new FeatureCategory();
@@ -996,7 +1007,6 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
                     $this->em->persist($catalog);
                     $this->em->persist($category);
                     $this->em->flush();
-
 
 
                     $childs = $catalogRepos->childrenHierarchy($catalog);
@@ -1085,11 +1095,11 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
         $this->output->writeln('Memmory: ' . number_format((memory_get_usage()), 0, ',', ' ') . ' B');
 
 
-        $batchSize = 100;
+        $batchSize = 1000;
         $i = 0;
 
         /** @noinspection PhpUndefinedMethodInspection */
-        $q = $this->em->createQuery('SELECT p FROM CompoProductBundle:Product p ORDER BY p.id ASC');
+        $q = $this->em->createQuery('SELECT p FROM CompoProductBundle:Product p WHERE p.catalog IN(8,251,312,163,162) ORDER BY p.id ASC');
 
         /** @noinspection PhpUndefinedMethodInspection */
         $iterableResult = $q->iterate();
@@ -1105,6 +1115,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
             if (!isset($feature_bind_tovar[$feature_bind_item['tovar_id']])) {
                 $feature_bind_tovar[$feature_bind_item['tovar_id']] = array();
             }
+
             $feature_bind_tovar[$feature_bind_item['tovar_id']][] = $feature_bind_item;
         }
 
@@ -1146,7 +1157,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
                         /** @var FeatureAttribute $featureAttribute */
                         $featureAttribute = $this->features[$oldProductFeaturesItem['feature_id']]['feature'];
 
-                        if ($featureAttribute->getType()->getCode() == 'variant') {
+                        if ($featureAttribute->getType() == 'variant') {
                             if (isset($this->features[$oldProductFeaturesItem['feature_id']]['variants'][$oldProductFeaturesItem['header']])) {
                                 $featureValue->setValueVariant($this->features[$oldProductFeaturesItem['feature_id']]['variants'][$oldProductFeaturesItem['header']]);
                                 $featureValue->setFeature($featureAttribute);
@@ -1198,7 +1209,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
         $this->em->clear('CompoProductBundle:FeatureValue');
     }
 
-    // Варианты - Комплектации 2.0: Товар - Товар
+// Варианты - Комплектации 2.0: Товар - Товар
 
     public function processProductVariation()
     {
@@ -1258,7 +1269,8 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
 
     }
 
-    public function processProductAccessory()
+    public
+    function processProductAccessory()
     {
         $ProductVariationRepository = $this->em->getRepository('CompoProductBundle:ProductAccessory');
 
@@ -1337,7 +1349,8 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
         $this->em->clear();
     }
 
-    public function processProductVariation2()
+    public
+    function processProductVariation2()
     {
         $catalogRepository = $this->em->getRepository('CompoCatalogBundle:Catalog');
 
@@ -1500,7 +1513,8 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
 
     }
 
-    public function processProductAccessory2()
+    public
+    function processProductAccessory2()
     {
         $catalogRepository = $this->em->getRepository('CompoCatalogBundle:Catalog');
 

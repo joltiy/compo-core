@@ -2,13 +2,13 @@
 
 namespace Compo\NewsBundle\Admin;
 
-use Compo\Sonata\AdminBundle\Admin\Admin;
+use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class NewsAdmin extends Admin
+class NewsAdmin extends AbstractAdmin
 {
     /**
      * Конфигурация админки
@@ -69,7 +69,7 @@ class NewsAdmin extends Admin
             ->add('name')
         ;
 
-        $this->createDescriptionFormatterFormType($formMapper);
+        $formMapper->add('description');
         $formMapper->add('publicationAt');
 
 

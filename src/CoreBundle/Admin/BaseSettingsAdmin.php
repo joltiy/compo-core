@@ -2,7 +2,7 @@
 
 namespace Compo\CoreBundle\Admin;
 
-use Compo\Sonata\AdminBundle\Admin\Admin;
+use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerAwareTrait;
  *
  * @package Compo\CoreBundle\Admin
  */
-class BaseSettingsAdmin extends Admin
+class BaseSettingsAdmin extends AbstractAdmin
 {
     use ContainerAwareTrait;
 

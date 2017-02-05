@@ -8,13 +8,15 @@ settings:
 
 list_mode: ''
 tree_mode: ''
+title_edit: 'Редактировать'
+title_create: 'Создать'
 
 breadcrumb:
     link_dashboard: 'Панель управления'
 
 tab_menu:
-    edit_action: 'Редактирование'
-    show_on_site_action: 'Показать на сайте'
+    link_edit: 'Редактировать'
+    link_show_on_site: 'Показать на сайте'
 
 filter:
     label_created_at: 'Дата создания'
@@ -32,12 +34,9 @@ filter:
     label_position: 'Позиция'
     label_alias: 'Служебное имя'
     label_deleted_at: 'Дата удаления'
-    label_description_formatter: 'Описание'
-    label_raw_description: 'Описание'
+    label_description: 'Описание'
     label_url: 'URL'
     label_body: 'Текст'
-    label_body_formatter: 'Текст'
-    label_body_raw: 'Текст'
     label_priority: 'Приоритет'
     label_note: 'Примечание'
     label_price: 'Цена'
@@ -67,8 +66,6 @@ form:
     label_video: 'Видео'
     label_video_html: 'Видео (код HTML)'
     label_body: 'Текст'
-    label_body_formatter: 'Текст'
-    label_body_raw: 'Текст'
     label_created_at: 'Дата создания'
     label_deleted_at: 'Дата удаления'
     label_updated_at: 'Дата обновления'
@@ -95,8 +92,6 @@ list:
     label_updated_at: 'Дата обновления'
     label_url: 'URL'
     label_body: 'Текст'
-    label_body_formatter: 'Текст'
-    label_body_raw: 'Текст'
     label_position: 'Позиция'
     label_priority: 'Приоритет'
     label_note: 'Примечание'
@@ -109,7 +104,6 @@ show:
     label_created_at: 'Дата создания'
     label_deleted_at: 'Дата удаления'
     label_description: 'Описание'
-    label_description_formatter: 'Описание'
     label_enabled: 'Включено'
     label_header: 'Заголовок'
     label_id: 'ID'
@@ -129,7 +123,6 @@ show:
     label_color: 'Цвет'
     label_url: 'URL'
     label_body: 'Текст'
-    label_body_formatter: 'Текст'
     label_body_raw: 'Текст'
     label_priority: 'Приоритет'
     label_note: 'Примечание'
@@ -149,7 +142,7 @@ show:
 "This is the timeline block.": "This is the block"
 
 
-
+catalog: 'Категории'
 Value: Да
 
 Start: От

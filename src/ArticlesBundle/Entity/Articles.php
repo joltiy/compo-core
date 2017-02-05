@@ -21,7 +21,7 @@ class Articles
 
     use \Compo\SeoBundle\Entity\Traits\SeoEntity;
 
-    use \Compo\Sonata\AdminBundle\Entity\DescriptionFormaterEntityTrait;
+    use \Compo\Sonata\AdminBundle\Entity\DescriptionEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\ImageEntityTrait;
 
 

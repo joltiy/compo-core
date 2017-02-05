@@ -2,7 +2,7 @@
 
 namespace Compo\SeoBundle\Extension;
 
-use Compo\Sonata\AdminBundle\Admin\Admin;
+use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -104,7 +104,7 @@ class SeoExtension extends AbstractAdminExtension
     }
 
     public function createSlug(AdminInterface $admin, $object) {
-        /** @var $admin Admin */
+        /** @var $admin AbstractAdmin */
         if (trim($object->getSlug()) == '') {
             $service = $admin->getConfigurationPool()->getContainer()->get("sonata.core.slugify.cocur");
 
@@ -145,7 +145,7 @@ class SeoExtension extends AbstractAdminExtension
 
     public function updateSlug(AdminInterface $admin, $object)
     {
-        /** @var $admin Admin */
+        /** @var $admin AbstractAdmin */
 
         if (strpos($object->getSlug(), 'temp_slug_') !== false) {
             $service = $admin->getConfigurationPool()->getContainer()->get("sonata.core.slugify.cocur");

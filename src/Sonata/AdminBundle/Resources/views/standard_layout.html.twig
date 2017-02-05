@@ -1,5 +1,13 @@
 {% extends '@SonataAdmin/standard_layout.html.twig' %}
 
+ {% block tab_menu_navbar_header %}
+     {% if _navbar_title is not empty %}
+         <div class="navbar-header">
+             <span class="navbar-brand">{{ _navbar_title|raw }}</span>
+         </div>
+     {% endif %}
+ {% endblock %}
+
 {% block side_bar_after_nav %}
     {# COMPO Ссылка на компанию под навигацией в админке #}
     <p class="text-center small" style="border-top: 1px solid #444444; padding-top: 10px">
