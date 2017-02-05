@@ -4,7 +4,6 @@ namespace Compo\Sonata\AdminBundle\Extension;
 
 use Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use Sonata\AdminBundle\Datagrid\ListMapper;
-use Sonata\AdminBundle\Form\FormMapper;
 
 /**
  * {@inheritDoc}
@@ -25,7 +24,7 @@ class SortableExtension extends AbstractAdminExtension
             if ($fieldDescription->getOption('sort_parent_association_enable', false) !== false) {
                 $fieldDescription->setOption('sortable', $fieldDescription->getOption('sortable', true));
                 $fieldDescription->setOption('sort_parent_association_mappings', array(array('fieldName' => $fieldDescription->getName())));
-                $fieldDescription->setOption('sort_field_mapping',  array('fieldName' => 'name'));
+                $fieldDescription->setOption('sort_field_mapping', array('fieldName' => 'name'));
             }
         }
 

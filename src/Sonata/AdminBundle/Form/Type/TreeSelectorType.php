@@ -44,11 +44,6 @@ class TreeSelectorType extends AbstractType
         ));
     }
 
-    public function getChoiceLabel($value, $key, $index)
-    {
-
-    }
-
     /**
      * @param Options $options
      *
@@ -84,8 +79,8 @@ class TreeSelectorType extends AbstractType
     /**
      * @param         $category
      * @param Options $options
-     * @param array   $choices
-     * @param int     $level
+     * @param array $choices
+     * @param int $level
      */
     private function childWalker($category, Options $options, array &$choices, $level = 2)
     {
@@ -105,6 +100,11 @@ class TreeSelectorType extends AbstractType
 
             $this->childWalker($child, $options, $choices, $level + 1);
         }
+
+    }
+
+    public function getChoiceLabel($value, $key, $index)
+    {
 
     }
 

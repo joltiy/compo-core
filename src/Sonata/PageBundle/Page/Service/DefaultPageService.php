@@ -39,9 +39,9 @@ class DefaultPageService extends \Sonata\PageBundle\Page\Service\DefaultPageServ
     /**
      * Constructor.
      *
-     * @param string                   $name            Page service name
+     * @param string $name Page service name
      * @param TemplateManagerInterface $templateManager Template manager
-     * @param SeoPageInterface         $seoPage         SEO page object
+     * @param SeoPageInterface $seoPage SEO page object
      */
     public function __construct($name, TemplateManagerInterface $templateManager, SeoPageInterface $seoPage = null)
     {

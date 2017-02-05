@@ -12,7 +12,6 @@
 namespace Compo\Sonata\AdminBundle\Filter;
 
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
-use Sonata\CoreBundle\Form\Type\BooleanType;
 use Sonata\DoctrineORMAdminBundle\Filter\Filter;
 
 class NumberRangeFilter extends Filter
@@ -43,20 +42,17 @@ class NumberRangeFilter extends Filter
             }
 
 
-
-            if (array_key_exists('start', $data['value']) && $data['value']['start'] ) {
+            if (array_key_exists('start', $data['value']) && $data['value']['start']) {
                 $startQuantity = $this->getNewParameterName($queryBuilder);
                 $this->applyWhere($queryBuilder, sprintf('%s.%s %s :%s', $alias, $field, '>=', $startQuantity));
                 $queryBuilder->setParameter($startQuantity, $data['value']['start']);
             }
 
-            if (array_key_exists('end', $data['value']) && $data['value']['end'] ) {
+            if (array_key_exists('end', $data['value']) && $data['value']['end']) {
                 $endQuantity = $this->getNewParameterName($queryBuilder);
                 $this->applyWhere($queryBuilder, sprintf('%s.%s %s :%s', $alias, $field, '<=', $endQuantity));
                 $queryBuilder->setParameter($endQuantity, $data['value']['end']);
             }
-
-
 
 
         }

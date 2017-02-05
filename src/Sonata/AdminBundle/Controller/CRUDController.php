@@ -58,7 +58,7 @@ class CRUDController extends BaseCRUDController
             ->where('i.position > ' . $object->getPosition());
 
         foreach ($positionRelatedFields as $field) {
-            $qb->andWhere('i.'.$field.'= :position_' . $field);
+            $qb->andWhere('i.' . $field . '= :position_' . $field);
             $qb->setParameter('position_' . $field, call_user_func_array(array($object, 'get' . ucfirst($field)), array()));
         }
 
@@ -92,7 +92,7 @@ class CRUDController extends BaseCRUDController
             ->where('i.id = ' . $object->getId());
 
         foreach ($positionRelatedFields as $field) {
-            $qb->andWhere('i.'.$field.'= :position_' . $field);
+            $qb->andWhere('i.' . $field . '= :position_' . $field);
             $qb->setParameter('position_' . $field, call_user_func_array(array($object, 'get' . ucfirst($field)), array()));
         }
 
@@ -106,7 +106,7 @@ class CRUDController extends BaseCRUDController
             ->where('i.position >= ' . $new_pos);
 
         foreach ($positionRelatedFields as $field) {
-            $qb->andWhere('i.'.$field.'= :position_' . $field);
+            $qb->andWhere('i.' . $field . '= :position_' . $field);
             $qb->setParameter('position_' . $field, call_user_func_array(array($object, 'get' . ucfirst($field)), array()));
         }
 
@@ -120,7 +120,7 @@ class CRUDController extends BaseCRUDController
             ->where('i.id = ' . $object->getId());
 
         foreach ($positionRelatedFields as $field) {
-            $qb->andWhere('i.'.$field.'= :position_' . $field);
+            $qb->andWhere('i.' . $field . '= :position_' . $field);
             $qb->setParameter('position_' . $field, call_user_func_array(array($object, 'get' . ucfirst($field)), array()));
         }
 
