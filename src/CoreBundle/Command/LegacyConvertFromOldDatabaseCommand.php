@@ -992,7 +992,6 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
                 }
 
 
-
                 $fa->setCatalog($catalog);
 
             }
