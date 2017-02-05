@@ -1,5 +1,6 @@
 {
   "name": "comporu/compo-core",
+  "license": "proprietary",
   "type": "library",
   "description": "compo-core",
   "authors": [
