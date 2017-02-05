@@ -11,6 +11,7 @@
 
 namespace Compo\Sonata\AdminBundle\Filter;
 
+use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\DoctrineORMAdminBundle\Filter\Filter;
 
@@ -23,6 +24,7 @@ class NumberRangeFilter extends Filter
      */
     public function filter(ProxyQueryInterface $queryBuilder, $alias, $field, $data)
     {
+        /** @var QueryBuilder $queryBuilder */
         // check data sanity
 
         if (!$data || !is_array($data) || !array_key_exists('value', $data)) {

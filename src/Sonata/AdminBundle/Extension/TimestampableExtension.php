@@ -14,6 +14,9 @@ class TimestampableExtension extends AbstractAdminExtension
     use ContainerAwareTrait;
 
 
+    /**
+     * {@inheritDoc}
+     */
     public function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         if ($datagridMapper->has('createdAt')) {

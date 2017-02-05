@@ -24,6 +24,9 @@ class EnabledExtension extends AbstractAdminExtension
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function configureFormFields(FormMapper $formMapper)
     {
         if ($formMapper->has('enabled')) {

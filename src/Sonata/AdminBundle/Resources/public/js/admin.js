@@ -1,5 +1,6 @@
 function fillmanufactureCollection() {
     if ($('select.manufactureCollection-select2').length) {
+
         if ($("select.manufacture-select2 option:selected").length) {
             var request_data = {
                 manufacture: $("select.manufacture-select2 option:selected").val()

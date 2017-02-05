@@ -57,6 +57,7 @@ class TreeSelectorType extends AbstractType
         $choices = array();
 
         foreach ($tree as $item) {
+            /** @noinspection PhpUndefinedMethodInspection */
             if ($options['current'] && $options['current']->getId() == $item->getId()) {
                 continue;
             }
@@ -91,6 +92,7 @@ class TreeSelectorType extends AbstractType
 
         /** @noinspection PhpUndefinedMethodInspection */
         foreach ($category->getChildren() as $child) {
+            /** @noinspection PhpUndefinedMethodInspection */
             if ($options['current'] && $options['current']->getId() == $child->getId()) {
                 continue;
             }

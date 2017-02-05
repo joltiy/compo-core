@@ -2,6 +2,7 @@
 
 namespace Compo\Sonata\AdminBundle\Admin;
 
+use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Admin\AbstractAdmin as BaseAdmin;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
@@ -59,6 +60,7 @@ class AbstractAdmin extends BaseAdmin
 
     /**
      * @param $positionEnabled
+     * @param array $postionRelatedFields
      */
     public function configurePosition($positionEnabled, $postionRelatedFields = array())
     {
@@ -78,8 +80,12 @@ class AbstractAdmin extends BaseAdmin
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function createQuery($context = 'list')
     {
+        /** @var QueryBuilder $query */
         $query = parent::createQuery($context);
 
         if ($this->treeEnabled && $context == 'list') {

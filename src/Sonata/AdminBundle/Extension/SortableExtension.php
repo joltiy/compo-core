@@ -3,6 +3,7 @@
 namespace Compo\Sonata\AdminBundle\Extension;
 
 use Sonata\AdminBundle\Admin\AbstractAdminExtension;
+use Sonata\AdminBundle\Admin\FieldDescriptionInterface;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 
 /**
@@ -19,6 +20,7 @@ class SortableExtension extends AbstractAdminExtension
     {
         $list = $listMapper->getAdmin()->getList()->getElements();
 
+        /** @var FieldDescriptionInterface $fieldDescription */
         foreach ($list as $fieldDescription) {
 
             if ($fieldDescription->getOption('sort_parent_association_enable', false) !== false) {

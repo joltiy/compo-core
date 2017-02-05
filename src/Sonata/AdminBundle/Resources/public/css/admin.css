@@ -324,7 +324,7 @@ th.table-th-total {
 }
 
 .checkbox label, .radio label {
-    margin-left: 0px;
+    margin-left: 0;
 }
 
 .sonata-ba-list-field-name-batch .icheckbox_square-blue,
