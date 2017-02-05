@@ -4,6 +4,8 @@ require_once(dirname(__FILE__) . '/_header.php');
 
 # Index
 ob_start();
+/** @noinspection PhpIncludeInspection */
+/** @noinspection PhpUndefinedVariableInspection */
 require($dir . '/all.php');
 $contents = ob_get_contents();
 ob_end_clean();
@@ -13,6 +15,7 @@ file_put_contents($out . '/index.html', $contents);
 foreach ($browsers as $browser)
     foreach ($adapters as $adapter) {
         ob_start();
+        /** @noinspection PhpIncludeInspection */
         require($dir . '/each.php');
         $contents = ob_get_contents();
         ob_end_clean();

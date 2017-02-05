@@ -1,6 +1,6 @@
 <?php
 # Url
-$url = "${browser}.${adapter}.html";
+/** @noinspection PhpUndefinedVariableInspection */$url = "${browser}.${adapter}.html";
 
 # Titles
 $Browser = strtoupper($browser);
@@ -44,7 +44,8 @@ $title = "History.js ${Browser} ${Adapter} Test Suite";
 <textarea id="log" style="width:100%;height:400px"></textarea>
 
 <!-- History.js -->
-<script src="../scripts/bundled/<?= $browser ?>/<?= $adapter ?>.history.js"></script>
+<script src="../scripts/bundled/<?= /** @noinspection PhpToStringImplementationInspection */
+$browser ?>/<?= $adapter ?>.history.js"></script>
 
 <!-- Tests -->
 <script src="tests.js"></script>

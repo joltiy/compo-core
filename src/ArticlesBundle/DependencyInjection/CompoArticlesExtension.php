@@ -29,8 +29,12 @@ class CompoArticlesExtension extends Extension implements PrependExtensionInterf
         $loader->load('services.yml');
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function prepend(ContainerBuilder $container)
     {
+        /** @noinspection PhpUnusedLocalVariableInspection */
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
 
 
