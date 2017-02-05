@@ -5,7 +5,6 @@ namespace Compo\Sonata\AdminBundle\Admin;
 use Sonata\AdminBundle\Admin\AbstractAdmin as BaseAdmin;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
-use Sonata\FormatterBundle\Formatter\Pool as FormatterPool;
 
 /**
  * {@inheritDoc}
@@ -27,7 +26,8 @@ class AbstractAdmin extends BaseAdmin
     protected $perPageOptions = array(50, 100, 500, 1000, 10000);
     protected $searchResultActions = array('edit');
 
-    public function setParentParentAssociationMapping($parentAssociationMapping) {
+    public function setParentParentAssociationMapping($parentAssociationMapping)
+    {
         $this->parentAssociationMapping = $parentAssociationMapping;
     }
 
@@ -47,11 +47,13 @@ class AbstractAdmin extends BaseAdmin
         $this->postionRelatedFields = $postionRelatedFields;
     }
 
-    public function setSortOrder($order) {
+    public function setSortOrder($order)
+    {
         $this->datagridValues['_sort_order'] = $order;
     }
 
-    public function setSortBy($by) {
+    public function setSortBy($by)
+    {
         $this->datagridValues['_sort_by'] = $by;
     }
 
@@ -90,11 +92,11 @@ class AbstractAdmin extends BaseAdmin
     }
 
     /**
-     * @param \Knp\Menu\ItemInterface                       $menu
+     * @param \Knp\Menu\ItemInterface $menu
      * @param                                               $action
      * @param \Sonata\AdminBundle\Admin\AdminInterface|null $childAdmin
      * @param                                               $route
-     * @param bool                                          $route_paramters
+     * @param bool $route_paramters
      */
     public function configureTabMenuShow(\Knp\Menu\ItemInterface $menu, $action, \Sonata\AdminBundle\Admin\AdminInterface $childAdmin = null, $route, $route_paramters = false)
     {

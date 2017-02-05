@@ -136,7 +136,7 @@ trait TreeEntityTrait
      *
      * @return object
      */
-    public function setParent( $parent = null)
+    public function setParent($parent = null)
     {
         $this->parent = $parent;
 

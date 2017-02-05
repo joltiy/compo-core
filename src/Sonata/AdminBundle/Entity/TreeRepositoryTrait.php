@@ -2,10 +2,7 @@
 
 namespace Compo\Sonata\AdminBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\QueryBuilder;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints as Assert;
 
 trait TreeRepositoryTrait
 {
