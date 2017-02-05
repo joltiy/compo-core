@@ -32,8 +32,7 @@ class NewsAdmin extends AbstractAdmin
             ->add('enabled')
             ->add('createdAt')
             ->add('updatedAt')
-            ->add('deletedAt')
-        ;
+            ->add('deletedAt');
     }
 
     /**
@@ -45,7 +44,6 @@ class NewsAdmin extends AbstractAdmin
             ->add('id')
             ->addIdentifier('name')
             ->add('description')
-
             ->add('enabled', null, array(
                 'editable' => true,
                 'required' => true
@@ -55,8 +53,7 @@ class NewsAdmin extends AbstractAdmin
                     'edit' => array(),
                     'delete' => array(),
                 )
-            ))
-        ;
+            ));
     }
 
     /**
@@ -66,8 +63,7 @@ class NewsAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('enabled', null, array('required' => false))
-            ->add('name')
-        ;
+            ->add('name');
 
         $formMapper->add('description');
         $formMapper->add('publicationAt');
@@ -98,7 +94,6 @@ class NewsAdmin extends AbstractAdmin
             ->add('enabled')
             ->add('createdAt')
             ->add('updatedAt')
-            ->add('deletedAt')
-        ;
+            ->add('deletedAt');
     }
 }

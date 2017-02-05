@@ -41,6 +41,10 @@ class News
      */
     private $id;
 
+    public function __construct()
+    {
+        $this->publicationAt = new \DateTime();
+    }
 
     /**
      * Get id
@@ -52,9 +56,14 @@ class News
         return $this->id;
     }
 
-    public function __construct()
+    /**
+     * Returns createdAt.
+     *
+     * @return \DateTime
+     */
+    public function getPublicationAt()
     {
-         $this->publicationAt = new \DateTime();
+        return $this->publicationAt;
     }
 
     /**
@@ -68,16 +77,6 @@ class News
         $this->publicationAt = $createdAt;
 
         return $this;
-    }
-
-    /**
-     * Returns createdAt.
-     *
-     * @return \DateTime
-     */
-    public function getPublicationAt()
-    {
-        return $this->publicationAt;
     }
 }
 

@@ -95,15 +95,8 @@ class SeoExtension extends AbstractAdminExtension
         $this->createSlug($admin, $object);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function prePersist(AdminInterface $admin, $object)
+    public function createSlug(AdminInterface $admin, $object)
     {
-        $this->createSlug($admin, $object);
-    }
-
-    public function createSlug(AdminInterface $admin, $object) {
         /** @var $admin AbstractAdmin */
         if (trim($object->getSlug()) == '') {
             $service = $admin->getConfigurationPool()->getContainer()->get("sonata.core.slugify.cocur");
@@ -127,18 +120,21 @@ class SeoExtension extends AbstractAdminExtension
         if ($result) {
             $this->isUpdateSlug = true;
 
-            $object->setSlug('temp_slug_' . time().time().time());
+            $object->setSlug('temp_slug_' . time() . time() . time());
         } else {
             $this->isUpdateSlug = false;
         }
     }
 
-    public function postUpdate(AdminInterface $admin, $object)
+    /**
+     * {@inheritdoc}
+     */
+    public function prePersist(AdminInterface $admin, $object)
     {
-        $this->updateSlug($admin, $object);
+        $this->createSlug($admin, $object);
     }
 
-    public function postPersist(AdminInterface $admin, $object)
+    public function postUpdate(AdminInterface $admin, $object)
     {
         $this->updateSlug($admin, $object);
     }
@@ -155,6 +151,11 @@ class SeoExtension extends AbstractAdminExtension
             $admin->getConfigurationPool()->getContainer()->get('doctrine')->getManager()->persist($object);
             $admin->getConfigurationPool()->getContainer()->get('doctrine')->getManager()->flush();
         }
+    }
+
+    public function postPersist(AdminInterface $admin, $object)
+    {
+        $this->updateSlug($admin, $object);
     }
 
 }
