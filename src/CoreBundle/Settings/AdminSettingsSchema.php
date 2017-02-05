@@ -3,7 +3,9 @@
 namespace Compo\CoreBundle\Settings;
 
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
+use Mopa\Bundle\BootstrapBundle\Form\Type\TabType;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
@@ -83,14 +85,14 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
      */
     public function buildForm(FormBuilderInterface $builder)
     {
-        $main_tab = $builder->create('main_tab', 'tab', array(
+        $main_tab = $builder->create('main_tab', TabType::class, array(
             'label' => 'settings.main_tab',
             'inherit_data' => true,
         ));
-        $main_tab->add('email', 'email');
+        $main_tab->add('email', EmailType::class);
 
 
-        $header_tab = $builder->create('header_tab', 'tab', array(
+        $header_tab = $builder->create('header_tab', TabType::class, array(
             'label' => 'settings.header_tab',
             'inherit_data' => true,
         ));
@@ -100,7 +102,7 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
         $header_tab->add('header_timework_description', CKEditorType::class);
 
 
-        $footer_tab = $builder->create('footer_tab', 'tab', array(
+        $footer_tab = $builder->create('footer_tab', TabType::class, array(
             'label' => 'settings.footer_tab',
             'inherit_data' => true,
         ));
