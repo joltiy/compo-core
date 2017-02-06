@@ -4,6 +4,7 @@ namespace Compo\Sonata\AdminBundle\Extension;
 
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Sonata\AdminBundle\Admin\AbstractAdminExtension;
+use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
 
@@ -28,6 +29,39 @@ class DescriptionExtension extends AbstractAdminExtension
             $options['ckeditor_context'] = "default";
 
             $formMapper->getFormBuilder()->add('description', SimpleFormatterType::class, $options);
+        }
+
+        if ($formMapper->has('body')) {
+            $field = $formMapper->getFormBuilder()->get('body');
+
+            $options = $field->getOptions();
+            $options['required'] = false;
+            $options['format'] = "richhtml";
+            $options['ckeditor_context'] = "default";
+
+            $formMapper->getFormBuilder()->add('body', SimpleFormatterType::class, $options);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function configureListFields(ListMapper $listMapper)
+    {
+        if ($listMapper->has('description')) {
+            $keys = $listMapper->keys();
+
+            $listMapper->remove('description');
+            $listMapper->add('description', 'html');
+            $listMapper->reorder($keys);
+        }
+
+        if ($listMapper->has('body')) {
+            $keys = $listMapper->keys();
+
+            $listMapper->remove('body');
+            $listMapper->add('body', 'html');
+            $listMapper->reorder($keys);
         }
     }
 }

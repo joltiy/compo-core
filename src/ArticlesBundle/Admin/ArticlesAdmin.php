@@ -19,6 +19,8 @@ class ArticlesAdmin extends AbstractAdmin
     public function configure()
     {
         $this->setTranslationDomain('CompoArticlesBundle');
+        $this->setSortBy('publicationAt');
+        $this->setSortOrder('DESC');
     }
 
     /**
@@ -43,8 +45,11 @@ class ArticlesAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id')
+            ->addIdentifier('publicationAt')
+
             ->addIdentifier('name')
             ->add('description')
+
             ->add('enabled', null, array(
                 'editable' => true,
                 'required' => true
@@ -64,9 +69,10 @@ class ArticlesAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('enabled', null, array('required' => false))
+            ->add('publicationAt')
             ->add('name')
             ->add('description')
-            ->add('publicationAt')
+            ->add('body')
             ->add('image', 'sonata_type_model_list',
                 array(
                     'required' => false,
