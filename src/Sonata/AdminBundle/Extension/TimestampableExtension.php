@@ -50,29 +50,8 @@ class TimestampableExtension extends AbstractAdminExtension
 
     public function configureFormFields(FormMapper $formMapper)
     {
-        if ($formMapper->has('createdAt')) {
-            $formMapper->add('createdAt', 'sonata_type_datetime_picker',
-                array(
-                    'format' => 'dd.MM.y HH:mm:ss',
-                )
-            );
-        }
 
-        if ($formMapper->has('updatedAt')) {
-            $formMapper->add('updatedAt', 'sonata_type_datetime_picker',
-                array(
-                    'format' => 'dd.MM.y HH:mm:ss',
-                )
-            );
-        }
 
-        if ($formMapper->has('publicationAt')) {
-            $formMapper->add('publicationAt', 'sonata_type_datetime_picker',
-                array(
-                    'format' => 'dd.MM.y HH:mm:ss',
-                )
-            );
-        }
     }
 
     public function configureListFields(ListMapper $listMapper)

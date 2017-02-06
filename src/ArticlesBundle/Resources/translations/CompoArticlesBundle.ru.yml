@@ -2,11 +2,14 @@ articles: Статьи
 
 breadcrumb:
     link_articles_batch: 'Действия над статьями'
-    link_articles_create: 'Создание статей'
-    link_articles_delete: 'Удаление статей'
+    link_articles_create: 'Создание статьи'
+    link_articles_delete: 'Удаление статьи'
     link_articles_edit: 'Редактирование статьи'
-    link_articles_list: 'Список статей'
+    link_articles_list: 'Статьи'
     link_articles_update: 'Обновление статьи'
 
 form:
     label_publication_at: 'Дата публикации'
+
+title_list_articles: 'Статьи'
+title_edit_articles: 'Статья: %name%'

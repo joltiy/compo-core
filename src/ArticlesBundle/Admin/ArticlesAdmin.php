@@ -3,6 +3,8 @@
 namespace Compo\ArticlesBundle\Admin;
 
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
+use Knp\Menu\ItemInterface as MenuItemInterface;
+use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -21,6 +23,8 @@ class ArticlesAdmin extends AbstractAdmin
         $this->setTranslationDomain('CompoArticlesBundle');
         $this->setSortBy('publicationAt');
         $this->setSortOrder('DESC');
+        $this->configureSeo(true);
+
     }
 
     /**
@@ -46,10 +50,8 @@ class ArticlesAdmin extends AbstractAdmin
         $listMapper
             ->add('id')
             ->addIdentifier('publicationAt')
-
             ->addIdentifier('name')
             ->add('description')
-
             ->add('enabled', null, array(
                 'editable' => true,
                 'required' => true
@@ -58,6 +60,8 @@ class ArticlesAdmin extends AbstractAdmin
                 'actions' => array(
                     'edit' => array(),
                     'delete' => array(),
+                    'show_on_site' => array('template' => 'CompoArticlesBundle:Admin:list__action_show_on_site.html.twig'),
+
                 )
             ));
     }
@@ -68,8 +72,15 @@ class ArticlesAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
+            ->tab('form.tab_main')
+            ->with('form.tab_main', array('name' => false))
             ->add('enabled', null, array('required' => false))
-            ->add('publicationAt')
+            ->add('publicationAt', 'sonata_type_datetime_picker',
+                array(
+                    'format' => 'dd.MM.y HH:mm:ss',
+                    'required' => true,
+                )
+            )
             ->add('name')
             ->add('description')
             ->add('body')
@@ -84,7 +95,9 @@ class ArticlesAdmin extends AbstractAdmin
                         'hide_context' => true,
                     ),
                 )
-            );
+            )
+            ->end()
+            ->end();
     }
 
     /**
@@ -100,5 +113,16 @@ class ArticlesAdmin extends AbstractAdmin
             ->add('createdAt')
             ->add('updatedAt')
             ->add('deletedAt');
+    }
+
+    protected function configureTabMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
+    {
+        if (in_array($action, array('edit'))) {
+
+        }
+
+        if (in_array($action, array('list'))) {
+
+        }
     }
 }
