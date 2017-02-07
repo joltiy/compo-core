@@ -3,6 +3,7 @@
 namespace Compo\SeoBundle\Extension;
 
 use Compo\SeoBundle\Entity\Traits\SeoEntity;
+use Compo\SeoBundle\Form\SeoVarsType;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Admin\AbstractAdminExtension;
@@ -80,6 +81,12 @@ class SeoExtension extends AbstractAdminExtension
             ->add('title', 'text', array('required' => false))
             ->add('metaKeyword', 'text', array('required' => false))
             ->add('metaDescription', 'text', array('required' => false))
+            ->add('seo_vars', SeoVarsType::class, array(
+                'mapped' => false,
+                'required' => false,
+                'by_reference' => false,
+            ))
+
             ->end()
             ->end();
     }

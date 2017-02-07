@@ -3,6 +3,7 @@
 namespace Compo\NewsBundle\Settings;
 
 use Compo\CoreBundle\Settings\BaseAdminSettingsSchema;
+use Compo\SeoBundle\Form\SeoVarsType;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -37,12 +38,12 @@ class NewsSettingsSchema extends BaseAdminSettingsSchema
                     'news_per_page' => 21,
 
                     'seo_header' => 'Новости',
-                    'seo_title' => 'Новости / {{ site.title }}',
+                    'seo_title' => 'Новости / {{ site.name }}',
                     'seo_meta_keyword' => 'Новости, {{ site.metaKeyword }}',
                     'seo_meta_description' => 'Новости, {{ site.metaDescription }}',
 
                     'seo_items_header' => '{{ news.name }}',
-                    'seo_items_title' => '{{ news.title }} / {{ site.title }}',
+                    'seo_items_title' => '{{ news.name }} / {{ site.name }}',
                     'seo_items_meta_keyword' => '{{ news.metaKeyword }}, {{ site.metaKeyword }}',
                     'seo_items_meta_description' => '{{ news.metaDescription }}, {{ site.metaDescription }}',
                 ]
@@ -86,6 +87,15 @@ class NewsSettingsSchema extends BaseAdminSettingsSchema
         $seo_tab->add('seo_meta_keyword', TextType::class);
         $seo_tab->add('seo_meta_description', TextType::class);
 
+        $seo_tab->add('seo_vars', SeoVarsType::class, array(
+            'mapped' => false,
+            'required' => false,
+            'by_reference' => false,
+        ));
+
+
+
+
         $seo_items_tab = $builder->create('seo_items_tab', TabType::class, array(
             'label' => 'settings.seo_items_tab',
             'inherit_data' => true,
@@ -95,6 +105,8 @@ class NewsSettingsSchema extends BaseAdminSettingsSchema
         $seo_items_tab->add('seo_items_title', TextType::class);
         $seo_items_tab->add('seo_items_meta_keyword', TextType::class);
         $seo_items_tab->add('seo_items_meta_description', TextType::class);
+
+
 
         $builder
             ->add($main_tab)

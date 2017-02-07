@@ -1,0 +1,18 @@
+<div class="row index-artices-blocks">
+    <div class="col-lg-6">
+
+        {{ sonata_block_render(
+        { 'type': 'compo_news.block.service.news_last'},
+        { }
+        ) }}
+
+    </div>
+
+    <div class="col-lg-6">
+        {{ sonata_block_render(
+        { 'type': 'compo_articles.block.service.articles_last'},
+        { }
+        ) }}
+
+    </div>
+</div>

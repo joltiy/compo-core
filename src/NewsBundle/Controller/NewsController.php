@@ -50,7 +50,7 @@ class NewsController extends Controller
         $compo_news_settings = $this->get('sylius.settings.manager')->load('compo_news_settings');
 
         $seoPage = $this->get('sonata.seo.page');
-        $seoPage->addTemplates('news', array(
+        $seoPage->addTemplates('news_items', array(
             'header' => $compo_news_settings->get('seo_items_header'),
             'title' => $compo_news_settings->get('seo_items_title'),
             'meta_keyword' => $compo_news_settings->get('seo_items_meta_keyword'),

@@ -3,3 +3,13 @@ services:
         class: Compo\SeoBundle\Extension\SeoExtension
         tags:
             - { name: sonata.admin.extension, target: compo_product.admin.product }
+
+
+    compo_seo.form.type.seo_vars:
+        class: Compo\SeoBundle\Form\SeoVarsType
+        tags:
+            - { name: form.type }
+
+
+
+
