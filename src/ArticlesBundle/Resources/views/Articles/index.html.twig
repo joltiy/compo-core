@@ -1,0 +1,26 @@
+<div class="sonata-blog-post-list">
+    {% for article in pager %}
+        <div class="sonata-blog-post-container">
+            <header>
+                <h2 class="sonata-blog-post-title">
+                    <a href="">{{ article.name }}</a>
+                </h2>
+
+                <div class="sonata-blog-post-information">
+
+                </div>
+            </header>
+
+        </div>
+
+        <hr />
+    {% else %}
+        {{ 'no_post_found'|trans({}, 'SonataNewsBundle') }}
+    {% endfor %}
+
+    <div>
+        {{ knp_pagination_render(pager, null, {}, {'pagination_class': 'pagination'}) }}
+    </div>
+
+
+</div>

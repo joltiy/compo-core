@@ -147,3 +147,20 @@ Value: Да
 
 Start: От
 End: До
+
+
+
+list.label_publication_at: 'Дата публикации'
+
+
+settings.seo_tab: 'SEO'
+settings.seo_items_tab: 'SEO элементов'
+form.label_settings_seo_header: 'Заголовок'
+form.label_settings_seo_title: 'Title'
+form.label_settings_seo_meta_keyword: 'Meta Keywords'
+form.label_settings_seo_meta_description: 'Meta Description'
+form.label_settings_seo_items_header: 'Заголовок'
+form.label_settings_seo_items_title: 'Title'
+form.label_settings_seo_items_meta_keyword: 'Meta Keywords'
+form.label_settings_seo_items_meta_description: 'Meta Description'
+

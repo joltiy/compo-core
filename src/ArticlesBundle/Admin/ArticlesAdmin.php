@@ -118,11 +118,33 @@ class ArticlesAdmin extends AbstractAdmin
     protected function configureTabMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
     {
         if (in_array($action, array('edit'))) {
-
+            $menu->addChild(
+                $this->trans('tab_menu.link_edit'),
+                array('uri' => $this->generateUrl('edit', array('id' => $this->getSubject()->getId())))
+            );
+            $menu->addChild(
+                $this->trans('tab_menu.link_show_on_site'),
+                array(
+                    'uri' => $this->getRouteGenerator()->generate('compo_articles_show_by_slug', array('slug' => $this->getSubject()->getSlug())),
+                    'linkAttributes' => array('target' => '_blank')
+                )
+            );
         }
 
         if (in_array($action, array('list'))) {
-
+            $menu->addChild(
+                $this->trans('tab_menu.link_settings'),
+                array(
+                    'uri' => $this->getRouteGenerator()->generate('compo_articles_settings_update', array()),
+                )
+            );
+            $menu->addChild(
+                $this->trans('tab_menu.link_show_on_site'),
+                array(
+                    'uri' => $this->getRouteGenerator()->generate('compo_articles_index', array()),
+                    'linkAttributes' => array('target' => '_blank')
+                )
+            );
         }
     }
 }

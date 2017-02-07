@@ -1,0 +1,9 @@
+compo_articles_index:
+    path:     /
+    defaults: { _controller: "CompoArticlesBundle:Articles:index" }
+    methods:  GET
+
+compo_articles_show_by_slug:
+    path:     /{slug}.html
+    defaults: { _controller: "CompoArticlesBundle:Articles:showBySlug" }
+    methods:  GET

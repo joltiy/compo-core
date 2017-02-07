@@ -13,3 +13,12 @@ form:
 
 title_list_articles: 'Статьи'
 title_edit_articles: 'Статья: %name%'
+
+
+settings:
+  header: 'Настройки статей'
+
+form.label_settings_articles_per_page: 'Статей на страницу'
+
+articles_settings: 'Настройки статей'
+tab_menu.link_settings: 'Настройки статей'

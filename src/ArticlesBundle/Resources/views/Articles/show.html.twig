@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Article</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Publicationat</th>
+                <td>{% if article.publicationAt %}{{ article.publicationAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ article.id }}</td>
+            </tr>
+            <tr>
+                <th>Position</th>
+                <td>{{ article.position }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ article.name }}</td>
+            </tr>
+            <tr>
+                <th>Enabled</th>
+                <td>{% if article.enabled %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ article.description }}</td>
+            </tr>
+            <tr>
+                <th>Body</th>
+                <td>{{ article.body }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ article.slug }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ article.title }}</td>
+            </tr>
+            <tr>
+                <th>Metakeyword</th>
+                <td>{{ article.metaKeyword }}</td>
+            </tr>
+            <tr>
+                <th>Metadescription</th>
+                <td>{{ article.metaDescription }}</td>
+            </tr>
+            <tr>
+                <th>Header</th>
+                <td>{{ article.header }}</td>
+            </tr>
+            <tr>
+                <th>Noindexenabled</th>
+                <td>{% if article.noIndexEnabled %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{% if article.createdAt %}{{ article.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{% if article.updatedAt %}{{ article.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Deletedat</th>
+                <td>{% if article.deletedAt %}{{ article.deletedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('compo_articles_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}

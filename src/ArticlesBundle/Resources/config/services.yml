@@ -4,3 +4,21 @@ services:
         arguments: [~, Compo\ArticlesBundle\Entity\Articles, CompoArticlesBundle:ArticlesAdmin]
         tags:
             - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: articles, label_translator_strategy: sonata.admin.label.strategy.underscore }
+
+    compo_articles.manager.articles:
+        class: Compo\ArticlesBundle\Manager\ArticlesManager
+        arguments: [Compo\ArticlesBundle\Entity\Articles, "@doctrine"]
+        parent: compo_core.abstract_container_aware
+
+    compo_articles.admin.settings:
+        class: Compo\ArticlesBundle\Admin\ArticlesSettingsAdmin
+        parent: compo_core.abstract_container_aware
+        arguments: [~, Sylius\Bundle\SettingsBundle\Model\Settings, CompoArticlesBundle:ArticlesSettingsAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: articles_settings, label_translator_strategy: sonata.admin.label.strategy.underscore }
+
+    compo_articles.settings.articles:
+        class: Compo\ArticlesBundle\Settings\ArticlesSettingsSchema
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: "sylius.settings_schema", namespace: "compo_articles_settings", alias: "compo_articles_settings" }
