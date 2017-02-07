@@ -9,6 +9,7 @@
 #content {
     margin-bottom: 20px;
     position: relative;
+    margin-bottom: 50px;
 }
 
 #main {
@@ -86,4 +87,25 @@
 
 .page-cart div#jivo-iframe-container.jivo-iframe-container-bottom.jivo-c-mobile {
     display: none !important;
+}
+
+.breadcrumb {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.breadcrumb:after {
+    content: "";
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 50px;
+    height: 26px;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), #F5F5F5 50%);
+
+    float: right;
+    top: 5px;
+    right: 16px;
 }

@@ -39,7 +39,7 @@ $(function ($) {
 
     $.compo.popoverFix();
     $.compo.imagesReplace();
-    //$.compo.backToTop();
+    $.compo.backToTop();
     $.compo.sidebarCanvas();
     $.compo.menuBrandsList();
     $.compo.fixHeightRows();
