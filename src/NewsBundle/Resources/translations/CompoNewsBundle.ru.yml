@@ -1,28 +1,31 @@
-news: Новости
-
 breadcrumb:
     link_news_batch: 'Действия над новостями'
     link_news_create: 'Создание новости'
     link_news_delete: 'Удаление новости'
     link_news_edit: 'Редактирование новости'
-    link_news_list: 'Новости'
+    link_news_list: Новости
     link_news_update: 'Обновление новости'
+    link_settings_batch: breadcrumb.link_settings_batch   # FIXME
+    link_settings_create: breadcrumb.link_settings_create   # FIXME
+    link_settings_delete: breadcrumb.link_settings_delete   # FIXME
+    link_settings_edit: breadcrumb.link_settings_edit   # FIXME
+    link_settings_list: breadcrumb.link_settings_list   # FIXME
+    link_settings_update: breadcrumb.link_settings_update   # FIXME
+    news: Новости
 
 form:
     label_publication_at: 'Дата публикации'
+    label_settings_news_per_page: 'Новостей на страницу'
 
-title_list_news: 'Новости'
-title_edit_news: 'Новость: %name%'
-
+news: Новости
+news_settings: 'Настройки новостей'
+no_found_news: 'Новости не найдены'
 
 settings:
-  header: 'Настройки новостей'
+    header: 'Настройки новостей'
 
-form.label_settings_news_per_page: 'Новостей на страницу'
+tab_menu:
+    link_settings: 'Настройки новостей'
 
-news_settings: 'Настройки новостей'
-tab_menu.link_settings: 'Настройки новостей'
-
-breadcrumb.news: 'Новости'
-
-no_found_news: 'Новости не найдены'
+title_edit_news: 'Новость: %name%'
+title_list_news: Новости

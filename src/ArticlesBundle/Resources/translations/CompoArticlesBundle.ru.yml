@@ -1,28 +1,32 @@
 articles: Статьи
+articles_settings: 'Настройки статей'
 
 breadcrumb:
+    articles: Статьи
     link_articles_batch: 'Действия над статьями'
     link_articles_create: 'Создание статьи'
     link_articles_delete: 'Удаление статьи'
     link_articles_edit: 'Редактирование статьи'
-    link_articles_list: 'Статьи'
+    link_articles_list: Статьи
     link_articles_update: 'Обновление статьи'
+    link_settings_batch: breadcrumb.link_settings_batch   # FIXME
+    link_settings_create: breadcrumb.link_settings_create   # FIXME
+    link_settings_delete: breadcrumb.link_settings_delete   # FIXME
+    link_settings_edit: breadcrumb.link_settings_edit   # FIXME
+    link_settings_list: breadcrumb.link_settings_list   # FIXME
+    link_settings_update: breadcrumb.link_settings_update   # FIXME
 
 form:
     label_publication_at: 'Дата публикации'
-
-title_list_articles: 'Статьи'
-title_edit_articles: 'Статья: %name%'
-
-
-settings:
-  header: 'Настройки статей'
-
-form.label_settings_articles_per_page: 'Статей на страницу'
-
-articles_settings: 'Настройки статей'
-tab_menu.link_settings: 'Настройки статей'
-
-breadcrumb.articles: 'Статьи'
+    label_settings_articles_per_page: 'Статей на страницу'
 
 no_found_articles: 'Статьи не найдены'
+
+settings:
+    header: 'Настройки статей'
+
+tab_menu:
+    link_settings: 'Настройки статей'
+
+title_edit_articles: 'Статья: %name%'
+title_list_articles: Статьи
