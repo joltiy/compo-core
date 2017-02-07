@@ -22,3 +22,20 @@ services:
         parent: compo_core.abstract_container_aware
         tags:
             - { name: "sylius.settings_schema", namespace: "compo_articles_settings", alias: "compo_articles_settings" }
+
+    compo_articles.block.breadcrumb:
+        class: Compo\ArticlesBundle\Block\ArticlesBreadcrumbBlockService
+        parent: compo_core.abstract_container_aware
+        arguments: ['articles', compo_articles.block.breadcrumb, "@templating", "@knp_menu.menu_provider", "@knp_menu.factory"]
+        tags:
+            - { name: sonata.block }
+            - { name: sonata.breadcrumb }
+
+
+    compo_articles.block.service.articles_last:
+        class: Compo\ArticlesBundle\Block\ArticlesLastBlockService
+        arguments: ["compo_articles.block.service.articles_last", "@templating"]
+        tags:
+            - { name: sonata.block }
+        calls:
+            - [ setContainer, ['@service_container']]

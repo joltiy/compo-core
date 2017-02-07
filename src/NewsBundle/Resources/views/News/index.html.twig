@@ -1,6 +1,6 @@
-<div class="articles-index">
+<div class="news-index">
     {% block breadcrumb %}
-        {{ sonata_block_render_event('breadcrumb', { 'context': 'articles' }) }}
+        {{ sonata_block_render_event('breadcrumb', { 'context': 'news' }) }}
     {% endblock %}
 
     {% block header %}
@@ -8,39 +8,39 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div itemscope="" itemtype="http://schema.org/Thing" class="page-header">
-                        <h1 itemprop="name">{% block header_text %}Статьи{% endblock %}</h1>
+                        <h1 itemprop="name">{% block header_text %}Новости{% endblock %}</h1>
                     </div>
                 </div>
             </div>
         </div>
     {% endblock %}
 
-    <div class="articles">
+    <div class="news">
 
-        {% for article in pager %}
+        {% for news in pager %}
 
         <div class="item row">
             <div class="col-lg-3 photo">
-                <a href="{{ path('compo_articles_show_by_slug', {'slug': article.slug}) }}" class="thumbnail">
-                    <img src="{% path article.image, 'small' %}" width="150" alt="{{ article.name }}">
+                <a href="{{ path('compo_news_show_by_slug', {'slug': news.slug}) }}" class="thumbnail">
+                    <img src="{% path news.image, 'small' %}" width="150" alt="{{ news.name }}">
                 </a>
             </div>
 
             <div class="col-lg-9 meta">
 
-                <div class="date pull-right">{{ article.publicationAt|date("d.m.Y") }}</div>
+                <div class="date pull-right">{{ news.publicationAt|date("d.m.Y") }}</div>
 
-                <div class="header pull-left"><a href="{{ path('compo_articles_show_by_slug', {'slug': article.slug}) }}">{{ article.name }}</a></div>
+                <div class="header pull-left"><a href="{{ path('compo_news_show_by_slug', {'slug': news.slug}) }}">{{ news.name }}</a></div>
 
                 <div class="ui-helper-clearfix"></div>
 
-                <div class="anons"><p>{{ article.description|raw }}</p></div>
+                <div class="anons"><p>{{ news.description|raw }}</p></div>
 
             </div>
         </div>
 
         {% else %}
-            {{ 'no_found_articles'|trans({}, 'CompoArticlesBundle') }}
+            {{ 'no_found_news'|trans({}, 'CompoNewsBundle') }}
         {% endfor %}
 
     </div>

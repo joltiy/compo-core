@@ -1,9 +1,41 @@
 services:
-#    compo_news.example:
-#        class: Compo\NewsBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
     compo_news.admin.news:
         class: Compo\NewsBundle\Admin\NewsAdmin
         arguments: [~, Compo\NewsBundle\Entity\News, CompoNewsBundle:NewsAdmin]
         tags:
             - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: news, label_translator_strategy: sonata.admin.label.strategy.underscore }
+
+    compo_news.manager.news:
+        class: Compo\NewsBundle\Manager\NewsManager
+        arguments: [Compo\NewsBundle\Entity\News, "@doctrine"]
+        parent: compo_core.abstract_container_aware
+
+    compo_news.admin.settings:
+        class: Compo\NewsBundle\Admin\NewsSettingsAdmin
+        parent: compo_core.abstract_container_aware
+        arguments: [~, Sylius\Bundle\SettingsBundle\Model\Settings, CompoNewsBundle:NewsSettingsAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: news_settings, label_translator_strategy: sonata.admin.label.strategy.underscore }
+
+    compo_news.settings.news:
+        class: Compo\NewsBundle\Settings\NewsSettingsSchema
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: "sylius.settings_schema", namespace: "compo_news_settings", alias: "compo_news_settings" }
+
+    compo_news.block.breadcrumb:
+        class: Compo\NewsBundle\Block\NewsBreadcrumbBlockService
+        parent: compo_core.abstract_container_aware
+        arguments: ['news', compo_news.block.breadcrumb, "@templating", "@knp_menu.menu_provider", "@knp_menu.factory"]
+        tags:
+            - { name: sonata.block }
+            - { name: sonata.breadcrumb }
+
+
+    compo_news.block.service.news_last:
+        class: Compo\NewsBundle\Block\NewsLastBlockService
+        arguments: ["compo_news.block.service.news_last", "@templating"]
+        tags:
+            - { name: sonata.block }
+        calls:
+            - [ setContainer, ['@service_container']]

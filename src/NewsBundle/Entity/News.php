@@ -15,15 +15,14 @@ class News
     use \Compo\Sonata\AdminBundle\Entity\PositionEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\NameEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\EnabledEntityTrait;
-
-    use \Gedmo\Timestampable\Traits\TimestampableEntity;
-    use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+    use \Compo\Sonata\AdminBundle\Entity\DescriptionEntityTrait;
+    use \Compo\Sonata\AdminBundle\Entity\ImageEntityTrait;
+    use \Compo\Sonata\AdminBundle\Entity\BodyEntityTrait;
 
     use \Compo\SeoBundle\Entity\Traits\SeoEntity;
 
-    use \Compo\Sonata\AdminBundle\Entity\DescriptionEntityTrait;
-    use \Compo\Sonata\AdminBundle\Entity\ImageEntityTrait;
-
+    use \Gedmo\Timestampable\Traits\TimestampableEntity;
+    use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
     /**
      * @var \DateTime

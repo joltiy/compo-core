@@ -22,3 +22,7 @@ form.label_settings_articles_per_page: 'Статей на страницу'
 
 articles_settings: 'Настройки статей'
 tab_menu.link_settings: 'Настройки статей'
+
+breadcrumb.articles: 'Статьи'
+
+no_found_articles: 'Статьи не найдены'

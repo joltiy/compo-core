@@ -2,6 +2,10 @@ compo_articles:
     resource: "@CompoArticlesBundle/Resources/config/routing.yml"
     prefix:   /articles
 
+compo_news:
+    resource: "@CompoNewsBundle/Resources/config/routing.yml"
+    prefix:   /news
+
 sonata_user_security:
     resource: "@SonataUserBundle/Resources/config/routing/sonata_security_1.xml"
 

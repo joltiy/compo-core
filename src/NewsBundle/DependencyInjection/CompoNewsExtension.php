@@ -15,7 +15,6 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  */
 class CompoNewsExtension extends Extension implements PrependExtensionInterface
 {
-
     /**
      * {@inheritDoc}
      */
@@ -36,7 +35,5 @@ class CompoNewsExtension extends Extension implements PrependExtensionInterface
     {
         /** @noinspection PhpUnusedLocalVariableInspection */
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-
-
     }
 }
