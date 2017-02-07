@@ -17,6 +17,20 @@ class ArticlesController extends Controller
      */
     public function indexAction()
     {
+
+        $compo_articles_settings = $this->get('sylius.settings.manager')->load('compo_articles_settings');
+
+        $seoPage = $this->get('sonata.seo.page');
+        $seoPage->addTemplates('articles', array(
+            'header' => $compo_articles_settings->get('seo_header'),
+            'title' => $compo_articles_settings->get('seo_title'),
+            'meta_keyword' => $compo_articles_settings->get('seo_meta_keyword'),
+            'meta_description' => $compo_articles_settings->get('seo_meta_description'),
+        ));
+
+        $seoPage->build();
+
+
         $request = $this->get('request');
 
         $pager = $this->get('compo_articles.manager.articles')->getPager(array(), $request->get('page', 1));
@@ -26,22 +40,34 @@ class ArticlesController extends Controller
         ));
     }
 
-    /**
-     * Finds and displays a article entity.
-     *
-     */
-    public function showAction(Articles $article)
-    {
-        return $this->render('@CompoArticles/Articles/show.html.twig', array(
-            'article' => $article,
-        ));
-    }
-
     public function showBySlugAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
 
         $article = $em->getRepository('CompoArticlesBundle:Articles')->findOneBy(array('slug' => $slug));
+
+
+        $compo_articles_settings = $this->get('sylius.settings.manager')->load('compo_articles_settings');
+
+        $seoPage = $this->get('sonata.seo.page');
+        $seoPage->addTemplates('articles', array(
+            'header' => $compo_articles_settings->get('seo_items_header'),
+            'title' => $compo_articles_settings->get('seo_items_title'),
+            'meta_keyword' => $compo_articles_settings->get('seo_items_meta_keyword'),
+            'meta_description' => $compo_articles_settings->get('seo_items_meta_description'),
+        ));
+
+        $seoPage->addTemplates('article', array(
+            'header' => $article->getHeader(),
+            'title' => $article->getTitle(),
+            'meta_keyword' => $article->getMetaKeyword(),
+            'meta_description' => $article->getDescription(),
+        ));
+
+        $seoPage->addVar('article', $article);
+
+        $seoPage->build();
+
 
         return $this->render('@CompoArticles/Articles/show.html.twig', array(
             'article' => $article,

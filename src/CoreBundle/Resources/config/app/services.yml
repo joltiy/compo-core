@@ -22,3 +22,10 @@ services:
       class: Compo\Sonata\AdminBundle\Extension\TabMenuExtension
       tags:
           - { name: sonata.admin.extension, global: true }
+
+
+  sonata.seo.page.default:
+        class: Compo\SeoBundle\Manager\SeoPage
+        calls:
+            - [ setContainer, ['@service_container']]
+            - [ loadVars, []]

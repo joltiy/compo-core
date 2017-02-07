@@ -17,3 +17,6 @@ parameters:
 
     translator.class: Compo\CoreBundle\Translation\FallbackTranslator
     sylius.settings.form_factory.class: Compo\CoreBundle\Form\Factory\SettingsFormFactory
+
+    sonata.seo.page.default.class: Compo\SeoBundle\Manager\SeoPage
+
