@@ -5,12 +5,12 @@ breadcrumb:
     link_news_edit: 'Редактирование новости'
     link_news_list: Новости
     link_news_update: 'Обновление новости'
-    link_settings_batch: breadcrumb.link_settings_batch   # FIXME
-    link_settings_create: breadcrumb.link_settings_create   # FIXME
-    link_settings_delete: breadcrumb.link_settings_delete   # FIXME
-    link_settings_edit: breadcrumb.link_settings_edit   # FIXME
-    link_settings_list: breadcrumb.link_settings_list   # FIXME
-    link_settings_update: breadcrumb.link_settings_update   # FIXME
+    link_settings_batch: breadcrumb.link_settings_batch
+    link_settings_create: breadcrumb.link_settings_create
+    link_settings_delete: breadcrumb.link_settings_delete
+    link_settings_edit: breadcrumb.link_settings_edit
+    link_settings_list: breadcrumb.link_settings_list
+    link_settings_update: breadcrumb.link_settings_update
     news: Новости
 
 form:
