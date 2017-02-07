@@ -168,3 +168,13 @@ form.label_settings_seo_items_meta_description: 'Meta Description'
 form.label_settings_seo_vars: 'SEO перменные'
 
 form.label_seo_vars: 'SEO перменные'
+
+enabledOn: 'Включить'
+enabledOff: 'Выключить'
+changeCatalog: 'Изменить категорию'
+changeState: 'Изменить наличие'
+enabledMarketOn: 'Включить Яндекс.Маркет'
+enabledMarketOn: 'Выключить Яндекс.Маркет'
+discountOff: 'Отменить скидку'
+productPriceUpdate: 'Обновить цены на товары'
+productDiscountUpdate: 'Обновить скидки на товары'
