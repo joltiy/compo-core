@@ -30,3 +30,5 @@ tab_menu:
 
 title_edit_articles: 'Статья: %name%'
 title_list_articles: Статьи
+
+settings.seo_items_tab: 'SEO статей'
