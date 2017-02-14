@@ -284,6 +284,8 @@ class PageAdmin extends AbstractAdmin
 
         $listMapper
             ->addIdentifier('name')
+            ->add('url')
+
             ->add('enabled', null, array('editable' => true));
 
     }
