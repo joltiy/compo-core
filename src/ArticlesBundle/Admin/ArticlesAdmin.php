@@ -3,14 +3,10 @@
 namespace Compo\ArticlesBundle\Admin;
 
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
-use Knp\Menu\ItemInterface as MenuItemInterface;
-use Knp\Menu\MenuItem;
-use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Symfony\Component\DomCrawler\Link;
 
 /**
  * {@inheritDoc}
@@ -99,7 +95,9 @@ class ArticlesAdmin extends AbstractAdmin
     }
 
 
-
+    /**
+     * {@inheritDoc}
+     */
     public function configureActionButtons($action, $object = null)
     {
         $list = array();

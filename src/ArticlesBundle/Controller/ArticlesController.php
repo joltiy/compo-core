@@ -2,7 +2,7 @@
 
 namespace Compo\ArticlesBundle\Controller;
 
-use Compo\ArticlesBundle\Entity\Articles;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 

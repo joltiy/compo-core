@@ -19,7 +19,8 @@ settings:
     header: 'Настройки статей'
     seo_items_tab: 'SEO статей'
 
-
+show:
+    label_publication_at: show.label_publication_at
 
 tab_menu:
     link_articles_settings: 'Настройки статей'

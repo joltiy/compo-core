@@ -5,10 +5,11 @@ namespace Compo\ArticlesBundle\Manager;
 use Compo\ArticlesBundle\Repository\ArticlesRepository;
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Sonata\CoreBundle\Model\BaseEntityManager;
-use Sonata\DatagridBundle\Pager\Doctrine\Pager;
-use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery;
 
 
+/**
+ * {@inheritDoc}
+ */
 class ArticlesManager extends BaseEntityManager
 {
     use ContainerAwareTrait;
