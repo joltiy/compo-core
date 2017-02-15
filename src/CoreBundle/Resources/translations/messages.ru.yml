@@ -197,3 +197,6 @@ action.link_settings: 'Настройки'
 action.link_show_on_site: 'Показать на сайте'
 action.link_history: 'Изменения'
 action.link_acl: 'Права доступа'
+
+show:
+    label_publication_at: 'Дата публикации'
