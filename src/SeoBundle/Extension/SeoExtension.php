@@ -66,8 +66,8 @@ class SeoExtension extends AbstractAdminExtension
     {
         $formMapper
             ->tab('form.tab_seo')
-            ->with('form.tab_seo_main', array('class' => 'col-md-6'))->end()
-            ->with('form.tab_seo_meta', array('class' => 'col-md-6'))->end()
+            ->with('form.tab_seo_main', array('class' => 'col-lg-6'))->end()
+            ->with('form.tab_seo_meta', array('class' => 'col-lg-6'))->end()
             ->end();
 
         $formMapper

@@ -27,6 +27,43 @@ class AbstractAdmin extends BaseAdmin
     protected $perPageOptions = array(50, 100, 500, 1000, 10000);
     protected $searchResultActions = array('edit');
 
+    protected $settingsNamespace;
+    protected $settingsEnabled = false;
+
+
+
+    public function configureSettings($settingsEnabled = true, $settingsNamespace)
+    {
+        $this->setSettingsEnabled($settingsEnabled);
+        $this->setSettingsNamespace($settingsNamespace);
+    }
+
+    public function setSettingsEnabled($settingsEnabled)
+    {
+        $this->settingsEnabled = $settingsEnabled;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSettingsEnabled()
+    {
+        return $this->settingsEnabled;
+    }
+
+    public function setSettingsNamespace($settingsNamespace)
+    {
+        $this->settingsNamespace = $settingsNamespace;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSettingsNamespace()
+    {
+        return $this->settingsNamespace;
+    }
+
     public function setParentParentAssociationMapping($parentAssociationMapping)
     {
         $this->parentAssociationMapping = $parentAssociationMapping;
@@ -266,5 +303,26 @@ class AbstractAdmin extends BaseAdmin
             $collection->add('tree', 'tree', array('_controller' => $this->baseControllerName . ':tree'));
             $collection->add('move', 'move', array('_controller' => $this->baseControllerName . ':move'));
         }
+
+        if ($this->settingsEnabled && $this->settingsNamespace) {
+            $collection->add(
+                'settings',
+                'settings',
+                [
+                    '_controller' => $this->getBaseControllerName() . ':settings',
+                    'namespace' => $this->settingsNamespace
+                ]
+            );
+        }
+    }
+
+    public function initialize()
+    {
+        $this->setTemplate('button_show_on_site', 'CompoSonataAdminBundle:Button:show_on_site_button.html.twig');
+        $this->setTemplate('button_settings', 'CompoSonataAdminBundle:Button:settings_button.html.twig');
+
+        parent::initialize();
+
+
     }
 }

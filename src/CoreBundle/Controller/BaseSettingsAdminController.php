@@ -15,6 +15,25 @@ class BaseSettingsAdminController extends SettingsController
     public $translationDomain = 'messages';
     protected $namespase = 'compo_core_settings';
 
+    protected $admin;
+
+    /**
+     * @return mixed
+     */
+    public function getAdmin()
+    {
+        return $this->admin;
+    }
+
+    /**
+     * @param mixed $admin
+     */
+    public function setAdmin($admin)
+    {
+        $this->admin = $admin;
+    }
+
+
     /**
      * @param Request $request
      * @param string $namespace
@@ -52,8 +71,22 @@ class BaseSettingsAdminController extends SettingsController
 
         $admin_pool = $this->get('sonata.admin.pool');
 
+        $admin = $this->get($this->admin);
+        $admin->setCurrentChild(true);
+
+        $rootAdmin = $admin->getParent();
+        $request->request->set('_sonata_admin', $rootAdmin->getCode());
+
+        $rootAdmin->setRequest($request);
+
+
+
 
         return $this->render('CompoCoreBundle:Admin:settings.html.twig', array(
+            'action' => 'settings',
+            'breadcrumbs_builder' => $this->get('sonata.admin.breadcrumbs_builder'),
+            'admin' => $admin,
+
             'settings' => $settings,
             'form' => $form->createView(),
             'admin_pool' => $admin_pool,

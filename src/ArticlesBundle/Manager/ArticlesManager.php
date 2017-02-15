@@ -16,7 +16,7 @@ class ArticlesManager extends BaseEntityManager
     public function getPager($criteria, $page = 1) {
         $container = $this->getContainer();
 
-        $compo_articles_settings = $container->get('sylius.settings.manager')->load('compo_articles_settings');
+        $compo_articles_settings = $container->get('sylius.settings.manager')->load('compo_articles');
 
         $limit = $compo_articles_settings->get('articles_per_page');
 

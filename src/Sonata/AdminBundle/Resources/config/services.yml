@@ -32,6 +32,12 @@ services:
 
 
 
+    compo.sonata.admin.extension.without_image:
+        class: Compo\Sonata\AdminBundle\Extension\WithoutImageExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+        parent: compo_core.abstract_container_aware
+
     compo.sonata.admin.extension.timestampable:
         class: Compo\Sonata\AdminBundle\Extension\TimestampableExtension
         tags:
@@ -54,3 +60,10 @@ services:
         class: Compo\Sonata\AdminBundle\Form\Type\NumberRangeType
         tags:
             - { name: form.type, alias: compo_admin_type_number_range }
+
+
+    compo.sonata.admin.extension.image:
+        class: Compo\Sonata\AdminBundle\Extension\ImageExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+        parent: compo_core.abstract_container_aware

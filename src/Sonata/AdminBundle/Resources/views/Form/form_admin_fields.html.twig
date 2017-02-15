@@ -50,7 +50,7 @@ file that was distributed with this source code.
 {% block form_label %}
     {% spaceless %}
         {% if label is not same as(false) and sonata_admin.options['form_type'] == 'horizontal' %}
-            {% set label_class = 'col-sm-3' %}
+            {% set label_class = 'col-sm-4 col-md-3' %}
         {% endif %}
 
         {% set label_class = label_class|default('') ~ ' control-label' %}
@@ -89,14 +89,14 @@ file that was distributed with this source code.
 
 {% block checkbox_label -%}
     {% if label is not same as(false) and sonata_admin.options['form_type'] == 'horizontal' %}
-        {% set parent_label_class = 'control-label col-sm-3' %}
+        {% set parent_label_class = 'control-label col-sm-4 col-md-3' %}
     {% endif %}
 
 
     {% set div_class_field = ' ' %}
 
     {% if sonata_admin is defined and sonata_admin.options['form_type'] == 'horizontal' %}
-        {% set div_class_field = div_class_field ~ ' col-sm-9' %}
+        {% set div_class_field = div_class_field ~ ' col-sm-8 col-md-9' %}
     {% endif %}
 
 
@@ -241,7 +241,7 @@ file that was distributed with this source code.
                     {% set div_class = div_class ~ ' col-sm-12' %}
                 {% endif %}
             {% else %}
-                {% set div_class = div_class ~ ' col-sm-9' %}
+                {% set div_class = div_class ~ ' col-sm-8 col-md-9' %}
             {% endif %}
         {% endif %}
 
@@ -292,7 +292,7 @@ file that was distributed with this source code.
                 {% if 'collection' in form.parent.vars.block_prefixes %}
                     {% set div_class = div_class ~ ' col-sm-12' %}
                 {% else %}
-                    {% set div_class = div_class ~ ' col-sm-9 col-sm-offset-3' %}
+                    {% set div_class = div_class ~ ' col-sm-8 col-md-9 col-sm-offset-4 col-md-offset-3' %}
                 {% endif %}
             {% else %}
 
@@ -398,7 +398,7 @@ file that was distributed with this source code.
 
             {% set div_class = "" %}
             {% if sonata_admin.options['form_type'] == 'horizontal' %}
-                {% set div_class = 'col-sm-9' %}
+                {% set div_class = 'col-sm-8 col-md-9' %}
             {% endif %}
 
             <div class="{{ div_class }} sonata-ba-field sonata-ba-field-{{ sonata_admin.edit }}-{{ sonata_admin.inline }} {% if child.vars.errors|length > 0 %}sonata-ba-field-error{% endif %}">

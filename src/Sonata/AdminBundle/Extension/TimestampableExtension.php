@@ -46,12 +46,49 @@ class TimestampableExtension extends AbstractAdminExtension
                 )
             );
         }
+
+        if ($datagridMapper->has('publicationAt')) {
+            $datagridMapper->remove('publicationAt');
+
+            $datagridMapper->add('publicationAt', 'doctrine_orm_date_range', array('field_type' => 'sonata_type_date_range_picker',
+                    'field_options' => [
+                        'field_options' => [
+                            'format' => 'dd.MM.yyyy'
+                        ]
+                    ]
+                )
+            );
+        }
     }
 
     public function configureFormFields(FormMapper $formMapper)
     {
+        if ($formMapper->has('publicationAt')) {
+            $admin = $formMapper->getAdmin();
 
 
+            $fg = $admin->getFormGroups();
+            $tb = $admin->getFormTabs();
+
+            $keys = $formMapper->keys();
+
+
+            $formMapper->remove('publicationAt');
+
+            $formMapper->add('publicationAt', 'sonata_type_datetime_picker', array(
+                'format' => 'dd.MM.y HH:mm:ss',
+                'required' => true,
+            ), array(
+                'translation_domain' => 'SonataAdminBundle'
+
+            ));
+
+
+            $formMapper->reorder($keys);
+            $admin->setFormTabs($tb);
+            $admin->setFormGroups($fg);
+
+        }
     }
 
     public function configureListFields(ListMapper $listMapper)

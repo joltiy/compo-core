@@ -9,13 +9,18 @@
 namespace Compo\Sonata\AdminBundle\Controller;
 
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 use Pix\SortableBehaviorBundle\Services\PositionHandler;
 use Sonata\AdminBundle\Controller\CRUDController as BaseCRUDController;
+use Sylius\Bundle\SettingsBundle\Form\Factory\SettingsFormFactoryInterface;
+use Sylius\Bundle\SettingsBundle\Manager\SettingsManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * {@inheritDoc}
@@ -28,6 +33,105 @@ class CRUDController extends BaseCRUDController
      * @var AbstractAdmin
      */
     protected $admin;
+
+    /**
+     * @return SettingsManagerInterface
+     */
+    protected function getSettingsManager()
+    {
+        return $this->container->get('sylius.settings.manager');
+    }
+
+    /**
+     * @return SettingsFormFactoryInterface
+     */
+    protected function getSettingsFormFactory()
+    {
+        return $this->container->get('sylius.settings.form_factory');
+    }
+
+    /**
+     * @return TranslatorInterface
+     */
+    protected function getTranslator()
+    {
+        return $this->container->get('translator');
+    }
+
+    /**
+     * Check that user can change given schema.
+     *
+     * @param string $schemaAlias
+     *
+     * @return bool
+     */
+    protected function isGrantedOr403($schemaAlias)
+    {
+        if (!$this->container->has('sylius.authorization_checker')) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return bool
+     */
+    protected function isApiRequest(Request $request)
+    {
+        return 'html' !== $request->getRequestFormat();
+    }
+
+    /**
+     * @param Request $request
+     * @param string $namespace
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function settingsAction(Request $request, $namespace = null)
+    {
+
+        if (is_null($namespace)) {
+            $namespace = $this->admin->getSettingsNamespace();
+        }
+
+        $manager = $this->getSettingsManager();
+        $settings = $manager->load($namespace);
+
+        $form = $this
+            ->getSettingsFormFactory()
+            ->create($namespace);
+
+        $form->setData($settings);
+
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+
+            if ($form->isValid()) {
+                $manager->save($form->getData());
+
+                $message = $this->getTranslator()->trans('settings.updated_successful', array());
+                $this->get('session')->getFlashBag()->add('sonata_flash_success', $message);
+
+                return $this->redirect($request->headers->get('referer'));
+            }
+        }
+
+        $admin_pool = $this->get('sonata.admin.pool');
+
+        return $this->render('CompoCoreBundle:Admin:settings.html.twig', array(
+            'action' => 'settings',
+            'breadcrumbs_builder' => $this->get('sonata.admin.breadcrumbs_builder'),
+            'admin' => $this->admin,
+
+            'settings' => $settings,
+            'form' => $form->createView(),
+            'admin_pool' => $admin_pool,
+            'translation_domain' => $this->admin->getTranslationDomain()
+        ));
+    }
 
     /**
      * List action.
@@ -378,4 +482,145 @@ class CRUDController extends BaseCRUDController
     }
 
 
+
+
+    /**
+     * @param ProxyQueryInterface $selectedModelQuery
+     * @param Request             $request
+     *
+     * @return RedirectResponse
+     */
+    public function batchActionDisable(\Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery, Request $request = null)
+    {
+        if (!$this->admin->isGranted('EDIT')) {
+            throw new AccessDeniedException();
+        }
+
+        $modelManager = $this->admin->getModelManager();
+
+        $selectedModelQuery->select('DISTINCT '.$selectedModelQuery->getRootAlias());
+
+        try {
+            $entityManager = $modelManager->getEntityManager($this->admin->getClass());
+
+            $i = 0;
+            foreach ($selectedModelQuery->getQuery()->iterate() as $pos => $object) {
+                $object[0]->setEnabled(false);
+                $modelManager->update($object[0]);
+
+                if ((++$i % 100) == 0) {
+                    $entityManager->flush();
+                    $entityManager->clear();
+                }
+            }
+
+            $entityManager->flush();
+            $entityManager->clear();
+        } catch (\PDOException $e) {
+            throw new ModelManagerException('', 0, $e);
+        } catch (DBALException $e) {
+            throw new ModelManagerException('', 0, $e);
+        }
+
+
+        $this->addFlash('sonata_flash_success', 'flash_batch_disable_success');
+
+        return new RedirectResponse(
+            $this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters()))
+        );
+    }
+
+
+
+    /**
+     * @param ProxyQueryInterface $selectedModelQuery
+     * @param Request             $request
+     *
+     * @return RedirectResponse
+     */
+    public function batchActionEnable(\Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery, Request $request = null)
+    {
+        if (!$this->admin->isGranted('EDIT')) {
+            throw new AccessDeniedException();
+        }
+
+        /** @var QueryBuilder $qb */
+        $qb = $selectedModelQuery->getQueryBuilder();
+
+        $selectedModelQuery->select($qb->getRootAliases()[0] . '.id');
+
+        $result = $selectedModelQuery->execute(array(), Query::HYDRATE_ARRAY);
+
+        $ids = array();
+
+        foreach ($result as $result_item) {
+            $ids[] = $result_item['id'];
+        }
+
+        $chunks = array_chunk($ids, 500);
+
+        $repository = $this->getAdmin()->getRepository();
+
+        $class = $repository->getClassName();
+
+
+        $em = $this->getAdmin()->getDoctrine()->getManager();
+
+        foreach ($chunks as $chunksIds) {
+            $q = $em->createQuery('UPDATE ' . $class . ' o SET o.enabled = 1 WHERE o.id IN(' . implode(',', $chunksIds). ')');
+            $numUpdated = $q->execute();
+        }
+
+        $this->addFlash('sonata_flash_success', 'flash_batch_enable_success');
+
+        return new RedirectResponse(
+            $this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters()))
+        );
+    }
+
+    /**
+     * @param ProxyQueryInterface $selectedModelQuery
+     * @param Request             $request
+     *
+     * @return RedirectResponse
+     */
+    public function batchActionEnable2(\Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery, Request $request = null)
+    {
+        if (!$this->admin->isGranted('EDIT')) {
+            throw new AccessDeniedException();
+        }
+
+        $modelManager = $this->admin->getModelManager();
+
+        $selectedModelQuery->select('DISTINCT '.$selectedModelQuery->getRootAlias());
+
+        try {
+            $entityManager = $modelManager->getEntityManager($this->admin->getClass());
+
+            $i = 0;
+            foreach ($selectedModelQuery->getQuery()->iterate() as $pos => $object) {
+                $object[0]->setEnabled(true);
+                $modelManager->update($object[0]);
+
+                if ((++$i % 100) == 0) {
+                    $entityManager->flush();
+                    $entityManager->clear();
+                }
+            }
+
+            $entityManager->flush();
+            $entityManager->clear();
+        } catch (\PDOException $e) {
+            throw new ModelManagerException('', 0, $e);
+        } catch (DBALException $e) {
+            throw new ModelManagerException('', 0, $e);
+        }
+
+
+        $this->addFlash('sonata_flash_success', 'flash_batch_enable_success');
+
+        return new RedirectResponse(
+            $this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters()))
+        );
+    }
 }

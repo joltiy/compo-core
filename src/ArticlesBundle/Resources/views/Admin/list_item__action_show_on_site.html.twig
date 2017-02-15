@@ -1,0 +1,8 @@
+{% if object is defined %}
+    <a class="btn btn-sm btn-default"
+       href="{{ path('compo_articles_show_by_slug', {'slug': object.slug}) }}"
+       target="_blank"
+    >
+        <i class="fa fa-eye"></i>
+    </a>
+{% endif %}

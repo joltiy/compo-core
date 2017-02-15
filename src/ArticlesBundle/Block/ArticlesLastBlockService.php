@@ -11,12 +11,12 @@
 
 namespace Compo\ArticlesBundle\Block;
 
+use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Sonata\BlockBundle\Model\BlockInterface;
 use Sonata\CoreBundle\Model\Metadata;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -25,26 +25,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class ArticlesLastBlockService extends AbstractBlockService
 {
-    /**
-     * @var Container
-     */
-    public $container;
-
-    /**
-     * @return mixed
-     */
-    public function getContainer()
-    {
-        return $this->container;
-    }
-
-    /**
-     * @param mixed $container
-     */
-    public function setContainer($container)
-    {
-        $this->container = $container;
-    }
+    use ContainerAwareTrait;
 
 
     /**

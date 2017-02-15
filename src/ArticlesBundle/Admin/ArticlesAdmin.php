@@ -4,11 +4,13 @@ namespace Compo\ArticlesBundle\Admin;
 
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Knp\Menu\ItemInterface as MenuItemInterface;
+use Knp\Menu\MenuItem;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\DomCrawler\Link;
 
 /**
  * {@inheritDoc}
@@ -24,7 +26,7 @@ class ArticlesAdmin extends AbstractAdmin
         $this->setSortBy('publicationAt');
         $this->setSortOrder('DESC');
         $this->configureSeo(true);
-
+        $this->configureSettings(true, 'compo_articles');
     }
 
     /**
@@ -39,7 +41,7 @@ class ArticlesAdmin extends AbstractAdmin
             ->add('enabled')
             ->add('createdAt')
             ->add('updatedAt')
-            ->add('deletedAt');
+            ->add('publicationAt');
     }
 
     /**
@@ -51,17 +53,12 @@ class ArticlesAdmin extends AbstractAdmin
             ->add('id')
             ->addIdentifier('publicationAt')
             ->addIdentifier('name')
-            ->add('description')
-            ->add('enabled', null, array(
-                'editable' => true,
-                'required' => true
-            ))
+            ->add('enabled')
             ->add('_action', null, array(
                 'actions' => array(
                     'edit' => array(),
                     'delete' => array(),
                     'show_on_site' => array('template' => 'CompoArticlesBundle:Admin:list__action_show_on_site.html.twig'),
-
                 )
             ));
     }
@@ -73,29 +70,15 @@ class ArticlesAdmin extends AbstractAdmin
     {
         $formMapper
             ->tab('form.tab_main')
-            ->with('form.tab_main', array('name' => false))
-            ->add('enabled', null, array('required' => false))
-            ->add('publicationAt', 'sonata_type_datetime_picker',
-                array(
-                    'format' => 'dd.MM.y HH:mm:ss',
-                    'required' => true,
-                )
-            )
+            ->with('form.group_main', array('name' => false, 'class' => 'col-lg-6'))
+            ->add('enabled')
+            ->add('publicationAt')
             ->add('name')
             ->add('description')
             ->add('body')
-            ->add('image', 'sonata_type_model_list',
-                array(
-                    'required' => false,
-                    'by_reference' => true,
-                ),
-                array(
-                    'link_parameters' => array(
-                        'context' => 'default',
-                        'hide_context' => true,
-                    ),
-                )
-            )
+            ->end()
+            ->with('form.group_image', array('name' => false, 'class' => 'col-lg-6'))
+            ->add('image', 'sonata_type_model_list')
             ->end()
             ->end();
     }
@@ -112,39 +95,58 @@ class ArticlesAdmin extends AbstractAdmin
             ->add('enabled')
             ->add('createdAt')
             ->add('updatedAt')
-            ->add('deletedAt');
+            ->add('publicationAt');
     }
 
-    protected function configureTabMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
+
+
+    public function configureActionButtons($action, $object = null)
     {
-        if (in_array($action, array('edit'))) {
-            $menu->addChild(
-                $this->trans('tab_menu.link_edit'),
-                array('uri' => $this->generateUrl('edit', array('id' => $this->getSubject()->getId())))
-            );
-            $menu->addChild(
-                $this->trans('tab_menu.link_show_on_site'),
-                array(
-                    'uri' => $this->getRouteGenerator()->generate('compo_articles_show_by_slug', array('slug' => $this->getSubject()->getSlug())),
-                    'linkAttributes' => array('target' => '_blank')
-                )
+        $list = array();
+
+        if ($this->hasAccess('create') && $this->hasRoute('create')) {
+            $list['create'] = array(
+                'template' => $this->getTemplate('button_create'),
             );
         }
 
-        if (in_array($action, array('list'))) {
-            $menu->addChild(
-                $this->trans('tab_menu.link_settings'),
-                array(
-                    'uri' => $this->getRouteGenerator()->generate('compo_articles_settings_update', array()),
-                )
-            );
-            $menu->addChild(
-                $this->trans('tab_menu.link_show_on_site'),
-                array(
-                    'uri' => $this->getRouteGenerator()->generate('compo_articles_index', array()),
-                    'linkAttributes' => array('target' => '_blank')
-                )
+        if (
+            $this->hasAccess('edit') && $this->hasRoute('edit')
+            &&
+            in_array($action, array('history', 'acl', 'show', 'delete', 'edit'))
+        ) {
+            $list['edit'] = array(
+                'template' => $this->getTemplate('button_edit'),
             );
         }
+
+        if ($this->hasAccess('list') && $this->hasRoute('list')) {
+            $list['list'] = array(
+                'template' => $this->getTemplate('button_list'),
+            );
+        }
+
+        if ($this->hasAccess('acl') && $this->hasRoute('settings')) {
+            $list['settings'] = array(
+                'template' => $this->getTemplate('button_settings')
+            );
+        }
+
+        if (in_array($action, array('history', 'acl', 'show', 'delete', 'edit'))) {
+            $list['show_on_site'] = array(
+                'template' => $this->getTemplate('button_show_on_site'),
+                'uri' => $this->getRouteGenerator()->generate('compo_articles_show_by_slug', array('slug' => $this->getSubject()->getSlug()))
+            );
+        } else {
+            $list['show_on_site'] = array(
+                'template' => $this->getTemplate('button_show_on_site'),
+                'uri' => $this->getRouteGenerator()->generate('compo_articles_index', array())
+            );
+        }
+
+
+        $list = array_merge($list, parent::configureActionButtons($action, $object));
+
+        return $list;
     }
 }

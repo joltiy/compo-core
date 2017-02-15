@@ -310,7 +310,7 @@ th.table-th-total {
     min-width: 160px;
 }
 
-.col-sm-9.checkbox-widget label.control-label.col-sm-3 {
+.col-sm-8.checkbox-widget label.control-label.col-sm-4 {
     display: none;
 }
 
@@ -323,8 +323,21 @@ th.table-th-total {
     margin-left: -15px;
 }
 
-.checkbox label, .radio label {
-    margin-left: 0;
+
+
+@media (min-width: 768px) {
+    .checkbox label, .radio label {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .sonata-ba-field .field-actions {
+        float: none;
+        display: block;
+        clear: both;
+        padding-top: 15px;
+    }
 }
 
 .sonata-ba-list-field-name-batch .icheckbox_square-blue,
@@ -379,4 +392,26 @@ th.sonata-ba-list-field-header-actions.sonata-ba-list-field-header-_action {
     top: 5px;
     position: relative;
     margin-right: 5px;
+}
+
+
+
+.content-header .navbar-brand {
+    min-height: 50px;
+    height: auto;
+    word-break: break-word;
+}
+
+.inner-field-short-description-media img {
+    width: 100%;
+}
+
+.field-short-description {
+    min-width: 230px;
+}
+
+
+
+th.sonata-ba-list-field-header-datetime {
+    width: 145px;
 }

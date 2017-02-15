@@ -18,7 +18,7 @@ class ArticlesController extends Controller
     public function indexAction()
     {
 
-        $compo_articles_settings = $this->get('sylius.settings.manager')->load('compo_articles_settings');
+        $compo_articles_settings = $this->get('sylius.settings.manager')->load('compo_articles');
 
         $seoPage = $this->get('sonata.seo.page');
         $seoPage->addTemplates('articles', array(
@@ -47,7 +47,7 @@ class ArticlesController extends Controller
         $article = $em->getRepository('CompoArticlesBundle:Articles')->findOneBy(array('slug' => $slug));
 
 
-        $compo_articles_settings = $this->get('sylius.settings.manager')->load('compo_articles_settings');
+        $compo_articles_settings = $this->get('sylius.settings.manager')->load('compo_articles');
 
         $seoPage = $this->get('sonata.seo.page');
         $seoPage->addTemplates('articles', array(

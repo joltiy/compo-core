@@ -79,6 +79,7 @@ form:
     tab_seo_main: 'Основное'
     tab_seo_meta: 'Мета'
     label_type: 'Тип'
+    label_publication_at: 'Дата публикации'
 
 list:
     label__action: 'Действия'
@@ -178,3 +179,21 @@ enabledMarketOn: 'Выключить Яндекс.Маркет'
 discountOff: 'Отменить скидку'
 productPriceUpdate: 'Обновить цены на товары'
 productDiscountUpdate: 'Обновить скидки на товары'
+
+tab_menu.link_list: 'Список'
+tab_menu.link_settings: 'Настройки'
+
+batch_actions.label_enable: 'Включить'
+batch_actions.label_disable: 'Выключить'
+
+filter.label_publication_at: 'Дата публикации'
+filter.label_without_image: 'Без изображения'
+
+
+action.link_create: 'Создать'
+action.link_edit: 'Редактировать'
+action.link_list: 'Список'
+action.link_settings: 'Настройки'
+action.link_show_on_site: 'Показать на сайте'
+action.link_history: 'Изменения'
+action.link_acl: 'Права доступа'

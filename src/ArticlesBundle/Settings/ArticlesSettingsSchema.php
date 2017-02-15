@@ -20,8 +20,9 @@ class ArticlesSettingsSchema extends BaseAdminSettingsSchema
     public function buildSettings(SettingsBuilderInterface $builder)
     {
         $this->setTranslationDomain('CompoArticlesBundle');
-        $this->setBaseRouteName('compo_articles_settings');
 
+        $this->setBaseRouteName('admin_compo_articles_articles');
+        //$this->setBaseRoutePattern('/compo/articles/articles/list');
 
         // Статьи
         // Заголовок - header

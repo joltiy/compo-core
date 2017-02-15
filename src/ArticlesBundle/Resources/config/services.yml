@@ -10,18 +10,11 @@ services:
         arguments: [Compo\ArticlesBundle\Entity\Articles, "@doctrine"]
         parent: compo_core.abstract_container_aware
 
-    compo_articles.admin.settings:
-        class: Compo\ArticlesBundle\Admin\ArticlesSettingsAdmin
-        parent: compo_core.abstract_container_aware
-        arguments: [~, Sylius\Bundle\SettingsBundle\Model\Settings, CompoArticlesBundle:ArticlesSettingsAdmin]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: articles_settings, label_translator_strategy: sonata.admin.label.strategy.underscore }
-
     compo_articles.settings.articles:
         class: Compo\ArticlesBundle\Settings\ArticlesSettingsSchema
         parent: compo_core.abstract_container_aware
         tags:
-            - { name: "sylius.settings_schema", namespace: "compo_articles_settings", alias: "compo_articles_settings" }
+            - { name: "sylius.settings_schema", namespace: "compo_articles", alias: "compo_articles" }
 
     compo_articles.block.breadcrumb:
         class: Compo\ArticlesBundle\Block\ArticlesBreadcrumbBlockService
@@ -31,11 +24,9 @@ services:
             - { name: sonata.block }
             - { name: sonata.breadcrumb }
 
-
     compo_articles.block.service.articles_last:
         class: Compo\ArticlesBundle\Block\ArticlesLastBlockService
         arguments: ["compo_articles.block.service.articles_last", "@templating"]
+        parent: compo_core.abstract_container_aware
         tags:
             - { name: sonata.block }
-        calls:
-            - [ setContainer, ['@service_container']]
