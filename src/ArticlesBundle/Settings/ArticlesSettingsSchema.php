@@ -38,12 +38,12 @@ class ArticlesSettingsSchema extends BaseAdminSettingsSchema
                     'articles_per_page' => 21,
 
                     'seo_header' => 'Статьи',
-                    'seo_title' => 'Статьи / {{ site.title }}',
+                    'seo_title' => 'Статьи / {{ site.title|default(site.name) }}',
                     'seo_meta_keyword' => 'Статьи, {{ site.metaKeyword }}',
                     'seo_meta_description' => 'Статьи, {{ site.metaDescription }}',
 
-                    'seo_items_header' => '{{ article.name }}',
-                    'seo_items_title' => '{{ article.title }} / {{ site.title }}',
+                    'seo_items_header' => '{{ article.header|default(article.name) }}',
+                    'seo_items_title' => '{{ article.name }} / {{ site.title|default(site.name) }}',
                     'seo_items_meta_keyword' => '{{ article.metaKeyword }}, {{ site.metaKeyword }}',
                     'seo_items_meta_description' => '{{ article.metaDescription }}, {{ site.metaDescription }}',
                 ]

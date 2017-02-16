@@ -21,6 +21,7 @@ class ArticlesController extends Controller
         $compo_articles_settings = $this->get('sylius.settings.manager')->load('compo_articles');
 
         $seoPage = $this->get('sonata.seo.page');
+
         $seoPage->addTemplates('articles', array(
             'header' => $compo_articles_settings->get('seo_header'),
             'title' => $compo_articles_settings->get('seo_title'),
@@ -50,7 +51,8 @@ class ArticlesController extends Controller
         $compo_articles_settings = $this->get('sylius.settings.manager')->load('compo_articles');
 
         $seoPage = $this->get('sonata.seo.page');
-        $seoPage->addTemplates('articles', array(
+
+        $seoPage->addTemplates('articles_items', array(
             'header' => $compo_articles_settings->get('seo_items_header'),
             'title' => $compo_articles_settings->get('seo_items_title'),
             'meta_keyword' => $compo_articles_settings->get('seo_items_meta_keyword'),

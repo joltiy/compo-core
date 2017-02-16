@@ -28,3 +28,9 @@ tab_menu:
     title_articles_edit: 'Статья: %name%'
     title_articles_list: Статьи
     title_articles_settings: 'Настройки статей'
+
+tab_menu.title_articles_batch_actions.label_enable_batch: 'Включить указанные статьи?'
+tab_menu.title_articles_batch_actions.label_disable_batch: 'Выключить указанные статьи?'
+tab_menu.title_articles_action_delete_batch: 'Удалить указанные статьи?'
+
+breadcrumb.articles: 'Статьи'

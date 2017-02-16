@@ -200,3 +200,10 @@ action.link_acl: 'Права доступа'
 
 show:
     label_publication_at: 'Дата публикации'
+
+
+flash_batch.disable_success: 'Выключение выполнено успешно'
+flash_batch.enable_success: 'Включение выполнено успешно'
+flash_batch_delete_success: 'Удаление выполнено успешно'
+flash_batch_delete_error: 'При уадалении возникла ошибка'
+flash_batch_empty: 'Ничего не выбрано для пакетного действия'

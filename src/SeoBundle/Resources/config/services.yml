@@ -10,6 +10,8 @@ services:
         tags:
             - { name: form.type }
 
-
-
-
+    compo_seo.seo.twig.extension:
+        class: Compo\SeoBundle\Twig\Extension\SeoExtension
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: twig.extension }

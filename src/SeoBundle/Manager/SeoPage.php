@@ -99,6 +99,13 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
 
 
     public function build() {
+
+        $container = $this->getContainer();
+
+        $site = $container->get('sonata.page.site.selector')->retrieve();
+
+        $this->addVar('site', $site);
+
         $templates = array_reverse($this->templates);
 
         $header = '';

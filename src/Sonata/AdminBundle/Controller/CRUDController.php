@@ -523,7 +523,7 @@ class CRUDController extends BaseCRUDController
         }
 
 
-        $this->addFlash('sonata_flash_success', 'flash_batch_disable_success');
+        $this->addFlash('sonata_flash_success', 'flash_batch.disable_success');
 
         return new RedirectResponse(
             $this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters()))
@@ -571,7 +571,7 @@ class CRUDController extends BaseCRUDController
             $numUpdated = $q->execute();
         }
 
-        $this->addFlash('sonata_flash_success', 'flash_batch_enable_success');
+        $this->addFlash('sonata_flash_success', 'flash_batch.enable_success');
 
         return new RedirectResponse(
             $this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters()))
@@ -617,7 +617,7 @@ class CRUDController extends BaseCRUDController
         }
 
 
-        $this->addFlash('sonata_flash_success', 'flash_batch_enable_success');
+        $this->addFlash('sonata_flash_success', 'flash_batch.enable_success');
 
         return new RedirectResponse(
             $this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters()))
