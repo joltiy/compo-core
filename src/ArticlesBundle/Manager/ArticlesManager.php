@@ -14,7 +14,8 @@ class ArticlesManager extends BaseEntityManager
 {
     use ContainerAwareTrait;
 
-    public function getPager($criteria, $page = 1) {
+    public function getPager($criteria, $page = 1)
+    {
         $container = $this->getContainer();
 
         $compo_articles_settings = $container->get('sylius.settings.manager')->load('compo_articles');
@@ -42,8 +43,7 @@ class ArticlesManager extends BaseEntityManager
         $qb->setParameters($parameters);
 
 
-
-        $paginator  = $this->getContainer()->get('knp_paginator');
+        $paginator = $this->getContainer()->get('knp_paginator');
         $pagination = $paginator->paginate(
             $qb,
             $page,

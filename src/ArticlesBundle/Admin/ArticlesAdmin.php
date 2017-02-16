@@ -28,6 +28,59 @@ class ArticlesAdmin extends AbstractAdmin
     /**
      * {@inheritDoc}
      */
+    public function configureActionButtons($action, $object = null)
+    {
+        $list = array();
+
+        if ($this->hasAccess('create') && $this->hasRoute('create')) {
+            $list['create'] = array(
+                'template' => $this->getTemplate('button_create'),
+            );
+        }
+
+        if (
+            $this->hasAccess('edit') && $this->hasRoute('edit')
+            &&
+            in_array($action, array('history', 'acl', 'show', 'delete', 'edit'))
+        ) {
+            $list['edit'] = array(
+                'template' => $this->getTemplate('button_edit'),
+            );
+        }
+
+        if ($this->hasAccess('list') && $this->hasRoute('list')) {
+            $list['list'] = array(
+                'template' => $this->getTemplate('button_list'),
+            );
+        }
+
+        if ($this->hasAccess('acl') && $this->hasRoute('settings')) {
+            $list['settings'] = array(
+                'template' => $this->getTemplate('button_settings')
+            );
+        }
+
+        if (in_array($action, array('history', 'acl', 'show', 'delete', 'edit'))) {
+            $list['show_on_site'] = array(
+                'template' => $this->getTemplate('button_show_on_site'),
+                'uri' => $this->getRouteGenerator()->generate('compo_articles_show_by_slug', array('slug' => $this->getSubject()->getSlug()))
+            );
+        } else {
+            $list['show_on_site'] = array(
+                'template' => $this->getTemplate('button_show_on_site'),
+                'uri' => $this->getRouteGenerator()->generate('compo_articles_index', array())
+            );
+        }
+
+
+        $list = array_merge($list, parent::configureActionButtons($action, $object));
+
+        return $list;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
@@ -92,59 +145,5 @@ class ArticlesAdmin extends AbstractAdmin
             ->add('createdAt')
             ->add('updatedAt')
             ->add('publicationAt');
-    }
-
-
-    /**
-     * {@inheritDoc}
-     */
-    public function configureActionButtons($action, $object = null)
-    {
-        $list = array();
-
-        if ($this->hasAccess('create') && $this->hasRoute('create')) {
-            $list['create'] = array(
-                'template' => $this->getTemplate('button_create'),
-            );
-        }
-
-        if (
-            $this->hasAccess('edit') && $this->hasRoute('edit')
-            &&
-            in_array($action, array('history', 'acl', 'show', 'delete', 'edit'))
-        ) {
-            $list['edit'] = array(
-                'template' => $this->getTemplate('button_edit'),
-            );
-        }
-
-        if ($this->hasAccess('list') && $this->hasRoute('list')) {
-            $list['list'] = array(
-                'template' => $this->getTemplate('button_list'),
-            );
-        }
-
-        if ($this->hasAccess('acl') && $this->hasRoute('settings')) {
-            $list['settings'] = array(
-                'template' => $this->getTemplate('button_settings')
-            );
-        }
-
-        if (in_array($action, array('history', 'acl', 'show', 'delete', 'edit'))) {
-            $list['show_on_site'] = array(
-                'template' => $this->getTemplate('button_show_on_site'),
-                'uri' => $this->getRouteGenerator()->generate('compo_articles_show_by_slug', array('slug' => $this->getSubject()->getSlug()))
-            );
-        } else {
-            $list['show_on_site'] = array(
-                'template' => $this->getTemplate('button_show_on_site'),
-                'uri' => $this->getRouteGenerator()->generate('compo_articles_index', array())
-            );
-        }
-
-
-        $list = array_merge($list, parent::configureActionButtons($action, $object));
-
-        return $list;
     }
 }

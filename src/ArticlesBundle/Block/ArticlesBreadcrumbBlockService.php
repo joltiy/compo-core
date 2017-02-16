@@ -3,16 +3,13 @@
 namespace Compo\ArticlesBundle\Block;
 
 
-
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
-
-
 use Knp\Menu\ItemInterface;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\SeoBundle\Block\Breadcrumb\BaseBreadcrumbMenuBlockService;
 
-/**
 
+/**
  */
 class ArticlesBreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
 {

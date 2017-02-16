@@ -3,11 +3,11 @@
 namespace Compo\ArticlesBundle\Settings;
 
 use Compo\CoreBundle\Settings\BaseAdminSettingsSchema;
+use Mopa\Bundle\BootstrapBundle\Form\Type\TabType;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Mopa\Bundle\BootstrapBundle\Form\Type\TabType;
 
 /**
  * {@inheritDoc}
@@ -29,7 +29,6 @@ class ArticlesSettingsSchema extends BaseAdminSettingsSchema
         // title - title
         // metaKeyword - metaKeyword
         // metaDescription - metaDescription
-
 
 
         $builder

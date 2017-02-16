@@ -19,25 +19,25 @@
 
         {% for article in pager %}
 
-        <div class="item row">
-            <div class="col-lg-3 photo">
-                <a href="{{ path('compo_articles_show_by_slug', {'slug': article.slug}) }}" class="thumbnail">
-                    <img src="{% path article.image, 'small' %}" width="150" alt="{{ article.name }}">
-                </a>
+            <div class="item row">
+                <div class="col-lg-3 photo">
+                    <a href="{{ path('compo_articles_show_by_slug', {'slug': article.slug}) }}" class="thumbnail">
+                        <img src="{% path article.image, 'small' %}" width="150" alt="{{ article.name }}">
+                    </a>
+                </div>
+
+                <div class="col-lg-9 meta">
+
+                    <div class="date pull-right">{{ article.publicationAt|date("d.m.Y") }}</div>
+
+                    <div class="header pull-left"><a href="{{ path('compo_articles_show_by_slug', {'slug': article.slug}) }}">{{ article.name }}</a></div>
+
+                    <div class="ui-helper-clearfix"></div>
+
+                    <div class="anons"><p>{{ article.description|raw }}</p></div>
+
+                </div>
             </div>
-
-            <div class="col-lg-9 meta">
-
-                <div class="date pull-right">{{ article.publicationAt|date("d.m.Y") }}</div>
-
-                <div class="header pull-left"><a href="{{ path('compo_articles_show_by_slug', {'slug': article.slug}) }}">{{ article.name }}</a></div>
-
-                <div class="ui-helper-clearfix"></div>
-
-                <div class="anons"><p>{{ article.description|raw }}</p></div>
-
-            </div>
-        </div>
 
         {% else %}
             {{ 'no_found_articles'|trans({}, 'CompoArticlesBundle') }}
