@@ -3,6 +3,7 @@
 namespace Compo\ArticlesBundle\Controller;
 
 
+use Compo\ArticlesBundle\Entity\Articles;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 
@@ -45,6 +46,7 @@ class ArticlesController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+        /** @var Articles $article */
         $article = $em->getRepository('CompoArticlesBundle:Articles')->findOneBy(array('slug' => $slug));
 
 
