@@ -1,5 +1,3 @@
-news: Новости
-
 breadcrumb:
     link_news_batch: 'Действия над новостями'
     link_news_create: 'Создание новости'
@@ -8,11 +6,13 @@ breadcrumb:
     link_news_list: Новости
     link_news_settings: Настройки
     link_news_update: 'Обновление новости'
+    news: Новости
 
 form:
     label_settings_news_per_page: 'Новостей на страницу'
     tab_main: Новость
 
+news: Новости
 no_found_news: 'Новости не найдены'
 
 settings:
@@ -20,17 +20,17 @@ settings:
     seo_items_tab: 'SEO новостей'
 
 show:
-    label_publication_at: show.label_publication_at
+    label_publication_at: 'Дата публикации'
 
 tab_menu:
     link_news_settings: 'Настройки новостей'
+    title_news_action_delete_batch: 'Удалить указанные новости?'
+
+    title_news_batch_actions:
+        label_disable_batch: 'Выключить указанные новости?'
+        label_enable_batch: 'Включить указанные новости?'
+
     title_news_create: 'Создание новости'
     title_news_edit: 'Новость: %name%'
     title_news_list: Новости
     title_news_settings: 'Настройки новостей'
-
-tab_menu.title_news_batch_actions.label_enable_batch: 'Включить указанные новости?'
-tab_menu.title_news_batch_actions.label_disable_batch: 'Выключить указанные новости?'
-tab_menu.title_news_action_delete_batch: 'Удалить указанные новости?'
-
-breadcrumb.news: 'Новости'

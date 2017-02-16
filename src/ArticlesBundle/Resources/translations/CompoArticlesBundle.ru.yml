@@ -1,6 +1,7 @@
 articles: Статьи
 
 breadcrumb:
+    articles: Статьи
     link_articles_batch: 'Действия над статьями'
     link_articles_create: 'Создание статьи'
     link_articles_delete: 'Удаление статьи'
@@ -20,17 +21,17 @@ settings:
     seo_items_tab: 'SEO статей'
 
 show:
-    label_publication_at: show.label_publication_at
+    label_publication_at: 'Дата публикации'
 
 tab_menu:
     link_articles_settings: 'Настройки статей'
+    title_articles_action_delete_batch: 'Удалить указанные статьи?'
+
+    title_articles_batch_actions:
+        label_disable_batch: 'Выключить указанные статьи?'
+        label_enable_batch: 'Включить указанные статьи?'
+
     title_articles_create: 'Создание статьи'
     title_articles_edit: 'Статья: %name%'
     title_articles_list: Статьи
     title_articles_settings: 'Настройки статей'
-
-tab_menu.title_articles_batch_actions.label_enable_batch: 'Включить указанные статьи?'
-tab_menu.title_articles_batch_actions.label_disable_batch: 'Выключить указанные статьи?'
-tab_menu.title_articles_action_delete_batch: 'Удалить указанные статьи?'
-
-breadcrumb.articles: 'Статьи'
