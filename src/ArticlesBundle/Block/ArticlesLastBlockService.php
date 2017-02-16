@@ -2,6 +2,7 @@
 
 namespace Compo\ArticlesBundle\Block;
 
+use Compo\ArticlesBundle\Repository\ArticlesRepository;
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Block\BlockContextInterface;
@@ -25,6 +26,7 @@ class ArticlesLastBlockService extends AbstractBlockService
     {
         $em = $this->getContainer()->get("doctrine")->getManager();
 
+        /** @var ArticlesRepository $repository */
         $repository = $em->getRepository("CompoArticlesBundle:Articles");
 
         $publications = $repository->findLastPublications();
