@@ -2,14 +2,13 @@
 
 namespace Compo\ArticlesBundle\Block;
 
-
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Knp\Menu\ItemInterface;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\SeoBundle\Block\Breadcrumb\BaseBreadcrumbMenuBlockService;
 
-
 /**
+ * {@inheritdoc}
  */
 class ArticlesBreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
 {
@@ -37,7 +36,6 @@ class ArticlesBreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
         $block = $blockContext->getBlock();
 
         $article = $block->getSetting('article');
-
 
         if ($article) {
             $menu->addChild('articles', array(

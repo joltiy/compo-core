@@ -16,9 +16,7 @@
     {% endblock %}
 
     <div class="articles">
-
         {% for article in pager %}
-
             <div class="item row">
                 <div class="col-lg-3 photo">
                     <a href="{{ path('compo_articles_show_by_slug', {'slug': article.slug}) }}" class="thumbnail">
@@ -38,11 +36,9 @@
 
                 </div>
             </div>
-
         {% else %}
             {{ 'no_found_articles'|trans({}, 'CompoArticlesBundle') }}
         {% endfor %}
-
     </div>
 
     <div class="pagination-wrap">

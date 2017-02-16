@@ -6,7 +6,6 @@ use Compo\ArticlesBundle\Repository\ArticlesRepository;
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Sonata\CoreBundle\Model\BaseEntityManager;
 
-
 /**
  * {@inheritDoc}
  */
@@ -36,20 +35,26 @@ class ArticlesManager extends BaseEntityManager
         }
 
         if (isset($criteria['enabled'])) {
+            $currentTime = new \DateTime();
+
             $qb->andWhere('p.enabled = :enabled');
+            $qb->andWhere(
+                $qb->expr()->lt('p.publicationAt', ':datetime')
+            );
+
+            $parameters['datetime'] = $currentTime;
             $parameters['enabled'] = $criteria['enabled'];
         }
 
         $qb->setParameters($parameters);
 
-
         $paginator = $this->getContainer()->get('knp_paginator');
+
         $pagination = $paginator->paginate(
             $qb,
             $page,
             $limit
         );
-
         return $pagination;
     }
 }

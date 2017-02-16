@@ -2,10 +2,8 @@
 
 namespace Compo\ArticlesBundle\Controller;
 
-
 use Compo\ArticlesBundle\Entity\Articles;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 
 /**
  * Article controller.
@@ -14,11 +12,9 @@ class ArticlesController extends Controller
 {
     /**
      * Lists all article entities.
-     *
      */
     public function indexAction()
     {
-
         $compo_articles_settings = $this->get('sylius.settings.manager')->load('compo_articles');
 
         $seoPage = $this->get('sonata.seo.page');
@@ -32,7 +28,6 @@ class ArticlesController extends Controller
 
         $seoPage->build();
 
-
         $request = $this->get('request');
 
         $pager = $this->get('compo_articles.manager.articles')->getPager(array(), $request->get('page', 1));
@@ -42,13 +37,20 @@ class ArticlesController extends Controller
         ));
     }
 
+    /**
+     * @param $slug
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function showBySlugAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
 
         /** @var Articles $article */
-        $article = $em->getRepository('CompoArticlesBundle:Articles')->findOneBy(array('slug' => $slug));
+        $article = $em->getRepository('CompoArticlesBundle:Articles')->findBySlug($slug);
 
+        if (!$article) {
+            throw $this->createNotFoundException('compo_articles.exception.not_found_article');
+        }
 
         $compo_articles_settings = $this->get('sylius.settings.manager')->load('compo_articles');
 
@@ -71,7 +73,6 @@ class ArticlesController extends Controller
         $seoPage->addVar('article', $article);
 
         $seoPage->build();
-
 
         return $this->render('@CompoArticles/Articles/show.html.twig', array(
             'article' => $article,

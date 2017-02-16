@@ -22,14 +22,6 @@ class ArticlesSettingsSchema extends BaseAdminSettingsSchema
         $this->setTranslationDomain('CompoArticlesBundle');
 
         $this->setBaseRouteName('admin_compo_articles_articles');
-        //$this->setBaseRoutePattern('/compo/articles/articles/list');
-
-        // Статьи
-        // Заголовок - header
-        // title - title
-        // metaKeyword - metaKeyword
-        // metaDescription - metaDescription
-
 
         $builder
             ->setDefaults(

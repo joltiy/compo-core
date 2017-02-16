@@ -1,14 +1,5 @@
 <?php
 
-/*
- * This file is part of the Sonata Project package.
- *
- * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Compo\ArticlesBundle\Block;
 
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
@@ -21,25 +12,25 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * @author     Thomas Rabaix <thomas.rabaix@sonata-project.org>
+ * {@inheritdoc}
  */
 class ArticlesLastBlockService extends AbstractBlockService
 {
     use ContainerAwareTrait;
-
 
     /**
      * {@inheritdoc}
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
+        $em = $this->getContainer()->get("doctrine")->getManager();
 
-        $em = $this->container->get("doctrine")->getManager();
+        $repository = $em->getRepository("CompoArticlesBundle:Articles");
 
-        $repo = $em->getRepository("CompoArticlesBundle:Articles");
+        $publications = $repository->findLastPublications();
 
         return $this->renderResponse($blockContext->getTemplate(), array(
-            'articles' => $repo->findBy(array(), array('id' => 'DESC'), 5),
+            'articles' => $publications,
             'block' => $blockContext->getBlock(),
             'settings' => $blockContext->getSettings(),
         ), $response);
@@ -50,12 +41,9 @@ class ArticlesLastBlockService extends AbstractBlockService
      */
     public function buildEditForm(FormMapper $formMapper, BlockInterface $block)
     {
-        $block->getEnabled();
-
         $formMapper->add('settings', 'sonata_type_immutable_array', array(
             'keys' => array(
                 array('class', 'text', array('required' => false)),
-
                 array('template', 'text', array('required' => false)),
             ),
         ));
@@ -68,7 +56,6 @@ class ArticlesLastBlockService extends AbstractBlockService
     {
         $resolver->setDefaults(array(
             'class' => '',
-
             'template' => 'CompoArticlesBundle:Block:articles_last.html.twig',
         ));
     }
