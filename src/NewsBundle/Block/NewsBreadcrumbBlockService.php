@@ -2,17 +2,13 @@
 
 namespace Compo\NewsBundle\Block;
 
-use Compo\CatalogBundle\Entity\Catalog;
-use Compo\CatalogBundle\Entity\CatalogRepository;
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
-use Compo\ManufactureBundle\Entity\Manufacture;
-use Compo\ManufactureBundle\Entity\ManufactureCollection;
 use Knp\Menu\ItemInterface;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\SeoBundle\Block\Breadcrumb\BaseBreadcrumbMenuBlockService;
 
 /**
-
+ * {@inheritdoc}
  */
 class NewsBreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
 {
@@ -40,7 +36,6 @@ class NewsBreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
         $block = $blockContext->getBlock();
 
         $news = $block->getSetting('news');
-
 
         if ($news) {
             $menu->addChild('news', array(

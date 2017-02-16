@@ -5,17 +5,14 @@
     </div>
 
     <div class="panel-body">
-
         <ul class="news-preview">
-            {% for news in news %}
-
+            {% for news_item in news %}
                 <li>
-                <div class="date">{{ news.publicationAt|date("d.m.Y") }}</div>
+                    <div class="date">{{ news_item.publicationAt|date("d.m.Y") }}</div>
 
-                <a href="{{ path('compo_news_show_by_slug', {'slug': news.slug}) }}">{{ news.name }}</a>
-            </li>
-
-        {% endfor %}
+                    <a href="{{ path('compo_news_show_by_slug', {'slug': news_item.slug}) }}">{{ news_item.name }}</a>
+                </li>
+            {% endfor %}
         </ul>
     </div>
 </div>

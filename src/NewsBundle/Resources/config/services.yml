@@ -10,18 +10,11 @@ services:
         arguments: [Compo\NewsBundle\Entity\News, "@doctrine"]
         parent: compo_core.abstract_container_aware
 
-    compo_news.admin.settings:
-        class: Compo\NewsBundle\Admin\NewsSettingsAdmin
-        parent: compo_core.abstract_container_aware
-        arguments: [~, Sylius\Bundle\SettingsBundle\Model\Settings, CompoNewsBundle:NewsSettingsAdmin]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: news_settings, label_translator_strategy: sonata.admin.label.strategy.underscore }
-
     compo_news.settings.news:
         class: Compo\NewsBundle\Settings\NewsSettingsSchema
         parent: compo_core.abstract_container_aware
         tags:
-            - { name: "sylius.settings_schema", namespace: "compo_news_settings", alias: "compo_news_settings" }
+            - { name: "sylius.settings_schema", namespace: "compo_news", alias: "compo_news" }
 
     compo_news.block.breadcrumb:
         class: Compo\NewsBundle\Block\NewsBreadcrumbBlockService
@@ -31,11 +24,9 @@ services:
             - { name: sonata.block }
             - { name: sonata.breadcrumb }
 
-
     compo_news.block.service.news_last:
         class: Compo\NewsBundle\Block\NewsLastBlockService
         arguments: ["compo_news.block.service.news_last", "@templating"]
+        parent: compo_core.abstract_container_aware
         tags:
             - { name: sonata.block }
-        calls:
-            - [ setContainer, ['@service_container']]

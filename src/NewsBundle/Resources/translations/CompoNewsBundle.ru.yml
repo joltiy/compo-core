@@ -1,31 +1,36 @@
+news: Новости
+
 breadcrumb:
     link_news_batch: 'Действия над новостями'
     link_news_create: 'Создание новости'
     link_news_delete: 'Удаление новости'
-    link_news_edit: 'Редактирование новости'
+    link_news_edit: 'Редактирование новостями'
     link_news_list: Новости
+    link_news_settings: Настройки
     link_news_update: 'Обновление новости'
-    link_settings_batch: breadcrumb.link_settings_batch
-    link_settings_create: breadcrumb.link_settings_create
-    link_settings_delete: breadcrumb.link_settings_delete
-    link_settings_edit: breadcrumb.link_settings_edit
-    link_settings_list: breadcrumb.link_settings_list
-    link_settings_update: breadcrumb.link_settings_update
-    news: Новости
 
 form:
-    label_publication_at: 'Дата публикации'
     label_settings_news_per_page: 'Новостей на страницу'
+    tab_main: Новость
 
-news: Новости
-news_settings: 'Настройки новостей'
 no_found_news: 'Новости не найдены'
 
 settings:
     header: 'Настройки новостей'
+    seo_items_tab: 'SEO новостей'
+
+show:
+    label_publication_at: show.label_publication_at
 
 tab_menu:
-    link_settings: 'Настройки новостей'
+    link_news_settings: 'Настройки новостей'
+    title_news_create: 'Создание новости'
+    title_news_edit: 'Новость: %name%'
+    title_news_list: Новости
+    title_news_settings: 'Настройки новостей'
 
-title_edit_news: 'Новость: %name%'
-title_list_news: Новости
+tab_menu.title_news_batch_actions.label_enable_batch: 'Включить указанные новости?'
+tab_menu.title_news_batch_actions.label_disable_batch: 'Выключить указанные новости?'
+tab_menu.title_news_action_delete_batch: 'Удалить указанные новости?'
+
+breadcrumb.news: 'Новости'

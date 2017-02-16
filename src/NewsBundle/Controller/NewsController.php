@@ -5,22 +5,20 @@ namespace Compo\NewsBundle\Controller;
 use Compo\NewsBundle\Entity\News;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-
 /**
- * New controller.
+ * News controller.
  */
 class NewsController extends Controller
 {
     /**
      * Lists all news entities.
-     *
      */
     public function indexAction()
     {
-
-        $compo_news_settings = $this->get('sylius.settings.manager')->load('compo_news_settings');
+        $compo_news_settings = $this->get('sylius.settings.manager')->load('compo_news');
 
         $seoPage = $this->get('sonata.seo.page');
+
         $seoPage->addTemplates('news', array(
             'header' => $compo_news_settings->get('seo_header'),
             'title' => $compo_news_settings->get('seo_title'),
@@ -29,7 +27,6 @@ class NewsController extends Controller
         ));
 
         $seoPage->build();
-
 
         $request = $this->get('request');
 
@@ -40,16 +37,25 @@ class NewsController extends Controller
         ));
     }
 
+    /**
+     * @param $slug
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function showBySlugAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $news = $em->getRepository('CompoNewsBundle:News')->findOneBy(array('slug' => $slug));
+        /** @var News $news */
+        $news = $em->getRepository('CompoNewsBundle:News')->findBySlug($slug);
 
+        if (!$news) {
+            throw $this->createNotFoundException('compo_news.exception.not_found_news');
+        }
 
-        $compo_news_settings = $this->get('sylius.settings.manager')->load('compo_news_settings');
+        $compo_news_settings = $this->get('sylius.settings.manager')->load('compo_news');
 
         $seoPage = $this->get('sonata.seo.page');
+
         $seoPage->addTemplates('news_items', array(
             'header' => $compo_news_settings->get('seo_items_header'),
             'title' => $compo_news_settings->get('seo_items_title'),
@@ -67,7 +73,6 @@ class NewsController extends Controller
         $seoPage->addVar('news', $news);
 
         $seoPage->build();
-
 
         return $this->render('@CompoNews/News/show.html.twig', array(
             'news' => $news,

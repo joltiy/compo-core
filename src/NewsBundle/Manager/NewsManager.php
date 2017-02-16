@@ -5,18 +5,19 @@ namespace Compo\NewsBundle\Manager;
 use Compo\NewsBundle\Repository\NewsRepository;
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Sonata\CoreBundle\Model\BaseEntityManager;
-use Sonata\DatagridBundle\Pager\Doctrine\Pager;
-use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery;
 
-
+/**
+ * {@inheritDoc}
+ */
 class NewsManager extends BaseEntityManager
 {
     use ContainerAwareTrait;
 
-    public function getPager($criteria, $page = 1) {
+    public function getPager($criteria, $page = 1)
+    {
         $container = $this->getContainer();
 
-        $compo_news_settings = $container->get('sylius.settings.manager')->load('compo_news_settings');
+        $compo_news_settings = $container->get('sylius.settings.manager')->load('compo_news');
 
         $limit = $compo_news_settings->get('news_per_page');
 
@@ -34,21 +35,26 @@ class NewsManager extends BaseEntityManager
         }
 
         if (isset($criteria['enabled'])) {
+            $currentTime = new \DateTime();
+
             $qb->andWhere('p.enabled = :enabled');
+            $qb->andWhere(
+                $qb->expr()->lt('p.publicationAt', ':datetime')
+            );
+
+            $parameters['datetime'] = $currentTime;
             $parameters['enabled'] = $criteria['enabled'];
         }
 
         $qb->setParameters($parameters);
 
+        $paginator = $this->getContainer()->get('knp_paginator');
 
-
-        $paginator  = $this->getContainer()->get('knp_paginator');
         $pagination = $paginator->paginate(
             $qb,
             $page,
             $limit
         );
-
         return $pagination;
     }
 }
