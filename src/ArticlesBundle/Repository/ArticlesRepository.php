@@ -14,7 +14,8 @@ class ArticlesRepository extends \Doctrine\ORM\EntityRepository
      * @param $slug
      * @return null
      */
-    public function findBySlug($slug) {
+    public function findBySlug($slug)
+    {
         $qb = $this->createQueryBuilder('p');
 
         $currentTime = new \DateTime();
@@ -25,7 +26,6 @@ class ArticlesRepository extends \Doctrine\ORM\EntityRepository
             )
             ->andWhere('p.enabled = 1')
             ->andWhere('p.slug = :slug')
-
             ->orderBy('p.publicationAt', 'DESC')
             ->setMaxResults(1);
 
@@ -47,7 +47,8 @@ class ArticlesRepository extends \Doctrine\ORM\EntityRepository
      * @param int $limit
      * @return array
      */
-    public function findLastPublications($limit = 5) {
+    public function findLastPublications($limit = 5)
+    {
         $qb = $this->createQueryBuilder('p');
 
         $currentTime = new \DateTime();
