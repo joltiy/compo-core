@@ -67,7 +67,7 @@ class NewsController extends Controller
             'header' => $news->getHeader(),
             'title' => $news->getTitle(),
             'meta_keyword' => $news->getMetaKeyword(),
-            'meta_description' => $news->getDescription(),
+            'meta_description' => $news->getMetaDescription(),
         ));
 
         $seoPage->addVar('news', $news);

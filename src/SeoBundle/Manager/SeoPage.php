@@ -27,6 +27,30 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
     protected $header;
 
     /**
+     * @var string
+     */
+    protected $description;
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+
+
+
+    /**
      * @return string
      */
     public function getHeader()
@@ -109,6 +133,8 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         $templates = array_reverse($this->templates);
 
         $header = '';
+        $description = '';
+
         $title = '';
         $meta_keyword = '';
         $meta_description = '';
@@ -117,6 +143,11 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
             if (isset($template['header']) && $header == '') {
                 $header = $this->buildTemplate($template['header']);
             }
+
+            if (isset($template['description']) && $description == '') {
+                $description = $this->buildTemplate($template['description']);
+            }
+
             if (isset($template['title']) && $title == '') {
                 $title = $this->buildTemplate($template['title']);
             }
@@ -141,6 +172,7 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         }
 
         $header = trim($header);
+        $description = trim($description);
         $title = trim($title);
         $meta_description = trim($meta_description);
 
@@ -148,6 +180,9 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
 
         if ($header) {
             $this->setHeader($header);
+        }
+        if ($description) {
+            $this->setDescription($description);
         }
 
         if ($title) {

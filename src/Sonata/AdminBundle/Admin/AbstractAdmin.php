@@ -320,6 +320,7 @@ class AbstractAdmin extends BaseAdmin
     {
         $this->setTemplate('button_show_on_site', 'CompoSonataAdminBundle:Button:show_on_site_button.html.twig');
         $this->setTemplate('button_settings', 'CompoSonataAdminBundle:Button:settings_button.html.twig');
+        $this->setTemplate('button_tree', 'CompoSonataAdminBundle:Button:tree_button.html.twig');
 
         parent::initialize();
 

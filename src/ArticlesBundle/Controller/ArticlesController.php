@@ -67,7 +67,7 @@ class ArticlesController extends Controller
             'header' => $article->getHeader(),
             'title' => $article->getTitle(),
             'meta_keyword' => $article->getMetaKeyword(),
-            'meta_description' => $article->getDescription(),
+            'meta_description' => $article->getMetaDescription(),
         ));
 
         $seoPage->addVar('article', $article);

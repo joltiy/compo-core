@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 /**
  * {@inheritDoc}
  */
-class BaseAdminSettingsSchema implements SchemaInterface
+class BaseBundleAdminSettingsSchema implements SchemaInterface
 {
     /**
      * @var Container
@@ -43,7 +43,7 @@ class BaseAdminSettingsSchema implements SchemaInterface
     public function getDefaultOptions()
     {
         return array(
-            'action' => $this->getContainer()->get('router')->generate($this->getBaseRouteName() . '_update') . '?',
+            'action' => $this->getContainer()->get('router')->generate($this->getBaseRouteName() . '_settings') . '?',
             'label_format' => 'form.label_settings_%name%',
             'translation_domain' => $this->getTranslationDomain(),
         );

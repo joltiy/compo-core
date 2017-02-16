@@ -15,6 +15,8 @@ class SeoExtension extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFunction('compo_seo_header', array($this, 'getHeader'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('compo_seo_description', array($this, 'getDescription'), array('is_safe' => array('html'))),
+
         );
     }
 
@@ -35,4 +37,15 @@ class SeoExtension extends \Twig_Extension
 
         return $seo_page->getHeader();
     }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        $seo_page = $this->getContainer()->get('sonata.seo.page');
+
+        return $seo_page->getDescription();
+    }
+
 }

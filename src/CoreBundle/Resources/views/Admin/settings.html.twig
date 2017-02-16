@@ -1,17 +1,19 @@
 {% extends 'SonataAdminBundle::standard_layout.html.twig' %}
 
 {% block title %}
-    {% if object is defined and admin.id(object) is not null and admin.isChild() %}
-        {% set title_edit = "tab_menu.title_edit_" ~ admin.getParent().label ~ '_' ~ admin.label %}
-        {{ title_edit|trans({'%name%': admin.subject}, admin.translationDomain) }}
-    {% elseif object is defined and admin.id(object) is not null %}
-        {% set title_edit = "tab_menu.title_edit_" ~ admin.label %}
-        {{ title_edit|trans({'%name%': admin.subject }, admin.translationDomain) }}
-    {% elseif action == 'create' %}
-        {{ "tab_menu.title_create"|trans({}, admin.translationDomain) }}
-    {% else %}
-        {% set title_action = "tab_menu.title_" ~ admin.label ~ '_' ~ action  %}
-        {{ title_action|trans({}, admin.translationDomain) }}
+    {% if admin is defined %}
+        {% if object is defined and admin.id(object) is not null and admin.isChild() %}
+            {% set title_edit = "tab_menu.title_edit_" ~ admin.getParent().label ~ '_' ~ admin.label %}
+            {{ title_edit|trans({'%name%': admin.subject}, admin.translationDomain) }}
+        {% elseif object is defined and admin.id(object) is not null %}
+            {% set title_edit = "tab_menu.title_edit_" ~ admin.label %}
+            {{ title_edit|trans({'%name%': admin.subject }, admin.translationDomain) }}
+        {% elseif action == 'create' %}
+            {{ "tab_menu.title_create"|trans({}, admin.translationDomain) }}
+        {% else %}
+            {% set title_action = "tab_menu.title_" ~ admin.label ~ '_' ~ action  %}
+            {{ title_action|trans({}, admin.translationDomain) }}
+        {% endif %}
     {% endif %}
 {% endblock %}
 
@@ -19,10 +21,16 @@
     {{ block('title') }}
 {% endblock %}
 
-{% block tab_menu %}{{ knp_menu_render(admin.sidemenu(action), {'currentClass' : 'active', 'template': sonata_admin.adminPool.getTemplate('tab_menu_template')}, 'twig') }}{% endblock %}
+{% block tab_menu %}
+    {% if admin is defined %}
+        {{ knp_menu_render(admin.sidemenu(action), {'currentClass' : 'active', 'template': sonata_admin.adminPool.getTemplate('tab_menu_template')}, 'twig') }}
+    {% endif %}
+{% endblock %}
 
 {%- block actions -%}
-    {% include 'SonataAdminBundle:CRUD:action_buttons.html.twig' %}
+    {% if admin is defined %}
+        {% include 'SonataAdminBundle:CRUD:action_buttons.html.twig' %}
+    {% endif %}
 {%- endblock -%}
 
 {% block content %}

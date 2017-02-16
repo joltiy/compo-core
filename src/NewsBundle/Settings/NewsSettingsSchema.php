@@ -2,7 +2,7 @@
 
 namespace Compo\NewsBundle\Settings;
 
-use Compo\CoreBundle\Settings\BaseAdminSettingsSchema;
+use Compo\CoreBundle\Settings\BaseBundleAdminSettingsSchema;
 use Mopa\Bundle\BootstrapBundle\Form\Type\TabType;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 /**
  * {@inheritDoc}
  */
-class NewsSettingsSchema extends BaseAdminSettingsSchema
+class NewsSettingsSchema extends BaseBundleAdminSettingsSchema
 {
     /**
      * @param SettingsBuilderInterface $builder
