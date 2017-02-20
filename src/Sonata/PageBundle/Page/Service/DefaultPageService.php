@@ -27,67 +27,24 @@ use Symfony\Component\HttpFoundation\Response;
 class DefaultPageService extends \Sonata\PageBundle\Page\Service\DefaultPageService
 {
     /**
-     * @var TemplateManagerInterface
-     */
-    protected $templateManager;
-
-    /**
-     * @var SeoPageInterface
-     */
-    protected $seoPage;
-
-    /**
-     * Constructor.
-     *
-     * @param string $name Page service name
-     * @param TemplateManagerInterface $templateManager Template manager
-     * @param SeoPageInterface $seoPage SEO page object
-     */
-    public function __construct($name, TemplateManagerInterface $templateManager, SeoPageInterface $seoPage = null)
-    {
-        $this->name = $name;
-        $this->templateManager = $templateManager;
-        $this->seoPage = $seoPage;
-
-        parent::__construct($name, $templateManager);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function execute(PageInterface $page, Request $request, array $parameters = array(), Response $response = null)
-    {
-        $this->updateSeoPage($page);
-
-        $response = $this->templateManager->renderResponse($page->getTemplateCode(), $parameters, $response);
-
-        return $response;
-    }
-
-    /**
      * Updates the SEO page values for given page instance.
      *
      * @param PageInterface $page
      */
     protected function updateSeoPage(PageInterface $page)
     {
-        if (!$this->seoPage) {
-            return;
-        }
+        $this->seoPage->addTemplates('seo_page_internal', array(
+            'header' => '{{ page_internal.header }}',
+            'title' => '{{ page_internal.title }}',
+            'meta_keyword' => '{{ page_internal.metaKeyword }}',
+            'meta_description' => '{{ page_internal.metaDescription }}',
+            'description' => '{{ page_internal.description }}',
+        ));
 
-        if ($page->getTitle()) {
-            $this->seoPage->setTitle($page->getTitle() ?: $page->getName());
-        }
+        $this->seoPage->addVar('page_internal', $page);
 
-        if ($page->getMetaDescription()) {
-            $this->seoPage->addMeta('name', 'description', $page->getMetaDescription());
-        }
+        $this->seoPage->build();
 
-        if ($page->getMetaKeyword()) {
-            $this->seoPage->addMeta('name', 'keywords', $page->getMetaKeyword());
-        }
 
-        $this->seoPage->addMeta('property', 'og:type', 'article');
-        $this->seoPage->addHtmlAttributes('prefix', 'og: http://ogp.me/ns#');
     }
 }

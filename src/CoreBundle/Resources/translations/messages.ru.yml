@@ -166,9 +166,9 @@ form.label_settings_seo_items_meta_keyword: 'Meta Keywords'
 form.label_settings_seo_items_meta_description: 'Meta Description'
 
 
-form.label_settings_seo_vars: 'SEO перменные'
+form.label_settings_seo_vars: 'Перменные'
 
-form.label_seo_vars: 'SEO перменные'
+form.label_seo_vars: 'Перменные'
 
 enabledOn: 'Включить'
 enabledOff: 'Выключить'

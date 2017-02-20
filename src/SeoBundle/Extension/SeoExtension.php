@@ -74,14 +74,14 @@ class SeoExtension extends AbstractAdminExtension
             ->tab('form.tab_seo')
             ->with('form.tab_seo_main')
             ->add('slug', 'text', array('required' => false))
-            ->add('header', 'text', array('required' => false))
             ->add('noIndexEnabled', 'checkbox', array('required' => false))
             ->end()
             ->with('form.tab_seo_meta')
-            ->add('title', 'text', array('required' => false))
-            ->add('metaKeyword', 'text', array('required' => false))
-            ->add('metaDescription', 'text', array('required' => false))
-            ->add('seo_vars', SeoVarsType::class, array(
+            ->add('header', 'textarea', array('required' => false))
+            ->add('title', 'textarea', array('required' => false))
+            ->add('metaDescription', 'textarea', array('required' => false))
+            ->add('metaKeyword', 'textarea', array('required' => false))
+            ->add('seoVars', SeoVarsType::class, array(
                 'mapped' => false,
                 'required' => false,
                 'by_reference' => false,

@@ -1,0 +1,17 @@
+services:
+#    compo_redirect.example:
+#        class: Compo\RedirectBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+
+    kernel.listener.logged_in_user_listener:
+            class: Compo\RedirectBundle\Listener\RedirectListener
+            tags:
+                - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+            arguments: [ '@router', '@service_container' ]
+
+    compo_redirect.admin.redirect:
+        class: Compo\RedirectBundle\Admin\RedirectAdmin
+        arguments: [~, Compo\RedirectBundle\Entity\Redirect, CompoRedirectBundle:RedirectAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: redirect, label_translator_strategy: sonata.admin.label.strategy.underscore }

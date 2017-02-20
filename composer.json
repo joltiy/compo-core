@@ -17,6 +17,7 @@
       "Compo\\ArticlesBundle\\": "src/ArticlesBundle",
       "Compo\\NewsBundle\\": "src/NewsBundle",
       "Compo\\SmsProviderBundle\\": "src/SmsProviderBundle",
+      "Compo\\RedirectBundle\\": "src/RedirectBundle",
 
       "Compo\\Sonata\\": "src/Sonata",
       "Pix\\SortableBehaviorBundle\\": "src/PixSortableBehaviorBundle"

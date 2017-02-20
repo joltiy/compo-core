@@ -254,12 +254,64 @@ class AbstractAdmin extends BaseAdmin
      */
     public function configureActionButtons($action, $object = null)
     {
-        $list = parent::configureActionButtons($action, $object);
+        $list = array();
 
-        unset($list['show']);
+        if (in_array($action, array('create', 'acl', 'history', 'tree', 'show', 'edit', 'delete', 'list', 'batch', 'settings'))
+            && $this->hasAccess('create')
+            && $this->hasRoute('create')
+        ) {
+            $list['create'] = array(
+                'template' => $this->getTemplate('button_create'),
+            );
+        }
+
+        if (in_array($action, array('edit', 'show', 'delete', 'acl', 'history'))
+            && $this->canAccessObject('edit', $object)
+            && $this->hasRoute('edit')
+        ) {
+            $list['edit'] = array(
+                'template' => $this->getTemplate('button_edit'),
+            );
+        }
+
+        if (in_array($action, array('history', 'show', 'edit', 'acl'))
+            && $this->canAccessObject('history', $object)
+            && $this->hasRoute('history')
+        ) {
+            $list['history'] = array(
+                'template' => $this->getTemplate('button_history'),
+            );
+        }
+
+        if (in_array($action, array('acl', 'edit', 'history'))
+            && $this->isAclEnabled()
+            && $this->canAccessObject('acl', $object)
+            && $this->hasRoute('acl')
+        ) {
+            $list['acl'] = array(
+                'template' => $this->getTemplate('button_acl'),
+            );
+        }
+
+        if (in_array($action, array('create', 'list', 'tree', 'history', 'show', 'edit', 'delete', 'acl', 'batch', 'settings'))
+            && $this->hasAccess('list')
+            && $this->hasRoute('list')
+        ) {
+            $list['list'] = array(
+                'template' => $this->getTemplate('button_list'),
+            );
+        }
+
+        if (
+            in_array($action, array('settings', 'batch', 'tree', 'list'))
+            && $this->hasAccess('acl') && $this->hasRoute('settings')
+        ) {
+            $list['settings'] = array(
+                'template' => $this->getTemplate('button_settings')
+            );
+        }
 
         return $list;
-
     }
 
     /**
