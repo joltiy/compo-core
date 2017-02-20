@@ -35,9 +35,9 @@ sonata_admin:
     show_mosaic_button:   false
 
     templates:
-        layout:  SonataAdminBundle::standard_layout.html.twig
+        layout:  CompoSonataAdminBundle::standard_layout_compo.html.twig
         ajax:    SonataAdminBundle::ajax_layout.html.twig
-        list:    SonataAdminBundle:CRUD:list.html.twig
+        list:    CompoSonataAdminBundle:CRUD:list.html.twig
         show:    SonataAdminBundle:CRUD:show.html.twig
         edit:    SonataAdminBundle:CRUD:edit.html.twig
 
