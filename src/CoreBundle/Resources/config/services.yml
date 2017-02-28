@@ -53,3 +53,11 @@ services:
             - { name: sonata.block }
         calls:
             - [ setContainer, ['@service_container']]
+
+
+    compo_core.block.service.banners:
+        class: Compo\CoreBundle\Block\BannersBlockService
+        parent: compo_core.abstract_container_aware
+        arguments: [~, "@templating"]
+        tags:
+            - { name: sonata.block }

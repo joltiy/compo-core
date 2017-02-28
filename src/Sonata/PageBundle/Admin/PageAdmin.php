@@ -72,7 +72,7 @@ class PageAdmin extends AbstractAdmin
         $collection->add('tree', 'tree');
 
 
-        $this->setTemplate('tree', 'CompoSonataPageBundle:CRUD:tree.html.twig');
+        $this->setTemplate('tree', 'CompoSonataPageBundle:CRUD:tree_page.html.twig');
     }
 
     /**
@@ -239,6 +239,41 @@ class PageAdmin extends AbstractAdmin
 
             $query->setParameter('routeName', 'page_slug');
         }
+
+        $query->andWhere(
+            $query->expr()->notLike($query->getRootAliases()[0] . '.routeName', ':routeNameNotLikeFosUser')
+        );
+        $query->setParameter('routeNameNotLikeFosUser', 'fos\_user\_%');
+
+
+        $query->andWhere(
+            $query->expr()->notLike($query->getRootAliases()[0] . '.routeName', ':routeNameNotLikeFosJs')
+        );
+        $query->setParameter('routeNameNotLikeFosJs', 'fos\_js\_%');
+
+
+        $query->andWhere(
+            $query->expr()->notLike($query->getRootAliases()[0] . '.routeName', ':routeNameNotLikeSonataMedia')
+        );
+        $query->setParameter('routeNameNotLikeSonataMedia', 'sonata\_media\_%');
+
+        $query->andWhere(
+            $query->expr()->notLike($query->getRootAliases()[0] . '.routeName', ':routeNameNotLikeSonataPage')
+        );
+        $query->setParameter('routeNameNotLikeSonataPage', 'sonata\_page\_%');
+
+        $query->andWhere(
+            $query->expr()->notLike($query->getRootAliases()[0] . '.routeName', ':routeNameNotLikeSonataCache')
+        );
+        $query->setParameter('routeNameNotLikeSonataCache', 'sonata\_cache\_%');
+
+
+
+
+        $query->andWhere(
+            $query->expr()->notLike($query->getRootAliases()[0] . '.url', ':urlNotAdmin')
+        );
+        $query->setParameter('urlNotAdmin', '/\_%');
 
 
         return $query;

@@ -240,7 +240,7 @@
         add: function (data) {
             var self = this;
 
-            var url = Routing.generate('compo_basket_add_product');
+            var url = Routing.generate('compo_basket_product_add');
 
             $.post(
                 url,
@@ -287,7 +287,7 @@
             var self = this;
 
             $.post(
-                Routing.generate('compo_basket_delete_product'),
+                Routing.generate('compo_basket_product_delete'),
                 {
                     id: data.item.id,
                     type: data.item.type
@@ -303,7 +303,7 @@
         changeQuantity: function (data) {
             var self = this;
 
-            var url = Routing.generate('compo_basket_recount_product');
+            var url = Routing.generate('compo_basket_product_recount');
 
             $.get(
                 url,

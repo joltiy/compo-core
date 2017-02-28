@@ -32,15 +32,17 @@ class ArticlesAdmin extends AbstractAdmin
     {
         $list = array();
 
+        $routeGenerator = $this->getRouteGenerator();
+
         if (in_array($action, array('history', 'acl', 'show', 'delete', 'edit'))) {
             $list['show_on_site'] = array(
                 'template' => $this->getTemplate('button_show_on_site'),
-                'uri' => $this->getRouteGenerator()->generate('compo_articles_show_by_slug', array('slug' => $this->getSubject()->getSlug()))
+                'uri' => $routeGenerator->generate('compo_articles_show_by_slug', array('slug' => $this->getSubject()->getSlug()))
             );
         } else {
             $list['show_on_site'] = array(
                 'template' => $this->getTemplate('button_show_on_site'),
-                'uri' => $this->getRouteGenerator()->generate('compo_articles_index', array())
+                'uri' => $routeGenerator->generate('compo_articles_index', array())
             );
         }
 

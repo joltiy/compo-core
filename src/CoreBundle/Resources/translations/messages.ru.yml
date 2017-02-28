@@ -209,3 +209,4 @@ flash_batch_delete_error: 'При уадалении возникла ошибк
 flash_batch_empty: 'Ничего не выбрано для пакетного действия'
 
 tab_menu.title_core_settings_list: 'Настройки'
+sonata_page_admin_page: 'Страницы'

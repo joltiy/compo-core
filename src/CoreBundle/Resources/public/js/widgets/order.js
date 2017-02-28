@@ -341,7 +341,7 @@
                 var title = $('option:selected', $(this)).text().trim();
 
                 $.post(
-                    Routing.generate('compo_basket_setpayment'),
+                    Routing.generate('compo_basket_payment_set'),
                     {
                         id: pid
                     },
@@ -373,7 +373,7 @@
                 var title = $('option:selected', $(this)).text().trim();
 
                 $.post(
-                    Routing.generate('compo_basket_setdelivery'),
+                    Routing.generate('compo_basket_delivery_set'),
                     {
                         id: pid
                     },

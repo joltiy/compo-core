@@ -38,7 +38,7 @@ class AppKernel extends Kernel
 
             new \FOS\UserBundle\FOSUserBundle(),
             new \FOS\RestBundle\FOSRestBundle(),
-            new \FOS\CommentBundle\FOSCommentBundle(),
+            //new \FOS\CommentBundle\FOSCommentBundle(),
             new \FOS\ElasticaBundle\FOSElasticaBundle(),
             new \FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 
@@ -59,7 +59,7 @@ class AppKernel extends Kernel
             new \Sonata\MediaBundle\SonataMediaBundle(),
             new \Sonata\AdminBundle\SonataAdminBundle(),
             new \Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
-            new \Sonata\CommentBundle\SonataCommentBundle(),
+            //new \Sonata\CommentBundle\SonataCommentBundle(),
             new \Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
             new \Sonata\CoreBundle\SonataCoreBundle(),
             new \Sonata\IntlBundle\SonataIntlBundle(),
@@ -78,7 +78,7 @@ class AppKernel extends Kernel
 
             new \Compo\Sonata\AdminBundle\CompoSonataAdminBundle(),
             new \Compo\Sonata\ClassificationBundle\CompoSonataClassificationBundle(),
-            new \Compo\Sonata\CommentBundle\CompoSonataCommentBundle(),
+            //new \Compo\Sonata\CommentBundle\CompoSonataCommentBundle(),
             new \Compo\Sonata\CoreBundle\CompoSonataCoreBundle(),
             new \Compo\Sonata\MediaBundle\CompoSonataMediaBundle(),
             new \Compo\Sonata\NotificationBundle\CompoSonataNotificationBundle(),

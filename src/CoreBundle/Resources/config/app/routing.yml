@@ -25,6 +25,9 @@ sonata_user_change_password:
     resource: "@SonataUserBundle/Resources/config/routing/sonata_change_password_1.xml"
     prefix: /profile
 
+
+
+
 sonata_cache_cache:
     resource: '@SonataCacheBundle/Resources/config/routing/cache.xml'
     prefix: /
@@ -48,11 +51,11 @@ sonata_media_media:
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
-fos_comment:
-    type: rest
-    resource: "@FOSCommentBundle/Resources/config/routing.yml"
-    prefix: /comments
-    defaults: { _format: html }
+#fos_comment:
+#    type: rest
+#    resource: "@FOSCommentBundle/Resources/config/routing.yml"
+#    prefix: /comments
+#    defaults: { _format: html }
 
 _admin:
     resource: routing_admin.yml
