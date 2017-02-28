@@ -35,3 +35,6 @@ tab_menu:
     title_articles_edit: 'Статья: %name%'
     title_articles_list: Статьи
     title_articles_settings: 'Настройки статей'
+
+block:
+  title_articles_last: 'Последнии статьи'

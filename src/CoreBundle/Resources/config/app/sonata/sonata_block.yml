@@ -33,7 +33,6 @@ sonata_block:
 
         compo_core.block.service.news_with_articles_last:
         compo_news.block.service.news_last:
-        compo_articles.block.service.articles_last:
         compo_core.block.service.banners:
 
         # PageBundle's Blocks

@@ -11,6 +11,7 @@
 
 namespace Compo\CoreBundle\Block;
 
+use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\BlockBundle\Block\Service\AbstractBlockService;
@@ -26,46 +27,39 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class NewsWithArticlesLastBlockService extends AbstractBlockService
 {
-    /**
-     * @var Container
-     */
-    public $container;
+    use ContainerAwareTrait;
 
-    /**
-     * @return mixed
-     */
-    public function getContainer()
+    public function postPersist($object)
     {
-        return $this->container;
-    }
-    public function postPersist($object) {
-
-    }
-    public function prePersist($object) {
 
     }
 
-    public function preRemove($object) {
-
-    }
-    public function postRemove($object) {
-
-    }
-
-    public function preUpdate($object) {
-
-    }
-    public function postUpdate($object) {
-
-    }
-
-    /**
-     * @param mixed $container
-     */
-    public function setContainer($container)
+    public function prePersist($object)
     {
-        $this->container = $container;
+
     }
+
+    public function preRemove($object)
+    {
+
+    }
+
+    public function postRemove($object)
+    {
+
+    }
+
+    public function preUpdate($object)
+    {
+
+    }
+
+    public function postUpdate($object)
+    {
+
+    }
+
+    
 
     public function validateBlock(ErrorElement $errorElement, BlockInterface $block)
     {

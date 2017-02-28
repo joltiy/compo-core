@@ -55,6 +55,16 @@ class ArticlesManager extends BaseEntityManager
             $page,
             $limit
         );
+
         return $pagination;
     }
+
+    public function findLastPublications($limit = 5) {
+        /** @var ArticlesRepository $repository */
+        $repository = $this->getRepository();
+
+        return $repository->findLastPublications($limit);
+    }
+
+
 }

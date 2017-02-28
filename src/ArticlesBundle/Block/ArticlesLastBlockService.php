@@ -3,10 +3,9 @@
 namespace Compo\ArticlesBundle\Block;
 
 use Compo\ArticlesBundle\Repository\ArticlesRepository;
-use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
+use Compo\Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Block\BlockContextInterface;
-use Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Sonata\BlockBundle\Model\BlockInterface;
 use Sonata\CoreBundle\Model\Metadata;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,39 +16,40 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class ArticlesLastBlockService extends AbstractBlockService
 {
-    use ContainerAwareTrait;
-
     /**
      * {@inheritdoc}
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
-        $em = $this->getContainer()->get("doctrine")->getManager();
+        $container = $this->getContainer();
 
-        /** @var ArticlesRepository $repository */
-        $repository = $em->getRepository("CompoArticlesBundle:Articles");
+        $articlesManager = $container->get("compo_articles.manager.articles");
 
-        $publications = $repository->findLastPublications();
+        $settigs = $blockContext->getSettings();
+        $block = $blockContext->getBlock();
+        $template = $blockContext->getTemplate();
+        $publications = $articlesManager->findLastPublications($settigs['limit']);
 
-        return $this->renderResponse($blockContext->getTemplate(), array(
+        return $this->renderResponse($template, array(
             'articles' => $publications,
-            'block' => $blockContext->getBlock(),
-            'settings' => $blockContext->getSettings(),
+            'block' => $block,
+            'settings' => $settigs,
         ), $response);
     }
 
     /**
-     * {@inheritdoc}
+     * @param FormMapper $formMapper
+     * @param BlockInterface $block
      */
-    public function buildEditForm(FormMapper $formMapper, BlockInterface $block)
+    public function buildForm(FormMapper $formMapper, BlockInterface $block)
     {
         $formMapper->add('settings', 'sonata_type_immutable_array', array(
             'keys' => array(
-                array('class', 'text', array('required' => false)),
-                array('template', 'text', array('required' => false)),
+                array('limit', 'integer', array('required' => true)),
             ),
         ));
     }
+
 
     /**
      * {@inheritdoc}
@@ -57,7 +57,7 @@ class ArticlesLastBlockService extends AbstractBlockService
     public function configureSettings(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'class' => '',
+            'limit' => 5,
             'template' => 'CompoArticlesBundle:Block:articles_last.html.twig',
         ));
     }
@@ -67,7 +67,7 @@ class ArticlesLastBlockService extends AbstractBlockService
      */
     public function getBlockMetadata($code = null)
     {
-        return new Metadata('Последнии статьи', (!is_null($code) ? $code : $this->getName()), false, 'SonataBlockBundle', array(
+        return new Metadata('block.title_articles_last', $this->getName(), false, 'CompoArticlesBundle', array(
             'class' => 'fa fa-file-text-o',
         ));
     }
