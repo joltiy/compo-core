@@ -2,7 +2,6 @@
 
 namespace Compo\ArticlesBundle\Controller;
 
-use Compo\ArticlesBundle\Entity\Articles;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
@@ -12,25 +11,23 @@ class ArticlesController extends Controller
 {
     /**
      * Lists all article entities.
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction()
     {
-        $compo_articles_settings = $this->get('sylius.settings.manager')->load('compo_articles');
-
+        $manager = $this->get('compo_articles.manager.articles');
         $seoPage = $this->get('sonata.seo.page');
-
-        $seoPage->addTemplates('articles', array(
-            'header' => $compo_articles_settings->get('seo_header'),
-            'title' => $compo_articles_settings->get('seo_title'),
-            'meta_keyword' => $compo_articles_settings->get('seo_meta_keyword'),
-            'meta_description' => $compo_articles_settings->get('seo_meta_description'),
-        ));
-
-        $seoPage->build();
-
         $request = $this->get('request');
 
-        $pager = $this->get('compo_articles.manager.articles')->getPager(array(), $request->get('page', 1));
+        $page = $request->get('page', 1);
+
+        $pager = $manager->getPager(array(), $page);
+
+        $seoPage->setContext('compo_articles');
+        $seoPage->addVar('page', $page);
+        $seoPage->addVar('total_pages', $pager->getPageCount());
+
+        $seoPage->build();
 
         return $this->render('@CompoArticles/Articles/index.html.twig', array(
             'pager' => $pager,
@@ -43,35 +40,23 @@ class ArticlesController extends Controller
      */
     public function showBySlugAction($slug)
     {
-        $em = $this->getDoctrine()->getManager();
+        $articlesRepository = $this->getDoctrine()->getRepository('CompoArticlesBundle:Articles');
 
-        /** @var Articles $article */
-        $article = $em->getRepository('CompoArticlesBundle:Articles')->findBySlug($slug);
+        $article = $articlesRepository->findBySlug($slug);
 
         if (!$article) {
             throw $this->createNotFoundException('compo_articles.exception.not_found_article');
         }
 
-        $compo_articles_settings = $this->get('sylius.settings.manager')->load('compo_articles');
+        $article->setViews(652557);
+
+        $this->getDoctrine()->getManager()->persist($article);
+        $this->getDoctrine()->getManager()->flush();
 
         $seoPage = $this->get('sonata.seo.page');
 
-        $seoPage->addTemplates('articles_items', array(
-            'header' => $compo_articles_settings->get('seo_items_header'),
-            'title' => $compo_articles_settings->get('seo_items_title'),
-            'meta_keyword' => $compo_articles_settings->get('seo_items_meta_keyword'),
-            'meta_description' => $compo_articles_settings->get('seo_items_meta_description'),
-        ));
-
-        $seoPage->addTemplates('article', array(
-            'header' => $article->getHeader(),
-            'title' => $article->getTitle(),
-            'meta_keyword' => $article->getMetaKeyword(),
-            'meta_description' => $article->getMetaDescription(),
-        ));
-
+        $seoPage->setContext('compo_articles');
         $seoPage->addVar('article', $article);
-
         $seoPage->build();
 
         return $this->render('@CompoArticles/Articles/show.html.twig', array(

@@ -2,6 +2,8 @@
 
 namespace Compo\SeoBundle;
 
+use Compo\SeoBundle\Compiler\SeoServicePass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
@@ -9,4 +11,8 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class CompoSeoBundle extends Bundle
 {
+    public function build(ContainerBuilder $container)
+    {
+        $container->addCompilerPass(new SeoServicePass());
+    }
 }

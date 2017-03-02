@@ -16,25 +16,21 @@ class ArticlesBreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
     /**
      * {@inheritdoc}
      */
-    public function getName()
-    {
-        return 'compo_articles.block.breadcrumb';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     protected function getMenu(BlockContextInterface $blockContext)
     {
-        $menu = $this->getRootMenu($blockContext);
+        $container = $this->getContainer();
+
+        $router = $container->get('router');
 
         $block = $blockContext->getBlock();
+
+        $menu = $this->getRootMenu($blockContext);
 
         $article = $block->getSetting('article');
 
         if ($article) {
-            $menu->addChild('articles', array(
-                'uri' => $this->getContainer()->get('router')->generate('compo_articles_index'),
+            $menu->addChild('breadcrumb.articles', array(
+                'uri' => $router->generate('compo_articles_index'),
                 'label' => 'breadcrumb.articles',
                 'extras' => array(
                     'translation_domain' => 'CompoArticlesBundle'
@@ -45,7 +41,7 @@ class ArticlesBreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
                 'label' => $article->getName()
             ));
         } else {
-            $menu->addChild('all', array(
+            $menu->addChild('breadcrumb.articles', array(
                 'label' => 'breadcrumb.articles',
                 'extras' => array(
                     'translation_domain' => 'CompoArticlesBundle'

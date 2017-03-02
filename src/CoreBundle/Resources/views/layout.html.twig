@@ -2,7 +2,7 @@
 Базовый шаблон для всех страниц сайта
 #}
 
-{% set compo_core_settings = sylius_settings('compo_core_settings') %}
+{%- set compo_core_settings = sylius_settings('compo_core_settings') -%}
 
 <!DOCTYPE html>
 <html {{ sonata_seo_html_attributes() }}>
@@ -14,6 +14,10 @@
         {{ sonata_seo_title() }}
 
         {{ sonata_seo_metadatas() }}
+
+        {{ sonata_seo_link_canonical() }}
+        {{ sonata_seo_link_next() }}
+        {{ sonata_seo_link_prev() }}
 
         {% block stylesheets %}
             {% stylesheets

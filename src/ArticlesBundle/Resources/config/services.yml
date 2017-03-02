@@ -18,8 +18,8 @@ services:
 
     compo_articles.block.breadcrumb:
         class: Compo\ArticlesBundle\Block\ArticlesBreadcrumbBlockService
+        arguments: ["compo_articles", compo_articles.block.breadcrumb, "@templating", "@knp_menu.menu_provider", "@knp_menu.factory"]
         parent: compo_core.abstract_container_aware
-        arguments: ['articles', compo_articles.block.breadcrumb, "@templating", "@knp_menu.menu_provider", "@knp_menu.factory"]
         tags:
             - { name: sonata.block }
             - { name: sonata.breadcrumb }
@@ -30,3 +30,9 @@ services:
         parent: compo_core.abstract_container_aware
         tags:
             - { name: sonata.block }
+
+    compo_articles.seo.service:
+        class: Compo\ArticlesBundle\Seo\ArticlesSeoService
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: compo.seo_service, alias: "compo_articles", context: "compo_articles" }

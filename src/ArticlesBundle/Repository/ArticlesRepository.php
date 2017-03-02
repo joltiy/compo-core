@@ -2,6 +2,8 @@
 
 namespace Compo\ArticlesBundle\Repository;
 
+use Compo\ArticlesBundle\Entity\Articles;
+
 /**
  * ArticlesRepository
  *
@@ -12,7 +14,7 @@ class ArticlesRepository extends \Doctrine\ORM\EntityRepository
 {
     /**
      * @param $slug
-     * @return null
+     * @return Articles
      */
     public function findBySlug($slug)
     {

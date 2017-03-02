@@ -35,16 +35,14 @@ class DefaultPageService extends \Sonata\PageBundle\Page\Service\DefaultPageServ
     {
         $this->seoPage->addTemplates('seo_page_internal', array(
             'header' => '{{ page_internal.header }}',
+            'description' => '{{ page_internal.description }}',
             'title' => '{{ page_internal.title }}',
             'meta_keyword' => '{{ page_internal.metaKeyword }}',
             'meta_description' => '{{ page_internal.metaDescription }}',
-            'description' => '{{ page_internal.description }}',
         ));
 
         $this->seoPage->addVar('page_internal', $page);
 
         $this->seoPage->build();
-
-
     }
 }

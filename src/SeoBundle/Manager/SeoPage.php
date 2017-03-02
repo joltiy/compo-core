@@ -4,12 +4,27 @@ namespace Compo\SeoBundle\Manager;
 
 
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
+use Compo\SeoBundle\Service\BaseService;
 
 class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
 {
 
     use ContainerAwareTrait;
 
+
+    public $services = array();
+
+    public $context = 'default';
+
+    /**
+     * @var string
+     */
+    protected $linkNext;
+
+    /**
+     * @var string
+     */
+    protected $linkPrev;
 
     /**
      * @var array
@@ -42,6 +57,52 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
     /**
      * @return string
      */
+    public function getLinkNext()
+    {
+        return $this->linkNext;
+    }
+
+    /**
+     * @param string $linkNext
+     */
+    public function setLinkNext($linkNext)
+    {
+        $this->linkNext = $linkNext;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLinkPrev()
+    {
+        return $this->linkPrev;
+    }
+
+    /**
+     * @param string $linkPrev
+     */
+    public function setLinkPrev($linkPrev)
+    {
+        $this->linkPrev = $linkPrev;
+    }
+
+
+    /**
+     * @param $service BaseService
+     * @param $alias
+     * @param $context
+     */
+    public function addService($service, $alias, $context) {
+        $this->services[$alias] = $service;
+        $service->setAlias($alias);
+        $service->setContext($context);
+
+        $service->setSeoPage($this);
+    }
+
+    /**
+     * @return string
+     */
     public function getDescription()
     {
         return $this->description;
@@ -54,9 +115,6 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
     {
         $this->description = $description;
     }
-
-
-
 
     /**
      * @return string
@@ -84,14 +142,7 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
 
     public function loadVars()
     {
-        $container = $this->getContainer();
 
-        $sites = $this->getContainer()->get('sonata.page.manager.site')->findAll();
-
-        foreach ($sites as $site) {
-            /** @var $site Site */
-            $this->vars['site'] = $site;
-        }
     }
 
     public function addVar($name, $value)
@@ -112,7 +163,21 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
      */
     public function getVars()
     {
+        if ($this->getContainer()->get('request')->get('_route') == 'page_slug') {
+            $this->setContext('page');
+        }
+
+        $this->vars['context'] = $this->getContext();
+
         return $this->vars;
+    }
+
+    public function getVar($name, $default = null) {
+        if (isset($this->vars[$name])) {
+            return $this->vars[$name];
+        } else {
+            return $default;
+        }
     }
 
     /**
@@ -129,8 +194,42 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         $this->templates[$name] = $templates;
     }
 
+    /**
+     * @return string
+     */
+    public function getContext()
+    {
+        return $this->context;
+    }
+
+    /**
+     * @param string $context
+     */
+    public function setContext($context)
+    {
+        $this->context = $context;
+    }
+
+    /**
+     * @return array
+     */
+    public function getServices()
+    {
+        return $this->services;
+    }
+
+    /**
+     * @param array $services
+     */
+    public function setServices($services)
+    {
+        $this->services = $services;
+    }
+
 
     public function build() {
+
+        $this->addHtmlAttributes('lang', 'ru');
 
         $container = $this->getContainer();
 
@@ -138,7 +237,27 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
 
         $this->addVar('site', $site);
 
+        $context = $this->getContext();
+
+        $request = $container->get('request');
+
+        $route = $request->get('_route');
+
+        foreach ($this->services as $service) {
+
+            if ($service->handleContext($context) || $service->handleContext($route)) {
+                $service->buildTemplates();
+
+                $serviceVars = $service->getVars();
+
+                foreach ($serviceVars as $serviceVarsItem => $serviceVarsItem) {
+                    $this->addVar($serviceVarsItem, $serviceVarsItem);
+                }
+            }
+        }
+
         $templates = array_reverse($this->templates);
+
 
         $header = '';
         $description = '';
@@ -167,7 +286,6 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
             }
         }
 
-
         // Чистка keywords
         $keywords_tmp = explode(',', $meta_keyword);
 
@@ -186,9 +304,11 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
 
         $meta_keyword = trim(implode(',', array_unique($keywords_tmp)));
 
+
         if ($header) {
             $this->setHeader($header);
         }
+
         if ($description) {
             $this->setDescription($description);
         }
@@ -204,8 +324,6 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         if ($meta_keyword) {
             $this->addMeta('name', 'keywords', $meta_keyword);
         }
-
-
     }
 
 
@@ -234,6 +352,8 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         $result = str_replace(' ,', ',', $result);
         $result = str_replace(' .', '.', $result);
         $result = str_replace('( )', '', $result);
+
+        $result = trim($result, ',.:');
 
         // Удалить два и более пробела
         $result = trim(preg_replace('/ {2,}/im', ' ', $result));

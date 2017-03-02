@@ -2,6 +2,7 @@
 
 namespace Compo\ArticlesBundle\Admin;
 
+use Compo\ArticlesBundle\Entity\Articles;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -32,17 +33,15 @@ class ArticlesAdmin extends AbstractAdmin
     {
         $list = array();
 
-        $routeGenerator = $this->getRouteGenerator();
-
         if (in_array($action, array('history', 'acl', 'show', 'delete', 'edit'))) {
             $list['show_on_site'] = array(
                 'template' => $this->getTemplate('button_show_on_site'),
-                'uri' => $routeGenerator->generate('compo_articles_show_by_slug', array('slug' => $this->getSubject()->getSlug()))
+                'uri' => $this->generatePermalink($this->getSubject())
             );
         } else {
             $list['show_on_site'] = array(
                 'template' => $this->getTemplate('button_show_on_site'),
-                'uri' => $routeGenerator->generate('compo_articles_index', array())
+                'uri' => $this->generatePermalink()
             );
         }
 
@@ -61,6 +60,7 @@ class ArticlesAdmin extends AbstractAdmin
             ->add('name')
             ->add('description')
             ->add('enabled')
+            ->add('views')
             ->add('createdAt')
             ->add('updatedAt')
             ->add('publicationAt');
@@ -75,12 +75,14 @@ class ArticlesAdmin extends AbstractAdmin
             ->add('id')
             ->addIdentifier('publicationAt')
             ->addIdentifier('name')
+            ->add('views')
+
             ->add('enabled')
             ->add('_action', null, array(
                 'actions' => array(
                     'edit' => array(),
                     'delete' => array(),
-                    'show_on_site' => array('template' => 'CompoArticlesBundle:Admin:list__action_show_on_site.html.twig'),
+                    'show_on_site' => array(),
                 )
             ));
     }
@@ -98,6 +100,7 @@ class ArticlesAdmin extends AbstractAdmin
             ->add('name')
             ->add('description')
             ->add('body')
+            ->add('views')
             ->end()
             ->with('form.group_image', array('name' => false, 'class' => 'col-lg-6'))
             ->add('image', 'sonata_type_model_list')
@@ -118,5 +121,20 @@ class ArticlesAdmin extends AbstractAdmin
             ->add('createdAt')
             ->add('updatedAt')
             ->add('publicationAt');
+    }
+
+    /**
+     * @param $object Articles
+     * @return string
+     */
+    public function generatePermalink($object = null)
+    {
+        $manager = $this->getContainer()->get('compo_articles.manager.articles');
+
+        if (is_null($object)) {
+            return $manager->getArticlesIndexPermalink();
+        } else {
+            return $manager->getArticleShowPermalink($object);
+        }
     }
 }

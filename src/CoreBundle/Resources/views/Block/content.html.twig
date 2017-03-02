@@ -19,15 +19,8 @@
                         <div class="col-sm-12 col-md-12 col-lg-12">
                             {% block breadcrumb %}
                                 {% if app.request.requestUri != '/' %}
-                                    {% if sonata_seo_context is not defined %}
-                                        {% if app.request.get('_route') == 'page_slug' %}
-                                            {% set sonata_seo_context = 'page' %}
-                                        {% else %}
-                                            {% set sonata_seo_context = app.request.get('_route') %}
-                                        {% endif %}
-                                    {% endif %}
-
-                                    {{ sonata_block_render_event('breadcrumb', { 'context': sonata_seo_context, 'current_uri': app.request.requestUri }) }}
+                                    {% set sonata_seo_vars = seo_page.getVars() %}
+                                    {{ sonata_block_render_event('breadcrumb', sonata_seo_vars) }}
                                 {% endif %}
                             {% endblock %}
 

@@ -18,18 +18,12 @@ class Articles
     use \Compo\Sonata\AdminBundle\Entity\DescriptionEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\ImageEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\BodyEntityTrait;
+    use \Compo\Sonata\AdminBundle\Entity\ViewsEntityTrait;
 
     use \Compo\SeoBundle\Entity\Traits\SeoEntity;
 
     use \Gedmo\Timestampable\Traits\TimestampableEntity;
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
-
-    /**
-     * @var \DateTime
-     * @ORM\Column(type="datetime")
-     */
-    protected $publicationAt;
-
 
     /**
      * @var int
@@ -38,11 +32,25 @@ class Articles
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(type="datetime")
+     */
+    protected $publicationAt;
 
     public function __construct()
     {
         $this->publicationAt = new \DateTime();
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     /**

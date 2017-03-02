@@ -210,3 +210,8 @@ flash_batch_empty: 'Ничего не выбрано для пакетного �
 
 tab_menu.title_core_settings_list: 'Настройки'
 sonata_page_admin_page: 'Страницы'
+
+
+form.label_limit: 'Лимит'
+
+form.label_views: 'Кол-во просмотров'
