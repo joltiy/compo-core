@@ -5,6 +5,7 @@ namespace Compo\CoreBundle\Settings;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Mopa\Bundle\BootstrapBundle\Form\Type\TabType;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -25,6 +26,7 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
             ->setDefaults(
                 [
                     'email' => 'info@example.com',
+                    'header_menu' => null,
 
                     'header_timework' => '<div><span>Пн-Пт 9&ndash;18, Сб 9&ndash;15, Вс Вых</span></div>',
                     'header_timework_description' => '<div>
@@ -39,6 +41,8 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
 <div>+7 (495) 727-75-73</div>
 <div>+7 (495) 003-12-29</div>
 </div>',
+
+                    'footer_menu' => null,
 
                     'footer_copyright' => '<div>
 <div>Copyright &copy; 2016.</div>
@@ -66,10 +70,14 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
                 [
                     'email' => ['string', 'NULL'],
 
+                    'header_menu' => array('null', 'integer', 'object'),
+
                     'header_timework' => ['string', 'NULL'],
                     'header_timework_description' => ['string', 'NULL'],
 
                     'header_phones' => ['string', 'NULL'],
+
+                    'footer_menu' => array('null', 'integer', 'object'),
 
                     'footer_copyright' => ['string', 'NULL'],
 
@@ -97,6 +105,10 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
             'inherit_data' => true,
         ));
 
+        $header_tab->add('header_menu', ChoiceType::class, array(
+            'choices' => $this->getMenuRepository()->getMenuChoices()
+        ));
+
         $header_tab->add('header_phones', CKEditorType::class);
         $header_tab->add('header_timework', CKEditorType::class);
         $header_tab->add('header_timework_description', CKEditorType::class);
@@ -107,6 +119,9 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
             'inherit_data' => true,
         ));
 
+        $footer_tab->add('footer_menu', ChoiceType::class, array(
+            'choices' => $this->getMenuRepository()->getMenuChoices()
+        ));
         $footer_tab->add('footer_copyright', CKEditorType::class);
         $footer_tab->add('footer_address', CKEditorType::class);
         $footer_tab->add('footer_phones', CKEditorType::class);
@@ -117,5 +132,20 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
             ->add($main_tab)
             ->add($header_tab)
             ->add($footer_tab);
+    }
+
+    /**
+     * @return \Doctrine\Bundle\DoctrineBundle\Registry|object
+     */
+    public function getDoctrine()
+    {
+        return $this->getContainer()->get('doctrine');
+    }
+    /**
+     * @return CurrencyRepository
+     */
+    public function getMenuRepository()
+    {
+        return $this->getDoctrine()->getRepository('CompoMenuBundle:Menu');
     }
 }

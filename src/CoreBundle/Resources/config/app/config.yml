@@ -1,3 +1,11 @@
+simple_things_entity_audit:
+    global_ignore_columns:
+        - created_at
+        - updated_at
+        - createdAt
+        - updatedAt
+        - views
+
 imports:
     - { resource: assetic.yml }
     - { resource: security.yml }

@@ -58,3 +58,6 @@ page.composer_update_saving: 'Обновление позиции блока'
 page.composer_update_saved: 'Позиция блока обновлена'
 page.composer_update_error: 'Ошибка обнвление блоков'
 page.composer_status_error: 'Ошибка обновление статуса блока'
+
+
+tab_menu.title_page_edit: 'Страница: %name%'

@@ -1,3 +1,5 @@
+{%- set compo_core_settings = sylius_settings('compo_core_settings') -%}
+
 <div id="header">
 
     {% block header_global %}
@@ -42,13 +44,14 @@
             </div>
         </div>
 
+
         <div class="col-lg-12 offcanvas">
             <div class="menu">
                 <nav class="navbar navbar-default ">
                     <div class="row">
                         <div class="col-sm-12 col-md-8 col-lg-8">
                             {{ sonata_block_render({ 'type': 'compo_menu.block.service.menu' }, {
-                                'alias': 'main'
+                                'id': compo_core_settings.header_menu
                             }) }}
                         </div>
                     </div>

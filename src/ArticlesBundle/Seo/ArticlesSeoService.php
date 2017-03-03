@@ -5,9 +5,15 @@ namespace Compo\ArticlesBundle\Seo;
 use Compo\ArticlesBundle\Entity\Articles;
 use Compo\SeoBundle\Service\BaseService;
 
+/**
+ * {@inheritDoc}
+ */
 class ArticlesSeoService extends BaseService
 {
-    public function buildTemplates()
+    /**
+     * {@inheritDoc}
+     */
+    public function build()
     {
         $container = $this->getContainer();
 
@@ -64,8 +70,6 @@ class ArticlesSeoService extends BaseService
             if ($totalPages > 1 && $page > 1) {
                 $seoPage->setLinkPrev($articlesManager->getArticlesIndexPermalink(array('page' => $page - 1)));
             }
-
-
         }
     }
 }

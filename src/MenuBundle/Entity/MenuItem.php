@@ -35,6 +35,7 @@ class MenuItem
     use \Compo\Sonata\AdminBundle\Entity\NameEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\EnabledEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\TreeEntityTrait;
+    use \Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait;
 
     use \Gedmo\Timestampable\Traits\TimestampableEntity;
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
@@ -102,10 +103,17 @@ class MenuItem
     protected $type;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Compo\Sonata\PageBundle\Entity\Page", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="Compo\Sonata\PageBundle\Entity\Page")
      * @ORM\JoinColumn(name="page_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     protected $page;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="page_id", type="integer", nullable=true)
+     */
+    protected $page_id;
 
     /**
      * Get id

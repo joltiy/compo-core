@@ -24,6 +24,7 @@ class ArticlesAdmin extends AbstractAdmin
         $this->setSortOrder('DESC');
         $this->configureSeo(true);
         $this->configureSettings(true, 'compo_articles');
+        $this->configureProperties(true);
     }
 
     /**
@@ -51,6 +52,21 @@ class ArticlesAdmin extends AbstractAdmin
     }
 
     /**
+     * @param $object Articles
+     * @return string
+     */
+    public function generatePermalink($object = null)
+    {
+        $manager = $this->getContainer()->get('compo_articles.manager.articles');
+
+        if (is_null($object)) {
+            return $manager->getArticlesIndexPermalink();
+        } else {
+            return $manager->getArticleShowPermalink($object);
+        }
+    }
+
+    /**
      * {@inheritDoc}
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
@@ -60,7 +76,6 @@ class ArticlesAdmin extends AbstractAdmin
             ->add('name')
             ->add('description')
             ->add('enabled')
-            ->add('views')
             ->add('createdAt')
             ->add('updatedAt')
             ->add('publicationAt');
@@ -75,8 +90,6 @@ class ArticlesAdmin extends AbstractAdmin
             ->add('id')
             ->addIdentifier('publicationAt')
             ->addIdentifier('name')
-            ->add('views')
-
             ->add('enabled')
             ->add('_action', null, array(
                 'actions' => array(
@@ -95,15 +108,18 @@ class ArticlesAdmin extends AbstractAdmin
         $formMapper
             ->tab('form.tab_main')
             ->with('form.group_main', array('name' => false, 'class' => 'col-lg-6'))
+            ->add('id')
             ->add('enabled')
             ->add('publicationAt')
             ->add('name')
             ->add('description')
             ->add('body')
-            ->add('views')
             ->end()
             ->with('form.group_image', array('name' => false, 'class' => 'col-lg-6'))
-            ->add('image', 'sonata_type_model_list')
+            ->add('image')
+            ->end()
+            ->with('form.group_views', array('name' => false, 'class' => 'col-lg-6'))
+            ->add('views')
             ->end()
             ->end();
     }
@@ -121,20 +137,5 @@ class ArticlesAdmin extends AbstractAdmin
             ->add('createdAt')
             ->add('updatedAt')
             ->add('publicationAt');
-    }
-
-    /**
-     * @param $object Articles
-     * @return string
-     */
-    public function generatePermalink($object = null)
-    {
-        $manager = $this->getContainer()->get('compo_articles.manager.articles');
-
-        if (is_null($object)) {
-            return $manager->getArticlesIndexPermalink();
-        } else {
-            return $manager->getArticleShowPermalink($object);
-        }
     }
 }

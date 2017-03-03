@@ -22,11 +22,11 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Menu
 {
-    use \Compo\Sonata\AdminBundle\Entity\PositionEntityTrait;
 
 
     use \Compo\Sonata\AdminBundle\Entity\NameEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\DescriptionEntityTrait;
+    use \Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait;
 
     use \Gedmo\Timestampable\Traits\TimestampableEntity;
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
@@ -41,8 +41,8 @@ class Menu
     protected $id;
 
     /**
-     * @var string
-     * @ORM\Column(type="string", nullable=true)
+     * @Gedmo\Slug(fields={"name"},updatable=false)
+     * @ORM\Column(length=128, unique=true)
      */
     protected $alias;
 

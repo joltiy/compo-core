@@ -71,7 +71,7 @@ class BaseService
         return array();
     }
 
-    public function buildTemplates() {
+    public function build() {
 
     }
 

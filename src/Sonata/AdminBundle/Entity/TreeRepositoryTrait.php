@@ -67,4 +67,85 @@ trait TreeRepositoryTrait
         }
         return $els;
     }
+
+
+    public function childrenHierarchyWithNodes($node = null, $direct = false, array $options = array(), $includeNode = false) {
+
+        $tree = $this->childrenHierarchy($node, $direct, $options, $includeNode);
+
+        return $this->fillTreeNodes($tree);
+    }
+
+
+
+
+
+    /**
+     * Заполнить дерево объектов сущностями
+     *
+     * @param $tree
+     *
+     * @return mixed
+     */
+    public function fillTreeNodes($tree)
+    {
+        $ids = $this->getIdsForTree($tree);
+
+        $nodes_array = $this->findBy(array('id' => $ids));
+
+        $nodes = array();
+
+        foreach ($nodes_array as $nodes_array_item) {
+
+
+            $nodes[$nodes_array_item->getId()] = $nodes_array_item;
+        }
+
+        $tree = $this->fillTreeNodesForItems($tree, $nodes);
+
+        return $tree;
+    }
+
+    /**
+     * Вернуть ids каталогов, для дерева
+     *
+     * @param $tree
+     *
+     * @return array
+     */
+    protected function getIdsForTree($tree)
+    {
+        $ids = array();
+
+        foreach ($tree as $key => $item) {
+            $ids[] = $item['id'];
+
+            $ids = array_merge($ids, $this->getIdsForTree($tree[$key]['__children']));
+        }
+
+        return $ids;
+    }
+
+    /**
+     * Заполнить дерево объектов сущностями
+     *
+     * @param $tree
+     * @param $nodes
+     *
+     * @return mixed
+     */
+    protected function fillTreeNodesForItems($tree, $nodes)
+    {
+        foreach ($tree as $key => $item) {
+            if (isset($nodes[$item['id']])) {
+                $tree[$key]['node'] = $nodes[$item['id']];
+            } else {
+                $tree[$key]['node'] = null;
+            }
+
+            $tree[$key]['__children'] = $this->fillTreeNodesForItems($tree[$key]['__children'], $nodes);
+        }
+
+        return $tree;
+    }
 }

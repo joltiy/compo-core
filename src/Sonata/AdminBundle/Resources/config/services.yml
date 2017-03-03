@@ -10,12 +10,11 @@ services:
             - { name: sonata.admin.extension, global: true }
 
 
-
     compo.sonata.admin.extension.position:
         class: Compo\Sonata\AdminBundle\Extension\PositionExtension
 
-    compo.sonata.admin.extension.list_id_as_integer:
-        class: Compo\Sonata\AdminBundle\Extension\ListIdAsIntegerExtension
+    compo.sonata.admin.extension.id:
+        class: Compo\Sonata\AdminBundle\Extension\IdExtension
         tags:
             - { name: sonata.admin.extension, global: true }
 
@@ -44,6 +43,12 @@ services:
             - { name: sonata.admin.extension, global: true }
         parent: compo_core.abstract_container_aware
 
+    compo.sonata.admin.extension.properties:
+        class: Compo\Sonata\AdminBundle\Extension\PropertiesExtension
+        tags:
+            - { name: sonata.admin.extension, global: false }
+        parent: compo_core.abstract_container_aware
+
     compo.sonata.admin.form.type.tree_selector:
         class: Compo\Sonata\AdminBundle\Form\Type\TreeSelectorType
         tags:
@@ -67,3 +72,9 @@ services:
         tags:
             - { name: sonata.admin.extension, global: true }
         parent: compo_core.abstract_container_aware
+
+
+    compo.sonata.admin.blameable.extension:
+        class: Compo\Sonata\AdminBundle\Extension\BlameableExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }

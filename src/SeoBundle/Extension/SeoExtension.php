@@ -66,17 +66,13 @@ class SeoExtension extends AbstractAdminExtension
     {
         $formMapper
             ->tab('form.tab_seo')
-            ->with('form.tab_seo_main', array('class' => 'col-lg-6'))->end()
-            ->with('form.tab_seo_meta', array('class' => 'col-lg-6'))->end()
-            ->end();
 
-        $formMapper
-            ->tab('form.tab_seo')
-            ->with('form.tab_seo_main')
+            ->with('form.group_seo_main', array('name' => false, 'class' => 'col-lg-6'))
             ->add('slug', 'text', array('required' => false))
             ->add('noIndexEnabled', 'checkbox', array('required' => false))
             ->end()
-            ->with('form.tab_seo_meta')
+
+            ->with('form.group_seo_meta', array('name' => false, 'class' => 'col-lg-6'))
             ->add('header', 'textarea', array('required' => false))
             ->add('title', 'textarea', array('required' => false))
             ->add('metaDescription', 'textarea', array('required' => false))
@@ -86,8 +82,8 @@ class SeoExtension extends AbstractAdminExtension
                 'required' => false,
                 'by_reference' => false,
             ))
-
             ->end()
+
             ->end();
     }
 
@@ -137,7 +133,7 @@ class SeoExtension extends AbstractAdminExtension
         if ($result) {
             $this->isUpdateSlug = true;
 
-            $object->setSlug('temp_slug_' . time() . time() . time());
+            $object->setSlug('temp_slug_' . time() . rand(0, 1000) . time());
         } else {
             $this->isUpdateSlug = false;
         }

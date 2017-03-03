@@ -19,6 +19,7 @@ class Articles
     use \Compo\Sonata\AdminBundle\Entity\ImageEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\BodyEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\ViewsEntityTrait;
+    use \Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait;
 
     use \Compo\SeoBundle\Entity\Traits\SeoEntity;
 
@@ -46,14 +47,6 @@ class Articles
     }
 
     /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
      * Get id
      *
      * @return int
@@ -61,6 +54,14 @@ class Articles
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     /**

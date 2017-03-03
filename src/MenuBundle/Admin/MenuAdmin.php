@@ -8,6 +8,8 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Knp\Menu\ItemInterface as MenuItemInterface;
+use Sonata\AdminBundle\Admin\AdminInterface;
 
 /**
  * {@inheritDoc}
@@ -20,7 +22,8 @@ class MenuAdmin extends AbstractAdmin
     public function configure()
     {
         $this->setTranslationDomain('CompoMenuBundle');
-        $this->configurePosition(true);
+
+        $this->configureProperties(true);
     }
 
     /**
@@ -61,7 +64,6 @@ class MenuAdmin extends AbstractAdmin
 
             $this->getDoctrine()->getManager()->flush();
         }
-
     }
 
     /**
@@ -102,9 +104,10 @@ class MenuAdmin extends AbstractAdmin
     {
         $formMapper
             ->tab('form.tab_main')
-            ->with('main_tab', array('name' => false))
+            ->with('form.group_main', array('name' => false))
+            ->add('id')
             ->add('name')
-            ->add('alias')
+            ->add('alias', null, array('required' => false))
             ->add('description');
 
         $formMapper
@@ -125,26 +128,52 @@ class MenuAdmin extends AbstractAdmin
     /**
      * {@inheritDoc}
      */
-    protected function configureTabMenu(\Knp\Menu\ItemInterface $menu, $action, \Sonata\AdminBundle\Admin\AdminInterface $childAdmin = null)
+    protected function configureTabMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
     {
-        parent::configureTabMenu($menu, $action, $childAdmin);
-
-        if (!$childAdmin && !in_array($action, array('edit'))) {
-            return;
+        if (!$childAdmin && in_array($action, array('edit'))) {
+            $this->configureTabMenuList($menu, $action);
         }
 
-        $admin = $this->isChild() ? $this->getParent() : $this;
+        if ($childAdmin && in_array($action, array('list'))) {
+            $this->configureTabMenuList($menu, $action);
+        }
 
-        $id = $admin->getRequest()->get('id');
+        /** @var MenuItemAdmin $childAdmin */
+        if ($childAdmin && in_array($action, array('edit'))) {
+            $childAdmin->configureTabMenuItem($menu, $action);
+
+            $tabMenu = $menu->addChild('tab_menu.menu',
+                array(
+                    'label' => $this->trans('tab_menu.menu', array('%name%' => $this->getSubject()->getName())),
+                    'attributes' => array('dropdown' => true)
+                )
+            );
+
+            $this->configureTabMenuList($tabMenu, $action);
+        }
+    }
+
+    /**
+     * @param MenuItemInterface $menu
+     * @param $action
+     * @param AdminInterface|null $childAdmin
+     */
+    public function configureTabMenuList(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
+    {
+        if ($childAdmin) {
+            $subject = $childAdmin->getSubject()->getMenu();
+        } else {
+            $subject = $this->getSubject();
+        }
 
         $menu->addChild(
-            $this->trans('sidemenu.link_edit'),
-            array('uri' => $admin->generateUrl('edit', array('id' => $id)))
+            $this->trans('tab_menu.link_edit'),
+            array('uri' => $this->generateUrl('edit', array('id' => $subject->getId())))
         );
 
         $menu->addChild(
-            $this->trans('sidemenu.link_view_menu_item'),
-            array('uri' => $admin->generateUrl('compo_menu.admin.menu_item.list', array('id' => $id)))
+            $this->trans('tab_menu.link_menu_list'),
+            array('uri' => $this->generateUrl('compo_menu.admin.menu|compo_menu.admin.menu_item.list', array('id' => $subject->getId())))
         );
     }
 }

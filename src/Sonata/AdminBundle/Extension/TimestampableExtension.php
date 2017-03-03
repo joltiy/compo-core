@@ -3,7 +3,7 @@
 namespace Compo\Sonata\AdminBundle\Extension;
 
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
-use Sonata\AdminBundle\Admin\AbstractAdminExtension;
+use Compo\Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -37,14 +37,14 @@ class TimestampableExtension extends AbstractAdminExtension
         if ($datagridMapper->has('updatedAt')) {
             $datagridMapper->remove('updatedAt');
 
-            $datagridMapper->add('updatedAt', 'doctrine_orm_date_range', array('field_type' => 'sonata_type_date_range_picker',
-                    'field_options' => [
-                        'field_options' => [
-                            'format' => 'dd.MM.yyyy'
-                        ]
-                    ]
+            $datagridMapper->add('updatedAt', 'doctrine_orm_date_range', array(
+                'field_type' => 'sonata_type_date_range_picker',
+                'field_options' => array(
+                    'field_options' => array(
+                        'format' => 'dd.MM.yyyy'
+                    )
                 )
-            );
+            ));
         }
 
         if ($datagridMapper->has('publicationAt')) {
@@ -63,32 +63,26 @@ class TimestampableExtension extends AbstractAdminExtension
 
     public function configureFormFields(FormMapper $formMapper)
     {
-        if ($formMapper->has('publicationAt')) {
-            $admin = $formMapper->getAdmin();
+        $this->replaceFormField($formMapper,'publicationAt', 'sonata_type_datetime_picker', array(
+            'format' => 'dd.MM.y HH:mm:ss',
+            'required' => true,
+        ), array(
+            'translation_domain' => 'SonataAdminBundle'
+        ));
 
+        $this->replaceFormField($formMapper,'createdAt', 'sonata_type_datetime_picker', array(
+            'format' => 'dd.MM.y HH:mm:ss',
+            'required' => true,
+        ), array(
+            'translation_domain' => 'SonataAdminBundle'
+        ));
 
-            $fg = $admin->getFormGroups();
-            $tb = $admin->getFormTabs();
-
-            $keys = $formMapper->keys();
-
-
-            $formMapper->remove('publicationAt');
-
-            $formMapper->add('publicationAt', 'sonata_type_datetime_picker', array(
-                'format' => 'dd.MM.y HH:mm:ss',
-                'required' => true,
-            ), array(
-                'translation_domain' => 'SonataAdminBundle'
-
-            ));
-
-
-            $formMapper->reorder($keys);
-            $admin->setFormTabs($tb);
-            $admin->setFormGroups($fg);
-
-        }
+        $this->replaceFormField($formMapper,'updatedAt', 'sonata_type_datetime_picker', array(
+            'format' => 'dd.MM.y HH:mm:ss',
+            'required' => true,
+        ), array(
+            'translation_domain' => 'SonataAdminBundle'
+        ));
     }
 
     public function configureListFields(ListMapper $listMapper)
@@ -114,6 +108,5 @@ class TimestampableExtension extends AbstractAdminExtension
         }
 
         $listMapper->reorder($keys);
-
     }
 }

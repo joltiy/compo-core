@@ -252,7 +252,14 @@ class CRUDController extends BaseCRUDController
             if (false === $this->admin->isGranted('EDIT')) {
                 throw new AccessDeniedException();
             }
-            $id = $request->query->get('id');
+
+            if ($this->admin->isChild()) {
+                $id = $request->query->get('childId');
+
+            } else {
+                $id = $request->query->get('id');
+            }
+
             $targetId = $request->query->get('target');
             $dropPosition = $request->query->get('position');
 

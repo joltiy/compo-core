@@ -193,6 +193,16 @@ class AbstractAdmin extends BaseAdmin
     }
 
     /**
+     * @param $enabled
+     */
+    public function configureProperties($enabled)
+    {
+        if ($enabled) {
+            $this->addExtension($this->getConfigurationPool()->getContainer()->get("compo.sonata.admin.extension.properties"));
+        }
+    }
+
+    /**
      * @return int
      */
     public function last_position()
@@ -283,6 +293,7 @@ class AbstractAdmin extends BaseAdmin
             );
         }
 
+        /*
         if (in_array($action, array('acl', 'edit', 'history'))
             && $this->isAclEnabled()
             && $this->canAccessObject('acl', $object)
@@ -292,6 +303,7 @@ class AbstractAdmin extends BaseAdmin
                 'template' => $this->getTemplate('button_acl'),
             );
         }
+        */
 
         if (in_array($action, array('create', 'list', 'tree', 'history', 'show', 'edit', 'delete', 'acl', 'batch', 'settings'))
             && $this->hasAccess('list')

@@ -9,7 +9,6 @@ function fillmanufactureCollection() {
             var request_data = {};
         }
 
-        console.log(request_data);
 
         var manufactureCollection = $("select.manufactureCollection-select2 option:selected").val();
 
@@ -419,5 +418,8 @@ $(document).ready(function () {
     fillmanufactureCollection();
 
 
+
+
+    $('.select2-container').parent().find('select').attr('style','display:block; position:absolute; bottom: 0; left: 0; clip:rect(0,0,0,0);');
 });
 

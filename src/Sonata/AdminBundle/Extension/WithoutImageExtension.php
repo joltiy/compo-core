@@ -22,7 +22,7 @@ class WithoutImageExtension extends AbstractAdminExtension
      */
     public function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        if ($datagridMapper->getAdmin()->getFormBuilder()->has('image')) {
+        if ($datagridMapper->has('without_image')) {
 
             $datagridMapper->remove('without_image');
 

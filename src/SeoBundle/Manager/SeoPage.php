@@ -246,7 +246,7 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         foreach ($this->services as $service) {
 
             if ($service->handleContext($context) || $service->handleContext($route)) {
-                $service->buildTemplates();
+                $service->build();
 
                 $serviceVars = $service->getVars();
 

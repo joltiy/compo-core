@@ -10,6 +10,7 @@ parameters:
     sonata.page.admin.shared_block.class: Compo\Sonata\PageBundle\Admin\SharedBlockAdmin
 
     sonata.user.admin.user.class: Compo\Sonata\UserBundle\Admin\UserAdmin
+    sonata.user.admin.group.class: Compo\Sonata\UserBundle\Admin\GroupAdmin
 
     sonata_user.google_authenticator.server:  compo-standard.localhost.ru
 

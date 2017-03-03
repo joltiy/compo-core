@@ -17,3 +17,20 @@ form:
     label_parent: 'Родительский элемент'
 
 menu: Меню
+
+tab_menu.title_menu_list: 'Меню'
+breadcrumb.link_menu_item_tree: 'Список элементов меню'
+tab_menu.title_menu_item_create: 'Создание элемента меню'
+form.tab_main_menu: 'Элемент меню'
+
+tab_menu.title_menu_menu_item_edit: 'Элeмент меню: %name%'
+
+tab_menu.menu: 'Меню'
+tab_menu.link_menu_list: 'Список элементов меню'
+
+tab_menu.title_menu_menu_item_list: 'Элементы меню: %name%'
+
+tab_menu.title_menu_edit: 'Меню: %name%'
+
+tab_menu.title_menu_create: 'Создание меню'
+

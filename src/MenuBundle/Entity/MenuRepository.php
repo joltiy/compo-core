@@ -10,5 +10,17 @@ namespace Compo\MenuBundle\Entity;
  */
 class MenuRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getMenuChoices()
+    {
+        $choices = array();
 
+        /** @var Menu[] $items */
+        $items = $this->findBy(array(), array('name' => 'ASC'));
+
+        foreach ($items as $item) {
+            $choices[$item->getId()] = $item->getName();
+        }
+
+        return $choices;
+    }
 }

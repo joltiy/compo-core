@@ -58,24 +58,37 @@ class MenuBlockService extends AbstractBlockService
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
 
-        //$em = $this->container->get("doctrine.orm.entity_manager");
+        $em = $this->container->get("doctrine.orm.entity_manager");
 
         $settings = $blockContext->getSettings();
 
         $menu = null;
 
-        /** @var NestedTreeRepository $repo */
-        //$repo = $em->getRepository("CompoMenuBundle:Menu");
 
-
-        //$tree = $repo->childrenHierarchy($repo->findOneBy(array('alias' => $settings['alias'])), false, array(), false);
         $tree = array();
 
         $factory = new MenuFactory();
 
-        $menu = $factory->createItem($settings['alias']);
+        if ($settings['alias']) {
+            $menu = $factory->createItem($settings['alias']);
+        } elseif($settings['id']) {
+            $menu = $factory->createItem($settings['id']);
 
-        $this->renderMenu($menu, $tree);
+            $repositoryMenu = $em->getRepository("CompoMenuBundle:Menu");
+
+            $menuObject = $repositoryMenu->find($settings['id']);
+
+            /** @var NestedTreeRepository $repo */
+            $repo = $em->getRepository("CompoMenuBundle:MenuItem");
+
+
+            $tree = $repo->childrenHierarchyWithNodes($repo->findOneBy(array('menu' => $menuObject)), false, array(), false);
+        } else {
+            $menu = $factory->createItem('');
+
+        }
+
+        $tree = $this->renderMenu($menu, $tree);
 
 
         $renderer = new ListRenderer(new Matcher());
@@ -96,10 +109,20 @@ class MenuBlockService extends AbstractBlockService
      */
     public function renderMenu($menu, $nodesList)
     {
-        foreach ($nodesList as $item) {
+        foreach ($nodesList as $key => $item) {
+
+            if ($item['type'] == 'url') {
+
+            } elseif ($item['type'] == 'page') {
+                $item['url'] = $item['node']->getPage()->getUrl();
+            } else {
+                $item['url'] = '';
+            }
+
 
             /** @var MenuItem $node */
-            $node = $menu->addChild($item['name'], array('uri' => $item['url']));
+            $node = $menu->addChild($item['id'], array('uri' => $item['url']));
+
 
 
             if ($item['url'] === $this->container->get('request')->getRequestUri()) {
@@ -112,9 +135,13 @@ class MenuBlockService extends AbstractBlockService
 
 
             if (count($item['__children'])) {
-                $this->renderMenu($node, $item['__children']);
+                $item['__children'] = $this->renderMenu($node, $item['__children']);
             }
+
+            $nodesList[$key] = $item;
         }
+
+        return $nodesList;
     }
 
     /**
@@ -159,6 +186,7 @@ class MenuBlockService extends AbstractBlockService
         $resolver->setDefaults(array(
             'alias' => '',
             'class' => '',
+            'id' => null,
 
             'template' => 'CompoMenuBundle:Menu:base_menu.html.twig',
         ));

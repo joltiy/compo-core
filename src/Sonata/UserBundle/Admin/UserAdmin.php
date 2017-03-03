@@ -24,10 +24,11 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
             ->with('General', array('class' => 'col-md-6'))->end()
             ->end()
             ->tab('Security')
-            ->with('Status', array('class' => 'col-md-4'))->end()
-            ->with('Groups', array('class' => 'col-md-4'))->end()
-            ->with('Keys', array('class' => 'col-md-4'))->end()
-            ->with('Roles', array('class' => 'col-md-12'))->end()
+            ->with('Status', array('class' => 'col-md-6'))->end()
+            ->with('Groups', array('class' => 'col-md-6'))->end()
+
+            //->with('Keys', array('class' => 'col-md-4'))->end()
+            //->with('Roles', array('class' => 'col-md-12'))->end()
             ->end();
 
         $formMapper
@@ -71,14 +72,18 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
                     'multiple' => true,
                 ))
                 ->end()
-                ->with('Roles')
+
+                /*
+                ->with('Roles', array('name' => false))
                 ->add('realRoles', 'sonata_security_roles', array(
-                    'label' => 'form.label_roles',
+                    'label' => false,
                     'expanded' => true,
                     'multiple' => true,
                     'required' => false,
                 ))
                 ->end()
+                */
+
                 ->end();
         }
 

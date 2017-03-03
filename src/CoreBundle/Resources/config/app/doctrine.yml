@@ -3,6 +3,8 @@ stof_doctrine_extensions:
         default:
             sortable:      true
             timestampable: true
+            blameable: true
+            sluggable: true
 
 
 doctrine_migrations:

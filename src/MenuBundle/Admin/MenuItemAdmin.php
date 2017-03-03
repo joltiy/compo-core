@@ -9,6 +9,8 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Knp\Menu\ItemInterface as MenuItemInterface;
+use Sonata\AdminBundle\Admin\AdminInterface;
 
 /**
  * {@inheritDoc}
@@ -25,6 +27,11 @@ class MenuItemAdmin extends AbstractAdmin
 
         // Включение древовидного представления для категорий
         $this->configureTree(true);
+
+        $this->setParentParentAssociationMapping('menu');
+
+        $this->configureProperties(true);
+
     }
 
 
@@ -47,13 +54,9 @@ class MenuItemAdmin extends AbstractAdmin
             ->addIdentifier('name')
             ->add('url')
             ->add('alias')
-            ->add('enabled', null, array(
-                'editable' => true,
-                'required' => true
-            ))
+            ->add('enabled')
             ->add('_action', null, array(
                 'actions' => array(
-                    'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
                 )
@@ -107,6 +110,8 @@ class MenuItemAdmin extends AbstractAdmin
         $formMapper->with('form.tab_main', array(
             'name' => false
         ))
+            ->add('id')
+
             ->add('enabled')
             ->add('name')
             ->add('title')
@@ -130,8 +135,8 @@ class MenuItemAdmin extends AbstractAdmin
                     'url' => array('url'),
                     'page' => array('page'),
                 ),
-                'empty_value' => 'Choose an option',
-                'required' => false
+                'empty_value' => 'Укажите тип',
+                'required' => true
             ));
 
 
@@ -170,5 +175,32 @@ class MenuItemAdmin extends AbstractAdmin
             ->add('createdAt')
             ->add('updatedAt')
             ->add('deletedAt');
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function configureTabMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
+    {
+        if (in_array($action, array('edit'))) {
+            $this->configureTabMenuItem($menu, $action);
+
+            /** @var MenuAdmin $menuAdmin */
+            $menuAdmin = $this->getConfigurationPool()->getAdminByAdminCode('compo_menu.admin.menu');
+            $menuAdmin->setSubject($this->getSubject()->getManufacture());
+            $tabMenu = $menu->addChild('tab_menu.menu', array('label' => $this->trans('tab_menu.menu', array('%name%' => $this->getSubject()->getMenu()->getName())), 'attributes' => array('dropdown' => true)));
+
+            $menuAdmin->configureTabMenuList($tabMenu, $action);
+        }
+    }
+
+    public function configureTabMenuItem(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
+    {
+        $menu->addChild(
+            $this->trans('tab_menu.link_edit'),
+            array('uri' => $this->generateUrl('edit', array('id' => $this->getSubject()->getId())))
+        );
+
     }
 }

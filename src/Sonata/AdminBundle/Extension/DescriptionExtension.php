@@ -3,7 +3,7 @@
 namespace Compo\Sonata\AdminBundle\Extension;
 
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
-use Sonata\AdminBundle\Admin\AbstractAdminExtension;
+use Compo\Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
@@ -24,11 +24,12 @@ class DescriptionExtension extends AbstractAdminExtension
             $field = $formMapper->getFormBuilder()->get('description');
 
             $options = $field->getOptions();
+
             $options['required'] = false;
             $options['format'] = "richhtml";
             $options['ckeditor_context'] = "default";
 
-            $formMapper->getFormBuilder()->add('description', SimpleFormatterType::class, $options);
+            $this->replaceFormField($formMapper,'description', SimpleFormatterType::class, $options);
         }
 
         if ($formMapper->has('body')) {
@@ -39,7 +40,7 @@ class DescriptionExtension extends AbstractAdminExtension
             $options['format'] = "richhtml";
             $options['ckeditor_context'] = "default";
 
-            $formMapper->getFormBuilder()->add('body', SimpleFormatterType::class, $options);
+            $this->replaceFormField($formMapper,'body', SimpleFormatterType::class, $options);
         }
     }
 

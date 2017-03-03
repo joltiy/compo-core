@@ -1,18 +1,28 @@
 <div class="panel panel-default ">
 
     <div class="panel-heading">
-        <a href="{{ path('compo_articles_index') }}">Статьи</a>
+        {% block heading %}
+            <a href="{{ path('compo_articles_index') }}">Статьи</a>
+        {% endblock %}
     </div>
 
     <div class="panel-body">
-        <ul class="news-preview">
-            {% for article in articles %}
-                <li>
-                    <div class="date">{{ article.publicationAt|date("d.m.Y") }}</div>
+        {% block list %}
+            <ul class="news-preview">
+                {% for article in articles %}
+                    {% block list_item %}
+                        <li>
+                            {% block publication_at %}
+                                <div class="date">{{ article.publicationAt|date("d.m.Y") }}</div>
+                            {% endblock %}
 
-                    <a href="{{ path('compo_articles_show_by_slug', {'slug': article.slug}) }}">{{ article.name }}</a>
-                </li>
-            {% endfor %}
-        </ul>
+                            {% block name %}
+                                <a href="{{ path('compo_articles_show_by_slug', {'slug': article.slug}) }}">{{ article.name }}</a>
+                            {% endblock %}
+                        </li>
+                    {% endblock %}
+                {% endfor %}
+            </ul>
+        {% endblock %}
     </div>
 </div>

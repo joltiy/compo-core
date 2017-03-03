@@ -40,18 +40,15 @@ class ArticlesController extends Controller
      */
     public function showBySlugAction($slug)
     {
-        $articlesRepository = $this->getDoctrine()->getRepository('CompoArticlesBundle:Articles');
+        $manager = $this->get('compo_articles.manager.articles');
 
-        $article = $articlesRepository->findBySlug($slug);
+        $article = $manager->findBySlug($slug);
 
         if (!$article) {
             throw $this->createNotFoundException('compo_articles.exception.not_found_article');
         }
 
-        $article->setViews(652557);
-
-        $this->getDoctrine()->getManager()->persist($article);
-        $this->getDoctrine()->getManager()->flush();
+        $manager->increaseViews($article);
 
         $seoPage = $this->get('sonata.seo.page');
 
