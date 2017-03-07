@@ -35,6 +35,7 @@ sonata_block:
         compo_news.block.service.news_last:
         compo_core.block.service.banners:
         compo_banner.block.service.banner:
+        compo_advantages.block.service.advantages:
 
         # PageBundle's Blocks
         sonata.page.block.container:

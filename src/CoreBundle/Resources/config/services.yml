@@ -16,6 +16,13 @@ services:
         tags:
             - { name: twig.extension }
 
+    compo_core.twig.media_extension:
+        class: Compo\CoreBundle\Twig\MediaExtension
+        arguments: ["@sonata.media.manager.media"]
+        public: false
+        tags:
+            - { name: twig.extension }
+
     compo_core.twig.show_more_extension:
         class: Compo\CoreBundle\Twig\ShowMoreExtension
         tags:

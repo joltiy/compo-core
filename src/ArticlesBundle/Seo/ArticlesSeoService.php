@@ -55,13 +55,11 @@ class ArticlesSeoService extends BaseService
             $page = $seoPage->getVar('page');
             $totalPages = $seoPage->getVar('total_pages');
 
-
             if ($page !== 1) {
                 $seoPage->setLinkCanonical($articlesManager->getArticlesIndexPermalink(array('page' => $page)));
             } else {
                 $seoPage->setLinkCanonical($articlesManager->getArticlesIndexPermalink());
             }
-
 
             if ($totalPages > 1 && $page < $totalPages) {
                 $seoPage->setLinkNext($articlesManager->getArticlesIndexPermalink(array('page' => $page + 1)));

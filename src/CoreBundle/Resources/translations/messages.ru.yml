@@ -288,3 +288,4 @@ ROLE_COMPO_PROMOTION_ADMIN_PROMOTION: 'Акции'
 
 form.label_settings_header_menu: 'Меню в шапке'
 form.label_settings_footer_menu: 'Меню в подвале'
+form.label_settings_logo_image: 'Логотип'

@@ -67,7 +67,7 @@ class ArticlesSettingsSchema extends BaseBundleAdminSettingsSchema
     }
 
     /**
-     *
+     * Основные
      */
     public function buildFormTabMain()
     {
@@ -77,7 +77,7 @@ class ArticlesSettingsSchema extends BaseBundleAdminSettingsSchema
     }
 
     /**
-     *
+     * SEO для списка
      */
     public function buildFormTabSeoIndex()
     {
@@ -91,7 +91,7 @@ class ArticlesSettingsSchema extends BaseBundleAdminSettingsSchema
     }
 
     /**
-     *
+     * SEO для элементов
      */
     public function buildFormTabSeoItems()
     {

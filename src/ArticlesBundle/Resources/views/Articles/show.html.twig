@@ -1,3 +1,4 @@
+{# @var article \Compo\ArticlesBundle\Entity\Articles #}
 {#
 {{ block('news_article') }}
 {{ block('main_entity_of_page') }}
@@ -22,27 +23,19 @@
                     <div itemscope itemtype="http://schema.org/NewsArticle" class="articles-item">
 
                         {% block main_entity_of_page %}
-                            <meta itemscope itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="https://google.com/article"/>
+                            <meta itemscope itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="{{ path('compo_articles_show_by_slug', {'slug': article.slug}) }}"/>
                         {% endblock %}
 
                         {% block publisher %}
-                            <div itemscope itemprop="publisher" itemtype="https://schema.org/Organization" class="hidden">
-                                <meta itemprop="name" content="Сайт «Комсомольской правды»"/>
-
-                                <div itemscope itemprop="logo" itemtype="https://schema.org/ImageObject">
-                                    <meta itemprop="url" content="http://kp.ru/img/kp-logo-ru-h.jpg"/>
-                                    <meta itemprop="width" content="264"/>
-                                    <meta itemprop="height" content="59"/>
-
-                                    <img alt="Комсомольская правда" src="http://kp.ru/img/kp-logo-ru-h.jpg"/>
-                                </div>
-                            </div>
+                            {% include '@CompoSeo/SchemaOrg/organization.html.twig' %}
                         {% endblock %}
 
                         {% block author %}
-                            <div itemscope itemprop="author" itemtype="https://schema.org/Person" class="hidden">
-                                <div itemprop="name">John Doe</div>
-                            </div>
+                            {% if article.createdBy %}
+                                <div itemscope itemprop="author" itemtype="https://schema.org/Person" class="hidden">
+                                    <div itemprop="name">{{ article.createdBy.firstName }} {{ article.createdBy.lastName }}</div>
+                                </div>
+                            {% endif %}
                         {% endblock %}
 
                         {% block headline %}
@@ -52,13 +45,15 @@
                         {% endblock %}
 
                         {% block image %}
-                            <div itemscope itemtype="https://schema.org/ImageObject" itemprop="image" class="photo">
-                                <meta itemprop="url" content="//s11.stc.all.kpcdn.net/share/i/12/9989474/">
-                                <meta itemprop="width" content="960">
-                                <meta itemprop="height" content="640">
+                            {% if article.image %}
+                                <div itemscope itemtype="https://schema.org/ImageObject" itemprop="image" class="photo">
+                                    <meta itemprop="url" content="{% path  article.image, 'reference' %}">
+                                    <meta itemprop="width" content="{{ article.image.width }}">
+                                    <meta itemprop="height" content="{{ article.image.height }}">
 
-                                <img src="{% path article.image, 'small' %}" width="200" class="thumbnail pull-right" alt="{{ article.name }}">
-                            </div>
+                                    {% media article.image, 'reference' with {'alt': article.name, 'class': 'thumbnail pull-right', 'width': 200 } %}
+                                </div>
+                            {% endif %}
                         {% endblock %}
 
                         {% block date_published %}

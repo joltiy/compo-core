@@ -226,6 +226,12 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         $this->services = $services;
     }
 
+    public function getSite() {
+        $container = $this->getContainer();
+        $site = $container->get('sonata.page.site.selector')->retrieve();
+
+        return $site;
+    }
 
     public function build() {
 

@@ -8,6 +8,9 @@ use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\CallbackTransformer;
+use Sonata\MediaBundle\Form\Type\MediaType;
+use Compo\Sonata\MediaBundle\Entity\Media;
 
 /**
  * {@inheritDoc}
@@ -64,6 +67,8 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
 	<li><img alt="Qiwi" src="http://www.dlyavann.ru/assets/compo/img/payments/qiwi.png" /></li>
 </ul>',
 
+                    'logo_image' => null,
+
                 ]
             )
             ->setAllowedTypes(
@@ -84,6 +89,9 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
                     'footer_address' => ['string', 'NULL'],
                     'footer_phones' => ['string', 'NULL'],
                     'footer_payments' => ['string', 'NULL'],
+
+                    'logo_image' => array('null', 'integer', 'object'),
+
                 ]
             );
     }
@@ -128,10 +136,56 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
         $footer_tab->add('footer_payments', CKEditorType::class);
 
 
+        $logo_tab = $builder->create('logo_tab', TabType::class, array(
+            'label' => 'settings.logo_tab',
+            'inherit_data' => true,
+        ));
+
+
+        $logo_tab->add('logo_image', MediaType::class, array(
+            'required' => false,
+            'context' => 'default',
+            'provider' => 'sonata.media.provider.image',
+        ));
+
         $builder
             ->add($main_tab)
             ->add($header_tab)
-            ->add($footer_tab);
+            ->add($footer_tab)
+            ->add($logo_tab)
+        ;
+
+        $media_transformer = new CallbackTransformer(
+            function ($id) {
+                if ($id) {
+                    $container = $this->getContainer();
+                    $mediaManager = $container->get('sonata.media.manager.media');
+                    $media = $mediaManager->find($id);
+
+                    return $media;
+                } else {
+                    return new Media();
+                }
+            },
+            function ($media) {
+                if ($media) {
+                    $container = $this->getContainer();
+
+                    $mediaManager = $container->get('sonata.media.manager.media');
+                    $mediaManager->save($media);
+
+                    return $media->getId();
+                } else {
+                    return null;
+                }
+
+            }
+        );
+
+
+        $logo_tab->get('logo_image')->addModelTransformer($media_transformer);
+
+
     }
 
     /**
