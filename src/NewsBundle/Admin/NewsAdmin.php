@@ -2,6 +2,7 @@
 
 namespace Compo\NewsBundle\Admin;
 
+use Compo\NewsBundle\Entity\News;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -23,6 +24,7 @@ class NewsAdmin extends AbstractAdmin
         $this->setSortOrder('DESC');
         $this->configureSeo(true);
         $this->configureSettings(true, 'compo_news');
+        $this->configureProperties(true);
     }
 
     /**
@@ -32,50 +34,36 @@ class NewsAdmin extends AbstractAdmin
     {
         $list = array();
 
-        if ($this->hasAccess('create') && $this->hasRoute('create')) {
-            $list['create'] = array(
-                'template' => $this->getTemplate('button_create'),
-            );
-        }
-
-        if (
-            $this->hasAccess('edit') && $this->hasRoute('edit')
-            &&
-            in_array($action, array('history', 'acl', 'show', 'delete', 'edit'))
-        ) {
-            $list['edit'] = array(
-                'template' => $this->getTemplate('button_edit'),
-            );
-        }
-
-        if ($this->hasAccess('list') && $this->hasRoute('list')) {
-            $list['list'] = array(
-                'template' => $this->getTemplate('button_list'),
-            );
-        }
-
-        if ($this->hasAccess('acl') && $this->hasRoute('settings')) {
-            $list['settings'] = array(
-                'template' => $this->getTemplate('button_settings')
-            );
-        }
-
         if (in_array($action, array('history', 'acl', 'show', 'delete', 'edit'))) {
             $list['show_on_site'] = array(
                 'template' => $this->getTemplate('button_show_on_site'),
-                'uri' => $this->getRouteGenerator()->generate('compo_news_show_by_slug', array('slug' => $this->getSubject()->getSlug()))
+                'uri' => $this->generatePermalink($this->getSubject())
             );
         } else {
             $list['show_on_site'] = array(
                 'template' => $this->getTemplate('button_show_on_site'),
-                'uri' => $this->getRouteGenerator()->generate('compo_news_index', array())
+                'uri' => $this->generatePermalink()
             );
         }
-
 
         $list = array_merge($list, parent::configureActionButtons($action, $object));
 
         return $list;
+    }
+
+    /**
+     * @param $object News
+     * @return string
+     */
+    public function generatePermalink($object = null)
+    {
+        $manager = $this->getContainer()->get('compo_news.manager.news');
+
+        if (is_null($object)) {
+            return $manager->getNewsIndexPermalink();
+        } else {
+            return $manager->getNewsShowPermalink($object);
+        }
     }
 
     /**
@@ -107,7 +95,7 @@ class NewsAdmin extends AbstractAdmin
                 'actions' => array(
                     'edit' => array(),
                     'delete' => array(),
-                    'show_on_site' => array('template' => 'CompoNewsBundle:Admin:list__action_show_on_site.html.twig'),
+                    'show_on_site' => array(),
                 )
             ));
     }
@@ -120,6 +108,7 @@ class NewsAdmin extends AbstractAdmin
         $formMapper
             ->tab('form.tab_main')
             ->with('form.group_main', array('name' => false, 'class' => 'col-lg-6'))
+            ->add('id')
             ->add('enabled')
             ->add('publicationAt')
             ->add('name')
@@ -128,6 +117,9 @@ class NewsAdmin extends AbstractAdmin
             ->end()
             ->with('form.group_image', array('name' => false, 'class' => 'col-lg-6'))
             ->add('image')
+            ->end()
+            ->with('form.group_views', array('name' => false, 'class' => 'col-lg-6'))
+            ->add('views')
             ->end()
             ->end();
     }

@@ -1,51 +1,99 @@
-<div class="">
-    {% block breadcrumb %}
-        {{ sonata_block_render_event('breadcrumb', { 'context': 'news', 'news': news }) }}
-    {% endblock %}
+{# @var article \Compo\NewsBundle\Entity\News #}
+{#
+{{ block('news_article') }}
+{{ block('main_entity_of_page') }}
+{{ block('publisher') }}
+{{ block('author') }}
+{{ block('headline') }}
+{{ block('image') }}
+{{ block('date_published') }}
+{{ block('date_modified') }}
+{{ block('description') }}
+{{ block('article_body') }}
+{{ block('back_to_list') }}
+#}
 
-    <div class="row">
-        <div class="col-lg-12">
+{% block content %}
+    <div class="content-block articles-index">
 
-            <div class="news-item" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <div class="row">
+            <div class="col-lg-12">
 
-                {% block header %}
-                    <div class="header-block">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="page-header">
-                                    <h1 itemprop="headline">{{ compo_seo_header() }}</h1>
+                {% block news_article %}
+                    <div itemscope itemtype="http://schema.org/NewsArticle" class="articles-item">
+
+                        {% block main_entity_of_page %}
+                            <meta itemscope itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="{{ path('compo_news_show_by_slug', {'slug': news.slug}) }}"/>
+                        {% endblock %}
+
+                        {% block publisher %}
+                            {% include '@CompoSeo/SchemaOrg/organization.html.twig' %}
+                        {% endblock %}
+
+                        {% block author %}
+                            {% if news.createdBy %}
+                                <div itemscope itemprop="author" itemtype="https://schema.org/Person" class="hidden">
+                                    <div itemprop="name">{{ news.createdBy.firstName }} {{ news.createdBy.lastName }}</div>
                                 </div>
-                            </div>
+                            {% endif %}
+                        {% endblock %}
+
+                        {% block headline %}
+                            <h1 itemprop="headline">
+                                {{ compo_seo_header() }}
+                            </h1>
+                        {% endblock %}
+
+                        {% block image %}
+                            {% if news.image %}
+                                <div itemscope itemtype="https://schema.org/ImageObject" itemprop="image" class="photo">
+                                    <meta itemprop="url" content="{% path  news.image, 'reference' %}">
+                                    <meta itemprop="width" content="{{ news.image.width }}">
+                                    <meta itemprop="height" content="{{ news.image.height }}">
+
+                                    {% media news.image, 'reference' with {'alt': news.name, 'class': 'thumbnail pull-right'} %}
+                                </div>
+                            {% endif %}
+                        {% endblock %}
+
+                        {% block date_published %}
+                            <time itemprop="datePublished" datetime="{{ news.publicationAt|date("Y-m-d\TH:i:sP") }}" class="date pull-left">{{ news.publicationAt|date("d.m.Y") }}</time>
+                        {% endblock %}
+
+                        {% block date_modified %}
+                            <meta itemprop="dateModified" content="{{ news.updatedAt|date("Y-m-d\TH:i:sP") }}"/>
+                        {% endblock %}
+
+                        <div class="text">
+                            {% block description %}
+                                <div itemprop="description">
+                                    {{ news.description|raw }}
+                                </div>
+                            {% endblock %}
+
+                            {% block article_body %}
+                                <div itemprop="articleBody">
+                                    {{ news.body|raw }}
+                                </div>
+                            {% endblock %}
                         </div>
                     </div>
                 {% endblock %}
 
-                <div class="photo">
-                    <img itemprop="image" src="{% path news.image, 'small' %}" width="200" class="thumbnail pull-right" alt="{{ news.name }}">
-                </div>
-
-                <div class="date pull-left">{{ news.publicationAt|date("d.m.Y") }}</div>
-
-                <meta itemprop="datePublished" content="{{ news.publicationAt|date("ATOM") }}">
-
-                <div itemprop="description" style="display: none">
-                    {{ news.description|raw }}
-                </div>
-
-                <div itemprop="articleBody" class="text">
-                    {{ news.body|raw }}
-                </div>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="back-to-list clearfix">
-                <a class="btn btn-default pull-right" href="{{ path('compo_news_index') }}">К списку новостей</a>
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="back-to-list clearfix">
+                    {% block back_to_list %}
+                        <a class="btn btn-default pull-right" href="{{ path('compo_news_index') }}">К списку новостей</a>
+                    {% endblock %}
+                </div>
+
             </div>
         </div>
+
     </div>
-</div>
-
-
+{% endblock %}

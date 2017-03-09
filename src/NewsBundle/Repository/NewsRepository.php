@@ -2,6 +2,8 @@
 
 namespace Compo\NewsBundle\Repository;
 
+use Compo\NewsBundle\Entity\News;
+
 /**
  * NewsRepository
  *
@@ -12,7 +14,7 @@ class NewsRepository extends \Doctrine\ORM\EntityRepository
 {
     /**
      * @param $slug
-     * @return null
+     * @return News
      */
     public function findBySlug($slug)
     {
@@ -42,7 +44,7 @@ class NewsRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
-     * Последнии новости
+     * Последнии статьи
      *
      * @param int $limit
      * @return array

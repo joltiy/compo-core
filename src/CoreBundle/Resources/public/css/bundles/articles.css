@@ -66,6 +66,8 @@
 
 .articles-item .thumbnail {
     margin-left: 20px;
+    width: 200px;
+    height: auto;
 }
 
 .page-news .articles,

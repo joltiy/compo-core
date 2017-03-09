@@ -3,7 +3,6 @@
 namespace Compo\NewsBundle\Block;
 
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
-use Knp\Menu\ItemInterface;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\SeoBundle\Block\Breadcrumb\BaseBreadcrumbMenuBlockService;
 
@@ -16,18 +15,6 @@ class NewsBreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
 
     /**
      * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'compo_news.block.breadcrumb';
-    }
-
-    /**
-     * Gets the menu to render.
-     *
-     * @param BlockContextInterface $blockContext
-     *
-     * @return ItemInterface|string
      */
     protected function getMenu(BlockContextInterface $blockContext)
     {

@@ -2,13 +2,10 @@
 
 namespace Compo\NewsBundle\Block;
 
-use Compo\NewsBundle\Repository\NewsRepository;
-use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
+use Compo\Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Block\BlockContextInterface;
-use Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Sonata\BlockBundle\Model\BlockInterface;
-use Sonata\CoreBundle\Model\Metadata;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,36 +14,36 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class NewsLastBlockService extends AbstractBlockService
 {
-    use ContainerAwareTrait;
-
     /**
      * {@inheritdoc}
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
-        $em = $this->getContainer()->get("doctrine")->getManager();
+        $container = $this->getContainer();
 
-        /** @var NewsRepository $repository */
-        $repository = $em->getRepository("CompoNewsBundle:News");
+        $manager = $container->get("compo_news.manager.news");
 
-        $publications = $repository->findLastPublications();
+        $settigs = $blockContext->getSettings();
+        $block = $blockContext->getBlock();
+        $template = $blockContext->getTemplate();
 
-        return $this->renderResponse($blockContext->getTemplate(), array(
+        $publications = $manager->findLastPublications($settigs['limit']);
+
+        return $this->renderResponse($template, array(
             'news' => $publications,
-            'block' => $blockContext->getBlock(),
-            'settings' => $blockContext->getSettings(),
+            'block' => $block,
+            'settings' => $settigs,
         ), $response);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function buildEditForm(FormMapper $formMapper, BlockInterface $block)
+    public function buildForm(FormMapper $formMapper, BlockInterface $block)
     {
         $formMapper->add('settings', 'sonata_type_immutable_array', array(
             'keys' => array(
-                array('class', 'text', array('required' => false)),
-                array('template', 'text', array('required' => false)),
+                array('limit', 'integer', array('required' => true)),
             ),
         ));
     }
@@ -58,19 +55,7 @@ class NewsLastBlockService extends AbstractBlockService
     {
         $resolver->setDefaults(array(
             'limit' => 5,
-
-            'class' => '',
             'template' => 'CompoNewsBundle:Block:news_last.html.twig',
-        ));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockMetadata($code = null)
-    {
-        return new Metadata('Последнии новости', (!is_null($code) ? $code : $this->getName()), false, 'SonataBlockBundle', array(
-            'class' => 'fa fa-file-text-o',
         ));
     }
 }

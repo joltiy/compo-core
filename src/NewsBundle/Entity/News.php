@@ -18,6 +18,8 @@ class News
     use \Compo\Sonata\AdminBundle\Entity\DescriptionEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\ImageEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\BodyEntityTrait;
+    use \Compo\Sonata\AdminBundle\Entity\ViewsEntityTrait;
+    use \Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait;
 
     use \Compo\SeoBundle\Entity\Traits\SeoEntity;
 

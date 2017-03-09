@@ -2,8 +2,10 @@
 
 namespace Compo\NewsBundle\Manager;
 
-use Compo\NewsBundle\Repository\NewsRepository;
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
+use Compo\NewsBundle\Entity\News;
+use Compo\NewsBundle\Repository\NewsRepository;
+use Compo\Sonata\AdminBundle\Entity\ViewsRepositoryTrait;
 use Sonata\CoreBundle\Model\BaseEntityManager;
 
 /**
@@ -12,14 +14,24 @@ use Sonata\CoreBundle\Model\BaseEntityManager;
 class NewsManager extends BaseEntityManager
 {
     use ContainerAwareTrait;
+    use ViewsRepositoryTrait;
 
+    /**
+     * @param $criteria
+     * @param int $page
+     * @return \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination
+     */
     public function getPager($criteria, $page = 1)
     {
         $container = $this->getContainer();
 
-        $compo_news_settings = $container->get('sylius.settings.manager')->load('compo_news');
+        $paginator = $container->get('knp_paginator');
 
-        $limit = $compo_news_settings->get('news_per_page');
+        $settingsManager = $container->get('sylius.settings.manager');
+
+        $settings = $settingsManager->load('compo_news');
+
+        $limit = $settings->get('news_per_page');
 
         $parameters = array();
 
@@ -48,13 +60,66 @@ class NewsManager extends BaseEntityManager
 
         $qb->setParameters($parameters);
 
-        $paginator = $this->getContainer()->get('knp_paginator');
-
         $pagination = $paginator->paginate(
             $qb,
             $page,
             $limit
         );
+
         return $pagination;
+    }
+
+    /**
+     * @param int $limit
+     * @return array
+     */
+    public function findLastPublications($limit = 5)
+    {
+        /** @var NewsRepository $repository */
+        $repository = $this->getRepository();
+
+        return $repository->findLastPublications($limit);
+    }
+
+    /**
+     * @param $slug
+     * @return News
+     */
+    public function findBySlug($slug)
+    {
+        /** @var NewsRepository $repository */
+        $repository = $this->getRepository();
+
+        return $repository->findBySlug($slug);
+    }
+
+    public function getNewsShowPermalink(News $articles)
+    {
+        return $this->getContainer()->get('router')->generate($this->getNewsShowRoute(), $this->getNewsShowRouteParameters($articles));
+    }
+
+    public function getNewsShowRoute()
+    {
+        return 'compo_news_show_by_slug';
+    }
+
+    public function getNewsShowRouteParameters(News $articles)
+    {
+        return array('slug' => $articles->getSlug());
+    }
+
+    public function getNewsIndexPermalink($parameters = array())
+    {
+        return $this->getContainer()->get('router')->generate($this->getNewsIndexRoute(), $this->getNewsIndexRouteParameters($parameters));
+    }
+
+    public function getNewsIndexRoute()
+    {
+        return 'compo_news_index';
+    }
+
+    public function getNewsIndexRouteParameters($parameters)
+    {
+        return $parameters;
     }
 }

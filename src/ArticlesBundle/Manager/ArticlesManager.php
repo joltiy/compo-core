@@ -14,7 +14,6 @@ use Sonata\CoreBundle\Model\BaseEntityManager;
 class ArticlesManager extends BaseEntityManager
 {
     use ContainerAwareTrait;
-
     use ViewsRepositoryTrait;
 
     /**
@@ -123,5 +122,4 @@ class ArticlesManager extends BaseEntityManager
     {
         return $parameters;
     }
-
 }

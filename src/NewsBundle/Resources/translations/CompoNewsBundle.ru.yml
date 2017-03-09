@@ -34,3 +34,6 @@ tab_menu:
     title_news_edit: 'Новость: %name%'
     title_news_list: Новости
     title_news_settings: 'Настройки новостей'
+
+
+tab.label_settings_seo_items: 'SEO новостей'
