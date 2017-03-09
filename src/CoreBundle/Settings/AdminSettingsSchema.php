@@ -2,15 +2,16 @@
 
 namespace Compo\CoreBundle\Settings;
 
+use Compo\MenuBundle\Entity\MenuRepository;
+use Compo\Sonata\MediaBundle\Entity\Media;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Mopa\Bundle\BootstrapBundle\Form\Type\TabType;
+use Sonata\MediaBundle\Form\Type\MediaType;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\CallbackTransformer;
-use Sonata\MediaBundle\Form\Type\MediaType;
-use Compo\Sonata\MediaBundle\Entity\Media;
 
 /**
  * {@inheritDoc}
@@ -152,8 +153,7 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
             ->add($main_tab)
             ->add($header_tab)
             ->add($footer_tab)
-            ->add($logo_tab)
-        ;
+            ->add($logo_tab);
 
         $media_transformer = new CallbackTransformer(
             function ($id) {
@@ -168,6 +168,7 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
                 }
             },
             function ($media) {
+                /** @var $media Media */
                 if ($media) {
                     $container = $this->getContainer();
 
@@ -189,17 +190,18 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
     }
 
     /**
+     * @return MenuRepository
+     */
+    public function getMenuRepository()
+    {
+        return $this->getDoctrine()->getRepository('CompoMenuBundle:Menu');
+    }
+
+    /**
      * @return \Doctrine\Bundle\DoctrineBundle\Registry|object
      */
     public function getDoctrine()
     {
         return $this->getContainer()->get('doctrine');
-    }
-    /**
-     * @return CurrencyRepository
-     */
-    public function getMenuRepository()
-    {
-        return $this->getDoctrine()->getRepository('CompoMenuBundle:Menu');
     }
 }

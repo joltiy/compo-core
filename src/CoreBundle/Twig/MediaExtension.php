@@ -5,11 +5,10 @@ namespace Compo\CoreBundle\Twig;
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Sonata\CoreBundle\Model\ManagerInterface;
 use Sonata\MediaBundle\Model\MediaInterface;
-use Sonata\MediaBundle\Provider\Pool;
-use Sonata\MediaBundle\Twig\TokenParser\MediaTokenParser;
-use Sonata\MediaBundle\Twig\TokenParser\PathTokenParser;
-use Sonata\MediaBundle\Twig\TokenParser\ThumbnailTokenParser;
 
+/**
+ * {@inheritDoc}
+ */
 class MediaExtension extends \Twig_Extension
 {
     use ContainerAwareTrait;
@@ -51,6 +50,7 @@ class MediaExtension extends \Twig_Extension
     }
 
     /**
+     * @param $media
      * @return string
      */
     public function getWidth($media)
@@ -59,20 +59,6 @@ class MediaExtension extends \Twig_Extension
 
         if ($media) {
             return $media->getWidth();
-        }
-
-        return null;
-    }
-
-    /**
-     * @return string
-     */
-    public function getHeight($media)
-    {
-        $media = $this->getMedia($media);
-
-        if ($media) {
-            return $media->getHeight();
         }
 
         return null;
@@ -100,5 +86,20 @@ class MediaExtension extends \Twig_Extension
         }
 
         return $media;
+    }
+
+    /**
+     * @param $media
+     * @return string
+     */
+    public function getHeight($media)
+    {
+        $media = $this->getMedia($media);
+
+        if ($media) {
+            return $media->getHeight();
+        }
+
+        return null;
     }
 }
