@@ -8,13 +8,21 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
+/**
+ * {@inheritDoc}
+ */
 class RedirectAdmin extends AbstractAdmin
 {
+    /**
+     * {@inheritDoc}
+     */
     public function configure()
     {
         $this->setTranslationDomain('CompoRedirectBundle');
 
-        $this->configurePosition(true);
+        $this->setSortBy('publicationAt');
+        $this->setSortOrder('DESC');
+        $this->configureProperties(true);
     }
 
     /**
@@ -26,9 +34,9 @@ class RedirectAdmin extends AbstractAdmin
             ->add('id')
             ->add('urIn')
             ->add('urOut')
-            ->add('position')
             ->add('enabled')
-        ;
+            ->add('createdAt')
+            ->add('updatedAt');
     }
 
     /**
@@ -38,17 +46,15 @@ class RedirectAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id')
-            ->add('urIn')
-            ->add('urOut')
-            ->add('position')
+            ->addIdentifier('urIn')
+            ->addIdentifier('urOut')
             ->add('enabled')
             ->add('_action', null, array(
                 'actions' => array(
                     'edit' => array(),
                     'delete' => array(),
                 )
-            ))
-        ;
+            ));
     }
 
     /**
@@ -57,10 +63,13 @@ class RedirectAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
+            ->tab('form.tab_main')
+            ->with('form.group_main', array('name' => false, 'class' => 'col-lg-12'))
             ->add('urIn')
             ->add('urOut')
             ->add('enabled')
-        ;
+            ->end()
+            ->end();;
     }
 
     /**
@@ -73,7 +82,6 @@ class RedirectAdmin extends AbstractAdmin
             ->add('urIn')
             ->add('urOut')
             ->add('position')
-            ->add('enabled')
-        ;
+            ->add('enabled');
     }
 }

@@ -78,7 +78,8 @@ class ArticlesAdmin extends AbstractAdmin
             ->add('enabled')
             ->add('createdAt')
             ->add('updatedAt')
-            ->add('publicationAt');
+            ->add('publicationAt')
+        ;
     }
 
     /**

@@ -1,9 +1,4 @@
 services:
-#    compo_redirect.example:
-#        class: Compo\RedirectBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
-
-
     kernel.listener.logged_in_user_listener:
             class: Compo\RedirectBundle\Listener\RedirectListener
             tags:

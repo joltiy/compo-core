@@ -25,3 +25,8 @@ show:
     label_ur_out: 'URL куда'
 
 title_edit_redirect: 'Редактировать редирект'
+
+tab_menu.title_redirect_list: 'Редиректы'
+
+tab_menu.title_redirect_edit: 'Редирект: %name%'
+tab_menu.title_redirect_create: 'Создание редиректа'

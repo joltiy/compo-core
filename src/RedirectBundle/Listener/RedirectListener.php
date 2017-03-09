@@ -8,9 +8,11 @@
 
 namespace Compo\RedirectBundle\Listener;
 
+use Compo\RedirectBundle\Entity\Redirect;
+use Compo\RedirectBundle\Repository\RedirectRepository;
 use Symfony\Component\DependencyInjection\Container;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 class RedirectListener
 {
@@ -23,6 +25,32 @@ class RedirectListener
     {
         $this->router = $router;
         $this->container = $container;
+    }
+
+    public function onKernelRequest(GetResponseEvent $event)
+    {
+        $container = $this->container;
+
+
+        $uri = $container->get('request')->getRequestUri();
+
+
+        /** @var RedirectRepository $redirectRepository */
+        $redirectRepository = $this->getContainer()->get('doctrine')->getManager()->getRepository('CompoRedirectBundle:Redirect');
+
+        /** @var Redirect $redirect */
+        $redirect = $redirectRepository->findOneBy(array(
+            'urIn' => $uri,
+            'enabled' => true
+        ), array(
+                'id' => 'ASC'
+            )
+        );
+
+        if ($redirect) {
+            $event->setResponse(new RedirectResponse($redirect->getUrOut()));
+        }
+
     }
 
     /**
@@ -39,30 +67,5 @@ class RedirectListener
     public function setContainer($container)
     {
         $this->container = $container;
-    }
-
-
-    public function onKernelRequest(GetResponseEvent $event)
-    {
-        $container = $this->container;
-
-
-        $uri = $container->get('request')->getRequestUri();
-
-
-        $redirectRepository = $this->getContainer()->get('doctrine')->getManager()->getRepository('CompoRedirectBundle:Redirect');
-
-        $redirect = $redirectRepository->findOneBy(array(
-            'urIn' => $uri,
-            'enabled' => true
-        ), array(
-            'position' => 'ASC'
-            )
-        );
-
-        if($redirect) {
-            $event->setResponse(new RedirectResponse($redirect->getUrOut()));
-        }
-
     }
 }
