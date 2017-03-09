@@ -2,16 +2,18 @@
 
 namespace Compo\SeoBundle\Service;
 
-
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Compo\SeoBundle\Manager\SeoPage;
 
+/**
+ * {@inheritDoc}
+ */
 class BaseService
 {
     use ContainerAwareTrait;
 
-
     public $context = array();
+
     public $alias = 'default';
 
     /** @var SeoPage */
@@ -32,8 +34,6 @@ class BaseService
     {
         $this->seoPage = $seoPage;
     }
-
-
 
     /**
      * @return string
@@ -67,11 +67,13 @@ class BaseService
         $this->alias = $alias;
     }
 
-    public function getVars() {
+    public function getVars()
+    {
         return array();
     }
 
-    public function build() {
+    public function build()
+    {
 
     }
 

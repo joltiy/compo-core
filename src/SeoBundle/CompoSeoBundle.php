@@ -11,6 +11,9 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class CompoSeoBundle extends Bundle
 {
+    /**
+     * {@inheritDoc}
+     */
     public function build(ContainerBuilder $container)
     {
         $container->addCompilerPass(new SeoServicePass());

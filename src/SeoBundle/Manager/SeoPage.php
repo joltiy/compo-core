@@ -6,15 +6,28 @@ namespace Compo\SeoBundle\Manager;
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Compo\SeoBundle\Service\BaseService;
 
+/**
+ * {@inheritDoc}
+ */
 class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
 {
-
     use ContainerAwareTrait;
-
 
     public $services = array();
 
     public $context = 'default';
+
+    public $templates = array(
+        'default' => array(
+            'header' => '{{ page_internal.name }}',
+            'description' => '{{ page_internal.name }}',
+            'title' => '{{ page_internal.name }}. {{ site.title|default(site.name) }}',
+            'meta_description' => '{{ page_internal.name }}. {{ site.metaDescription|default(site.name) }}',
+            'meta_keyword' => '{{ page_internal.name }}, {{ site.metaKeyword|default(site.name) }}',
+        )
+    );
+
+    public $vars = array();
 
     /**
      * @var string
@@ -30,19 +43,6 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
      * @var array
      */
     protected $htmlAttributes = array();
-
-    public $templates = array(
-        'default' => array(
-            'header' => '{{ page_internal.name }}',
-            'description' => '{{ page_internal.name }}',
-            'title' => '{{ page_internal.name }}. {{ site.title|default(site.name) }}',
-            'meta_description' => '{{ page_internal.name }}. {{ site.metaDescription|default(site.name) }}',
-            'meta_keyword' => '{{ page_internal.name }}, {{ site.metaKeyword|default(site.name) }}',
-        )
-    );
-
-
-    public $vars = array();
 
     /**
      * @var string
@@ -86,13 +86,13 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         $this->linkPrev = $linkPrev;
     }
 
-
     /**
      * @param $service BaseService
      * @param $alias
      * @param $context
      */
-    public function addService($service, $alias, $context) {
+    public function addService($service, $alias, $context)
+    {
         $this->services[$alias] = $service;
         $service->setAlias($alias);
         $service->setContext($context);
@@ -140,22 +140,17 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         return $this->templates;
     }
 
-    public function loadVars()
-    {
-
-    }
-
-    public function addVar($name, $value)
-    {
-        $this->vars[$name] = $value;
-    }
-
     /**
      * @param array $templates
      */
     public function setTemplates($templates)
     {
         $this->templates = $templates;
+    }
+
+    public function loadVars()
+    {
+
     }
 
     /**
@@ -172,26 +167,12 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         return $this->vars;
     }
 
-    public function getVar($name, $default = null) {
-        if (isset($this->vars[$name])) {
-            return $this->vars[$name];
-        } else {
-            return $default;
-        }
-    }
-
     /**
      * @param array $vars
      */
     public function setVars($vars)
     {
         $this->vars = $vars;
-    }
-
-
-
-    public function addTemplates($name, $templates) {
-        $this->templates[$name] = $templates;
     }
 
     /**
@@ -210,6 +191,20 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         $this->context = $context;
     }
 
+    public function getVar($name, $default = null)
+    {
+        if (isset($this->vars[$name])) {
+            return $this->vars[$name];
+        } else {
+            return $default;
+        }
+    }
+
+    public function addTemplates($name, $templates)
+    {
+        $this->templates[$name] = $templates;
+    }
+
     /**
      * @return array
      */
@@ -226,14 +221,16 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         $this->services = $services;
     }
 
-    public function getSite() {
+    public function getSite()
+    {
         $container = $this->getContainer();
         $site = $container->get('sonata.page.site.selector')->retrieve();
 
         return $site;
     }
 
-    public function build() {
+    public function build()
+    {
 
         $this->addHtmlAttributes('lang', 'ru');
 
@@ -332,8 +329,13 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         }
     }
 
+    public function addVar($name, $value)
+    {
+        $this->vars[$name] = $value;
+    }
 
-    public function buildTemplate($template) {
+    public function buildTemplate($template)
+    {
         // Заменяем переменные в шаблоне
         //$found_template[$key] = preg_replace(array_keys($vars_preg_replace), array_values($vars_preg_replace), $value);
 

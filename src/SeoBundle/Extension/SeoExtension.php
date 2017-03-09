@@ -66,12 +66,10 @@ class SeoExtension extends AbstractAdminExtension
     {
         $formMapper
             ->tab('form.tab_seo')
-
             ->with('form.group_seo_main', array('name' => false, 'class' => 'col-lg-6'))
             ->add('slug', 'text', array('required' => false))
             ->add('noIndexEnabled', 'checkbox', array('required' => false))
             ->end()
-
             ->with('form.group_seo_meta', array('name' => false, 'class' => 'col-lg-6'))
             ->add('header', 'textarea', array('required' => false))
             ->add('title', 'textarea', array('required' => false))
@@ -83,17 +81,11 @@ class SeoExtension extends AbstractAdminExtension
                 'by_reference' => false,
             ))
             ->end()
-
             ->end();
     }
 
-
     /**
-     *
      * {@inheritdoc}
-     *
-     *
-     * @todo Сделать поле slug уникальным, валидация, добавление префикса
      */
     public function preUpdate(AdminInterface $admin, $object)
     {
@@ -124,9 +116,7 @@ class SeoExtension extends AbstractAdminExtension
             $qb->andWhere('a.id != :id');
             /** @noinspection PhpUndefinedMethodInspection */
             $qb->setParameter('id', $object->getId());
-
         }
-
 
         $result = $qb->getQuery()->getResult();
 

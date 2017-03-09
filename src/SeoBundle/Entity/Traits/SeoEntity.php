@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jivoy1988
- * Date: 28.03.16
- * Time: 15:21
- */
-
 
 namespace Compo\SeoBundle\Entity\Traits;
 
@@ -13,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait SeoEntity
 {
-
     /**
      * URL
      *
@@ -169,6 +161,4 @@ trait SeoEntity
     {
         $this->title = $title;
     }
-
-
 }

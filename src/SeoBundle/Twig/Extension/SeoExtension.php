@@ -4,6 +4,9 @@ namespace Compo\SeoBundle\Twig\Extension;
 
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 
+/**
+ * {@inheritDoc}
+ */
 class SeoExtension extends \Twig_Extension
 {
     use ContainerAwareTrait;
@@ -39,6 +42,8 @@ class SeoExtension extends \Twig_Extension
         if ($seo_page->getLinkNext()) {
             return sprintf("<link rel=\"next\" href=\"%s\"/>\n", $seo_page->getLinkNext());
         }
+
+        return '';
     }
 
     /**
@@ -51,6 +56,8 @@ class SeoExtension extends \Twig_Extension
         if ($seo_page->getLinkPrev()) {
             return sprintf("<link rel=\"prev\" href=\"%s\"/>\n", $seo_page->getLinkPrev());
         }
+
+        return '';
     }
 
     /**

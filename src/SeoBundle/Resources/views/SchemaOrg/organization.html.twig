@@ -1,6 +1,6 @@
 {%- set compo_core_settings = sylius_settings('compo_core_settings') -%}
 
-{%  set site = seo_page.getSite() %}
+{% set site = seo_page.getSite() %}
 
 {% if compo_core_settings.logo_image %}
     <div itemscope itemprop="publisher" itemtype="https://schema.org/Organization" class="hidden">
