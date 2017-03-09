@@ -5,7 +5,6 @@ sonata_dashboard:
         dashboard: Compo\Sonata\DashboardBundle\Entity\Dashboard
         block:     Compo\Sonata\DashboardBundle\Entity\Block
 
-
 doctrine:
     orm:
         entity_managers:

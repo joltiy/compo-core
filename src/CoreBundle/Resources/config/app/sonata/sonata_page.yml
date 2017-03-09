@@ -27,6 +27,7 @@ sonata_page:
     ignore_uri_patterns:
         - ^/admin(.*)
         - ^/api/(.*)
+        - ^/_(.*)
 
     ignore_route_patterns:
         - (.*)admin(.*)     # ignore admin route, ie route containing 'admin'
@@ -65,44 +66,36 @@ sonata_page:
                         - sonata.block.service.template
                         - sonata.block.service.text
                         - sonata.formatter.block.formatter
-                        - compo_menu.block.service.menu
                  content_top:
                      name: "Вверху"
                      blocks:
                         - sonata.block.service.template
                         - sonata.block.service.text
                         - sonata.formatter.block.formatter
-                        - compo_menu.block.service.menu
                  sidebar:
                      name: "Сайдбар"
                      blocks:
                         - sonata.block.service.template
                         - sonata.block.service.text
                         - sonata.formatter.block.formatter
-                        - compo_menu.block.service.menu
-
                  content:
                      name: "Контент"
                      blocks:
                         - sonata.block.service.template
                         - sonata.block.service.text
                         - sonata.formatter.block.formatter
-                        - compo_menu.block.service.menu
-
                  content_bottom:
                      name: "Внизу"
                      blocks:
                         - sonata.block.service.template
                         - sonata.block.service.text
                         - sonata.formatter.block.formatter
-                        - compo_menu.block.service.menu
                  footer:
                      name: "Подвал"
                      blocks:
                         - sonata.block.service.template
                         - sonata.block.service.text
                         - sonata.formatter.block.formatter
-                        - compo_menu.block.service.menu
             matrix:
                  layout: |
                      HHHHHHHH
@@ -131,38 +124,30 @@ sonata_page:
                         - sonata.block.service.template
                         - sonata.block.service.text
                         - sonata.formatter.block.formatter
-                        - compo_menu.block.service.menu
-
                  content_top:
                      name: 'Вверху'
                      blocks:
                         - sonata.block.service.template
                         - sonata.block.service.text
                         - sonata.formatter.block.formatter
-                        - compo_menu.block.service.menu
-
                  content:
                      name: "Контент"
                      blocks:
                         - sonata.block.service.template
                         - sonata.block.service.text
                         - sonata.formatter.block.formatter
-                        - compo_menu.block.service.menu
-
                  content_bottom:
                      name: "Внизу"
                      blocks:
                         - sonata.block.service.template
                         - sonata.block.service.text
                         - sonata.formatter.block.formatter
-                        - compo_menu.block.service.menu
                  footer:
                      name: "Подвал"
                      blocks:
                         - sonata.block.service.template
                         - sonata.block.service.text
                         - sonata.formatter.block.formatter
-                        - compo_menu.block.service.menu
             matrix:
                  layout: |
                      HHHHHHHH

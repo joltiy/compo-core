@@ -18,7 +18,6 @@ sonata_media:
                 - sonata.media.provider.youtube
                 - sonata.media.provider.image
                 - sonata.media.provider.file
-
             formats:
                 small: { width: 256, quality: 100}
                 medium: { width: 512, quality: 100}
@@ -29,7 +28,6 @@ sonata_media:
                 mode: http
             providers:
                 - sonata.media.provider.image
-
             formats:
                 small: { width: 256, quality: 100}
                 medium: { width: 512, quality: 100}
@@ -40,7 +38,6 @@ sonata_media:
                 mode: http
             providers:
                 - sonata.media.provider.file
-
             formats:
                 small: { width: 256, quality: 100}
                 medium: { width: 512, quality: 100}

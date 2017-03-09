@@ -1,9 +1,0 @@
-#
-# more information can be found here https://sonata-project.org/bundles/comment
-#
-sonata_comment:
-    manager_type: orm # can be 'orm' or 'mongodb'
-    class:
-        comment:  Compo\Sonata\CommentBundle\Entity\Comment # This is an optional value
-        thread:   Compo\Sonata\CommentBundle\Entity\Thread   # This is an optional value
-        category: Compo\Sonata\ClassificationBundle\Entity\Category   # This is an optional value

@@ -13,7 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class UpdateCommand extends BaseDeployCommand
 {
     /**
-     *
+     * {@inheritdoc}
      */
     protected function configure()
     {

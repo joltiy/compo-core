@@ -210,30 +210,6 @@ class AbstractAdmin extends BaseAdmin
         return $this->getConfigurationPool()->getContainer()->get("pix_sortable_behavior.position")->getLastPosition($this->getRoot()->getClass());
     }
 
-
-    /**
-     * @param FormMapper $formMapper
-     *
-     * @return FormMapper
-     */
-    public function createImageFormType(FormMapper $formMapper)
-    {
-        return $formMapper->add('image',
-            'sonata_type_model_list',
-            array(
-                'required' => false
-            ),
-            array(
-                'link_parameters' => array(
-                    'context' => 'default',
-                    'hide_context' => true,
-
-                ),
-            )
-        );
-    }
-
-
     /**
      * {@inheritdoc}
      */

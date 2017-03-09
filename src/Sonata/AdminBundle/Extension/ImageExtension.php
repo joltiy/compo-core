@@ -29,7 +29,7 @@ class ImageExtension extends AbstractAdminExtension
                 'translation_domain' => 'SonataAdminBundle',
 
                 'link_parameters' => array(
-                    'context' => 'default',
+                    'context' => 'image',
                     'hide_context' => true,
                 ),
             )

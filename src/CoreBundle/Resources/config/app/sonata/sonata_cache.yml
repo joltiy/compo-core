@@ -6,7 +6,6 @@ sonata_cache:
             servers:
               - { domain: kooqit.local, ip: 127.0.0.1, port: 80}
 
-
 #        esi:
 #            servers:
 #                - varnishadm -T 127.0.0.1:2000 {{ COMMAND }} "{{ EXPRESSION }}"

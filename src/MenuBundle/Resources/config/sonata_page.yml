@@ -1,0 +1,46 @@
+sonata_page:
+    templates:
+        2columns:
+            containers:
+                 header:
+                     blocks:
+                        - compo_menu.block.service.menu
+                 content_top:
+                     blocks:
+                        - compo_menu.block.service.menu
+                 sidebar:
+                     blocks:
+                        - compo_menu.block.service.menu
+
+                 content:
+                     blocks:
+                        - compo_menu.block.service.menu
+
+                 content_bottom:
+                     blocks:
+                        - compo_menu.block.service.menu
+                 footer:
+                     blocks:
+                        - compo_menu.block.service.menu
+
+        default:
+            containers:
+                 header:
+                     blocks:
+                        - compo_menu.block.service.menu
+
+                 content_top:
+                     blocks:
+                        - compo_menu.block.service.menu
+
+                 content:
+                     blocks:
+                        - compo_menu.block.service.menu
+
+                 content_bottom:
+                     blocks:
+                        - compo_menu.block.service.menu
+                 footer:
+                     blocks:
+                        - compo_menu.block.service.menu
+

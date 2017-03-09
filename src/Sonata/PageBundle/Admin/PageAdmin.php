@@ -270,11 +270,6 @@ class PageAdmin extends AbstractAdmin
 
 
 
-        $query->andWhere(
-            $query->expr()->notLike($query->getRootAliases()[0] . '.url', ':urlNotAdmin')
-        );
-        $query->setParameter('urlNotAdmin', '/\_%');
-
 
         return $query;
     }

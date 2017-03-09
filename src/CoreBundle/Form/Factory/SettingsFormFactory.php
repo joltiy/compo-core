@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jivoy1988
- * Date: 14.11.16
- * Time: 6:58
- */
 
 namespace Compo\CoreBundle\Form\Factory;
-
 
 use Sylius\Bundle\SettingsBundle\Form\Factory\SettingsFormFactoryInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;

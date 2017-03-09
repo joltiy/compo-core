@@ -1,0 +1,3 @@
+sonata_block:
+    blocks:
+        compo_menu.block.service.menu:

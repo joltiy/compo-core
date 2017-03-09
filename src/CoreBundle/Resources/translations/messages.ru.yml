@@ -289,3 +289,25 @@ ROLE_COMPO_PROMOTION_ADMIN_PROMOTION: 'Акции'
 form.label_settings_header_menu: 'Меню в шапке'
 form.label_settings_footer_menu: 'Меню в подвале'
 form.label_settings_logo_image: 'Логотип'
+
+block.title_news_with_articles_last: 'Последнии Новости и Статьи'
+
+
+sonata.formatter.block.formatter: 'HTML'
+
+
+tab.label_settings_main: 'Основные'
+
+
+tab.label_settings_seo_index: 'SEO'
+
+
+
+form.label_settings_seo_index_header: 'Заголовок'
+form.label_settings_seo_index_description: 'Описание'
+form.label_settings_seo_index_title: 'Title'
+
+form.label_settings_seo_index_meta_keyword: 'Meta Keywords'
+form.label_settings_seo_index_meta_description: 'Meta Description'
+
+

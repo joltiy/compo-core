@@ -57,6 +57,8 @@ class NewsLastBlockService extends AbstractBlockService
     public function configureSettings(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
+            'limit' => 5,
+
             'class' => '',
             'template' => 'CompoNewsBundle:Block:news_last.html.twig',
         ));

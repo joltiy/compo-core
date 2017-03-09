@@ -37,8 +37,7 @@ class ArticlesLastBlockService extends AbstractBlockService
     }
 
     /**
-     * @param FormMapper $formMapper
-     * @param BlockInterface $block
+     * {@inheritdoc}
      */
     public function buildForm(FormMapper $formMapper, BlockInterface $block)
     {

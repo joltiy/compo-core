@@ -17,8 +17,6 @@ sonata_admin:
     title:      "Compo Standard"
     title_logo: "/bundles/compocore/images/compo_logo.png"
 
-
-
     options:
         html5_validate: true # does not use html5 validation
         pager_links: 5        # pager max links to display
@@ -65,7 +63,6 @@ sonata_admin:
             - bundles/composonataadmin/js/nestedSortable.js
 
             - bundles/composonataadmin/js/admin.js
-
 
         stylesheets:
             - assetic/sonata_admin_vendor_css.css

@@ -127,7 +127,7 @@ class NewsAdmin extends AbstractAdmin
             ->add('body')
             ->end()
             ->with('form.group_image', array('name' => false, 'class' => 'col-lg-6'))
-            ->add('image', 'sonata_type_model_list')
+            ->add('image')
             ->end()
             ->end();
     }

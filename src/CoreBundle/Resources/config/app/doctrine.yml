@@ -6,12 +6,9 @@ stof_doctrine_extensions:
             blameable: true
             sluggable: true
 
-
 doctrine_migrations:
     dir_name: "%kernel.root_dir%/migrations"
 
-
-# Doctrine Configuration
 doctrine:
     dbal:
         default_connection: default

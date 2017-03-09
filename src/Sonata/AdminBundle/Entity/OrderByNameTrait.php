@@ -1,6 +1,6 @@
 <?php
 
-namespace Compo\CoreBundle\Repository;
+namespace Compo\Sonata\AdminBundle\Entity;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 

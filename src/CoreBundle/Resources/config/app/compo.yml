@@ -4,10 +4,13 @@ parameters:
 
     sonata.page.manager.page.class: Compo\Sonata\PageBundle\Entity\PageManager
 
+    sonata.seo.page.default.class: Compo\SeoBundle\Manager\SeoPage
+
     sonata.page.admin.page.class: Compo\Sonata\PageBundle\Admin\PageAdmin
     sonata.page.admin.site.class: Compo\Sonata\PageBundle\Admin\SiteAdmin
     sonata.page.admin.block.class: Compo\Sonata\PageBundle\Admin\BlockAdmin
     sonata.page.admin.shared_block.class: Compo\Sonata\PageBundle\Admin\SharedBlockAdmin
+
 
     sonata.user.admin.user.class: Compo\Sonata\UserBundle\Admin\UserAdmin
     sonata.user.admin.group.class: Compo\Sonata\UserBundle\Admin\GroupAdmin
@@ -18,6 +21,3 @@ parameters:
 
     translator.class: Compo\CoreBundle\Translation\FallbackTranslator
     sylius.settings.form_factory.class: Compo\CoreBundle\Form\Factory\SettingsFormFactory
-
-    sonata.seo.page.default.class: Compo\SeoBundle\Manager\SeoPage
-
