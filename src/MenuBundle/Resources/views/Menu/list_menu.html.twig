@@ -3,14 +3,10 @@
 {% import _self as tree %}
 
 {% macro renderNodes(nodesList, lvl, dropdown) %}
-
     <ul {% if dropdown|default(false) %} {% else %}  {% endif %}>
         {% for node in nodesList %}
-
             {% if node.__children|length %}
-
                 <li>
-
                     <a title="{{ node.title }}" href="{{ node.url }}">
                         {{ node.name }}
                         <span class="caret"></span>
@@ -18,15 +14,12 @@
 
                     {{ _self.renderNodes(node.__children, node.lvl+1, true) }}
                 </li>
-
             {% else %}
                 <li {% if app.request.requestUri == node.url %} class="active" {% endif %}>
-
                     <a title="{{ node.title }}" href="{{ node.url }}">
                         {{ node.name }}
                     </a>
                 </li>
-
             {% endif %}
         {% endfor %}
     </ul>
@@ -34,11 +27,7 @@
 
 
 {% block block %}
-
-
     <div class="{{ settings.class }}">
         {{ tree.renderNodes(nodes, 0) }}
     </div>
-
-
 {% endblock %}

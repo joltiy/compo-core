@@ -22,8 +22,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Menu
 {
-
-
     use \Compo\Sonata\AdminBundle\Entity\NameEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\DescriptionEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait;
@@ -79,6 +77,4 @@ class Menu
     {
         $this->alias = $alias;
     }
-
-
 }

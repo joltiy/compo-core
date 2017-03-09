@@ -5,12 +5,12 @@ namespace Compo\MenuBundle\Admin;
 use Compo\MenuBundle\Entity\MenuItemRepository;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Knp\Menu\ItemInterface as MenuItemInterface;
+use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Knp\Menu\ItemInterface as MenuItemInterface;
-use Sonata\AdminBundle\Admin\AdminInterface;
 
 /**
  * {@inheritDoc}
@@ -34,7 +34,6 @@ class MenuItemAdmin extends AbstractAdmin
 
     }
 
-
     /**
      * @param DatagridMapper $datagridMapper
      */
@@ -42,7 +41,6 @@ class MenuItemAdmin extends AbstractAdmin
     {
 
     }
-
 
     /**
      * @param ListMapper $listMapper
@@ -111,7 +109,6 @@ class MenuItemAdmin extends AbstractAdmin
             'name' => false
         ))
             ->add('id')
-
             ->add('enabled')
             ->add('name')
             ->add('title')

@@ -310,4 +310,5 @@ form.label_settings_seo_index_title: 'Title'
 form.label_settings_seo_index_meta_keyword: 'Meta Keywords'
 form.label_settings_seo_index_meta_description: 'Meta Description'
 
-
+form.label_class: 'CSS класс'
+form.label_template: 'Шаблон'

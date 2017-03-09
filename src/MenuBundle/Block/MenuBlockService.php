@@ -1,27 +1,17 @@
 <?php
 
-/*
- * This file is part of the Sonata Project package.
- *
- * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Compo\MenuBundle\Block;
 
-use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
+use Compo\MenuBundle\Entity\MenuItemRepository;
+use Compo\MenuBundle\Entity\MenuRepository;
+use Compo\Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Knp\Menu\Matcher\Matcher;
 use Knp\Menu\MenuFactory;
 use Knp\Menu\MenuItem;
 use Knp\Menu\Renderer\ListRenderer;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Block\BlockContextInterface;
-use Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Sonata\BlockBundle\Model\BlockInterface;
-use Sonata\CoreBundle\Model\Metadata;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -31,39 +21,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class MenuBlockService extends AbstractBlockService
 {
     /**
-     * @var Container
-     */
-    public $container;
-
-    /**
-     * @return mixed
-     */
-    public function getContainer()
-    {
-        return $this->container;
-    }
-
-    /**
-     * @param mixed $container
-     */
-    public function setContainer($container)
-    {
-        $this->container = $container;
-    }
-
-
-    /**
      * {@inheritdoc}
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
-
         $em = $this->container->get("doctrine.orm.entity_manager");
 
         $settings = $blockContext->getSettings();
 
         $menu = null;
-
 
         $tree = array();
 
@@ -71,25 +37,23 @@ class MenuBlockService extends AbstractBlockService
 
         if ($settings['alias']) {
             $menu = $factory->createItem($settings['alias']);
-        } elseif($settings['id']) {
+        } elseif ($settings['id']) {
             $menu = $factory->createItem($settings['id']);
 
+            /** @var MenuRepository $repositoryMenu */
             $repositoryMenu = $em->getRepository("CompoMenuBundle:Menu");
 
             $menuObject = $repositoryMenu->find($settings['id']);
 
-            /** @var NestedTreeRepository $repo */
+            /** @var MenuItemRepository $repo */
             $repo = $em->getRepository("CompoMenuBundle:MenuItem");
-
 
             $tree = $repo->childrenHierarchyWithNodes($repo->findOneBy(array('menu' => $menuObject)), false, array(), false);
         } else {
             $menu = $factory->createItem('');
-
         }
 
         $tree = $this->renderMenu($menu, $tree);
-
 
         $renderer = new ListRenderer(new Matcher());
 
@@ -102,7 +66,6 @@ class MenuBlockService extends AbstractBlockService
         ), $response);
     }
 
-
     /**
      * @param $menu MenuItem
      * @param $nodesList
@@ -114,16 +77,16 @@ class MenuBlockService extends AbstractBlockService
             if ($item['type'] == 'url') {
 
             } elseif ($item['type'] == 'page') {
-                $item['url'] = $item['node']->getPage()->getUrl();
+                /** @var \Compo\MenuBundle\Entity\MenuItem $nodeItem */
+                $nodeItem = $item['node'];
+
+                $item['url'] = $nodeItem->getPage()->getUrl();
             } else {
                 $item['url'] = '';
             }
 
-
             /** @var MenuItem $node */
             $node = $menu->addChild($item['id'], array('uri' => $item['url']));
-
-
 
             if ($item['url'] === $this->container->get('request')->getRequestUri()) {
                 // URL's completely match
@@ -132,7 +95,6 @@ class MenuBlockService extends AbstractBlockService
                 // URL isn't just "/" and the first container of the URL match
                 $node->setCurrent(true);
             }
-
 
             if (count($item['__children'])) {
                 $item['__children'] = $this->renderMenu($node, $item['__children']);
@@ -147,35 +109,35 @@ class MenuBlockService extends AbstractBlockService
     /**
      * {@inheritdoc}
      */
-    public function buildCreateForm(FormMapper $formMapper, BlockInterface $block)
+    public function buildForm(FormMapper $formMapper, BlockInterface $block)
     {
         $block->getEnabled();
 
         $formMapper->add('settings', 'sonata_type_immutable_array', array(
             'keys' => array(
-                array('alias', 'text', array('required' => false)),
-                array('class', 'text', array('required' => false)),
+                array('id', 'choice', array('required' => true, 'choices' => $this->getMenuRepository()->getMenuChoices())),
 
+                array('class', 'text', array('required' => false)),
                 array('template', 'text', array('required' => false)),
+
             ),
         ));
     }
 
     /**
-     * {@inheritdoc}
+     * @return MenuRepository
      */
-    public function buildEditForm(FormMapper $formMapper, BlockInterface $block)
+    public function getMenuRepository()
     {
-        $block->getEnabled();
+        return $this->getDoctrine()->getRepository('CompoMenuBundle:Menu');
+    }
 
-        $formMapper->add('settings', 'sonata_type_immutable_array', array(
-            'keys' => array(
-                array('alias', 'text', array('required' => false)),
-                array('class', 'text', array('required' => false)),
-
-                array('template', 'text', array('required' => false)),
-            ),
-        ));
+    /**
+     * @return \Doctrine\Bundle\DoctrineBundle\Registry|object
+     */
+    public function getDoctrine()
+    {
+        return $this->getContainer()->get('doctrine');
     }
 
     /**
@@ -187,19 +149,7 @@ class MenuBlockService extends AbstractBlockService
             'alias' => '',
             'class' => '',
             'id' => null,
-
             'template' => 'CompoMenuBundle:Menu:base_menu.html.twig',
-        ));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockMetadata($code = null)
-    {
-        return new Metadata('Меню', (!is_null($code) ? $code : $this->getName()), false, 'SonataBlockBundle', array(
-            'class' => 'fa fa-file-text-o',
-
         ));
     }
 }

@@ -10,6 +10,9 @@ namespace Compo\MenuBundle\Entity;
  */
 class MenuRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @return array
+     */
     public function getMenuChoices()
     {
         $choices = array();

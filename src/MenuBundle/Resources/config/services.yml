@@ -10,10 +10,9 @@ services:
     compo_menu.block.service.menu:
         class: Compo\MenuBundle\Block\MenuBlockService
         arguments: ["compo_menu.block.service.menu", "@templating"]
+        parent: compo_core.abstract_container_aware
         tags:
             - { name: sonata.block }
-        calls:
-            - [ setContainer, ['@service_container']]
 
     compo_menu.admin.menu_item:
         class: Compo\MenuBundle\Admin\MenuItemAdmin

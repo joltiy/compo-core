@@ -13,7 +13,6 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 class MenuItemAdminController extends CRUDController
 {
-
     /**
      * @param Request $request
      *
@@ -45,7 +44,5 @@ class MenuItemAdminController extends CRUDController
         } else {
             return parent::listAction();
         }
-
     }
-
 }

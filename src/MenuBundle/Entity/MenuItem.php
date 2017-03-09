@@ -245,6 +245,4 @@ class MenuItem
     {
         $this->menu = $menu;
     }
-
-
 }
