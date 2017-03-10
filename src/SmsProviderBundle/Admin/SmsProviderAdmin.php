@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
  * {@inheritDoc}
@@ -19,8 +20,9 @@ class SmsProviderAdmin extends AbstractAdmin
     public function configure()
     {
         $this->setTranslationDomain('CompoSmsProviderBundle');
-
-        $this->configurePosition(true);
+        $this->setSortBy('id');
+        $this->setSortOrder('DESC');
+        $this->configureProperties(true);
     }
 
     /**
@@ -31,11 +33,15 @@ class SmsProviderAdmin extends AbstractAdmin
         $datagridMapper
             ->add('id')
             ->add('description')
-            ->add('alias')
             ->add('name')
-            ->add('enabled')
             ->add('createdAt')
             ->add('updatedAt');
+    }
+
+    public function transformListType($type) {
+        $types = $this->getContainer()->get('compo_sms_provider.manager.sms_provider')->getTypesChoices();
+
+        return $types[$type];
     }
 
     /**
@@ -47,10 +53,10 @@ class SmsProviderAdmin extends AbstractAdmin
             ->add('id')
             ->addIdentifier('name')
             ->add('description')
-            ->add('enabled', null, array(
-                'editable' => true,
-                'required' => true
+            ->add('type', 'html', array(
+                'template' => 'CompoSmsProviderBundle:Admin:list_type.html.twig'
             ))
+
             ->add('_action', null, array(
                 'actions' => array(
                     'edit' => array(),
@@ -64,11 +70,27 @@ class SmsProviderAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $manager = $this->getContainer()->get('compo_sms_provider.manager.sms_provider');
+
+        $smsTypesChoices = $manager->getTypesChoices();
+
         $formMapper
-            ->add('enabled', null, array('required' => false))
+            ->tab('form.tab_main')
+            ->with('form.group_main', array('name' => false, 'class' => 'col-lg-6'))
+            ->add('id')
             ->add('name')
             ->add('description')
-            ->add('alias');
+            ->add('type', ChoiceType::class, array(
+                'required' => true,
+                'choices' => $smsTypesChoices
+            ))
+
+            ->add('login')
+            ->add('password')
+
+            ->end()
+            ->end()
+        ;
     }
 
     /**
@@ -79,12 +101,10 @@ class SmsProviderAdmin extends AbstractAdmin
         $showMapper
             ->add('id')
             ->add('description')
-            ->add('color')
-            ->add('alias')
-            ->add('position')
             ->add('name')
             ->add('createdAt')
             ->add('updatedAt')
-            ->add('deletedAt');
+            ->add('deletedAt')
+        ;
     }
 }

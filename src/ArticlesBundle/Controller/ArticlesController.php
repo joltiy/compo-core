@@ -26,7 +26,6 @@ class ArticlesController extends Controller
         $seoPage->setContext('compo_articles');
         $seoPage->addVar('page', $page);
         $seoPage->addVar('total_pages', $pager->getPageCount());
-
         $seoPage->build();
 
         return $this->render('@CompoArticles/Articles/index.html.twig', array(

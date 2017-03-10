@@ -73,3 +73,7 @@ services:
             - "@sonata.page.decorator_strategy"
             - {"404": "_page_internal_error_not_found", "500": "_page_internal_error_fatal"}
             - "@logger"
+
+    compo_core.manager.notification:
+        class: Compo\CoreBundle\Manager\NotificationManager
+        parent: compo_core.abstract_container_aware

@@ -20,9 +20,8 @@ class RedirectAdmin extends AbstractAdmin
     {
         $this->setTranslationDomain('CompoRedirectBundle');
 
-        $this->setSortBy('publicationAt');
+        $this->setSortBy('id');
         $this->setSortOrder('DESC');
-        $this->configureProperties(true);
     }
 
     /**
@@ -65,6 +64,7 @@ class RedirectAdmin extends AbstractAdmin
         $formMapper
             ->tab('form.tab_main')
             ->with('form.group_main', array('name' => false, 'class' => 'col-lg-12'))
+            ->add('id')
             ->add('urIn')
             ->add('urOut')
             ->add('enabled')

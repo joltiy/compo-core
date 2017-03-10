@@ -442,4 +442,11 @@ th.sonata-ba-list-field-header-datetime {
     width: 60px !important;
 }
 
-.settings-form
+
+.sonata-ba-field-inline-table .checkbox {
+    padding: 0;
+}
+
+.sonata-ba-field-inline-table .checkbox .control-label {
+    display: none;
+}

@@ -7,3 +7,9 @@ breadcrumb:
     link_sms_provider_update: 'Обвноление SMS аккаунта'
 
 sms_provider: 'SMS аккаунты'
+
+tab_menu.title_sms_provider_list: 'SMS аккаунты'
+
+tab_menu.title_sms_provider_create: 'Создание SMS аккаунта'
+
+tab_menu.title_sms_provider_edit: 'SMS аккаунт: %name%'

@@ -312,3 +312,16 @@ form.label_settings_seo_index_meta_description: 'Meta Description'
 
 form.label_class: 'CSS класс'
 form.label_template: 'Шаблон'
+form.label_login: 'Логин'
+form.label_password: 'Пароль'
+
+list.label_type: 'Тип'
+
+
+form.label_settings_sms_provider: 'SMS провайдер'
+
+form.label_settings_notification_email_template: 'Базовый шаблон для e-mail уведомлений'
+form.label_settings_notification_email: 'E-mail для уведомлений'
+form.label_settings_notification_phone: 'Телефон для уведомлений'
+settings.notification_tab: 'Уведомления'
+form.label_settings_notification_email_from: 'E-mail отправителя'

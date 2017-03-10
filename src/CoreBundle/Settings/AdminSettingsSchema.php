@@ -3,6 +3,7 @@
 namespace Compo\CoreBundle\Settings;
 
 use Compo\MenuBundle\Entity\MenuRepository;
+use Compo\SmsProviderBundle\Repository\SmsProviderRepository;
 use Compo\Sonata\MediaBundle\Entity\Media;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Mopa\Bundle\BootstrapBundle\Form\Type\TabType;
@@ -11,6 +12,7 @@ use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
@@ -31,6 +33,13 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
                 [
                     'email' => 'info@example.com',
                     'header_menu' => null,
+
+                    'sms_provider' => null,
+                    'notification_email' => '',
+                    'notification_phone' => '',
+                    'notification_email_template' => '',
+                    'notification_email_from' => '',
+
 
                     'header_timework' => '<div><span>Пн-Пт 9&ndash;18, Сб 9&ndash;15, Вс Вых</span></div>',
                     'header_timework_description' => '<div>
@@ -76,6 +85,7 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
                 [
                     'email' => ['string', 'NULL'],
 
+
                     'header_menu' => array('null', 'integer', 'object'),
 
                     'header_timework' => ['string', 'NULL'],
@@ -93,6 +103,12 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
 
                     'logo_image' => array('null', 'integer', 'object'),
 
+                    'sms_provider' => array('null', 'integer', 'object'),
+                    'notification_email' => ['string', 'NULL'],
+                    'notification_phone' => ['string', 'NULL'],
+                    'notification_email_template' => ['string', 'NULL'],
+                    'notification_email_from' => ['string', 'NULL'],
+
                 ]
             );
     }
@@ -107,6 +123,21 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
             'inherit_data' => true,
         ));
         $main_tab->add('email', EmailType::class);
+
+
+        $notification_tab = $builder->create('notification_tab', TabType::class, array(
+            'label' => 'settings.notification_tab',
+            'inherit_data' => true,
+        ));
+        $notification_tab->add('sms_provider', ChoiceType::class, array(
+            'choices' => $this->getSmsProviderRepository()->getSmsProviderChoices()
+        ));
+
+        $notification_tab->add('notification_email_from', EmailType::class);
+
+        $notification_tab->add('notification_email', TextType::class);
+        $notification_tab->add('notification_phone', TextType::class);
+        $notification_tab->add('notification_email_template', CKEditorType::class);
 
 
         $header_tab = $builder->create('header_tab', TabType::class, array(
@@ -131,6 +162,7 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
         $footer_tab->add('footer_menu', ChoiceType::class, array(
             'choices' => $this->getMenuRepository()->getMenuChoices()
         ));
+
         $footer_tab->add('footer_copyright', CKEditorType::class);
         $footer_tab->add('footer_address', CKEditorType::class);
         $footer_tab->add('footer_phones', CKEditorType::class);
@@ -151,6 +183,7 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
 
         $builder
             ->add($main_tab)
+            ->add($notification_tab)
             ->add($header_tab)
             ->add($footer_tab)
             ->add($logo_tab);
@@ -187,6 +220,14 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
         $logo_tab->get('logo_image')->addModelTransformer($media_transformer);
 
 
+    }
+
+    /**
+     * @return SmsProviderRepository
+     */
+    public function getSmsProviderRepository()
+    {
+        return $this->getDoctrine()->getRepository('CompoSmsProviderBundle:SmsProvider');
     }
 
     /**
