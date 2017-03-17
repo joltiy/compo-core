@@ -1,0 +1,46 @@
+sonata_page:
+    templates:
+        2columns:
+            containers:
+                 header:
+                     blocks:
+                        - compo_advantages.block.service.advantages
+                 content_top:
+                     blocks:
+                        - compo_advantages.block.service.advantages
+                 sidebar:
+                     blocks:
+                        - compo_advantages.block.service.advantages
+
+                 content:
+                     blocks:
+                        - compo_advantages.block.service.advantages
+
+                 content_bottom:
+                     blocks:
+                        - compo_advantages.block.service.advantages
+                 footer:
+                     blocks:
+                        - compo_advantages.block.service.advantages
+
+        default:
+            containers:
+                 header:
+                     blocks:
+                        - compo_advantages.block.service.advantages
+
+                 content_top:
+                     blocks:
+                        - compo_advantages.block.service.advantages
+
+                 content:
+                     blocks:
+                        - compo_advantages.block.service.advantages
+
+                 content_bottom:
+                     blocks:
+                        - compo_advantages.block.service.advantages
+                 footer:
+                     blocks:
+                        - compo_advantages.block.service.advantages
+

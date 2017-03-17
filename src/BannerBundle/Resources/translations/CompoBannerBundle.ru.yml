@@ -1,0 +1,42 @@
+breadcrumb:
+    link_banner_batch: 'Действия над баннерами'
+    link_banner_create: 'Создание баннера'
+    link_banner_delete: 'Удаление баннера'
+    link_banner_edit: 'Редактирование баннера'
+    link_banner_item_batch: 'Действия над баннерами'
+    link_banner_item_create: 'Создание баннера'
+    link_banner_item_delete: 'Удаление баннера'
+    link_banner_item_edit: 'Редактирование баннера'
+    link_banner_item_list: 'Список баннеров'
+    link_banner_item_update: 'Обновление баннера'
+    link_banner_list: 'Баннеры'
+    link_banner_update: 'Обвновление баннера'
+
+form:
+    label_page: Страница
+    label_parent: 'Родительский элемент'
+
+banner: Баннеры
+
+tab_menu.title_banner_list: 'Баннеры'
+breadcrumb.link_banner_item_tree: 'Список баннеров'
+tab_menu.title_banner_item_create: 'Создание баннера'
+form.tab_main_banner: 'Баннер'
+
+tab_menu.title_banner_banner_item_edit: 'Баннер: %name%'
+
+tab_menu.banner: 'Баннер'
+tab_menu.link_banner_list: 'Список баннеров'
+
+tab_menu.title_banner_banner_item_list: 'Баннеры: %name%'
+
+tab_menu.title_banner_edit: 'Баннеры: %name%'
+
+tab_menu.title_banner_list: Баннеры
+
+tab_menu.title_banner_create: 'Создание баннера'
+
+tab_menu.title_banner_edit: 'Баннеры: %name%'
+
+
+form.label_banner: 'Баннеры'

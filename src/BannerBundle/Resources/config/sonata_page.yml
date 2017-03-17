@@ -1,0 +1,46 @@
+sonata_page:
+    templates:
+        2columns:
+            containers:
+                 header:
+                     blocks:
+                        - compo_banner.block.service.banner
+                 content_top:
+                     blocks:
+                        - compo_banner.block.service.banner
+                 sidebar:
+                     blocks:
+                        - compo_banner.block.service.banner
+
+                 content:
+                     blocks:
+                        - compo_banner.block.service.banner
+
+                 content_bottom:
+                     blocks:
+                        - compo_banner.block.service.banner
+                 footer:
+                     blocks:
+                        - compo_banner.block.service.banner
+
+        default:
+            containers:
+                 header:
+                     blocks:
+                        - compo_banner.block.service.banner
+
+                 content_top:
+                     blocks:
+                        - compo_banner.block.service.banner
+
+                 content:
+                     blocks:
+                        - compo_banner.block.service.banner
+
+                 content_bottom:
+                     blocks:
+                        - compo_banner.block.service.banner
+                 footer:
+                     blocks:
+                        - compo_banner.block.service.banner
+

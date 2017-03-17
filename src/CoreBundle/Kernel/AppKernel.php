@@ -94,6 +94,8 @@ class AppKernel extends Kernel
             new \Compo\ArticlesBundle\CompoArticlesBundle(),
             new \Compo\SmsProviderBundle\CompoSmsProviderBundle(),
             new \Compo\RedirectBundle\CompoRedirectBundle(),
+            new \Compo\BannerBundle\CompoBannerBundle(),
+            new \Compo\AdvantagesBundle\CompoAdvantagesBundle(),
 
             new \Compo\EcommerceBundle\CompoEcommerceBundle(),
             new \Compo\CurrencyBundle\CompoCurrencyBundle(),
