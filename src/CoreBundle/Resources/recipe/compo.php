@@ -1,7 +1,7 @@
 <?php
 
 use function Deployer\{
-    add, get, server, set, task
+    add, get, server, set, task, run
 };
 
 /** @noinspection PhpIncludeInspection */
