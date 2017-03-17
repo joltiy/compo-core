@@ -36,23 +36,14 @@ doctrine:
                 naming_strategy: doctrine.orm.naming_strategy.underscore
                 mappings: ~
                 query_cache_driver:
-                    type:                 "%cache_driver%" # Required
-                    host:                 ~
-                    port:                 ~
-                    instance_class:       ~
-                    class:                ~
+                    type:                 "%cache_driver%"
+                    namespace: "%database_name%"
                 metadata_cache_driver:
-                    type:                 "%cache_driver%" # Required
-                    host:                 ~
-                    port:                 ~
-                    instance_class:       ~
-                    class:                ~
+                    type:                 "%cache_driver%"
+                    namespace: "%database_name%"
                 result_cache_driver:
-                    type:                 "%cache_driver%" # Required
-                    host:                 ~
-                    port:                 ~
-                    instance_class:       ~
-                    class:                ~
+                    type:                 "%cache_driver%"
+                    namespace: "%database_name%"
 
                 mappings:
                     gedmo_translatable:
