@@ -1,0 +1,20 @@
+<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
+{% javascripts
+'@sonata_front_vendor_core_js'
+output='assetic/sonata_front_vendor_core_js.js' %}
+<script src="{{ asset_url }}" type="text/javascript"></script>
+{% endjavascripts %}
+
+{% javascripts
+'@sonata_front_vendor_js'
+output='assetic/sonata_front_vendor_js.js' %}
+<script src="{{ asset_url }}" type="text/javascript"></script>
+{% endjavascripts %}
+
+{% javascripts
+'@sonata_front_js'
+output='assetic/sonata_front_js.js' %}
+<script src="{{ asset_url }}" type="text/javascript"></script>
+{% endjavascripts %}
