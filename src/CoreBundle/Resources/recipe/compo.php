@@ -10,6 +10,9 @@ require 'recipe/symfony.php';
 ini_set('date.timezone', 'Europe/Moscow');
 date_default_timezone_set('Europe/Moscow');
 
+set('ssh_type', 'native');
+set('ssh_multiplexing', true);
+
 /** @noinspection PhpUndefinedFunctionInspection */
 set('copy_dirs', ['vendor']);
 /** @noinspection PhpUndefinedFunctionInspection */
