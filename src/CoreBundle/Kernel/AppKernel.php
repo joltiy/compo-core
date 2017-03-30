@@ -50,8 +50,11 @@ class AppKernel extends Kernel
 
             new \WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
 
+            new \winzou\Bundle\StateMachineBundle\winzouStateMachineBundle(),
+
             new \Sylius\Bundle\SettingsBundle\SyliusSettingsBundle(),
             new \Sylius\Bundle\ResourceBundle\SyliusResourceBundle(),
+            new \Sylius\Bundle\ThemeBundle\SyliusThemeBundle(),
 
             new \Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
             new \Sonata\PageBundle\SonataPageBundle(),
