@@ -65,13 +65,14 @@
     "sonata-project/admin-search-bundle": "^1.0",
     "sonata-project/classification-bundle": "^3.2",
 
-    "liip/theme-bundle": "^1.4",
+    "sylius/settings-bundle": "^0.19",
+    "sylius/theme-bundle": "^0.19",
+
     "incenteev/composer-parameter-handler": "^2.1",
     "simplethings/entity-audit-bundle": "^1.0",
     "twbs/bootstrap": "^3.3",
     "nelmio/api-doc-bundle": "^2.13",
     "stecman/symfony-console-completion": "^0.7",
-    "sylius/settings-bundle": "^0.18",
     "knplabs/knp-paginator-bundle": "^2.5",
     "kriswallsmith/spork": "^0.3",
     "mopa/bootstrap-bundle": "^3.0",
