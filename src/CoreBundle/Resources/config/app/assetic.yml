@@ -106,16 +106,12 @@ assetic:
 
 
         sonata_front_vendor_core_js:
-            inputs:
-                - "bundles/compocore/vendor/jquery/dist/jquery.js"
-                - "bundles/compocore/vendor/jquery-ui/jquery-ui.js"
-                - "bundles/compocore/vendor/bootstrap/dist/js/bootstrap.js"
+            inputs: []
             filters:
                 - ?yui_js
 
         sonata_front_vendor_js:
             inputs: []
-
             filters:
                 - ?yui_js
 
@@ -127,9 +123,6 @@ assetic:
 
         sonata_front_vendor_core_css:
             inputs:
-                - "bundles/compocore/vendor/jquery-ui/themes/redmond/jquery-ui.min.css"
-                - "bundles/compocore/vendor/bootstrap/dist/css/bootstrap.min.css"
-                - "bundles/compocore/vendor/fontawesome/css/font-awesome.min.css"
             filters:
                 - cssrewrite
                 - ?yui_css
