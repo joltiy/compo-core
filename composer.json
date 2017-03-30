@@ -68,7 +68,7 @@
     "sylius/settings-bundle": "^0.19",
     "sylius/theme-bundle": "^0.19",
 
-    "winzou/state-machine-bundle": "^0.3",
+    "winzou/state-machine-bundle": "^0.2",
     "incenteev/composer-parameter-handler": "^2.1",
     "simplethings/entity-audit-bundle": "^1.0",
     "twbs/bootstrap": "^3.3",
