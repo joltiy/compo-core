@@ -48,6 +48,8 @@ class AppKernel extends Kernel
             new \Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
             new \Liuggio\ExcelBundle\LiuggioExcelBundle(),
 
+            new \Liip\ThemeBundle\LiipThemeBundle(),
+
             new \WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
 
             new \Sylius\Bundle\SettingsBundle\SyliusSettingsBundle(),

@@ -87,3 +87,11 @@ doctrine_cache:
     providers:
         sylius_settings:
             type: file_system
+
+
+liip_theme:
+    themes: ['default']
+    active_theme: 'default'
+    autodetect_theme: false
+    load_controllers: false
+    assetic_integration: true
