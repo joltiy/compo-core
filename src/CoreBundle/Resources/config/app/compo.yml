@@ -21,3 +21,8 @@ parameters:
 
     translator.class: Compo\CoreBundle\Translation\FallbackTranslator
     sylius.settings.form_factory.class: Compo\CoreBundle\Form\Factory\SettingsFormFactory
+
+
+compo_core:
+    theme:
+        name: "comporu/default"

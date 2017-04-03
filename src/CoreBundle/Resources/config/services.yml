@@ -77,3 +77,7 @@ services:
     compo_core.manager.notification:
         class: Compo\CoreBundle\Manager\NotificationManager
         parent: compo_core.abstract_container_aware
+
+    compo_core.manager.theme:
+        class: Compo\CoreBundle\Manager\ThemeManager
+        parent: compo_core.abstract_container_aware
