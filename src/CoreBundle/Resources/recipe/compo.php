@@ -13,7 +13,6 @@ date_default_timezone_set('Europe/Moscow');
 set('ssh_type', 'native');
 set('ssh_multiplexing', true);
 
-set('composer_options', '{{composer_action}} --verbose --prefer-dist --no-progress --no-interaction --no-dev');
 
 /** @noinspection PhpUndefinedFunctionInspection */
 set('copy_dirs', ['vendor']);
