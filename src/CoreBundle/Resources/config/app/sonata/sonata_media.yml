@@ -6,7 +6,9 @@ sonata_media:
         media:             Compo\Sonata\MediaBundle\Entity\Media
         gallery:           Compo\Sonata\MediaBundle\Entity\Gallery
         gallery_has_media: Compo\Sonata\MediaBundle\Entity\GalleryHasMedia
-        category:          Compo\Sonata\ClassificationBundle\Entity\Category
+
+    category_manager:       null  # null or "sonata.media.manager.category.default" if classification bundle exists
+    force_disable_category: true
 
     db_driver:       doctrine_orm
     default_context: default
@@ -55,21 +57,7 @@ sonata_media:
                 big:   { width: 1024 , quality: 100}
 
 
-        sonata_collection:
-            providers:
-              - sonata.media.provider.image
 
-            formats:
-                preview: { width: 256, quality: 100}
-                wide:    { width: 1024, quality: 100}
-
-        sonata_category:
-            providers:
-              - sonata.media.provider.image
-
-            formats:
-                preview: { width: 256, quality: 100}
-                wide:    { width: 1024, quality: 100}
 
     cdn:
         # define the public base url for the uploaded media

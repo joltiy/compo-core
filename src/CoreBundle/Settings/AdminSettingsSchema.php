@@ -20,6 +20,60 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class AdminSettingsSchema extends BaseAdminSettingsSchema
 {
+    public function getFormDefaultOptions() {
+
+        $options = [
+            'email' => 'info@example.com',
+            'header_menu' => null,
+
+            'sms_provider' => null,
+            'notification_email' => '',
+            'notification_phone' => '',
+            'notification_email_template' => '',
+            'notification_email_from' => '',
+
+
+            'header_timework' => '<div><span>Пн-Пт 9&ndash;18, Сб 9&ndash;15, Вс Вых</span></div>',
+            'header_timework_description' => '<div>
+<div>Работаем 6 дней в неделю</div>
+<div>Суббота до 15-00</div>
+<div>Воскресенье &mdash; выходной</div>
+<div>Прием заказов круглосуточно</div>
+</div>',
+
+            'header_phones' => '<div>
+<div>+7 (495) 582-10-01</div>
+<div>+7 (495) 727-75-73</div>
+<div>+7 (495) 003-12-29</div>
+</div>',
+
+            'footer_menu' => null,
+
+            'footer_copyright' => '<div>
+<div>Copyright &copy; 2016.</div>
+<div>Интернет-магазин сантехники Dlyavann.ru.</div>
+</div>',
+
+            'footer_address' => '<div><span>г. Москва, пересечение Ярославского шоссе и МКАД 95 км (внешняя сторона), магазин &quot;Керамическая плитка. Сантехника&quot;.&nbsp;</span><br/><span>Схема проезда.</span></div>',
+            'footer_phones' => '<div>
+<div><strong>+7 (495) 582-10-01</strong></div>
+<div><strong>+7 (495) 727-75-73</strong></div>
+<div><strong>+7 (495) 003-12-29</strong></div>
+</div>',
+            'footer_payments' => '<ul>
+	<li><img alt="Visa" src="http://www.dlyavann.ru/assets/compo/img/payments/visa.png" /></li>
+	<li><img alt="Master Card" src="http://www.dlyavann.ru/assets/compo/img/payments/mastercard.png" /></li>
+	<li><img alt="Сбербанк Онлайн" src="http://www.dlyavann.ru/assets/compo/img/payments/sberbank.png" /></li>
+	<li><img alt="Альфа Клик" src="http://www.dlyavann.ru/assets/compo/img/payments/alfabank-white.png" /></li>
+	<li><img alt="Яндекс Деньги" src="http://www.dlyavann.ru/assets/compo/img/payments/yandexmoney.png" /></li>
+	<li><img alt="Qiwi" src="http://www.dlyavann.ru/assets/compo/img/payments/qiwi.png" /></li>
+</ul>',
+
+            'logo_image' => null,
+        ];
+
+        return $options;
+    }
     /**
      * @param SettingsBuilderInterface $builder
      */
@@ -30,56 +84,7 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
 
         $builder
             ->setDefaults(
-                [
-                    'email' => 'info@example.com',
-                    'header_menu' => null,
-
-                    'sms_provider' => null,
-                    'notification_email' => '',
-                    'notification_phone' => '',
-                    'notification_email_template' => '',
-                    'notification_email_from' => '',
-
-
-                    'header_timework' => '<div><span>Пн-Пт 9&ndash;18, Сб 9&ndash;15, Вс Вых</span></div>',
-                    'header_timework_description' => '<div>
-<div>Работаем 6 дней в неделю</div>
-<div>Суббота до 15-00</div>
-<div>Воскресенье &mdash; выходной</div>
-<div>Прием заказов круглосуточно</div>
-</div>',
-
-                    'header_phones' => '<div>
-<div>+7 (495) 582-10-01</div>
-<div>+7 (495) 727-75-73</div>
-<div>+7 (495) 003-12-29</div>
-</div>',
-
-                    'footer_menu' => null,
-
-                    'footer_copyright' => '<div>
-<div>Copyright &copy; 2016.</div>
-<div>Интернет-магазин сантехники Dlyavann.ru.</div>
-</div>',
-
-                    'footer_address' => '<div><span>г. Москва, пересечение Ярославского шоссе и МКАД 95 км (внешняя сторона), магазин &quot;Керамическая плитка. Сантехника&quot;.&nbsp;</span><br/><span>Схема проезда.</span></div>',
-                    'footer_phones' => '<div>
-<div><strong>+7 (495) 582-10-01</strong></div>
-<div><strong>+7 (495) 727-75-73</strong></div>
-<div><strong>+7 (495) 003-12-29</strong></div>
-</div>',
-                    'footer_payments' => '<ul>
-	<li><img alt="Visa" src="http://www.dlyavann.ru/assets/compo/img/payments/visa.png" /></li>
-	<li><img alt="Master Card" src="http://www.dlyavann.ru/assets/compo/img/payments/mastercard.png" /></li>
-	<li><img alt="Сбербанк Онлайн" src="http://www.dlyavann.ru/assets/compo/img/payments/sberbank.png" /></li>
-	<li><img alt="Альфа Клик" src="http://www.dlyavann.ru/assets/compo/img/payments/alfabank-white.png" /></li>
-	<li><img alt="Яндекс Деньги" src="http://www.dlyavann.ru/assets/compo/img/payments/yandexmoney.png" /></li>
-	<li><img alt="Qiwi" src="http://www.dlyavann.ru/assets/compo/img/payments/qiwi.png" /></li>
-</ul>',
-
-                    'logo_image' => null,
-
-                ]
+                $this->getFormDefaultOptions()
             )
             ->setAllowedTypes(
                 [
