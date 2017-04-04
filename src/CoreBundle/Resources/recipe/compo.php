@@ -141,6 +141,10 @@ task('nginx:reload', function () {
 task('deploy:assetic:dump', function () {
     /** @noinspection PhpUndefinedFunctionInspection */
     if (get('dump_assets')) {
+        // php app/console sylius:theme:assets:install --symlink --relative
+
+        run('{{env_vars}} {{bin/php}} {{bin/console}} sylius:theme:assets:install --symlink --relative {{console_options}}');
+
         run('{{env_vars}} {{bin/php}} {{bin/console}} assetic:dump --forks=12 {{console_options}}');
     }
 })->desc('Dump assets');
