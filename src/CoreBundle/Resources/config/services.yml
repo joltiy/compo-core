@@ -81,3 +81,15 @@ services:
     compo_core.manager.theme:
         class: Compo\CoreBundle\Manager\ThemeManager
         parent: compo_core.abstract_container_aware
+
+    sylius.theme.translation.translator:
+        class: Compo\CoreBundle\Translation\ThemeTranslator
+        arguments:
+            - "@sylius.theme.translation.loader_provider"
+            - "@sylius.theme.translation.resource_provider"
+            - "@translator.selector"
+            - "%kernel.default_locale%"
+            - {"cache_dir": %kernel.cache_dir%/translations, "debug": "%kernel.debug%"}
+
+
+

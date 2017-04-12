@@ -33,7 +33,7 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
             'notification_email_from' => '',
 
 
-            'header_timework' => '<div><span>Пн-Пт 9&ndash;18, Сб 9&ndash;15, Вс Вых</span></div>',
+            'header_timework' => '09:00–19:00',
             'header_timework_description' => '<div>
 <div>Работаем 6 дней в неделю</div>
 <div>Суббота до 15-00</div>
@@ -41,11 +41,7 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
 <div>Прием заказов круглосуточно</div>
 </div>',
 
-            'header_phones' => '<div>
-<div>+7 (495) 582-10-01</div>
-<div>+7 (495) 727-75-73</div>
-<div>+7 (495) 003-12-29</div>
-</div>',
+            'header_phones' => '+7 (495) <strong>582-10-10</strong>',
 
             'footer_menu' => null,
 
