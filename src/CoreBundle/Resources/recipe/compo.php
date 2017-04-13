@@ -143,7 +143,7 @@ task('deploy:assetic:dump', function () {
     if (get('dump_assets')) {
         // php app/console sylius:theme:assets:install --symlink --relative
 
-        run('{{env_vars}} {{bin/php}} {{bin/console}} sylius:theme:assets:install --symlink --relative {{console_options}}');
+        run('{{env_vars}} {{bin/php}} cd {{deploy_path}} && {{bin/console}} sylius:theme:assets:install --symlink --relative {{console_options}}');
 
         run('{{env_vars}} {{bin/php}} {{bin/console}} assetic:dump {{console_options}}');
     }
