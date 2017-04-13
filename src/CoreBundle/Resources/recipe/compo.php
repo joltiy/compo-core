@@ -145,7 +145,7 @@ task('deploy:assetic:dump', function () {
 
         run('{{env_vars}} {{bin/php}} {{bin/console}} sylius:theme:assets:install --symlink --relative {{console_options}}');
 
-        run('{{env_vars}} {{bin/php}} {{bin/console}} assetic:dump --forks=12 {{console_options}}');
+        run('{{env_vars}} {{bin/php}} {{bin/console}} assetic:dump {{console_options}}');
     }
 })->desc('Dump assets');
 
