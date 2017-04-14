@@ -34,6 +34,8 @@ class InstallCommand extends BaseDeployCommand
         $output->writeln('runDoctrineCreateDatabase');
 
         $this->runDoctrineCreateDatabase();
+        $this->runDoctrineSchemaUpdate();
+        $this->runSyliusThemeAssetsInstall();
 
         //$this->runDoctrineMigrate();
         $this->runCreateAdmin();
@@ -45,7 +47,22 @@ class InstallCommand extends BaseDeployCommand
         $this->runCacheClear();
     }
 
-    /**
+    public function runSyliusThemeAssetsInstall()
+    {
+        $this->runCommand("sylius:theme:assets:install", array(
+            '--symlink' => 1,
+            '--relative' => 1
+        ));
+    }
+
+    public function runDoctrineSchemaUpdate()
+    {
+        $this->runCommand("doctrine:schema:update", array(
+            '--force' => 1
+        ));
+    }
+
+    /** app/console doctrine:schema:update --force
      * Выполняет создание БД
      *
      * @throws \Symfony\Component\Console\Exception\ExceptionInterface
