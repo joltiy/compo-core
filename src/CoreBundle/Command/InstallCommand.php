@@ -35,7 +35,7 @@ class InstallCommand extends BaseDeployCommand
 
         $this->runDoctrineCreateDatabase();
 
-        $this->runDoctrineMigrate();
+        //$this->runDoctrineMigrate();
         $this->runCreateAdmin();
         $this->runCreateSite();
 
