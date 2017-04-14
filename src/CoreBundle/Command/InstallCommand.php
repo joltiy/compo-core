@@ -50,15 +50,15 @@ class InstallCommand extends BaseDeployCommand
     public function runSyliusThemeAssetsInstall()
     {
         $this->runCommand("sylius:theme:assets:install", array(
-            '--symlink' => 1,
-            '--relative' => 1
+            '--symlink' => true,
+            '--relative' => true
         ));
     }
 
     public function runDoctrineSchemaUpdate()
     {
         $this->runCommand("doctrine:schema:update", array(
-            '--force' => 1
+            '--force' => true
         ));
     }
 
@@ -70,7 +70,7 @@ class InstallCommand extends BaseDeployCommand
     public function runDoctrineCreateDatabase()
     {
         $this->runCommand("doctrine:database:create", array(
-            '--if-not-exists' => 1
+            '--if-not-exists' => true
         ));
     }
 
