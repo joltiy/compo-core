@@ -31,7 +31,7 @@
     "ext-gd": "*",
     "ext-openssl": "*",
 
-    "symfony/symfony": "2.8.18",
+    "symfony/symfony": "^2.8",
     "symfony/assetic-bundle": "^2.8",
     "symfony/swiftmailer-bundle": "^2.4",
     "symfony/monolog-bundle": "^2.11",
