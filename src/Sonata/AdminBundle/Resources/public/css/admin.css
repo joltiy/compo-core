@@ -450,3 +450,10 @@ th.sonata-ba-list-field-header-datetime {
 .sonata-ba-field-inline-table .checkbox .control-label {
     display: none;
 }
+
+.required:after {
+    content: '*';
+    position: absolute;
+    top: 0px;
+    right: -5px;
+}
