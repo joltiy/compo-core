@@ -133,6 +133,28 @@ class BaseDeployCommand extends ContainerAwareCommand
         }
     }
 
+    public function runSyliusThemeAssetsInstall()
+    {
+        $this->runCommand("sylius:theme:assets:install", array(
+            '--symlink' => true,
+            '--relative' => true
+        ));
+    }
+
+    public function runDoctrineSchemaUpdate()
+    {
+        $this->runCommand("doctrine:schema:update", array(
+            '--force' => true
+        ));
+    }
+
+    public function runDoctrineFixturesLoadAppend()
+    {
+        $this->runCommand("doctrine:fixtures:load", array(
+            '--append' => true
+        ));
+    }
+
     /**
      * Очистка и прогрев кеша
      *

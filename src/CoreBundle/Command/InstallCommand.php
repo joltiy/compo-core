@@ -44,23 +44,12 @@ class InstallCommand extends BaseDeployCommand
         $this->runUpdateRoutes();
         $this->runCreateSnapshots();
 
+        $this->runDoctrineFixturesLoadAppend();
+
         $this->runCacheClear();
     }
 
-    public function runSyliusThemeAssetsInstall()
-    {
-        $this->runCommand("sylius:theme:assets:install", array(
-            '--symlink' => true,
-            '--relative' => true
-        ));
-    }
 
-    public function runDoctrineSchemaUpdate()
-    {
-        $this->runCommand("doctrine:schema:update", array(
-            '--force' => true
-        ));
-    }
 
     /** app/console doctrine:schema:update --force
      * Выполняет создание БД

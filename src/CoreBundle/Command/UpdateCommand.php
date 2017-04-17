@@ -32,9 +32,16 @@ class UpdateCommand extends BaseDeployCommand
     {
         parent::execute($input, $output);
 
-        $this->runDoctrineMigrate();
+        //$this->runDoctrineMigrate();
+
+        $this->runDoctrineSchemaUpdate();
+        $this->runSyliusThemeAssetsInstall();
+
         $this->runUpdateRoutes();
         $this->runCreateSnapshots();
+
+        $this->runDoctrineFixturesLoadAppend();
+
         $this->runCacheWarmup();
 
         return 0;
