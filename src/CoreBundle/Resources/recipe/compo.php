@@ -2,8 +2,11 @@
 
 use Symfony\Component\Yaml\Yaml;
 
+
+
+
 use function Deployer\{
-    add, get, server, set, task, run, workingPath, writeln, runLocally, download
+    add, get, server, set, parse, task, run, workingPath, writeln, runLocally, download
 };
 
 
@@ -16,7 +19,7 @@ ini_set('date.timezone', 'Europe/Moscow');
 date_default_timezone_set('Europe/Moscow');
 
 set('ssh_type', 'native');
-set('ssh_multiplexing', true);
+set('ssh_multiplexing', false);
 
 
 /** @noinspection PhpUndefinedFunctionInspection */
@@ -82,7 +85,7 @@ task('database:sync-from-remote', function () {
 
     $localDatabasePath = $varDir . "/" . $parametrs['database_name'] . ".sql";
 
-    download( $localDatabasePath, $exportDatabasePath);
+    download( $exportDatabasePath, $localDatabasePath );
 
 
     runLocally("cd " . $projectDir . " && " . " php app/console doctrine:database:drop --if-exists --force --quiet --no-interaction --no-debug");
@@ -99,7 +102,33 @@ task('database:sync-from-remote', function () {
     );
 
 
-})->desc('database:backup');
+})->desc('database:sync-from-remote');
+
+
+
+
+/** @noinspection PhpUndefinedFunctionInspection */
+task('uploads:sync-from-remote', function () {
+    $projectDir = runLocally('pwd');
+
+    download( "{{deploy_path}}/shared/web/uploads/", $projectDir . '/web/uploads/' , array('-anv'));
+})->desc('uploads:sync-from-remote');
+
+task('local:cache:clear', function (){
+    $projectDir = runLocally('pwd');
+
+    runLocally("cd " . $projectDir . " && " . " rm -rf app/cache/dev app/cache/prod");
+
+})->desc('local:cache:clear');
+
+task('sync-from-remote', [
+    'database:sync-from-remote',
+    'uploads:sync-from-remote',
+    'local:cache:clear',
+])->desc('sync-from-remote');
+
+
+
 
 
 /** @noinspection PhpUndefinedFunctionInspection */
