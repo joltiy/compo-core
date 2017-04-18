@@ -19,13 +19,14 @@ file that was distributed with this source code.
 
 {# render container block #}
 {% block block %}
+
     {% if block.children|length %}
         {% if block.page is defined and block.page.routeName == '_page_internal_global' %}
-            {% set block_container_id = block.name ~ '-global' %}
+            {% set block_container_id = block.settings.code ~ '-global' %}
         {% elseif block.page is defined %}
-            {% set block_container_id = block.name ~ '-page' %}
+            {% set block_container_id = block.settings.code ~ '-page' %}
         {% else %}
-            {% set block_container_id = block.name %}
+            {% set block_container_id = block.settings.code %}
         {% endif %}
         <div id="{{ block_container_id }}">
         <div class="row">
