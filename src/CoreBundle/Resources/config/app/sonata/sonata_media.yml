@@ -64,6 +64,9 @@ sonata_media:
         server:
             path:      "%sonata_media_cdn_host%"
 
+
+
+
     filesystem:
         # define where the uploaded file will be stored
         local:

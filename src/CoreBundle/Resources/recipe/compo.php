@@ -1,8 +1,13 @@
 <?php
 
+use Symfony\Component\Yaml\Yaml;
+
 use function Deployer\{
-    add, get, server, set, task, run
+    add, get, server, set, task, run, workingPath, writeln, runLocally, download
 };
+
+
+
 
 /** @noinspection PhpIncludeInspection */
 require 'recipe/symfony.php';
@@ -54,6 +59,47 @@ task('timezone', function () {
     set('timezone', 'Europe/Moscow');
     date_default_timezone_set('Europe/Moscow');
 })->desc('timezone');
+
+
+/** @noinspection PhpUndefinedFunctionInspection */
+task('database:sync-from-remote', function () {
+    /** @noinspection PhpUndefinedFunctionInspection */
+    $databasePath = "{{deploy_path}}/backup/database";
+    // mysqldump -u [username] -p [database name] > [database name].sql
+
+    run("mkdir -p " . $databasePath);
+
+    $parametrs = get('parameters');
+
+    $exportDatabasePath = $databasePath . "/" . $parametrs['database_name'] . ".sql";
+
+    run("mysqldump -u " . $parametrs['database_user'] . " " . $parametrs['database_name'] . " > " . $exportDatabasePath);
+
+    $projectDir = runLocally('pwd');
+
+    $varDir = $projectDir . '/var/database';
+    runLocally("mkdir -p " . $varDir);
+
+    $localDatabasePath = $varDir . "/" . $parametrs['database_name'] . ".sql";
+
+    download( $localDatabasePath, $exportDatabasePath);
+
+
+    runLocally("cd " . $projectDir . " && " . " php app/console doctrine:database:drop --if-exists --force --quiet --no-interaction --no-debug");
+    runLocally("cd " . $projectDir . " && " . " php app/console doctrine:database:create --if-not-exists");
+
+    $parameters = Yaml::parse(file_get_contents($projectDir . '/app/config/parameters.yml'));
+
+    // mysql -u[database user] -p [database name] < file.sql
+    runLocally("cd " . $projectDir . " && "
+        . " mysql -u" . $parameters['parameters']['database_user']
+        . ' ' . $parameters['parameters']['database_name']
+        . ' < '
+        . $localDatabasePath
+    );
+
+
+})->desc('database:backup');
 
 
 /** @noinspection PhpUndefinedFunctionInspection */
