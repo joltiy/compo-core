@@ -100,8 +100,6 @@ task('database:sync-from-remote', function () {
         . ' < '
         . $localDatabasePath
     );
-
-
 })->desc('database:sync-from-remote');
 
 
