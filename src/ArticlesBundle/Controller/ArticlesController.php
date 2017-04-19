@@ -28,7 +28,7 @@ class ArticlesController extends Controller
         $seoPage->addVar('total_pages', $pager->getPageCount());
         $seoPage->build();
 
-        return $this->render('@CompoArticles/Articles/index.html.twig', array(
+        return $this->render('CompoArticlesBundle:Articles:index.html.twig', array(
             'pager' => $pager,
         ));
     }
@@ -55,7 +55,7 @@ class ArticlesController extends Controller
         $seoPage->addVar('article', $article);
         $seoPage->build();
 
-        return $this->render('@CompoArticles/Articles/show.html.twig', array(
+        return $this->render('CompoArticlesBundle:Articles:show.html.twig', array(
             'article' => $article,
         ));
     }

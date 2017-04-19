@@ -7,6 +7,7 @@ use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\FormBuilderInterface;
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
 
 /**
  * {@inheritDoc}
@@ -32,6 +33,43 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
      * @var FormBuilderInterface
      */
     protected $formBuilder;
+
+    public $mediaAdmin;
+
+    public function getMediaAdmin()
+    {
+        if (!$this->mediaAdmin) {
+            $this->mediaAdmin = $this->container->get('sonata.media.admin.media');
+        }
+        return $this->mediaAdmin;
+    }
+
+    public function getMediaBuilder( $formMapper)
+    {
+        $admin_pool = $this->getContainer()->get('sonata.admin.pool');
+
+        $admin = $admin_pool->getAdminByAdminCode('compo_core.admin.settings');
+        // simulate an association ...
+        $fieldDescription = $this->getMediaAdmin()->getModelManager()->getNewFieldDescriptionInstance($this->mediaAdmin->getClass(), 'media', array(
+            'translation_domain' => 'SonataMediaBundle',
+        ));
+        $fieldDescription->setAssociationAdmin($this->getMediaAdmin());
+        $fieldDescription->setAdmin($admin);
+        $fieldDescription->setOption('edit', 'list');
+        $fieldDescription->setAssociationMapping(array(
+            'fieldName' => 'media',
+            'type' => ClassMetadataInfo::MANY_TO_ONE,
+        ));
+
+        return $formMapper->add('mediaId', 'sonata_type_model_list', array(
+            'sonata_field_description' => $fieldDescription,
+            'class' => $this->getMediaAdmin()->getClass(),
+            'model_manager' => $this->getMediaAdmin()->getModelManager(),
+            'label' => 'form.label_media',
+            'required' => false,
+
+        ));
+    }
 
     /**
      * @return \Doctrine\Bundle\DoctrineBundle\Registry|object

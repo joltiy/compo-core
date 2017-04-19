@@ -28,7 +28,7 @@ class NewsController extends Controller
 
         $seoPage->build();
 
-        return $this->render('@CompoNews/News/index.html.twig', array(
+        return $this->render('CompoNewsBundle:News:index.html.twig', array(
             'pager' => $pager,
         ));
     }
@@ -55,7 +55,7 @@ class NewsController extends Controller
         $seoPage->addVar('news', $article);
         $seoPage->build();
 
-        return $this->render('@CompoNews/News/show.html.twig', array(
+        return $this->render('CompoNewsBundle:News:show.html.twig', array(
             'news' => $article,
         ));
     }

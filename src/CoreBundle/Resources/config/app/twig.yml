@@ -7,6 +7,7 @@ twig:
 
     form:
         resources:
+            - 'SonataDoctrineORMAdminBundle:Form:form_admin_fields.html.twig'
             - 'SonataFormatterBundle:Form:formatter.html.twig'
             - 'SonataMediaBundle:Form:media_widgets.html.twig'
             - 'SonataCoreBundle:Form:datepicker.html.twig'
