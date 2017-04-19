@@ -1,1 +1,4 @@
 notifications: "Системные уведомления"
+
+tab_menu:
+    title_notifications_list: "Системные уведомления"
