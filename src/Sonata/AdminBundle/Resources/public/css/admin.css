@@ -451,9 +451,3 @@ th.sonata-ba-list-field-header-datetime {
     display: none;
 }
 
-.required:after {
-    content: '*';
-    position: absolute;
-    top: 0px;
-    right: -5px;
-}
