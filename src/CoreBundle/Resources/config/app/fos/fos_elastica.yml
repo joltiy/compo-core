@@ -54,7 +54,9 @@ fos_elastica:
                                 split_on_case_change: true  # "PowerShot" ⇒ "Power" "Shot"
                                 preserve_original: true  # "500-42" ⇒ "500-42" "500" "42"
                                 split_on_numerics: false  # "j2se" ⇒ "j" "2" "se"
-
+                            myLatinTransform:
+                                type: icu_transform
+                                id: "Any-Latin; NFD; [:Nonspacing Mark:] Remove; NFC"
 
 
 
