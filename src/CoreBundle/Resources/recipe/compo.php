@@ -95,7 +95,7 @@ task('database:sync-from-remote', function () {
 
     // mysql -u[database user] -p [database name] < file.sql
     runLocally("cd " . $projectDir . " && "
-        . " mysql -u" . $parameters['parameters']['database_user']
+        . " mysql --user=" . $parameters['parameters']['database_user'] . " --password=" . $parameters['parameters']['database_password']
         . ' ' . $parameters['parameters']['database_name']
         . ' < '
         . $localDatabasePath

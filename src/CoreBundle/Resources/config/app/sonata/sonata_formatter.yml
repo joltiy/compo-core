@@ -39,7 +39,7 @@ ivory_ck_editor:
             extraAllowedContent: '*{*}'
             toolbar: "my_toolbar_1"
             extraPlugins: 'wpmore,fakeobjects'
-            enterMode: "CKEDITOR.ENTER_DIV"
+            enterMode: "CKEDITOR.ENTER_P"
             filebrowserBrowseRoute: admin_sonata_media_media_ckeditor_browser
             filebrowserImageBrowseRoute: admin_sonata_media_media_ckeditor_browser
             # Display images by default when clicking the image dialog browse button
