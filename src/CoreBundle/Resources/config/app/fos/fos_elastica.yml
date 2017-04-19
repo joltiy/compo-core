@@ -14,11 +14,16 @@ fos_elastica:
                                 type: snowball
                                 language: Russian
 
-
+                            default_index:
+                                alias: [index_ru]
+                                type: custom
+                                tokenizer: nGram
+                                filter: [stopwords_ru, stop, custom_word_delimiter, lowercase, russian_morphology, english_morphology]
+                                char_filter: [ru]
                             default_search:
                                 alias: [search_ru]
                                 type: custom
-                                tokenizer: nGram
+                                tokenizer: standard
                                 filter: [stopwords_ru, stop, custom_word_delimiter, lowercase, russian_morphology, english_morphology]
                                 char_filter: [ru]
 
