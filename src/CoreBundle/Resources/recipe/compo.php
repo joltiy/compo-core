@@ -133,7 +133,7 @@ task('sync-from-remote', [
 task('compo:update', function () {
     /** @noinspection PhpUndefinedFunctionInspection */
     run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console compo:update --env={{env}} --no-debug');
-    run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console fos:elastica:populate --env={{env}} --no-debug');
+    run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console fos:elastica:populate --env=dev --no-debug');
 
     run("cd {{deploy_path}} && ln -sfn current/web public_html");
 
