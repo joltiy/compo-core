@@ -18,19 +18,23 @@ fos_elastica:
                                 alias: [index_ru]
                                 type: custom
                                 tokenizer: nGram
-                                filter: [stopwords_ru, stop, custom_word_delimiter, lowercase, russian_morphology, english_morphology]
+                                filter: [stopwords_ru, stop, custom_word_delimiter, lowercase, russian_morphology, english_morphology,latin_transform]
                                 char_filter: [ru]
                             default_search:
                                 alias: [search_ru]
                                 type: custom
                                 tokenizer: standard
-                                filter: [stopwords_ru, stop, custom_word_delimiter, lowercase, russian_morphology, english_morphology]
+                                filter: [stopwords_ru, stop, custom_word_delimiter, lowercase, russian_morphology, english_morphology,latin_transform]
                                 char_filter: [ru]
 
                         char_filter:
                             ru:
                                 type: mapping
                                 mappings: ['Ё=>Е', 'ё=>е']
+                            qwerty:
+                                type: mapping
+                                mappings: ['й=>q', 'ц=>w', 'у=>e', 'к=>r', 'е=>t', 'н=>y', 'г=>u', 'ш=>i', 'щ=>o', 'з=>p', 'х=>[', 'ъ=>]', 'ф=>a', 'ы=>s', 'в=>d', 'а=>f', 'п=>g', 'р=>h', 'о=>j', 'л=>k', 'д=>l', 'ж=>;', "э=>'", 'я=>z', 'ч=>x', 'с=>c', 'м=>v', 'и=>b', 'т=>n', 'ь=>m', 'б=>,', 'ю=>.', '.=>/']
+
 
 
                         tokenizer:
@@ -54,7 +58,7 @@ fos_elastica:
                                 split_on_case_change: true  # "PowerShot" ⇒ "Power" "Shot"
                                 preserve_original: true  # "500-42" ⇒ "500-42" "500" "42"
                                 split_on_numerics: false  # "j2se" ⇒ "j" "2" "se"
-                            myLatinTransform:
+                            latin_transform:
                                 type: icu_transform
                                 id: "Any-Latin; NFD; [:Nonspacing Mark:] Remove; NFC"
 
