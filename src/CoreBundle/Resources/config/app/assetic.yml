@@ -99,6 +99,7 @@ assetic:
                 - "bundles/sonataadmin/css/layout.css"
                 - "bundles/sonataadmin/css/tree.css"
                 - "bundles/sonatapage/sonata-page.back.css"
+                - "bundles/compotagging/css/catalog_filter_admin.css"
 
             filters:
                 - cssrewrite
