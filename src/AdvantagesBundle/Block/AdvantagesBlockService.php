@@ -119,7 +119,7 @@ class AdvantagesBlockService extends AbstractBlockService
      */
     public function getBlockMetadata($code = null)
     {
-        return new Metadata('Приемущества', (!is_null($code) ? $code : $this->getName()), false, 'SonataBlockBundle', array(
+        return new Metadata('Преимущества', (!is_null($code) ? $code : $this->getName()), false, 'SonataBlockBundle', array(
             'class' => 'fa fa-file-text-o',
         ));
     }

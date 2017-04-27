@@ -1,16 +1,16 @@
 breadcrumb:
-    link_advantages_batch: 'Действия над приемущества'
-    link_advantages_create: 'Создание приемущества'
-    link_advantages_delete: 'Удаление приемущества'
-    link_advantages_edit: 'Редактирование приемущества'
-    link_advantages_item_batch: 'Действия над приемуществами'
-    link_advantages_item_create: 'Создание приемущества'
-    link_advantages_item_delete: 'Удаление приемущества'
-    link_advantages_item_edit: 'Редактирование приемущества'
-    link_advantages_item_list: 'Список приемуществ'
-    link_advantages_item_update: 'Обновление приемущества'
+    link_advantages_batch: 'Действия над преимущества'
+    link_advantages_create: 'Создание преимущества'
+    link_advantages_delete: 'Удаление преимущества'
+    link_advantages_edit: 'Редактирование преимущества'
+    link_advantages_item_batch: 'Действия над преимуществами'
+    link_advantages_item_create: 'Создание преимущества'
+    link_advantages_item_delete: 'Удаление преимущества'
+    link_advantages_item_edit: 'Редактирование преимущества'
+    link_advantages_item_list: 'Список преимуществ'
+    link_advantages_item_update: 'Обновление преимущества'
     link_advantages_list: 'Приемущества'
-    link_advantages_update: 'Обвновление приемущества'
+    link_advantages_update: 'Обвновление преимущества'
 
 form:
     label_page: Страница
