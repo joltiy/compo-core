@@ -57,7 +57,12 @@ services:
         tags:
             - { name: sonata.block }
 
-
+    compo_core.block.service.text_page:
+            class: Compo\CoreBundle\Block\TextPageBlockService
+            parent: compo_core.abstract_container_aware
+            arguments: ["compo_core.block.service.text_page", "@templating"]
+            tags:
+                - { name: sonata.block }
 
     sonata.page.kernel.exception_listener:
         class: Compo\Sonata\PageBundle\Listener\ExceptionListener

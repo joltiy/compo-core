@@ -136,6 +136,7 @@ sonata_page:
                         - sonata.block.service.template
                         - sonata.block.service.text
                         - sonata.formatter.block.formatter
+                        - compo_core.block.service.text_page
                  content_bottom:
                      name: "Внизу"
                      blocks:

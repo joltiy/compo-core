@@ -30,7 +30,7 @@ sonata_block:
         sonata.formatter.block.formatter:
 
         compo_core.block.service.news_with_articles_last:
-
+        compo_core.block.service.text_page:
         # PageBundle's Blocks
         sonata.page.block.container:
             # cache: sonata.cache.memcached

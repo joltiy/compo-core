@@ -290,9 +290,9 @@ form.label_settings_header_menu: 'Меню в шапке'
 form.label_settings_footer_menu: 'Меню в подвале'
 form.label_settings_logo_image: 'Логотип'
 
-block.title_news_with_articles_last: 'Последнии Новости и Статьи'
-
-
+block.title_news_with_articles_last: 'Последние Новости и Статьи'
+block.title_text_page: 'Текстовая страница с форматированием'
+compo_core.block.service.text_page: 'Текстовая страница с форматированием'
 sonata.formatter.block.formatter: 'HTML'
 
 
