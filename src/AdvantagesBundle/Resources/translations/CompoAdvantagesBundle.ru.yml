@@ -16,27 +16,27 @@ form:
     label_page: Страница
     label_parent: 'Родительский элемент'
 
-advantages: Приемущества
+advantages: Преимущества
 
-tab_menu.title_advantages_list: 'Приемущества'
-breadcrumb.link_advantages_item_tree: 'Список приемуществ'
-tab_menu.title_advantages_item_create: 'Создание приемущества'
+tab_menu.title_advantages_list: 'Преимущества'
+breadcrumb.link_advantages_item_tree: 'Список Преимуществ'
+tab_menu.title_advantages_item_create: 'Создание Преимущества'
 form.tab_main_advantages: 'Приемущество'
 
-tab_menu.title_advantages_advantages_item_edit: 'Приемущество: %name%'
+tab_menu.title_advantages_advantages_item_edit: 'Преимущество: %name%'
 
-tab_menu.advantages: 'Приемущество'
-tab_menu.link_advantages_list: 'Список приемуществ'
+tab_menu.advantages: 'Преимущество'
+tab_menu.link_advantages_list: 'Список Преимуществ'
 
-tab_menu.title_advantages_advantages_item_list: 'Приемущества: %name%'
+tab_menu.title_advantages_advantages_item_list: 'Преимущества: %name%'
 
-tab_menu.title_advantages_edit: 'Приемущества: %name%'
+tab_menu.title_advantages_edit: 'Преимущества: %name%'
 
-tab_menu.title_advantages_list: Приемущества
+tab_menu.title_advantages_list: Преимущества
 
-tab_menu.title_advantages_create: 'Создание приемущества'
+tab_menu.title_advantages_create: 'Создание Преимущества'
 
-tab_menu.title_advantages_edit: 'Приемущества: %name%'
+tab_menu.title_advantages_edit: 'Преимущества: %name%'
 
 
-form.label_advantages: 'Приемущества'
+form.label_advantages: 'Преимущества'
