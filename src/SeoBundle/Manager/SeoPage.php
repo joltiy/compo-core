@@ -289,6 +289,8 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
             }
         }
 
+
+
         // Чистка keywords
         $keywords_tmp = explode(',', $meta_keyword);
 
