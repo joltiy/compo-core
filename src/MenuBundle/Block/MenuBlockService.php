@@ -81,6 +81,12 @@ class MenuBlockService extends AbstractBlockService
                 $nodeItem = $item['node'];
 
                 $item['url'] = $nodeItem->getPage()->getUrl();
+            } elseif ($item['type'] == 'tagging') {
+                /** @var \Compo\MenuBundle\Entity\MenuItem $nodeItem */
+                $nodeItem = $item['node'];
+
+                $item['url'] = '/catalog/' . $nodeItem->getTagging()->getSlug() . '.html';
+
             } else {
                 $item['url'] = '';
             }

@@ -108,6 +108,22 @@ class MenuItem
      */
     protected $page;
 
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Compo\TaggingBundle\Entity\Tagging")
+     * @ORM\JoinColumn(name="tagging_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+    protected $tagging;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="tagging_id", type="integer", nullable=true)
+     */
+    protected $tagging_id;
+
+
+
     /**
      * @var integer
      *
@@ -140,6 +156,24 @@ class MenuItem
     {
         $this->type = $type;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getTagging()
+    {
+        return $this->tagging;
+    }
+
+    /**
+     * @param mixed $tagging
+     */
+    public function setTagging($tagging)
+    {
+        $this->tagging = $tagging;
+    }
+
+
 
     /**
      * @return mixed

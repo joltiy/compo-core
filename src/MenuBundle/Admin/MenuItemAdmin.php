@@ -126,15 +126,19 @@ class MenuItemAdmin extends AbstractAdmin
             ->add('type', 'sonata_type_choice_field_mask', array(
                 'choices' => array(
                     'url' => 'URL',
-                    'page' => 'Page',
+                    'page' => 'Страница',
+                    'tagging' => 'Тегирование',
                 ),
                 'map' => array(
                     'url' => array('url'),
                     'page' => array('page'),
+                    'tagging' => array('tagging'),
+
                 ),
                 'empty_value' => 'Укажите тип',
                 'required' => true
             ));
+
 
 
         $query = $this->getDoctrine()->getManager()->createQuery('SELECT p FROM Compo\Sonata\PageBundle\Entity\Page p WHERE p.routeName = \'page_slug\' ORDER BY p.parent ASC, p.position ASC');
@@ -143,6 +147,15 @@ class MenuItemAdmin extends AbstractAdmin
             'required' => false,
             'query' => $query
         ));
+
+
+        $query = $this->getDoctrine()->getManager()->createQuery('SELECT p FROM Compo\TaggingBundle\Entity\Tagging p ORDER BY p.name ASC');
+
+        $formMapper->add('tagging', 'sonata_type_model', array(
+            'required' => false,
+            'query' => $query
+        ));
+
 
         $formMapper->add('url');
 
