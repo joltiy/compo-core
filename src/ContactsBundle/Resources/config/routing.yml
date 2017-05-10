@@ -1,0 +1,3 @@
+compo_contacts_homepage:
+    path:     /
+    defaults: { _controller: CompoContactsBundle:Default:index }
