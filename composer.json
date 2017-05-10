@@ -11,17 +11,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "Compo\\CoreBundle\\": "src/Compo/CoreBundle/",
-      "Compo\\MenuBundle\\": "src/Compo/MenuBundle/",
-      "Compo\\SeoBundle\\": "src/Compo/SeoBundle/",
-      "Compo\\ArticlesBundle\\": "src/Compo/ArticlesBundle/",
-      "Compo\\NewsBundle\\": "src/Compo/NewsBundle/",
-      "Compo\\SmsProviderBundle\\": "src/Compo/SmsProviderBundle/",
-      "Compo\\RedirectBundle\\": "src/Compo/RedirectBundle/",
-      "Compo\\BannerBundle\\": "src/Compo/BannerBundle/",
-      "Compo\\AdvantagesBundle\\": "src/Compo/AdvantagesBundle/",
-      "Compo\\ContactsBundle\\": "src/Compo/ContactsBundle/",
-      "Compo\\Sonata\\": "src/Compo/Sonata/",
+      "": "src/",
       "Pix\\SortableBehaviorBundle\\": "src/Pix/PixSortableBehaviorBundle/"
     },
     "classmap": [
