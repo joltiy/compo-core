@@ -11,21 +11,11 @@
   ],
   "autoload": {
     "psr-4": {
-      "Compo\\CoreBundle\\": "src/CoreBundle",
-      "Compo\\MenuBundle\\": "src/MenuBundle",
-      "Compo\\SeoBundle\\": "src/SeoBundle",
-      "Compo\\ArticlesBundle\\": "src/ArticlesBundle",
-      "Compo\\NewsBundle\\": "src/NewsBundle",
-      "Compo\\SmsProviderBundle\\": "src/SmsProviderBundle",
-      "Compo\\RedirectBundle\\": "src/RedirectBundle",
-      "Compo\\BannerBundle\\": "src/BannerBundle",
-      "Compo\\AdvantagesBundle\\": "src/AdvantagesBundle",
-      "Compo\\ContactsBundle\\": "src/ContactsBundle",
-      "Compo\\Sonata\\": "src/Sonata",
-      "Pix\\SortableBehaviorBundle\\": "src/PixSortableBehaviorBundle"
+      "Compo\\": "src/Compo/",
+      "Pix\\SortableBehaviorBundle\\": "src/Pix/"
     },
     "classmap": [
-      "src/CoreBundle/Doctrine/VendorOverride/DisconnectedMetadataFactory.php"
+      "src/Compo/CoreBundle/Doctrine/VendorOverride/DisconnectedMetadataFactory.php"
     ]
   },
   "require": {
