@@ -12,7 +12,7 @@
   "autoload": {
     "psr-4": {
       "Compo\\": "src/Compo/",
-      "Pix\\SortableBehaviorBundle\\": "src/Pix/"
+      "Pix\\": "src/Pix/"
     },
     "classmap": [
       "src/Compo/CoreBundle/Doctrine/VendorOverride/DisconnectedMetadataFactory.php"
