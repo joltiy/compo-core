@@ -23,7 +23,10 @@
       "Compo\\ContactsBundle\\": "src/ContactsBundle",
       "Compo\\Sonata\\": "src/Sonata",
       "Pix\\SortableBehaviorBundle\\": "src/PixSortableBehaviorBundle"
-    }
+    },
+    "classmap": [
+      "src/CoreBundle/Doctrine/VendorOverride/DisconnectedMetadataFactory.php"
+    ]
   },
   "require": {
     "ext-intl": "*",
