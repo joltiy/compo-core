@@ -111,7 +111,7 @@ class ContactsAdmin extends AbstractAdmin
             ->add('walk_instruction','ckeditor')
             ->end()->end()
             ->tab('form.tab_social')
-            ->with('form.group_links', array('class' => 'col-md-6'))
+            ->with('form.group_links', array('class' => 'col-md-9'))
             ->add('social_vk')
             ->add('social_fb')
             ->add('social_yt')
