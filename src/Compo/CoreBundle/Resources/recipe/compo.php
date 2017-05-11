@@ -219,7 +219,7 @@ task('deploy:assetic:dump', function () {
 
         run('{{env_vars}} cd {{release_path}} && {{bin/php}} {{bin/console}} sylius:theme:assets:install --symlink --relative {{console_options}}');
 
-        run('{{env_vars}} {{bin/php}} {{bin/console}} assetic:dump {{console_options}}');
+        run('{{env_vars}} cd {{release_path}} && {{bin/php}} {{bin/console}} assetic:dump --symlink --relative {{console_options}}');
     }
 })->desc('Dump assets');
 
