@@ -29,7 +29,7 @@ class ContactsAdmin extends AbstractAdmin
     {
         $collection
             ->remove('create')
-           // ->remove('new')
+            ->remove('list')
             ->remove('delete');
     }
 

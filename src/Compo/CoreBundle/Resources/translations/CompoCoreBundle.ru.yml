@@ -10,6 +10,7 @@ content: Контент
 core_settings: Основные
 ecommerce: Магазин
 banner: Банеры
+contacts: Контакты
 
 form:
     label_settings_email: E-mail
