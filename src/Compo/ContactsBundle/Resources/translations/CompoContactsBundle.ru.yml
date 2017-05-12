@@ -50,6 +50,9 @@ form:
   group_links: Ссылки
   tab_instructions: Как добраться
   tab_social: Социальные сети
+  label_cix: Долгота центра карты
+  label_ciy: Широта центра карты
+  tab_map: Карта
 
 
 show:
@@ -67,6 +70,9 @@ show:
   label_social_ig: Ссылка на Instagram
   label_social_gg: Ссылка на Google+
   label_maps_code: Код карты
+
+block:
+  title_contacts_main: Отформатированный блок контактов
 
 
 

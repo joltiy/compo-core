@@ -7,3 +7,9 @@ services:
         arguments: [~, Compo\ContactsBundle\Entity\Contacts, CompoContactsBundle:ContactsAdmin]
         tags:
             - { name: sonata.admin, manager_type: orm, audit: true, group: admin, label: contacts , label_translator_strategy: sonata.admin.label.strategy.underscore}
+
+
+    compo_contacts.manager.contacts:
+        class: Compo\ContactsBundle\Manager\ContactsManager
+        arguments: [Compo\ContactsBundle\Entity\Contacts, "@doctrine"]
+        parent: compo_core.abstract_container_aware

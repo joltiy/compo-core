@@ -1,0 +1,58 @@
+{% block block %}
+
+    <h1>{{ block.page.name }}</h1>
+
+    <div class="col-lg-7 col-md-6">
+        {{ settings.contacts.mapscode }}
+    </div>
+    <div>
+        {{ settings.contacts.address | raw }}
+    </div>
+
+    <div>
+        {{ settings.contacts.worktime | raw }}
+    </div>
+   <div>
+        {{ settings.contacts.phone }}
+    </div>
+    <div>
+        <a href="mailto:{{ settings.contacts.email }} "> {{ settings.contacts.email }} </a>
+    </div>
+
+    <div class="social-links">
+        <a href="{{ settings.contacts.socialvk }}" class="social-links__item" target="_blank">
+            <i class="fa fa-vk" aria-hidden="true"></i>
+        </a>
+        <a href="{{ settings.contacts.socialfb }}" class="social-links__item" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+        </a>
+        <a href="{{ settings.contacts.socialtw }}" class="social-links__item" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+        </a>
+        <a href="{{ settings.contacts.socialgg }}" class="social-links__item" target="_blank">
+            <i class="fa fa-google-plus" aria-hidden="true"></i>
+        </a>
+        <a href="{{ settings.contacts.socialyt }}" class="social-links__item" target="_blank">
+            <i class="fa fa-youtube-play" aria-hidden="true"></i>
+        </a>
+        <a href="{{ settings.contacts.socialig }}" class="social-links__item" target="_blank">
+            <i class="fa fa-instagram" aria-hidden="true"></i>
+        </a>
+    </div>
+
+
+    <div>{{ settings.contacts.bankprops }}</div>
+
+
+
+    <div class="col-md-6">
+        <h2>Как добраться на авто:</h2>
+        {{ settings.contacts.carinstruction }}
+
+    </div>
+    <div class="col-md-6">
+        <h2>Как добраться своим ходом:</h2>
+        {{ settings.contacts.walkinstruction }}
+    </div>
+
+{% endblock %}

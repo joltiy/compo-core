@@ -64,6 +64,13 @@ services:
             tags:
                 - { name: sonata.block }
 
+    compo_contacts.block.service.contacts_main:
+            class:  Compo\ContactsBundle\Block\ContactsMainBlockService
+            parent: compo_core.abstract_container_aware
+            arguments: ["compo_contacts.block.service.contacts_main", "@templating"]
+            tags:
+                  - { name: sonata.block }
+
     sonata.page.kernel.exception_listener:
         class: Compo\Sonata\PageBundle\Listener\ExceptionListener
         tags:

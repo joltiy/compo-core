@@ -119,7 +119,7 @@ sonata_page:
             name: 'Базовый'
             containers:
                  header:
-                     name: "Шапкка"
+                     name: "Шапка"
                      blocks:
                         - sonata.block.service.template
                         - sonata.block.service.text
@@ -137,6 +137,7 @@ sonata_page:
                         - sonata.block.service.text
                         - sonata.formatter.block.formatter
                         - compo_core.block.service.text_page
+                        - compo_contacts.block.service.contacts_main
                  content_bottom:
                      name: "Внизу"
                      blocks:
