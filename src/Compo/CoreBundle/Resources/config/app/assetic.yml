@@ -1,5 +1,5 @@
 assetic:
-    debug:                true #'%kernel.debug%'
+    debug:                    "%kernel.debug%"
     use_controller:
         enabled:              false
         profiler:             false
@@ -15,7 +15,7 @@ assetic:
 
 
     workers:
-        cache_busting: false
+        cache_busting: true
 
     assets:
         sonata_admin_vendor_js:
