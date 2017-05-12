@@ -23,36 +23,54 @@ class ContactsMainBlockService extends AbstractBlockService
         $settings = $blockContext->getSettings();
         $block = $blockContext->getBlock();
         $template = $blockContext->getTemplate();
+        $container = $this->getContainer();
+        $manager = $container->get("compo_contacts.manager.contacts");
+        $contacts = $manager->getContacts();
 
 
 
         return $this->renderResponse($template, array(
             'block' => $block,
             'settings' => $settings,
+            'contacts' => $contacts[0]
         ), $response);
     }
 
-
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormMapper $formMapper, BlockInterface $block)
     {
-        $formMapper->add('settings', 'sonata_type_immutable_array', array());
+        $formMapper->add('settings', 'sonata_type_immutable_array', array(
+
+        ));
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function buildCreateForm(FormMapper $formMapper, BlockInterface $block)
+    {
+        $this->buildForm($formMapper, $block);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function buildEditForm(FormMapper $formMapper, BlockInterface $block)
+    {
+        $this->buildForm($formMapper, $block);
+    }
+
 
     /**
      * {@inheritdoc}
      */
     public function configureSettings(OptionsResolver $resolver)
     {
-        $container = $this->getContainer();
-
-        $manager = $container->get("compo_contacts.manager.contacts");
-        $contacts = $manager->getContacts();
-
         $resolver->setDefaults(array(
             'template' => 'CompoContactsBundle:Block:contacts_main.html.twig',
-            'contacts' => $contacts[0]
         ));
     }
-
 
 }
