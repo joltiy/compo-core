@@ -33,6 +33,11 @@ class ContactsMainBlockService extends AbstractBlockService
     }
 
 
+    public function buildForm(FormMapper $formMapper, BlockInterface $block)
+    {
+        $formMapper->add('settings', 'sonata_type_immutable_array', array());
+    }
+
     /**
      * {@inheritdoc}
      */
