@@ -2,6 +2,7 @@
 
 namespace Compo\MenuBundle\Entity;
 
+use Compo\TaggingBundle\Entity\Tagging;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -36,6 +37,7 @@ class MenuItem
     use \Compo\Sonata\AdminBundle\Entity\EnabledEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\TreeEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait;
+    use \Compo\Sonata\AdminBundle\Entity\ImageEntityTrait;
 
     use \Gedmo\Timestampable\Traits\TimestampableEntity;
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
@@ -158,7 +160,7 @@ class MenuItem
     }
 
     /**
-     * @return mixed
+     * @return Tagging
      */
     public function getTagging()
     {

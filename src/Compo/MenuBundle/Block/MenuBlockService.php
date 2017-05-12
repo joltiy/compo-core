@@ -73,22 +73,47 @@ class MenuBlockService extends AbstractBlockService
     public function renderMenu($menu, $nodesList)
     {
         foreach ($nodesList as $key => $item) {
+            /** @var \Compo\MenuBundle\Entity\MenuItem $nodeItem */
+
+            $nodeItem = $item['node'];
 
             if ($item['type'] == 'url') {
 
             } elseif ($item['type'] == 'page') {
-                /** @var \Compo\MenuBundle\Entity\MenuItem $nodeItem */
-                $nodeItem = $item['node'];
 
                 $item['url'] = $nodeItem->getPage()->getUrl();
             } elseif ($item['type'] == 'tagging') {
-                /** @var \Compo\MenuBundle\Entity\MenuItem $nodeItem */
-                $nodeItem = $item['node'];
+
+                if (!$nodeItem->getTagging()) {
+                    continue;
+                }
 
                 $item['url'] = '/catalog/' . $nodeItem->getTagging()->getSlug() . '.html';
 
+
+                $catalogManager = $this->getContainer()->get('compo_catalog.manager.catalog');
+
+                $criteria = array();
+                $criteria['filter'] = $nodeItem->getTagging()->getFilterData();
+
+                $filter = $catalogManager->getFilter($criteria);
+
+
+                $item['products_count'] = $filter['products_count'];
+
             } else {
+
                 $item['url'] = '';
+            }
+
+            $item['node'] = $nodeItem;
+
+            $image = $nodeItem->getImage();
+
+            if ($image) {
+                $item['image'] = $image;
+            } else {
+                $item['image'] = null;
             }
 
             /** @var MenuItem $node */

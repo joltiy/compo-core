@@ -158,6 +158,7 @@ class MenuItemAdmin extends AbstractAdmin
 
 
         $formMapper->add('url');
+        $formMapper->add('image');
 
 
         $formMapper->end();

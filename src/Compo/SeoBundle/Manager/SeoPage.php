@@ -47,6 +47,11 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
     /**
      * @var string
      */
+    protected $name;
+
+    /**
+     * @var string
+     */
     protected $header;
 
     /**
@@ -121,7 +126,11 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
      */
     public function getHeader()
     {
-        return $this->header;
+        if ($this->header) {
+            return $this->header;
+        } else {
+            return $this->name;
+        }
     }
 
     /**
@@ -229,6 +238,23 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         return $site;
     }
 
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+
     public function build()
     {
 
@@ -261,6 +287,7 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
 
         $templates = array_reverse($this->templates);
 
+        $name = '';
 
         $header = '';
         $description = '';
@@ -270,6 +297,10 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         $meta_description = '';
 
         foreach ($templates as $template) {
+            if (isset($template['name']) && $header == '') {
+                $name = $this->buildTemplate($template['name']);
+            }
+
             if (isset($template['header']) && $header == '') {
                 $header = $this->buildTemplate($template['header']);
             }
@@ -302,6 +333,7 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
             }
         }
 
+        $name = trim($name);
         $header = trim($header);
         $description = trim($description);
         $title = trim($title);
@@ -309,6 +341,9 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
 
         $meta_keyword = trim(implode(',', array_unique($keywords_tmp)));
 
+        if ($name) {
+            $this->setName($name);
+        }
 
         if ($header) {
             $this->setHeader($header);

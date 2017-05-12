@@ -471,22 +471,22 @@
                 if (
                     (range_from != wrap.data('min') ||range_to != wrap.data('max'))
                 ) {
-                    if (args['filter_feature'] == undefined) {
-                        args['filter_feature'] = {};
+                    if (args['feature'] == undefined) {
+                        args['feature'] = {};
                     }
 
-                    if (args['filter_feature'][wrap.data('id')] == undefined) {
-                        args['filter_feature'][wrap.data('id')] = {};
+                    if (args['feature'][wrap.data('id')] == undefined) {
+                        args['feature'][wrap.data('id')] = {};
 
                     }
 
                     if (range_from != wrap.data('min')) {
-                        args['filter_feature'][wrap.data('id')]['from'] = range_from;
+                        args['feature'][wrap.data('id')]['from'] = range_from;
 
                     }
 
                     if (range_to != wrap.data('max')) {
-                        args['filter_feature'][wrap.data('id')]['to'] = range_to;
+                        args['feature'][wrap.data('id')]['to'] = range_to;
                     }
                 }
             });
@@ -500,18 +500,18 @@
                 if (
                     (range_from != wrap.data('min') ||range_to != wrap.data('max'))
                 ) {
-                    if (args['filter_price'] == undefined) {
-                        args['filter_price'] = {};
+                    if (args['price'] == undefined) {
+                        args['price'] = {};
 
                     }
 
                     if (range_from != wrap.data('min')) {
-                        args['filter_price']['from'] = range_from;
+                        args['price']['from'] = range_from;
 
                     }
 
                     if (range_to != wrap.data('max')) {
-                        args['filter_price']['to'] = range_to;
+                        args['price']['to'] = range_to;
 
                     }
                 }
@@ -520,19 +520,19 @@
             $('.filter-checklist').each(function () {
                 $(this).find('input[type="checkbox"]').each(function () {
                     if ($(this).prop('checked')) {
-                        if (args['filter_feature'] == undefined) {
-                            args['filter_feature'] = {};
+                        if (args['feature'] == undefined) {
+                            args['feature'] = {};
 
                         }
 
-                        if (args['filter_feature'][$(this).data('feature-id')] == undefined) {
-                            args['filter_feature'][$(this).data('feature-id')] = {
+                        if (args['feature'][$(this).data('feature-id')] == undefined) {
+                            args['feature'][$(this).data('feature-id')] = {
                                 'items': {}
                             };
 
                         }
 
-                        args['filter_feature'][$(this).data('feature-id')]['items'][$(this).val()] = $(this).val();
+                        args['feature'][$(this).data('feature-id')]['items'][$(this).val()] = $(this).val();
 
 
                     }
@@ -544,14 +544,14 @@
                 $(this).find('input[type="checkbox"].filter-input-brand').each(function () {
                     if ($(this).prop('checked')) {
 
-                        if (args['filter_manufacture'] == undefined) {
-                            args['filter_manufacture'] = {
+                        if (args['manufacture'] == undefined) {
+                            args['manufacture'] = {
                                 'items': {}
                             };
 
                         }
 
-                        args['filter_manufacture']['items'][$(this).val()] = $(this).val();
+                        args['manufacture']['items'][$(this).val()] = $(this).val();
 
                     }
                 });
@@ -561,15 +561,15 @@
                 $(this).find('input[type="checkbox"]').each(function () {
                     if ($(this).prop('checked')) {
 
-                        if (args['filter_manufacture_collection'] == undefined) {
-                            args['filter_manufacture_collection'] = {
+                        if (args['manufacture_collection'] == undefined) {
+                            args['manufacture_collection'] = {
                                 'items': {}
                             };
 
 
                         }
 
-                        args['filter_manufacture_collection']['items'][$(this).val()] = $(this).val();
+                        args['manufacture_collection']['items'][$(this).val()] = $(this).val();
 
                     }
                 });
