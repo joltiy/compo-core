@@ -41,7 +41,7 @@ assetic:
                 - "bundles/sonataformatter/markitup/sets/html/set.js"
 
             filters:
-                - ?yui_js
+                #- ?yui_js
 
         sonata_admin_core_js:
             inputs:
@@ -49,7 +49,7 @@ assetic:
                 - "bundles/sonatadashboard/sonata-dashboard.back.js"
 
             filters:
-                - ?yui_js
+                #- ?yui_js
 
         sonata_admin_js:
             inputs:
@@ -59,7 +59,7 @@ assetic:
                 - "bundles/sonataadmin/Admin.js"
                 - "bundles/sonataadmin/treeview.js"
             filters:
-                - ?yui_js
+                #- ?yui_js
 
 
 
@@ -67,7 +67,7 @@ assetic:
             inputs:
                 - "bundles/sonatacore/vendor/components-font-awesome/css/font-awesome.min.css"
                 - "bundles/sonatacore/vendor/bootstrap/dist/css/bootstrap.min.css"
-                - "bundles/sonataadmin/vendor/jqueryui/themes/base/jquery-ui.css"
+                - "bundles/sonataadmin/vendor/jqueryui/themes/base/minified/jquery-ui.min.css"
                 - "bundles/sonataadmin/vendor/jqueryui/themes/flick/jquery-ui.min.css"
                 - "bundles/sonataadmin/vendor/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css"
                 - "bundles/sonatacore/vendor/select2/select2.css"
@@ -81,7 +81,7 @@ assetic:
 
             filters:
                 - cssrewrite
-                - ?yui_css
+                #- ?yui_css
 
         sonata_admin_core_css:
             inputs:
@@ -91,7 +91,7 @@ assetic:
 
             filters:
                 - cssrewrite
-                - ?yui_css
+                #- ?yui_css
 
         sonata_admin_css:
             inputs:
@@ -103,40 +103,40 @@ assetic:
 
             filters:
                 - cssrewrite
-                - ?yui_css
+                #- ?yui_css
 
 
         sonata_front_vendor_core_js:
             inputs: []
             filters:
-                - ?yui_js
+                #- ?yui_js
 
         sonata_front_vendor_js:
             inputs: []
             filters:
-                - ?yui_js
+                #- ?yui_js
 
 
         sonata_front_js:
             inputs: []
             filters:
-                - ?yui_js
+                #- ?yui_js
 
         sonata_front_vendor_core_css:
             inputs:
             filters:
                 - cssrewrite
-                - ?yui_css
+                #- ?yui_css
 
 
         sonata_front_vendor_css:
             inputs: []
             filters:
                 - cssrewrite
-                - ?yui_css
+                #- ?yui_css
 
         sonata_front_css:
             inputs: []
             filters:
                 - cssrewrite
-                - ?yui_css
+                #- ?yui_css
