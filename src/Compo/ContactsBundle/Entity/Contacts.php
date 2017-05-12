@@ -434,5 +434,62 @@ class Contacts
     public function __toString() {
         return '';
     }
-}
+    /**
+     * @var string
+     */
+    private $cix;
 
+    /**
+     * @var string
+     */
+    private $ciy;
+
+
+    /**
+     * Set cix
+     *
+     * @param string $cix
+     *
+     * @return Contacts
+     */
+    public function setCix($cix)
+    {
+        $this->cix = $cix;
+
+        return $this;
+    }
+
+    /**
+     * Get cix
+     *
+     * @return string
+     */
+    public function getCix()
+    {
+        return $this->cix;
+    }
+
+    /**
+     * Set ciy
+     *
+     * @param string $ciy
+     *
+     * @return Contacts
+     */
+    public function setCiy($ciy)
+    {
+        $this->ciy = $ciy;
+
+        return $this;
+    }
+
+    /**
+     * Get ciy
+     *
+     * @return string
+     */
+    public function getCiy()
+    {
+        return $this->ciy;
+    }
+}

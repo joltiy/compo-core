@@ -96,10 +96,10 @@ class ContactsAdmin extends AbstractAdmin
     {
         $formMapper
             ->tab('form.tab_main')
-            ->with('form.group_major', array('class' => 'col-md-6'))
-            ->add('worktime')
+            ->with('form.group_major', array('class' => 'col-md-9'))
             ->add('phone')
             ->add('email')
+            ->add('worktime','ckeditor')
             ->add('address','ckeditor')
             ->add('bankprops','ckeditor')
              ->end()->end()
@@ -118,7 +118,13 @@ class ContactsAdmin extends AbstractAdmin
             ->add('social_tw')
             ->add('social_ig')
             ->add('social_gg')
+            ->end()
+            ->end()
+            ->tab('form.tab_map')
+            ->with('form.group_major', array('class' => 'col-md-9'))
             ->add('maps_code')
+            ->add('cix')
+            ->add('ciy')
             ->end()
             ->end();
 
