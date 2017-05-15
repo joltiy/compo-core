@@ -54,6 +54,9 @@ fos_js_routing:
 #    prefix: /comments
 #    defaults: { _format: html }
 
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"
+
 _admin:
     resource: routing_admin.yml
     prefix:   /admin
@@ -67,7 +70,3 @@ _api:
 #   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
 #   prefix:   /_internal
 #
-# Support for LiipImagineBundle
-#_imagine:
-#    resource: .
-#    type:     imagine
