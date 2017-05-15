@@ -2,7 +2,7 @@
     {% if object and admin.hasRoute('edit') and admin.isGranted('EDIT') and object.providerName == 'sonata.media.provider.image' %}
         <span class="inner-field-short-description inner-field-short-description-media">
             <a href="{{ admin.generateObjectUrl('edit', object, link_parameters) }}" target="new">
-                {% thumbnail object, 'medium' %}
+                {% thumbnail object, 'small' with {'style': 'max-width: 256px; max-height: 256px;'} %}
             </a>
         </span>
 
