@@ -18,7 +18,7 @@ services:
 
     compo_core.twig.media_extension:
         class: Compo\CoreBundle\Twig\MediaExtension
-        arguments: ["@sonata.media.manager.media"]
+        arguments: ["@sonata.media.pool", "@sonata.media.manager.media", "@liip_imagine.cache.manager", "@liip_imagine.filter.manager"]
         public: false
         tags:
             - { name: twig.extension }

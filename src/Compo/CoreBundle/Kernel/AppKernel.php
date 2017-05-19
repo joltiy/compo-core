@@ -31,8 +31,6 @@ class AppKernel extends Kernel
             new \Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
             new \Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
 
-            new \Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-
             new \Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new \Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
             new \Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
@@ -42,16 +40,18 @@ class AppKernel extends Kernel
             new \FOS\ElasticaBundle\FOSElasticaBundle(),
             new \FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 
+            new \Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new \Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new \SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
             new \Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new \Spy\TimelineBundle\SpyTimelineBundle(),
             new \Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
             new \Liuggio\ExcelBundle\LiuggioExcelBundle(),
-
+            new \Liip\ImagineBundle\LiipImagineBundle(),
             new \WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
-
             new \winzou\Bundle\StateMachineBundle\winzouStateMachineBundle(),
+            new \Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new \Pix\SortableBehaviorBundle\PixSortableBehaviorBundle(),
 
             new \Sylius\Bundle\SettingsBundle\SyliusSettingsBundle(),
             new \Sylius\Bundle\ResourceBundle\SyliusResourceBundle(),
@@ -74,9 +74,6 @@ class AppKernel extends Kernel
             new \Sonata\TimelineBundle\SonataTimelineBundle(),
             new \Sonata\DashboardBundle\SonataDashboardBundle(),
 
-            new \Pix\SortableBehaviorBundle\PixSortableBehaviorBundle(),
-            new \Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
-
             new \Compo\Sonata\AdminBundle\CompoSonataAdminBundle(),
             new \Compo\Sonata\CoreBundle\CompoSonataCoreBundle(),
             new \Compo\Sonata\MediaBundle\CompoSonataMediaBundle(),
@@ -92,7 +89,6 @@ class AppKernel extends Kernel
             new \Compo\CoreBundle\CompoCoreBundle(),
             new \Compo\SeoBundle\CompoSeoBundle(),
             new \Compo\MenuBundle\CompoMenuBundle(),
-
             new \Compo\NewsBundle\CompoNewsBundle(),
             new \Compo\ArticlesBundle\CompoArticlesBundle(),
             new \Compo\SmsProviderBundle\CompoSmsProviderBundle(),
@@ -101,16 +97,13 @@ class AppKernel extends Kernel
             new \Compo\AdvantagesBundle\CompoAdvantagesBundle(),
             new \Compo\ContactsBundle\CompoContactsBundle(),
 
-
             new \Compo\EcommerceBundle\CompoEcommerceBundle(),
             new \Compo\CurrencyBundle\CompoCurrencyBundle(),
             new \Compo\FeaturesBundle\CompoFeaturesBundle(),
             new \Compo\ManufactureBundle\CompoManufactureBundle(),
             new \Compo\CountryBundle\CompoCountryBundle(),
-
             new \Compo\ProductBundle\CompoProductBundle(),
             new \Compo\CatalogBundle\CompoCatalogBundle(),
-
             new \Compo\SupplierBundle\CompoSupplierBundle(),
             new \Compo\DeliveryBundle\CompoDeliveryBundle(),
             new \Compo\PaymentBundle\CompoPaymentBundle(),
