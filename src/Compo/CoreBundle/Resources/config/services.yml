@@ -70,6 +70,12 @@ services:
             arguments: ["compo_contacts.block.service.contacts_main", "@templating"]
             tags:
                   - { name: sonata.block }
+    compo_contacts.block.service.feedback_form:
+            class:  Compo\ContactsBundle\Block\FeedbackFormBlockService
+            parent: compo_core.abstract_container_aware
+            arguments: ["compo_contacts.block.service.feedback_form", "@templating"]
+            tags:
+                 - { name: sonata.block }
 
     sonata.page.kernel.exception_listener:
         class: Compo\Sonata\PageBundle\Listener\ExceptionListener
