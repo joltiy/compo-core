@@ -4,12 +4,12 @@ namespace Compo\AdvantagesBundle\Admin;
 
 use Compo\AdvantagesBundle\Entity\AdvantagesItem;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
+use Knp\Menu\ItemInterface as MenuItemInterface;
+use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Knp\Menu\ItemInterface as MenuItemInterface;
-use Sonata\AdminBundle\Admin\AdminInterface;
 
 /**
  * {@inheritDoc}
