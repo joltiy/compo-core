@@ -73,7 +73,12 @@ show:
 
 block:
   title_contacts_main: Отформатированный блок контактов
+  title_feedback_form: Форма обратной связи
 
+
+Name: Имя
+Email: E-mail
+Message: Сообщение
 
 
 

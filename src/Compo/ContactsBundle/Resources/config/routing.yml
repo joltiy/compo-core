@@ -1,0 +1,6 @@
+compo_contacts_api:
+    path:     /api/contacts/
+    defaults: { _controller: "CompoContactsBundle:Api\\PostContacts:post" }
+    methods:  POST
+    options:
+         expose: true

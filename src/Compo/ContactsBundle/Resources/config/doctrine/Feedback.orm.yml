@@ -1,0 +1,28 @@
+Compo\ContactsBundle\Entity\Feedback:
+    type: entity
+    table: feedback
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 255
+            nullable: true
+        email:
+             type: string
+             length: 255
+             nullable: true
+        phone:
+             type: string
+             length: 255
+             nullable: true
+        message:
+             type: string
+             length: 255
+             nullable: true
+        page:
+             type: string
+             length: 255
+             nullable: true
