@@ -46,12 +46,12 @@ class PostContactsController extends Controller
             $csrf = $this->get('security.csrf.token_manager');
 
 
-            //if (!$form->isValid()) {
-            //    $csrf->refreshToken('feedback_protection');
-            //    $response['message'] = 'form_not_valid';
+            if (!$form->isValid()) {
+                $csrf->refreshToken('feedback_protection');
+                $response['message'] = 'form_not_valid';
 
-            //}
-            //else{
+            }
+            else{
 
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($feedback);
@@ -61,7 +61,7 @@ class PostContactsController extends Controller
 
 
                     $response['message'] = 'contacts_sent';
-            //}
+                }
 
 
 
@@ -72,14 +72,16 @@ class PostContactsController extends Controller
 
 
 
-    private function sendMessage($entity)
+    private function sendMessage(Feedback $entity)
     {
-
+        $settings = $this->container->get('sylius.settings.manager')->load('compo_core_settings');
+        $email_from = $settings->get('notification_email_from');
+        $email_to = $settings->get('notification_email');
 
         $message = \Swift_Message::newInstance()
             ->setSubject('Сообщение из формы обратной связи '.$entity->getPage())
-            ->setFrom('gun2rin@gmail.com')
-            ->setTo('gun2rin@gmail.com')
+            ->setFrom($email_from)
+            ->setTo($email_to)
             ->setBody(
                 $this->renderView(
                     '@CompoContacts/Emails/contactform.html.twig',
@@ -89,8 +91,22 @@ class PostContactsController extends Controller
             );
         $this->get('mailer')->send($message);
 
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Спасибо за обращение')
+            ->setFrom($email_from)
+            ->setTo($entity->getEmail())
+            ->setBody(
+                $this->renderView(
+                    '@CompoContacts/Emails/clientnotice.html.twig',
+                    array('data' => $entity)
+                ),
+                'text/html'
+            );
+        $this->get('mailer')->send($message);
 
 
     }
+
+
 
 }

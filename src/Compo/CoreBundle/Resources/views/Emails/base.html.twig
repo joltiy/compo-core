@@ -1,3 +1,4 @@
+{%- set compo_core_settings = sylius_settings('compo_core_settings') -%}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -103,11 +104,11 @@
 
                                                         <p style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;margin-bottom: 10px;font-weight: normal;font-size: 14px;line-height: 1.6;">
                                                             Тел.: <strong
-                                                                    style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;color: #2BA6CB;"> </strong><br  style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">
+                                                                    style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;color: #2BA6CB;">{{  compo_core_settings.header_phones | striptags('<br>>') | raw}}</strong><br  style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">
                                                             E-mail: <strong
                                                                     style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">
-                                                                <a href="mailto:" style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;color: #2BA6CB;"></a></strong><br style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">
-                                                            Адрес: <strong style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;"></strong><br  style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">
+                                                                <a href="mailto:{{  compo_core_settings.email | striptags}}" style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;color: #2BA6CB;">{{  compo_core_settings.email | striptags}}</a></strong><br style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">
+                                                            Адрес: <strong style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">{{  compo_core_settings.footer_address | striptags('<br>') | raw}}<</strong><br  style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">
 
                                                         </p>
                                                     </td>
