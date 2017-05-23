@@ -1,6 +1,6 @@
-contacts_dispatch:
-    prefix:    /api
-    resource: Compo\ContactsBundle\Controller\Api\PostContactsController
-    type:     rest
+contacts_api:
+    type: rest
+    prefix: /api
+    resource: "@CompoContactsBundle/Resources/config/routing_api.yml"
     options:
-         expose: true
+        expose: true

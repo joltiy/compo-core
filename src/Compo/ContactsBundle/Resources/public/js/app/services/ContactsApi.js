@@ -19,12 +19,7 @@
 
         };
 
-        contacts_api.send = resource(
-            Routing.generate('post_contacts_dispatch', {'_format': 'json', 'data': ':data'}).replace(/%3A/, ':'),
-            {
-                data: "@data"
-            }
-        );
+        contacts_api.send = resource(Routing.generate('api_contacts_post_dispatch'));
 
 
 

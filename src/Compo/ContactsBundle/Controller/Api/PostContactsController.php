@@ -11,7 +11,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 
 /**
- * @REST\RouteResource("contacts_dispatch")
+ * @REST\RouteResource("dispatch")
  */
 class PostContactsController extends Controller
 {
@@ -23,10 +23,9 @@ class PostContactsController extends Controller
      * Save contacts
      *
      * @REST\Route(requirements={"_format"="json|xml"})
-     *
      * @return View
      *
-     * @throws NotFoundHttpException
+     *
      */
     public function postAction(Request $request)
     {
@@ -42,9 +41,9 @@ class PostContactsController extends Controller
 
          }
 
-        //return $response;
 
-        return View::create(array('sent' => true), 200);
+
+        return View::create(array('sent' => $request_params), 200);
     }
 
 }

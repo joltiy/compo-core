@@ -1,0 +1,7 @@
+contacts_dispatch_api:
+    type:     rest
+    name_prefix:  api_contacts_
+    prefix:    /contacts
+    resource: "@CompoContactsBundle/Controller/Api/PostContactsController.php"
+    options:
+         expose: true
