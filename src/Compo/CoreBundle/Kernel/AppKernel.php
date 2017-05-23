@@ -116,6 +116,7 @@ class AppKernel extends Kernel
             new \Compo\GoogleMerchantBundle\CompoGoogleMerchantBundle(),
             new \Compo\ServiceBundle\CompoServiceBundle(),
             new \Compo\PromotionBundle\CompoPromotionBundle(),
+            new \Compo\CustomerBundle\CompoCustomerBundle(),
 
             new \JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new \JMS\AopBundle\JMSAopBundle(),

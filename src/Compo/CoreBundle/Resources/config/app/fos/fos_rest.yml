@@ -10,3 +10,7 @@ fos_rest:
     exception:
         messages:
             'Symfony\Component\HttpKernel\Exception\NotFoundHttpException': true
+
+    routing_loader:
+        include_format:       false
+        default_format: json

@@ -4,7 +4,6 @@ namespace Compo\Sonata\AdminBundle\Admin;
 
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Admin\AbstractAdmin as BaseAdmin;
-use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
 /**
@@ -31,16 +30,10 @@ class AbstractAdmin extends BaseAdmin
     protected $settingsEnabled = false;
 
 
-
     public function configureSettings($settingsEnabled = true, $settingsNamespace)
     {
         $this->setSettingsEnabled($settingsEnabled);
         $this->setSettingsNamespace($settingsNamespace);
-    }
-
-    public function setSettingsEnabled($settingsEnabled)
-    {
-        $this->settingsEnabled = $settingsEnabled;
     }
 
     /**
@@ -51,9 +44,9 @@ class AbstractAdmin extends BaseAdmin
         return $this->settingsEnabled;
     }
 
-    public function setSettingsNamespace($settingsNamespace)
+    public function setSettingsEnabled($settingsEnabled)
     {
-        $this->settingsNamespace = $settingsNamespace;
+        $this->settingsEnabled = $settingsEnabled;
     }
 
     /**
@@ -62,6 +55,11 @@ class AbstractAdmin extends BaseAdmin
     public function getSettingsNamespace()
     {
         return $this->settingsNamespace;
+    }
+
+    public function setSettingsNamespace($settingsNamespace)
+    {
+        $this->settingsNamespace = $settingsNamespace;
     }
 
     public function setParentParentAssociationMapping($parentAssociationMapping)
@@ -332,6 +330,15 @@ class AbstractAdmin extends BaseAdmin
         return $this->getConfigurationPool()->getContainer();
     }
 
+    public function initialize()
+    {
+        $this->setTemplate('button_show_on_site', 'CompoSonataAdminBundle:Button:show_on_site_button.html.twig');
+        $this->setTemplate('button_settings', 'CompoSonataAdminBundle:Button:settings_button.html.twig');
+        $this->setTemplate('button_tree', 'CompoSonataAdminBundle:Button:tree_button.html.twig');
+
+        parent::initialize();
+    }
+
     /**
      * @param \Sonata\AdminBundle\Route\RouteCollection $collection
      */
@@ -354,16 +361,5 @@ class AbstractAdmin extends BaseAdmin
                 ]
             );
         }
-    }
-
-    public function initialize()
-    {
-        $this->setTemplate('button_show_on_site', 'CompoSonataAdminBundle:Button:show_on_site_button.html.twig');
-        $this->setTemplate('button_settings', 'CompoSonataAdminBundle:Button:settings_button.html.twig');
-        $this->setTemplate('button_tree', 'CompoSonataAdminBundle:Button:tree_button.html.twig');
-
-        parent::initialize();
-
-
     }
 }
