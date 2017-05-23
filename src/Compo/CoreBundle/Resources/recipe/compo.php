@@ -223,7 +223,7 @@ task('deploy:assetic:dump', function () {
 
         set('env', 'dev');
 
-        run('{{env_vars}} cd {{release_path}} && {{bin/php}} {{bin/console}} assetic:dump --env=dev {{console_options}} --env=dev');
+        run('{{env_vars}} cd {{release_path}} && {{bin/php}} {{bin/console}} assetic:dump --env=dev');
 
         set('env', $env);
 
