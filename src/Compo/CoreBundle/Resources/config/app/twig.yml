@@ -16,7 +16,7 @@ twig:
     exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'
 
     paths:
-        '%kernel.root_dir%/../vendor/comporu/compo-core/src/Compo/CoreBundle/Resources/views/Form/themes/angular-form': AngularForm
+        '%kernel.root_dir%/../vendor/comporu/compo-core/src/Compo/CoreBundle/Resources/views/Form/themes': AngularForm
 
     globals:
         ivory_ck_editor_plugin_manager: "@ivory_ck_editor.plugin_manager"

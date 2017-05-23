@@ -1,6 +1,6 @@
-compo_contacts_api:
-    path:     /api/contacts/
-    defaults: { _controller: "CompoContactsBundle:Api\\PostContacts:post" }
-    methods:  POST
+contacts_dispatch:
+    prefix:    /api
+    resource: Compo\ContactsBundle\Controller\Api\PostContactsController
+    type:     rest
     options:
          expose: true

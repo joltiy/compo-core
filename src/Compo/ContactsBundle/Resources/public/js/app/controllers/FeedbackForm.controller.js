@@ -9,32 +9,25 @@
     'use strict';
 
     angular
-        .module('app')
+        .module('app.contacts')
         .controller('FeedbackFormController', FeedbackFormController);
-    FeedbackFormController.$inject = ['$http', '$compile'];
+    FeedbackFormController.$inject = ['$http', 'ContactsApi'];
     /* @ngInject */
-    function FeedbackFormController(http,compile) {
+    function FeedbackFormController(http,ContactsApi) {
 
-        var v = this;
-        var base_url = Routing.generate('compo_contacts_api');
+        var vm = this,
+            api = ContactsApi.send;
 
-
-        v.data = {};
-        v.send = send;
+        vm.send = send;
 
         function send () {
 
 
-            http({
-                'url': base_url,
-                'method': 'POST',
-                'headers': { Accept: 'application/json' },
-                'data': v
-            }).then(function(response) {
-                window.alert(response);
+            ContactsApi.send.save({
+                data: vm
             });
 
-
+            window.alert('ok');
 
 
         }

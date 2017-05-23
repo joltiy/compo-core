@@ -2,17 +2,32 @@
 
 namespace Compo\ContactsBundle\Controller\Api;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use FOS\RestBundle\Controller\Annotations as REST;
+use FOS\RestBundle\View\View;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+
 
 /**
- * ContactsApi controller.
+ * @REST\RouteResource("contacts_dispatch")
  */
 class PostContactsController extends Controller
 {
 
     use \Compo\CoreBundle\Traits\JsonTrait;
 
+
+    /**
+     * Save contacts
+     *
+     * @REST\Route(requirements={"_format"="json|xml"})
+     *
+     * @return View
+     *
+     * @throws NotFoundHttpException
+     */
     public function postAction(Request $request)
     {
 
@@ -25,9 +40,11 @@ class PostContactsController extends Controller
 
 
 
-        }
+         }
 
-        return $response;
+        //return $response;
+
+        return View::create(array('sent' => true), 200);
     }
 
 }
