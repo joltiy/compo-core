@@ -8,11 +8,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations as REST;
 use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Compo\ContactsBundle\Entity\Feedback;
+use Compo\ContactsBundle\Form\FeedbackFormType;
 
 
-/**
- * @REST\RouteResource("dispatch")
- */
 class PostContactsController extends Controller
 {
 
@@ -30,20 +29,68 @@ class PostContactsController extends Controller
     public function postAction(Request $request)
     {
 
-        $response = null;
-
-        if ($request->isXmlHttpRequest()) {
-
-           $request_params = $this->getJsonParams($request);
-           $response = $this->buildJsonResponse($request_params);
+        $response = [];
 
 
-
-         }
+        if (!$request->isXmlHttpRequest())
+            throw new \HttpRequestMethodException();
 
 
 
-        return View::create(array('sent' => $request_params), 200);
+            $request_params = $this->getJsonParams($request);
+
+
+            $feedback = new Feedback();
+            $form = $this->createForm(new FeedbackFormType(), $feedback);
+            $form->submit($request_params['data']);
+            $csrf = $this->get('security.csrf.token_manager');
+
+
+            //if (!$form->isValid()) {
+            //    $csrf->refreshToken('feedback_protection');
+            //    $response['message'] = 'form_not_valid';
+
+            //}
+            //else{
+
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($feedback);
+                    $em->flush();
+                    $csrf->refreshToken('feedback_protection');
+                    $this->sendMessage($feedback);
+
+
+                    $response['message'] = 'contacts_sent';
+            //}
+
+
+
+
+
+        return View::create($response, 200);
+    }
+
+
+
+    private function sendMessage($entity)
+    {
+
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Сообщение из формы обратной связи '.$entity->getPage())
+            ->setFrom('gun2rin@gmail.com')
+            ->setTo('gun2rin@gmail.com')
+            ->setBody(
+                $this->renderView(
+                    '@CompoContacts/Emails/contactform.html.twig',
+                    array('data' => $entity)
+                ),
+                'text/html'
+            );
+        $this->get('mailer')->send($message);
+
+
+
     }
 
 }

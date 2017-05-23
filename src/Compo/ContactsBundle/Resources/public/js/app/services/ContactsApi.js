@@ -15,11 +15,9 @@
     /* @ngInject */
     function ContactsApi(resource)
     {
-        var contacts_api = {
+        var contacts_api = {};
 
-        };
-
-        contacts_api.send = resource(Routing.generate('api_contacts_post_dispatch'));
+        contacts_api.send = resource(Routing.generate('api_contacts_post'));
 
 
 

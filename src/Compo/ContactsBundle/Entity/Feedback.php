@@ -2,7 +2,7 @@
 
 namespace Compo\ContactsBundle\Entity;
 
-
+use Doctrine\ORM\Mapping as ORM;
 use \Compo\SeoBundle\Entity\Traits\SeoEntity;
 /**
  * Contacts
@@ -169,5 +169,43 @@ class Feedback
     public function getPage()
     {
         return $this->page;
+    }
+    /**
+     * @var \DateTime
+     */
+    private $created_at;
+
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Feedback
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->created_at = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        if(!$this->getCreatedAt()) {
+            $this->created_at = new \DateTime();
+        }
     }
 }
