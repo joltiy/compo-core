@@ -31,13 +31,12 @@
                 data: vm.form
             },function(response){
 
-                if(response.message == 'contacts_sent') {
+                if(response.success) {
                     vm.sent = true;
                     vm.showsuccess = true;
                 }
-                  else if(response.message == 'form_not_valid')
+                else if(!response.success || response.error)
                 {
-
                     vm.showerror = true;
                     vm.disablesubmit = false;
                 }
