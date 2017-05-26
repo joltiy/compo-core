@@ -18,8 +18,11 @@ class PostContactsController extends Controller
 
 
     /**
-     * Validates contact form
-     * Saves contact entity
+     *
+     * Works with contact form data
+     *
+     * Validates contact form,
+     * Saves contact entity,
      * Sends notification message to user and site administration
      *
      * @REST\Route(requirements={"_format"="json|xml"})
