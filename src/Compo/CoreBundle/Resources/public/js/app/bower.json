@@ -1,0 +1,8 @@
+{
+  "name": "compo-core",
+  "dependencies": {
+    "angular": "^1.6.4"
+  },
+  "license": "MIT",
+  "private": true
+}

@@ -18,16 +18,32 @@
         var vm = this,
             api = ContactsApi.send;
 
+        vm.sent = false;
+        vm.showerror = false;
+        vm.showsuccess = false;
+        vm.disablesubmit = false;
         vm.send = send;
 
         function send () {
+            vm.disablesubmit = true;
+
+            api.save({
+                data: vm.form
+            },function(response){
+
+                if(response.success) {
+                    vm.sent = true;
+                    vm.showsuccess = true;
+                }
+                else if(!response.success || response.error)
+                {
+                    vm.showerror = true;
+                    vm.disablesubmit = false;
+                }
+
+             });
 
 
-            ContactsApi.send.save({
-                data: vm
-            });
-
-            window.alert('ok');
 
 
         }

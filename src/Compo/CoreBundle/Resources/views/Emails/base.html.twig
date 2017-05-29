@@ -1,0 +1,156 @@
+{%- set compo_core_settings = sylius_settings('compo_core_settings') -%}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">
+<head style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">
+
+    <meta name="viewport" content="width=device-width"
+          style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+          style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">
+    <title style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">Форма обратной связи</title>
+
+</head>
+<body bgcolor="#FFFFFF"
+      style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;height: 100%;width: 100%!important;">
+{% block top %}
+    <table class="head-wrap" bgcolor="#FFFFFF"
+           style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;width: 100%;">
+        <tr style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">
+            <td style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;"></td>
+            <td class="header container"
+                style="margin: 0 auto!important;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;display: block!important;max-width: 600px!important;clear: both!important;">
+                <div class="content"
+                     style="margin: 0 auto;padding 0 15px 0px 15px;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;max-width: 600px;display: block;">
+                    <table bgcolor="#FFFFFF"
+                           style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;width: 100%;">
+                        <tr style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">
+                            <td style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">
+
+                            </td>
+                            <td align="right"
+                                style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+            <td style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;"></td>
+        </tr>
+    </table>
+{% endblock %}
+<table class="body-wrap"
+       style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;width: 100%;">
+    <tr style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">
+        <td style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;"></td>
+        <td class="container" bgcolor="#FFFFFF"
+            style="margin: 0 auto!important;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;display: block!important;max-width: 600px!important;clear: both!important;">
+            <div class="content"
+                 style="margin: 0 auto;padding: 15px;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;max-width: 600px;display: block;">
+                <table style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;width: 100%;">
+                    <tr style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">
+                        <td style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">
+
+
+                            <h3 style="margin: 0;padding: 0;font-family: HelveticaNeue-Light, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;line-height: 1.1;margin-bottom: 15px;color: #000;font-weight: 500;font-size: 27px;">
+
+                                {% block hello %}
+                                    Здравствуйте!
+                                {% endblock %}
+                            </h3>
+
+
+                            <p class="callout"
+                               style="margin: 0;padding: 15px;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;margin-bottom: 15px;font-weight: normal;font-size: 14px;line-height: 1.6;background-color: #ECF8FF;">
+
+                                {% block fabula %}
+                                    Имя: {{ data.name }} <br />
+                                    E-mail: {{ data.email }} <br />
+                                    Телефон: {{ data.phone }} <br />
+                                    Страница: {{ data.page }} <br />
+                                {% endblock %}
+
+
+                            </p>
+                            <p class="lead"
+                               style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;margin-bottom: 10px;font-weight: normal;font-size: 17px;line-height: 1.6;">
+                                {% block preambula %}
+                                    Это сообщение отправлено из контактной формы {{ "now"|date('d.m.Y H:i:s') }}
+                                {% endblock %}
+                            </p>
+                            <p class="callout"
+                               style="margin: 0;padding: 15px;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;margin-bottom: 15px;font-weight: normal;font-size: 14px;line-height: 1.6;background-color: #D6FFBA;">
+                                {% block message %}
+                                    {{ data.message }}
+                                {% endblock %}
+                            </p>
+
+
+                            {% block contacts %}
+                                <table class="social" width="100%"
+                                       style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;background-color: #ebebeb;width: 100%;">
+                                    <tr style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">
+                                        <td style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">
+
+                                             <table align="left" class="column"
+                                                   style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;width: 280px;float: left;min-width: 279px;">
+                                                <tr style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">
+                                                    <td style="margin: 0;padding: 15px;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">
+                                                        <h5 class=""
+                                                            style="margin: 0;padding: 0;font-family: HelveticaNeue-Light, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;line-height: 1.1;margin-bottom: 15px;color: #000;font-weight: 900;font-size: 17px;">
+                                                            Контакты:</h5>
+
+                                                        <p style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;margin-bottom: 10px;font-weight: normal;font-size: 14px;line-height: 1.6;">
+                                                            Тел.: <strong
+                                                                    style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;color: #2BA6CB;">{{  compo_core_settings.header_phones | striptags('<br>>') | raw}}</strong><br  style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">
+                                                            E-mail: <strong
+                                                                    style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">
+                                                                <a href="mailto:{{  compo_core_settings.email | striptags}}" style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;color: #2BA6CB;">{{  compo_core_settings.email | striptags}}</a></strong><br style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">
+                                                            Адрес: <strong style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">{{  compo_core_settings.footer_address | striptags('<br>') | raw}}<</strong><br  style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">
+
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <span class="clear"
+                                                  style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;display: block;clear: both;"></span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            {% endblock %}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+        <td style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;"></td>
+    </tr>
+</table>
+{% block bottom %}
+<table class="footer-wrap"
+       style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;width: 100%;clear: both!important;">
+    <tr style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">
+        <td style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;"></td>
+        <td class="container"
+            style="margin: 0 auto!important;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;display: block!important;max-width: 600px!important;clear: both!important;">
+
+            <div class="content"
+                 style="margin: 0 auto;padding: 15px;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;max-width: 600px;display: block;">
+                <table style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;width: 100%;">
+                    <tr style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">
+                        <td align="center"
+                            style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;">
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+        <td style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;"></td>
+    </tr>
+</table>
+</body>
+</html>
+{% endblock %}

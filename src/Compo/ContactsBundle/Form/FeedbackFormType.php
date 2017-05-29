@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 class FeedbackFormType extends AbstractType
 {
     /**
@@ -21,11 +22,10 @@ class FeedbackFormType extends AbstractType
 
         $builder
             ->add('name',TextType::class )
-            ->add('email',TextType::class )
+            ->add('email',EmailType::class )
             ->add('phone',TextType::class )
             ->add('message',TextareaType::class )
             ->add('page',HiddenType::class );
-            //->add('created_at', 'datetime')
         ;
     }
 
@@ -37,7 +37,8 @@ class FeedbackFormType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Compo\ContactsBundle\Entity\Feedback',
-            'translation_domain' => 'CompoContactsBundle'
+            'translation_domain' => 'CompoContactsBundle',
+            'csrf_token_id'   => 'feedback_protection'
         ));
     }
 
