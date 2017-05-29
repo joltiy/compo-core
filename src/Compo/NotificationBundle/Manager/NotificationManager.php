@@ -146,8 +146,6 @@ class NotificationManager
         $vars['site'] = $this->getContainer()->get('sonata.seo.page')->getSite();
         $vars['compo_core_settings'] = $this->getContainer()->get('sylius.settings.manager')->load('compo_core_settings');
 
-        dump($notifications);
-dump($event);
         $results = array();
 
         foreach ($notifications as $notification) {
