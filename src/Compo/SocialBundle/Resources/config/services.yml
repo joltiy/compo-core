@@ -1,0 +1,17 @@
+services:
+    compo_social.admin.social:
+        class: Compo\SocialBundle\Admin\SocialAdmin
+        arguments: [~, Compo\SocialBundle\Entity\Social, CompoSocialBundle:SocialAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: social, label_translator_strategy: sonata.admin.label.strategy.underscore }
+
+
+
+    compo_social.block.service.social:
+        class: Compo\SocialBundle\Block\SocialBlockService
+        arguments: ["compo_social.block.service.social", "@templating"]
+        tags:
+            - { name: sonata.block }
+        calls:
+            - [ setContainer, ['@service_container']]
+

@@ -111,8 +111,7 @@ class NotificationManager
     public function setEvents($events)
     {
         foreach ($events as $event_key => $event) {
-            $event['name'] = $event_key;
-            $this->events[$event_key] = $event;
+            $this->events[$event['event']] = $event;
         }
     }
 
@@ -144,6 +143,11 @@ class NotificationManager
         /** @var NotificationEmail[] $notifications */
         $notifications = $this->getNotificationsEmail($event);
 
+        $vars['site'] = $this->getContainer()->get('sonata.seo.page')->getSite();
+        $vars['compo_core_settings'] = $this->getContainer()->get('sylius.settings.manager')->load('compo_core_settings');
+
+        dump($notifications);
+dump($event);
         $results = array();
 
         foreach ($notifications as $notification) {

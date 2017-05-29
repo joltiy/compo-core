@@ -1,0 +1,38 @@
+services:
+    compo_faq.admin.faq:
+        class: Compo\FaqBundle\Admin\FaqAdmin
+        arguments: [~, Compo\FaqBundle\Entity\Faq, CompoFaqBundle:FaqAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: faq, label_translator_strategy: sonata.admin.label.strategy.underscore }
+
+    compo_faq.manager.faq:
+        class: Compo\FaqBundle\Manager\FaqManager
+        arguments: [Compo\FaqBundle\Entity\Faq, "@doctrine"]
+        parent: compo_core.abstract_container_aware
+
+    compo_faq.settings.faq:
+        class: Compo\FaqBundle\Settings\FaqSettingsSchema
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: "sylius.settings_schema", namespace: "compo_faq", alias: "compo_faq" }
+
+    compo_faq.block.breadcrumb:
+        class: Compo\FaqBundle\Block\FaqBreadcrumbBlockService
+        arguments: ["compo_faq", compo_faq.block.breadcrumb, "@templating", "@knp_menu.menu_provider", "@knp_menu.factory"]
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: sonata.block }
+            - { name: sonata.breadcrumb }
+
+    compo_faq.block.service.faq_last:
+        class: Compo\FaqBundle\Block\FaqLastBlockService
+        arguments: ["compo_faq.block.service.faq_last", "@templating"]
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: sonata.block }
+
+    compo_faq.seo.service:
+        class: Compo\FaqBundle\Seo\FaqSeoService
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: compo.seo_service, alias: "compo_faq", context: "compo_faq" }

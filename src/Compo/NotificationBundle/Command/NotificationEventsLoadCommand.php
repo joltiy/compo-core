@@ -29,15 +29,16 @@ class NotificationEventsLoadCommand extends ContainerAwareCommand
         $notificationManager = $container->get('compo_notification.manager.notification');
         $events = $notificationManager->getEvents();
 
+        dump($events);
         $em = $container->get('doctrine')->getManager();
 
         $notificationEmailRepository = $em->getRepository('CompoNotificationBundle:NotificationEmail');
 
         foreach ($events as $event_key => $event) {
             if ($event['type'] == 'email') {
-                if (!$notificationEmailRepository->findBy(array('event' => $event_key))) {
+                if (!$notificationEmailRepository->findBy(array('event' => $event['event']))) {
                     $emailEvent = new NotificationEmail();
-                    $emailEvent->setEvent($event_key);
+                    $emailEvent->setEvent($event['event']);
                     $emailEvent->setBody($notificationManager->getTemplateSource($event['body']));
                     $emailEvent->setRecipient($notificationManager->getTemplateSource($event['recipient']));
                     $emailEvent->setSubject($notificationManager->getTemplateSource($event['subject']));

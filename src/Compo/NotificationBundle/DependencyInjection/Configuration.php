@@ -25,7 +25,6 @@ class Configuration implements ConfigurationInterface
             ->children()
 
             ->arrayNode('events')->prototype('array')->children()
-
             ->scalarNode('event')->isRequired()->end()
             ->scalarNode('description')->isRequired()->defaultValue('')->end()
             ->scalarNode('recipient')->isRequired()->defaultValue('')->end()

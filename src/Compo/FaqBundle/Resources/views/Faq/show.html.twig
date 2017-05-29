@@ -1,0 +1,99 @@
+{# @var article \Compo\FaqBundle\Entity\Faq #}
+{#
+{{ block('news_article') }}
+{{ block('main_entity_of_page') }}
+{{ block('publisher') }}
+{{ block('author') }}
+{{ block('headline') }}
+{{ block('image') }}
+{{ block('date_published') }}
+{{ block('date_modified') }}
+{{ block('description') }}
+{{ block('article_body') }}
+{{ block('back_to_list') }}
+#}
+
+{% block content %}
+    <div class="content-block faq-index">
+
+        <div class="row">
+            <div class="col-lg-12">
+
+                {% block news_article %}
+                    <div itemscope itemtype="http://schema.org/NewsArticle" class="faq-item">
+
+                        {% block main_entity_of_page %}
+                            <meta itemscope itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="{{ path('compo_faq_show_by_slug', {'slug': article.slug}) }}"/>
+                        {% endblock %}
+
+                        {% block publisher %}
+                            {% include 'CompoSeoBundle:SchemaOrg:organization.html.twig' %}
+                        {% endblock %}
+
+                        {% block author %}
+                            {% if article.createdBy %}
+                                <div itemscope itemprop="author" itemtype="https://schema.org/Person" class="hidden">
+                                    <div itemprop="name">{{ article.createdBy.firstName }} {{ article.createdBy.lastName }}</div>
+                                </div>
+                            {% endif %}
+                        {% endblock %}
+
+                        {% block headline %}
+                            <h1 itemprop="headline">
+                                {{ compo_seo_header() }}
+                            </h1>
+                        {% endblock %}
+
+                        {% block image %}
+                            {% if article.image %}
+                                <div itemscope itemtype="https://schema.org/ImageObject" itemprop="image" class="photo">
+                                    <meta itemprop="url" content="{% path  article.image, 'reference' %}">
+                                    <meta itemprop="width" content="{{ article.image.width }}">
+                                    <meta itemprop="height" content="{{ article.image.height }}">
+
+                                    {% media article.image, 'reference' with {'alt': article.name, 'class': 'thumbnail pull-right', 'width': 200 } %}
+                                </div>
+                            {% endif %}
+                        {% endblock %}
+
+                        {% block date_published %}
+                            <time itemprop="datePublished" datetime="{{ article.publicationAt|date("Y-m-d\TH:i:sP") }}" class="date pull-left">{{ article.publicationAt|date("d.m.Y") }}</time>
+                        {% endblock %}
+
+                        {% block date_modified %}
+                            <meta itemprop="dateModified" content="{{ article.updatedAt|date("Y-m-d\TH:i:sP") }}"/>
+                        {% endblock %}
+
+                        <div class="text">
+                            {% block description %}
+                                <div itemprop="description">
+                                    {{ article.description|raw }}
+                                </div>
+                            {% endblock %}
+
+                            {% block article_body %}
+                                <div itemprop="articleBody">
+                                    {{ article.answer|raw }}
+                                </div>
+                            {% endblock %}
+                        </div>
+                    </div>
+                {% endblock %}
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="back-to-list clearfix">
+                    {% block back_to_list %}
+                        <a class="btn btn-default pull-right" href="{{ path('compo_faq_index') }}">К списку статей</a>
+                    {% endblock %}
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

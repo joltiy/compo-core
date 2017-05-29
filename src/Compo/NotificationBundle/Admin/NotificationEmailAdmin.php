@@ -118,7 +118,6 @@ class NotificationEmailAdmin extends AbstractAdmin
             ->add('recipient')
             ->add('subject')
             ->add('body')
-            ->add('name')
             ->add('enabled')
             ->add('createdAt')
             ->add('updatedAt')

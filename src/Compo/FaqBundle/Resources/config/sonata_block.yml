@@ -1,0 +1,3 @@
+sonata_block:
+    blocks:
+        compo_faq.block.service.faq_last:

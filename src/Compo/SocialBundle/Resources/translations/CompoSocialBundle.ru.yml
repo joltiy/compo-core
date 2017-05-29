@@ -1,0 +1,14 @@
+breadcrumb:
+    link_social_batch: 'Действия над соц.аккаунтами'
+    link_social_create: 'Создание соц.аккаунта'
+    link_social_delete: 'Удаление соц.аккаунта'
+    link_social_edit: 'Редактирование соц.аккаунта'
+    link_social_list: 'Список соц.аккаунтов'
+    link_social_update: 'Обновление соц.аккаунта'
+
+social: "Соц.аккаунты"
+
+tab_menu:
+    title_social_list: 'Список соц.аккаунта'
+    title_social_create: 'Создание соц.аккаунта'
+    title_social_edit: 'Редактирование соц.аккаунта'

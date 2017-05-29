@@ -1,0 +1,15 @@
+{% if list|length > 0 %}
+    <div class="social-links">
+
+        <div class="social-links__title">Мы в социальных сетях:</div>
+
+        <div class="social-links__wrap">
+            {% for item in list %}
+                <a href="{{ item.url }}" class="social-links__item" target="_blank">
+                    <i class="{{ item.icon }}" aria-hidden="true"></i>
+                </a>
+           {% endfor %}
+        </div>
+
+    </div>
+{% endif %}

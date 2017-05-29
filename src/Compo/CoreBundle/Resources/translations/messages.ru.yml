@@ -333,3 +333,4 @@ form.label_settings_index_menu_catalog: 'Меню каталога на глав
 form.label_settings_header_menu_catalog: 'Основное меню'
 form.label_settings_header_menu_catalog_tagging: 'Меню каталога'
 form.label_help: "Справка"
+form.label_icon: "Иконка"

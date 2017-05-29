@@ -1,0 +1,9 @@
+compo_faq_index:
+    path:     /faq
+    defaults: { _controller: "CompoFaqBundle:Faq:index" }
+    methods:  GET
+
+compo_faq_show_by_slug:
+    path:     /faq/{slug}.html
+    defaults: { _controller: "CompoFaqBundle:Faq:showBySlug" }
+    methods:  GET

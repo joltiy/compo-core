@@ -118,6 +118,8 @@ class AppKernel extends Kernel
             new \Compo\PromotionBundle\CompoPromotionBundle(),
             new \Compo\CustomerBundle\CompoCustomerBundle(),
             new \Compo\NotificationBundle\CompoNotificationBundle(),
+            new \Compo\FaqBundle\CompoFaqBundle(),
+            new \Compo\SocialBundle\CompoSocialBundle(),
 
             new \JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new \JMS\AopBundle\JMSAopBundle(),

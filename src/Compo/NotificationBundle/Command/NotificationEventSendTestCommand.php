@@ -29,11 +29,11 @@ class NotificationEventSendTestCommand extends ContainerAwareCommand
         $event = $notificationManager->getEvent('compo_notification_test');
         $vars = array('test' => 'test value');
 
-        $results = $notificationManager->send($event['name'], $vars);
+        $results = $notificationManager->send($event['event'], $vars);
 
         $table = new Table($output);
-        $table->setHeaders(array('name', 'description', 'subject', 'body', 'help'));
-        $table->addRow(array($event['name'], $event['description'], $event['subject'], $event['body'], $event['help']));
+        $table->setHeaders(array('event', 'description', 'subject', 'body', 'help'));
+        $table->addRow(array($event['event'], $event['description'], $event['subject'], $event['body'], $event['help']));
         $table->render();
 
         $output->writeln('<comment>Vars: </comment>' . json_encode($vars));
@@ -44,6 +44,6 @@ class NotificationEventSendTestCommand extends ContainerAwareCommand
             $output->writeln(json_encode($result));
         }
 
-        $output->writeln('Notification event "<comment>' . $event['name'] . '</comment>" send <info>success</info>!');
+        $output->writeln('Notification event "<comment>' . $event['event'] . '</comment>" send <info>success</info>!');
     }
 }
