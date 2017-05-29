@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
 
 /**
  * {@inheritDoc}
@@ -114,7 +115,7 @@ class ArticlesAdmin extends AbstractAdmin
             ->add('publicationAt')
             ->add('name')
             ->add('description')
-            ->add('body')
+            ->add('body', SimpleFormatterType::class, array('required' => false, 'format' => 'richhtml', 'ckeditor_context' => 'default'))
             ->end()
             ->with('form.group_image', array('name' => false, 'class' => 'col-lg-6'))
             ->add('image')

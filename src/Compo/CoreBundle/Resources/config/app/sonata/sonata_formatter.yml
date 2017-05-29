@@ -26,20 +26,20 @@ sonata_formatter:
 #  => https://sonata-project.org/bundles/media/master/doc/reference/extra.html#ckeditor-integration
 #  there is also a configuration in the sonata_formatter section (see sonata_formatter.yml)
 ivory_ck_editor:
-    plugins:
-        wpmore:
-            path:     "/bundles/compocore/wpmore/"
-            filename: "plugin.js"
     default_config: default
     configs:
         default:
+            fontawesomePath: '/bundles/sonatacore/vendor/components-font-awesome/css/font-awesome.min.css'
+            contentsCss: '/bundles/sonatacore/vendor/bootstrap/dist/css/bootstrap.min.css'
+
             title: false
-            toolbarStartupExpanded : false
+            toolbarStartupExpanded: false
             allowedContent: true
             extraAllowedContent: '*{*}'
-            toolbar: "my_toolbar_1"
-            extraPlugins: 'wpmore,fakeobjects'
+            toolbar: "compo"
+            extraPlugins: 'widget,lineutils,wysiwygarea,dialog,accordionList,autocorrect,base64image,basewidget,basicstyles,blockquote,bootstrapVisibility,bt_table,btbutton,button,codemirror,collapsibleItem,contextmenu,dialogui,elementspath,embedbase,enterkey,entities,filebrowser,filetools,floatingspace,floatpanel,format,glyphicons,horizontalrule,htmlwriter,indent,indentlist,lineheight,list,listblock,maximize,menu,menubutton,notification,notificationaggregator,oembed,panel,pastebase64,pastetext,placeholder,twigexp,twigvar,popup,quicktable,removeformat,resize,richcombo,sourcearea,stylescombo,tab,tabletoolstoolbar,toolbar,undo,uploadwidget,widgetselection,wordcount,wpmore,youtube'
             enterMode: "CKEDITOR.ENTER_P"
+            disableNativeSpellChecker: false
             filebrowserBrowseRoute: admin_sonata_media_media_ckeditor_browser
             filebrowserImageBrowseRoute: admin_sonata_media_media_ckeditor_browser
             # Display images by default when clicking the image dialog browse button
@@ -57,20 +57,31 @@ ivory_ck_editor:
             filebrowserImageUploadRouteParameters:
                 provider: sonata.media.provider.image
                 context: image # Optional, to upload in a custom context
+
+            wordcount:
+                showParagraphs: true
+                showWordCount: true
+                showCharCount: true
+                countSpacesAsChars: true
+                countHTML: false
+                maxWordCount: -1
+                maxCharCount: -1
+
     toolbars:
         configs:
-            my_toolbar_1: [ "@document", "@wpmore", "@clipboard" , "@editing", "@basicstyles", "@paragraph", "@links", "@insert", "@styles", "@colors", "@tools" ]
-        items:
-            document: [ "Source", "-", "Save" ]
-            wpmore:     [ "WPMore" ]
-            clipboard:      [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ]
+            compo:
+                - "@document"
+                - "/"
+                - "@style"
+                - "/"
+                - "@layout"
 
-            editing:      [ 'Find','Replace','-','SelectAll' ]
-            basicstyles:     [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ]
-            paragraph:     [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','CreateDiv', '-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl' ]
-            links:     [ 'Link','Unlink','Anchor' ]
-            insert:     [ 'Image','Table','HorizontalRule','SpecialChar','PageBreak','Iframe' ]
-            styles:     [ 'Styles','Format','Font','FontSize' ]
-            colors:    [ 'TextColor','BGColor' ]
-            tools:    [ 'Maximize', 'ShowBlocks' ]
+
+        items:
+            document: ['Source', '-', 'Maximize', 'ShowBlocks', '-', 'Preview', '-', 'Find','Replace','-','SelectAll', '-', 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo']
+            style: ['RemoveFormat', '-', 'Styles','Format','Font','FontSize', 'lineheight', '-',  'Bold','Italic','-', 'Underline','Strike', '-','Subscript','Superscript', '-', 'NumberedList','BulletedList','-','Outdent','Indent','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock', '-','TextColor','BGColor' ]
+            layout: [ "WPMore", 'Createtwigvar', 'Createtwigexp','btgrid', 'HorizontalRule','PageBreak', 'Blockquote', 'CreateDiv' , 'Table', 'Link','Unlink','Anchor', 'btbutton', 'Youtube', 'oembed', 'Image','Iframe', 'Smiley', 'ckawesome', 'Glyphicons', 'SpecialChar']
+
+
+
 

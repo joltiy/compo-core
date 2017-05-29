@@ -47,6 +47,13 @@ assetic:
             inputs:
                 - "bundles/sonataadmin/vendor/admin-lte/dist/js/app.min.js"
                 - "bundles/sonatadashboard/sonata-dashboard.back.js"
+                - "vendor/codemirror/lib/codemirror.js"
+                - "vendor/codemirror/addon/mode/overlay.js"
+                - "vendor/codemirror/addon/mode/multiplex.js"
+
+                - "vendor/codemirror/mode/xml/xml.js"
+                - "vendor/codemirror/mode/htmlmixed/htmlmixed.js"
+                - "vendor/codemirror/mode/twig/twig.js"
 
             filters:
                 #- ?yui_js
@@ -78,6 +85,7 @@ assetic:
                 - "bundles/sonataformatter/markitup/skins/sonata/style.css"
                 - "bundles/sonataformatter/markitup/sets/html/style.css"
                 - "bundles/compocore/vendor/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css"
+                - "vendor/codemirror/lib/codemirror.css"
 
             filters:
                 - cssrewrite

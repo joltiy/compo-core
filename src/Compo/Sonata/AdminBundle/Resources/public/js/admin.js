@@ -419,6 +419,26 @@ $(document).ready(function () {
 
 
 
+    CodeMirror.defineMode("htmltwig", function(config, parserConfig) {
+        return CodeMirror.overlayMode(CodeMirror.getMode(config, parserConfig.backdrop || "text/html"), CodeMirror.getMode(config, "twig"));
+    });
+
+    $('.highlight-src').each(function () {
+        var el = $(this);
+
+
+        var myCodeMirror = CodeMirror.fromTextArea(el.get(0), {
+            lineNumbers: true,
+            mode: "htmltwig",
+            lineWrapping: true,
+            indentWithTabs: false
+        });
+
+
+
+        myCodeMirror.on("blur", function() {myCodeMirror.save()});
+    });
+
 
     //$('.select2-container').parent().find('select').attr('style','display:block; position:absolute; bottom: 0; left: 0; clip:rect(0,0,0,0);');
 });

@@ -332,3 +332,4 @@ form.label_settings_index_footer_advantages_tabs: 'Приемущества во
 form.label_settings_index_menu_catalog: 'Меню каталога на главной'
 form.label_settings_header_menu_catalog: 'Основное меню'
 form.label_settings_header_menu_catalog_tagging: 'Меню каталога'
+form.label_help: "Справка"

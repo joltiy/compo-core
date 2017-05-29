@@ -450,3 +450,12 @@ th.sonata-ba-list-field-header-datetime {
 .sonata-ba-field-inline-table .checkbox .control-label {
     display: none;
 }
+
+.CodeMirror.cm-s-default {
+    border: 1px solid #d2d6de;
+}
+
+.CodeMirror {
+    border: 1px solid #eee;
+    height: auto;
+}

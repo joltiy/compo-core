@@ -27,3 +27,14 @@ parameters:
 compo_core:
     theme:
         name: "comporu/default"
+
+compo_notification:
+    events:
+        compo_notification_test:
+            event: "compo_notification.test"
+            description: "Test notification"
+            recipient: "jivoy1988@gmail.com"
+            subject: "Subject: {{ test }}"
+            body: "Body: {{ test }}"
+            help: "{{ test }} - test value"
+            type: "email"

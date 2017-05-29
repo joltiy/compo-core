@@ -32,8 +32,11 @@ class DescriptionExtension extends AbstractAdminExtension
             $this->replaceFormField($formMapper,'description', SimpleFormatterType::class, $options);
         }
 
-        if ($formMapper->has('body')) {
+        if (false && $formMapper->has('body')) {
             $field = $formMapper->getFormBuilder()->get('body');
+
+
+
 
             $options = $field->getOptions();
             $options['required'] = false;

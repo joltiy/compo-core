@@ -66,6 +66,11 @@ services:
         tags:
             - { name: form.type, alias: compo_admin_type_number_range }
 
+    compo.sonata.admin.form.type.help:
+        class: Compo\Sonata\AdminBundle\Form\Type\HelpType
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: form.type, alias: compo_admin_type_help }
 
     compo.sonata.admin.extension.image:
         class: Compo\Sonata\AdminBundle\Extension\ImageExtension

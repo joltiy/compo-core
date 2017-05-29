@@ -1,0 +1,23 @@
+services:
+    compo_notification.admin.notification_email:
+        class: Compo\NotificationBundle\Admin\NotificationEmailAdmin
+        arguments: [~, Compo\NotificationBundle\Entity\NotificationEmail, CompoNotificationBundle:NotificationEmailAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: notification_email, label_translator_strategy: sonata.admin.label.strategy.underscore }
+
+    compo_notification.admin.notification_email_account:
+        class: Compo\NotificationBundle\Admin\NotificationEmailAccountAdmin
+        arguments: [~, Compo\NotificationBundle\Entity\NotificationEmailAccount, CompoNotificationBundle:NotificationEmailAccountAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: notification_email_account, label_translator_strategy: sonata.admin.label.strategy.underscore }
+
+    compo_notification.manager.notification:
+        class: Compo\NotificationBundle\Manager\NotificationManager
+        parent: compo_core.abstract_container_aware
+
+
+    compo_notification.settings.notification:
+        class: Compo\NotificationBundle\Settings\NotificationEmailSettingsSchema
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: "sylius.settings_schema", namespace: "compo_notification_email_settings", alias: "compo_notification_email_settings" }

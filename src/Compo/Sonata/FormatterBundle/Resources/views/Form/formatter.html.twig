@@ -1,5 +1,4 @@
 {% block sonata_formatter_type_widget %}
-
     <!-- widget: sonata_formatter_type_widget -->
     <div style="margin-bottom: 5px;">
         {{ form_widget(form.children[format_field]) }}
@@ -19,6 +18,8 @@
             if (typeof CKEDITOR === 'undefined' || jQuery().markItUp == undefined) {
                 return;
             }
+            CKEDITOR.dtd.$removeEmpty['span'] = false;
+            CKEDITOR.dtd.$removeEmpty['i'] = false;
 
             var isInstanceActive = isInstanceActive || function (instance) {
                     return instance && instance.status !== "destroyed";
@@ -55,8 +56,9 @@
                         break;
                     case 'richhtml':
 
-                    {% for plugin_name, plugin in ivory_ck_editor_plugin_manager.plugins %}
-                    {{ ckeditor_plugin(plugin_name, plugin) }}
+                    {% set extraPlugins = ckeditor_configuration.extraPlugins|split(',') %}
+                    {% for plugin in extraPlugins %}
+                        CKEDITOR.plugins.addExternal("{{ plugin }}", "/bundles/compocore/ckeditor_plugins/{{ plugin }}/", "plugin.js");
                     {% endfor %}
 
                         {{ source_id }}_rich_instance = {{ ckeditor_widget(form.children[source_field].vars.id, ckeditor_configuration) }};
@@ -93,6 +95,9 @@
                 return;
             }
 
+            CKEDITOR.dtd.$removeEmpty['span'] = false;
+            CKEDITOR.dtd.$removeEmpty['i'] = false;
+
             var elms = jQuery('#{{ form.vars.id }}');
 
             {% if format == 'textile' %}
@@ -104,8 +109,11 @@
             {% elseif format == 'rawhtml' %}
             elms.markItUp(markitup_sonataHtmlSettings);
             {% elseif format == 'richhtml' %}
-            {% for plugin_name, plugin in ivory_ck_editor_plugin_manager.plugins %}
-            {{ ckeditor_plugin(plugin_name, plugin) }}
+
+
+            {% set extraPlugins = ckeditor_configuration.extraPlugins|split(',') %}
+            {% for plugin in extraPlugins %}
+            CKEDITOR.plugins.addExternal("{{ plugin }}", "/bundles/compocore/ckeditor_plugins/{{ plugin }}/", "plugin.js");
             {% endfor %}
 
             {{ ckeditor_widget(form.vars.id, ckeditor_configuration) }}
