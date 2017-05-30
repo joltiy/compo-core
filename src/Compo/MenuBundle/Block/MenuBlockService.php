@@ -72,6 +72,7 @@ class MenuBlockService extends AbstractBlockService
      */
     public function renderMenu($menu, $nodesList)
     {
+
         foreach ($nodesList as $key => $item) {
             /** @var \Compo\MenuBundle\Entity\MenuItem $nodeItem */
 
@@ -81,17 +82,18 @@ class MenuBlockService extends AbstractBlockService
 
             } elseif ($item['type'] == 'page') {
 
-                $item['url'] = $nodeItem->getPage()->getUrl();
+                $item['url'] = $this->getContainer()->get('router')->generate('page_slug', array('path' => $nodeItem->getPage()->getUrl()));
             } elseif ($item['type'] == 'tagging') {
 
                 if (!$nodeItem->getTagging()) {
                     continue;
                 }
 
-                $item['url'] = '/catalog/' . $nodeItem->getTagging()->getSlug() . '.html';
-
-
                 $catalogManager = $this->getContainer()->get('compo_catalog.manager.catalog');
+
+                $item['url'] = $catalogManager->getCatalogTaggingShowPermalink($nodeItem->getTagging()->getSlug());
+
+
 
                 $criteria = array();
                 $criteria['filter'] = $nodeItem->getTagging()->getFilterData();
