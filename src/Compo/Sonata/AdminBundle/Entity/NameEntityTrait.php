@@ -4,6 +4,7 @@ namespace Compo\Sonata\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation as JMS;
 
 trait NameEntityTrait
 {
@@ -15,6 +16,9 @@ trait NameEntityTrait
      * @Assert\NotBlank()
      *
      * @ORM\Column(type="string", nullable=false)
+     *
+     * @JMS\Expose
+     * @JMS\Type("string")
      */
     protected $name;
 
