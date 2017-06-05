@@ -334,3 +334,10 @@ form.label_settings_header_menu_catalog: 'Основное меню'
 form.label_settings_header_menu_catalog_tagging: 'Меню каталога'
 form.label_help: "Справка"
 form.label_icon: "Иконка"
+
+form.label_url_text: "Текст ссылки"
+form.label_show_on_index: "Показывать на главной"
+form.group_image: "Основное изображение"
+form.group_additional_files: "Дополнительные файлы"
+form.tab_media: "Медиа"
+
