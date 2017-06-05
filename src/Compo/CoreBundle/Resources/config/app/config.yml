@@ -87,7 +87,13 @@ doctrine_cache:
         sylius_settings:
             type: file_system
 
-
+doctrine:
+    orm:
+        entity_managers:
+            default:
+                dql:
+                    numeric_functions:
+                        rand: DoctrineExtensions\Query\Mysql\Rand
 
 sylius_theme:
     sources:
