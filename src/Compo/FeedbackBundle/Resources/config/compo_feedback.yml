@@ -1,0 +1,11 @@
+compo_feedback:
+    types:
+        -
+            type: 'compo_feedback.feedback'
+            form: 'compo_feedback.form.type.feedback'
+            template: 'CompoFeedbackBundle:Form:feedback.html.twig'
+
+        -
+            type: 'compo_feedback.write_to_director'
+            form: 'compo_feedback.form.type.wrtite_to_director'
+            template: 'CompoFeedbackBundle:Form:write_to_director.html.twig'

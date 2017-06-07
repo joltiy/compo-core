@@ -66,10 +66,7 @@
                                style="margin: 0;padding: 15px;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;margin-bottom: 15px;font-weight: normal;font-size: 14px;line-height: 1.6;background-color: #ECF8FF;">
 
                                 {% block fabula %}
-                                    Имя: {{ data.name }} <br />
-                                    E-mail: {{ data.email }} <br />
-                                    Телефон: {{ data.phone }} <br />
-                                    Страница: {{ data.page }} <br />
+
                                 {% endblock %}
 
 
@@ -77,15 +74,10 @@
                             <p class="lead"
                                style="margin: 0;padding: 0;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;margin-bottom: 10px;font-weight: normal;font-size: 17px;line-height: 1.6;">
                                 {% block preambula %}
-                                    Это сообщение отправлено из контактной формы {{ "now"|date('d.m.Y H:i:s') }}
+
                                 {% endblock %}
                             </p>
-                            <p class="callout"
-                               style="margin: 0;padding: 15px;font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;margin-bottom: 15px;font-weight: normal;font-size: 14px;line-height: 1.6;background-color: #D6FFBA;">
-                                {% block message %}
-                                    {{ data.message }}
-                                {% endblock %}
-                            </p>
+
 
 
                             {% block contacts %}

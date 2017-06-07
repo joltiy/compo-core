@@ -64,19 +64,6 @@ services:
             tags:
                 - { name: sonata.block }
 
-    compo_contacts.block.service.contacts_main:
-            class:  Compo\ContactsBundle\Block\ContactsMainBlockService
-            parent: compo_core.abstract_container_aware
-            arguments: ["compo_contacts.block.service.contacts_main", "@templating"]
-            tags:
-                  - { name: sonata.block }
-    compo_contacts.block.service.feedback_form:
-            class:  Compo\ContactsBundle\Block\FeedbackFormBlockService
-            parent: compo_core.abstract_container_aware
-            arguments: ["compo_contacts.block.service.feedback_form", "@templating"]
-            tags:
-                 - { name: sonata.block }
-
     sonata.page.kernel.exception_listener:
         class: Compo\Sonata\PageBundle\Listener\ExceptionListener
         tags:
@@ -92,9 +79,6 @@ services:
             - {"404": "_page_internal_error_not_found", "500": "_page_internal_error_fatal"}
             - "@logger"
 
-    compo_core.manager.notification:
-        class: Compo\CoreBundle\Manager\NotificationManager
-        parent: compo_core.abstract_container_aware
 
     compo_core.manager.theme:
         class: Compo\CoreBundle\Manager\ThemeManager

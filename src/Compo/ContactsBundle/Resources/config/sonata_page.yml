@@ -1,0 +1,29 @@
+sonata_page:
+    templates:
+        2columns:
+            containers:
+                 header:
+                     blocks:
+                 content_top:
+                     blocks:
+                 sidebar:
+                     blocks:
+                 content:
+                     blocks:
+                 content_bottom:
+                     blocks:
+                 footer:
+                     blocks:
+
+        default:
+            containers:
+                 header:
+                     blocks:
+                 content_top:
+                     blocks:
+                        - compo_contacts.block.service.feedback_form
+                 content:
+                     blocks:
+                        - compo_contacts.block.service.contacts_main
+                 content_bottom:
+                     blocks:

@@ -340,4 +340,7 @@ form.label_show_on_index: "Показывать на главной"
 form.group_image: "Основное изображение"
 form.group_additional_files: "Дополнительные файлы"
 form.tab_media: "Медиа"
-
+form.label_email: 'E-mail'
+form.label_phone: 'Телефон'
+form.label_message: 'Сообщение'
+form.label_tags: 'Метки'

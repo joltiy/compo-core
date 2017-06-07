@@ -131,7 +131,6 @@ sonata_page:
                         - sonata.block.service.template
                         - sonata.block.service.text
                         - sonata.formatter.block.formatter
-                        - compo_contacts.block.service.feedback_form
                  content:
                      name: "Контент"
                      blocks:
@@ -139,15 +138,12 @@ sonata_page:
                         - sonata.block.service.text
                         - sonata.formatter.block.formatter
                         - compo_core.block.service.text_page
-                        - compo_contacts.block.service.contacts_main
-                        - compo_contacts.block.service.feedback_form
                  content_bottom:
                      name: "Внизу"
                      blocks:
                         - sonata.block.service.template
                         - sonata.block.service.text
                         - sonata.formatter.block.formatter
-                        - compo_contacts.block.service.feedback_form
                  footer:
                      name: "Подвал"
                      blocks:

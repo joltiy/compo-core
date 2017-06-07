@@ -4,6 +4,7 @@ namespace Compo\ContactsBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
@@ -12,7 +13,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * @link http://symfony.com/doc/current/cookbook/bundles/extension.html
  */
-class CompoContactsExtension extends Extension
+class CompoContactsExtension extends Extension implements PrependExtensionInterface
 {
     /**
      * {@inheritdoc}
@@ -24,5 +25,13 @@ class CompoContactsExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+    }
+
+    public function prepend(ContainerBuilder $container)
+    {
+        /** @noinspection PhpUnusedLocalVariableInspection */
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader->load('sonata_block.yml');
+        $loader->load('sonata_page.yml');
     }
 }

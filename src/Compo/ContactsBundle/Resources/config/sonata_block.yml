@@ -1,0 +1,4 @@
+sonata_block:
+    blocks:
+        compo_contacts.block.service.contacts_main:
+

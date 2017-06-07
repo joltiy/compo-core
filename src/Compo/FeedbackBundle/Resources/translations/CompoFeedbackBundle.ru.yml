@@ -1,0 +1,38 @@
+feedback: Обратная связь
+
+breadcrumb:
+    feedback: Обратная связь
+    link_feedback_batch: 'Действия над Обратной связью'
+    link_feedback_create: 'Создание обратной связи'
+    link_feedback_delete: 'Удаление обратной связи'
+    link_feedback_edit: 'Редактирование обратной связи'
+    link_feedback_list: Обратная связь
+    link_feedback_settings: Настройки
+    link_feedback_update: 'Обновление обратной связи'
+
+form:
+    label_settings_feedback_per_page: 'Статей на страницу'
+    tab_main: Обратная связь
+
+settings:
+    header: 'Настройки обратной связи'
+
+tab_menu:
+    title_feedback_create: 'Создание обратной связи'
+    title_feedback_edit: 'Обратная связь: %name%'
+    title_feedback_list: Обратная связь
+    title_feedback_settings: 'Настройки обратной связи'
+
+
+feedback_tag: 'Метки'
+breadcrumb.link_feedback_tag_list: 'Метки обратной связи'
+tab_menu.title_feedback_tag_list: 'Метки обратной связи'
+breadcrumb.link_feedback_tag_create: 'Создание метки'
+tab_menu.title_feedback_tag_create: 'Создание метки'
+
+Name: Имя
+Email: E-mail
+Message: Сообщение
+
+compo_feedback.feedback: 'Форма обратной связи'
+compo_feedback.write_to_director: 'Написать директору'

@@ -143,8 +143,11 @@ class NotificationManager
         /** @var NotificationEmail[] $notifications */
         $notifications = $this->getNotificationsEmail($event);
 
-        $vars['site'] = $this->getContainer()->get('sonata.seo.page')->getSite();
+        $sites = $this->getContainer()->get('sonata.page.manager.site')->findAll();
+
+        $vars['site'] = $sites[0];
         $vars['compo_core_settings'] = $this->getContainer()->get('sylius.settings.manager')->load('compo_core_settings');
+        $vars['compo_notification_email_settings'] = $this->getContainer()->get('sylius.settings.manager')->load('compo_notification_email_settings');
 
         $results = array();
 

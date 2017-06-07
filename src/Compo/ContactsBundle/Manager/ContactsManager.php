@@ -14,17 +14,12 @@ use Sonata\CoreBundle\Model\BaseEntityManager;
 class ContactsManager extends BaseEntityManager
 {
     use ContainerAwareTrait;
-    use ViewsRepositoryTrait;
-
 
     public function getContacts()
     {
+        /** @var ContactsRepository $repository */
+        $repository = $this->getRepository();
 
-        /** @var ContactsRepositor $repository */
         return $this->getRepository()->findById(1);
-
-
     }
-
-
 }

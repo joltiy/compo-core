@@ -120,6 +120,7 @@ class AppKernel extends Kernel
             new \Compo\NotificationBundle\CompoNotificationBundle(),
             new \Compo\FaqBundle\CompoFaqBundle(),
             new \Compo\SocialBundle\CompoSocialBundle(),
+            new \Compo\FeedbackBundle\CompoFeedbackBundle(),
 
             new \JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new \JMS\AopBundle\JMSAopBundle(),

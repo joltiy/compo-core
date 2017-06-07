@@ -31,8 +31,7 @@ sonata_block:
 
         compo_core.block.service.news_with_articles_last:
         compo_core.block.service.text_page:
-        compo_contacts.block.service.contacts_main:
-        compo_contacts.block.service.feedback_form:
+
         # PageBundle's Blocks
         sonata.page.block.container:
             # cache: sonata.cache.memcached

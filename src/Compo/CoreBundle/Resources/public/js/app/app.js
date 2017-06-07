@@ -2,6 +2,6 @@
     'use strict';
     /* @ngInject */
     angular
-        .module('app.core', ['app.contacts']);
+        .module('app.core', ['app.feedback']);
 
 })();
