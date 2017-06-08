@@ -27,7 +27,7 @@ set('copy_dirs', ['vendor']);
 /** @noinspection PhpUndefinedFunctionInspection */
 set('env', 'prod');
 /** @noinspection PhpUndefinedFunctionInspection */
-set('shared_dirs', array('app/logs', 'web/uploads'));
+set('shared_dirs', array('app/logs', 'web/uploads', 'web/userfiles'));
 /** @noinspection PhpUndefinedFunctionInspection */
 set('shared_files', array('app/config/parameters.yml', 'web/robots.txt'));
 /** @noinspection PhpUndefinedFunctionInspection */
