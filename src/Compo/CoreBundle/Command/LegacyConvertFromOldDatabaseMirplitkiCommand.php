@@ -506,13 +506,14 @@ class LegacyConvertFromOldDatabaseMirplitkiCommand extends ContainerAwareCommand
 
             $newItem->setEnabled((bool)$oldDataItem['visible']);
 
-            $newItem->setSlug(str_replace('.html', '', $oldDataItem['header']));
+            $newItem->setCreatedAt(new \DateTime($oldDataItem['pdate']));
+
+
+            $newItem->setDescription($oldDataItem['daily_block']);
 
 
 
-            $newItem->setCode($oldDataItem['code']);
-            $newItem->setHeader($oldDataItem['ht_h1']);
-
+            $newItem->setSlug($this->getContainer()->get('sonata.core.slugify.cocur')->slugify($oldDataItem['header']));
 
             $this->changeIdGenerator($newItem);
 

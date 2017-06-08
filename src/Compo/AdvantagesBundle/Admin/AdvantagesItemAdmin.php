@@ -128,7 +128,7 @@ class AdvantagesItemAdmin extends AbstractAdmin
 
             /** @var AdvantagesAdmin $advantagesAdmin */
             $advantagesAdmin = $this->getConfigurationPool()->getAdminByAdminCode('compo_advantages.admin.advantages');
-            $advantagesAdmin->setSubject($this->getSubject()->getManufacture());
+            $advantagesAdmin->setSubject($this->getSubject()->Advantages());
             $tabAdvantages = $advantages->addChild('tab_menu.advantages', array('label' => $this->trans('tab_menu.advantages', array('%name%' => $this->getSubject()->getAdvantages()->getName())), 'attributes' => array('dropdown' => true)));
 
             $advantagesAdmin->configureTabAdvantagesList($tabAdvantages, $action);

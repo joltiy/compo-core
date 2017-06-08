@@ -127,7 +127,7 @@ class BannerItemAdmin extends AbstractAdmin
 
             /** @var BannerAdmin $bannerAdmin */
             $bannerAdmin = $this->getConfigurationPool()->getAdminByAdminCode('compo_banner.admin.banner');
-            $bannerAdmin->setSubject($this->getSubject()->getManufacture());
+            $bannerAdmin->setSubject($this->getSubject()->getBanner());
             $tabBanner = $banner->addChild('tab_menu.banner', array('label' => $this->trans('tab_menu.banner', array('%name%' => $this->getSubject()->getBanner()->getName())), 'attributes' => array('dropdown' => true)));
 
             $bannerAdmin->configureTabBannerList($tabBanner, $action);
