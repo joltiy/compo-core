@@ -1211,6 +1211,8 @@ class LegacyConvertFromOldDatabaseMirplitkiCommand extends ContainerAwareCommand
                 'Польша' => 'PL',
                 'Турция' => 'TR',
                 'Украина' => 'UA',
+                'Беларусь' => 'BY',
+
 
             );
 
