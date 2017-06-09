@@ -2358,6 +2358,8 @@ class LegacyConvertFromOldDatabaseMirplitkiCommand extends ContainerAwareCommand
                     $this->em->flush();
                 }
 
+
+
                 if ($fa->getType() == 'variant') {
                     foreach ($paramsResultFinalItem['val'] as $paramsResultFinalItemVariant) {
                         $fv = $featureVariantRepositoru->findOneBy(array(
