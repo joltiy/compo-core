@@ -2055,7 +2055,6 @@ class LegacyConvertFromOldDatabaseMirplitkiCommand extends ContainerAwareCommand
 
             if (isset($oldDataItem['price_old'])) {
                 $newItem->setPriceOldOriginal((int)$oldDataItem['price_old']);
-
             }
 
             $newItem->setSku($oldDataItem['art']);
