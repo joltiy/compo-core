@@ -95,3 +95,13 @@ services:
 
 
 
+    quiet_property_accessor:
+        class: Compo\CoreBundle\PropertyAccess\QuietPropertyAccessor
+
+    my_model_to_elastica_transformer:
+        class: FOS\ElasticaBundle\Transformer\ModelToElasticaAutoTransformer
+        arguments: [[], "@event_dispatcher"]
+        calls:
+            - [setPropertyAccessor, ["@quiet_property_accessor"]]
+
+

@@ -24,6 +24,7 @@ parameters:
     sylius.settings.form_factory.class: Compo\CoreBundle\Form\Factory\SettingsFormFactory
 
 
+    fos_elastica.property_accessor.class: Compo\CoreBundle\PropertyAccess\QuietPropertyAccessor
 compo_core:
     theme:
         name: "comporu/default"

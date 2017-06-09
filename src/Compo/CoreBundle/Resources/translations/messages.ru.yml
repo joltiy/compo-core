@@ -344,3 +344,10 @@ form.label_email: 'E-mail'
 form.label_phone: 'Телефон'
 form.label_message: 'Сообщение'
 form.label_tags: 'Метки'
+
+
+media_tab: 'Медиа'
+media_image_group: 'Изображение'
+media_images_additional_group: 'Дополнительные изображения'
+media_files_additional_group: 'Дополнительные файлы'
+
