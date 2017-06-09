@@ -1212,8 +1212,7 @@ class LegacyConvertFromOldDatabaseMirplitkiCommand extends ContainerAwareCommand
                 'Турция' => 'TR',
                 'Украина' => 'UA',
                 'Беларусь' => 'BY',
-
-
+                'Хорватия' => 'HR',
             );
 
             $code = $countrys[$oldDataItem['header']];
