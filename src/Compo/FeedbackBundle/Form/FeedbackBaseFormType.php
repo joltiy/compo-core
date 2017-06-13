@@ -43,7 +43,6 @@ class FeedbackBaseFormType extends AbstractType
             'type' => '',
             'data_class' => 'Compo\FeedbackBundle\Entity\Feedback',
             'translation_domain' => 'CompoFeedbackBundle',
-            'csrf_token_id' => 'feedback_protection'
         ));
     }
 

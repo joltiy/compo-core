@@ -19,7 +19,6 @@ class FeedbackTag
     use \Compo\Sonata\AdminBundle\Entity\NameEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\EnabledEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\DescriptionEntityTrait;
-    use \Compo\Sonata\AdminBundle\Entity\AliasEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\ColorEntityTrait;
 
     use \Gedmo\Timestampable\Traits\TimestampableEntity;

@@ -13,9 +13,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(
  *     indexes={
  *          @ORM\Index(name="deleted_at", columns={"deleted_at" }),
- *          @ORM\Index(name="id_deleted_at", columns={"id", "deleted_at" }),
- *          @ORM\Index(name="alias", columns={"alias" }),
- *          @ORM\Index(name="alias_deleted_at", columns={"alias", "deleted_at" })
+ *          @ORM\Index(name="id_deleted_at", columns={"id", "deleted_at" })
  *     }
  * )
  * @ORM\Entity(repositoryClass="Compo\BannerBundle\Entity\BannerRepository")
@@ -40,11 +38,7 @@ class Banner
      */
     protected $id;
 
-    /**
-     * @Gedmo\Slug(fields={"name"},updatable=false)
-     * @ORM\Column(length=128, unique=true)
-     */
-    protected $alias;
+
 
 
     /**
@@ -63,22 +57,4 @@ class Banner
     {
         return $this->id;
     }
-
-    /**
-     * @return string
-     */
-    public function getAlias()
-    {
-        return $this->alias;
-    }
-
-    /**
-     * @param string $alias
-     */
-    public function setAlias($alias)
-    {
-        $this->alias = $alias;
-    }
-
-
 }

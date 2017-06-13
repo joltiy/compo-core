@@ -61,6 +61,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
     public $tables = array();
 
     public $limit = false;
+    public $drop = false;
 
     public $data = array(
         'Currency' => array(),
@@ -82,6 +83,13 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
         $this
             ->setName('compo:convert_from_old_database')
             ->setDescription('Convert from old database')
+            ->addOption(
+                'drop',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'Drop',
+                0
+            )
             ->addOption(
                 'host',
                 null,
@@ -131,6 +139,55 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
     }
 
     /**
+     * @param $name
+     * @return \Doctrine\Common\Persistence\ObjectRepository
+     */
+    public function getCurrentRepository($name) {
+        return $this->em->getRepository($name);
+    }
+
+    /**
+     * @param $name
+     * @param $table
+     * @return array
+     */
+    public function getOldData($name, $table) {
+        $oldData = $this->oldConnection->fetchAll('SELECT * FROM `'.$table.'` ORDER BY id');
+
+        $this->output->writeln($name . '. Count: ' . count($oldData));
+
+        return $oldData;
+    }
+
+
+    /**
+     * @param $currentRepository \Doctrine\Common\Persistence\ObjectRepository
+     */
+    public function clearCurrent($currentRepository, $clear = true) {
+
+        $this->writelnMemmory('clearCurrent ' . $currentRepository->getClassName());
+
+
+
+        if ($this->drop) {
+
+            $this->em->getFilters()->disable('softdeleteable');
+
+
+            $q = $this->em->createQuery('delete from ' . $currentRepository->getClassName() . ' m');
+            $numDeleted = $q->execute();
+
+            $this->em->getFilters()->enable('softdeleteable');
+
+            $this->em->flush();
+        }
+
+        $this->writelnMemmory('clearCurrent end ' . $currentRepository->getClassName());
+
+    }
+
+
+    /**
      * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -146,6 +203,8 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
         $oldPassword = $input->getOption('password');
         $oldDatabase = $input->getOption('database');
         $this->limit = $input->getOption('limit');
+        $this->drop = $input->getOption('drop');
+
         $this->oldMediaPath = $input->getOption('oldMediaPath');
 
         $this->tables = explode(',', $input->getOption('tables'));
@@ -169,6 +228,21 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
 
         gc_enable();
         $this->process();
+    }
+
+
+
+    public function clearMemmory($entity) {
+
+        $this->em->detach($entity);
+
+        $this->em->flush();
+        $this->em->clear();
+
+        $this->getContainer()->get('doctrine')->resetManager();
+        $this->getContainer()->get('sonata.media.manager.media')->getObjectManager()->clear();
+
+        $this->writelnMemmory();
     }
 
     public function process()
@@ -242,6 +316,14 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
 
             $i++;
         }
+    }
+
+    public function writelnMemmory($prefix = '') {
+        if ($prefix) {
+            $this->output->writeln($prefix);
+        }
+
+        $this->output->writeln('Memmory: ' . number_format((memory_get_usage()), 0, ',', ' ') . ' B');
     }
 
     public function processRootCatalog()
@@ -353,35 +435,30 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
                 'id' => 10,
                 'name' => 'В наличии',
                 'color' => '',
-                'alias' => '',
                 'description' => '',
             ),
             array(
                 'id' => 25,
                 'name' => 'Предоплата',
                 'color' => '',
-                'alias' => '',
                 'description' => '',
             ),
             array(
                 'id' => 20,
                 'name' => 'Предзаказ',
                 'color' => '',
-                'alias' => '',
                 'description' => '',
             ),
             array(
                 'id' => 30,
                 'name' => 'Нет в наличии',
                 'color' => '',
-                'alias' => '',
                 'description' => '',
             ),
             array(
                 'id' => 40,
                 'name' => 'Снято с производства',
                 'color' => '',
-                'alias' => '',
                 'description' => '',
             )
         );
@@ -414,7 +491,6 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
             $newItem->setId($oldDataItem['id']);
             $newItem->setColor($oldDataItem['color']);
             $newItem->setDescription($oldDataItem['description']);
-            $newItem->setAlias($oldDataItem['alias']);
 
             $this->changeIdGenerator($newItem);
 

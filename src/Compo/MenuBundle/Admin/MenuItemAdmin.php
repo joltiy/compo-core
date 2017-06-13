@@ -51,7 +51,6 @@ class MenuItemAdmin extends AbstractAdmin
             ->add('id')
             ->addIdentifier('name')
             ->add('url')
-            ->add('alias')
             ->add('enabled')
             ->add('_action', null, array(
                 'actions' => array(
@@ -112,7 +111,7 @@ class MenuItemAdmin extends AbstractAdmin
             ->add('enabled')
             ->add('name')
             ->add('title')
-            ->add('alias');
+        ;
 
         $formMapper->add('parent', 'compo_tree_selector', array(
             'current' => $subject,
@@ -176,7 +175,6 @@ class MenuItemAdmin extends AbstractAdmin
             ->add('id')
             ->add('title')
             ->add('url')
-            ->add('alias')
             ->add('name')
             ->add('enabled')
             ->add('lft')

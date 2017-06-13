@@ -35,9 +35,7 @@ class MenuBlockService extends AbstractBlockService
 
         $factory = new MenuFactory();
 
-        if ($settings['alias']) {
-            $menu = $factory->createItem($settings['alias']);
-        } elseif ($settings['id']) {
+        if ($settings['id']) {
             $menu = $factory->createItem($settings['id']);
 
             /** @var MenuRepository $repositoryMenu */
@@ -179,7 +177,6 @@ class MenuBlockService extends AbstractBlockService
     public function configureSettings(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'alias' => '',
             'class' => '',
             'id' => null,
             'template' => 'CompoMenuBundle:Menu:base_menu.html.twig',

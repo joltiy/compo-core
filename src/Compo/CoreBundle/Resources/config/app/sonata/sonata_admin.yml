@@ -78,4 +78,4 @@ sonata_doctrine_orm_admin:
             - "CompoSonataAdminBundle::SonataDoctrineORMAdminBundle/Form/form_admin_fields.html.twig"
 
     audit:
-        force: true
+        force: false

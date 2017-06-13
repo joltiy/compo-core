@@ -109,21 +109,25 @@ class ArticlesAdmin extends AbstractAdmin
     {
         $formMapper
             ->tab('form.tab_main')
-            ->with('form.group_main', array('name' => false, 'class' => 'col-lg-6'))
+            ->with('form.group_main', array('name' => false))
             ->add('id')
             ->add('enabled')
             ->add('publicationAt')
+            ->add('views')
+
             ->add('name')
             ->add('description')
             ->add('body', SimpleFormatterType::class, array('required' => false, 'format' => 'richhtml', 'ckeditor_context' => 'default'))
             ->end()
-            ->with('form.group_image', array('name' => false, 'class' => 'col-lg-6'))
-            ->add('image')
-            ->end()
-            ->with('form.group_views', array('name' => false, 'class' => 'col-lg-6'))
-            ->add('views')
-            ->end()
             ->end();
+
+
+        $formMapper->tab('media_tab');
+        $formMapper->with('media_image_group');
+        $formMapper->add('image');
+        $formMapper->end();
+        $formMapper->end();
+
     }
 
     /**

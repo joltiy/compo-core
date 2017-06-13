@@ -64,7 +64,7 @@ class FeedbackTagAdmin extends AbstractAdmin
             ->add('description')
             ->add('color', 'sonata_type_color_selector', array('required' => false))
             ->add('cssClass')
-            ->add('alias');;
+        ;
     }
 
     /**

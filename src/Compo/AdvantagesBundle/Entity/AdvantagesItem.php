@@ -16,9 +16,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *          @ORM\Index(name="enabled", columns={"enabled" }),
  *          @ORM\Index(name="deleted_at", columns={"deleted_at" }),
  *          @ORM\Index(name="enabled_deleted_at", columns={"enabled", "deleted_at" }),
- *          @ORM\Index(name="id_deleted_at", columns={"id", "deleted_at" }),
- *          @ORM\Index(name="alias", columns={"alias" }),
- *          @ORM\Index(name="alias_deleted_at", columns={"alias", "deleted_at" })
+ *          @ORM\Index(name="id_deleted_at", columns={"id", "deleted_at" })
  *     }
  * )
  * @ORM\Entity(repositoryClass="Compo\AdvantagesBundle\Entity\AdvantagesItemRepository")
@@ -30,19 +28,12 @@ class AdvantagesItem
     use \Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\PositionEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\DescriptionEntityTrait;
+    use \Compo\Sonata\AdminBundle\Entity\IdEntityTrait;
+    use \Compo\Sonata\AdminBundle\Entity\ImageEntityTrait;
 
     use \Gedmo\Timestampable\Traits\TimestampableEntity;
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
-    use \Compo\Sonata\AdminBundle\Entity\ImageEntityTrait;
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
 
     /**
      * @var string
@@ -58,11 +49,6 @@ class AdvantagesItem
      */
     protected $url;
 
-    /**
-     * @var string
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $alias;
 
     /**
      * @ORM\ManyToOne(targetEntity="Compo\AdvantagesBundle\Entity\Advantages", fetch="EAGER")
@@ -90,15 +76,6 @@ class AdvantagesItem
      */
     protected $page_id;
 
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * @return string
@@ -181,29 +158,6 @@ class AdvantagesItem
         return $this;
     }
 
-    /**
-     * Get alias
-     *
-     * @return string
-     */
-    public function getAlias()
-    {
-        return $this->alias;
-    }
-
-    /**
-     * Set alias
-     *
-     * @param string $alias
-     *
-     * @return AdvantagesItem
-     */
-    public function setAlias($alias)
-    {
-        $this->alias = $alias;
-
-        return $this;
-    }
 
     /**
      * @return mixed

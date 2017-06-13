@@ -24,9 +24,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *          @ORM\Index(name="root_lft", columns={"root", "lft" }),
  *          @ORM\Index(name="id_deleted_at", columns={"id", "deleted_at" }),
  *          @ORM\Index(name="lvl", columns={"lvl" }),
- *          @ORM\Index(name="lvl_deleted_at", columns={"lvl", "deleted_at" }),
- *          @ORM\Index(name="alias", columns={"alias" }),
- *          @ORM\Index(name="alias_deleted_at", columns={"alias", "deleted_at" })
+ *          @ORM\Index(name="lvl_deleted_at", columns={"lvl", "deleted_at" })
  *     }
  * )
  * @ORM\Entity(repositoryClass="Compo\MenuBundle\Entity\MenuItemRepository")
@@ -65,11 +63,7 @@ class MenuItem
      */
     protected $url;
 
-    /**
-     * @var string
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $alias;
+
 
     /**
      * @ORM\ManyToOne(targetEntity="Compo\MenuBundle\Entity\Menu", fetch="EAGER")
@@ -238,30 +232,6 @@ class MenuItem
     public function setUrl($url)
     {
         $this->url = $url;
-
-        return $this;
-    }
-
-    /**
-     * Get alias
-     *
-     * @return string
-     */
-    public function getAlias()
-    {
-        return $this->alias;
-    }
-
-    /**
-     * Set alias
-     *
-     * @param string $alias
-     *
-     * @return MenuItem
-     */
-    public function setAlias($alias)
-    {
-        $this->alias = $alias;
 
         return $this;
     }

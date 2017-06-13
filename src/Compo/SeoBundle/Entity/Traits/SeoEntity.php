@@ -3,13 +3,14 @@
 namespace Compo\SeoBundle\Entity\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 trait SeoEntity
 {
     /**
      * URL
      *
-     * @var string
+     * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(type="string", nullable=false, unique=true)
      */
     protected $slug;
@@ -133,22 +134,6 @@ trait SeoEntity
     /**
      * @return string
      */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * @param string $slug
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-    }
-
-    /**
-     * @return string
-     */
     public function getTitle()
     {
         return $this->title;
@@ -160,5 +145,21 @@ trait SeoEntity
     public function setTitle($title)
     {
         $this->title = $title;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
     }
 }

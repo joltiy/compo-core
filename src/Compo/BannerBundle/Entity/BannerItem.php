@@ -16,9 +16,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *          @ORM\Index(name="enabled", columns={"enabled" }),
  *          @ORM\Index(name="deleted_at", columns={"deleted_at" }),
  *          @ORM\Index(name="enabled_deleted_at", columns={"enabled", "deleted_at" }),
- *          @ORM\Index(name="id_deleted_at", columns={"id", "deleted_at" }),
- *          @ORM\Index(name="alias", columns={"alias" }),
- *          @ORM\Index(name="alias_deleted_at", columns={"alias", "deleted_at" })
+ *          @ORM\Index(name="id_deleted_at", columns={"id", "deleted_at" })
  *     }
  * )
  * @ORM\Entity(repositoryClass="Compo\BannerBundle\Entity\BannerItemRepository")
@@ -57,11 +55,7 @@ class BannerItem
      */
     protected $url;
 
-    /**
-     * @var string
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $alias;
+
 
     /**
      * @ORM\ManyToOne(targetEntity="Compo\BannerBundle\Entity\Banner", fetch="EAGER")
@@ -176,30 +170,6 @@ class BannerItem
     public function setUrl($url)
     {
         $this->url = $url;
-
-        return $this;
-    }
-
-    /**
-     * Get alias
-     *
-     * @return string
-     */
-    public function getAlias()
-    {
-        return $this->alias;
-    }
-
-    /**
-     * Set alias
-     *
-     * @param string $alias
-     *
-     * @return BannerItem
-     */
-    public function setAlias($alias)
-    {
-        $this->alias = $alias;
 
         return $this;
     }

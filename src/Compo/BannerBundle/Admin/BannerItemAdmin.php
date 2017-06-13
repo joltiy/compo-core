@@ -53,7 +53,6 @@ class BannerItemAdmin extends AbstractAdmin
             ->add('id')
             ->addIdentifier('name')
             ->add('url')
-            ->add('alias')
             ->add('enabled')
             ->add('_action', null, array(
                 'actions' => array(
@@ -84,8 +83,6 @@ class BannerItemAdmin extends AbstractAdmin
 
             ->add('name')
             ->add('title')
-            ->add('alias')
-
         ;
 
 
@@ -108,7 +105,6 @@ class BannerItemAdmin extends AbstractAdmin
             ->add('id')
             ->add('title')
             ->add('url')
-            ->add('alias')
             ->add('name')
             ->add('enabled')
             ->add('createdAt')

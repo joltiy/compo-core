@@ -3,13 +3,15 @@
 namespace Compo\Sonata\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 trait AliasEntityTrait
 {
     /**
-     * @var string
+     * URL
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(type="string", nullable=false, unique=true)
      */
     protected $alias;
 

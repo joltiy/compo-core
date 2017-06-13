@@ -74,7 +74,6 @@ class MenuAdmin extends AbstractAdmin
         $datagridMapper
             ->add('id')
             ->add('name')
-            ->add('alias')
             ->add('createdAt')
             ->add('updatedAt');
     }
@@ -87,7 +86,6 @@ class MenuAdmin extends AbstractAdmin
         $listMapper
             ->add('id')
             ->addIdentifier('name')
-            ->add('alias')
             ->add('description')
             ->add('_action', 'actions', array(
                 'actions' => array(
@@ -107,7 +105,6 @@ class MenuAdmin extends AbstractAdmin
             ->with('form.group_main', array('name' => false))
             ->add('id')
             ->add('name')
-            ->add('alias', null, array('required' => false))
             ->add('description');
 
         $formMapper

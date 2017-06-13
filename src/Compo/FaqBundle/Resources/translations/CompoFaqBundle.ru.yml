@@ -12,7 +12,7 @@ breadcrumb:
 
 form:
     label_settings_faq_per_page: 'Вопрос-ответ на страницу'
-    tab_main: "вопрос-ответ"
+    tab_main: "Вопрос-ответ"
     label_name: 'Вопрос'
 
 form.label_answer: "Ответ"
