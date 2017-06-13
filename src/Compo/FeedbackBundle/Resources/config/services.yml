@@ -40,3 +40,10 @@ services:
         parent: compo_core.abstract_container_aware
         tags:
             - { name: form.type }
+
+
+    compo_feedback.form.type.callback:
+        class: Compo\FeedbackBundle\Form\CallbackFormType
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: form.type }
