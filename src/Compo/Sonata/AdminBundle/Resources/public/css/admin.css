@@ -459,3 +459,7 @@ th.sonata-ba-list-field-header-datetime {
     border: 1px solid #eee;
     height: auto;
 }
+
+.filter-www .brands-wrap {
+    overflow-y: scroll;
+}
