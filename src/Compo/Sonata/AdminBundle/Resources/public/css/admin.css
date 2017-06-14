@@ -463,3 +463,7 @@ th.sonata-ba-list-field-header-datetime {
 .filter-www .brands-wrap {
     overflow-y: scroll;
 }
+
+.filter-www .catalog-filter-block .panel-title  .font-icon {
+    margin-right: 10px;
+}
