@@ -25,8 +25,7 @@ class CallbackFormType extends FeedbackBaseFormType
 
         $builder
             ->add('name', TextType::class)
-            ->add('email', EmailType::class)
             ->add('phone', TextType::class)
-            ->add('message', TextareaType::class);
+            ->add('message', TextareaType::class, array('required' => false));
     }
 }

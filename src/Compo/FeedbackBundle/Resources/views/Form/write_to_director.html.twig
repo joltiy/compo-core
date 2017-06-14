@@ -37,7 +37,6 @@
 
             <input type="submit" validation-submit="feedbackForm" value="Отправить сообщение" data-ng-disabled="feedback.disablesubmit" data-ng-click="feedback.send()" class="drawing-order__input-submit pull-right">
 
-            {{ form_row(form.message,{ "label_attr": {"class":"drawing-order__label-text"} , 'attr' : {"validator" : "required","no-validation-message":"true","class" : "drawing-order__textarea" ,"data-ng-model":"feedback.form.message"  }}  ) }}
 
             {{ form_row(form.type, { 'attr' : {"data-ng-model":"feedback.form.type", "data-ng-init":"feedback.form.type='"~form.type.vars.value~"'"  }}  ) }}
             {{ form_row(form.page, { 'attr' : {"data-ng-model":"feedback.form.page", "data-ng-init":"feedback.form.page='"~form.page.vars.value~"'"  }}  ) }}
