@@ -357,3 +357,15 @@ media_image_group: 'Изображение'
 media_images_additional_group: 'Дополнительные изображения'
 media_files_additional_group: 'Дополнительные файлы'
 
+form.label_settings_footer_payment_slider: 'Способы оплаты'
+
+form.label_settings_footer_menu_catalog_1_column: 'Меню в подвале (1 колонка)'
+form.label_settings_footer_menu_catalog_2_column: 'Меню в подвале (2 колонка)'
+
+form.label_settings_index_header: 'Заголовок основного текста'
+form.label_settings_index_slider: 'Слайдер в основном тексте'
+form.label_settings_index_slider_text: 'Основной текст (слайдера)'
+form.label_settings_index_text: 'Основной текст'
+
+form.label_settings_index_manufacture_collection_tag_criteria_block_1: 'Коллекции по меткам - 1'
+form.label_settings_index_manufacture_collection_tag_criteria_block_2: 'Коллекции по меткам - 2'
