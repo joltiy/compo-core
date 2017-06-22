@@ -221,6 +221,12 @@ form.label_updated_by: 'Обновил'
 
 form.tab_properties: 'Свойства'
 
+settings.popup_tab: 'Модальные окна'
+form.label_settings_popup_payment: 'Оплата'
+
+
+form.label_settings_popup_delivery: 'Доставка'
+form.label_settings_popup_product_note: 'Примечание к товару'
 
 
 ROLE_SONATA_USER_ADMIN_USER: 'Пользователи'
