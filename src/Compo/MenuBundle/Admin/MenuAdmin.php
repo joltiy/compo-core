@@ -170,7 +170,7 @@ class MenuAdmin extends AbstractAdmin
 
         $menu->addChild(
             $this->trans('tab_menu.link_menu_list'),
-            array('uri' => $this->generateUrl('compo_menu.admin.menu|compo_menu.admin.menu_item.list', array('id' => $subject->getId())))
+            array('uri' => $this->generateUrl('compo_menu.admin.menu|compo_menu.admin.menu_item.tree', array('id' => $subject->getId())))
         );
     }
 }
