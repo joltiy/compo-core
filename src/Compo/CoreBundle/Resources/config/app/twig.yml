@@ -3,8 +3,6 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
 
-    base_template_class: Sonata\CacheBundle\Twig\TwigTemplate14
-
     form_themes:
         - 'SonataDoctrineORMAdminBundle:Form:form_admin_fields.html.twig'
         - 'SonataFormatterBundle:Form:formatter.html.twig'

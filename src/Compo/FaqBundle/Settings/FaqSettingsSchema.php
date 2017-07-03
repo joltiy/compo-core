@@ -37,8 +37,8 @@ class FaqSettingsSchema extends BaseBundleAdminSettingsSchema
                     'seo_items_meta_keyword' => '{{ article.name }}, {{ site.metaKeyword }}',
                     'seo_items_meta_description' => '{{ article.name }}, {{ site.metaDescription }}',
                 ]
-            )
-            ->setAllowedTypes(
+            );
+            $items =
                 [
                     'faq_per_page' => ['integer'],
 
@@ -52,8 +52,11 @@ class FaqSettingsSchema extends BaseBundleAdminSettingsSchema
                     'seo_items_title' => ['string', 'NULL'],
                     'seo_items_meta_keyword' => ['string', 'NULL'],
                     'seo_items_meta_description' => ['string', 'NULL'],
-                ]
-            );
+                ];
+
+        foreach ($items as $item_name => $types) {
+            $builder->addAllowedTypes($item_name, $types);
+        }
     }
 
     /**

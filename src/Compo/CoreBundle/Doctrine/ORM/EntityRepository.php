@@ -11,7 +11,7 @@ class EntityRepository extends \Doctrine\ORM\EntityRepository
         $items = $this->findBy(array(), array('name' => 'ASC'));
 
         foreach ($items as $item) {
-            $choices[$item->getId()] = $item->getName();
+            $choices[$item->getName()] = $item->getId();
         }
 
         return $choices;

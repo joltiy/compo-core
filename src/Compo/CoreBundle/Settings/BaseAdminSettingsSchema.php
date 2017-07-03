@@ -2,6 +2,7 @@
 
 namespace Compo\CoreBundle\Settings;
 
+use Sonata\BlockBundle\Util\OptionsResolver;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\DependencyInjection\Container;
@@ -38,6 +39,15 @@ class BaseAdminSettingsSchema implements SchemaInterface
     {
 
 
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'action' => $this->getContainer()->get('router')->generate($this->getBaseRouteName() . '_update') . '?',
+            'label_format' => 'form.label_settings_%name%',
+            'translation_domain' => $this->getTranslationDomain(),
+        ));
     }
 
     public function getDefaultOptions()

@@ -29,10 +29,17 @@ class FeedbackBaseFormType extends AbstractType
                 'data' => $options['type']
             ))
             ->add('page', HiddenType::class, array(
-                'data' => $this->getContainer()->get('request')->getRequestUri()
+                'data' => $this->getRequest()->getRequestUri()
             ));
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\Request
+     */
+    public function getRequest()
+    {
+        return $this->getContainer()->get('request_stack')->getCurrentRequest();
+    }
 
     /**
      * @param OptionsResolver $resolver

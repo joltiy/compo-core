@@ -11,6 +11,7 @@
 
 namespace Compo\Sonata\AdminBundle\Filter;
 
+use Compo\Sonata\AdminBundle\Form\Type\NumberRangeType;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\DoctrineORMAdminBundle\Filter\Filter;
@@ -31,7 +32,7 @@ class NumberRangeFilter extends Filter
             return;
         }
 
-        if ($this->range) {
+        if ($this->range && is_array($data['value'])) {
 
             // additional data check for ranged items
             if (!array_key_exists('start', $data['value']) || !array_key_exists('end', $data['value'])) {
@@ -76,7 +77,7 @@ class NumberRangeFilter extends Filter
     {
 
         return array('sonata_type_filter_default', array(
-            'field_type' => 'compo_admin_type_number_range',
+            'field_type' => $this->getFieldType(),
             'field_options' => $this->getFieldOptions(),
             'operator_type' => 'hidden',
             'operator_options' => array(),

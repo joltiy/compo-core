@@ -2,7 +2,7 @@
 
 namespace Compo\SocialBundle\Entity;
 
-use Doctrine\ORM\EntityRepository;
+use \Compo\CoreBundle\Doctrine\ORM\EntityRepository;
 
 /**
  * SocialRepository

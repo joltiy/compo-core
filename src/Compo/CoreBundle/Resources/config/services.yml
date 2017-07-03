@@ -87,6 +87,7 @@ services:
         class: Compo\CoreBundle\Manager\CoreManager
         parent: compo_core.abstract_container_aware
 
+
     sylius.theme.translation.translator:
         class: Compo\CoreBundle\Translation\ThemeTranslator
         arguments:

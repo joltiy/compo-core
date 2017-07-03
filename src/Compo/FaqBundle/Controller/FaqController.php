@@ -3,6 +3,7 @@
 namespace Compo\FaqBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Article controller.
@@ -13,11 +14,10 @@ class FaqController extends Controller
      * Lists all article entities.
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $manager = $this->get('compo_faq.manager.faq');
         $seoPage = $this->get('sonata.seo.page');
-        $request = $this->get('request');
 
         $page = $request->get('page', 1);
 

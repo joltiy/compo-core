@@ -29,7 +29,7 @@ class MenuBlockService extends AbstractBlockService
 
         $settings = $blockContext->getSettings();
 
-        dump($settings);
+dump($settings);
         $menu = null;
 
         $tree = array();
@@ -119,10 +119,10 @@ class MenuBlockService extends AbstractBlockService
             /** @var MenuItem $node */
             $node = $menu->addChild($item['id'], array('uri' => $item['url']));
 
-            if ($item['url'] === $this->container->get('request')->getRequestUri()) {
+            if ($item['url'] === $this->getRequest()->getRequestUri()) {
                 // URL's completely match
                 $node->setCurrent(true);
-            } else if ($item['url'] !== $this->container->get('request')->getBaseUrl() . '/' && (substr($this->container->get('request')->getRequestUri(), 0, strlen($item['url'])) === $item['url'])) {
+            } else if ($item['url'] !== $this->getRequest()->getBaseUrl() . '/' && (substr($this->getRequest()->getRequestUri(), 0, strlen($item['url'])) === $item['url'])) {
                 // URL isn't just "/" and the first container of the URL match
                 $node->setCurrent(true);
             }
@@ -146,7 +146,7 @@ class MenuBlockService extends AbstractBlockService
 
         $formMapper->add('settings', 'sonata_type_immutable_array', array(
             'keys' => array(
-                array('id', 'choice', array('required' => true, 'choices' => $this->getMenuRepository()->getMenuChoices())),
+                array('id', 'choice', array('required' => true, 'choices' => $this->getMenuRepository()->getChoices())),
 
                 array('class', 'text', array('required' => false)),
                 array('template', 'text', array('required' => false)),

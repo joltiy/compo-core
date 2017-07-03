@@ -3,6 +3,7 @@
 namespace Compo\NewsBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * News controller.
@@ -12,11 +13,10 @@ class NewsController extends Controller
     /**
      * Lists all news entities.
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $manager = $this->get('compo_news.manager.news');
         $seoPage = $this->get('sonata.seo.page');
-        $request = $this->get('request');
 
         $page = $request->get('page', 1);
 

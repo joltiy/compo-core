@@ -7,9 +7,9 @@ doctrine:
         entity_managers:
             default:
                 mappings:
-                    FOSUserBundle: ~
-                    SonataUserBundle: ~
                     CompoSonataUserBundle: ~
+                    SonataUserBundle: ~
+                    FOSUserBundle: ~
 
 # if you change the class configuration, please also alter the fos_user.yml file
 sonata_user:
@@ -17,7 +17,8 @@ sonata_user:
         user:  Compo\Sonata\UserBundle\Entity\User
         group: Compo\Sonata\UserBundle\Entity\Group
 
-    security_acl:             false
+    security_acl:             true
+
     table:
         user_group:           fos_user_user_group
 

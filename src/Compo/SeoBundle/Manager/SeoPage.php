@@ -163,11 +163,19 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
     }
 
     /**
+     * @return \Symfony\Component\HttpFoundation\Request
+     */
+    public function getRequest()
+    {
+        return $this->getContainer()->get('request_stack')->getCurrentRequest();
+    }
+
+    /**
      * @return array
      */
     public function getVars()
     {
-        if ($this->getContainer()->get('request')->get('_route') == 'page_slug') {
+        if ($this->getRequest()->get('_route') == 'page_slug') {
             $this->setContext('page');
         }
 
@@ -268,7 +276,7 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
 
         $context = $this->getContext();
 
-        $request = $container->get('request');
+        $request = $this->getRequest();
 
         $route = $request->get('_route');
 

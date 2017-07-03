@@ -23,7 +23,7 @@ class SmsProviderManager extends BaseEntityManager
 
     public function getTypesChoices() {
         return array(
-            'smsru' => 'sms.ru'
+            'sms.ru' => 'smsru'
         );
     }
 

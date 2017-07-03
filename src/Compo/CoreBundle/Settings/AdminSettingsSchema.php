@@ -66,8 +66,9 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
         $builder
             ->setDefaults(
                 $this->getFormDefaultOptions()
-            )
-            ->setAllowedTypes(
+            );
+
+        $items =
                 [
                     'email' => ['string', 'NULL'],
 
@@ -87,10 +88,14 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
                     'footer_phones' => ['string', 'NULL'],
 
                     'logo_image' => array('null', 'integer', 'object'),
+                ];
 
 
-                ]
-            );
+        foreach ($items as $item_name => $types) {
+            $builder->addAllowedTypes($item_name, $types);
+        }
+
+
     }
 
     /**
@@ -98,6 +103,7 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
      */
     public function buildForm(FormBuilderInterface $builder)
     {
+
         $main_tab = $builder->create('main_tab', TabType::class, array(
             'label' => 'settings.main_tab',
             'inherit_data' => true,
@@ -110,7 +116,7 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
         ));
 
         $header_tab->add('header_menu', ChoiceType::class, array(
-            'choices' => $this->getMenuRepository()->getMenuChoices()
+            'choices' => $this->getMenuRepository()->getChoices()
         ));
 
         $header_tab->add('header_phones', CKEditorType::class);
@@ -124,7 +130,7 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
         ));
 
         $footer_tab->add('footer_menu', ChoiceType::class, array(
-            'choices' => $this->getMenuRepository()->getMenuChoices()
+            'choices' => $this->getMenuRepository()->getChoices()
         ));
 
         $footer_tab->add('footer_copyright', CKEditorType::class);

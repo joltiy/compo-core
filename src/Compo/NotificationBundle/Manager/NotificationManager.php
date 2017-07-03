@@ -41,7 +41,7 @@ class NotificationManager
      */
     public function getNotificationEmailSettings()
     {
-        return $this->getContainer()->get('sylius.settings.manager')->load('compo_notification_email_settings');
+        return $this->getContainer()->get('sylius.settings_manager')->load('compo_notification_email_settings');
     }
 
 
@@ -146,8 +146,8 @@ class NotificationManager
         $sites = $this->getContainer()->get('sonata.page.manager.site')->findAll();
 
         $vars['site'] = $sites[0];
-        $vars['compo_core_settings'] = $this->getContainer()->get('sylius.settings.manager')->load('compo_core_settings');
-        $vars['compo_notification_email_settings'] = $this->getContainer()->get('sylius.settings.manager')->load('compo_notification_email_settings');
+        $vars['compo_core_settings'] = $this->getContainer()->get('sylius.settings_manager')->load('compo_core_settings');
+        $vars['compo_notification_email_settings'] = $this->getContainer()->get('sylius.settings_manager')->load('compo_notification_email_settings');
 
         $results = array();
 

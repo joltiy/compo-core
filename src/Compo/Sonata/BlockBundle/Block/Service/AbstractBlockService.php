@@ -17,6 +17,14 @@ class AbstractBlockService extends BaseAbstractBlockService
     use ContainerAwareTrait;
 
     /**
+     * @return \Symfony\Component\HttpFoundation\Request
+     */
+    public function getRequest()
+    {
+        return $this->getContainer()->get('request_stack')->getCurrentRequest();
+    }
+
+    /**
      * @param ErrorElement $errorElement
      * @param BlockInterface $block
      */

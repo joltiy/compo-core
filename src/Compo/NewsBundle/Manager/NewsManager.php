@@ -27,7 +27,7 @@ class NewsManager extends BaseEntityManager
 
         $paginator = $container->get('knp_paginator');
 
-        $settingsManager = $container->get('sylius.settings.manager');
+        $settingsManager = $container->get('sylius.settings_manager');
 
         $settings = $settingsManager->load('compo_news');
 

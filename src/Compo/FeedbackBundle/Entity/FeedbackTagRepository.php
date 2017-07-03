@@ -2,7 +2,7 @@
 
 namespace Compo\FeedbackBundle\Entity;
 
-use Doctrine\ORM\EntityRepository;
+use Compo\CoreBundle\Doctrine\ORM\EntityRepository;
 
 /**
  * TagRepository
@@ -12,21 +12,5 @@ use Doctrine\ORM\EntityRepository;
  */
 class FeedbackTagRepository extends EntityRepository
 {
-    /**
-     * @return array
-     */
-    public function getChoices()
-    {
-        $choices = array();
 
-        /** @var FeedbackTag[] $items */
-        $items = $this->findBy(array(), array('name' => 'ASC'));
-
-
-        foreach ($items as $item) {
-            $choices[$item->getId()] = $item->getName();
-        }
-
-        return $choices;
-    }
 }

@@ -14,6 +14,7 @@ namespace Compo\Sonata\AdminBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\OptionsResolver\Options;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
@@ -41,6 +42,17 @@ class TreeSelectorType extends AbstractType
             'choice_list' => function (Options $opts, $previousValue) use ($that) {
                 return new ArrayChoiceList($that->getChoices($opts));
             },
+        ));
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        parent::configureOptions($resolver);
+
+        $resolver->setDefaults(array(
+            'tree' => null,
+            'current' => null,
+            'choice_list' => array()
         ));
     }
 

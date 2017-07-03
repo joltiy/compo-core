@@ -39,7 +39,7 @@ class CRUDController extends BaseCRUDController
      */
     protected function getSettingsManager()
     {
-        return $this->container->get('sylius.settings.manager');
+        return $this->container->get('sylius.settings_manager');
     }
 
     /**
@@ -47,7 +47,7 @@ class CRUDController extends BaseCRUDController
      */
     protected function getSettingsFormFactory()
     {
-        return $this->container->get('sylius.settings.form_factory');
+        return $this->container->get('sylius.form_factory.settings');
     }
 
     /**

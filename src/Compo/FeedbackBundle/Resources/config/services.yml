@@ -23,11 +23,11 @@ services:
             - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: feedback_tag, label_translator_strategy: sonata.admin.label.strategy.underscore }
 
     compo_feedback.block.service.feedback_form:
-            class:  Compo\FeedbackBundle\Block\FeedbackFormBlockService
-            parent: compo_core.abstract_container_aware
-            arguments: ["compo_contacts.block.service.feedback_form", "@templating"]
-            tags:
-                 - { name: sonata.block }
+        class:  Compo\FeedbackBundle\Block\FeedbackFormBlockService
+        parent: compo_core.abstract_container_aware
+        arguments: ["compo_contacts.block.service.feedback_form", "@templating"]
+        tags:
+             - { name: sonata.block }
 
     compo_feedback.form.type.feedback:
         class: Compo\FeedbackBundle\Form\FeedbackFormType

@@ -27,12 +27,19 @@ class RedirectListener
         $this->container = $container;
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\Request
+     */
+    public function getRequest()
+    {
+        return $this->getContainer()->get('request_stack')->getCurrentRequest();
+    }
+
     public function onKernelRequest(GetResponseEvent $event)
     {
-        $container = $this->container;
+        $request   = $event->getRequest();
 
-
-        $uri = $container->get('request')->getRequestUri();
+        $uri = $request->getRequestUri();
 
 
         /** @var RedirectRepository $redirectRepository */

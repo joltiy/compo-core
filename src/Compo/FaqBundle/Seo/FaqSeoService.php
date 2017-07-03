@@ -20,7 +20,7 @@ class FaqSeoService extends BaseService
         $seoPage = $this->getSeoPage();
 
         $faqManager = $container->get('compo_faq.manager.faq');
-        $settingsManager = $container->get('sylius.settings.manager');
+        $settingsManager = $container->get('sylius.settings_manager');
 
         $faqSettings = $settingsManager->load('compo_faq');
 

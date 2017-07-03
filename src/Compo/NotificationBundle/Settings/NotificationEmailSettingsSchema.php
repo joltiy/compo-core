@@ -28,14 +28,19 @@ class NotificationEmailSettingsSchema extends BaseBundleAdminSettingsSchema
                     'notification_email_recipient_default' => '',
 
                 ]
-            )
-            ->setAllowedTypes(
+            );
+
+            $items =
                 [
                     'notification_email_account_default' => array('null', 'integer', 'object'),
                     'notification_email_recipient_default' => ['string', 'NULL'],
 
                 ]
-            );
+            ;
+
+        foreach ($items as $item_name => $types) {
+            $builder->addAllowedTypes($item_name, $types);
+        }
     }
 
     /**

@@ -35,7 +35,7 @@ class IdExtension extends AbstractAdminExtension
             $this->replaceFormField($formMapper,'id', 'text',
                 array(
                     'required' => false,
-                    'read_only' => true,
+                    'attr' => array('readonly' => true),
                     'disabled' => true,
                 )
             );

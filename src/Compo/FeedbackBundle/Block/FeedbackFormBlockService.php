@@ -38,10 +38,8 @@ class FeedbackFormBlockService extends AbstractBlockService
             $template = $feedbackType['template'];
         }
 
-        /** @var FeedbackBaseFormType $formType */
-        $formType = $container->get($feedbackType['form']);
 
-        $data = $container->get('form.factory')->create($formType, null, array('type' => $type))->createView();
+        $data = $container->get('form.factory')->create($feedbackType['form'], null, array('type' => $type))->createView();
 
         return $this->renderResponse($template, array(
             'block' => $block,

@@ -59,7 +59,7 @@ class AppKernel extends Kernel
             new \Sylius\Bundle\ResourceBundle\SyliusResourceBundle(),
             new \Sylius\Bundle\ThemeBundle\SyliusThemeBundle(),
 
-            new \Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
+            new \Sonata\UserBundle\SonataUserBundle(),
             new \Sonata\PageBundle\SonataPageBundle(),
             new \Sonata\MediaBundle\SonataMediaBundle(),
             new \Sonata\AdminBundle\SonataAdminBundle(),
@@ -166,7 +166,7 @@ class AppKernel extends Kernel
     {
         return __DIR__;
     }
-    
+
     public function getCacheDir()
     {
         return dirname(__DIR__).'/var/cache/'.$this->getEnvironment();

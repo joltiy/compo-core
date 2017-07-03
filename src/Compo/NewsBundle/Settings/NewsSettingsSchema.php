@@ -37,8 +37,8 @@ class NewsSettingsSchema extends BaseBundleAdminSettingsSchema
                     'seo_items_meta_keyword' => '{{ news.name }}, {{ site.metaKeyword }}',
                     'seo_items_meta_description' => '{{ news.name }}, {{ site.metaDescription }}',
                 ]
-            )
-            ->setAllowedTypes(
+            );
+            $items =
                 [
                     'news_per_page' => ['integer'],
 
@@ -53,7 +53,11 @@ class NewsSettingsSchema extends BaseBundleAdminSettingsSchema
                     'seo_items_meta_keyword' => ['string', 'NULL'],
                     'seo_items_meta_description' => ['string', 'NULL'],
                 ]
-            );
+            ;
+
+        foreach ($items as $item_name => $types) {
+            $builder->addAllowedTypes($item_name, $types);
+        }
     }
 
     /**

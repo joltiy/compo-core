@@ -20,7 +20,7 @@ class ArticlesSeoService extends BaseService
         $seoPage = $this->getSeoPage();
 
         $articlesManager = $container->get('compo_articles.manager.articles');
-        $settingsManager = $container->get('sylius.settings.manager');
+        $settingsManager = $container->get('sylius.settings_manager');
 
         $articlesSettings = $settingsManager->load('compo_articles');
 

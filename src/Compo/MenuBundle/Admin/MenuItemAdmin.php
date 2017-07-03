@@ -4,6 +4,7 @@ namespace Compo\MenuBundle\Admin;
 
 use Compo\MenuBundle\Entity\MenuItemRepository;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
+use Compo\Sonata\AdminBundle\Form\Type\TreeSelectorType;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use Sonata\AdminBundle\Admin\AdminInterface;
@@ -113,7 +114,7 @@ class MenuItemAdmin extends AbstractAdmin
             ->add('title')
         ;
 
-        $formMapper->add('parent', 'compo_tree_selector', array(
+        $formMapper->add('parent', TreeSelectorType::class, array(
             'current' => $subject,
             'model_manager' => $this->getModelManager(),
             'class' => $this->getClass(),
@@ -124,9 +125,9 @@ class MenuItemAdmin extends AbstractAdmin
         $formMapper
             ->add('type', 'sonata_type_choice_field_mask', array(
                 'choices' => array(
-                    'url' => 'URL',
-                    'page' => 'Страница',
-                    'tagging' => 'Тегирование',
+                    'URL' => 'url',
+                    'Страница' => 'page',
+                    'Тегирование' => 'tagging',
                 ),
                 'map' => array(
                     'url' => array('url'),
@@ -134,7 +135,7 @@ class MenuItemAdmin extends AbstractAdmin
                     'tagging' => array('tagging'),
 
                 ),
-                'empty_value' => 'Укажите тип',
+                'placeholder' => 'Укажите тип',
                 'required' => true
             ));
 
