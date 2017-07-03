@@ -2,15 +2,13 @@
 
 namespace Compo\AdvantagesBundle\Admin;
 
-use Compo\AdvantagesBundle\Entity\AdvantagesItemRepository;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
-use Doctrine\DBAL\Query\QueryBuilder;
+use Knp\Menu\ItemInterface as MenuItemInterface;
+use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\AdminBundle\Admin\AdminInterface;
-use Knp\Menu\ItemInterface as MenuItemInterface;
 
 /**
  * {@inheritDoc}
@@ -25,24 +23,24 @@ class AdvantagesItemAdmin extends AbstractAdmin
         // Домен переводов
         $this->setTranslationDomain('CompoAdvantagesBundle');
 
-
         $this->configurePosition(true, array('advantages'));
 
         $this->setParentParentAssociationMapping('advantages');
 
         $this->configureProperties(true);
-
     }
-
 
     /**
      * @param DatagridMapper $datagridMapper
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-
+        $datagridMapper
+            ->add('id')
+            ->add('name')
+            ->add('createdAt')
+            ->add('updatedAt');
     }
-
 
     /**
      * @param ListMapper $listMapper
@@ -67,36 +65,26 @@ class AdvantagesItemAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $subject = $this->getSubject();
-
         $formMapper->tab('form.tab_main_advantages', array(
             'translation_domain' => $this->getTranslationDomain()
         ));
 
-
         $formMapper->with('form.tab_main', array(
             'name' => false
-        ))
-            ->add('id')
-            ->add('enabled')
-            ->add('advantages')
+        ));
 
-            ->add('name')
-            ->add('title')
-            ->add('description')
-
-        ;
-
-
+        $formMapper->add('id');
+        $formMapper->add('enabled');
+        $formMapper->add('advantages');
+        $formMapper->add('name');
+        $formMapper->add('title');
+        $formMapper->add('description');
         $formMapper->add('url');
-
         $formMapper->add('image');
 
         $formMapper->end();
-
         $formMapper->end();
     }
-
 
     /**
      * @param ShowMapper $showMapper
@@ -113,7 +101,6 @@ class AdvantagesItemAdmin extends AbstractAdmin
             ->add('updatedAt')
             ->add('deletedAt');
     }
-
 
     /**
      * {@inheritDoc}
@@ -132,12 +119,16 @@ class AdvantagesItemAdmin extends AbstractAdmin
         }
     }
 
+    /**
+     * @param MenuItemInterface $advantages
+     * @param $action
+     * @param AdminInterface|null $childAdmin
+     */
     public function configureTabAdvantagesItem(MenuItemInterface $advantages, $action, AdminInterface $childAdmin = null)
     {
         $advantages->addChild(
             $this->trans('tab_menu.link_edit'),
             array('uri' => $this->generateUrl('edit', array('id' => $this->getSubject()->getId())))
         );
-
     }
 }

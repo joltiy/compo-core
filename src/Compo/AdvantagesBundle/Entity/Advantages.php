@@ -27,7 +27,4 @@ class Advantages
 
     use \Gedmo\Timestampable\Traits\TimestampableEntity;
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
-
-
-
 }

@@ -3,6 +3,8 @@
 {% import _self as tree %}
 
 {% macro renderNodes(nodesList, lvl, dropdown) %}
+    {% import _self as tree %}
+
     <ul {% if dropdown|default(false) %}class="dropdown-menu"{% else %} class="nav navbar-nav" {% endif %}>
         {% for node in nodesList %}
             {% if node.__children|length %}
@@ -11,7 +13,7 @@
                         {{ node.name }}
                         <span class="caret"></span>
                     </a>
-                    {{ _self.renderNodes(node.__children, node.lvl+1, true) }}
+                    {{ tree.renderNodes(node.__children, node.lvl+1, true) }}
                 </li>
             {% else %}
                 <li {% if app.request.requestUri == node.url %} class="active" {% endif %}>

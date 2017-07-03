@@ -56,60 +56,6 @@ class AdvantagesItem
      */
     protected $advantages;
 
-
-    /**
-     * @var string
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $type;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Compo\Sonata\PageBundle\Entity\Page")
-     * @ORM\JoinColumn(name="page_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
-     */
-    protected $page;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="page_id", type="integer", nullable=true)
-     */
-    protected $page_id;
-
-
-    /**
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * @param string $type
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPage()
-    {
-        return $this->page;
-    }
-
-    /**
-     * @param mixed $page
-     */
-    public function setPage($page)
-    {
-        $this->page = $page;
-    }
-
-
     /**
      * Get title
      *
@@ -158,7 +104,6 @@ class AdvantagesItem
         return $this;
     }
 
-
     /**
      * @return mixed
      */
@@ -174,6 +119,5 @@ class AdvantagesItem
     {
         $this->advantages = $advantages;
     }
-
 
 }

@@ -48,14 +48,7 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
 <div><strong>+7 (495) 727-75-73</strong></div>
 <div><strong>+7 (495) 003-12-29</strong></div>
 </div>',
-            'footer_payments' => '<ul>
-	<li><img alt="Visa" src="http://www.dlyavann.ru/assets/compo/img/payments/visa.png" /></li>
-	<li><img alt="Master Card" src="http://www.dlyavann.ru/assets/compo/img/payments/mastercard.png" /></li>
-	<li><img alt="Сбербанк Онлайн" src="http://www.dlyavann.ru/assets/compo/img/payments/sberbank.png" /></li>
-	<li><img alt="Альфа Клик" src="http://www.dlyavann.ru/assets/compo/img/payments/alfabank-white.png" /></li>
-	<li><img alt="Яндекс Деньги" src="http://www.dlyavann.ru/assets/compo/img/payments/yandexmoney.png" /></li>
-	<li><img alt="Qiwi" src="http://www.dlyavann.ru/assets/compo/img/payments/qiwi.png" /></li>
-</ul>',
+
 
             'logo_image' => null,
         ];
@@ -92,7 +85,6 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
 
                     'footer_address' => ['string', 'NULL'],
                     'footer_phones' => ['string', 'NULL'],
-                    'footer_payments' => ['string', 'NULL'],
 
                     'logo_image' => array('null', 'integer', 'object'),
 
@@ -138,7 +130,6 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
         $footer_tab->add('footer_copyright', CKEditorType::class);
         $footer_tab->add('footer_address', CKEditorType::class);
         $footer_tab->add('footer_phones', CKEditorType::class);
-        $footer_tab->add('footer_payments', CKEditorType::class);
 
 
         $logo_tab = $builder->create('logo_tab', TabType::class, array(

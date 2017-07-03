@@ -1,3 +1,4 @@
 sonata_block:
     blocks:
         compo_advantages.block.service.advantages:
+            cache: sonata.cache.memcached

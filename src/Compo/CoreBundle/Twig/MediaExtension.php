@@ -89,6 +89,8 @@ class MediaExtension extends \Twig_Extension
         return 'compo_media';
     }
 
+
+
     public function getPath($media, $options = array())
     {
         $format = 'reference';

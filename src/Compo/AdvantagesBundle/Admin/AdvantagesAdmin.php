@@ -26,23 +26,27 @@ class AdvantagesAdmin extends AbstractAdmin
         $this->configureProperties(true);
     }
 
-
     /**
      * {@inheritDoc}
      */
     public function postRemove($object)
     {
-        $advantages_items = $this->getDoctrine()->getRepository('CompoAdvantagesBundle:AdvantagesItem')->findBy(array('advantages' => $object));
+        $em = $this->getDoctrine()->getManager();
+
+        $advantages_items = $em->getRepository('CompoAdvantagesBundle:AdvantagesItem')->findBy(array('advantages' => $object));
 
         /** @var AdvantagesItem $item */
         foreach ($advantages_items as $item) {
             $item->setDeletedAt(new \DateTime());
 
-            $this->getDoctrine()->getManager()->persist($item);
+            $em->persist($item);
         }
 
-        $this->getDoctrine()->getManager()->flush();
+        $em->flush();
     }
+
+
+
 
     /**
      * @param DatagridMapper $datagridMapper
@@ -68,6 +72,7 @@ class AdvantagesAdmin extends AbstractAdmin
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'edit' => array(),
+                    'list' => array('route' => 'compo_advantages.admin.advantages|compo_advantages.admin.advantages_item.list'),
                     'delete' => array(),
                 )
             ));
@@ -78,16 +83,15 @@ class AdvantagesAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper
-            ->tab('form.tab_main')
-            ->with('form.group_main', array('name' => false))
-            ->add('id')
-            ->add('name')
-            ->add('description');
+        $formMapper->tab('form.tab_main');
+        $formMapper->with('form.group_main', array('name' => false));
 
-        $formMapper
-            ->end()
-            ->end();
+        $formMapper->add('id');
+        $formMapper->add('name');
+        $formMapper->add('description');
+
+        $formMapper->end();
+        $formMapper->end();
     }
 
     /**
@@ -105,7 +109,6 @@ class AdvantagesAdmin extends AbstractAdmin
      */
     protected function configureTabMenu(MenuItemInterface $advantages, $action, AdminInterface $childAdmin = null)
     {
-
         if (!$childAdmin && in_array($action, array('edit'))) {
             $this->configureTabAdvantagesList($advantages, $action);
         }

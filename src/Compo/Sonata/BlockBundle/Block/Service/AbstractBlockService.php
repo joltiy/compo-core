@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Compo\Sonata\BlockBundle\Block\Service;
 
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
@@ -10,9 +9,13 @@ use Sonata\CoreBundle\Model\Metadata;
 use Sonata\CoreBundle\Validator\ErrorElement;
 use Sonata\BlockBundle\Model\BlockInterface;
 
+/**
+ * {@inheritDoc}
+ */
 class AbstractBlockService extends BaseAbstractBlockService
 {
     use ContainerAwareTrait;
+
     /**
      * @param ErrorElement $errorElement
      * @param BlockInterface $block

@@ -31,39 +31,39 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
     /**
      * @var \Doctrine\Common\Persistence\ObjectManager
      */
-    public $em;
+    protected $em;
 
     /**
      * @var OutputInterface
      */
-    public $output;
+    protected $output;
 
     /**
      * @var string
      */
-    public $database_name = 'dlyavann';
+    protected $database_name = 'dlyavann';
 
-    public $features = array();
+    protected $features = array();
 
     /**
      * @var \Doctrine\DBAL\Connection
      */
-    public $oldConnection;
+    protected $oldConnection;
 
-    public $oldMediaPath = 'http://www.dlyavann.ru/dbpics/';
+    protected $oldMediaPath = 'http://www.dlyavann.ru/dbpics/';
 
-    public $oldFilesPath = 'http://www.dlyavann.ru/files/';
+    protected $oldFilesPath = 'http://www.dlyavann.ru/files/';
 
-    public $rootCatalog;
+    protected $rootCatalog;
 
 
-    public $dbpics = array();
-    public $tables = array();
+    protected $dbpics = array();
+    protected $tables = array();
 
-    public $limit = false;
-    public $drop = false;
+    protected $limit = false;
+    protected $drop = false;
 
-    public $data = array(
+    protected $data = array(
         'Currency' => array(),
         'ProductAvailability' => array(),
         'Supplier' => array(),
@@ -142,7 +142,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
      * @param $name
      * @return \Doctrine\Common\Persistence\ObjectRepository
      */
-    public function getCurrentRepository($name) {
+    protected function getCurrentRepository($name) {
         return $this->em->getRepository($name);
     }
 
@@ -151,7 +151,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
      * @param $table
      * @return array
      */
-    public function getOldData($name, $table) {
+    protected function getOldData($name, $table) {
         $oldData = $this->oldConnection->fetchAll('SELECT * FROM `'.$table.'` ORDER BY id');
 
         $this->output->writeln($name . '. Count: ' . count($oldData));
@@ -163,7 +163,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
     /**
      * @param $currentRepository \Doctrine\Common\Persistence\ObjectRepository
      */
-    public function clearCurrent($currentRepository, $clear = true) {
+    protected function clearCurrent($currentRepository, $clear = true) {
 
         $this->writelnMemmory('clearCurrent ' . $currentRepository->getClassName());
 
@@ -232,7 +232,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
 
 
 
-    public function clearMemmory($entity) {
+    protected function clearMemmory($entity) {
 
         $this->em->detach($entity);
 
@@ -245,7 +245,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
         $this->writelnMemmory();
     }
 
-    public function process()
+    protected function process()
     {
         $this->processMedia();
         $this->processRootCatalog();
@@ -273,7 +273,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
     }
 
 
-    public function processMedia()
+    protected function processMedia()
     {
         $db_pics = $this->oldConnection->fetchAll('SELECT * FROM db_pics ORDER BY id ASC');
 
@@ -318,7 +318,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
         }
     }
 
-    public function writelnMemmory($prefix = '') {
+    protected function writelnMemmory($prefix = '') {
         if ($prefix) {
             $this->output->writeln($prefix);
         }
@@ -326,7 +326,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
         $this->output->writeln('Memmory: ' . number_format((memory_get_usage()), 0, ',', ' ') . ' B');
     }
 
-    public function processRootCatalog()
+    protected function processRootCatalog()
     {
         $catalogRepository = $this->em->getRepository('CompoCatalogBundle:Catalog');
 
@@ -346,7 +346,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
 
     }
 
-    public function processCurrency()
+    protected function processCurrency()
     {
         $currencyArray = array(
             array(
@@ -419,7 +419,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
         $this->em->flush();
     }
 
-    public function changeIdGenerator($newItem)
+    protected function changeIdGenerator($newItem)
     {
         $metadata = $this->em->getClassMetaData(get_class($newItem));
         /** @noinspection PhpUndefinedMethodInspection */
@@ -428,7 +428,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
         $metadata->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());
     }
 
-    public function processProductAvailability()
+    protected function processProductAvailability()
     {
         $currencyArray = array(
             array(
@@ -501,7 +501,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
         $this->em->flush();
     }
 
-    public function processSupplier()
+    protected function processSupplier()
     {
         $name = 'Supplier';
 
@@ -541,7 +541,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
         $this->em->flush();
     }
 
-    public function processCountry()
+    protected function processCountry()
     {
         $name = 'Country';
 
@@ -584,7 +584,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
         $this->em->flush();
     }
 
-    public function processManufacture()
+    protected function processManufacture()
     {
         $countryRepository = $this->em->getRepository('CompoCountryBundle:Country');
 
@@ -640,7 +640,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
         $this->em->flush();
     }
 
-    public function downloadMedia($id)
+    protected function downloadMedia($id)
     {
         if (isset($this->dbpics[$id]) && $this->dbpics[$id]['media_id']) {
             $container = $this->getContainer();
@@ -653,7 +653,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
         }
     }
 
-    public function processCollection()
+    protected function processCollection()
     {
         $manufactureRepository = $this->em->getRepository('CompoManufactureBundle:Manufacture');
 
@@ -708,7 +708,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
         $this->em->flush();
     }
 
-    public function processCatalog()
+    protected function processCatalog()
     {
 
 
@@ -775,7 +775,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
 
     // Дополнительные комплектации (старые): complects_additional - complectset
 
-    public function processProduct()
+    protected function processProduct()
     {
         $ProductAdditionalImagesRepository = $this->em->getRepository('CompoProductBundle:ProductAdditionalImages');
         $ProductAdditionalFilesRepository = $this->em->getRepository('CompoProductBundle:ProductAdditionalFiles');
@@ -993,7 +993,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
 
     // Комплектации (старые): Товар - варианты
 
-    public function downloadFile($id, $oldDataPhotos_item)
+    protected function downloadFile($id, $oldDataPhotos_item)
     {
         try {
             $kernel = $this->getContainer()->get('kernel');
@@ -1030,7 +1030,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
 
     // Акксесуары - Доп. комплектации 2.0: Товар - Товар
 
-    public function processFeatures()
+    protected function processFeatures()
     {
 
         $featureAttributeRepositoru = $this->em->getRepository('CompoFeaturesBundle:FeatureAttribute');
@@ -1256,7 +1256,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
 
 // Варианты - Комплектации 2.0: Товар - Товар
 
-    public function processProductVariation()
+    protected function processProductVariation()
     {
         $ProductVariationRepository = $this->em->getRepository('CompoProductBundle:ProductVariation');
 

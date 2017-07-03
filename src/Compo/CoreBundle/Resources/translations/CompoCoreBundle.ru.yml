@@ -16,7 +16,6 @@ form:
     label_settings_email: E-mail
     label_settings_footer_address: Адрес
     label_settings_footer_copyright: Копирайты
-    label_settings_footer_payments: 'Способы оплаты'
     label_settings_footer_phones: Телефоны
     label_settings_header_phones: Телефоны
     label_settings_header_timework: 'Режим работы'

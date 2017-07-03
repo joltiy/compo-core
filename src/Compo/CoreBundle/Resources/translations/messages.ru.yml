@@ -357,7 +357,7 @@ media_image_group: 'Изображение'
 media_images_additional_group: 'Дополнительные изображения'
 media_files_additional_group: 'Дополнительные файлы'
 
-form.label_settings_footer_payment_slider: 'Способы оплаты'
+form.label_settings_footer_payment_banner: 'Способы оплаты'
 
 form.label_settings_footer_menu_catalog_1_column: 'Меню в подвале (1 колонка)'
 form.label_settings_footer_menu_catalog_2_column: 'Меню в подвале (2 колонка)'

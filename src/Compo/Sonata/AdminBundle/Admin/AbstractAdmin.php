@@ -36,6 +36,14 @@ class AbstractAdmin extends BaseAdmin
         $this->setSettingsNamespace($settingsNamespace);
     }
 
+    public function clearCache($key) {
+        $em = $this->getDoctrine()->getManager();
+
+        $cacheDriver = $em->getConfiguration()->getResultCacheImpl();
+
+        $cacheDriver->delete($key);
+    }
+
     /**
      * @return string
      */
