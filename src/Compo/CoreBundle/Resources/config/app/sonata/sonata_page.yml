@@ -49,7 +49,7 @@ sonata_page:
         service:  sonata.page.cache.invalidation.simple
         recorder: sonata.page.cache.recorder
         classes:
-            "Compo\Sonata\PageBundle\Entity\Block": getId
+            Compo\Sonata\PageBundle\Entity\Block: getId
 
 
 

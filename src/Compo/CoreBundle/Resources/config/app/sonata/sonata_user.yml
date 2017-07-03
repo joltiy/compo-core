@@ -27,23 +27,7 @@ sonata_user:
 
     google_authenticator:
         server:               "%sonata_user.google_authenticator.server%"
-        enabled:              true
+        enabled:              false
 
     manager_type:             orm
 
-    profile:
-        dashboard:
-            blocks:
-                - { position: left, type: sonata.block.service.text, settings: { content: "<h2>Welcome!</h2> <p>This is a sample user profile dashboard, feel free to override it in the configuration! Want to make this text dynamic? For instance display the user's name? Create a dedicated block and edit the configuration!</p>"} }
-                - { position: right, type: sonata.timeline.block.timeline, settings: { max_per_page: 15 }}
-        menu:
-            - { route: 'sonata_user_profile_show', label: 'sonata_profile_title', domain: 'SonataUserBundle'}
-            - { route: 'sonata_user_profile_edit', label: 'link_edit_profile', domain: 'SonataUserBundle'}
-        form:
-            type:                 sonata_user_profile
-            handler:              sonata.user.profile.form.handler.default
-            name:                 sonata_user_profile_form
-            validation_groups:
-                # Defaults:
-                - Profile
-                - Default

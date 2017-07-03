@@ -32,6 +32,6 @@ services:
 
   sonata.user.editable_role_builder:
       class: Compo\Sonata\UserBundle\Security\EditableRolesBuilder
-      arguments: ["@security.context", "@security.context", "@sonata.admin.pool", "%security.role_hierarchy.roles%"]
+      arguments: ["@security.token_storage", "@security.authorization_checker", "@sonata.admin.pool", "%security.role_hierarchy.roles%"]
 
 

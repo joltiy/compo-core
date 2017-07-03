@@ -26,6 +26,8 @@ class AppKernel extends Kernel
             new \Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new \Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
 
+            new \Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+
             new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new \Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new \Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
@@ -40,7 +42,7 @@ class AppKernel extends Kernel
             new \FOS\ElasticaBundle\FOSElasticaBundle(),
             new \FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 
-            new \Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+
             new \Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new \SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
             new \Nelmio\ApiDocBundle\NelmioApiDocBundle(),
@@ -152,9 +154,11 @@ class AppKernel extends Kernel
 
     protected function initializeContainer() {
         parent::initializeContainer();
+        /*
         if (PHP_SAPI == 'cli') {
             $this->getContainer()->enterScope('request');
             $this->getContainer()->set('request', new \Symfony\Component\HttpFoundation\Request(), 'request');
         }
+        */
     }
 }
