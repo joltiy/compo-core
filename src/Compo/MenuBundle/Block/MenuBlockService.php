@@ -25,10 +25,11 @@ class MenuBlockService extends AbstractBlockService
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
-        $em = $this->container->get("doctrine.orm.entity_manager");
+        $em = $this->getContainer()->get('doctrine')->getManager();
 
         $settings = $blockContext->getSettings();
 
+        dump($settings);
         $menu = null;
 
         $tree = array();
@@ -90,7 +91,6 @@ class MenuBlockService extends AbstractBlockService
                 $catalogManager = $this->getContainer()->get('compo_catalog.manager.catalog');
 
                 $item['url'] = $catalogManager->getCatalogTaggingShowPermalink($nodeItem->getTagging()->getSlug());
-
 
 
                 $criteria = array();
@@ -181,5 +181,33 @@ class MenuBlockService extends AbstractBlockService
             'id' => null,
             'template' => 'CompoMenuBundle:Menu:base_menu.html.twig',
         ));
+    }
+
+    public function getCacheKeys(BlockInterface $block)
+    {
+        $settings = $block->getSettings();
+
+        if (isset($settings['id'])) {
+            $em = $this->getContainer()->get("doctrine")->getManager();
+
+            /** @var MenuRepository $repository */
+            $repository = $em->getRepository("CompoMenuBundle:Menu");
+
+            $item = $repository->find($settings['id']);
+
+            $key = "CompoMenuBundle:Menu:" . $settings['id'];
+
+            if (isset($settings['template'])) {
+                $key = $key . ':' . $settings['template'];
+            }
+
+            return array(
+                'block_id' => $key,
+                'updated_at' => $item->getUpdatedAt()->format('U'),
+            );
+        } else {
+            return parent::getCacheKeys($block);
+        }
+
     }
 }

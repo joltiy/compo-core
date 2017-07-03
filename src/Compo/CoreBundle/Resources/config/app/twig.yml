@@ -20,3 +20,4 @@ twig:
 
     globals:
         ivory_ck_editor_plugin_manager: "@ivory_ck_editor.plugin_manager"
+        compo_core_manager: "@compo_core.manager"

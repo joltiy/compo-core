@@ -83,6 +83,10 @@ services:
         class: Compo\CoreBundle\Manager\ThemeManager
         parent: compo_core.abstract_container_aware
 
+    compo_core.manager:
+        class: Compo\CoreBundle\Manager\CoreManager
+        parent: compo_core.abstract_container_aware
+
     sylius.theme.translation.translator:
         class: Compo\CoreBundle\Translation\ThemeTranslator
         arguments:
@@ -90,8 +94,7 @@ services:
             - "@sylius.theme.translation.resource_provider"
             - "@translator.selector"
             - "%kernel.default_locale%"
-            - {"cache_dir": %kernel.cache_dir%/translations, "debug": "%kernel.debug%"}
-
+            - {"cache_dir": "%kernel.cache_dir%/translations", "debug": "%kernel.debug%"}
 
 
     quiet_property_accessor:

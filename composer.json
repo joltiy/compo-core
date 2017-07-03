@@ -11,12 +11,9 @@
   ],
   "autoload": {
     "psr-4": {
-      "": "src/",
-      "Pix\\SortableBehaviorBundle\\": "src/Pix/PixSortableBehaviorBundle/"
-    },
-    "classmap": [
-      "src/Compo/CoreBundle/Doctrine/VendorOverride/DisconnectedMetadataFactory.php"
-    ]
+      "Compo\\": "src",
+      "Pix\\SortableBehaviorBundle\\": "src/Pix/PixSortableBehaviorBundle"
+    }
   },
   "require": {
     "ext-intl": "*",
