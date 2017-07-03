@@ -21,77 +21,77 @@ php composer.phar update -o
 **Обновить Compo**
 
 ```
-php app/console compo:update --env=prod
-app/console compo:update --env=prod
+php bin/console compo:update --env=prod
+bin/console compo:update --env=prod
 ```
 
 **Генерировать бандл**
 
 ```
-php app/console generate:bundle
+php bin/console generate:bundle
 ```
 
 **Генерировать миграции**
 
 ```
-php app/console doctrine:migrations:diff
+php bin/console doctrine:migrations:diff
 ```
 
 **Выполнить миграции**
 
 ```
-php app/console doctrine:migrations:migrate
+php bin/console doctrine:migrations:migrate
 ```
 
 **Обновить sonata page маршруты**
 
 ```
-php app/console sonata:page:update-core-routes
+php bin/console sonata:page:update-core-routes
 ```
 
 **Удалить кеш**
 
 ```
-rm -rf app/cache/dev/*
-rm -rf app/cache/prod/*
+rm -rf var/cache/dev/*
+rm -rf var/cache/prod/*
 ```
 
 **Очистка и прогрев кеша**
 
 ```
-php app/console cache:clear --env=dev
-php app/console cache:clear --env=prod
+php bin/console cache:clear --env=dev
+php bin/console cache:clear --env=prod
 ```
 
 **Прогрев кеша**
 
 ```
-php app/console cache:warmup --env=dev
-php app/console cache:warmup --env=prod
+php bin/console cache:warmup --env=dev
+php bin/console cache:warmup --env=prod
 ```
 
 **Сгенерировать файл перевода**
 
 ```
-php app/console translation:extract ru --config=app --output-format=yml --bundle=CompoProductBundle --domain=CompoProductBundle
+php bin/console translation:extract ru --config=app --output-format=yml --bundle=CompoProductBundle --domain=CompoProductBundle
 ```
 
 Сгенерировать файлы переводов, для всех Compo бандлов.
 
 ```
-php app/console compo:translation
+php bin/console compo:translation
 ```
 
 **Генерация симлинков assets**
 ```
 # make a hard copy of the assets in web/
-php app/console assets:install
+php bin/console assets:install
 
 # if possible, make absolute symlinks in web/ if not, make a hard copy
-php app/console assets:install --symlink
+php bin/console assets:install --symlink
 
 # if possible, make relative symlinks in web/ if not, make a hard copy
-php app/console assets:install --symlink --relative
+php bin/console assets:install --symlink --relative
 ```
 Лучше всегда использовать ключ --symlink --relative
 
@@ -102,16 +102,16 @@ $ php bin/console assetic:dump --env=prod --no-debug
 
 **Генерация моделей**
 ```
-php app/console doctrine:generate:entities SampleBundle
+php bin/console doctrine:generate:entities SampleBundle
 ```
 
 **Генерация админки**
 ```
-php app/console sonata:admin:generate Compo/SampleBundle/Entity/Sample
+php bin/console sonata:admin:generate Compo/SampleBundle/Entity/Sample
 ```
 **Генерация переводов**
 ```
-php app/console translation:extract ru --config=app --output-format=yml --bundle=CompoBlogBundle --domain=CompoBlogAdmin
+php bin/console translation:extract ru --config=app --output-format=yml --bundle=CompoBlogBundle --domain=CompoBlogAdmin
 ```
 **Дамп autoload файлов**
 ```

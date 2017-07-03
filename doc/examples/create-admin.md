@@ -5,7 +5,7 @@ https://sonata-project.org/bundles/admin/master/doc/index.html
 Админка генерируется из описания модели.
 
 ```
-php app/console sonata:admin:generate Compo/SampleBundle/Entity/Sample
+php bin/console sonata:admin:generate Compo/SampleBundle/Entity/Sample
 ```
 
 Необходимо отметить, что бы был сгенерирован класс контроллера для админки, потом пригодится.
@@ -16,7 +16,7 @@ Do you want to generate a controller [no]? yes
 
 Или
 ```
-php app/console sonata:admin:generate --no-interaction --controller=SampleAdminController Compo/SampleBundle/Entity/Sample
+php bin/console sonata:admin:generate --no-interaction --controller=SampleAdminController Compo/SampleBundle/Entity/Sample
 ```
 
 Сгеннерированао два файла, и обновлён один.
@@ -45,8 +45,8 @@ The service "compo_sample.admin.sample" has been appended to the file "/src/Comp
 Поэтому, необходимо сделать ещё одну миграцию, для создания таблицы для аудита.
 
 ```
-php app/console doctrine:migrations:diff
-php app/console doctrine:migrations:migrate
+php bin/console doctrine:migrations:diff
+php bin/console doctrine:migrations:migrate
 ```
 
 ## Класс админки

@@ -14,39 +14,39 @@
 
 [/app/](/app/)
 
-[/app/cache](/app/cache) - кеш приложения, временные файлы. В зависимости от окружения (prod/dev/test...) - своя директория кеша.
+[/var/cache](/var/cache) - кеш приложения, временные файлы. В зависимости от окружения (prod/dev/test...) - своя директория кеша.
 В кеше: контейнер зависимостей, конфигов, шаблоны, и прочее… 
 многое компилируется и кешируется, при включёном APC - выше производительность.
 
 В случае работы в dev-окружении, cache почти не используется. Но иногда необходимо его чистить
 
 ```
-php app/console cache:clear
+php bin/console cache:clear
 ```
 
 Или
 
 
 ```
-rm -rf app/cache/dev/*
+rm -rf var/cache/dev/*
 ```
 
 Для prod окружения, после правок в шаблоны… или модели, кеш чистить нужно каждый раз
 
 ```
-php app/console cache:clear --env=prod
+php bin/console cache:clear --env=prod
 ```
 
 Или
 
 ```
-rm -rf app/cache/prod/*
+rm -rf var/cache/prod/*
 ```
 
 
-[/app/cache/sessions](/app/cache/sessions) - сессии пользователей.
+[/var/sessions](/var/sessions) - сессии пользователей.
   
-[/app/logs](/app/logs) - логи, в зависимости от окружения. Level (info, notice, error) - настраивается в конфиге. Для каждого окружения.
+[/var/logs](/var/logs) - логи, в зависимости от окружения. Level (info, notice, error) - настраивается в конфиге. Для каждого окружения.
 
 [/app/migraions](/app/migraions) - миграции БД.
 
@@ -59,9 +59,9 @@ Compo\CoreBundle\Kerne\AppKernel.
 
 [/app/autoload.php](/app/autoload.php) - Автозагрузка классов. Composer autoload.
 
-[/app/bootstrap.php.cache](/app/bootstrap.php.cache) - генерируемое минимальное ядро Symfony, после обновления зависимостей.
+[/var/bootstrap.php.cache](/app/bootstrap.php.cache) - генерируемое минимальное ядро Symfony, после обновления зависимостей.
 
-[/app/check.php](/app/check.php) - проверка готовности окружения для запуска приложения. Например, установлены ли необходимые PHP-расширения.
+[/var/check.php](/app/check.php) - проверка готовности окружения для запуска приложения. Например, установлены ли необходимые PHP-расширения.
 
 [/app/SymfonyRequirements.php](/app/SymfonyRequirements.php) - генерируемый после обновления зависимостей, для check.php
 
@@ -102,13 +102,13 @@ http://symfony.com/doc/current/cookbook/assetic/asset_management.html
 Компилировать
 
 ```
-php app/console assetic:dump
+php bin/console assetic:dump
 ```
 
 Следить и компилировать. Запускать при разработке, в случае работы с CSS/JS...
 
 ```
-php app/console assetic:watch
+php bin/console assetic:watch
 ```
 
 По умолчанию, assetic настроен с фильтром для компрессии с **yuicompressor.jar**, необходима Java
@@ -119,7 +119,7 @@ php app/console assetic:watch
 Если добавлен новый бандл, или создан новый ресурс, то выполнить:
 
 ```
-app/console assets:install
+bin/console assets:install
 ```
 
 [/web/uploads](/web/uploads) - данные пользователей

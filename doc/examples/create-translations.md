@@ -20,7 +20,7 @@ class ProductAdmin extends Admin
 Сгенерировать файл перевода:
 
 ```
-php app/console translation:extract ru --config=app --output-format=yml --bundle=CompoProductBundle --domain=CompoProductBundle
+php bin/console translation:extract ru --config=app --output-format=yml --bundle=CompoProductBundle --domain=CompoProductBundle
 ```
 
 Будет создан или обновлён файл локализации. Который необходимо перевести.
@@ -34,7 +34,7 @@ php app/console translation:extract ru --config=app --output-format=yml --bundle
 Можно сгенерировать/обновить файлы переводов, для всех Compo бандлов, у которых указан **$translationDomain**:
 
 ```
-php app/console compo:translation
+php bin/console compo:translation
 ```
 
 ## Файл переводов по умолчанию

@@ -57,13 +57,13 @@ php app/check.php
 [InstallCommand](./src/Compo/CoreBundle/Command/InstallCommand.php)
 
 ```
-php app/console compo:install --env=prod
+php bin/console compo:install --env=prod
 ```
 
 **Настроить HTTP-сервер, либо запустить встроенный PHP-WEB сервер.**
 
 ```
-php app/console server:run localhost:9091
+php bin/console server:run localhost:9091
 ```
 
 
@@ -97,6 +97,6 @@ nano /c/Windows/System32/drivers/etc/hosts
 Выполнять не обязательно.
 
 ```
-php app/console cache:warmup --env=dev
-php app/console cache:warmup --env=prod
+php bin/console cache:warmup --env=dev
+php bin/console cache:warmup --env=prod
 ```

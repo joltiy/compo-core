@@ -35,6 +35,6 @@ php composer.phar install -o
 **Прогрев кеша**
 
 ```
-php app/console cache:warmup --env=dev
-php app/console cache:warmup --env=prod
+php bin/console cache:warmup --env=dev
+php bin/console cache:warmup --env=prod
 ```

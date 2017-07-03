@@ -27,11 +27,11 @@ set('copy_dirs', ['vendor']);
 /** @noinspection PhpUndefinedFunctionInspection */
 set('env', 'prod');
 /** @noinspection PhpUndefinedFunctionInspection */
-set('shared_dirs', array('app/logs', 'web/uploads', 'web/userfiles'));
+set('shared_dirs', array('var/logs', 'web/uploads', 'web/userfiles'));
 /** @noinspection PhpUndefinedFunctionInspection */
 set('shared_files', array('app/config/parameters.yml', 'web/robots.txt'));
 /** @noinspection PhpUndefinedFunctionInspection */
-set('writable_dirs', array('app/cache', 'app/logs', 'web/uploads'));
+set('writable_dirs', array('var/cache', 'var/sessions', 'var/logs', 'web/uploads'));
 
 /** @noinspection PhpUndefinedFunctionInspection */
 set('clear_paths', []);
@@ -88,8 +88,8 @@ task('database:sync-from-remote', function () {
     download( $exportDatabasePath, $localDatabasePath );
 
 
-    runLocally("cd " . $projectDir . " && " . " php app/console doctrine:database:drop --if-exists --force --quiet --no-interaction --no-debug");
-    runLocally("cd " . $projectDir . " && " . " php app/console doctrine:database:create --if-not-exists");
+    runLocally("cd " . $projectDir . " && " . " php bin/console doctrine:database:drop --if-exists --force --quiet --no-interaction --no-debug");
+    runLocally("cd " . $projectDir . " && " . " php bin/console doctrine:database:create --if-not-exists");
 
     $parameters = Yaml::parse(file_get_contents($projectDir . '/app/config/parameters.yml'));
 
@@ -115,7 +115,7 @@ task('uploads:sync-from-remote', function () {
 task('local:cache:clear', function (){
     $projectDir = runLocally('pwd');
 
-    runLocally("cd " . $projectDir . " && " . " rm -rf app/cache/dev app/cache/prod");
+    runLocally("cd " . $projectDir . " && " . " rm -rf var/cache/dev var/cache/prod");
 
 })->desc('local:cache:clear');
 
@@ -215,7 +215,7 @@ task('nginx:reload', function () {
 task('deploy:assetic:dump', function () {
     /** @noinspection PhpUndefinedFunctionInspection */
     if (get('dump_assets')) {
-        // php app/console sylius:theme:assets:install --symlink --relative
+        // php bin/console sylius:theme:assets:install --symlink --relative
 
         run('{{env_vars}} cd {{release_path}} && {{bin/php}} {{bin/console}} sylius:theme:assets:install --symlink --relative {{console_options}}');
 

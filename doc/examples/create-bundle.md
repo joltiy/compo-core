@@ -7,7 +7,7 @@ http://symfony.com/doc/current/book/page_creation.html
 ## Генерация
 
 ```
-php app/console generate:bundle --no-interaction --format=yml --dir=src --namespace="Compo\SampleBundle"
+php bin/console generate:bundle --no-interaction --format=yml --dir=src --namespace="Compo\SampleBundle"
 ```
 
 Будет сгенерирован бандл по шаблону.
@@ -104,14 +104,14 @@ http://compo-standard.prononaserver.ru/app_dev.php/sample/hello/USERNAME - 404. 
 При изменении маршрутов, добавлении новых, необходимо:
 
 ```
-php app/console sonata:page:update-core-routes --site=all
-php app/console sonata:page:create-snapshots --site=all
+php bin/console sonata:page:update-core-routes --site=all
+php bin/console sonata:page:create-snapshots --site=all
 ```
 
 Или:
 
 ```
-php app/console compo:update --env=prod
+php bin/console compo:update --env=prod
 ```
 
 http://compo-standard.prononaserver.ru/app_dev.php/sample/hello/USERNAME - теперь всё ок.

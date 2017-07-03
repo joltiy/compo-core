@@ -10,7 +10,7 @@
 
 
 ```
-app/console generate:doctrine:crud --no-interaction --format=yml --route-prefix=compo_sample --entity=CompoSampleBundle:Sample
+bin/console generate:doctrine:crud --no-interaction --format=yml --route-prefix=compo_sample --entity=CompoSampleBundle:Sample
 ```
 
 Это будет основой для дальнейших действий.
@@ -29,7 +29,7 @@ app/console generate:doctrine:crud --no-interaction --format=yml --route-prefix=
 Можно удалить [/src/Compo/SampleBundle/Resources/config/routing/]([/src/Compo/SampleBundle/Resources/config/routing/])
 
 ```
-php app/console compo:update --env=prod
+php bin/console compo:update --env=prod
 ```
 
 http://engine.optipro.ru/sample/ - все элементы

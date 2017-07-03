@@ -38,7 +38,7 @@ plugins=(symfony2 ssh-agent history-substring-search git complete)
 Добавить в конце, для автодоплнения аргументов коамнд Symfony^
 
 ```
-php app/console _completion --generate-hook --shell-type=zsh | source /dev/stdin
+php bin/console _completion --generate-hook --shell-type=zsh | source /dev/stdin
 ```
 
 

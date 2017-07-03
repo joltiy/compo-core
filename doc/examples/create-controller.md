@@ -19,14 +19,14 @@ http://symfony.com/doc/current/book/routing.html
 После добавления новых действий, изменения маршрутов, необходимо обновлять маршрутизацию в Sonata.
 
 ```
-php app/console sonata:page:update-core-routes --site=all
-php app/console sonata:page:create-snapshots --site=all
+php bin/console sonata:page:update-core-routes --site=all
+php bin/console sonata:page:create-snapshots --site=all
 ```
 
 Или
 
 ```
-php app/console compo:update
+php bin/console compo:update
 ```
 
 http://engine.optipro.ru/sample/create/random - создание случайного кол-ва элементов.
