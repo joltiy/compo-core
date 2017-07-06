@@ -17,16 +17,17 @@ class ArticlesController extends Controller
     public function indexAction(Request $request)
     {
         $manager = $this->get('compo_articles.manager.articles');
-        $seoPage = $this->get('sonata.seo.page');
 
         $page = $request->get('page', 1);
 
         $pager = $manager->getPager(array(), $page);
 
+        $seoPage = $this->get('sonata.seo.page');
         $seoPage->setContext('compo_articles');
         $seoPage->addVar('page', $page);
         $seoPage->addVar('total_pages', $pager->getPageCount());
         $seoPage->build();
+
 
         return $this->render('CompoArticlesBundle:Articles:index.html.twig', array(
             'pager' => $pager,
@@ -50,7 +51,6 @@ class ArticlesController extends Controller
         $manager->increaseViews($article);
 
         $seoPage = $this->get('sonata.seo.page');
-
         $seoPage->setContext('compo_articles');
         $seoPage->addVar('article', $article);
         $seoPage->build();

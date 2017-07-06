@@ -1,5 +1,5 @@
 compo_faq_index:
-    path:     /faq
+    path:     /faq/
     defaults: { _controller: "CompoFaqBundle:Faq:index" }
     methods:  GET
 

@@ -37,7 +37,7 @@ class AdvantagesBlockService extends AbstractBlockService
             $list = $repository->findBy(array('advantages' => $settings['id']));
         }
 
-        return $this->renderResponse($blockContext->getTemplate(), array(
+        return $this->renderResponse($settings['template'], array(
             'list' => $list,
             'block' => $blockContext->getBlock(),
             'settings' => $blockContext->getSettings(),
@@ -77,21 +77,28 @@ class AdvantagesBlockService extends AbstractBlockService
     {
         $settings = $block->getSettings();
 
+        $keys = parent::getCacheKeys($block);
+
+        $keys['environment'] = $this->getContainer()->get('kernel')->getEnvironment();
+
         if (isset($settings['id'])) {
             $em = $this->getContainer()->get("doctrine")->getManager();
 
             /** @var AdvantagesRepository $repository */
             $repository = $em->getRepository("CompoAdvantagesBundle:Advantages");
 
-            $advantages = $repository->find($settings['id']);
+            $item = $repository->find($settings['id']);
 
-            return array(
-                'block_id' => "CompoAdvantagesBundle:Advantages:" . $settings['id'],
-                'updated_at' => $advantages->getUpdatedAt()->format('U'),
-            );
-        } else {
-            return parent::getCacheKeys($block);
+            $key = $this->getName() . ':' . $settings['id'];
+
+            if (isset($settings['template'])) {
+                $key = $key . ':' . $settings['template'];
+            }
+
+            $keys['block_id'] = $key;
+            $keys['updated_at'] = $item->getUpdatedAt()->format('U');
         }
 
+        return $keys;
     }
 }

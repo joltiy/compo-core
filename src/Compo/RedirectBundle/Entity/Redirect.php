@@ -85,7 +85,7 @@ class Redirect
 
     public function __toString()
     {
-        return $this->urIn;
+        return (string)$this->urIn;
     }
 }
 

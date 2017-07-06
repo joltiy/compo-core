@@ -36,3 +36,7 @@ Message: Сообщение
 Phone: Телефон
 compo_feedback.feedback: 'Форма обратной связи'
 compo_feedback.write_to_director: 'Написать директору'
+
+list.label_phone: 'Телефон'
+list.label_email: 'E-mail'
+form.label_page: 'Страница'

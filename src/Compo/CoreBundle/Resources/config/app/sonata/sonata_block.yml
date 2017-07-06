@@ -3,6 +3,8 @@ sonata_block:
     default_contexts: [sonata_page_bundle]
 
     http_cache:
+        handler: sonata.block.cache.handler.default # default value
+
         listener: true
 
     menus: ~

@@ -60,9 +60,12 @@
                 <nav class="navbar navbar-default ">
                     <div class="row">
                         <div class="col-sm-12 col-md-8 col-lg-8">
-                            {{ sonata_block_render({ 'type': 'compo_menu.block.service.menu' , 'settings':  {
-                                'id': compo_core_settings.header_menu
-                            }}) }}
+                            {{ sonata_block_render({
+                                'type': 'compo_menu.block.service.menu',
+                                'settings': {
+                                    'id': compo_core_settings.header_menu
+                                }
+                            }) }}
                         </div>
                     </div>
                 </nav>

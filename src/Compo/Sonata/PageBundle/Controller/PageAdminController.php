@@ -152,6 +152,75 @@ class PageAdminController extends Controller
 
         return parent::createAction();
     }
+    public function composeAction(Request $request = null)
+    {
+        $this->admin->checkAccess('compose');
+        if (false === $this->get('sonata.page.admin.block')->isGranted('LIST')) {
+            throw new AccessDeniedException();
+        }
+
+        $id = $request->get($this->admin->getIdParameter());
+        $page = $this->admin->getObject($id);
+        if (!$page) {
+            throw new NotFoundHttpException(sprintf('unable to find the page with id : %s', $id));
+        }
+
+        $containers = array();
+        $orphanContainers = array();
+        $children = array();
+
+        $templateManager = $this->get('sonata.page.template_manager');
+        $template = $templateManager->get($page->getTemplateCode());
+        $templateContainers = $template->getContainers();
+
+        foreach ($templateContainers as $id => $container) {
+            $containers[$id] = array(
+                'area' => $container,
+                'block' => false,
+            );
+        }
+
+        // 'attach' containers to corresponding template area, otherwise add it to orphans
+        foreach ($page->getBlocks() as $block) {
+            $blockCode = $block->getSetting('code');
+            if ($block->getParent() === null) {
+                if (isset($containers[$blockCode])) {
+                    $containers[$blockCode]['block'] = $block;
+                } else {
+                    $orphanContainers[] = $block;
+                }
+            } else {
+                $children[] = $block;
+            }
+        }
+
+        // searching for block defined in template which are not created
+        $blockInteractor = $this->get('sonata.page.block_interactor');
+
+        foreach ($containers as $id => $container) {
+            if ($container['block'] === false && $templateContainers[$id]['shared'] === false) {
+                $blockContainer = $blockInteractor->createNewContainer(array(
+                    'page' => $page,
+                    'name' => $templateContainers[$id]['name'],
+                    'code' => $id,
+                ));
+
+                $containers[$id]['block'] = $blockContainer;
+            }
+        }
+
+        return $this->render($this->admin->getTemplate('compose'), array(
+            'object' => $page,
+            'action' => 'edit',
+            'template' => $template,
+            'page' => $page,
+            'containers' => $containers,
+            'orphanContainers' => $orphanContainers,
+            'csrfTokens' => array(
+                'remove' => $this->getCsrfToken('sonata.delete'),
+            ),
+        ));
+    }
 
     /**
      * @param Request|null $request
@@ -161,7 +230,7 @@ class PageAdminController extends Controller
      * @throws AccessDeniedException
      * @throws NotFoundHttpException
      */
-    public function composeAction(Request $request = null)
+    public function compose2Action(Request $request = null)
     {
         $this->admin->checkAccess('compose');
         if (false === $this->get('sonata.page.admin.block')->isGranted('LIST')) {
@@ -219,7 +288,6 @@ class PageAdminController extends Controller
             }
         }
 
-        $csrfProvider = $this->get('form.csrf_provider');
 
         return $this->render($this->admin->getTemplate('compose'), array(
             'object' => $page,
@@ -229,7 +297,7 @@ class PageAdminController extends Controller
             'containers' => $containers,
             'orphanContainers' => $orphanContainers,
             'csrfTokens' => array(
-                'remove' => $csrfProvider->generateCsrfToken('sonata.delete'),
+                'remove' => $this->getCsrfToken('sonata.delete'),
             ),
         ));
     }

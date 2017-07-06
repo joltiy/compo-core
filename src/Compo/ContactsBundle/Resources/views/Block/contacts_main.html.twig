@@ -55,9 +55,11 @@
         {{ settings.contacts.walkinstruction }}
     </div>
 
-
-    {{
-         sonata_block_render({ 'type': 'compo_contacts.block.service.feedback_form' }, {'type': 'feedback'})
-    }}
+    {{ sonata_block_render({
+        'type': 'compo_contacts.block.service.feedback_form',
+        'settings': {
+            'type': 'feedback'
+        }
+    }) }}
 
 {% endblock %}

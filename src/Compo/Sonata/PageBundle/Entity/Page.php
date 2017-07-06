@@ -39,4 +39,9 @@ class Page extends BasePage
     {
         return $this->id;
     }
+
+    public function getDescription()
+    {
+        return '';
+    }
 }

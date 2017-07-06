@@ -265,7 +265,6 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
 
     public function build()
     {
-
         $this->addHtmlAttributes('lang', 'ru');
 
         $container = $this->getContainer();
@@ -330,6 +329,7 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
 
 
 
+
         // Чистка keywords
         $keywords_tmp = explode(',', $meta_keyword);
 
@@ -372,6 +372,8 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         if ($meta_keyword) {
             $this->addMeta('name', 'keywords', $meta_keyword);
         }
+
+
     }
 
     public function addVar($name, $value)
@@ -385,15 +387,25 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         //$found_template[$key] = preg_replace(array_keys($vars_preg_replace), array_values($vars_preg_replace), $value);
 
         try {
+            $tmp = $this->getContainer()->get('twig')->createTemplate('{% spaceless %}' . $template . '{% endspaceless %}');
+            //                     'cache' => new \Twig_Cache_Filesystem($this->getConnector()->getTempDir(), \Twig_Cache_Filesystem::FORCE_BYTECODE_INVALIDATION),
+
+            $result = $tmp->render($this->vars);
+
+            /*
             $loader = new \Twig_Loader_Array(array(
                 'index.html' => '{% spaceless %}' . $template . '{% endspaceless %}',
             ));
+
             $twig = new \Twig_Environment($loader, array(
                 'autoescape' => false,
-                'debug' => false,
+                'debug' => false
             ));
 
             $result = $twig->render('index.html', $this->vars);
+            */
+
+
         } catch (\Exception $e) {
             $result = '';
         }

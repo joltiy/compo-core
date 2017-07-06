@@ -27,7 +27,7 @@ class ArticlesSettingsSchema extends BaseBundleAdminSettingsSchema
                     'articles_per_page' => 21,
 
                     'seo_index_header' => 'Статьи',
-                    'seo_index_description' => '',
+                    'seo_index_description' => 'Статьи',
                     'seo_index_title' => 'Статьи / {{ site.title|default(site.name) }}',
                     'seo_index_meta_keyword' => 'Статьи, {{ site.metaKeyword }}',
                     'seo_index_meta_description' => 'Статьи, {{ site.metaDescription }}',
@@ -37,23 +37,28 @@ class ArticlesSettingsSchema extends BaseBundleAdminSettingsSchema
                     'seo_items_meta_keyword' => '{{ article.name }}, {{ site.metaKeyword }}',
                     'seo_items_meta_description' => '{{ article.name }}, {{ site.metaDescription }}',
                 ]
-            )
-            ->setAllowedTypes(
-                [
-                    'articles_per_page' => ['integer'],
-
-                    'seo_index_header' => ['string', 'NULL'],
-                    'seo_index_description' => ['string', 'NULL'],
-                    'seo_index_title' => ['string', 'NULL'],
-                    'seo_index_meta_keyword' => ['string', 'NULL'],
-                    'seo_index_meta_description' => ['string', 'NULL'],
-
-                    'seo_items_header' => ['string', 'NULL'],
-                    'seo_items_title' => ['string', 'NULL'],
-                    'seo_items_meta_keyword' => ['string', 'NULL'],
-                    'seo_items_meta_description' => ['string', 'NULL'],
-                ]
             );
+
+
+        $items =
+            [
+                'articles_per_page' => ['integer'],
+
+                'seo_index_header' => ['string', 'NULL'],
+                'seo_index_description' => ['string', 'NULL'],
+                'seo_index_title' => ['string', 'NULL'],
+                'seo_index_meta_keyword' => ['string', 'NULL'],
+                'seo_index_meta_description' => ['string', 'NULL'],
+
+                'seo_items_header' => ['string', 'NULL'],
+                'seo_items_title' => ['string', 'NULL'],
+                'seo_items_meta_keyword' => ['string', 'NULL'],
+                'seo_items_meta_description' => ['string', 'NULL'],
+            ];
+
+        foreach ($items as $item_name => $types) {
+            $builder->addAllowedTypes($item_name, $types);
+        }
     }
 
     /**

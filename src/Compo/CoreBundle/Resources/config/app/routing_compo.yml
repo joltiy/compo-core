@@ -1,6 +1,5 @@
 compo_articles:
     resource: "@CompoArticlesBundle/Resources/config/routing.yml"
-    prefix:   /articles
 
 compo_contacts:
     resource: "@CompoContactsBundle/Resources/config/routing.yml"
@@ -10,4 +9,3 @@ compo_feedback:
 
 compo_news:
     resource: "@CompoNewsBundle/Resources/config/routing.yml"
-    prefix:   /news

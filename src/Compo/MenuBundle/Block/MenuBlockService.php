@@ -29,7 +29,6 @@ class MenuBlockService extends AbstractBlockService
 
         $settings = $blockContext->getSettings();
 
-dump($settings);
         $menu = null;
 
         $tree = array();
@@ -47,7 +46,7 @@ dump($settings);
             /** @var MenuItemRepository $repo */
             $repo = $em->getRepository("CompoMenuBundle:MenuItem");
 
-            $tree = $repo->childrenHierarchyWithNodes($repo->findOneBy(array('menu' => $menuObject)), false, array(), false);
+            $tree = $repo->childrenHierarchyWithNodes($repo->findOneBy(array('menu' => $menuObject, 'enabled' => true)), false, array(), false);
         } else {
             $menu = $factory->createItem('');
         }
@@ -187,6 +186,10 @@ dump($settings);
     {
         $settings = $block->getSettings();
 
+        $keys = parent::getCacheKeys($block);
+
+        $keys['environment'] = $this->getContainer()->get('kernel')->getEnvironment();
+
         if (isset($settings['id'])) {
             $em = $this->getContainer()->get("doctrine")->getManager();
 
@@ -195,19 +198,16 @@ dump($settings);
 
             $item = $repository->find($settings['id']);
 
-            $key = "CompoMenuBundle:Menu:" . $settings['id'];
+            $key = $this->getName() . ':' . $settings['id'];
 
             if (isset($settings['template'])) {
                 $key = $key . ':' . $settings['template'];
             }
 
-            return array(
-                'block_id' => $key,
-                'updated_at' => $item->getUpdatedAt()->format('U'),
-            );
-        } else {
-            return parent::getCacheKeys($block);
+            $keys['block_id'] = $key;
+            $keys['updated_at'] = $item->getUpdatedAt()->format('U');
         }
 
+        return $keys;
     }
 }

@@ -27,7 +27,7 @@ class FaqSettingsSchema extends BaseBundleAdminSettingsSchema
                     'faq_per_page' => 21,
 
                     'seo_index_header' => 'Вопрос-ответ',
-                    'seo_index_description' => '',
+                    'seo_index_description' => 'Вопрос-ответ',
                     'seo_index_title' => 'Вопрос-ответ / {{ site.title|default(site.name) }}',
                     'seo_index_meta_keyword' => 'Вопрос-ответ, {{ site.metaKeyword }}',
                     'seo_index_meta_description' => 'Вопрос-ответ, {{ site.metaDescription }}',

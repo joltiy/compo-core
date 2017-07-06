@@ -44,5 +44,7 @@ class DefaultPageService extends \Sonata\PageBundle\Page\Service\DefaultPageServ
         $this->seoPage->addVar('page_internal', $page);
 
         $this->seoPage->build();
+
+
     }
 }

@@ -58,7 +58,7 @@ class FeedbackController extends Controller
         $feedbackManager = $this->get('compo_feedback.manager.feedback');
         $feedbackType = $feedbackManager->getType($request_params['data']['type']);
 
-        $form = $this->createForm($this->get($feedbackType['form']), $feedback);
+        $form = $this->createForm($feedbackType['form'], $feedback);
 
         $form->submit($request_params['data']);
 

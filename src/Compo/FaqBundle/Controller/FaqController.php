@@ -17,12 +17,12 @@ class FaqController extends Controller
     public function indexAction(Request $request)
     {
         $manager = $this->get('compo_faq.manager.faq');
-        $seoPage = $this->get('sonata.seo.page');
 
         $page = $request->get('page', 1);
 
         $pager = $manager->getPager(array(), $page);
 
+        $seoPage = $this->get('sonata.seo.page');
         $seoPage->setContext('compo_faq');
         $seoPage->addVar('page', $page);
         $seoPage->addVar('total_pages', $pager->getPageCount());
@@ -50,7 +50,6 @@ class FaqController extends Controller
         $manager->increaseViews($article);
 
         $seoPage = $this->get('sonata.seo.page');
-
         $seoPage->setContext('compo_faq');
         $seoPage->addVar('article', $article);
         $seoPage->build();
