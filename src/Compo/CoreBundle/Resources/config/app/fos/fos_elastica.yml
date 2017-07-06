@@ -19,7 +19,7 @@ fos_elastica:
                                 alias: [search_ru]
                                 type: custom
                                 tokenizer: standard
-                                filter: [stopwords_ru, stop, custom_word_delimiter, lowercase, russian_morphology, english_morphology,latin_transform]
+                                filter: [stopwords_ru, stop, custom_word_delimiter, lowercase, russian_morphology, english_morphology]
                                 char_filter: [ru]
 
                         char_filter:
