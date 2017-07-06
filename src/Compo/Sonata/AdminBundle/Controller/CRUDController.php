@@ -149,6 +149,7 @@ class CRUDController extends BaseCRUDController
 
         $object = $repo->find($request->request->get('id'));
 
+
         /** @var \Doctrine\ORM\QueryBuilder $qb */
         $qb = $em->createQueryBuilder();
 
@@ -230,6 +231,8 @@ class CRUDController extends BaseCRUDController
 
         $qb->getQuery()->execute();
 
+        $this->admin->update($object);
+
         return $this->renderJson(array(
             'result' => 'ok',
             'objectId' => $this->admin->getNormalizedIdentifier($object)
@@ -290,10 +293,15 @@ class CRUDController extends BaseCRUDController
                     $repo->persistAsLastChildOf($currentNode, $targetNode);
                     break;
             }
+
+
             $em->persist($targetNode);
 
             $em->persist($currentNode);
+
             $em->flush();
+
+            $this->admin->update($currentNode);
 
             $response = new Response(json_encode(array('result' => true)), 200);
 

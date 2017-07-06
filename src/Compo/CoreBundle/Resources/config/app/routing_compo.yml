@@ -9,3 +9,5 @@ compo_feedback:
 
 compo_news:
     resource: "@CompoNewsBundle/Resources/config/routing.yml"
+
+

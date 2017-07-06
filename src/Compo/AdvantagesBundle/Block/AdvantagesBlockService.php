@@ -34,7 +34,7 @@ class AdvantagesBlockService extends AbstractBlockService
         $list = array();
 
         if ($settings['id']) {
-            $list = $repository->findBy(array('advantages' => $settings['id']));
+            $list = $repository->findBy(array('advantages' => $settings['id'], 'enabled' => true), array('position' => 'asc'));
         }
 
         return $this->renderResponse($settings['template'], array(

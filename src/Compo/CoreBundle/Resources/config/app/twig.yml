@@ -2,6 +2,7 @@
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+#    exception_controller: CompoCoreBundle:Error404:index
 
     form_themes:
         - 'SonataDoctrineORMAdminBundle:Form:form_admin_fields.html.twig'

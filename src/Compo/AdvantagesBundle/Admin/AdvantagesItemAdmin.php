@@ -131,4 +131,28 @@ class AdvantagesItemAdmin extends AbstractAdmin
             array('uri' => $this->generateUrl('edit', array('id' => $this->getSubject()->getId())))
         );
     }
+
+
+
+    public function preUpdate($object)
+    {
+        $this->updateAdvantages($object);
+    }
+
+    public function prePersist($object)
+    {
+        $this->updateAdvantages($object);
+    }
+
+    public function preRemove($object)
+    {
+        $this->updateAdvantages($object);
+    }
+
+    public function updateAdvantages($object)
+    {
+        if ($object->getAdvantages()) {
+            $object->getAdvantages()->setUpdatedAt(new \DateTime());
+        }
+    }
 }

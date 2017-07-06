@@ -46,7 +46,7 @@ class MenuBlockService extends AbstractBlockService
             /** @var MenuItemRepository $repo */
             $repo = $em->getRepository("CompoMenuBundle:MenuItem");
 
-            $tree = $repo->childrenHierarchyWithNodes($repo->findOneBy(array('menu' => $menuObject, 'enabled' => true)), false, array(), false);
+            $tree = $repo->childrenHierarchyWithNodes($repo->findOneBy(array('menu' => $menuObject)), false, array(), false);
         } else {
             $menu = $factory->createItem('');
         }
@@ -75,6 +75,11 @@ class MenuBlockService extends AbstractBlockService
             /** @var \Compo\MenuBundle\Entity\MenuItem $nodeItem */
 
             $nodeItem = $item['node'];
+
+            if (!$nodeItem->getEnabled()) {
+                unset($nodesList[$key]);
+                continue;
+            }
 
             if ($item['type'] == 'url') {
 
@@ -141,8 +146,6 @@ class MenuBlockService extends AbstractBlockService
      */
     public function buildForm(FormMapper $formMapper, BlockInterface $block)
     {
-        $block->getEnabled();
-
         $formMapper->add('settings', 'sonata_type_immutable_array', array(
             'keys' => array(
                 array('id', 'choice', array('required' => true, 'choices' => $this->getMenuRepository()->getChoices())),

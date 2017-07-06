@@ -372,3 +372,5 @@ form.label_settings_index_manufacture_collection_tag_criteria_block_2: 'Колл
 
 showOnIndexOff: 'Не показывать на главной'
 showOnIndexOn: 'Показывать на главной'
+
+form.label_css_class: 'CSS класс'
