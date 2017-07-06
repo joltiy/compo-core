@@ -22,6 +22,11 @@ set('ssh_type', 'native');
 set('ssh_multiplexing', false);
 
 
+// Symfony shared dirs
+
+set('bin_dir', 'bin');
+set('var_dir', 'var');
+
 /** @noinspection PhpUndefinedFunctionInspection */
 set('copy_dirs', ['vendor']);
 /** @noinspection PhpUndefinedFunctionInspection */
@@ -29,7 +34,7 @@ set('env', 'prod');
 /** @noinspection PhpUndefinedFunctionInspection */
 set('shared_dirs', array('var/logs', 'web/uploads', 'web/userfiles'));
 /** @noinspection PhpUndefinedFunctionInspection */
-set('shared_files', array('app/config/parameters.yml', 'web/robots.txt'));
+set('shared_files', array('app/config/parameters.yml', 'web/robots.txt', 'var/logs', 'var/sessions'));
 /** @noinspection PhpUndefinedFunctionInspection */
 set('writable_dirs', array('var/cache', 'var/sessions', 'var/logs', 'web/uploads'));
 
