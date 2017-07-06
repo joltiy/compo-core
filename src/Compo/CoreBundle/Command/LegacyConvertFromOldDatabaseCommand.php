@@ -198,7 +198,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
         $this->em = $em;
 
         $oldHost = $input->getOption('host');
-        //$oldPort = $input->getOption('port');
+        $oldPort = $input->getOption('port');
         $oldLogin = $input->getOption('login');
         $oldPassword = $input->getOption('password');
         $oldDatabase = $input->getOption('database');
@@ -209,10 +209,11 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
 
         $this->tables = explode(',', $input->getOption('tables'));
 
+
         /** @var \Doctrine\Bundle\DoctrineBundle\ConnectionFactory $connectionFactory */
         $connectionFactory = $container->get('doctrine.dbal.connection_factory');
         $oldConnection = $connectionFactory->createConnection(
-            array('pdo' => new \PDO("mysql:host=$oldHost;dbname=$oldDatabase", $oldLogin, $oldPassword))
+            array('pdo' => new \PDO("mysql:host=$oldHost;port=$oldPort;dbname=$oldDatabase", $oldLogin, $oldPassword))
         );
 
         $oldConnection->connect();
