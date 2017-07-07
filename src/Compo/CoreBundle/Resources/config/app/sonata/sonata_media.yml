@@ -129,7 +129,7 @@ liip_imagine:
         index:
 
             # adjust the image quality to 75%
-            quality: 75
+            quality: 100
 
             # list of transformations to apply (the "filters")
             filters:
