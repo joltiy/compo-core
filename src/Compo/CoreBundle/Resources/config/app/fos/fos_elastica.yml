@@ -9,8 +9,8 @@ fos_elastica:
             settings:
                 number_of_shards: 5
                 refresh_interval: "5s"
+                max_result_window: 100000
                 index:
-                    max_result_window: 100000
                     requests:
                         cache:
                             enable: true
