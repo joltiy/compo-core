@@ -4,7 +4,7 @@ parameters:
 
     sonata.page.manager.page.class: Compo\Sonata\PageBundle\Entity\PageManager
 
-    sonata.seo.page.default.class: Compo\SeoBundle\Manager\SeoPage
+    sonata.seo.page.default.class: Compo\SeoBundle\Seo\SeoPage
 
     sonata.page.admin.page.class: Compo\Sonata\PageBundle\Admin\PageAdmin
     sonata.page.admin.site.class: Compo\Sonata\PageBundle\Admin\SiteAdmin

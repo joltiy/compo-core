@@ -93,9 +93,9 @@ class ArticlesManager extends BaseEntityManager
         return $repository->findBySlug($slug);
     }
 
-    public function getArticleShowPermalink(Articles $articles)
+    public function getArticleShowPermalink(Articles $articles, $absolute = 1)
     {
-        return $this->getContainer()->get('router')->generate($this->getArticleShowRoute(), $this->getArticleShowRouteParameters($articles));
+        return $this->getContainer()->get('router')->generate($this->getArticleShowRoute(), $this->getArticleShowRouteParameters($articles), $absolute);
     }
 
     public function getArticleShowRoute()
@@ -108,9 +108,9 @@ class ArticlesManager extends BaseEntityManager
         return array('slug' => $articles->getSlug());
     }
 
-    public function getArticlesIndexPermalink($parameters = array())
+    public function getArticlesIndexPermalink($parameters = array(), $absolute = 1)
     {
-        return $this->getContainer()->get('router')->generate($this->getArticlesIndexRoute(), $this->getArticlesIndexRouteParameters($parameters));
+        return $this->getContainer()->get('router')->generate($this->getArticlesIndexRoute(), $this->getArticlesIndexRouteParameters($parameters), $absolute);
     }
 
     public function getArticlesIndexRoute()

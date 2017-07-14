@@ -12,6 +12,7 @@
 namespace Compo\BannerBundle\Block;
 
 use Compo\BannerBundle\Entity\BannerItemRepository;
+use Compo\BannerBundle\Entity\BannerRepository;
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 use Knp\Menu\Matcher\Matcher;
@@ -48,14 +49,13 @@ class BannerBlockService extends AbstractBlockService
         $repo = $em->getRepository("CompoBannerBundle:BannerItem");
 
         if($settings['id']) {
-            $list = $repo->findBy(array('banner' => $settings['id']));
+            $list = $repo->findBy(array('banner' => $settings['id'], 'enabled' => true), array('position' => 'asc'));
         } else {
             $list = array();
         }
 
 
         return $this->renderResponse($blockContext->getTemplate(), array(
-
             'list' => $list,
             'block' => $blockContext->getBlock(),
             'settings' => $blockContext->getSettings(),
@@ -122,5 +122,35 @@ class BannerBlockService extends AbstractBlockService
         return new Metadata('Баннеры - слайдер', (!is_null($code) ? $code : $this->getName()), false, 'SonataBlockBundle', array(
             'class' => 'fa fa-file-text-o',
         ));
+    }
+
+
+    public function getCacheKeys(BlockInterface $block)
+    {
+        $settings = $block->getSettings();
+
+        $keys = parent::getCacheKeys($block);
+
+        $keys['environment'] = $this->getContainer()->get('kernel')->getEnvironment();
+
+        if (isset($settings['id'])) {
+            $em = $this->getContainer()->get("doctrine")->getManager();
+
+            /** @var BannerRepository $repository */
+            $repository = $em->getRepository("CompoBannerBundle:Banner");
+
+            $item = $repository->find($settings['id']);
+
+            $key = $this->getName() . ':' . $settings['id'];
+
+            if (isset($settings['template'])) {
+                $key = $key . ':' . $settings['template'];
+            }
+
+            $keys['block_id'] = $key;
+            $keys['updated_at'] = $item->getUpdatedAt()->format('U');
+        }
+
+        return $keys;
     }
 }

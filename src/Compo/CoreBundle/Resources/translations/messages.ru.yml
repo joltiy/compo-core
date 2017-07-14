@@ -374,3 +374,4 @@ showOnIndexOff: 'Не показывать на главной'
 showOnIndexOn: 'Показывать на главной'
 
 form.label_css_class: 'CSS класс'
+form.label_description_additional: 'Дополнительное описание'

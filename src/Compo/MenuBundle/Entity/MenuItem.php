@@ -112,6 +112,12 @@ class MenuItem
     protected $tagging;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Compo\CatalogBundle\Entity\Catalog")
+     * @ORM\JoinColumn(name="catalog_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+    protected $catalog;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="tagging_id", type="integer", nullable=true)
@@ -126,6 +132,48 @@ class MenuItem
      * @ORM\Column(name="page_id", type="integer", nullable=true)
      */
     protected $page_id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="catalog_id", type="integer", nullable=true)
+     */
+    protected $catalog_id;
+
+    /**
+     * @return mixed
+     */
+    public function getCatalog()
+    {
+        return $this->catalog;
+    }
+
+    /**
+     * @param mixed $catalog
+     */
+    public function setCatalog($catalog)
+    {
+        $this->catalog = $catalog;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCatalogId()
+    {
+        return $this->catalog_id;
+    }
+
+    /**
+     * @param int $catalog_id
+     */
+    public function setCatalogId($catalog_id)
+    {
+        $this->catalog_id = $catalog_id;
+    }
+
+
+
 
     /**
      * Get id

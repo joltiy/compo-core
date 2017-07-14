@@ -1,0 +1,17 @@
+compo_seo:
+    pages:
+        - context: 'article_list'
+          title: 'Статьи'
+          metaKeyword: 'Статьи'
+          metaDescription: 'Статьи'
+          header: 'Статьи'
+          description: ''
+          descriptionAdditional: ''
+
+        - context: 'article_show'
+          title: '{{ article.name }}'
+          metaKeyword: '{{ article.name }}'
+          metaDescription: '{{ article.name }}'
+          header: '{{ article.header|default(article.name) }}'
+          description: ''
+          descriptionAdditional: ''

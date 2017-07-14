@@ -128,12 +128,14 @@ class MenuItemAdmin extends AbstractAdmin
                     'URL' => 'url',
                     'Страница' => 'page',
                     'Тегирование' => 'tagging',
+                    'Категория' => 'catalog',
+
                 ),
                 'map' => array(
                     'url' => array('url'),
                     'page' => array('page'),
                     'tagging' => array('tagging'),
-
+                    'catalog' => array('catalog'),
                 ),
                 'placeholder' => 'Укажите тип',
                 'required' => true
@@ -155,6 +157,21 @@ class MenuItemAdmin extends AbstractAdmin
             'required' => false,
             'query' => $query
         ));
+
+
+        $queryBuilder = $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager()->getRepository('CompoCatalogBundle:Catalog')->createQueryBuilder('c')
+            ->select('c')
+            ->orderBy('c.root, c.lft', 'ASC');
+
+        $tree = $queryBuilder->getQuery()->getResult();
+
+        $formMapper->add('catalog', TreeSelectorType::class, array(
+            'model_manager' => $this->getConfigurationPool()->getContainer()->get('compo_catalog.admin.catalog')->getModelManager(),
+            'class' => $this->getConfigurationPool()->getContainer()->get('compo_catalog.admin.catalog')->getClass(),
+            'tree' => $tree,
+            'required' => true,
+        ));
+
 
 
         $formMapper->add('url');

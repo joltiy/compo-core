@@ -23,12 +23,9 @@ services:
       tags:
           - { name: sonata.admin.extension, global: true }
 
-
   sonata.seo.page.default:
-      class: Compo\SeoBundle\Manager\SeoPage
-      calls:
-          - [ setContainer, ['@service_container']]
-          - [ loadVars, []]
+      class: Compo\SeoBundle\Seo\SeoPage
+      parent: compo_core.abstract_container_aware
 
   sonata.user.editable_role_builder:
       class: Compo\Sonata\UserBundle\Security\EditableRolesBuilder

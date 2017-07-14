@@ -37,3 +37,6 @@ tab_menu.title_menu_create: 'Создание меню'
 block.title_menu: 'Меню'
 
 form.label_tagging: 'Тегирование'
+
+form.label_catalog: 'Категория'
+

@@ -16,4 +16,8 @@ class BaseEntityManager extends \Sonata\CoreBundle\Model\BaseEntityManager
     {
         return $this->getContainer()->get('request_stack')->getCurrentRequest();
     }
+
+    public function getChoices() {
+        return $this->getRepository()->getChoices();
+    }
 }

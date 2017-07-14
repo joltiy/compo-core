@@ -51,6 +51,7 @@ services:
 
     compo.sonata.admin.form.type.tree_selector:
         class: Compo\Sonata\AdminBundle\Form\Type\TreeSelectorType
+        arguments: ["@property_accessor"]
         tags:
             - { name: form.type, alias: compo_tree_selector }
 

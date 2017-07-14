@@ -83,6 +83,15 @@ class MenuBlockService extends AbstractBlockService
 
             if ($item['type'] == 'url') {
 
+            } elseif ($item['type'] == 'catalog') {
+                if (!$nodeItem->getCatalog()) {
+                    continue;
+                }
+
+                $catalogManager = $this->getContainer()->get('compo_catalog.manager.catalog');
+
+                $item['url'] = $catalogManager->getCatalogShowPermalink($nodeItem->getCatalog());
+
             } elseif ($item['type'] == 'page') {
 
                 $item['url'] = $this->getContainer()->get('router')->generate('page_slug', array('path' => $nodeItem->getPage()->getUrl()));

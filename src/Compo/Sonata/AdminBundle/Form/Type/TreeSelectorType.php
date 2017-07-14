@@ -11,50 +11,114 @@
 
 namespace Compo\Sonata\AdminBundle\Form\Type;
 
+use Sonata\AdminBundle\Form\ChoiceList\ModelChoiceList;
+use Sonata\AdminBundle\Form\Type\ModelType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Sonata\AdminBundle\Form\ChoiceList\ModelChoiceLoader;
 
 /**
  * Select a category.
  *
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
  */
-class TreeSelectorType extends AbstractType
+class TreeSelectorType extends ModelType
 {
     /** @noinspection PhpDeprecationInspection */
     /** @noinspection PhpDeprecationInspection */
 
-    /**
-     * {@inheritdoc}
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $that = $this;
-
-        /** @noinspection PhpUnusedParameterInspection */
-        $resolver->setDefaults(array(
-            'tree' => null,
-            'current' => null,
-
-            'choice_list' => function (Options $opts, $previousValue) use ($that) {
-                return new ArrayChoiceList($that->getChoices($opts));
-            },
-        ));
-    }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        parent::configureOptions($resolver);
+        $options = array();
+        $propertyAccessor = $this->propertyAccessor;
+        if (interface_exists('Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface')) { // SF2.7+
+            $options['choice_loader'] = function (Options $options, $previousValue) use ($propertyAccessor) {
 
-        $resolver->setDefaults(array(
+
+
+
+                return new \Compo\Sonata\AdminBundle\Form\ModelChoiceLoader(
+                    $options['model_manager'],
+                    $options['class'],
+                    $options['property'],
+                    $options['query'],
+                    $options['choices'],
+                    $propertyAccessor,
+                    $options
+                );
+            };
+            // NEXT_MAJOR: Remove this when dropping support for SF 2.8
+            if (method_exists('Symfony\Component\Form\FormTypeInterface', 'setDefaultOptions')) {
+                $options['choices_as_values'] = true;
+            }
+        } else {
+            $options['choice_list'] = function (Options $options, $previousValue) use ($propertyAccessor) {
+                if ($previousValue && count($choices = $previousValue->getChoices())) {
+                    return $choices;
+                }
+
+                return new ModelChoiceList(
+                    $options['model_manager'],
+                    $options['class'],
+                    $options['property'],
+                    $options['query'],
+                    $options['choices'],
+                    $propertyAccessor
+                );
+            };
+        }
+
+        $options['choice_list'] = function (Options $options, $previousValue) use ($propertyAccessor) {
+            return $this->getChoices($options);
+        };
+
+        $resolver->setDefaults(array_merge($options, array(
+            'compound' => function (Options $options) {
+                if (isset($options['multiple']) && $options['multiple']) {
+                    if (isset($options['expanded']) && $options['expanded']) {
+                        //checkboxes
+                        return true;
+                    }
+
+                    //select tag (with multiple attribute)
+                    return false;
+                }
+
+                if (isset($options['expanded']) && $options['expanded']) {
+                    //radio buttons
+                    return true;
+                }
+
+                //select tag
+                return false;
+            },
+
+            'template' => 'choice',
+            'multiple' => false,
+            'expanded' => false,
+            'model_manager' => null,
+            'class' => null,
+            'property' => null,
+            'query' => null,
+            'choices' => array(),
+            'preferred_choices' => array(),
+            'btn_add' => 'link_add',
+            'btn_list' => 'link_list',
+            'btn_delete' => 'link_delete',
+            'btn_catalogue' => 'SonataAdminBundle',
+
             'tree' => null,
             'current' => null,
-            'choice_list' => array()
-        ));
+        )));
+
+
+
     }
+
 
     /**
      * @param Options $options
@@ -85,6 +149,7 @@ class TreeSelectorType extends AbstractType
 
             $this->childWalker($item, $options, $choices);
         }
+
 
         return $choices;
     }
@@ -117,18 +182,6 @@ class TreeSelectorType extends AbstractType
 
     }
 
-    public function getChoiceLabel($value, $key, $index)
-    {
-
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getParent()
-    {
-        return 'sonata_type_model';
-    }
 
     /**
      * {@inheritdoc}

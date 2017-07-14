@@ -2,6 +2,7 @@
 
 namespace Compo\ContactsBundle\Block;
 
+use Compo\ContactsBundle\Repository\ContactsRepository;
 use Compo\Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Block\BlockContextInterface;

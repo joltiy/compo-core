@@ -1,0 +1,15 @@
+seo_page: 'SEO'
+tab_menu.title_seo_page_list: 'SEO'
+breadcrumb.link_seo_page_list: 'SEO'
+breadcrumb.link_seo_page_create: 'Создание SEO'
+tab_menu.title_seo_page_create: 'Создание SEO'
+form.label_context: 'Страница'
+
+tab_menu.title_seo_page_edit: 'SEO: %name%'
+list.label_context: 'Страница'
+list.label_title: 'Title'
+list.label_description_additionnal: 'Дополнительное описание'
+list.label_meta_description: 'Meta Description'
+list.label_meta_keyword: 'Meta Keywords'
+list.label_header: 'Заголовок'
+

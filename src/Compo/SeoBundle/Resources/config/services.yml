@@ -9,8 +9,22 @@ services:
         tags:
             - { name: form.type }
 
+    compo_seo.page.manager:
+        class: Compo\SeoBundle\Manager\SeoPage
+        parent: compo_core.abstract_container_aware
+        arguments: [Compo\SeoBundle\Entity\SeoPage, "@doctrine"]
+
+
+
     compo_seo.seo.twig.extension:
         class: Compo\SeoBundle\Twig\Extension\SeoExtension
         parent: compo_core.abstract_container_aware
         tags:
             - { name: twig.extension }
+
+
+    compo_seo.admin.seo_page:
+        class: Compo\SeoBundle\Admin\SeoPageAdmin
+        arguments: [~, Compo\SeoBundle\Entity\SeoPage, CompoSeoBundle:SeoPageAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: seo_page, label_translator_strategy: sonata.admin.label.strategy.underscore }

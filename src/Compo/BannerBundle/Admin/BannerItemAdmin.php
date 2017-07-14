@@ -138,4 +138,26 @@ class BannerItemAdmin extends AbstractAdmin
         );
 
     }
+
+    public function preUpdate($object)
+    {
+        $this->updateParent($object);
+    }
+
+    public function prePersist($object)
+    {
+        $this->updateParent($object);
+    }
+
+    public function preRemove($object)
+    {
+        $this->updateParent($object);
+    }
+
+    public function updateParent($object)
+    {
+        if ($object->getBanner()) {
+            $object->getBanner()->setUpdatedAt(new \DateTime());
+        }
+    }
 }

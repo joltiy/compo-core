@@ -21,9 +21,25 @@ class Configuration implements ConfigurationInterface
         /** @noinspection PhpUnusedLocalVariableInspection */
         $rootNode = $treeBuilder->root('compo_seo');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+            ->children()
+
+            ->arrayNode('pages')->prototype('array')->children()
+            ->scalarNode('context')->isRequired()->end()
+            ->scalarNode('header')->defaultValue('')->end()
+            ->scalarNode('title')->defaultValue('')->end()
+            ->scalarNode('metaKeyword')->defaultValue('')->end()
+            ->scalarNode('metaDescription')->defaultValue('')->end()
+            ->scalarNode('description')->defaultValue('')->end()
+            ->scalarNode('descriptionAdditional')->defaultValue('')->end()
+
+            ->end()
+            ->end()
+            ->end()
+            ->end();
+
+
+
 
         return $treeBuilder;
     }

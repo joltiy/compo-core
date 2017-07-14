@@ -19,6 +19,7 @@ class SeoExtension extends \Twig_Extension
         return array(
             new \Twig_SimpleFunction('compo_seo_header', array($this, 'getHeader'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('compo_seo_description', array($this, 'getDescription'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('compo_seo_description_additional', array($this, 'getDescriptionAdditional'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('sonata_seo_link_next', array($this, 'getLinkNext'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('sonata_seo_link_prev', array($this, 'getLinkPrev'), array('is_safe' => array('html'))),
         );
@@ -80,4 +81,13 @@ class SeoExtension extends \Twig_Extension
         return $seo_page->getDescription();
     }
 
+    /**
+     * @return string
+     */
+    public function getDescriptionAdditional()
+    {
+        $seo_page = $this->getContainer()->get('sonata.seo.page');
+
+        return $seo_page->getDescriptionAdditional();
+    }
 }

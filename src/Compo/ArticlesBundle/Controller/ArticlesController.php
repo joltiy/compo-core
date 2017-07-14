@@ -19,15 +19,29 @@ class ArticlesController extends Controller
         $manager = $this->get('compo_articles.manager.articles');
 
         $page = $request->get('page', 1);
-
         $pager = $manager->getPager(array(), $page);
+        $totalPages = $pager->getPageCount();
 
         $seoPage = $this->get('sonata.seo.page');
-        $seoPage->setContext('compo_articles');
+        $seoPage->setContext('article_list');
         $seoPage->addVar('page', $page);
-        $seoPage->addVar('total_pages', $pager->getPageCount());
-        $seoPage->build();
+        $seoPage->addVar('total_pages', $totalPages);
 
+        if ($page !== 1) {
+            $seoPage->setLinkCanonical($manager->getArticlesIndexPermalink(array('page' => $page), 0));
+        } else {
+            $seoPage->setLinkCanonical($manager->getArticlesIndexPermalink(array(), 0));
+        }
+
+        if ($totalPages > 1 && $page < $totalPages) {
+            $seoPage->setLinkNext($manager->getArticlesIndexPermalink(array('page' => $page + 1), 0));
+        }
+
+        if ($totalPages > 1 && $page > 1) {
+            $seoPage->setLinkPrev($manager->getArticlesIndexPermalink(array('page' => $page - 1), 0));
+        }
+
+        $seoPage->build();
 
         return $this->render('CompoArticlesBundle:Articles:index.html.twig', array(
             'pager' => $pager,
@@ -51,8 +65,19 @@ class ArticlesController extends Controller
         $manager->increaseViews($article);
 
         $seoPage = $this->get('sonata.seo.page');
-        $seoPage->setContext('compo_articles');
+        $seoPage->setContext('article_show');
         $seoPage->addVar('article', $article);
+
+        $seoPage->addTemplates('article_show', array(
+            'header' => $article->getHeader(),
+            'title' => $article->getTitle(),
+            'metaKeyword' => $article->getMetaKeyword(),
+            'metaDescription' => $article->getMetaDescription(),
+        ));
+
+        $seoPage->setLinkCanonical($manager->getArticleShowPermalink($article, 0));
+
+
         $seoPage->build();
 
         return $this->render('CompoArticlesBundle:Articles:show.html.twig', array(

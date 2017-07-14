@@ -232,7 +232,9 @@ class CRUDController extends BaseCRUDController
         $qb->getQuery()->execute();
 
         $this->admin->update($object);
-
+        if ($after_object) {
+            $this->admin->update($after_object);
+        }
         return $this->renderJson(array(
             'result' => 'ok',
             'objectId' => $this->admin->getNormalizedIdentifier($object)
@@ -302,6 +304,7 @@ class CRUDController extends BaseCRUDController
             $em->flush();
 
             $this->admin->update($currentNode);
+            $this->admin->update($targetNode);
 
             $response = new Response(json_encode(array('result' => true)), 200);
 

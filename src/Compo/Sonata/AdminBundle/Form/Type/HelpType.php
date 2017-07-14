@@ -6,6 +6,7 @@ use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
@@ -15,13 +16,13 @@ class HelpType extends AbstractType
 {
     use ContainerAwareTrait;
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'mapped' => false,
             'template' => '',
             'required' => false
-
         ));
     }
 

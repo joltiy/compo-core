@@ -30,9 +30,3 @@ services:
         parent: compo_core.abstract_container_aware
         tags:
             - { name: sonata.block }
-
-    compo_articles.seo.service:
-        class: Compo\ArticlesBundle\Seo\ArticlesSeoService
-        parent: compo_core.abstract_container_aware
-        tags:
-            - { name: compo.seo_service, alias: "compo_articles", context: "compo_articles" }

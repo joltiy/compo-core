@@ -35,9 +35,6 @@ class DescriptionExtension extends AbstractAdminExtension
         if (false && $formMapper->has('body')) {
             $field = $formMapper->getFormBuilder()->get('body');
 
-
-
-
             $options = $field->getOptions();
             $options['required'] = false;
             $options['format'] = "richhtml";

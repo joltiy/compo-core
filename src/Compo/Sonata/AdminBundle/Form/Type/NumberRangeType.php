@@ -27,8 +27,6 @@ class NumberRangeType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-        dump($options); exit;
         $builder->add('start', $options['field_type'], array_merge(array('required' => false), $options['field_options']));
         $builder->add('end', $options['field_type'], array_merge(array('required' => false), $options['field_options']));
     }
