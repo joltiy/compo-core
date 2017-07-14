@@ -37,5 +37,6 @@ class CompoNewsExtension extends Extension implements PrependExtensionInterface
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('sonata_block.yml');
         $loader->load('sonata_page.yml');
+        $loader->load('compo_seo.yml');
     }
 }

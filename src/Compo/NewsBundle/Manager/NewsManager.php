@@ -93,9 +93,9 @@ class NewsManager extends BaseEntityManager
         return $repository->findBySlug($slug);
     }
 
-    public function getNewsShowPermalink(News $articles)
+    public function getNewsShowPermalink(News $articles, $absolute = 1)
     {
-        return $this->getContainer()->get('router')->generate($this->getNewsShowRoute(), $this->getNewsShowRouteParameters($articles));
+        return $this->getContainer()->get('router')->generate($this->getNewsShowRoute(), $this->getNewsShowRouteParameters($articles), $absolute);
     }
 
     public function getNewsShowRoute()
@@ -108,9 +108,9 @@ class NewsManager extends BaseEntityManager
         return array('slug' => $articles->getSlug());
     }
 
-    public function getNewsIndexPermalink($parameters = array())
+    public function getNewsIndexPermalink($parameters = array(), $absolute = 1)
     {
-        return $this->getContainer()->get('router')->generate($this->getNewsIndexRoute(), $this->getNewsIndexRouteParameters($parameters));
+        return $this->getContainer()->get('router')->generate($this->getNewsIndexRoute(), $this->getNewsIndexRouteParameters($parameters), $absolute);
     }
 
     public function getNewsIndexRoute()

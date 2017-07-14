@@ -375,3 +375,6 @@ showOnIndexOn: 'Показывать на главной'
 
 form.label_css_class: 'CSS класс'
 form.label_description_additional: 'Дополнительное описание'
+
+settings.order_tab: 'Заказ'
+form.label_settings_order_page: 'Страница выполненного заказа'

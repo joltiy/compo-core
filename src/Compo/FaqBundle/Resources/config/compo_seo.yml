@@ -1,0 +1,17 @@
+compo_seo:
+    pages:
+        - context: 'faq_list'
+          title: 'Вопрос-ответ'
+          metaKeyword: 'Вопрос-ответ'
+          metaDescription: 'Вопрос-ответ'
+          header: 'Вопрос-ответ'
+          description: ''
+          descriptionAdditional: ''
+
+        - context: 'faq_show'
+          title: '{{ faq.name }}'
+          metaKeyword: '{{ faq.name }}'
+          metaDescription: '{{ faq.name }}'
+          header: '{{ faq.name }}'
+          description: ''
+          descriptionAdditional: ''

@@ -22,9 +22,27 @@ class NewsController extends Controller
 
         $pager = $manager->getPager(array(), $page);
 
-        $seoPage->setContext('compo_news');
+        $totalPages = $pager->getPageCount();
+
+        $seoPage = $this->get('sonata.seo.page');
+        $seoPage->setContext('news_list');
         $seoPage->addVar('page', $page);
-        $seoPage->addVar('total_pages', $pager->getPageCount());
+        $seoPage->addVar('total_pages', $totalPages);
+
+        if ($page !== 1) {
+            $seoPage->setLinkCanonical($manager->getNewsIndexPermalink(array('page' => $page), 0));
+        } else {
+            $seoPage->setLinkCanonical($manager->getNewsIndexPermalink(array(), 0));
+        }
+
+        if ($totalPages > 1 && $page < $totalPages) {
+            $seoPage->setLinkNext($manager->getNewsIndexPermalink(array('page' => $page + 1), 0));
+        }
+
+        if ($totalPages > 1 && $page > 1) {
+            $seoPage->setLinkPrev($manager->getNewsIndexPermalink(array('page' => $page - 1), 0));
+        }
+
 
         $seoPage->build();
 
@@ -50,9 +68,18 @@ class NewsController extends Controller
         $manager->increaseViews($article);
 
         $seoPage = $this->get('sonata.seo.page');
-
-        $seoPage->setContext('compo_news');
+        $seoPage->setContext('news_show');
         $seoPage->addVar('news', $article);
+
+        $seoPage->addTemplates('news_show', array(
+            'header' => $article->getHeader(),
+            'title' => $article->getTitle(),
+            'metaKeyword' => $article->getMetaKeyword(),
+            'metaDescription' => $article->getMetaDescription(),
+        ));
+
+        $seoPage->setLinkCanonical($manager->getNewsShowPermalink($article, 0));
+
         $seoPage->build();
 
         return $this->render('CompoNewsBundle:News:show.html.twig', array(

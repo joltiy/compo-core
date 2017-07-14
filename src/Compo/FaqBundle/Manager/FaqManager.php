@@ -93,9 +93,9 @@ class FaqManager extends BaseEntityManager
         return $repository->findBySlug($slug);
     }
 
-    public function getArticleShowPermalink(Faq $faq)
+    public function getArticleShowPermalink(Faq $faq, $absolute = 1)
     {
-        return $this->getContainer()->get('router')->generate($this->getArticleShowRoute(), $this->getArticleShowRouteParameters($faq));
+        return $this->getContainer()->get('router')->generate($this->getArticleShowRoute(), $this->getArticleShowRouteParameters($faq), $absolute);
     }
 
     public function getArticleShowRoute()
@@ -108,9 +108,9 @@ class FaqManager extends BaseEntityManager
         return array('slug' => $faq->getSlug());
     }
 
-    public function getFaqIndexPermalink($parameters = array())
+    public function getFaqIndexPermalink($parameters = array(), $absolute = 1)
     {
-        return $this->getContainer()->get('router')->generate($this->getFaqIndexRoute(), $this->getFaqIndexRouteParameters($parameters));
+        return $this->getContainer()->get('router')->generate($this->getFaqIndexRoute(), $this->getFaqIndexRouteParameters($parameters), $absolute);
     }
 
     public function getFaqIndexRoute()

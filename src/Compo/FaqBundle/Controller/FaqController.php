@@ -21,11 +21,29 @@ class FaqController extends Controller
         $page = $request->get('page', 1);
 
         $pager = $manager->getPager(array(), $page);
+        $totalPages = $pager->getPageCount();
 
         $seoPage = $this->get('sonata.seo.page');
-        $seoPage->setContext('compo_faq');
+        $seoPage->setContext('faq_list');
         $seoPage->addVar('page', $page);
         $seoPage->addVar('total_pages', $pager->getPageCount());
+
+
+        if ($page !== 1) {
+            $seoPage->setLinkCanonical($manager->getFaqIndexPermalink(array('page' => $page), 0));
+        } else {
+            $seoPage->setLinkCanonical($manager->getFaqIndexPermalink(array(), 0));
+        }
+
+        if ($totalPages > 1 && $page < $totalPages) {
+            $seoPage->setLinkNext($manager->getFaqIndexPermalink(array('page' => $page + 1), 0));
+        }
+
+        if ($totalPages > 1 && $page > 1) {
+            $seoPage->setLinkPrev($manager->getFaqIndexPermalink(array('page' => $page - 1), 0));
+        }
+
+
         $seoPage->build();
 
         return $this->render('CompoFaqBundle:Faq:index.html.twig', array(
@@ -50,8 +68,20 @@ class FaqController extends Controller
         $manager->increaseViews($article);
 
         $seoPage = $this->get('sonata.seo.page');
-        $seoPage->setContext('compo_faq');
-        $seoPage->addVar('article', $article);
+        $seoPage->setContext('faq_show');
+        $seoPage->addVar('faq', $article);
+
+        $seoPage->addTemplates('faq_show', array(
+            'header' => $article->getName(),
+            'title' => $article->getName(),
+            'metaKeyword' => $article->getMetaKeyword(),
+            'metaDescription' => $article->getMetaDescription(),
+        ));
+
+        $seoPage->setLinkCanonical($manager->getArticleShowPermalink($article, 0));
+
+
+
         $seoPage->build();
 
         return $this->render('CompoFaqBundle:Faq:show.html.twig', array(
