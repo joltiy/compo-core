@@ -5,10 +5,13 @@ namespace Compo\CoreBundle\Composer;
 use Composer\Script\Event;
 use Symfony\Component\Process\Process;
 
-class BowerInstall
+class BowerInstall extends \Sensio\Bundle\DistributionBundle\Composer\ScriptHandler
 {
     public static function process(Event $event)
     {
+        $options = self::getOptions($event);
+        $consoleDir = self::getConsoleDir($event, 'hello world');
+
         $io = $event->getIO();
 
         $extras = $event->getComposer()->getPackage()->getExtra();
@@ -38,5 +41,10 @@ class BowerInstall
                 throw new \RuntimeException('An error occurred when bower.');
             }
         }
+
+        $extraParam = ' --symlink --relative';
+
+        static::executeCommand($event, $consoleDir, 'sylius:theme:assets:install' . $extraParam);
+
     }
 }
