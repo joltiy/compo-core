@@ -44,7 +44,7 @@ class BowerInstall extends \Sensio\Bundle\DistributionBundle\Composer\ScriptHand
 
         $extraParam = ' --symlink --relative';
 
-        static::executeCommand($event, $consoleDir, 'sylius:theme:assets:install' . $extraParam);
+        static::executeCommand($event, $consoleDir, 'sylius:theme:assets:install' . $extraParam, $options['process-timeout']);
 
     }
 }
