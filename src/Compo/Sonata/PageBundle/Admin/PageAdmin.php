@@ -24,7 +24,7 @@ use Sonata\Cache\CacheManagerInterface;
 use Sonata\PageBundle\Exception\InternalErrorException;
 use Sonata\PageBundle\Exception\PageNotFoundException;
 use Sonata\PageBundle\Form\Type\PageSelectorType;
-use Sonata\PageBundle\Form\Type\TemplateChoiceType;
+use Compo\Sonata\PageBundle\Form\Type\TemplateChoiceType;
 use Sonata\PageBundle\Model\PageManagerInterface;
 use Sonata\PageBundle\Model\SiteInterface;
 use Sonata\PageBundle\Model\SiteManagerInterface;

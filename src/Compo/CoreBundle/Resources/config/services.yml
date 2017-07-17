@@ -93,4 +93,8 @@ services:
         calls:
             - [setPropertyAccessor, ["@quiet_property_accessor"]]
 
-
+    sonata.page.form.template_choice:
+        class: Compo\Sonata\PageBundle\Form\Type\TemplateChoiceType
+        tags:
+            - { name: form.type, alias: sonata_page_template }
+        arguments: ["@sonata.page.template_manager"]
