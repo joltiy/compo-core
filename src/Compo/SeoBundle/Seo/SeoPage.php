@@ -13,6 +13,7 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
     use ContainerAwareTrait;
 
     public $context = 'default';
+    public $replaceTagging = true;
 
     public $templates = array(
         /*
@@ -62,6 +63,23 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
      * @var string
      */
     protected $descriptionAdditional;
+
+    /**
+     * @return bool
+     */
+    public function isReplaceTagging()
+    {
+        return $this->replaceTagging;
+    }
+
+    /**
+     * @param bool $replaceTagging
+     */
+    public function setReplaceTagging($replaceTagging)
+    {
+        $this->replaceTagging = $replaceTagging;
+    }
+
 
     /**
      * @return string
@@ -226,6 +244,15 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         $this->templates[$name] = $templates;
     }
 
+    public function getTemplate($name)
+    {
+        if (isset($this->templates[$name])) {
+            return $this->templates[$name];
+        } else {
+            return null;
+        }
+    }
+
     public function getSite()
     {
         $container = $this->getContainer();
@@ -276,7 +303,7 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
             );
         }
 
-        //dump($templates);
+
 
         $name = '';
 
