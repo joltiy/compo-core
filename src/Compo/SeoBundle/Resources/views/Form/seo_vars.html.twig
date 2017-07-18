@@ -11,4 +11,26 @@
             <strong>&#123;&#123; site.metaDescription &#125;&#125;</strong> - Описание сайта
         </div>
     </div>
+
+    <div class="well">
+        <div>
+            <strong>Товары</strong>
+        </div>
+        <div>
+            <strong>&#123;&#123; product.name &#125;&#125;</strong> - Название товар.
+        </div>
+        <div>
+            <strong>&#123;&#123; product.manufacture.name &#125;&#125;</strong> - Производитель товар.
+        </div>
+        <div>
+            <strong>&#123;&#123; product.manufacture.country.name &#125;&#125;</strong> - Страна товар.
+        </div>
+        <div>
+            <strong>&#123;&#123; product.manufactureCollection.name &#125;&#125;</strong> - Коллекция товар.
+        </div>
+        <div>
+            <strong>&#123;&#123; product_features['Длина'] &#125;&#125;x&#123;&#123; product_features['Ширина'] &#125;&#125;</strong> - Характеристики
+        </div>
+
+    </div>
 {% endblock %}
