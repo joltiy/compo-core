@@ -9,7 +9,7 @@
         {% for node in nodesList %}
             {% if node.__children|length %}
                 <li>
-                    <a title="{{ node.title }}" href="{{ node.url }}">
+                    <a title="{{ node.title|default(node.name) }}" href="{{ node.url }}">
                         {{ node.name }}
                         <span class="caret"></span>
                     </a>
@@ -18,7 +18,7 @@
                 </li>
             {% else %}
                 <li {% if app.request.requestUri == node.url %} class="active" {% endif %}>
-                    <a title="{{ node.title }}" href="{{ node.url }}">
+                    <a title="{{ node.title|default(node.name) }}" href="{{ node.url }}">
                         {{ node.name }}
                     </a>
                 </li>

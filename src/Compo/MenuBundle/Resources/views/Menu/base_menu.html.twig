@@ -9,7 +9,7 @@
         {% for node in nodesList %}
             {% if node.__children|length %}
                 <li class="dropdown">
-                    <a title="{{ node.title }}" href="{{ node.url }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <a title="{{ node.title|default(node.name) }}" href="{{ node.url }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         {{ node.name }}
                         <span class="caret"></span>
                     </a>
@@ -17,7 +17,7 @@
                 </li>
             {% else %}
                 <li {% if app.request.requestUri == node.url %} class="active" {% endif %}>
-                    <a title="{{ node.title }}" href="{{ node.url }}">
+                    <a title="{{ node.title|default(node.name) }}" href="{{ node.url }}">
                         {{ node.name }}
                     </a>
                 </li>
