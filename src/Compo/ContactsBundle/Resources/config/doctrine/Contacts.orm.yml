@@ -34,34 +34,6 @@ Compo\ContactsBundle\Entity\Contacts:
              type: string
              length: 1024
              nullable: true
-        social_vk:
-              type: string
-              length: 255
-              nullable: true
-        social_fb:
-              type: string
-              length: 255
-              nullable: true
-        social_yt:
-              type: string
-              length: 255
-              nullable: true
-        social_yt:
-              type: string
-              length: 255
-              nullable: true
-        social_tw:
-              type: string
-              length: 255
-              nullable: true
-        social_ig:
-              type: string
-              length: 255
-              nullable: true
-        social_gg:
-              type: string
-              length: 255
-              nullable: true
         maps_code:
               type: string
               length: 255

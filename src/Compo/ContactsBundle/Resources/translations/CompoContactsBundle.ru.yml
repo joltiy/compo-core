@@ -8,12 +8,6 @@ Email: E-mail
 Bankprops: Реквизиты
 Walk Instruction: Как добраться своим ходом
 Car Instruction: Как добраться на машине
-Social Vk: Ссылка на группу В Контакте
-Social Fb: Ссылка на группу в Facebook
-Social Yt: Ссылка на канал YouTube
-Social Tw: Ссылка на канал Twitter
-Social Ig: Ссылка на Instagram
-Social Gg: Ссылка на Google+
 Maps Code : Код карты
 
 tab_menu:
@@ -36,12 +30,6 @@ form:
   label_bankprops: Реквизиты
   label_walk_instruction: Как добраться своим ходом
   label_car_instruction: Как добраться на машине
-  label_social_vk: Ссылка на группу В Контакте
-  label_social_fb: Ссылка на группу в Facebook
-  label_social_yt: Ссылка на канал YouTube
-  label_social_tw: Ссылка на канал Twitter
-  label_social_ig: Ссылка на Instagram
-  label_social_gg: Ссылка на Google+
   label_maps_code: Код карты
   group_major: Основные данные
   group_minor: Дополнительные данные
@@ -49,7 +37,6 @@ form:
   group_walk: Своим ходом
   group_links: Ссылки
   tab_instructions: Как добраться
-  tab_social: Социальные сети
   label_cix: Долгота центра карты
   label_ciy: Широта центра карты
   tab_map: Карта
@@ -63,12 +50,6 @@ show:
   label_bankprops: Реквизиты
   label_walk_instruction: Как добраться своим ходом
   label_car_instruction: Как добраться на машине
-  label_social_vk: Ссылка на группу В Контакте
-  label_social_fb: Ссылка на группу в Facebook
-  label_social_yt: Ссылка на канал YouTube
-  label_social_tw: Ссылка на канал Twitter
-  label_social_ig: Ссылка на Instagram
-  label_social_gg: Ссылка на Google+
   label_maps_code: Код карты
 
 block:
