@@ -71,10 +71,10 @@ class SeoExtension extends AbstractAdminExtension
             ->add('noIndexEnabled', 'checkbox', array('required' => false))
             ->end()
             ->with('form.group_seo_meta', array('name' => false, 'class' => 'col-lg-6'))
-            ->add('header', 'textarea', array('required' => false))
-            ->add('title', 'textarea', array('required' => false))
-            ->add('metaDescription', 'textarea', array('required' => false))
-            ->add('metaKeyword', 'textarea', array('required' => false))
+            ->add('header', 'textarea', array('required' => false, 'attr' => array('class' => 'highlight-src')))
+            ->add('title', 'textarea', array('required' => false, 'attr' => array('class' => 'highlight-src')))
+            ->add('metaDescription', 'textarea', array('required' => false, 'attr' => array('class' => 'highlight-src')))
+            ->add('metaKeyword', 'textarea', array('required' => false, 'attr' => array('class' => 'highlight-src')))
             ->add('seoVars', SeoVarsType::class, array(
                 'mapped' => false,
                 'required' => false,
