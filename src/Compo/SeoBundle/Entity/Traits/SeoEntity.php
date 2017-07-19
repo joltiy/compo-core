@@ -10,8 +10,8 @@ trait SeoEntity
     /**
      * URL
      *
-     * @Gedmo\Slug(fields={"name"})
-     * @ORM\Column(type="string", nullable=false, unique=true, updatable=false)
+     * @Gedmo\Slug(fields={"name", updatable=false})
+     * @ORM\Column(type="string", nullable=false, unique=true)
      */
     protected $slug;
 

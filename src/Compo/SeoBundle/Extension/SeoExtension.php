@@ -89,7 +89,7 @@ class SeoExtension extends AbstractAdminExtension
      */
     public function preUpdate(AdminInterface $admin, $object)
     {
-        $this->createSlug($admin, $object);
+        //$this->createSlug($admin, $object);
     }
 
     public function createSlug(AdminInterface $admin, $object)
@@ -134,7 +134,7 @@ class SeoExtension extends AbstractAdminExtension
      */
     public function prePersist(AdminInterface $admin, $object)
     {
-        $this->createSlug($admin, $object);
+        //$this->createSlug($admin, $object);
     }
 
     /**
@@ -142,7 +142,7 @@ class SeoExtension extends AbstractAdminExtension
      */
     public function postUpdate(AdminInterface $admin, $object)
     {
-        $this->updateSlug($admin, $object);
+        //$this->updateSlug($admin, $object);
     }
 
     public function updateSlug(AdminInterface $admin, $object)
@@ -166,7 +166,7 @@ class SeoExtension extends AbstractAdminExtension
      */
     public function postPersist(AdminInterface $admin, $object)
     {
-        $this->updateSlug($admin, $object);
+        //$this->updateSlug($admin, $object);
     }
 
 }
