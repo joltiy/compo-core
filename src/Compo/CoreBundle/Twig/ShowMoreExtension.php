@@ -28,6 +28,7 @@ class ShowMoreExtension extends Twig_Extension
         // <!--more--></div>
         $text = str_replace('<!--more--></div>', '</div><!--more-->', $text);
 
+
         $text_array = explode('<!--more-->', $text, 2);
 
         if (count($text_array) == 2 && $text_array[0] && $text_array[1]) {
