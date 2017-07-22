@@ -215,7 +215,7 @@ class MenuItemAdmin extends AbstractAdmin
 
             /** @var MenuAdmin $menuAdmin */
             $menuAdmin = $this->getConfigurationPool()->getAdminByAdminCode('compo_menu.admin.menu');
-            $menuAdmin->setSubject($this->getSubject()->getManufacture());
+            $menuAdmin->setSubject($this->getSubject()->getMenu());
             $tabMenu = $menu->addChild('tab_menu.menu', array('label' => $this->trans('tab_menu.menu', array('%name%' => $this->getSubject()->getMenu()->getName())), 'attributes' => array('dropdown' => true)));
 
             $menuAdmin->configureTabMenuList($tabMenu, $action);
