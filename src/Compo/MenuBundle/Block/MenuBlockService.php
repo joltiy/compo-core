@@ -97,22 +97,23 @@ class MenuBlockService extends AbstractBlockService
                 $item['url'] = $this->getContainer()->get('router')->generate('page_slug', array('path' => $nodeItem->getPage()->getUrl()));
             } elseif ($item['type'] == 'tagging') {
 
-                if (!$nodeItem->getTagging()) {
-                    continue;
+                if ($nodeItem->getTagging()) {
+                    $catalogManager = $this->getContainer()->get('compo_catalog.manager.catalog');
+
+                    $item['url'] = $catalogManager->getCatalogTaggingShowPermalink($nodeItem->getTagging()->getSlug());
+
+
+
+                    $criteria = array();
+                    $criteria['filter'] = $nodeItem->getTagging()->getFilterData();
+
+                    $filter = $catalogManager->getFilter($criteria);
+
+
+                    $item['products_count'] = $filter['products_count'];
                 }
 
-                $catalogManager = $this->getContainer()->get('compo_catalog.manager.catalog');
 
-                $item['url'] = $catalogManager->getCatalogTaggingShowPermalink($nodeItem->getTagging()->getSlug());
-
-
-                $criteria = array();
-                $criteria['filter'] = $nodeItem->getTagging()->getFilterData();
-
-                $filter = $catalogManager->getFilter($criteria);
-
-
-                $item['products_count'] = $filter['products_count'];
 
             } else {
 
