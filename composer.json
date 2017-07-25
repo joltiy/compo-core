@@ -13,8 +13,8 @@
     "psr-4": {
       "Compo\\": "src/Compo",
       "Pix\\SortableBehaviorBundle\\": "src/Pix/PixSortableBehaviorBundle",
-      "Sylius\\Bundle\\SettingsBundle\\": "src/Pix/SyliusSettingsBundle",
-      "Sylius\\Bundle\\ThemeBundle\\": "src/Pix/SyliusThemeBundle"
+      "Sylius\\Bundle\\SettingsBundle\\": "src/SyliusSettingsBundle",
+      "Sylius\\Bundle\\ThemeBundle\\": "src/SyliusThemeBundle"
 
     }
   }
