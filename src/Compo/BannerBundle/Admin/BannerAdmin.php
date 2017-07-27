@@ -4,6 +4,7 @@ namespace Compo\BannerBundle\Admin;
 
 use Compo\BannerBundle\Entity\BannerItem;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -83,7 +84,7 @@ class BannerAdmin extends AbstractAdmin
             ->with('form.group_main', array('name' => false))
             ->add('id')
             ->add('name')
-            ->add('description');
+            ->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false));
 
         $formMapper
             ->end()

@@ -20,7 +20,7 @@ class DescriptionExtension extends AbstractAdminExtension
      */
     public function configureFormFields(FormMapper $formMapper)
     {
-        if ($formMapper->has('description')) {
+        if (false && $formMapper->has('description')) {
             $field = $formMapper->getFormBuilder()->get('description');
 
             $options = $field->getOptions();

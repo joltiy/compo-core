@@ -3,6 +3,7 @@
 namespace Compo\FeedbackBundle\Admin;
 
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -61,7 +62,7 @@ class FeedbackTagAdmin extends AbstractAdmin
         $formMapper
             ->add('enabled')
             ->add('name')
-            ->add('description')
+            ->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false))
             ->add('color', 'sonata_type_color_selector', array('required' => false))
             ->add('cssClass')
         ;

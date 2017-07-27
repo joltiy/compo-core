@@ -4,6 +4,7 @@ namespace Compo\AdvantagesBundle\Admin;
 
 use Compo\AdvantagesBundle\Entity\AdvantagesItem;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -88,7 +89,7 @@ class AdvantagesAdmin extends AbstractAdmin
 
         $formMapper->add('id');
         $formMapper->add('name');
-        $formMapper->add('description');
+        $formMapper->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false));
 
         $formMapper->end();
         $formMapper->end();

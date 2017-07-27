@@ -4,6 +4,7 @@ namespace Compo\NewsBundle\Admin;
 
 use Compo\NewsBundle\Entity\News;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -115,7 +116,7 @@ class NewsAdmin extends AbstractAdmin
             ->add('views')
 
             ->add('name')
-            ->add('description')
+            ->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false))
             ->add('body', SimpleFormatterType::class, array('required' => false, 'format' => 'richhtml', 'ckeditor_context' => 'default'))
             ->end()
             ->end();

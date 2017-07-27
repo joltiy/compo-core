@@ -3,6 +3,7 @@
 namespace Compo\SmsProviderBundle\Admin;
 
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -78,7 +79,7 @@ class SmsProviderAdmin extends AbstractAdmin
             ->tab('form.tab_main')
             ->with('form.group_main', array('name' => false, 'class' => 'col-lg-6'))
             ->add('id')
-            ->add('name')
+            ->add('name', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false))
             ->add('description')
             ->add('type', ChoiceType::class, array(
                 'required' => true,

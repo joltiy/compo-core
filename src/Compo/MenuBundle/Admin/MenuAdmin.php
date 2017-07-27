@@ -4,6 +4,7 @@ namespace Compo\MenuBundle\Admin;
 
 use Compo\MenuBundle\Entity\MenuItem;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -105,7 +106,7 @@ class MenuAdmin extends AbstractAdmin
             ->with('form.group_main', array('name' => false))
             ->add('id')
             ->add('name')
-            ->add('description');
+            ->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false));
 
         $formMapper
             ->end()

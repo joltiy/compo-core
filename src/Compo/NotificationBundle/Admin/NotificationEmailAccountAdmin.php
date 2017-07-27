@@ -3,6 +3,7 @@
 namespace Compo\NotificationBundle\Admin;
 
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -70,7 +71,7 @@ class NotificationEmailAccountAdmin extends AbstractAdmin
             ->with('form.group_main', array('name' => false, 'class' => 'col-lg-12'))
             ->add('id')
             ->add('name')
-            ->add('description')
+            ->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false))
             ->add('transport', 'choice', array(
                 'choices' => $notificationManager->getEmailTransport(),
             ))
