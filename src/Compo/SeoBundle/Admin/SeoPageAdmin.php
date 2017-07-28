@@ -81,7 +81,7 @@ class SeoPageAdmin extends AbstractAdmin
             if (isset($context['help'])) {
                 $help = $context['help'];
             } else {
-                $help = '';
+                $help = 'CompoSeoBundle:Form:seo_vars.html.twig';
             }
         }
 
