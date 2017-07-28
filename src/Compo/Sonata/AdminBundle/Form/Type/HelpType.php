@@ -33,6 +33,10 @@ class HelpType extends AbstractType
         $builder->addModelTransformer(new CallbackTransformer(
             function ($value) use ($options) {
 
+                if (isset($options['template']) && $options['template']) {
+                    $value = $options['template'];
+                }
+
                 if (strpos($value, 'Compo') === 0) {
                     return $this->getContainer()->get('twig')->render($options['template']);
 

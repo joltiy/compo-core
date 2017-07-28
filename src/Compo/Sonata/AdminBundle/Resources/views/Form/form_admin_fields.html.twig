@@ -637,7 +637,7 @@ file that was distributed with this source code.
     {% spaceless %}
         <div {{ block('widget_container_attributes') }}>
             <div class="well">
-                {{ value }}
+                {{ value|raw }}
             </div>
         </div>
     {% endspaceless %}
