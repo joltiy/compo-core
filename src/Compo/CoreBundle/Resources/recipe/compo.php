@@ -21,8 +21,10 @@ date_default_timezone_set('Europe/Moscow');
 set('ssh_type', 'native');
 set('ssh_multiplexing', false);
 
+set('writable_mode', 'chmod');
 
 // Symfony shared dirs
+
 
 set('bin_dir', 'bin');
 set('var_dir', 'var');
