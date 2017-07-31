@@ -6,7 +6,7 @@ use Symfony\Component\Yaml\Yaml;
 
 
 use function Deployer\{
-    add, get, server, set, parse, task, run, workingPath, writeln, runLocally, download
+    add, get, server, set, parse, task, run, workingPath, writeln, runLocally, download, upload
 };
 
 
@@ -110,6 +110,41 @@ task('database:sync-from-remote', function () {
 })->desc('database:sync-from-remote');
 
 
+
+/** @noinspection PhpUndefinedFunctionInspection */
+task('database:sync-to-remote', function () {
+
+    $projectDir = runLocally('pwd');
+    $varDir = $projectDir . '/var/database';
+    runLocally("mkdir -p " . $varDir);
+
+    $parameters = Yaml::parse(file_get_contents($projectDir . '/app/config/parameters.yml'));
+
+    $exportDatabasePath = $varDir . "/" . $parameters['parameters']['database_name'] . ".sql";
+
+    runLocally("mysqldump -u " . $parameters['parameters']['database_user'] . " " . $parameters['parameters']['database_name'] . " > " . $exportDatabasePath);
+
+    run("mkdir -p {{release_path}}/var/database/" );
+
+    upload($exportDatabasePath, '{{release_path}}/var/database/' . $parameters['parameters']['database_name'] . ".sql");
+
+
+
+    run("cd {{release_path}} && " . " php bin/console doctrine:database:drop --if-exists --force --quiet --no-interaction --no-debug");
+    run("cd {{release_path}} && " . " php bin/console doctrine:database:create --if-not-exists");
+
+    $parametrs = get('parameters');
+
+
+    run("cd {{release_path}} && "
+        . " mysql --user=" . $parametrs['database_user']." --password=".$parametrs['database_password']
+        . ' ' . $parametrs['database_name']
+        . ' < '
+        . '{{release_path}}/var/database/' . $parametrs['database_name'] . ".sql"
+    );
+
+
+})->desc('database:sync-to-remote');
 
 
 /** @noinspection PhpUndefinedFunctionInspection */
