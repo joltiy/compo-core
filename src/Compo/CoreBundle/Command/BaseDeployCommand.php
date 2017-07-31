@@ -137,7 +137,7 @@ class BaseDeployCommand extends ContainerAwareCommand
     {
         $cache_dir = $this->getContainer()->getParameter('kernel.cache_dir');
 
-        mkdir($cache_dir . '/prod/jms_diextra/metadata', 0777, true);
+        mkdir($cache_dir . '/jms_diextra/metadata', 0777, true);
 
         $this->runCommand("sylius:theme:assets:install", array(
             '--symlink' => true,
