@@ -35,6 +35,7 @@ class InstallCommand extends BaseDeployCommand
 
         $this->runDoctrineCreateDatabase();
         $this->runDoctrineSchemaUpdate();
+        $this->runCacheWarmup();
         $this->runSyliusThemeAssetsInstall();
 
         //$this->runDoctrineMigrate();

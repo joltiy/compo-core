@@ -38,7 +38,7 @@ set('shared_dirs', array('var/logs', 'web/uploads', 'web/userfiles'));
 /** @noinspection PhpUndefinedFunctionInspection */
 set('shared_files', array('app/config/parameters.yml', 'web/robots.txt', 'var/logs', 'var/sessions'));
 /** @noinspection PhpUndefinedFunctionInspection */
-set('writable_dirs', array('var/cache', 'var/cache/prod', 'var/cache/prod/jms_diextra', 'var/cache/prod/jms_diextra/metadata', 'var/sessions', 'var/logs', 'web/uploads'));
+set('writable_dirs', array('var/cache', 'var/sessions', 'var/logs', 'web/uploads'));
 
 /** @noinspection PhpUndefinedFunctionInspection */
 set('clear_paths', []);
