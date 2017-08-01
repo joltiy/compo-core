@@ -333,7 +333,7 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
             }
 
             if (isset($template['title']) && $title == '') {
-                $title = $this->buildTemplate($template['title']);
+                $title = $this->buildTemplate($template['title'] );
             }
 
             if (isset($template['metaKeyword']) && $meta_keyword == '') {
@@ -343,6 +343,10 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
                 $meta_description = $this->buildTemplate($template['metaDescription']);
             }
         }
+
+        $title = $this->buildTemplate($title . ' {% if page|default("0") > 1 %} страница ({{ page }}){% endif %}' );
+
+
 
         // Чистка keywords
         $keywords_tmp = explode(',', $meta_keyword);
