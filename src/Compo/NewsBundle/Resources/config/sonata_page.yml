@@ -1,27 +1,5 @@
 sonata_page:
     templates:
-        2columns:
-            containers:
-                 header:
-                     blocks:
-                        - compo_news.block.service.news_last
-                 content_top:
-                     blocks:
-                        - compo_news.block.service.news_last
-                 sidebar:
-                     blocks:
-                        - compo_news.block.service.news_last
-
-                 content:
-                     blocks:
-                        - compo_news.block.service.news_last
-
-                 content_bottom:
-                     blocks:
-                        - compo_news.block.service.news_last
-                 footer:
-                     blocks:
-                        - compo_news.block.service.news_last
 
         default:
             containers:
