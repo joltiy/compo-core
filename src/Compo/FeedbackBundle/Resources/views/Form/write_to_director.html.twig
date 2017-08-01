@@ -10,20 +10,20 @@
         <form class="contacts__form" name="feedbackForm" data-ng-if="!feedback.sent">
 
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-12">
                     <div class="drawing-order__flex-wrap">
                         {{ form_row(form.name,{ "label_attr": {"class":"drawing-order__label-text"} , 'attr' : {"validator" : "required","no-validation-message":"true","class" : "drawing-order__input-text","data-ng-model":"feedback.form.name"  }}  ) }}
                     </div>
                 </div>
 
 
-                <div class="col-md-4">
+                <div class="col-md-12">
                     <div class="drawing-order__flex-wrap">
                         {{ form_row(form.email,{ "label_attr": {"class":"drawing-order__label-text"} , 'attr' : {"validator" : "required, email","no-validation-message":"true","class" : "drawing-order__input-text","data-ng-model":"feedback.form.email"  }}  ) }}
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-12">
                     <div class="drawing-order__flex-wrap">
                         {{ form_row(form.phone,{ "label_attr": {"class":"drawing-order__label-text"} , 'attr' : {"validator" : "required","data-ng-phone-mask":"","no-validation-message":"true","class" : "drawing-order__input-text" ,"data-ng-model":"feedback.form.phone" }}  ) }}
                     </div>
