@@ -443,7 +443,7 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         $result = str_replace(' .', '.', $result);
         $result = str_replace('( )', '', $result);
 
-        $result = trim($result, ',.:');
+        $result = trim($result, ',:');
 
         // Удалить два и более пробела
         $result = trim(preg_replace('/ {2,}/im', ' ', $result));
