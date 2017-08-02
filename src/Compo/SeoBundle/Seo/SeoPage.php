@@ -16,15 +16,15 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
     public $replaceTagging = true;
 
     public $templates = array(
-        /*
+
         'default' => array(
-            'header' => '{{ page_internal.name }}',
-            'description' => '{{ page_internal.name }}',
-            'title' => '{{ page_internal.name }}. {{ site.title|default(site.name) }}',
-            'meta_description' => '{{ page_internal.name }}. {{ site.metaDescription|default(site.name) }}',
-            'meta_keyword' => '{{ page_internal.name }}, {{ site.metaKeyword|default(site.name) }}',
+            'header' => '{{ page_internal.header|default(page_internal.name) }}',
+            'description' => '{{ page_internal.header|default(page_internal.name) }}',
+            'title' => '{{ page_internal.header|default(page_internal.name) }}',
+            'meta_description' => '{{ page_internal.header|default(page_internal.name) }}',
+            'meta_keyword' => '{{ page_internal.header|default(page_internal.name) }}',
         )
-        */
+
     );
 
     public $vars = array();

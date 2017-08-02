@@ -33,18 +33,10 @@ class DefaultPageService extends \Sonata\PageBundle\Page\Service\DefaultPageServ
      */
     protected function updateSeoPage(PageInterface $page)
     {
-        $this->seoPage->addTemplates('seo_page_internal', array(
-            'header' => '{{ page_internal.header|default(page_internal.name) }}',
-            'description' => '{{ page_internal.description|default(page_internal.name) }}',
-            'title' => '{{ page_internal.title|default(page_internal.name) }}',
-            'metaKeyword' => '{{ page_internal.metaKeyword|default(page_internal.name) }}',
-            'metaDescription' => '{{ page_internal.metaDescription|default(page_internal.name) }}',
-        ));
-
         $this->seoPage->addVar('page_internal', $page);
 
-        $this->seoPage->build();
-
-
+        if ($page->getRouteName() == 'page_slug') {
+            $this->seoPage->build();
+        }
     }
 }
