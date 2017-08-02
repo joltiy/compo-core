@@ -319,6 +319,10 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
         }
     }
 
+    protected function writeln($prefix = '') {
+        $this->output->writeln($prefix);
+    }
+
     protected function writelnMemmory($prefix = '') {
         if ($prefix) {
             $this->output->writeln($prefix);

@@ -1,9 +1,9 @@
 services:
-    kernel.listener.logged_in_user_listener:
-            class: Compo\RedirectBundle\Listener\RedirectListener
-            tags:
-                - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
-            arguments: [ '@router', '@service_container' ]
+    compo_redirect.listener.redirect:
+        class: Compo\RedirectBundle\Listener\RedirectListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+        arguments: [ '@router', '@service_container' ]
 
     compo_redirect.admin.redirect:
         class: Compo\RedirectBundle\Admin\RedirectAdmin
