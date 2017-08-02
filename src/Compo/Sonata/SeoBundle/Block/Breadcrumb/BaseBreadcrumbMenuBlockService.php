@@ -61,7 +61,6 @@ class BaseBreadcrumbMenuBlockService extends \Sonata\SeoBundle\Block\Breadcrumb\
             $menu->setCurrent($settings['current_uri']);
         }
 
-        dump($settings);
 
         if ($settings['include_homepage_link']) {
             $menu->addChild('sonata_seo_homepage_breadcrumb', array('uri' => '/'));
