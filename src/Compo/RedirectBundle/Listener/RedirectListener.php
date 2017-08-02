@@ -37,9 +37,6 @@ class RedirectListener
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        if (!$event->isMasterRequest()) {
-            return;
-        }
         $request   = $event->getRequest();
 
         $uri = $request->getRequestUri();
@@ -56,6 +53,8 @@ class RedirectListener
                 'id' => 'ASC'
             )
         );
+
+
 
         if ($redirect) {
             $event->setResponse(new RedirectResponse($redirect->getUrOut()));
