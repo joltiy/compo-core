@@ -197,7 +197,14 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
      */
     public function getVars()
     {
-        if ($this->getRequest()->get('_route') == 'page_slug') {
+        if (
+            $this->getRequest()->get('_route') == 'page_slug'
+            ||
+            $this->getRequest()->get('_route') == '_page_internal_error_not_found'
+
+
+
+        ) {
             $this->setContext('page');
         }
 

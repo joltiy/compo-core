@@ -35,7 +35,12 @@ class DefaultPageService extends \Sonata\PageBundle\Page\Service\DefaultPageServ
     {
         $this->seoPage->addVar('page_internal', $page);
 
-        if ($page->getRouteName() == 'page_slug') {
+        if ($page->getRouteName() == 'page_slug'
+
+            ||
+            $page->getRouteName() == '_page_internal_error_not_found'
+
+        ) {
             $this->seoPage->build();
         }
     }
