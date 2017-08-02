@@ -1,10 +1,6 @@
 sonata_page:
     templates:
-        2columns:
-            containers:
-                 content:
-                     blocks:
-                        - compo_faq.block.service.faq_last
+
         default:
             containers:
                  content:

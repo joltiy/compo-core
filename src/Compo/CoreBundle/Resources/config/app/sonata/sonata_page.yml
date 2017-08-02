@@ -53,65 +53,10 @@ sonata_page:
 
 
 
-    default_template: 2columns
+    default_template: default
 
     templates:
 
-        2columns:
-            path: 'CompoCoreBundle::2columns_layout.html.twig'
-            name: 'Двухколоночный'
-            containers:
-                 header:
-                     name: "Шапка"
-                     blocks:
-                        - sonata.block.service.template
-                        - sonata.block.service.text
-                        - sonata.formatter.block.formatter
-                 content_top:
-                     name: "Вверху"
-                     blocks:
-                        - sonata.block.service.template
-                        - sonata.block.service.text
-                        - sonata.formatter.block.formatter
-                 sidebar:
-                     name: "Сайдбар"
-                     blocks:
-                        - sonata.block.service.template
-                        - sonata.block.service.text
-                        - sonata.formatter.block.formatter
-                 content:
-                     name: "Контент"
-                     blocks:
-                        - sonata.block.service.template
-                        - sonata.block.service.text
-                        - sonata.formatter.block.formatter
-                 content_bottom:
-                     name: "Внизу"
-                     blocks:
-                        - sonata.block.service.template
-                        - sonata.block.service.text
-                        - sonata.formatter.block.formatter
-                 footer:
-                     name: "Подвал"
-                     blocks:
-                        - sonata.block.service.template
-                        - sonata.block.service.text
-                        - sonata.formatter.block.formatter
-            matrix:
-                 layout: |
-                     HHHHHHHH
-                     TTTTTTTT
-                     SSSCCCCC
-                     BBBBBBBB
-                     FFFFFFFF
-
-                 mapping:
-                     H: header
-                     T: content_top
-                     S: sidebar
-                     C: content
-                     B: content_bottom
-                     F: footer
 
 
 
