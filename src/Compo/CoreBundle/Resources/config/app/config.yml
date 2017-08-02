@@ -59,8 +59,9 @@ framework:
         handler_id:  ~
         #upsave_path:           "%kernel.root_dir%/cache/sessions"
         cookie_domain: "%server_name%"
-        cookie_lifetime:  0
+        cookie_lifetime:  604800
         cookie_httponly:  false
+
 
     fragments:       ~
     http_method_override: true
