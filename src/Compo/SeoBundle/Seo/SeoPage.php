@@ -344,7 +344,7 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
             }
         }
 
-        $title = $this->buildTemplate($title . ' {% if page|default("0") > 1 %} страница ({{ page }}){% endif %}' );
+        $title = $this->buildTemplate($title . ' {% if page|default("0") > 1 %} (страница {{ page }}){% endif %}' );
 
 
 
