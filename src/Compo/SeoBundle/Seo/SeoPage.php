@@ -201,6 +201,9 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
             $this->setContext('page');
         }
 
+        //current_uri
+        $this->vars['current_uri'] = $this->getRequest()->getRequestUri();
+
         $this->vars['context'] = $this->getContext();
 
         return $this->vars;

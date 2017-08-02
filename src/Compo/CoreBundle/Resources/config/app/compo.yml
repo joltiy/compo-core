@@ -23,6 +23,7 @@ parameters:
     translator.class: Compo\CoreBundle\Translation\FallbackTranslator
     sylius.settings.form_factory.class: Compo\CoreBundle\Form\Factory\SettingsFormFactory
 
+    sonata.page.block.breadcrumb.class: Compo\Sonata\PageBundle\Block\BreadcrumbBlockService
 
     fos_elastica.property_accessor.class: Compo\CoreBundle\PropertyAccess\QuietPropertyAccessor
 
