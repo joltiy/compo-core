@@ -31,6 +31,11 @@ class Page extends BasePage
     protected $id;
 
     /**
+     * @var string $header
+     */
+    protected $header;
+
+    /**
      * Get id
      *
      * @return int $id
@@ -44,4 +49,22 @@ class Page extends BasePage
     {
         return '';
     }
+
+    /**
+     * @return string
+     */
+    public function getHeader()
+    {
+        return $this->header;
+    }
+
+    /**
+     * @param string $header
+     */
+    public function setHeader($header)
+    {
+        $this->header = $header;
+    }
+
+
 }

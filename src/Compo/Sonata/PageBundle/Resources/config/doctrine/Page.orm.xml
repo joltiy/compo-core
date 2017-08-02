@@ -19,5 +19,7 @@
             <generator strategy="AUTO"/>
         </id>
 
+        <field name="header" type="string" column="header" length="255" nullable="true"/>
+
     </entity>
 </doctrine-mapping>

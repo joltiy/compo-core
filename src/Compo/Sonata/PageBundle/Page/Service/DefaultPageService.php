@@ -34,11 +34,11 @@ class DefaultPageService extends \Sonata\PageBundle\Page\Service\DefaultPageServ
     protected function updateSeoPage(PageInterface $page)
     {
         $this->seoPage->addTemplates('seo_page_internal', array(
-            'header' => '{{ page_internal.header }}',
-            'description' => '{{ page_internal.description }}',
-            'title' => '{{ page_internal.title }}',
-            'meta_keyword' => '{{ page_internal.metaKeyword }}',
-            'meta_description' => '{{ page_internal.metaDescription }}',
+            'header' => '{{ page_internal.header|default(page_internal.name) }}',
+            'description' => '{{ page_internal.description|default(page_internal.name) }}',
+            'title' => '{{ page_internal.title|default(page_internal.name) }}',
+            'metaKeyword' => '{{ page_internal.metaKeyword|default(page_internal.name) }}',
+            'metaDescription' => '{{ page_internal.metaDescription|default(page_internal.name) }}',
         ));
 
         $this->seoPage->addVar('page_internal', $page);
