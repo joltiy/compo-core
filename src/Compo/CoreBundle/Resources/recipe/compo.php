@@ -6,7 +6,7 @@ use Symfony\Component\Yaml\Yaml;
 
 
 use function Deployer\{
-    add, get, server, set, parse, task, run, workingPath, writeln, runLocally, download, upload
+    add, get, server, commandExist, set, parse, task, run, workingPath, writeln, runLocally, download, upload
 };
 
 
@@ -70,6 +70,15 @@ task('timezone', function () {
     date_default_timezone_set('Europe/Moscow');
 })->desc('timezone');
 
+
+task('deploy:vendors', function () {
+    if (!commandExist('unzip')) {
+        writeln('<comment>To speed up composer installation setup "unzip" command with PHP zip extension https://goo.gl/sxzFcD</comment>');
+    }
+    run('cd {{release_path}} && {{env_vars}} {{bin/composer}} {{composer_options}}', [
+        'timeout' => 6800,
+    ]);
+});
 
 /** @noinspection PhpUndefinedFunctionInspection */
 task('database:sync-from-remote', function () {
