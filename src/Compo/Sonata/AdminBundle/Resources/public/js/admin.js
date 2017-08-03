@@ -258,7 +258,7 @@ $(document).ready(function () {
 
         form.attr('action', form.attr('action') + '&current_tab_index=' + el.data('index'));
 
-        history.replaceState(history.state, document.title, event.target.href);
+        //history.replaceState(history.state, document.title, event.target.href);
     }
 
 
