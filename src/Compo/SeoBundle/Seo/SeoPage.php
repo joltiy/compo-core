@@ -422,7 +422,7 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         //$found_template[$key] = preg_replace(array_keys($vars_preg_replace), array_values($vars_preg_replace), $value);
 
         try {
-            $tmp = $this->getContainer()->get('twig')->createTemplate('{% spaceless %}' . $template . '{% endspaceless %}');
+            $tmp = $this->getContainer()->get('twig')->createTemplate(' ' . $template . ' ');
             //                     'cache' => new \Twig_Cache_Filesystem($this->getConnector()->getTempDir(), \Twig_Cache_Filesystem::FORCE_BYTECODE_INVALIDATION),
 
             $result = $tmp->render($this->vars);
@@ -445,8 +445,12 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
             $result = '';
         }
 
+        $result = str_replace(' x ', ' ', $result);
+        $result = str_replace(' х ', ' ', $result);
+
+
         // Вырезаем незамененые переменные
-        $result = trim(preg_replace('/\{\{.*\}\}/im', ' ', $result));
+        //$result = trim(preg_replace('/\{\{.*\}\}/im', ' ', $result));
 
         $result = str_replace('()', '', $result);
         $result = str_replace(' ,', ',', $result);
