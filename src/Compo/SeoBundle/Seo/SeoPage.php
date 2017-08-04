@@ -422,8 +422,9 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         //$found_template[$key] = preg_replace(array_keys($vars_preg_replace), array_values($vars_preg_replace), $value);
 
         try {
-            $tmp = $this->getContainer()->get('twig')->createTemplate(' ' . $template . ' ');
+            //$tmp = $this->getContainer()->get('twig')->createTemplate('{% spaceless %} ' . $template . ' {% endspaceless %}');
             //                     'cache' => new \Twig_Cache_Filesystem($this->getConnector()->getTempDir(), \Twig_Cache_Filesystem::FORCE_BYTECODE_INVALIDATION),
+            $tmp = $this->getContainer()->get('twig')->createTemplate('{% spaceless %} ' . $template . ' {% endspaceless %}');
 
             $result = $tmp->render($this->vars);
 
