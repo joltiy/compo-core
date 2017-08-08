@@ -378,3 +378,5 @@ form.label_description_additional: 'Дополнительное описани�
 
 settings.order_tab: 'Заказ'
 form.label_settings_order_page: 'Страница выполненного заказа'
+
+form.label_visible: 'Отображать'
