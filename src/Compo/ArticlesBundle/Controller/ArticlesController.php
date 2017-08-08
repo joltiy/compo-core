@@ -49,6 +49,22 @@ class ArticlesController extends Controller
     }
 
     /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function showByIdAction($id)
+    {
+        $manager = $this->get('compo_articles.manager.articles');
+
+        $article = $manager->find($id);
+
+        if (!$article) {
+            throw $this->createNotFoundException('compo_articles.exception.not_found_article');
+        }
+
+        return $this->redirectToRoute('compo_articles_show_by_slug', array('slug' => $article->getSlug()), 302);
+    }
+
+    /**
      * @param $slug
      * @return \Symfony\Component\HttpFoundation\Response
      */

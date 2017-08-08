@@ -86,4 +86,20 @@ class NewsController extends Controller
             'news' => $article,
         ));
     }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function showByIdAction($id)
+    {
+        $manager = $this->get('compo_news.manager.news');
+
+        $article = $manager->find($id);
+
+        if (!$article) {
+            throw $this->createNotFoundException('compo_news.exception.not_found_news');
+        }
+
+        return $this->redirectToRoute('compo_news_show_by_slug', array('slug' => $article->getSlug()), 302);
+    }
 }

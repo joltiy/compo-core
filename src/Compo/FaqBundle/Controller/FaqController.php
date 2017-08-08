@@ -88,4 +88,20 @@ class FaqController extends Controller
             'article' => $article,
         ));
     }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function showByIdAction($id)
+    {
+        $manager = $this->get('compo_faq.manager.faq');
+
+        $article = $manager->find($id);
+
+        if (!$article) {
+            throw $this->createNotFoundException('compo_faq.exception.not_found_faq');
+        }
+
+        return $this->redirectToRoute('compo_faq_show_by_slug', array('slug' => $article->getSlug()), 302);
+    }
 }
