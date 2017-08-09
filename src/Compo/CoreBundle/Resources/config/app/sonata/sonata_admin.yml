@@ -29,7 +29,7 @@ sonata_admin:
         use_stickyforms:      true
         title_mode:           "single_image"
 
-    persist_filters:      false
+    persist_filters:      true
     show_mosaic_button:   false
 
     templates:
