@@ -98,3 +98,12 @@ services:
         tags:
             - { name: form.type, alias: sonata_page_template }
         arguments: ["@sonata.page.template_manager"]
+
+
+    compo_core.sitemap.subscriber:
+        class:     Compo\Sonata\PageBundle\Event\SitemapPageSubscriber
+        arguments:
+            - "@router"
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: "kernel.event_subscriber", priority: 100 }

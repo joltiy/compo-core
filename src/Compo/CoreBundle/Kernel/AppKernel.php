@@ -54,6 +54,7 @@ class AppKernel extends Kernel
             new \winzou\Bundle\StateMachineBundle\winzouStateMachineBundle(),
             new \Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new \Pix\SortableBehaviorBundle\PixSortableBehaviorBundle(),
+            new \Presta\SitemapBundle\PrestaSitemapBundle(),
 
             new \Sylius\Bundle\SettingsBundle\SyliusSettingsBundle(),
             new \Sylius\Bundle\ResourceBundle\SyliusResourceBundle(),

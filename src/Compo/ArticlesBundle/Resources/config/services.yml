@@ -30,3 +30,11 @@ services:
         parent: compo_core.abstract_container_aware
         tags:
             - { name: sonata.block }
+
+    compo_articles.sitemap.subscriber:
+        class:     Compo\ArticlesBundle\Event\SitemapArticlesSubscriber
+        arguments:
+            - "@router"
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: "kernel.event_subscriber", priority: 100 }
