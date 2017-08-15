@@ -10,9 +10,9 @@ fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
     prefix:   /
 
-presta_sitemap:
-    resource: "@PrestaSitemapBundle/Resources/config/routing.yml"
-    prefix:   /
+#presta_sitemap:
+#    resource: "@PrestaSitemapBundle/Resources/config/routing.yml"
+#    prefix:   /
 
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
