@@ -70,6 +70,11 @@ class DumpSitemapsCommand extends ContainerAwareCommand
         $dumper = $container->get('presta_sitemap.dumper');
         /* @var $dumper DumperInterface */
 
+        $host = $this->getContainer()->getParameter('server_name');
+
+        $container->get('router.request_context')->setHost($host);
+        $container->get('router.request_context')->setScheme('https');
+
         $baseUrl = $this->getBaseUrl();
 
         if ($input->getOption('section')) {
@@ -120,6 +125,8 @@ class DumpSitemapsCommand extends ContainerAwareCommand
 
         $scheme = $context->getScheme();
         $port = '';
+
+        $scheme = 'https';
 
         if ('http' === $scheme && 80 != $context->getHttpPort()) {
             $port = ':'.$context->getHttpPort();
