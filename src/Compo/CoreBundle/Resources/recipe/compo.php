@@ -291,8 +291,13 @@ task('deploy:sitemaps', function () {
 
     run("mkdir -p $sitemapsPath");
 
-    run("cp -rf {{deploy_path}}/current/web/sitemap.* $sitemapsPath/");
-    run("cp -rf $sitemapsPath/sitemap.* {{release_path}}/web/");
+    try {
+        run("cp -rf {{deploy_path}}/current/web/sitemap.* $sitemapsPath/");
+        run("cp -rf $sitemapsPath/sitemap.* {{release_path}}/web/");
+    } catch (\Exception $e) {
+
+    }
+
 
 })->desc('Dump assets');
 
