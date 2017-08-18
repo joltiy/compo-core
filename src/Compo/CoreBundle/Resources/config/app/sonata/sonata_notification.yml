@@ -5,8 +5,8 @@ sonata_notification:
     # sonata.notification.backend.postpone
     # sonata.notification.backend.doctrine
     # sonata.notification.backend.rabbitmq
-    #backend:              sonata.notification.backend.doctrine
-    backend:              sonata.notification.backend.runtime
+
+    backend:              sonata.notification.backend.doctrine
 
     # Example for using RabbitMQ
     #     - { queue: myQueue, recover: true, default: false, routing_key: the_routing_key, dead_letter_exchange: 'my.dead.letter.exchange' }
@@ -52,10 +52,10 @@ sonata_notification:
             max_age:              86400
 
             # The delay in microseconds
-            pause:                500000
+            pause:                5000
 
             # The number of items on each iteration
-            batch_size:           10
+            batch_size:           1
 
             # Raising errors level
             states:
