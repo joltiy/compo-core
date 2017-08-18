@@ -282,6 +282,21 @@ task('deploy:assetic:dump', function () {
     }
 })->desc('Dump assets');
 
+
+
+/** @noinspection PhpUndefinedFunctionInspection */
+task('deploy:sitemaps', function () {
+
+    $sitemapsPath = "{{deploy_path}}/backup/sitemaps";
+
+    run("mkdir -p $sitemapsPath");
+
+    run("cp -rf {{deploy_path}}/current/web/sitemap.* $sitemapsPath/");
+    run("cp -rf $sitemapsPath/sitemap.* {{release_path}}/web/");
+
+})->desc('Dump assets');
+
+
 /** @noinspection PhpUndefinedFunctionInspection */
 task('install', [
     'timezone',
@@ -293,6 +308,7 @@ task('install', [
     //'deploy:clear_paths',
     'deploy:create_cache_dir',
     'deploy:shared',
+    'deploy:sitemaps',
     //'deploy:assets',
     //'deploy:copy_dirs',
     'symfony:env_vars',
@@ -322,6 +338,7 @@ task('deploy', [
     //'deploy:clear_paths',
     'deploy:create_cache_dir',
     'deploy:shared',
+    'deploy:sitemaps',
     //'deploy:assets',
     //'deploy:copy_dirs',
     'symfony:env_vars',
