@@ -10,6 +10,10 @@ fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
     prefix:   /
 
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+    prefix:   /
+
 #presta_sitemap:
 #    resource: "@PrestaSitemapBundle/Resources/config/routing.yml"
 #    prefix:   /
