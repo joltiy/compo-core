@@ -21,8 +21,8 @@ php composer.phar update -o
 **Обновить Compo**
 
 ```
-php bin/console compo:update --env=prod
-bin/console compo:update --env=prod
+php bin/console compo:core:update --env=prod
+bin/console compo:core:update --env=prod
 ```
 
 **Генерировать бандл**

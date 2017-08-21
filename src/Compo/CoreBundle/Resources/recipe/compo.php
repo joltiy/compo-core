@@ -181,29 +181,29 @@ task('sync-from-remote', [
 
 
 /** @noinspection PhpUndefinedFunctionInspection */
-task('compo:update', function () {
+task('compo:core:update', function () {
     /** @noinspection PhpUndefinedFunctionInspection */
-    run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console compo:update --env={{env}} --no-debug');
+    run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console compo:core:update --env={{env}} --no-debug');
     //run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console fos:elastica:populate --env=dev --no-debug');
 
     run("cd {{deploy_path}} && ln -sfn current/web public_html");
 
-})->desc('compo:update');
+})->desc('compo:core:update');
 
 /** @noinspection PhpUndefinedFunctionInspection */
-task('compo:install', function () {
+task('compo:core:install', function () {
     /** @noinspection PhpUndefinedFunctionInspection */
-    run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console compo:install --env={{env}} --no-debug');
+    run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console compo:core:install --env={{env}} --no-debug');
 
     run("cd {{deploy_path}} && ln -sfn current/web public_html");
 
-})->desc('compo:install');
+})->desc('compo:core:install');
 
 /** @noinspection PhpUndefinedFunctionInspection */
 task('compo:create-configs', function () {
     /** @noinspection PhpUndefinedFunctionInspection */
     run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console compo:create-configs --env={{env}} --no-debug');
-})->desc('compo:install');
+})->desc('compo:create-configs');
 
 /** @noinspection PhpUndefinedFunctionInspection */
 task('symfony:env_vars', function () {
@@ -324,7 +324,7 @@ task('install', [
     'deploy:writable',
     'deploy:symlink',
 
-    'compo:install',
+    'compo:core:install',
     'php-fpm:reload',
     'nginx:reload',
 
@@ -355,7 +355,7 @@ task('deploy', [
     'deploy:symlink',
     'php-fpm:reload',
     'nginx:reload',
-    'compo:update',
+    'compo:core:update',
     'deploy:unlock',
     'cleanup',
 ])->desc('Deploy your project');

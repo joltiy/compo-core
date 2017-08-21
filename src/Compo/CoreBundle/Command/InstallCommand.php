@@ -18,8 +18,8 @@ class InstallCommand extends BaseDeployCommand
     protected function configure()
     {
         $this
-            ->setName('compo:install')
-            ->setDescription('Install');
+            ->setName('compo:core:install')
+            ->setDescription('Install projects');
     }
 
     /**

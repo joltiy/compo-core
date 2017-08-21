@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * {@inheritDoc}
  */
-class LegacyConvertImageFromOldDatabaseCommand extends ContainerAwareCommand
+class LegacyConvertImageCommand extends ContainerAwareCommand
 {
     /**
      * @var \Doctrine\Common\Persistence\ObjectManager
@@ -32,7 +32,7 @@ class LegacyConvertImageFromOldDatabaseCommand extends ContainerAwareCommand
         ini_set('memory_limit', -1);
 
         $this
-            ->setName('compo:convert_image_from_old_database')
+            ->setName('compo:legacy:convert:image')
             ->setDescription('Convert image from old database')
             ->addOption(
                 'path',

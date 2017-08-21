@@ -21,7 +21,7 @@ class TranslationCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('compo:translation')
+            ->setName('compo:core:translation')
             ->setDescription('Generate translation');
     }
 

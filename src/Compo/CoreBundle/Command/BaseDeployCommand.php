@@ -191,8 +191,8 @@ class BaseDeployCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('compo:base:deploy')
-            ->setDescription('Dummy');
+            ->setName('compo:core:base-deploy')
+            ->setDescription('Base deploy (dummy)');
     }
 
     /**

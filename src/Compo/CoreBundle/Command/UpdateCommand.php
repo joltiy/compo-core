@@ -18,8 +18,8 @@ class UpdateCommand extends BaseDeployCommand
     protected function configure()
     {
         $this
-            ->setName('compo:update')
-            ->setDescription('Update');
+            ->setName('compo:core:update')
+            ->setDescription('Update project');
     }
 
     /**

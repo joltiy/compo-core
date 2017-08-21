@@ -26,7 +26,7 @@ php bin/console sonata:page:create-snapshots --site=all
 Или
 
 ```
-php bin/console compo:update
+php bin/console compo:core:update
 ```
 
 http://engine.optipro.ru/sample/create/random - создание случайного кол-ва элементов.

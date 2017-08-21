@@ -16,8 +16,8 @@ class SeoPageLoadCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('compo:seo_page:load')
-            ->setDescription('Hello PhpStorm');
+            ->setName('compo:seo:page:load')
+            ->setDescription('Seo pages load');
     }
 
     /**

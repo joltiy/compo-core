@@ -17,7 +17,7 @@ class NotificationEventsLoadCommand extends ContainerAwareCommand
     {
         $this
             ->setName('compo:notification:load')
-            ->setDescription('Hello PhpStorm');
+            ->setDescription('Notifications load');
     }
 
     /**

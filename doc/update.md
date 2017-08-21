@@ -5,7 +5,7 @@
 ```
 git pull
 php composer.phar install -o
-php bin/console compo:update --env=prod
+php bin/console compo:core:update --env=prod
 ```
 
 ## Обновление на тестовом http://engine.optipro.ru/
@@ -16,7 +16,7 @@ zsh
 cd engine.optipro.ru
 git pull
 php composer.phar install -o
-php bin/console compo:update --env=prod
+php bin/console compo:core:update --env=prod
 ```
 
 **Прогрев кеша:**

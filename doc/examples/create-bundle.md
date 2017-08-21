@@ -111,7 +111,7 @@ php bin/console sonata:page:create-snapshots --site=all
 Или:
 
 ```
-php bin/console compo:update --env=prod
+php bin/console compo:core:update --env=prod
 ```
 
 http://compo-standard.prononaserver.ru/app_dev.php/sample/hello/USERNAME - теперь всё ок.

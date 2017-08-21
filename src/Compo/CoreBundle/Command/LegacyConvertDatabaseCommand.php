@@ -26,7 +26,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * {@inheritDoc}
  */
-class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
+class LegacyConvertDatabaseCommand extends ContainerAwareCommand
 {
     /**
      * @var \Doctrine\Common\Persistence\ObjectManager
@@ -81,7 +81,7 @@ class LegacyConvertFromOldDatabaseCommand extends ContainerAwareCommand
         ini_set('memory_limit', -1);
 
         $this
-            ->setName('compo:convert_from_old_database')
+            ->setName('compo:legacy:convert:database')
             ->setDescription('Convert from old database')
             ->addOption(
                 'drop',

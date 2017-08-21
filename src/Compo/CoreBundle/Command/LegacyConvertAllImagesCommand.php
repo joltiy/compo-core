@@ -11,7 +11,7 @@ use Symfony\Component\Process\Process;
 /**
  * {@inheritDoc}
  */
-class LegacyConvertAllImagesFromOldDatabaseCommand extends ContainerAwareCommand
+class LegacyConvertAllImagesCommand extends ContainerAwareCommand
 {
     /**
      * @var \Doctrine\Common\Persistence\AbstractManagerRegistry
@@ -79,7 +79,7 @@ class LegacyConvertAllImagesFromOldDatabaseCommand extends ContainerAwareCommand
         ini_set('memory_limit', -1);
 
         $this
-            ->setName('compo:convert_all_images_from_old_database')
+            ->setName('compo:legacy:convert:all-images')
             ->setDescription('Convert all images from old database')
             ->addOption(
                 'host',

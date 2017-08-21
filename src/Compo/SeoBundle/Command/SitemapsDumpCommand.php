@@ -22,7 +22,7 @@ use Symfony\Component\Console\Input\InputOption;
  *
  * @author Konstantin Tjuterev <kostik.lv@gmail.com>
  */
-class DumpSitemapsCommand extends ContainerAwareCommand
+class SitemapsDumpCommand extends ContainerAwareCommand
 {
     /**
      * Configure CLI command, message, options

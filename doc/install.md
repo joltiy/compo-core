@@ -57,7 +57,7 @@ php app/check.php
 [InstallCommand](./src/Compo/CoreBundle/Command/InstallCommand.php)
 
 ```
-php bin/console compo:install --env=prod
+php bin/console compo:core:install --env=prod
 ```
 
 **Настроить HTTP-сервер, либо запустить встроенный PHP-WEB сервер.**

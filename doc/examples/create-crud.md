@@ -29,7 +29,7 @@ bin/console generate:doctrine:crud --no-interaction --format=yml --route-prefix=
 Можно удалить [/src/Compo/SampleBundle/Resources/config/routing/]([/src/Compo/SampleBundle/Resources/config/routing/])
 
 ```
-php bin/console compo:update --env=prod
+php bin/console compo:core:update --env=prod
 ```
 
 http://engine.optipro.ru/sample/ - все элементы
