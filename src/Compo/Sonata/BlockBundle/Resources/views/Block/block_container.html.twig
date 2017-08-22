@@ -29,8 +29,7 @@ file that was distributed with this source code.
             {% set block_container_id = block.settings.code %}
         {% endif %}
         <div id="{{ block_container_id }}">
-        <div class="row">
-        <div class="col-lg-12">
+
     {% endif %}
 
     {% if decorator %}{{ decorator.pre|raw }}{% endif %}
@@ -42,8 +41,7 @@ file that was distributed with this source code.
     {% if decorator %}{{ decorator.post|raw }}{% endif %}
 
     {% if block.children|length %}
-        </div>
-        </div>
+
         </div>
     {% endif %}
 {% endblock %}
