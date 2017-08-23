@@ -41,7 +41,7 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
     /**
      * @var string
      */
-    protected $database_name = 'dlyavann';
+    protected $database_name = 'keram';
 
     protected $features = array();
 
@@ -50,9 +50,9 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
      */
     protected $oldConnection;
 
-    protected $oldMediaPath = 'http://www.dlyavann.ru/dbpics/';
+    protected $oldMediaPath = 'http://www.keram.ru/dbpics/';
 
-    protected $oldFilesPath = 'http://www.dlyavann.ru/files/';
+    protected $oldFilesPath = 'http://www.keram.ru/files/';
 
     protected $rootCatalog;
 
@@ -410,7 +410,7 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
             $newItem->setName($oldDataItem['name']);
             $newItem->setId($oldDataItem['id']);
             $newItem->setCode($oldDataItem['code']);
-            $newItem->setDescription($oldDataItem['description']);
+            //$newItem->setDescription($oldDataItem['description']);
             $newItem->setSymbol($oldDataItem['symbol']);
             $newItem->setSign($oldDataItem['sign']);
             $newItem->setRate($oldDataItem['rate']);
