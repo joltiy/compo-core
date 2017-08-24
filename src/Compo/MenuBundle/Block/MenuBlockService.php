@@ -109,6 +109,7 @@ class MenuBlockService extends AbstractBlockService
 
                     $filter = $catalogManager->getFilter($criteria);
 
+                    $item['tagging'] = $nodeItem->getTagging();
 
                     $item['products_count'] = $filter['products_count'];
                 }
