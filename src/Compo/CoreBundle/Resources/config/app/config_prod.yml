@@ -22,3 +22,7 @@ monolog:
             level: debug
         console:
             type:  console
+
+assetic_static_gzip:
+    use: true
+    level: 9

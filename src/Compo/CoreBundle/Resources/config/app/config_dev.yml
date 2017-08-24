@@ -36,3 +36,7 @@ monolog:
 assetic:
     workers:
         cache_busting: false
+
+assetic_static_gzip:
+    use: false
+    level: 9
