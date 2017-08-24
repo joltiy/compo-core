@@ -55,6 +55,7 @@ class AppKernel extends Kernel
             new \Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new \Pix\SortableBehaviorBundle\PixSortableBehaviorBundle(),
             new \Presta\SitemapBundle\PrestaSitemapBundle(),
+            new \KonstantinKuklin\AsseticStaticGzipBundle\AsseticStaticGzipBundle(),
 
             new \Sylius\Bundle\SettingsBundle\SyliusSettingsBundle(),
             new \Sylius\Bundle\ResourceBundle\SyliusResourceBundle(),
