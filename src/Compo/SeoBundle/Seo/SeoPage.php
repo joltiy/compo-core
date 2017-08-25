@@ -19,10 +19,10 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
 
         'default' => array(
             'header' => '{{ page_internal.header|default(page_internal.name) }}',
-            'description' => '{{ page_internal.header|default(page_internal.name) }}',
-            'title' => '{{ page_internal.header|default(page_internal.name) }}',
-            'meta_description' => '{{ page_internal.header|default(page_internal.name) }}',
-            'meta_keyword' => '{{ page_internal.header|default(page_internal.name) }}',
+            'description' => '{{ page_internal.description|default(page_internal.header)|default(page_internal.name) }}',
+            'title' => '{{ page_internal.title|default(page_internal.header)|default(page_internal.name) }}',
+            'metaDescription' => '{{ page_internal.metaDescription|default(page_internal.header)|default(page_internal.name) }}',
+            'metaKeyword' => '{{ page_internal.metaKeyword|default(page_internal.header)|default(page_internal.name) }}',
         )
 
     );
@@ -314,6 +314,8 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         }
 
 
+
+        dump($templates);
 
         $name = '';
 
