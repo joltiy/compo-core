@@ -315,7 +315,7 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
 
 
 
-        dump($templates);
+        //dump($templates);
 
         $name = '';
 
