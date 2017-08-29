@@ -123,3 +123,9 @@ php composer.phar dump-autoload
 ```
 php bin/console fos:user:create --super-admin
 ```
+
+**Deploy**
+```
+dep deploy yourdomain.com
+```
+
