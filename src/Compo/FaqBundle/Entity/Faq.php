@@ -27,6 +27,20 @@ class Faq
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
     /**
+     *
+     * @ORM\Column(type="string", nullable=true)
+
+     */
+    protected $username;
+
+    /**
+     *
+     * @ORM\Column(type="string", nullable=true)
+
+     */
+    protected $email;
+
+    /**
      * Описание
      *
      * @var string
@@ -40,6 +54,38 @@ class Faq
     public function getAnswer()
     {
         return $this->answer;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * @param mixed $username
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param mixed $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
     }
 
     /**

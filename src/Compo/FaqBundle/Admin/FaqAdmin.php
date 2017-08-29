@@ -115,10 +115,13 @@ class FaqAdmin extends AbstractAdmin
             ->add('enabled')
             ->add('publicationAt')
             ->add('views')
+            ->add('username')
+            ->add('email')
 
             ->add('name')
             ->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false))
             ->add('answer', SimpleFormatterType::class, array('required' => false, 'format' => 'richhtml', 'ckeditor_context' => 'default'))
+
             ->end()
         ->end();
 
