@@ -50,6 +50,9 @@ security:
             logout:
                 path:           /admin/logout
                 invalidate_session: false
+            remember_me:
+                secret:   '%secret%'
+                lifetime: 86400
             anonymous:    true
 
         #api:
