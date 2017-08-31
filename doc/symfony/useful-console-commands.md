@@ -125,7 +125,23 @@ php bin/console fos:user:create --super-admin
 ```
 
 **Deploy**
+Обновление площадки
 ```
 dep deploy yourdomain.com
 ```
+Синхронизация баз. С удаленной на локальную.
+```
+dep database:sync-from-remote mirplitki.ru -vvv 
+```
+Синхронизация баз. С локальной на удаленную.
+```
+dep database:sync-to-remote mirplitki.compodev24.ru -vvv
+```
 
+**elasticsearch**
+Обновить индексы.
+```
+ssh login@yourdomain.com
+cd www/project/current
+php bin/console fos:elastica:populate -vv --no-debug --batch-size=1000
+```
