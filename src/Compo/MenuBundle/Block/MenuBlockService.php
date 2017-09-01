@@ -114,6 +114,35 @@ class MenuBlockService extends AbstractBlockService
                     $item['products_count'] = $filter['products_count'];
                 }
 
+            } elseif ($item['type'] == 'manufacture') {
+
+                if ($nodeItem->getManufacture()) {
+                    $manufactureManager = $this->getContainer()->get('compo_manufacture.manager.manufacture');
+
+                    $item['url'] = $manufactureManager->getManufactureShowPermalink($nodeItem->getManufacture());
+
+
+                    $item['manufacture'] = $nodeItem->getManufacture();
+                }
+
+
+            } elseif ($item['type'] == 'country') {
+
+                if ($nodeItem->getCountry()) {
+
+                    $router = $this->getContainer()->get('router');
+
+                    $item['url'] = $router->generate('catalog_index', array(
+                        'country' => array(
+                            'items' => array(
+                                $nodeItem->getCountry()->getId() => $nodeItem->getCountry()->getId()
+                            )
+                        )
+                    ));
+
+
+                    $item['country'] = $nodeItem->getCountry();
+                }
 
 
             } else {

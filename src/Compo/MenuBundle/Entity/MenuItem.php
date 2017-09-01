@@ -104,6 +104,28 @@ class MenuItem
      */
     protected $page;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Compo\CountryBundle\Entity\Country")
+     * @ORM\JoinColumn(name="country_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+    protected $country;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="country_id", type="integer", nullable=true)
+     */
+    protected $country_id;
+    /**
+     * @ORM\ManyToOne(targetEntity="Compo\ManufactureBundle\Entity\Manufacture")
+     * @ORM\JoinColumn(name="manufacture_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+    protected $manufacture;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="manufacture_id", type="integer", nullable=true)
+     */
+    protected $manufacture_id;
 
     /**
      * @ORM\ManyToOne(targetEntity="Compo\TaggingBundle\Entity\Tagging")
@@ -172,6 +194,38 @@ class MenuItem
         $this->catalog_id = $catalog_id;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param mixed $country
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getManufacture()
+    {
+        return $this->manufacture;
+    }
+
+    /**
+     * @param mixed $manufacture
+     */
+    public function setManufacture($manufacture)
+    {
+        $this->manufacture = $manufacture;
+    }
+
 
 
 
@@ -233,6 +287,38 @@ class MenuItem
     public function setPage($page)
     {
         $this->page = $page;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCountryId()
+    {
+        return $this->country_id;
+    }
+
+    /**
+     * @param mixed $country_id
+     */
+    public function setCountryId($country_id)
+    {
+        $this->country_id = $country_id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getManufactureId()
+    {
+        return $this->manufacture_id;
+    }
+
+    /**
+     * @param mixed $manufacture_id
+     */
+    public function setManufactureId($manufacture_id)
+    {
+        $this->manufacture_id = $manufacture_id;
     }
 
 

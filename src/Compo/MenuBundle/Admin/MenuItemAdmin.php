@@ -129,6 +129,8 @@ class MenuItemAdmin extends AbstractAdmin
                     'Страница' => 'page',
                     'Тегирование' => 'tagging',
                     'Категория' => 'catalog',
+                    'Страна' => 'country',
+                    'Производитель' => 'manufacture',
 
                 ),
                 'map' => array(
@@ -136,6 +138,9 @@ class MenuItemAdmin extends AbstractAdmin
                     'page' => array('page'),
                     'tagging' => array('tagging'),
                     'catalog' => array('catalog'),
+                    'country' => array('country'),
+                    'manufacture' => array('manufacture'),
+
                 ),
                 'placeholder' => 'Укажите тип',
                 'required' => true
@@ -150,6 +155,19 @@ class MenuItemAdmin extends AbstractAdmin
             'query' => $query
         ));
 
+        $query = $this->getDoctrine()->getManager()->createQuery('SELECT p FROM Compo\CountryBundle\Entity\Country p ORDER BY p.name ASC');
+
+        $formMapper->add('country', 'sonata_type_model', array(
+            'required' => false,
+            'query' => $query
+        ));
+
+        $query = $this->getDoctrine()->getManager()->createQuery('SELECT p FROM Compo\ManufactureBundle\Entity\Manufacture p ORDER BY p.name ASC');
+
+        $formMapper->add('manufacture', 'sonata_type_model', array(
+            'required' => false,
+            'query' => $query
+        ));
 
         $query = $this->getDoctrine()->getManager()->createQuery('SELECT p FROM Compo\TaggingBundle\Entity\Tagging p ORDER BY p.name ASC');
 
