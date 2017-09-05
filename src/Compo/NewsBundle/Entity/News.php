@@ -28,5 +28,53 @@ class News
     use \Gedmo\Timestampable\Traits\TimestampableEntity;
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Compo\NewsBundle\Entity\NewsTag")
+     * @ORM\JoinTable(name="news_tags",
+     *      joinColumns={@ORM\JoinColumn(name="news_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
+     *      )
+     */
+    protected $tags;
+
+    public function __construct()
+    {
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+
+    }
+
+    /**
+     * Add tag
+     *
+     * @param \Compo\NewsBundle\Entity\NewsTag $tag
+     *
+     * @return News
+     */
+    public function addTag(\Compo\NewsBundle\Entity\NewsTag $tag)
+    {
+        $this->tags[] = $tag;
+
+        return $this;
+    }
+
+    /**
+     * Remove tag
+     *
+     * @param \Compo\NewsBundle\Entity\NewsTag $tag
+     */
+    public function removeTag(\Compo\NewsBundle\Entity\NewsTag $tag)
+    {
+        $this->tags->removeElement($tag);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
 }
 

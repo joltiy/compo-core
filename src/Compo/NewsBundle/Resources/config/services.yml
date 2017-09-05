@@ -40,3 +40,9 @@ services:
             - "@doctrine.orm.entity_manager"
         tags:
             - { name: "kernel.event_subscriber", priority: 100 }
+
+    compo_news.admin.news_tag:
+        class: Compo\NewsBundle\Admin\NewsTagAdmin
+        arguments: [~, Compo\NewsBundle\Entity\NewsTag, CompoNewsBundle:NewsTagAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: news_tag, label_translator_strategy: sonata.admin.label.strategy.underscore }
