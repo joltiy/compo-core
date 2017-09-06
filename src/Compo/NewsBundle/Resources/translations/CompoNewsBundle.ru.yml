@@ -7,7 +7,13 @@ breadcrumb:
     link_news_settings: Настройки
     link_news_update: 'Обновление новости'
     news: Новости
-
+    link_news_tag_batch: 'Действия над метками новостей'
+    link_news_tag_create: 'Созадние метки новостей'
+    link_news_tag_delete: 'Удаление метки новостей'
+    link_news_tag_edit: 'Редактирование метки новостей'
+    link_news_tag_list: 'Список меток новостей'
+    link_news_tag_update: 'Обновление метки новостей'
+    
 form:
     label_settings_news_per_page: 'Новостей на страницу'
     tab_main: Новость
@@ -34,8 +40,13 @@ tab_menu:
     title_news_edit: 'Новость: %name%'
     title_news_list: Новости
     title_news_settings: 'Настройки новостей'
-
+    title_news_tag_list: 'Список меток новостей'
+    title_news_tag_create: 'Создание метки новостей'
+    title_news_tag_edit: 'Редактирование метки новостей'
 
 tab.label_settings_seo_items: 'SEO новостей'
 
-block.title_news_last: Последние новости
+block.title_news_last: 'Последние новости'
+
+news_tag: 'Метки новостей'
+form.label_tags: Метки

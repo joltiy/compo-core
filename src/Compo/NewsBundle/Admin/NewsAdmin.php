@@ -117,8 +117,25 @@ class NewsAdmin extends AbstractAdmin
 
             ->add('name')
             ->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false))
-            ->add('body', SimpleFormatterType::class, array('required' => false, 'format' => 'richhtml', 'ckeditor_context' => 'default'))
-            ->end()
+            ->add('body', SimpleFormatterType::class, array('required' => false, 'format' => 'richhtml', 'ckeditor_context' => 'default'));
+
+        /** @var QueryBuilder $tagsQb */
+        $tagsQb = $this->getDoctrine()->getManager()->createQueryBuilder('c');
+        $tagsQb->select('c')
+            ->from('CompoNewsBundle:NewsTag', 'c')
+            ->orderBy('c.name', 'ASC');
+
+        $formMapper->add('tags', 'sonata_type_model', array(
+                'by_reference' => false,
+                'multiple' => true,
+                'expanded' => false,
+                'compound' => false,
+                'required' => false,
+                'query' => $tagsQb,
+            )
+        );
+
+        $formMapper->end()
             ->end();
 
         $formMapper->tab('media_tab');
