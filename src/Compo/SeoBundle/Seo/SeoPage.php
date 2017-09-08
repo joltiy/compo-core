@@ -417,7 +417,7 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         $this->vars[$name] = $value;
     }
 
-    public function buildTemplate($template)
+    public function buildTemplate($template, $vars = array())
     {
         // Заменяем переменные в шаблоне
         //$found_template[$key] = preg_replace(array_keys($vars_preg_replace), array_values($vars_preg_replace), $value);
@@ -427,7 +427,13 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
             //                     'cache' => new \Twig_Cache_Filesystem($this->getConnector()->getTempDir(), \Twig_Cache_Filesystem::FORCE_BYTECODE_INVALIDATION),
             $tmp = $this->getContainer()->get('twig')->createTemplate('{% spaceless %} ' . $template . ' {% endspaceless %}');
 
-            $result = $tmp->render($this->vars);
+            if ($vars) {
+                $result = $tmp->render($vars);
+
+            } else {
+                $result = $tmp->render($this->vars);
+
+            }
 
             /*
             $loader = new \Twig_Loader_Array(array(

@@ -18,7 +18,7 @@ trait ImageEntityTrait
     protected $image;
 
     /**
-     * @return mixed
+     * @return Media
      */
     public function getImage()
     {

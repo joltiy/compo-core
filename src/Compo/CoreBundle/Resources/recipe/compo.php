@@ -299,7 +299,26 @@ task('deploy:sitemaps', function () {
     }
 
 
-})->desc('Dump assets');
+})->desc('deploy:sitemaps');
+
+
+
+/** @noinspection PhpUndefinedFunctionInspection */
+task('deploy:market', function () {
+
+    $sitemapsPath = "{{deploy_path}}/backup/market";
+
+    run("mkdir -p $sitemapsPath");
+
+    try {
+        run("cp -rf {{deploy_path}}/current/web/yandex.market.* $sitemapsPath/");
+        run("cp -rf $sitemapsPath/yandex.market.* {{release_path}}/web/");
+    } catch (\Exception $e) {
+
+    }
+
+
+})->desc('deploy:market');
 
 
 /** @noinspection PhpUndefinedFunctionInspection */
@@ -314,6 +333,7 @@ task('install', [
     'deploy:create_cache_dir',
     'deploy:shared',
     'deploy:sitemaps',
+    'deploy:market',
     //'deploy:assets',
     //'deploy:copy_dirs',
     'symfony:env_vars',
@@ -344,6 +364,7 @@ task('deploy', [
     'deploy:create_cache_dir',
     'deploy:shared',
     'deploy:sitemaps',
+    'deploy:market',
     //'deploy:assets',
     //'deploy:copy_dirs',
     'symfony:env_vars',
