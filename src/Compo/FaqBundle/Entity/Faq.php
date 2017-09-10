@@ -29,14 +29,12 @@ class Faq
     /**
      *
      * @ORM\Column(type="string", nullable=true)
-
      */
     protected $username;
 
     /**
      *
      * @ORM\Column(type="string", nullable=true)
-
      */
     protected $email;
 
@@ -54,6 +52,14 @@ class Faq
     public function getAnswer()
     {
         return $this->answer;
+    }
+
+    /**
+     * @param string $answer
+     */
+    public function setAnswer($answer)
+    {
+        $this->answer = $answer;
     }
 
     /**
@@ -86,14 +92,6 @@ class Faq
     public function setEmail($email)
     {
         $this->email = $email;
-    }
-
-    /**
-     * @param string $answer
-     */
-    public function setAnswer($answer)
-    {
-        $this->answer = $answer;
     }
 }
 

@@ -2,9 +2,9 @@
 
 namespace Compo\FaqBundle\Manager;
 
+use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Compo\FaqBundle\Entity\Faq;
 use Compo\FaqBundle\Repository\FaqRepository;
-use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Compo\Sonata\AdminBundle\Entity\ViewsRepositoryTrait;
 use Sonata\CoreBundle\Model\BaseEntityManager;
 

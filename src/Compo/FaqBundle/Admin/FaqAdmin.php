@@ -80,8 +80,7 @@ class FaqAdmin extends AbstractAdmin
             ->add('enabled')
             ->add('createdAt')
             ->add('updatedAt')
-            ->add('publicationAt')
-        ;
+            ->add('publicationAt');
     }
 
     /**
@@ -117,13 +116,11 @@ class FaqAdmin extends AbstractAdmin
             ->add('views')
             ->add('username')
             ->add('email')
-
             ->add('name')
             ->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false))
             ->add('answer', SimpleFormatterType::class, array('required' => false, 'format' => 'richhtml', 'ckeditor_context' => 'default'))
-
             ->end()
-        ->end();
+            ->end();
 
         $formMapper->tab('media_tab');
         $formMapper->with('media_image_group');

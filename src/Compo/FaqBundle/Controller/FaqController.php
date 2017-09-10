@@ -12,6 +12,7 @@ class FaqController extends Controller
 {
     /**
      * Lists all article entities.
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(Request $request)
@@ -81,7 +82,6 @@ class FaqController extends Controller
         $seoPage->setLinkCanonical($manager->getArticleShowPermalink($article, 0));
 
 
-
         $seoPage->build();
 
         return $this->render('CompoFaqBundle:Faq:show.html.twig', array(
@@ -90,6 +90,7 @@ class FaqController extends Controller
     }
 
     /**
+     * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showByIdAction($id)

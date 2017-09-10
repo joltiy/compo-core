@@ -38,6 +38,5 @@ class CompoFaqExtension extends Extension implements PrependExtensionInterface
         $loader->load('sonata_block.yml');
         $loader->load('sonata_page.yml');
         $loader->load('compo_seo.yml');
-
     }
 }
