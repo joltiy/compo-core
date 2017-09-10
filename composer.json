@@ -15,7 +15,6 @@
       "Pix\\SortableBehaviorBundle\\": "src/Pix/PixSortableBehaviorBundle",
       "Sylius\\Bundle\\SettingsBundle\\": "src/SyliusSettingsBundle",
       "Sylius\\Bundle\\ThemeBundle\\": "src/SyliusThemeBundle"
-
     }
   }
 }
