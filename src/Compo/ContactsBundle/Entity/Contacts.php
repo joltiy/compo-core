@@ -3,7 +3,6 @@
 namespace Compo\ContactsBundle\Entity;
 
 
-use \Compo\SeoBundle\Entity\Traits\SeoEntity;
 /**
  * Contacts
  */
@@ -53,7 +52,14 @@ class Contacts
      * @var string
      */
     private $maps_code;
-
+    /**
+     * @var string
+     */
+    private $cix;
+    /**
+     * @var string
+     */
+    private $ciy;
 
     /**
      * Get id
@@ -63,6 +69,16 @@ class Contacts
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
     }
 
     /**
@@ -80,13 +96,13 @@ class Contacts
     }
 
     /**
-     * Get address
+     * Get worktime
      *
      * @return string
      */
-    public function getAddress()
+    public function getWorktime()
     {
-        return $this->address;
+        return $this->worktime;
     }
 
     /**
@@ -104,13 +120,13 @@ class Contacts
     }
 
     /**
-     * Get worktime
+     * Get phone
      *
      * @return string
      */
-    public function getWorktime()
+    public function getPhone()
     {
-        return $this->worktime;
+        return $this->phone;
     }
 
     /**
@@ -128,13 +144,13 @@ class Contacts
     }
 
     /**
-     * Get phone
+     * Get email
      *
      * @return string
      */
-    public function getPhone()
+    public function getEmail()
     {
-        return $this->phone;
+        return $this->email;
     }
 
     /**
@@ -152,13 +168,13 @@ class Contacts
     }
 
     /**
-     * Get email
+     * Get bankprops
      *
      * @return string
      */
-    public function getEmail()
+    public function getBankprops()
     {
-        return $this->email;
+        return $this->bankprops;
     }
 
     /**
@@ -176,13 +192,13 @@ class Contacts
     }
 
     /**
-     * Get bankprops
+     * Get walkInstruction
      *
      * @return string
      */
-    public function getBankprops()
+    public function getWalkInstruction()
     {
-        return $this->bankprops;
+        return $this->walk_instruction;
     }
 
     /**
@@ -200,13 +216,13 @@ class Contacts
     }
 
     /**
-     * Get walkInstruction
+     * Get carInstruction
      *
      * @return string
      */
-    public function getWalkInstruction()
+    public function getCarInstruction()
     {
-        return $this->walk_instruction;
+        return $this->car_instruction;
     }
 
     /**
@@ -224,13 +240,13 @@ class Contacts
     }
 
     /**
-     * Get carInstruction
+     * Get mapsCode
      *
      * @return string
      */
-    public function getCarInstruction()
+    public function getMapsCode()
     {
-        return $this->car_instruction;
+        return $this->maps_code;
     }
 
     /**
@@ -247,29 +263,20 @@ class Contacts
         return $this;
     }
 
+    public function __toString()
+    {
+        return '';
+    }
+
     /**
-     * Get mapsCode
+     * Get cix
      *
      * @return string
      */
-    public function getMapsCode()
+    public function getCix()
     {
-        return $this->maps_code;
+        return $this->cix;
     }
-
-    public function __toString() {
-        return '';
-    }
-    /**
-     * @var string
-     */
-    private $cix;
-
-    /**
-     * @var string
-     */
-    private $ciy;
-
 
     /**
      * Set cix
@@ -286,13 +293,13 @@ class Contacts
     }
 
     /**
-     * Get cix
+     * Get ciy
      *
      * @return string
      */
-    public function getCix()
+    public function getCiy()
     {
-        return $this->cix;
+        return $this->ciy;
     }
 
     /**
@@ -307,15 +314,5 @@ class Contacts
         $this->ciy = $ciy;
 
         return $this;
-    }
-
-    /**
-     * Get ciy
-     *
-     * @return string
-     */
-    public function getCiy()
-    {
-        return $this->ciy;
     }
 }

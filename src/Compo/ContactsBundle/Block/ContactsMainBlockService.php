@@ -2,14 +2,12 @@
 
 namespace Compo\ContactsBundle\Block;
 
-use Compo\ContactsBundle\Repository\ContactsRepository;
 use Compo\Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\BlockBundle\Model\BlockInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Compo\ContactsBundle\Manager\ContactsManager;
 
 /**
  * {@inheritdoc}
@@ -29,7 +27,6 @@ class ContactsMainBlockService extends AbstractBlockService
         $contacts = $manager->getContacts();
 
 
-
         return $this->renderResponse($template, array(
             'block' => $block,
             'settings' => $settings,
@@ -40,19 +37,17 @@ class ContactsMainBlockService extends AbstractBlockService
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormMapper $formMapper, BlockInterface $block)
+    public function buildCreateForm(FormMapper $formMapper, BlockInterface $block)
     {
-        $formMapper->add('settings', 'sonata_type_immutable_array', array(
-
-        ));
+        $this->buildForm($formMapper, $block);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function buildCreateForm(FormMapper $formMapper, BlockInterface $block)
+    public function buildForm(FormMapper $formMapper, BlockInterface $block)
     {
-        $this->buildForm($formMapper, $block);
+        $formMapper->add('settings', 'sonata_type_immutable_array', array());
     }
 
     /**

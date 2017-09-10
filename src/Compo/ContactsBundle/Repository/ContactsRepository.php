@@ -2,8 +2,6 @@
 
 namespace Compo\ContactsBundle\Repository;
 
-use Compo\ContactsBundle\Entity\Contacts;
-
 /**
  * ArticlesRepository
  *

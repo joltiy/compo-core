@@ -6,9 +6,8 @@ use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
-use Symfony\Component\Form\FormTypeExtensionInterface;
+use Sonata\AdminBundle\Show\ShowMapper;
 
 class ContactsAdmin extends AbstractAdmin
 {
@@ -19,10 +18,10 @@ class ContactsAdmin extends AbstractAdmin
      */
     public function configure()
     {
-       $this->setTranslationDomain('CompoContactsBundle');
-       //$this->configureSeo(false);
-       //$this->configureSettings(true, 'compo_articles');
-       //$this->configureProperties(true);
+        $this->setTranslationDomain('CompoContactsBundle');
+        //$this->configureSeo(false);
+        //$this->configureSettings(true, 'compo_articles');
+        //$this->configureProperties(true);
     }
 
     protected function configureRoutes(RouteCollection $collection)
@@ -48,8 +47,7 @@ class ContactsAdmin extends AbstractAdmin
             ->add('bankprops')
             ->add('walk_instruction')
             ->add('car_instruction')
-            ->add('maps_code')
-        ;
+            ->add('maps_code');
     }
 
     /**
@@ -59,22 +57,21 @@ class ContactsAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id')
-           // ->add('address')
-           // ->add('worktime')
+            // ->add('address')
+            // ->add('worktime')
             ->add('phone')
             ->add('email')
-           // ->add('bankprops')
-           // ->add('walk_instruction')
-           // ->add('car_instruction')
-          //  ->add('maps_code')
+            // ->add('bankprops')
+            // ->add('walk_instruction')
+            // ->add('car_instruction')
+            //  ->add('maps_code')
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
                     'edit' => array(),
-                  //  'delete' => array(),
+                    //  'delete' => array(),
                 )
-            ))
-        ;
+            ));
     }
 
     /**
@@ -87,16 +84,16 @@ class ContactsAdmin extends AbstractAdmin
             ->with('form.group_major', array('class' => 'col-md-9'))
             ->add('phone')
             ->add('email')
-            ->add('worktime','ckeditor')
-            ->add('address','ckeditor')
-            ->add('bankprops','ckeditor')
-             ->end()->end()
+            ->add('worktime', 'ckeditor')
+            ->add('address', 'ckeditor')
+            ->add('bankprops', 'ckeditor')
+            ->end()->end()
             ->tab('form.tab_instructions')
             ->with('form.group_car', array('class' => 'col-md-6'))
-            ->add('car_instruction','ckeditor', array('required' => false))
+            ->add('car_instruction', 'ckeditor', array('required' => false))
             ->end()
             ->with('form.group_walk', array('class' => 'col-md-6'))
-            ->add('walk_instruction','ckeditor', array('required' => false))
+            ->add('walk_instruction', 'ckeditor', array('required' => false))
             ->end()->end()
             ->tab('form.tab_map')
             ->with('form.group_major', array('class' => 'col-md-9'))
@@ -105,7 +102,6 @@ class ContactsAdmin extends AbstractAdmin
             ->add('ciy')
             ->end()
             ->end();
-
 
 
     }
@@ -124,7 +120,6 @@ class ContactsAdmin extends AbstractAdmin
             ->add('bankprops')
             ->add('walk_instruction')
             ->add('car_instruction')
-            ->add('maps_code')
-        ;
+            ->add('maps_code');
     }
 }

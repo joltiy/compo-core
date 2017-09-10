@@ -2,10 +2,8 @@
 
 namespace Compo\ContactsBundle\Manager;
 
-use Compo\ContactsBundle\Entity\Contacts;
 use Compo\ContactsBundle\Repository\ContactsRepository;
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
-use Compo\Sonata\AdminBundle\Entity\ViewsRepositoryTrait;
 use Sonata\CoreBundle\Model\BaseEntityManager;
 
 /**
