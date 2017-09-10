@@ -29,4 +29,11 @@ interface SettingsBuilderInterface extends OptionsResolverInterface
      * @param ParameterTransformerInterface $transformer
      */
     public function setTransformer($parameterName, ParameterTransformerInterface $transformer);
+
+    /**
+     * @param $parameterName
+     * @param $types
+     * @return mixed
+     */
+    public function addAllowedTypes($parameterName, $types);
 }
