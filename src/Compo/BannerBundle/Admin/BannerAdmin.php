@@ -5,12 +5,12 @@ namespace Compo\BannerBundle\Admin;
 use Compo\BannerBundle\Entity\BannerItem;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
+use Knp\Menu\ItemInterface as MenuItemInterface;
+use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Knp\Menu\ItemInterface as MenuItemInterface;
-use Sonata\AdminBundle\Admin\AdminInterface;
 
 /**
  * {@inheritDoc}
@@ -23,10 +23,8 @@ class BannerAdmin extends AbstractAdmin
     public function configure()
     {
         $this->setTranslationDomain('CompoBannerBundle');
-
         $this->configureProperties(true);
     }
-
 
     /**
      * {@inheritDoc}
@@ -106,7 +104,6 @@ class BannerAdmin extends AbstractAdmin
      */
     protected function configureTabMenu(MenuItemInterface $banner, $action, AdminInterface $childAdmin = null)
     {
-
         if (!$childAdmin && in_array($action, array('edit'))) {
             $this->configureTabBannerList($banner, $action);
         }

@@ -2,8 +2,6 @@
 
 namespace Compo\BannerBundle\Entity;
 
-use Compo\Sonata\AdminBundle\Entity\TreeRepositoryTrait;
-
 /**
  * BannerItemRepository
  *

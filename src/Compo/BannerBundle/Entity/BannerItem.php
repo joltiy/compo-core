@@ -23,6 +23,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class BannerItem
 {
+    use \Compo\Sonata\AdminBundle\Entity\IdEntityTrait;
+
     use \Compo\Sonata\AdminBundle\Entity\NameEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\EnabledEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait;
@@ -31,15 +33,6 @@ class BannerItem
     use \Gedmo\Timestampable\Traits\TimestampableEntity;
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
     use \Compo\Sonata\AdminBundle\Entity\ImageEntityTrait;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
 
     /**
      * @var string
@@ -54,7 +47,6 @@ class BannerItem
      * @ORM\Column(type="string", nullable=true)
      */
     protected $url;
-
 
 
     /**
@@ -82,16 +74,6 @@ class BannerItem
      * @ORM\Column(name="page_id", type="integer", nullable=true)
      */
     protected $page_id;
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * @return string
@@ -189,6 +171,4 @@ class BannerItem
     {
         $this->banner = $banner;
     }
-
-
 }

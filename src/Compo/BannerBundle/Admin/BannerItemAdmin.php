@@ -2,15 +2,14 @@
 
 namespace Compo\BannerBundle\Admin;
 
-use Compo\BannerBundle\Entity\BannerItemRepository;
+use Compo\BannerBundle\Entity\BannerItem;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
-use Doctrine\DBAL\Query\QueryBuilder;
+use Knp\Menu\ItemInterface as MenuItemInterface;
+use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\AdminBundle\Admin\AdminInterface;
-use Knp\Menu\ItemInterface as MenuItemInterface;
 
 /**
  * {@inheritDoc}
@@ -22,18 +21,45 @@ class BannerItemAdmin extends AbstractAdmin
      */
     public function configure()
     {
-        // Домен переводов
         $this->setTranslationDomain('CompoBannerBundle');
-
-
         $this->configurePosition(true, array('banner'));
-
         $this->setParentParentAssociationMapping('banner');
-
         $this->configureProperties(true);
-
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function preUpdate($object)
+    {
+        $this->updateParent($object);
+    }
+
+    /**
+     * @param $object BannerItem
+     */
+    public function updateParent($object)
+    {
+        if ($object->getBanner()) {
+            $object->getBanner()->setUpdatedAt(new \DateTime());
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function prePersist($object)
+    {
+        $this->updateParent($object);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function preRemove($object)
+    {
+        $this->updateParent($object);
+    }
 
     /**
      * @param DatagridMapper $datagridMapper
@@ -42,7 +68,6 @@ class BannerItemAdmin extends AbstractAdmin
     {
 
     }
-
 
     /**
      * @param ListMapper $listMapper
@@ -67,12 +92,9 @@ class BannerItemAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $subject = $this->getSubject();
-
         $formMapper->tab('form.tab_main_banner', array(
             'translation_domain' => $this->getTranslationDomain()
         ));
-
 
         $formMapper->with('form.tab_main', array(
             'name' => false
@@ -80,10 +102,8 @@ class BannerItemAdmin extends AbstractAdmin
             ->add('id')
             ->add('enabled')
             ->add('banner')
-
             ->add('name')
-            ->add('title')
-        ;
+            ->add('title');
 
 
         $formMapper->add('url');
@@ -91,10 +111,8 @@ class BannerItemAdmin extends AbstractAdmin
         $formMapper->add('image');
 
         $formMapper->end();
-
         $formMapper->end();
     }
-
 
     /**
      * @param ShowMapper $showMapper
@@ -111,7 +129,6 @@ class BannerItemAdmin extends AbstractAdmin
             ->add('updatedAt')
             ->add('deletedAt');
     }
-
 
     /**
      * {@inheritDoc}
@@ -136,28 +153,5 @@ class BannerItemAdmin extends AbstractAdmin
             $this->trans('tab_menu.link_edit'),
             array('uri' => $this->generateUrl('edit', array('id' => $this->getSubject()->getId())))
         );
-
-    }
-
-    public function preUpdate($object)
-    {
-        $this->updateParent($object);
-    }
-
-    public function prePersist($object)
-    {
-        $this->updateParent($object);
-    }
-
-    public function preRemove($object)
-    {
-        $this->updateParent($object);
-    }
-
-    public function updateParent($object)
-    {
-        if ($object->getBanner()) {
-            $object->getBanner()->setUpdatedAt(new \DateTime());
-        }
     }
 }

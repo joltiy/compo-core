@@ -11,20 +11,15 @@
 
 namespace Compo\BannerBundle\Block;
 
+use Compo\BannerBundle\Entity\Banner;
 use Compo\BannerBundle\Entity\BannerItemRepository;
 use Compo\BannerBundle\Entity\BannerRepository;
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
-use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
-use Knp\Menu\Matcher\Matcher;
-use Knp\Menu\BannerFactory;
-use Knp\Menu\BannerItem;
-use Knp\Menu\Renderer\ListRenderer;
+use Compo\Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Block\BlockContextInterface;
-use Compo\Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Sonata\BlockBundle\Model\BlockInterface;
 use Sonata\CoreBundle\Model\Metadata;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -48,12 +43,11 @@ class BannerBlockService extends AbstractBlockService
         /** @var BannerItemRepository $repo */
         $repo = $em->getRepository("CompoBannerBundle:BannerItem");
 
-        if($settings['id']) {
+        if ($settings['id']) {
             $list = $repo->findBy(array('banner' => $settings['id'], 'enabled' => true), array('position' => 'asc'));
         } else {
             $list = array();
         }
-
 
         return $this->renderResponse($blockContext->getTemplate(), array(
             'list' => $list,
@@ -62,13 +56,16 @@ class BannerBlockService extends AbstractBlockService
         ), $response);
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public function buildForm(FormMapper $formMapper, BlockInterface $block)
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
 
         $menuRepository = $em->getRepository('CompoBannerBundle:Banner');
 
+        /** @var Banner[] $list */
         $list = $menuRepository->findAll();
 
         $choices = array();
@@ -80,26 +77,8 @@ class BannerBlockService extends AbstractBlockService
         $formMapper->add('settings', 'sonata_type_immutable_array', array(
             'keys' => array(
                 array('id', 'choice', array('choices' => $choices, 'label' => 'Баннеры')),
-
             ),
         ));
-    }
-
-
-    /**
-     * {@inheritdoc}
-     */
-    public function buildCreateForm(FormMapper $formMapper, BlockInterface $block)
-    {
-        $this->buildForm($formMapper, $block);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function buildEditForm(FormMapper $formMapper, BlockInterface $block)
-    {
-        $this->buildForm($formMapper, $block);
     }
 
     /**
@@ -109,22 +88,13 @@ class BannerBlockService extends AbstractBlockService
     {
         $resolver->setDefaults(array(
             'id' => null,
-
             'template' => 'CompoBannerBundle:Block:slider.html.twig',
         ));
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
-    public function getBlockMetadata($code = null)
-    {
-        return new Metadata('Баннеры - слайдер', (!is_null($code) ? $code : $this->getName()), false, 'SonataBlockBundle', array(
-            'class' => 'fa fa-file-text-o',
-        ));
-    }
-
-
     public function getCacheKeys(BlockInterface $block)
     {
         $settings = $block->getSettings();
