@@ -12,6 +12,7 @@ class ArticlesController extends Controller
 {
     /**
      * Lists all article entities.
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(Request $request)
@@ -49,6 +50,7 @@ class ArticlesController extends Controller
     }
 
     /**
+     * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showByIdAction($id)
@@ -92,7 +94,6 @@ class ArticlesController extends Controller
         ));
 
         $seoPage->setLinkCanonical($manager->getArticleShowPermalink($article, 0));
-
 
         $seoPage->build();
 

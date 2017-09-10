@@ -61,10 +61,10 @@ class ArticlesAdmin extends AbstractAdmin
     {
         $manager = $this->getContainer()->get('compo_articles.manager.articles');
 
-        if (is_null($object)) {
-            return $manager->getArticlesIndexPermalink();
-        } else {
+        if ($object) {
             return $manager->getArticleShowPermalink($object);
+        } else {
+            return $manager->getArticlesIndexPermalink();
         }
     }
 
@@ -80,8 +80,7 @@ class ArticlesAdmin extends AbstractAdmin
             ->add('enabled')
             ->add('createdAt')
             ->add('updatedAt')
-            ->add('publicationAt')
-        ;
+            ->add('publicationAt');
     }
 
     /**
@@ -115,7 +114,6 @@ class ArticlesAdmin extends AbstractAdmin
             ->add('enabled')
             ->add('publicationAt')
             ->add('views')
-
             ->add('name')
             ->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false))
             ->add('body', SimpleFormatterType::class, array('required' => false, 'format' => 'richhtml', 'ckeditor_context' => 'default'))

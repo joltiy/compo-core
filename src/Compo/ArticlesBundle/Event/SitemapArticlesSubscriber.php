@@ -3,11 +3,14 @@
 namespace Compo\ArticlesBundle\Event;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Presta\SitemapBundle\Event\SitemapPopulateEvent;
 use Presta\SitemapBundle\Sitemap\Url\UrlConcrete;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+/**
+ * {@inheritDoc}
+ */
 class SitemapArticlesSubscriber implements EventSubscriberInterface
 {
     /**
@@ -22,7 +25,7 @@ class SitemapArticlesSubscriber implements EventSubscriberInterface
 
     /**
      * @param UrlGeneratorInterface $urlGenerator
-     * @param ObjectManager         $manager
+     * @param ObjectManager $manager
      */
     public function __construct(UrlGeneratorInterface $urlGenerator, ObjectManager $manager)
     {
