@@ -12,5 +12,4 @@ use Compo\CoreBundle\Doctrine\ORM\EntityRepository;
  */
 class AdvantagesItemRepository extends EntityRepository
 {
-
 }

@@ -9,6 +9,4 @@ use Compo\Sonata\AdminBundle\Controller\CRUDController;
  */
 class AdvantagesItemAdminController extends CRUDController
 {
-
-
 }

@@ -51,6 +51,7 @@ class AdvantagesBlockService extends AbstractBlockService
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
 
+        /** @var AdvantagesRepository $repository */
         $repository = $em->getRepository('CompoAdvantagesBundle:Advantages');
 
         $choices = $repository->getChoices();
@@ -73,6 +74,9 @@ class AdvantagesBlockService extends AbstractBlockService
         ));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getCacheKeys(BlockInterface $block)
     {
         $settings = $block->getSettings();

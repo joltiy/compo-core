@@ -2,6 +2,7 @@
 
 namespace Compo\AdvantagesBundle\Admin;
 
+use Compo\AdvantagesBundle\Entity\AdvantagesItem;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Knp\Menu\ItemInterface as MenuItemInterface;
@@ -29,6 +30,40 @@ class AdvantagesItemAdmin extends AbstractAdmin
         $this->setParentParentAssociationMapping('advantages');
 
         $this->configureProperties(true);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function preUpdate($object)
+    {
+        $this->updateAdvantages($object);
+    }
+
+    /**
+     * @param $object AdvantagesItem
+     */
+    public function updateAdvantages($object)
+    {
+        if ($object->getAdvantages()) {
+            $object->getAdvantages()->setUpdatedAt(new \DateTime());
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function prePersist($object)
+    {
+        $this->updateAdvantages($object);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function preRemove($object)
+    {
+        $this->updateAdvantages($object);
     }
 
     /**
@@ -131,29 +166,5 @@ class AdvantagesItemAdmin extends AbstractAdmin
             $this->trans('tab_menu.link_edit'),
             array('uri' => $this->generateUrl('edit', array('id' => $this->getSubject()->getId())))
         );
-    }
-
-
-
-    public function preUpdate($object)
-    {
-        $this->updateAdvantages($object);
-    }
-
-    public function prePersist($object)
-    {
-        $this->updateAdvantages($object);
-    }
-
-    public function preRemove($object)
-    {
-        $this->updateAdvantages($object);
-    }
-
-    public function updateAdvantages($object)
-    {
-        if ($object->getAdvantages()) {
-            $object->getAdvantages()->setUpdatedAt(new \DateTime());
-        }
     }
 }

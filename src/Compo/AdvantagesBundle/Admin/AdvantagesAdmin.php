@@ -46,9 +46,6 @@ class AdvantagesAdmin extends AbstractAdmin
         $em->flush();
     }
 
-
-
-
     /**
      * @param DatagridMapper $datagridMapper
      */

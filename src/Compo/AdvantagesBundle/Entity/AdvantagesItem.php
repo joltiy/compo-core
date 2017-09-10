@@ -119,5 +119,4 @@ class AdvantagesItem
     {
         $this->advantages = $advantages;
     }
-
 }
