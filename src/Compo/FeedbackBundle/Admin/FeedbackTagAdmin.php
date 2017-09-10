@@ -64,8 +64,7 @@ class FeedbackTagAdmin extends AbstractAdmin
             ->add('name')
             ->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false))
             ->add('color', 'sonata_type_color_selector', array('required' => false))
-            ->add('cssClass')
-        ;
+            ->add('cssClass');
     }
 
     /**

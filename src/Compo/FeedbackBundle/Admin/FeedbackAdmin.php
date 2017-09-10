@@ -48,7 +48,6 @@ class FeedbackAdmin extends AbstractAdmin
             ->add('name')
             ->add('phone')
             ->add('email')
-
             ->add('_action', null, array(
                 'actions' => array(
                     'edit' => array(),
@@ -79,7 +78,6 @@ class FeedbackAdmin extends AbstractAdmin
                 'choices' => $feedbackManager->getTypesChoice(),
                 'choice_translation_domain' => 'CompoFeedbackBundle',
             ))
-
             ->add('name')
             ->add('email')
             ->add('phone')

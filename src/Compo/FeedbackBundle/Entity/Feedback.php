@@ -12,18 +12,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Feedback
 {
+    use \Compo\Sonata\AdminBundle\Entity\IdEntityTrait;
+
     use \Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait;
+
     use \Gedmo\Timestampable\Traits\TimestampableEntity;
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
 
     /**
      * Описание
@@ -79,7 +74,6 @@ class Feedback
     public function __construct()
     {
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
-
     }
 
     /**
@@ -96,24 +90,6 @@ class Feedback
     public function setMessage($message)
     {
         $this->message = $message;
-    }
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
     }
 
     /**

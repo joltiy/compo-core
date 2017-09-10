@@ -25,11 +25,10 @@ class FeedbackSettingsSchema extends BaseBundleAdminSettingsSchema
 
                 ]
             );
-           $items =
-                [
+        $items =
+            [
 
-                ]
-            ;
+            ];
         foreach ($items as $item_name => $types) {
             $builder->addAllowedTypes($item_name, $types);
         }

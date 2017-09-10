@@ -2,8 +2,6 @@
 
 namespace Compo\FeedbackBundle\Block;
 
-use Compo\FeedbackBundle\Form\FeedbackBaseFormType;
-use Compo\FeedbackBundle\Form\FeedbackFormType;
 use Compo\Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Block\BlockContextInterface;
@@ -51,27 +49,10 @@ class FeedbackFormBlockService extends AbstractBlockService
     /**
      * {@inheritdoc}
      */
-    public function buildCreateForm(FormMapper $formMapper, BlockInterface $block)
-    {
-        $this->buildForm($formMapper, $block);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormMapper $formMapper, BlockInterface $block)
     {
         $formMapper->add('settings', 'sonata_type_immutable_array', array());
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function buildEditForm(FormMapper $formMapper, BlockInterface $block)
-    {
-        $this->buildForm($formMapper, $block);
-    }
-
 
     /**
      * {@inheritdoc}
@@ -81,7 +62,6 @@ class FeedbackFormBlockService extends AbstractBlockService
         $resolver->setDefaults(array(
             'template' => '',
             'type' => '',
-
         ));
     }
 }

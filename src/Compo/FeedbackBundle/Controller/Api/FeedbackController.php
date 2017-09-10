@@ -2,8 +2,6 @@
 
 namespace Compo\FeedbackBundle\Controller\Api;
 
-
-
 use Compo\FeedbackBundle\Entity\Feedback;
 use FOS\RestBundle\Controller\Annotations as REST;
 use FOS\RestBundle\View\View;
@@ -35,7 +33,6 @@ class FeedbackController extends Controller
      *  statusCodes={
      *      200="Returned when contacts is successfully saved and notification sent",
      *      400="Returned when an error has occurred while contact form validated or when something went wrong",
-     *
      *  }
      * )
      *
@@ -53,7 +50,6 @@ class FeedbackController extends Controller
         $request_params = $this->getJsonParams($request);
 
         $feedback = new Feedback();
-
 
         $feedbackManager = $this->get('compo_feedback.manager.feedback');
         $feedbackType = $feedbackManager->getType($request_params['data']['type']);
