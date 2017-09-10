@@ -3,22 +3,24 @@
 namespace Compo\ContactsBundle\DataFixtures\ORM;
 
 use Compo\ContactsBundle\Entity\Contacts;
+use Compo\ContactsBundle\Repository\ContactsRepository;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
+/**
+ * {@inheritDoc}
+ */
 class LoadBaseContacts implements FixtureInterface
 {
+    /**
+     * {@inheritDoc}
+     */
     public function load(ObjectManager $manager)
     {
+        /** @var ContactsRepository $contactsRepository */
+        $contactsRepository = $manager->getRepository('CompoContactsBundle:Contacts');
 
-
-        $qb = $manager->getRepository('CompoContactsBundle:Contacts')
-            ->createQueryBuilder('t')
-            ->select('count(t.id)');
-
-        $count = $qb->getQuery()->getSingleScalarResult();
-
-        if ($count === '0') {
+        if (count($contactsRepository->findAll()) == 0) {
             $contacts = new Contacts();
             $contacts->setEmail('test@test.com');
             $contacts->setAddress('test address');
@@ -26,10 +28,7 @@ class LoadBaseContacts implements FixtureInterface
 
             $manager->persist($contacts);
             $manager->flush();
-
         }
-
-
     }
 
 }

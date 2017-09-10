@@ -9,21 +9,23 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 
+/**
+ * {@inheritDoc}
+ */
 class ContactsAdmin extends AbstractAdmin
 {
-
-
     /**
      * {@inheritDoc}
      */
     public function configure()
     {
         $this->setTranslationDomain('CompoContactsBundle');
-        //$this->configureSeo(false);
-        //$this->configureSettings(true, 'compo_articles');
         //$this->configureProperties(true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection
@@ -31,7 +33,6 @@ class ContactsAdmin extends AbstractAdmin
             ->remove('list')
             ->remove('delete');
     }
-
 
     /**
      * @param DatagridMapper $datagridMapper
@@ -102,8 +103,6 @@ class ContactsAdmin extends AbstractAdmin
             ->add('ciy')
             ->end()
             ->end();
-
-
     }
 
     /**

@@ -37,27 +37,10 @@ class ContactsMainBlockService extends AbstractBlockService
     /**
      * {@inheritdoc}
      */
-    public function buildCreateForm(FormMapper $formMapper, BlockInterface $block)
-    {
-        $this->buildForm($formMapper, $block);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormMapper $formMapper, BlockInterface $block)
     {
         $formMapper->add('settings', 'sonata_type_immutable_array', array());
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function buildEditForm(FormMapper $formMapper, BlockInterface $block)
-    {
-        $this->buildForm($formMapper, $block);
-    }
-
 
     /**
      * {@inheritdoc}
@@ -68,5 +51,4 @@ class ContactsMainBlockService extends AbstractBlockService
             'template' => 'CompoContactsBundle:Block:contacts_main.html.twig',
         ));
     }
-
 }

@@ -18,6 +18,6 @@ class ContactsManager extends BaseEntityManager
         /** @var ContactsRepository $repository */
         $repository = $this->getRepository();
 
-        return $this->getRepository()->findById(1);
+        return $repository->find(1);
     }
 }
