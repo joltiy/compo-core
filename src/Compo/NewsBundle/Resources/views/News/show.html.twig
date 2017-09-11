@@ -16,84 +16,84 @@
 {% block content %}
     <div class="content-block articles-index">
 
-        <div class="row">
-            <div class="col-lg-12">
+    <div class="row">
+    <div class="col-lg-12">
 
-                {% block news_article %}
-                    <div itemscope itemtype="http://schema.org/NewsArticle" class="articles-item">
+    {% block news_article %}
+        <div itemscope itemtype="http://schema.org/NewsArticle" class="articles-item">
 
-                        {% block main_entity_of_page %}
-                            <meta itemscope itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="{{ path('compo_news_show_by_slug', {'slug': news.slug}) }}"/>
-                        {% endblock %}
+        {% block main_entity_of_page %}
+            <meta itemscope itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="{{ path('compo_news_show_by_slug', {'slug': news.slug}) }}"/>
+        {% endblock %}
 
-                        {% block publisher %}
-                            {% include 'CompoSeoBundle:SchemaOrg:organization.html.twig' %}
-                        {% endblock %}
+        {% block publisher %}
+            {% include 'CompoSeoBundle:SchemaOrg:organization.html.twig' %}
+        {% endblock %}
 
-                        {% block author %}
-                            {% if news.createdBy %}
-                                <div itemscope itemprop="author" itemtype="https://schema.org/Person" class="hidden">
-                                    <div itemprop="name">{{ news.createdBy.firstName }} {{ news.createdBy.lastName }}</div>
-                                </div>
-                            {% endif %}
-                        {% endblock %}
+        {% block author %}
+            {% if news.createdBy %}
+                <div itemscope itemprop="author" itemtype="https://schema.org/Person" class="hidden">
+                    <div itemprop="name">{{ news.createdBy.firstName }} {{ news.createdBy.lastName }}</div>
+                </div>
+            {% endif %}
+        {% endblock %}
 
-                        {% block headline %}
-                            <h1 itemprop="headline">
-                                {{ compo_seo_header() }}
-                            </h1>
-                        {% endblock %}
+        {% block headline %}
+            <h1 itemprop="headline">
+                {{ compo_seo_header() }}
+            </h1>
+        {% endblock %}
 
-                        {% block image %}
-                            {% if news.image %}
-                                <div itemscope itemtype="https://schema.org/ImageObject" itemprop="image" class="photo">
-                                    <meta itemprop="url" content="{% path  news.image, 'reference' %}">
-                                    <meta itemprop="width" content="{{ news.image.width }}">
-                                    <meta itemprop="height" content="{{ news.image.height }}">
+        {% block image %}
+            {% if news.image %}
+                <div itemscope itemtype="https://schema.org/ImageObject" itemprop="image" class="photo">
+                    <meta itemprop="url" content="{% path  news.image, 'reference' %}">
+                    <meta itemprop="width" content="{{ news.image.width }}">
+                    <meta itemprop="height" content="{{ news.image.height }}">
 
-                                    {% media news.image, 'reference' with {'alt': news.name, 'class': 'thumbnail pull-right'} %}
-                                </div>
-                            {% endif %}
-                        {% endblock %}
-
-                        {% block date_published %}
-                            <time itemprop="datePublished" datetime="{{ news.publicationAt|date("Y-m-d\TH:i:sP") }}" class="date pull-left">{{ news.publicationAt|date("d.m.Y") }}</time>
-                        {% endblock %}
-
-                        {% block date_modified %}
-                            <meta itemprop="dateModified" content="{{ news.updatedAt|date("Y-m-d\TH:i:sP") }}"/>
-                        {% endblock %}
-
-                        <div class="text">
-                            {% block description %}
-                                <div itemprop="description">
-                                    {{ news.description|raw }}
-                                </div>
-                            {% endblock %}
-
-                            {% block article_body %}
-                                <div itemprop="articleBody">
-                                    {{ news.body|raw }}
-                                </div>
-                            {% endblock %}
-                        </div>
-                    </div>
+                    {% media news.image, 'reference' with {'alt': news.name, 'class': 'thumbnail pull-right'} %}
+                </div>
+            {% endif %}
                 {% endblock %}
 
-            </div>
-        </div>
+                {% block date_published %}
+                    <time itemprop="datePublished" datetime="{{ news.publicationAt|date("Y-m-d\TH:i:sP") }}" class="date pull-left">{{ news.publicationAt|date("d.m.Y") }}</time>
+                {% endblock %}
 
-        <div class="row">
-            <div class="col-lg-12">
+                {% block date_modified %}
+                    <meta itemprop="dateModified" content="{{ news.updatedAt|date("Y-m-d\TH:i:sP") }}"/>
+                {% endblock %}
 
-                <div class="back-to-list clearfix">
-                    {% block back_to_list %}
-                        <a class="btn btn-default pull-right" href="{{ path('compo_news_index') }}">К списку новостей</a>
+                <div class="text">
+                    {% block description %}
+                        <div itemprop="description">
+                            {{ news.description|raw }}
+                        </div>
+                    {% endblock %}
+
+                    {% block article_body %}
+                        <div itemprop="articleBody">
+                            {{ news.body|raw }}
+                        </div>
                     {% endblock %}
                 </div>
+                </div>
+                {% endblock %}
 
-            </div>
-        </div>
+                </div>
+                </div>
 
-    </div>
-{% endblock %}
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <div class="back-to-list clearfix">
+                            {% block back_to_list %}
+                                <a class="btn btn-default pull-right" href="{{ path('compo_news_index') }}">К списку новостей</a>
+                            {% endblock %}
+                        </div>
+
+                    </div>
+                </div>
+
+                </div>
+                {% endblock %}

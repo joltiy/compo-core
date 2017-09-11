@@ -62,8 +62,7 @@ class NewsTagAdmin extends AbstractAdmin
         $formMapper
             ->add('name')
             ->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false))
-            ->add('color', 'sonata_type_color_selector')
-        ;
+            ->add('color', 'sonata_type_color_selector');
     }
 
     /**

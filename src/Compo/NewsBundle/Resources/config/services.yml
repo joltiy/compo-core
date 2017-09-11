@@ -31,8 +31,6 @@ services:
         tags:
             - { name: sonata.block }
 
-
-
     compo_news.sitemap.subscriber:
         class:     Compo\NewsBundle\Event\SitemapNewsSubscriber
         arguments:

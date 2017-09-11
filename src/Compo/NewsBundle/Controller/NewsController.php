@@ -12,11 +12,12 @@ class NewsController extends Controller
 {
     /**
      * Lists all news entities.
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(Request $request)
     {
         $manager = $this->get('compo_news.manager.news');
-        $seoPage = $this->get('sonata.seo.page');
 
         $page = $request->get('page', 1);
 
@@ -88,6 +89,7 @@ class NewsController extends Controller
     }
 
     /**
+     * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showByIdAction($id)
