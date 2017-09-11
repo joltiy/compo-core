@@ -2,15 +2,9 @@
 
 use Symfony\Component\Yaml\Yaml;
 
-
-
-
 use function Deployer\{
-    add, get, server, commandExist, set, parse, task, run, workingPath, writeln, runLocally, download, upload
+    get, commandExist, set, task, run, writeln, runLocally, download, upload
 };
-
-
-
 
 /** @noinspection PhpIncludeInspection */
 require 'recipe/symfony.php';
