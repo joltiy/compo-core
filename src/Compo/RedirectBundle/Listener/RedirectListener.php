@@ -5,7 +5,6 @@ namespace Compo\RedirectBundle\Listener;
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Compo\RedirectBundle\Entity\Redirect;
 use Compo\RedirectBundle\Repository\RedirectRepository;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
@@ -25,7 +24,6 @@ class RedirectListener
     /**
      * RedirectListener constructor.
      * @param $router
-     * @param $container
      */
     public function __construct($router)
     {
