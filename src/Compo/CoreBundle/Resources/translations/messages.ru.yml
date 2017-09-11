@@ -301,7 +301,8 @@ block.title_news_with_articles_last: 'Последние Новости и Ст�
 block.title_text_page: 'Текстовая страница с форматированием'
 compo_core.block.service.text_page: 'Текстовая страница с форматированием'
 sonata.formatter.block.formatter: 'HTML'
-
+block.title_error_404: '404'
+compo_core.block.service.error_404: '404'
 
 tab.label_settings_main: 'Основные'
 

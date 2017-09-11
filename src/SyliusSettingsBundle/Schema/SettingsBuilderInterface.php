@@ -35,11 +35,11 @@ interface SettingsBuilderInterface extends OptionsResolverInterface
      * @param $types
      * @return mixed
      */
-    public function addAllowedTypes($parameterName, $types = array());
+    public function addAllowedTypes($parameterName, $types);
 
     /**
      * @param array $defaults
      * @return mixed
      */
-    public function setDefaults($defaults = array());
+    public function setDefaults(array $defaults);
 }

@@ -63,7 +63,12 @@ services:
             tags:
                 - { name: sonata.block }
 
-
+    compo_core.block.service.error_404:
+            class: Compo\CoreBundle\Block\Error404BlockService
+            parent: compo_core.abstract_container_aware
+            arguments: ["compo_core.block.service.error_404", "@templating"]
+            tags:
+                - { name: sonata.block }
 
     compo_core.manager.theme:
         class: Compo\CoreBundle\Manager\ThemeManager

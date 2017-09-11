@@ -33,6 +33,7 @@ sonata_block:
 
         compo_core.block.service.news_with_articles_last:
         compo_core.block.service.text_page:
+        compo_core.block.service.error_404:
 
         # PageBundle's Blocks
         sonata.page.block.container:
