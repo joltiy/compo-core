@@ -17,6 +17,9 @@ class ImageExtension extends AbstractAdminExtension
     use ContainerAwareTrait;
 
 
+    /**
+     * {@inheritDoc}
+     */
     public function configureFormFields(FormMapper $formMapper)
     {
         $this->replaceFormField($formMapper,'image','sonata_type_model_list',

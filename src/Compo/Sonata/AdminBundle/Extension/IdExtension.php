@@ -23,6 +23,9 @@ class IdExtension extends AbstractAdminExtension
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function configureFormFields(FormMapper $formMapper)
     {
         $admin = $formMapper->getAdmin();

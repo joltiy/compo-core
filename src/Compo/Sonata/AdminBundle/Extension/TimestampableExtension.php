@@ -61,6 +61,9 @@ class TimestampableExtension extends AbstractAdminExtension
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function configureFormFields(FormMapper $formMapper)
     {
         $this->replaceFormField($formMapper,'publicationAt', 'sonata_type_datetime_picker', array(
@@ -85,6 +88,9 @@ class TimestampableExtension extends AbstractAdminExtension
         ));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function configureListFields(ListMapper $listMapper)
     {
         $keys = $listMapper->keys();

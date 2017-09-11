@@ -338,6 +338,9 @@ class AbstractAdmin extends BaseAdmin
         return $this->getConfigurationPool()->getContainer();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function initialize()
     {
         $this->setTemplate('button_show_on_site', 'CompoSonataAdminBundle:Button:show_on_site_button.html.twig');

@@ -23,6 +23,9 @@ class PropertiesExtension extends AbstractAdminExtension
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function configureFormFields(FormMapper $formMapper)
     {
         $admin = $formMapper->getAdmin();
@@ -78,6 +81,9 @@ class PropertiesExtension extends AbstractAdminExtension
         ->end();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function configureListFields(ListMapper $listMapper)
     {
 

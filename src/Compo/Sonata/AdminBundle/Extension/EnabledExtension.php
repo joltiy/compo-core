@@ -36,6 +36,9 @@ class EnabledExtension extends AbstractAdminExtension
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     public function configureBatchActions(AdminInterface $admin, array $actions)
     {
         if ($admin->getList()->has('enabled')) {

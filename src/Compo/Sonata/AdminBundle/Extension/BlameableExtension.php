@@ -24,6 +24,9 @@ class BlameableExtension extends AbstractAdminExtension
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function configureFormFields(FormMapper $formMapper)
     {
         $this->replaceFormField($formMapper,'createdBy', 'sonata_type_model_list',
@@ -53,6 +56,9 @@ class BlameableExtension extends AbstractAdminExtension
         );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function configureListFields(ListMapper $listMapper)
     {
 

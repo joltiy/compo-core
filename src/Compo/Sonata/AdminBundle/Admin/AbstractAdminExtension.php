@@ -5,6 +5,9 @@ namespace Compo\Sonata\AdminBundle\Admin;
 use Sonata\AdminBundle\Admin\AbstractAdminExtension as BaseAbstractAdminExtension;
 use Sonata\AdminBundle\Form\FormMapper;
 
+/**
+ * {@inheritDoc}
+ */
 class AbstractAdminExtension extends BaseAbstractAdminExtension
 {
     public function replaceFormField(FormMapper $formMapper, $name, $type = null, array $options = array(), array $fieldDescriptionOptions = array()) {

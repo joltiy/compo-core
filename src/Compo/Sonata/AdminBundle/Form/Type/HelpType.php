@@ -17,6 +17,9 @@ class HelpType extends AbstractType
     use ContainerAwareTrait;
 
 
+    /**
+     * {@inheritDoc}
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
@@ -27,6 +30,9 @@ class HelpType extends AbstractType
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
