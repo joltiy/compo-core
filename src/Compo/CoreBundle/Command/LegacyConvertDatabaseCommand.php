@@ -18,6 +18,7 @@ use Compo\ProductBundle\Entity\ProductAvailability;
 use Compo\ProductBundle\Entity\ProductVariation;
 use Compo\Sonata\MediaBundle\Entity\Media;
 use Compo\SupplierBundle\Entity\Supplier;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -199,16 +200,19 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
 
         if ($this->drop) {
 
-            $this->em->getFilters()->disable('softdeleteable');
+            /** @var EntityManager $em */
+            $em = $this->em;
+
+            $em->getFilters()->disable('softdeleteable');
 
 
-            $q = $this->em->createQuery('delete from ' . $currentRepository->getClassName() . ' m');
+            $q = $em->createQuery('delete from ' . $currentRepository->getClassName() . ' m');
             $numDeleted = $q->execute();
             $this->writelnMemmory('clearCurrent ' . $currentRepository->getClassName() . ': ' . $numDeleted);
 
-            $this->em->getFilters()->enable('softdeleteable');
+            $em->getFilters()->enable('softdeleteable');
 
-            $this->em->flush();
+            $em->flush();
         }
 
         $this->writelnMemmory('clearCurrent end ' . $currentRepository->getClassName());

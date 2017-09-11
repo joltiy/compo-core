@@ -62,6 +62,7 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
 
         $admin = $admin_pool->getAdminByAdminCode('compo_core.admin.settings');
         // simulate an association ...
+        /** @noinspection PhpUndefinedMethodInspection */
         $fieldDescription = $this->getMediaAdmin()->getModelManager()->getNewFieldDescriptionInstance($this->mediaAdmin->getClass(), 'media', array(
             'translation_domain' => 'SonataMediaBundle',
         ));
@@ -73,6 +74,7 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
             'type' => ClassMetadataInfo::MANY_TO_ONE,
         ));
 
+        /** @noinspection PhpUndefinedMethodInspection */
         return $formMapper->add('mediaId', 'sonata_type_model_list', array(
             'sonata_field_description' => $fieldDescription,
             'class' => $this->getMediaAdmin()->getClass(),
