@@ -277,6 +277,9 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
         $this->process();
     }
 
+    /**
+     *
+     */
     protected function process()
     {
         $this->processMedia();
@@ -305,6 +308,9 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
     }
 
 
+    /**
+     *
+     */
     protected function processMedia()
     {
         $db_pics = $this->oldConnection->fetchAll('SELECT * FROM db_pics ORDER BY id ASC');
@@ -350,6 +356,9 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
         }
     }
 
+    /**
+     *
+     */
     protected function processRootCatalog()
     {
         $catalogRepository = $this->em->getRepository('CompoCatalogBundle:Catalog');
@@ -370,6 +379,9 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
 
     }
 
+    /**
+     *
+     */
     protected function processCurrency()
     {
         $currencyArray = array(
@@ -455,6 +467,9 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
         $metadata->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());
     }
 
+    /**
+     *
+     */
     protected function processProductAvailability()
     {
         $currencyArray = array(
@@ -528,6 +543,9 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
         $this->em->flush();
     }
 
+    /**
+     *
+     */
     protected function processSupplier()
     {
         $name = 'Supplier';
@@ -568,6 +586,9 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
         $this->em->flush();
     }
 
+    /**
+     *
+     */
     protected function processCountry()
     {
         $name = 'Country';
@@ -611,6 +632,9 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
         $this->em->flush();
     }
 
+    /**
+     *
+     */
     protected function processManufacture()
     {
         $countryRepository = $this->em->getRepository('CompoCountryBundle:Country');
@@ -684,6 +708,9 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
         }
     }
 
+    /**
+     *
+     */
     protected function processCollection()
     {
         $manufactureRepository = $this->em->getRepository('CompoManufactureBundle:Manufacture');
@@ -739,6 +766,9 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
         $this->em->flush();
     }
 
+    /**
+     *
+     */
     protected function processCatalog()
     {
 
@@ -803,6 +833,9 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
         $this->em->flush();
     }
 
+    /**
+     *
+     */
     protected function processProduct()
     {
         $ProductAdditionalImagesRepository = $this->em->getRepository('CompoProductBundle:ProductAdditionalImages');
@@ -1061,6 +1094,9 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
 
     // Дополнительные комплектации (старые): complects_additional - complectset
 
+    /**
+     *
+     */
     protected function processFeatures()
     {
 
@@ -1287,6 +1323,9 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
 
     // Комплектации (старые): Товар - варианты
 
+    /**
+     *
+     */
     protected function processProductVariation()
     {
         $ProductVariationRepository = $this->em->getRepository('CompoProductBundle:ProductVariation');
@@ -1348,6 +1387,9 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
 
     // Акксесуары - Доп. комплектации 2.0: Товар - Товар
 
+    /**
+     *
+     */
     public
     function processProductAccessory()
     {
@@ -1430,6 +1472,9 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
 
 // Варианты - Комплектации 2.0: Товар - Товар
 
+    /**
+     *
+     */
     public
     function processProductVariation2()
     {
@@ -1594,6 +1639,9 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
 
     }
 
+    /**
+     *
+     */
     public
     function processProductAccessory2()
     {

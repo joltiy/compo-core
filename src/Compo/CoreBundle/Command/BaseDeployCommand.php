@@ -134,6 +134,9 @@ class BaseDeployCommand extends ContainerAwareCommand
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     public function runSyliusThemeAssetsInstall()
     {
         $cache_dir = $this->getContainer()->getParameter('kernel.cache_dir');
@@ -146,6 +149,9 @@ class BaseDeployCommand extends ContainerAwareCommand
         ));
     }
 
+    /**
+     * @throws \Exception
+     */
     public function runDoctrineSchemaUpdate()
     {
         $this->runCommand("doctrine:schema:update", array(
@@ -153,6 +159,9 @@ class BaseDeployCommand extends ContainerAwareCommand
         ));
     }
 
+    /**
+     * @throws \Exception
+     */
     public function runDoctrineFixturesLoadAppend()
     {
         $this->runCommand("doctrine:fixtures:load", array(

@@ -76,6 +76,9 @@ class ThemeTranslator extends BaseTranslator implements WarmableInterface
         }
     }
 
+    /**
+     *
+     */
     private function addResources()
     {
         if ($this->resourcesLoaded) {
@@ -158,12 +161,18 @@ class ThemeTranslator extends BaseTranslator implements WarmableInterface
         parent::initializeCatalogue($locale);
     }
 
+    /**
+     *
+     */
     private function initialize()
     {
         $this->addResources();
         $this->addLoaders();
     }
 
+    /**
+     *
+     */
     private function addLoaders()
     {
         $loaders = $this->loaderProvider->getLoaders();
