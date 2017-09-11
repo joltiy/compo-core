@@ -32,6 +32,9 @@ class FeedbackManager extends BaseEntityManager
         }
     }
 
+    /**
+     * @return array
+     */
     public function getTypesChoice()
     {
         $choice = array();
@@ -43,6 +46,10 @@ class FeedbackManager extends BaseEntityManager
         return $choice;
     }
 
+    /**
+     * @param $name
+     * @return mixed
+     */
     public function getType($name)
     {
         return $this->types[$name];

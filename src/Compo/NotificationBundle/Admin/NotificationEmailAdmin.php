@@ -2,14 +2,22 @@
 
 namespace Compo\NotificationBundle\Admin;
 
+use Compo\NotificationBundle\Entity\NotificationEmail;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Compo\Sonata\AdminBundle\Form\Type\HelpType;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
 
+/**
+ * {@inheritDoc}
+ */
+
+/**
+ * Class NotificationEmailAdmin
+ * @package Compo\NotificationBundle\Admin
+ */
 class NotificationEmailAdmin extends AbstractAdmin
 {
     /**
@@ -125,17 +133,32 @@ class NotificationEmailAdmin extends AbstractAdmin
         ;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    /**
+     * @param mixed $object
+     */
     public function prePersist($object)
     {
         $this->fixData($object);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    /**
+     * @param mixed $object
+     */
     public function preUpdate($object)
     {
         $this->fixData($object);
     }
 
 
+    /**
+     * @param $object NotificationEmail
+     */
     public function fixData($object)
     {
         $notificationManager = $this->getContainer()->get('compo_notification.manager.notification');

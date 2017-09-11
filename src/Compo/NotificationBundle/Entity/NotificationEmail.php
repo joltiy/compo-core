@@ -180,6 +180,9 @@ class NotificationEmail
     }
 
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         if ($this->note) {

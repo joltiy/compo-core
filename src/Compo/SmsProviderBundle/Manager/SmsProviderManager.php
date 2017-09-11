@@ -2,9 +2,7 @@
 
 namespace Compo\SmsProviderBundle\Manager;
 
-use Compo\SmsProviderBundle\Entity\SmsProvider;
 use Compo\SmsProviderBundle\Provider\SmsRuProvider;
-use Compo\SmsProviderBundle\Repository\SmsProviderRepository;
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Sonata\CoreBundle\Model\BaseEntityManager;
 
@@ -21,6 +19,9 @@ class SmsProviderManager extends BaseEntityManager
     );
 
 
+    /**
+     * @return array
+     */
     public function getTypesChoices() {
         return array(
             'sms.ru' => 'smsru'
@@ -28,6 +29,10 @@ class SmsProviderManager extends BaseEntityManager
     }
 
 
+    /**
+     * @param $id
+     * @return SmsRuProvider
+     */
     public function getSmsProviderByAccountId($id) {
         $account = $this->find($id);
 

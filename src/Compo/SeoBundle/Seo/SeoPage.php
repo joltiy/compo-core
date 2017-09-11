@@ -240,6 +240,11 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         $this->context = $context;
     }
 
+    /**
+     * @param $name
+     * @param null $default
+     * @return mixed|null
+     */
     public function getVar($name, $default = null)
     {
         if (isset($this->vars[$name])) {
@@ -249,11 +254,19 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         }
     }
 
+    /**
+     * @param $name
+     * @param $templates
+     */
     public function addTemplates($name, $templates)
     {
         $this->templates[$name] = $templates;
     }
 
+    /**
+     * @param $name
+     * @return mixed|null
+     */
     public function getTemplate($name)
     {
         if (isset($this->templates[$name])) {
@@ -263,6 +276,9 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         }
     }
 
+    /**
+     * @return \Sonata\PageBundle\Model\SiteInterface
+     */
     public function getSite()
     {
         $container = $this->getContainer();
@@ -409,14 +425,21 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
     }
 
 
-
-
-
+    /**
+     * @param $name
+     * @param $value
+     */
     public function addVar($name, $value)
     {
         $this->vars[$name] = $value;
     }
 
+    /**
+     * @param $template
+     * @param array $vars
+     * @return mixed|string
+     * @throws \Throwable
+     */
     public function buildTemplate($template, $vars = array())
     {
         // Заменяем переменные в шаблоне

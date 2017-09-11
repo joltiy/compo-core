@@ -93,31 +93,55 @@ class FaqManager extends BaseEntityManager
         return $repository->findBySlug($slug);
     }
 
+    /**
+     * @param Faq $faq
+     * @param int $absolute
+     * @return string
+     */
     public function getArticleShowPermalink(Faq $faq, $absolute = 1)
     {
         return $this->getContainer()->get('router')->generate($this->getArticleShowRoute(), $this->getArticleShowRouteParameters($faq), $absolute);
     }
 
+    /**
+     * @return string
+     */
     public function getArticleShowRoute()
     {
         return 'compo_faq_show_by_slug';
     }
 
+    /**
+     * @param Faq $faq
+     * @return array
+     */
     public function getArticleShowRouteParameters(Faq $faq)
     {
         return array('slug' => $faq->getSlug());
     }
 
+    /**
+     * @param array $parameters
+     * @param int $absolute
+     * @return string
+     */
     public function getFaqIndexPermalink($parameters = array(), $absolute = 1)
     {
         return $this->getContainer()->get('router')->generate($this->getFaqIndexRoute(), $this->getFaqIndexRouteParameters($parameters), $absolute);
     }
 
+    /**
+     * @return string
+     */
     public function getFaqIndexRoute()
     {
         return 'compo_faq_index';
     }
 
+    /**
+     * @param $parameters
+     * @return mixed
+     */
     public function getFaqIndexRouteParameters($parameters)
     {
         return $parameters;

@@ -12,6 +12,9 @@ use Compo\CoreBundle\Doctrine\ORM\EntityRepository;
  */
 class NotificationEmailAccountRepository extends EntityRepository
 {
+    /**
+     * @return null
+     */
     public function getDefaultId()
     {
         $currency = $this->findOneBy(array(), array('id' => 'ASC'));

@@ -83,6 +83,9 @@ class Redirect
     }
 
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return (string)$this->urIn;

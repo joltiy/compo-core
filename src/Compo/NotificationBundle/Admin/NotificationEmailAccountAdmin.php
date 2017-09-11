@@ -9,6 +9,14 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
+/**
+ * {@inheritDoc}
+ */
+
+/**
+ * Class NotificationEmailAccountAdmin
+ * @package Compo\NotificationBundle\Admin
+ */
 class NotificationEmailAccountAdmin extends AbstractAdmin
 {
     /**

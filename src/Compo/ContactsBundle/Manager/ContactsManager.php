@@ -13,6 +13,9 @@ class ContactsManager extends BaseEntityManager
 {
     use ContainerAwareTrait;
 
+    /**
+     * @return null|object
+     */
     public function getContacts()
     {
         /** @var ContactsRepository $repository */

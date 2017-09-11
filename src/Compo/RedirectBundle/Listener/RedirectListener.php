@@ -14,6 +14,10 @@ use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
+/**
+ * Class RedirectListener
+ * @package Compo\RedirectBundle\Listener
+ */
 class RedirectListener
 {
     private $router;
@@ -21,6 +25,11 @@ class RedirectListener
     /** @var  Container */
     private $container;
 
+    /**
+     * RedirectListener constructor.
+     * @param $router
+     * @param $container
+     */
     public function __construct($router, $container)
     {
         $this->router = $router;
@@ -29,12 +38,17 @@ class RedirectListener
 
     /**
      * @return \Symfony\Component\HttpFoundation\Request
+     * @throws \Exception
      */
     public function getRequest()
     {
         return $this->getContainer()->get('request_stack')->getCurrentRequest();
     }
 
+    /**
+     * @param GetResponseEvent $event
+     * @throws \Exception
+     */
     public function onKernelRequest(GetResponseEvent $event)
     {
         $request   = $event->getRequest();

@@ -39,6 +39,10 @@ class SmsProviderAdmin extends AbstractAdmin
             ->add('updatedAt');
     }
 
+    /**
+     * @param $type
+     * @return mixed
+     */
     public function transformListType($type) {
         $types = $this->getContainer()->get('compo_sms_provider.manager.sms_provider')->getTypesChoices();
 

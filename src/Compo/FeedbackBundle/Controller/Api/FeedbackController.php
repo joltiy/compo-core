@@ -41,6 +41,7 @@ class FeedbackController extends Controller
      * @return View
      *
      * @throws \HttpRequestMethodException
+     * @throws \Throwable
      */
     public function postAction(Request $request)
     {

@@ -93,31 +93,55 @@ class ArticlesManager extends BaseEntityManager
         return $repository->findBySlug($slug);
     }
 
+    /**
+     * @param Articles $articles
+     * @param int $absolute
+     * @return string
+     */
     public function getArticleShowPermalink(Articles $articles, $absolute = 1)
     {
         return $this->getContainer()->get('router')->generate($this->getArticleShowRoute(), $this->getArticleShowRouteParameters($articles), $absolute);
     }
 
+    /**
+     * @return string
+     */
     public function getArticleShowRoute()
     {
         return 'compo_articles_show_by_slug';
     }
 
+    /**
+     * @param Articles $articles
+     * @return array
+     */
     public function getArticleShowRouteParameters(Articles $articles)
     {
         return array('slug' => $articles->getSlug());
     }
 
+    /**
+     * @param array $parameters
+     * @param int $absolute
+     * @return string
+     */
     public function getArticlesIndexPermalink($parameters = array(), $absolute = 1)
     {
         return $this->getContainer()->get('router')->generate($this->getArticlesIndexRoute(), $this->getArticlesIndexRouteParameters($parameters), $absolute);
     }
 
+    /**
+     * @return string
+     */
     public function getArticlesIndexRoute()
     {
         return 'compo_articles_index';
     }
 
+    /**
+     * @param $parameters
+     * @return mixed
+     */
     public function getArticlesIndexRouteParameters($parameters)
     {
         return $parameters;

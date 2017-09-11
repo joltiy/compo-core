@@ -2,8 +2,6 @@
 
 namespace Compo\NotificationBundle\Repository;
 
-use Compo\NotificationBundle\Entity\NotificationEmail;
-
 /**
  * NotificationEmailRepository
  *

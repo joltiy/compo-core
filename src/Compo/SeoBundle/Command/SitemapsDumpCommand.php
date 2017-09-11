@@ -123,7 +123,8 @@ class SitemapsDumpCommand extends ContainerAwareCommand
             );
         }
 
-        $scheme = $context->getScheme();
+        // $scheme = $context->getScheme();
+
         $port = '';
 
         $scheme = 'https';

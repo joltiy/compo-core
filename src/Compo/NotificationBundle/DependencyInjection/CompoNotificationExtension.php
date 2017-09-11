@@ -30,6 +30,12 @@ class CompoNotificationExtension extends Extension
         $serviceDefintion->addMethodCall( 'setEvents', array( $config[ 'events'] ) );
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    /**
+     * @return string
+     */
     public function getAlias()
     {
         return 'compo_notification';

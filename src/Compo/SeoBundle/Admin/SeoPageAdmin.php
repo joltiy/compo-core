@@ -10,8 +10,10 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
 
+/**
+ * {@inheritDoc}
+ */
 class SeoPageAdmin extends AbstractAdmin
 {
     /**
@@ -128,11 +130,23 @@ class SeoPageAdmin extends AbstractAdmin
         ;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    /**
+     * @param mixed $object
+     */
     public function prePersist($object)
     {
         $this->fixData($object);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    /**
+     * @param mixed $object
+     */
     public function preUpdate($object)
     {
         $this->fixData($object);

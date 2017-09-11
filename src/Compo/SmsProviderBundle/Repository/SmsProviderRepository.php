@@ -2,8 +2,6 @@
 
 namespace Compo\SmsProviderBundle\Repository;
 
-use Compo\SmsProviderBundle\Entity\SmsProvider;
-
 /**
  * SmsProviderRepository
  *

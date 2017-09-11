@@ -265,6 +265,11 @@ class MenuItemAdmin extends AbstractAdmin
         }
     }
 
+    /**
+     * @param MenuItemInterface $menu
+     * @param $action
+     * @param AdminInterface|null $childAdmin
+     */
     public function configureTabMenuItem(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
     {
         $menu->addChild(

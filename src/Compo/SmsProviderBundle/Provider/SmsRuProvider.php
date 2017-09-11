@@ -2,6 +2,10 @@
 
 namespace Compo\SmsProviderBundle\Provider;
 
+/**
+ * Class SmsRuProvider
+ * @package Compo\SmsProviderBundle\Provider
+ */
 class SmsRuProvider
 {
     public $account;
@@ -23,6 +27,10 @@ class SmsRuProvider
     }
 
 
+    /**
+     * @param $phone
+     * @param $text
+     */
     public function send($phone, $text) {
 
     }

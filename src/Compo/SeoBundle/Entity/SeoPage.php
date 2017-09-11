@@ -174,7 +174,9 @@ class SeoPage
     }
 
 
-
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return (string)$this->context;

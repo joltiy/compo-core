@@ -147,6 +147,11 @@ class BannerItemAdmin extends AbstractAdmin
         }
     }
 
+    /**
+     * @param MenuItemInterface $banner
+     * @param $action
+     * @param AdminInterface|null $childAdmin
+     */
     public function configureTabBannerItem(MenuItemInterface $banner, $action, AdminInterface $childAdmin = null)
     {
         $banner->addChild(

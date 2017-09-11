@@ -5,6 +5,14 @@ namespace Compo\NotificationBundle\Manager;
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Compo\NotificationBundle\Entity\NotificationEmail;
 
+/**
+ * {@inheritDoc}
+ */
+
+/**
+ * Class NotificationManager
+ * @package Compo\NotificationBundle\Manager
+ */
 class NotificationManager
 {
     use ContainerAwareTrait;
@@ -13,6 +21,9 @@ class NotificationManager
 
     public $default_sender;
 
+    /**
+     * @return array
+     */
     public function getEmailTransport() {
         return array(
             'smtp' => 'SMTP',
@@ -20,6 +31,9 @@ class NotificationManager
         );
     }
 
+    /**
+     * @return array
+     */
     public function getEmailEncryption() {
         return array(
             'tls' => 'TLS',
@@ -27,6 +41,9 @@ class NotificationManager
         );
     }
 
+    /**
+     * @return array
+     */
     public function getEmailAuthMode() {
         return array(
             'plain' => 'Plain',
@@ -45,6 +62,9 @@ class NotificationManager
     }
 
 
+    /**
+     * @return \Doctrine\Common\Persistence\ObjectManager|object
+     */
     public function getEntityManager()
     {
         return $this->getContainer()->get('doctrine')->getManager();
@@ -70,6 +90,10 @@ class NotificationManager
         return $this->default_sender;
     }
 
+    /**
+     * @param $src
+     * @return string
+     */
     public function getTemplateSource($src) {
 
         if (strpos($src, 'Compo') === 0) {
@@ -94,6 +118,9 @@ class NotificationManager
         return $this->events;
     }
 
+    /**
+     * @return array
+     */
     public function getEventsChoice()
     {
         $choice = array();
@@ -115,10 +142,18 @@ class NotificationManager
         }
     }
 
+    /**
+     * @param $name
+     * @return mixed
+     */
     public function getEvent($name) {
         return $this->events[$name];
     }
 
+    /**
+     * @param $event
+     * @return array|\Doctrine\Common\Persistence\ObjectRepository
+     */
     public function getNotificationsEmail($event) {
         /*
         $events = array();
@@ -139,6 +174,15 @@ class NotificationManager
 
     }
 
+    /**
+     * @param $event
+     * @param $vars
+     * @return array
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Syntax
+     */
     public function send($event, $vars) {
         /** @var NotificationEmail[] $notifications */
         $notifications = $this->getNotificationsEmail($event);
@@ -209,12 +253,30 @@ class NotificationManager
         return $results;
     }
 
+    /**
+     * @param $str
+     * @param $vars
+     * @return array
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Syntax
+     */
     public function prepareEmails($str, $vars) {
         $str = $this->renderTemplate($str, $vars);
 
         return explode(',', $str);
     }
 
+    /**
+     * @param $template
+     * @param $vars
+     * @return string
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Syntax
+     */
     public function renderTemplate($template, $vars) {
         $twig = $this->getContainer()->get('twig');
 

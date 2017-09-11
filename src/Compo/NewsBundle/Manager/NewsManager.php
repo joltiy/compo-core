@@ -93,31 +93,55 @@ class NewsManager extends BaseEntityManager
         return $repository->findBySlug($slug);
     }
 
+    /**
+     * @param News $articles
+     * @param int $absolute
+     * @return string
+     */
     public function getNewsShowPermalink(News $articles, $absolute = 1)
     {
         return $this->getContainer()->get('router')->generate($this->getNewsShowRoute(), $this->getNewsShowRouteParameters($articles), $absolute);
     }
 
+    /**
+     * @return string
+     */
     public function getNewsShowRoute()
     {
         return 'compo_news_show_by_slug';
     }
 
+    /**
+     * @param News $articles
+     * @return array
+     */
     public function getNewsShowRouteParameters(News $articles)
     {
         return array('slug' => $articles->getSlug());
     }
 
+    /**
+     * @param array $parameters
+     * @param int $absolute
+     * @return string
+     */
     public function getNewsIndexPermalink($parameters = array(), $absolute = 1)
     {
         return $this->getContainer()->get('router')->generate($this->getNewsIndexRoute(), $this->getNewsIndexRouteParameters($parameters), $absolute);
     }
 
+    /**
+     * @return string
+     */
     public function getNewsIndexRoute()
     {
         return 'compo_news_index';
     }
 
+    /**
+     * @param $parameters
+     * @return mixed
+     */
     public function getNewsIndexRouteParameters($parameters)
     {
         return $parameters;
