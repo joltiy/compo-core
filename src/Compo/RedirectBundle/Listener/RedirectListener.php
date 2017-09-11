@@ -22,18 +22,14 @@ class RedirectListener
      */
     private $router;
 
-    /** @var  Container */
-    private $container;
-
     /**
      * RedirectListener constructor.
      * @param $router
      * @param $container
      */
-    public function __construct($router, $container)
+    public function __construct($router)
     {
         $this->router = $router;
-        $this->container = $container;
     }
 
     /**
