@@ -14,6 +14,7 @@ class NewsController extends Controller
      * Lists all news entities.
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Throwable
      */
     public function indexAction(Request $request)
     {
@@ -54,6 +55,7 @@ class NewsController extends Controller
     /**
      * @param $slug
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Throwable
      */
     public function showBySlugAction($slug)
     {

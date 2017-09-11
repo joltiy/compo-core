@@ -14,6 +14,7 @@ class FaqController extends Controller
      * Lists all article entities.
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Throwable
      */
     public function indexAction(Request $request)
     {
@@ -55,6 +56,7 @@ class FaqController extends Controller
     /**
      * @param $slug
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Throwable
      */
     public function showBySlugAction($slug)
     {
