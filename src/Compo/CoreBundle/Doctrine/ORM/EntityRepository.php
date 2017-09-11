@@ -2,6 +2,9 @@
 
 namespace Compo\CoreBundle\Doctrine\ORM;
 
+/**
+ * {@inheritDoc}
+ */
 class EntityRepository extends \Doctrine\ORM\EntityRepository
 {
     public function getChoices()

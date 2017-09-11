@@ -6,6 +6,9 @@ use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 
 use Sylius\Bundle\ThemeBundle\Context\ThemeContextInterface;
 
+/**
+ * {@inheritDoc}
+ */
 class ThemeManager implements ThemeContextInterface
 {
     use ContainerAwareTrait;

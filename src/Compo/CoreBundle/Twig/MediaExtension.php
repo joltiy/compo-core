@@ -60,6 +60,9 @@ class MediaExtension extends \Twig_Extension
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function initRuntime(\Twig_Environment $environment)
     {
         $this->environment = $environment;

@@ -5,8 +5,14 @@ namespace Compo\CoreBundle\DependencyInjection\Compiler;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 
+/**
+ * {@inheritDoc}
+ */
 class FallbackTranslator implements CompilerPassInterface
 {
+    /**
+     * {@inheritDoc}
+     */
     public function process(ContainerBuilder $container)
     {
         $definition = $container->getDefinition('translator.default');

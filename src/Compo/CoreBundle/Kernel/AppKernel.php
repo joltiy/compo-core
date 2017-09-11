@@ -156,6 +156,9 @@ class AppKernel extends Kernel
         $loader->load($this->getRootDir() . '/config/config_' . $this->getEnvironment() . '.yml');
     }
 
+    /**
+     * {@inheritDoc}
+     */
     protected function initializeContainer() {
         parent::initializeContainer();
         /*
@@ -166,16 +169,25 @@ class AppKernel extends Kernel
         */
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getRootDir()
     {
         return __DIR__;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getCacheDir()
     {
         return dirname(__DIR__).'/var/cache/'.$this->getEnvironment();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getLogDir()
     {
         return dirname(__DIR__).'/var/logs';

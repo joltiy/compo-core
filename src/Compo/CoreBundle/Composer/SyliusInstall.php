@@ -4,6 +4,9 @@ namespace Compo\CoreBundle\Composer;
 
 use Composer\Script\Event;
 
+/**
+ * {@inheritDoc}
+ */
 class SyliusInstall extends \Sensio\Bundle\DistributionBundle\Composer\ScriptHandler
 {
     public static function process(Event $event)

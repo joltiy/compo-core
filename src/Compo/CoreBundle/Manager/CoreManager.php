@@ -5,7 +5,9 @@ namespace Compo\CoreBundle\Manager;
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 
 
-
+/**
+ * {@inheritDoc}
+ */
 class CoreManager
 {
     use ContainerAwareTrait;

@@ -5,6 +5,9 @@ namespace Compo\CoreBundle\Composer;
 use Composer\Script\Event;
 use Symfony\Component\Process\Process;
 
+/**
+ * {@inheritDoc}
+ */
 class BowerInstall extends \Sensio\Bundle\DistributionBundle\Composer\ScriptHandler
 {
     public static function process(Event $event)
