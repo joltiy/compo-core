@@ -3,7 +3,6 @@
 namespace Compo\CoreBundle\Manager;
 
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
-
 use Sylius\Bundle\ThemeBundle\Context\ThemeContextInterface;
 
 /**
@@ -33,10 +32,4 @@ class ThemeManager implements ThemeContextInterface
     {
         $this->themeName = $theme;
     }
-
-
-
-
-
-
 }

@@ -26,8 +26,7 @@ class CompoCoreExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
 
-
-        $sillyServiceDefintion = $container->getDefinition( 'compo_core.manager.theme' );
-        $sillyServiceDefintion->addMethodCall( 'setThemeName', array( $processedConfig[ 'theme' ]['name'] ) );
+        $sillyServiceDefintion = $container->getDefinition('compo_core.manager.theme');
+        $sillyServiceDefintion->addMethodCall('setThemeName', array($processedConfig['theme']['name']));
     }
 }

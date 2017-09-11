@@ -19,10 +19,53 @@ use Symfony\Component\Form\FormBuilderInterface;
 class AdminSettingsSchema extends BaseAdminSettingsSchema
 {
     /**
+     * @param SettingsBuilderInterface $builder
+     */
+    public function buildSettings(SettingsBuilderInterface $builder)
+    {
+        $this->setTranslationDomain('CompoCoreBundle');
+        $this->setBaseRouteName('compo_core_settings');
+
+        $builder
+            ->setDefaults(
+                $this->getFormDefaultOptions()
+            );
+
+        $items =
+            [
+                'email' => ['string', 'NULL'],
+
+
+                'header_menu' => array('null', 'integer', 'object'),
+
+                'header_timework' => ['string', 'NULL'],
+                'header_timework_description' => ['string', 'NULL'],
+
+                'header_phones' => ['string', 'NULL'],
+
+                'footer_menu' => array('null', 'integer', 'object'),
+
+                'footer_copyright' => ['string', 'NULL'],
+
+                'footer_address' => ['string', 'NULL'],
+                'footer_phones' => ['string', 'NULL'],
+
+                'logo_image' => array('null', 'integer', 'object'),
+            ];
+
+
+        foreach ($items as $item_name => $types) {
+            $builder->addAllowedTypes($item_name, $types);
+        }
+
+
+    }
+
+    /**
      * @return array
      */
-    public function getFormDefaultOptions() {
-
+    public function getFormDefaultOptions()
+    {
         $options = [
             'email' => 'info@example.com',
             'header_menu' => null,
@@ -51,53 +94,10 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
 <div><strong>+7 (495) 003-12-29</strong></div>
 </div>',
 
-
             'logo_image' => null,
         ];
 
         return $options;
-    }
-    /**
-     * @param SettingsBuilderInterface $builder
-     */
-    public function buildSettings(SettingsBuilderInterface $builder)
-    {
-        $this->setTranslationDomain('CompoCoreBundle');
-        $this->setBaseRouteName('compo_core_settings');
-
-        $builder
-            ->setDefaults(
-                $this->getFormDefaultOptions()
-            );
-
-        $items =
-                [
-                    'email' => ['string', 'NULL'],
-
-
-                    'header_menu' => array('null', 'integer', 'object'),
-
-                    'header_timework' => ['string', 'NULL'],
-                    'header_timework_description' => ['string', 'NULL'],
-
-                    'header_phones' => ['string', 'NULL'],
-
-                    'footer_menu' => array('null', 'integer', 'object'),
-
-                    'footer_copyright' => ['string', 'NULL'],
-
-                    'footer_address' => ['string', 'NULL'],
-                    'footer_phones' => ['string', 'NULL'],
-
-                    'logo_image' => array('null', 'integer', 'object'),
-                ];
-
-
-        foreach ($items as $item_name => $types) {
-            $builder->addAllowedTypes($item_name, $types);
-        }
-
-
     }
 
     /**
@@ -106,7 +106,6 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
      */
     public function buildForm(FormBuilderInterface $builder)
     {
-
         $main_tab = $builder->create('main_tab', TabType::class, array(
             'label' => 'settings.main_tab',
             'inherit_data' => true,
@@ -145,7 +144,6 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
             'label' => 'settings.logo_tab',
             'inherit_data' => true,
         ));
-
 
         $logo_tab->add('logo_image', MediaType::class, array(
             'required' => false,
@@ -189,8 +187,6 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
 
 
         $logo_tab->get('logo_image')->addModelTransformer($media_transformer);
-
-
     }
 
     /**

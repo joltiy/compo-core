@@ -3,8 +3,8 @@
 namespace Compo\CoreBundle\Block;
 
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Sonata\FormatterBundle\Block\FormatterBlockService;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * {@inheritdoc}

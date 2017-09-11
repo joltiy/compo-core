@@ -2,12 +2,12 @@
 
 namespace Compo\CoreBundle\Settings;
 
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Mopa\Bundle\BootstrapBundle\Form\Type\TabType;
 use Sylius\Bundle\SettingsBundle\Schema\SchemaInterface;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\FormBuilderInterface;
-use Doctrine\ORM\Mapping\ClassMetadataInfo;
 
 /**
  * {@inheritDoc}
@@ -25,6 +25,11 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
     public $translationDomain = 'messages';
 
     /**
+     * @var
+     */
+    public $mediaAdmin;
+
+    /**
      * @var string
      */
     protected $baseRouteName = 'compo_core_settings';
@@ -33,23 +38,6 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
      * @var FormBuilderInterface
      */
     protected $formBuilder;
-
-    /**
-     * @var
-     */
-    public $mediaAdmin;
-
-    /**
-     * @return \Compo\Sonata\MediaBundle\Admin\MediaAdmin|object
-     * @throws \Exception
-     */
-    public function getMediaAdmin()
-    {
-        if (!$this->mediaAdmin) {
-            $this->mediaAdmin = $this->container->get('sonata.media.admin.media');
-        }
-        return $this->mediaAdmin;
-    }
 
     /**
      * @param $formMapper
@@ -86,15 +74,6 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
     }
 
     /**
-     * @return \Doctrine\Bundle\DoctrineBundle\Registry|object
-     * @throws \Exception
-     */
-    public function getDoctrine()
-    {
-        return $this->getContainer()->get('doctrine');
-    }
-
-    /**
      * @return Container
      */
     public function getContainer()
@@ -108,6 +87,27 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
     public function setContainer($container)
     {
         $this->container = $container;
+    }
+
+    /**
+     * @return \Compo\Sonata\MediaBundle\Admin\MediaAdmin|object
+     * @throws \Exception
+     */
+    public function getMediaAdmin()
+    {
+        if (!$this->mediaAdmin) {
+            $this->mediaAdmin = $this->container->get('sonata.media.admin.media');
+        }
+        return $this->mediaAdmin;
+    }
+
+    /**
+     * @return \Doctrine\Bundle\DoctrineBundle\Registry|object
+     * @throws \Exception
+     */
+    public function getDoctrine()
+    {
+        return $this->getContainer()->get('doctrine');
     }
 
     /**

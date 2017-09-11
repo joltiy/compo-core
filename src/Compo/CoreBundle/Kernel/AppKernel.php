@@ -159,19 +159,6 @@ class AppKernel extends Kernel
     /**
      * {@inheritDoc}
      */
-    protected function initializeContainer() {
-        parent::initializeContainer();
-        /*
-        if (PHP_SAPI == 'cli') {
-            $this->getContainer()->enterScope('request');
-            $this->getContainer()->set('request', new \Symfony\Component\HttpFoundation\Request(), 'request');
-        }
-        */
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getRootDir()
     {
         return __DIR__;
@@ -182,7 +169,7 @@ class AppKernel extends Kernel
      */
     public function getCacheDir()
     {
-        return dirname(__DIR__).'/var/cache/'.$this->getEnvironment();
+        return dirname(__DIR__) . '/var/cache/' . $this->getEnvironment();
     }
 
     /**
@@ -190,6 +177,20 @@ class AppKernel extends Kernel
      */
     public function getLogDir()
     {
-        return dirname(__DIR__).'/var/logs';
+        return dirname(__DIR__) . '/var/logs';
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function initializeContainer()
+    {
+        parent::initializeContainer();
+        /*
+        if (PHP_SAPI == 'cli') {
+            $this->getContainer()->enterScope('request');
+            $this->getContainer()->set('request', new \Symfony\Component\HttpFoundation\Request(), 'request');
+        }
+        */
     }
 }

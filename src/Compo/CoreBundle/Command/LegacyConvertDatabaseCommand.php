@@ -170,7 +170,8 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
      * @param $name
      * @return \Doctrine\Common\Persistence\ObjectRepository
      */
-    protected function getCurrentRepository($name) {
+    protected function getCurrentRepository($name)
+    {
         return $this->em->getRepository($name);
     }
 
@@ -179,8 +180,9 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
      * @param $table
      * @return array
      */
-    protected function getOldData($name, $table) {
-        $oldData = $this->oldConnection->fetchAll('SELECT * FROM `'.$table.'` ORDER BY id');
+    protected function getOldData($name, $table)
+    {
+        $oldData = $this->oldConnection->fetchAll('SELECT * FROM `' . $table . '` ORDER BY id');
 
         $this->output->writeln($name . '. Count: ' . count($oldData));
 
@@ -192,10 +194,10 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
      * @param $currentRepository \Doctrine\Common\Persistence\ObjectRepository
      * @param bool $clear
      */
-    protected function clearCurrent($currentRepository, $clear = true) {
+    protected function clearCurrent($currentRepository, $clear = true)
+    {
 
         $this->writelnMemmory('clearCurrent ' . $currentRepository->getClassName());
-
 
 
         if ($this->drop) {
@@ -219,6 +221,17 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
 
     }
 
+    /**
+     * @param string $prefix
+     */
+    protected function writelnMemmory($prefix = '')
+    {
+        if ($prefix) {
+            $this->output->writeln($prefix);
+        }
+
+        $this->output->writeln('Memmory: ' . number_format((memory_get_usage()), 0, ',', ' ') . ' B');
+    }
 
     /**
      * {@inheritdoc}
@@ -262,23 +275,6 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
 
         gc_enable();
         $this->process();
-    }
-
-
-    /**
-     * @param $entity
-     */
-    protected function clearMemmory($entity) {
-
-        $this->em->detach($entity);
-
-        $this->em->flush();
-        $this->em->clear();
-
-        $this->getContainer()->get('doctrine')->resetManager();
-        $this->getContainer()->get('sonata.media.manager.media')->getObjectManager()->clear();
-
-        $this->writelnMemmory();
     }
 
     protected function process()
@@ -352,24 +348,6 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
 
             $i++;
         }
-    }
-
-    /**
-     * @param string $prefix
-     */
-    protected function writeln($prefix = '') {
-        $this->output->writeln($prefix);
-    }
-
-    /**
-     * @param string $prefix
-     */
-    protected function writelnMemmory($prefix = '') {
-        if ($prefix) {
-            $this->output->writeln($prefix);
-        }
-
-        $this->output->writeln('Memmory: ' . number_format((memory_get_usage()), 0, ',', ' ') . ' B');
     }
 
     protected function processRootCatalog()
@@ -825,9 +803,6 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
         $this->em->flush();
     }
 
-
-    // Дополнительные комплектации (старые): complects_additional - complectset
-
     protected function processProduct()
     {
         $ProductAdditionalImagesRepository = $this->em->getRepository('CompoProductBundle:ProductAdditionalImages');
@@ -1044,8 +1019,6 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
 
     }
 
-    // Комплектации (старые): Товар - варианты
-
     /**
      * @param $id
      * @param $oldDataPhotos_item
@@ -1086,7 +1059,7 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
     }
 
 
-    // Акксесуары - Доп. комплектации 2.0: Товар - Товар
+    // Дополнительные комплектации (старые): complects_additional - complectset
 
     protected function processFeatures()
     {
@@ -1312,7 +1285,7 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
         $this->em->clear('CompoProductBundle:FeatureValue');
     }
 
-// Варианты - Комплектации 2.0: Товар - Товар
+    // Комплектации (старые): Товар - варианты
 
     protected function processProductVariation()
     {
@@ -1371,6 +1344,9 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
         $this->em->clear();
 
     }
+
+
+    // Акксесуары - Доп. комплектации 2.0: Товар - Товар
 
     public
     function processProductAccessory()
@@ -1451,6 +1427,8 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
         $this->em->flush();
         $this->em->clear();
     }
+
+// Варианты - Комплектации 2.0: Товар - Товар
 
     public
     function processProductVariation2()
@@ -1770,5 +1748,30 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
             $this->output->writeln('Memmory: ' . number_format((memory_get_usage()), 0, ',', ' ') . ' B');
 
         }
+    }
+
+    /**
+     * @param $entity
+     */
+    protected function clearMemmory($entity)
+    {
+
+        $this->em->detach($entity);
+
+        $this->em->flush();
+        $this->em->clear();
+
+        $this->getContainer()->get('doctrine')->resetManager();
+        $this->getContainer()->get('sonata.media.manager.media')->getObjectManager()->clear();
+
+        $this->writelnMemmory();
+    }
+
+    /**
+     * @param string $prefix
+     */
+    protected function writeln($prefix = '')
+    {
+        $this->output->writeln($prefix);
     }
 }

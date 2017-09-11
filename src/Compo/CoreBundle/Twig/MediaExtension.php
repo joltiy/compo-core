@@ -3,11 +3,11 @@
 namespace Compo\CoreBundle\Twig;
 
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Liip\ImagineBundle\Imagine\Filter\FilterManager;
 use Sonata\CoreBundle\Model\ManagerInterface;
 use Sonata\MediaBundle\Model\MediaInterface;
 use Sonata\MediaBundle\Provider\Pool;
-use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 
 /**
  * {@inheritDoc}
@@ -25,15 +25,11 @@ class MediaExtension extends \Twig_Extension
      * @var Pool
      */
     protected $mediaService;
+
     /**
      * @var ManagerInterface
      */
     protected $mediaManager;
-
-    /**
-     * @var CacheManager
-     */
-    private $cacheManager;
 
     /**
      * @var FilterManager
@@ -44,6 +40,11 @@ class MediaExtension extends \Twig_Extension
      * @var \Twig_Environment
      */
     protected $environment;
+
+    /**
+     * @var CacheManager
+     */
+    private $cacheManager;
 
     /**
      * @param Pool $mediaService
@@ -60,7 +61,6 @@ class MediaExtension extends \Twig_Extension
         $this->cacheManager = $cacheManager;
 
         $this->filterManager = $filterManager;
-
     }
 
     /**
@@ -93,44 +93,6 @@ class MediaExtension extends \Twig_Extension
     public function getName()
     {
         return 'compo_media';
-    }
-
-
-    /**
-     * @param $media
-     * @param array $options
-     * @return string
-     */
-    public function getPath($media, $options = array())
-    {
-        $format = 'reference';
-
-        if (isset($options['format'])) {
-            $format = $options['format'];
-        }
-
-        $media = $this->getMedia($media);
-
-        if (!$media) {
-            return '';
-        }
-
-        $provider = $this->getMediaService()
-            ->getProvider($media->getProviderName());
-
-        $format = $provider->getFormatName($media, $format);
-
-        $publicUrl = $provider->generatePublicUrl($media, $format);
-
-        if (isset($options['filter'])) {
-            if (!isset($options['filter_options'])) {
-                $options['filter_options'] = array();
-            }
-
-            return $this->cacheManager->getBrowserPath($publicUrl, $options['filter'], $options['filter_options']);
-        }
-
-        return $publicUrl;
     }
 
     /**
@@ -232,48 +194,6 @@ class MediaExtension extends \Twig_Extension
     }
 
     /**
-     * @param string $template
-     * @param array $parameters
-     *
-     * @return mixed
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
-     */
-    public function render($template, array $parameters = array())
-    {
-        if (!isset($this->resources[$template])) {
-            /** @noinspection PhpInternalEntityUsedInspection */
-            $this->resources[$template] = $this->environment->loadTemplate($template);
-        }
-
-        return $this->resources[$template]->render($parameters);
-    }
-
-    /**
-     * @return Pool
-     */
-    public function getMediaService()
-    {
-        return $this->mediaService;
-    }
-
-    /**
-     * @param $media
-     * @return int|null
-     */
-    public function getWidth($media)
-    {
-        $media = $this->getMedia($media);
-
-        if ($media) {
-            return $media->getWidth();
-        }
-
-        return null;
-    }
-
-    /**
      * @param mixed $media
      *
      * @return MediaInterface|null|bool
@@ -295,6 +215,85 @@ class MediaExtension extends \Twig_Extension
         }
 
         return $media;
+    }
+
+    /**
+     * @return Pool
+     */
+    public function getMediaService()
+    {
+        return $this->mediaService;
+    }
+
+    /**
+     * @param $media
+     * @param array $options
+     * @return string
+     */
+    public function getPath($media, $options = array())
+    {
+        $format = 'reference';
+
+        if (isset($options['format'])) {
+            $format = $options['format'];
+        }
+
+        $media = $this->getMedia($media);
+
+        if (!$media) {
+            return '';
+        }
+
+        $provider = $this->getMediaService()
+            ->getProvider($media->getProviderName());
+
+        $format = $provider->getFormatName($media, $format);
+
+        $publicUrl = $provider->generatePublicUrl($media, $format);
+
+        if (isset($options['filter'])) {
+            if (!isset($options['filter_options'])) {
+                $options['filter_options'] = array();
+            }
+
+            return $this->cacheManager->getBrowserPath($publicUrl, $options['filter'], $options['filter_options']);
+        }
+
+        return $publicUrl;
+    }
+
+    /**
+     * @param string $template
+     * @param array $parameters
+     *
+     * @return mixed
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function render($template, array $parameters = array())
+    {
+        if (!isset($this->resources[$template])) {
+            /** @noinspection PhpInternalEntityUsedInspection */
+            $this->resources[$template] = $this->environment->loadTemplate($template);
+        }
+
+        return $this->resources[$template]->render($parameters);
+    }
+
+    /**
+     * @param $media
+     * @return int|null
+     */
+    public function getWidth($media)
+    {
+        $media = $this->getMedia($media);
+
+        if ($media) {
+            return $media->getWidth();
+        }
+
+        return null;
     }
 
     /**

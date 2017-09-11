@@ -8,8 +8,6 @@ use Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface;
 use Symfony\Component\Translation\MessageSelector;
 use Symfony\Component\Translation\Translator as BaseTranslator;
 
-
-
 /**
  * Class FallbackTranslator
  *
@@ -17,7 +15,6 @@ use Symfony\Component\Translation\Translator as BaseTranslator;
  */
 class ThemeTranslator extends BaseTranslator implements WarmableInterface
 {
-
     /**
      * @var array
      */
@@ -54,7 +51,8 @@ class ThemeTranslator extends BaseTranslator implements WarmableInterface
         MessageSelector $messageSelector,
         $locale,
         array $options = []
-    ) {
+    )
+    {
         $this->assertOptionsAreKnown($options);
 
         $this->loaderProvider = $loaderProvider;
@@ -66,6 +64,35 @@ class ThemeTranslator extends BaseTranslator implements WarmableInterface
         }
 
         parent::__construct($locale, $messageSelector, $this->options['cache_dir'], $this->options['debug']);
+    }
+
+    /**
+     * @param array $options
+     */
+    private function assertOptionsAreKnown(array $options)
+    {
+        if ($diff = array_diff(array_keys($options), array_keys($this->options))) {
+            throw new \InvalidArgumentException(sprintf('The Translator does not support the following options: \'%s\'.', implode('\', \'', $diff)));
+        }
+    }
+
+    private function addResources()
+    {
+        if ($this->resourcesLoaded) {
+            return;
+        }
+
+        $resources = $this->resourceProvider->getResources();
+        foreach ($resources as $resource) {
+            $this->addResource(
+                $resource->getFormat(),
+                $resource->getName(),
+                $resource->getLocale(),
+                $resource->getDomain()
+            );
+        }
+
+        $this->resourcesLoaded = true;
     }
 
     /**
@@ -95,75 +122,6 @@ class ThemeTranslator extends BaseTranslator implements WarmableInterface
 
     /**
      * {@inheritdoc}
-     */
-    protected function initializeCatalogue($locale)
-    {
-        $this->initialize();
-
-        parent::initializeCatalogue($locale);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function computeFallbackLocales($locale)
-    {
-        $locales = parent::computeFallbackLocales($locale);
-
-        while (strrchr($locale, '_') !== false) {
-            $locale = substr($locale, 0, -strlen(strrchr($locale, '_')));
-
-            array_unshift($locales, $locale);
-        }
-
-        return array_unique($locales);
-    }
-
-    private function initialize()
-    {
-        $this->addResources();
-        $this->addLoaders();
-    }
-
-    private function addResources()
-    {
-        if ($this->resourcesLoaded) {
-            return;
-        }
-
-        $resources = $this->resourceProvider->getResources();
-        foreach ($resources as $resource) {
-            $this->addResource(
-                $resource->getFormat(),
-                $resource->getName(),
-                $resource->getLocale(),
-                $resource->getDomain()
-            );
-        }
-
-        $this->resourcesLoaded = true;
-    }
-
-    private function addLoaders()
-    {
-        $loaders = $this->loaderProvider->getLoaders();
-        foreach ($loaders as $alias => $loader) {
-            $this->addLoader($alias, $loader);
-        }
-    }
-
-    /**
-     * @param array $options
-     */
-    private function assertOptionsAreKnown(array $options)
-    {
-        if ($diff = array_diff(array_keys($options), array_keys($this->options))) {
-            throw new \InvalidArgumentException(sprintf('The Translator does not support the following options: \'%s\'.', implode('\', \'', $diff)));
-        }
-    }
-
-    /**
-     * {@inheritdoc}
      *
      * @api
      */
@@ -188,5 +146,45 @@ class ThemeTranslator extends BaseTranslator implements WarmableInterface
         }
 
         return strtr($this->catalogues[$locale]->get((string)$id, $domain), $parameters);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function initializeCatalogue($locale)
+    {
+        $this->initialize();
+
+        parent::initializeCatalogue($locale);
+    }
+
+    private function initialize()
+    {
+        $this->addResources();
+        $this->addLoaders();
+    }
+
+    private function addLoaders()
+    {
+        $loaders = $this->loaderProvider->getLoaders();
+        foreach ($loaders as $alias => $loader) {
+            $this->addLoader($alias, $loader);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function computeFallbackLocales($locale)
+    {
+        $locales = parent::computeFallbackLocales($locale);
+
+        while (strrchr($locale, '_') !== false) {
+            $locale = substr($locale, 0, -strlen(strrchr($locale, '_')));
+
+            array_unshift($locales, $locale);
+        }
+
+        return array_unique($locales);
     }
 }

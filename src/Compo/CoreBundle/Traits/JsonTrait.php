@@ -1,19 +1,20 @@
 <?php
-namespace Compo\CoreBundle\Traits;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
+namespace Compo\CoreBundle\Traits;
+
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class JsonTrait
  * @package Compo\CoreBundle\Traits
  */
-trait JsonTrait {
-
- /**
- * @param Request $request
- * @return array|mixed
- */
+trait JsonTrait
+{
+    /**
+     * @param Request $request
+     * @return array|mixed
+     */
     function getJsonParams(Request $request)
     {
         $request_params = [];
@@ -22,8 +23,7 @@ trait JsonTrait {
             $request_params = json_decode($request->getContent(), true);
         }
 
-      return $request_params;
-
+        return $request_params;
     }
 
     /**
