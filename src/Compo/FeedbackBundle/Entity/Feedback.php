@@ -69,6 +69,9 @@ class Feedback
      */
     protected $tags;
 
+    /**
+     * Feedback constructor.
+     */
     public function __construct()
     {
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
