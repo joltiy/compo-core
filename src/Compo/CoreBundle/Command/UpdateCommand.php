@@ -27,6 +27,7 @@ class UpdateCommand extends BaseDeployCommand
      * @param OutputInterface $output
      *
      * @return null|int null or 0 if everything went fine, or an error code
+     * @throws \Symfony\Component\Console\Exception\ExceptionInterface
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

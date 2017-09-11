@@ -200,6 +200,7 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
 
     /**
      * @return \Doctrine\Bundle\DoctrineBundle\Registry|object
+     * @throws \Exception
      */
     public function getDoctrine()
     {

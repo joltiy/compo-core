@@ -73,6 +73,7 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
 
     /**
      * @return \Doctrine\Bundle\DoctrineBundle\Registry|object
+     * @throws \Exception
      */
     public function getDoctrine()
     {
@@ -168,6 +169,7 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
 
     /**
      * @return array
+     * @throws \Exception
      */
     public function getDefaultOptions()
     {

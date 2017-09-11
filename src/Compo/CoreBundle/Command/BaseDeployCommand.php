@@ -39,7 +39,7 @@ class BaseDeployCommand extends ContainerAwareCommand
      * @param       $command    string Команда
      * @param array $arrayInput Аргументы
      *
-     * @throws \Symfony\Component\Console\Exception\ExceptionInterface
+     * @throws \Exception
      */
     public function runCommand($command, $arrayInput = array())
     {
@@ -121,6 +121,7 @@ class BaseDeployCommand extends ContainerAwareCommand
      * Очистка и прогрев кеша
      *
      * @param bool $warmup
+     * @throws \Symfony\Component\Console\Exception\ExceptionInterface
      */
     public function runCacheClear($warmup = true)
     {

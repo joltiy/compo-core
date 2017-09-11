@@ -30,6 +30,7 @@ class TranslationCommand extends ContainerAwareCommand
      * @param OutputInterface $output
      *
      * @return null|int null or 0 if everything went fine, or an error code
+     * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

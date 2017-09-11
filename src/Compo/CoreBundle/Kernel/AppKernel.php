@@ -17,6 +17,7 @@ class AppKernel extends Kernel
      */
     public function registerBundles()
     {
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
         $bundles = array(
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new \Symfony\Bundle\SecurityBundle\SecurityBundle(),
@@ -147,6 +148,7 @@ class AppKernel extends Kernel
 
     /**
      * @param LoaderInterface $loader
+     * @throws \Exception
      */
     public function registerContainerConfiguration(LoaderInterface $loader)
     {

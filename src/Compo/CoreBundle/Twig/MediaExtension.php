@@ -214,13 +214,17 @@ class MediaExtension extends \Twig_Extension
 
     /**
      * @param string $template
-     * @param array  $parameters
+     * @param array $parameters
      *
      * @return mixed
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function render($template, array $parameters = array())
     {
         if (!isset($this->resources[$template])) {
+            /** @noinspection PhpInternalEntityUsedInspection */
             $this->resources[$template] = $this->environment->loadTemplate($template);
         }
 
