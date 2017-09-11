@@ -191,6 +191,7 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
 
     /**
      * @return MenuRepository
+     * @throws \Exception
      */
     public function getMenuRepository()
     {

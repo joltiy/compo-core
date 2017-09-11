@@ -53,11 +53,11 @@ class InstallCommand extends BaseDeployCommand
     }
 
 
-
-    /** bin/console doctrine:schema:update --force
+    /**
+     * bin/console doctrine:schema:update --force
      * Выполняет создание БД
      *
-     * @throws \Symfony\Component\Console\Exception\ExceptionInterface
+     * @throws \Exception
      */
     public function runDoctrineCreateDatabase()
     {

@@ -24,7 +24,7 @@ class BaseDeployCommand extends ContainerAwareCommand
     /**
      * Выполняет миграции
      *
-     * @throws \Symfony\Component\Console\Exception\ExceptionInterface
+     * @throws \Exception
      */
     public function runDoctrineMigrate()
     {
@@ -73,7 +73,7 @@ class BaseDeployCommand extends ContainerAwareCommand
     /**
      * Обновляет маршрутизацию
      *
-     * @throws \Symfony\Component\Console\Exception\ExceptionInterface
+     * @throws \Exception
      */
     public function runUpdateRoutes()
     {
@@ -121,7 +121,7 @@ class BaseDeployCommand extends ContainerAwareCommand
      * Очистка и прогрев кеша
      *
      * @param bool $warmup
-     * @throws \Symfony\Component\Console\Exception\ExceptionInterface
+     * @throws \Exception
      */
     public function runCacheClear($warmup = true)
     {
@@ -163,7 +163,7 @@ class BaseDeployCommand extends ContainerAwareCommand
     /**
      * Очистка и прогрев кеша
      *
-     * @throws \Symfony\Component\Console\Exception\ExceptionInterface
+     * @throws \Exception
      */
     public function runCacheWarmup()
     {
@@ -173,7 +173,7 @@ class BaseDeployCommand extends ContainerAwareCommand
     /**
      * Удаляет таблицы БД
      *
-     * @throws \Symfony\Component\Console\Exception\ExceptionInterface
+     * @throws \Exception
      */
     public function runSchemaDrop()
     {
