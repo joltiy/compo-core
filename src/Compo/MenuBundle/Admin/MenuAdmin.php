@@ -2,6 +2,7 @@
 
 namespace Compo\MenuBundle\Admin;
 
+use Compo\MenuBundle\Entity\Menu;
 use Compo\MenuBundle\Entity\MenuItem;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
@@ -32,6 +33,8 @@ class MenuAdmin extends AbstractAdmin
      */
     public function postPersist($menu)
     {
+        /** @var Menu $menu */
+
         $menuItem = new MenuItem();
 
         $menuItem->setName($menu->getName());

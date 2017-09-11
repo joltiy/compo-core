@@ -71,7 +71,6 @@ class MenuBlockService extends AbstractBlockService
      */
     public function renderMenu($menu, $nodesList)
     {
-
         foreach ($nodesList as $key => $item) {
             /** @var \Compo\MenuBundle\Entity\MenuItem $nodeItem */
 
@@ -104,8 +103,8 @@ class MenuBlockService extends AbstractBlockService
 
                     $item['url'] = $catalogManager->getCatalogTaggingShowPermalink($nodeItem->getTagging()->getSlug());
 
-
                     $criteria = array();
+
                     $criteria['filter'] = $nodeItem->getTagging()->getFilterData();
 
                     $filter = $catalogManager->getFilter($criteria);
@@ -121,7 +120,6 @@ class MenuBlockService extends AbstractBlockService
                     $manufactureManager = $this->getContainer()->get('compo_manufacture.manager.manufacture');
 
                     $item['url'] = $manufactureManager->getManufactureShowPermalink($nodeItem->getManufacture());
-
 
                     $item['manufacture'] = $nodeItem->getManufacture();
                 }
@@ -141,13 +139,9 @@ class MenuBlockService extends AbstractBlockService
                         )
                     ));
 
-
                     $item['country'] = $nodeItem->getCountry();
                 }
-
-
             } else {
-
                 $item['url'] = '';
             }
 
@@ -190,10 +184,8 @@ class MenuBlockService extends AbstractBlockService
         $formMapper->add('settings', 'sonata_type_immutable_array', array(
             'keys' => array(
                 array('id', 'choice', array('required' => true, 'choices' => $this->getMenuRepository()->getChoices())),
-
                 array('class', 'text', array('required' => false)),
                 array('template', 'text', array('required' => false)),
-
             ),
         ));
     }

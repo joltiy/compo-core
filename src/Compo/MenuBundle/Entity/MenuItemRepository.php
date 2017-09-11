@@ -13,5 +13,4 @@ use Compo\Sonata\AdminBundle\Entity\TreeRepositoryTrait;
 class MenuItemRepository extends \Gedmo\Tree\Entity\Repository\NestedTreeRepository
 {
     use TreeRepositoryTrait;
-
 }

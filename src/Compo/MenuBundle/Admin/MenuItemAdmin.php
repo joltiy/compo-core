@@ -33,7 +33,6 @@ class MenuItemAdmin extends AbstractAdmin
         $this->setParentParentAssociationMapping('menu');
 
         $this->configureProperties(true);
-
     }
 
     /**
@@ -43,7 +42,6 @@ class MenuItemAdmin extends AbstractAdmin
     {
         $this->updateParent($object);
     }
-
 
     /**
      * @param $object MenuItem
@@ -107,16 +105,13 @@ class MenuItemAdmin extends AbstractAdmin
         if (is_null($subject)) {
             $id = null;
             $menu_id = null;
-
             $root_menu_item = null;
-
         } else {
             $id = $subject->getId();
 
             $admin = $this->isChild() ? $this->getParent() : $this;
 
             $menu_id = $admin->getRequest()->get('id');
-
             $root_menu_item = $this->getDoctrine()->getRepository('CompoMenuBundle:MenuItem')->findOneBy(array('menu' => $menu_id));
         }
 
@@ -125,7 +120,6 @@ class MenuItemAdmin extends AbstractAdmin
 
         if ($root_menu_item) {
             // Родительские категории
-
             $tree = $repository->getForTreeSelector($id, function ($qb) use ($root_menu_item) {
                 /** @var QueryBuilder $qb */
                 $qb->andWhere('c.root = ' . $root_menu_item->getId());
@@ -140,10 +134,11 @@ class MenuItemAdmin extends AbstractAdmin
             'translation_domain' => $this->getTranslationDomain()
         ));
 
-
         $formMapper->with('form.tab_main', array(
             'name' => false
-        ))
+        ));
+
+        $formMapper
             ->add('id')
             ->add('enabled')
             ->add('name')
@@ -166,7 +161,6 @@ class MenuItemAdmin extends AbstractAdmin
                     'Категория' => 'catalog',
                     'Страна' => 'country',
                     'Производитель' => 'manufacture',
-
                 ),
                 'map' => array(
                     'url' => array('url'),
@@ -175,7 +169,6 @@ class MenuItemAdmin extends AbstractAdmin
                     'catalog' => array('catalog'),
                     'country' => array('country'),
                     'manufacture' => array('manufacture'),
-
                 ),
                 'placeholder' => 'Укажите тип',
                 'required' => true
@@ -231,9 +224,7 @@ class MenuItemAdmin extends AbstractAdmin
         $formMapper->add('url');
         $formMapper->add('image');
 
-
         $formMapper->end();
-
         $formMapper->end();
     }
 
@@ -280,6 +271,5 @@ class MenuItemAdmin extends AbstractAdmin
             $this->trans('tab_menu.link_edit'),
             array('uri' => $this->generateUrl('edit', array('id' => $this->getSubject()->getId())))
         );
-
     }
 }

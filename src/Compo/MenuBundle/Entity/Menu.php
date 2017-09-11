@@ -20,38 +20,12 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Menu
 {
+    use \Compo\Sonata\AdminBundle\Entity\IdEntityTrait;
+
     use \Compo\Sonata\AdminBundle\Entity\NameEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\DescriptionEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait;
 
     use \Gedmo\Timestampable\Traits\TimestampableEntity;
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
-
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
 }

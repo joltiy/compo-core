@@ -31,6 +31,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class MenuItem
 {
+    use \Compo\Sonata\AdminBundle\Entity\IdEntityTrait;
+
     use \Compo\Sonata\AdminBundle\Entity\NameEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\EnabledEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\TreeEntityTrait;
@@ -39,15 +41,6 @@ class MenuItem
 
     use \Gedmo\Timestampable\Traits\TimestampableEntity;
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
 
     /**
      * @var string
@@ -62,7 +55,6 @@ class MenuItem
      * @ORM\Column(type="string", nullable=true)
      */
     protected $url;
-
 
     /**
      * @ORM\ManyToOne(targetEntity="Compo\MenuBundle\Entity\Menu", fetch="EAGER")
@@ -145,7 +137,6 @@ class MenuItem
      */
     protected $tagging_id;
 
-
     /**
      * @var integer
      *
@@ -222,17 +213,6 @@ class MenuItem
     public function setManufacture($manufacture)
     {
         $this->manufacture = $manufacture;
-    }
-
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**

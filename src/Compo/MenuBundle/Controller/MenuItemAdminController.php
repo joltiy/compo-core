@@ -27,13 +27,12 @@ class MenuItemAdminController extends CRUDController
             if (false === $this->admin->isGranted('LIST')) {
                 throw new AccessDeniedException();
             }
+
             $em = $this->getDoctrine()->getManager();
 
             /** @var NestedTreeRepository $repo */
             $repo = $em->getRepository($this->admin->getClass());
-
             $node = $repo->findOneBy(array('menu' => $request->get('id')));
-
             $tree = $repo->childrenHierarchy($node);
 
             return $this->render($this->admin->getTemplate('tree'), array(
