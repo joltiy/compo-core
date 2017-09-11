@@ -43,6 +43,9 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
      */
     protected $database_name = 'keram';
 
+    /**
+     * @var array
+     */
     protected $features = array();
 
     /**
@@ -50,19 +53,43 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
      */
     protected $oldConnection;
 
+    /**
+     * @var string
+     */
     protected $oldMediaPath = 'http://www.keram.ru/dbpics/';
 
+    /**
+     * @var string
+     */
     protected $oldFilesPath = 'http://www.keram.ru/files/';
 
+    /**
+     * @var
+     */
     protected $rootCatalog;
 
 
+    /**
+     * @var array
+     */
     protected $dbpics = array();
+    /**
+     * @var array
+     */
     protected $tables = array();
 
+    /**
+     * @var bool
+     */
     protected $limit = false;
+    /**
+     * @var bool
+     */
     protected $drop = false;
 
+    /**
+     * @var array
+     */
     protected $data = array(
         'Currency' => array(),
         'ProductAvailability' => array(),
@@ -234,7 +261,9 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
     }
 
 
-
+    /**
+     * @param $entity
+     */
     protected function clearMemmory($entity) {
 
         $this->em->detach($entity);
@@ -321,10 +350,16 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
         }
     }
 
+    /**
+     * @param string $prefix
+     */
     protected function writeln($prefix = '') {
         $this->output->writeln($prefix);
     }
 
+    /**
+     * @param string $prefix
+     */
     protected function writelnMemmory($prefix = '') {
         if ($prefix) {
             $this->output->writeln($prefix);
@@ -426,6 +461,9 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
         $this->em->flush();
     }
 
+    /**
+     * @param $newItem
+     */
     protected function changeIdGenerator($newItem)
     {
         $metadata = $this->em->getClassMetaData(get_class($newItem));
@@ -647,6 +685,10 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
         $this->em->flush();
     }
 
+    /**
+     * @param $id
+     * @return null|object
+     */
     protected function downloadMedia($id)
     {
         if (isset($this->dbpics[$id]) && $this->dbpics[$id]['media_id']) {
@@ -1000,6 +1042,11 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
 
     // Комплектации (старые): Товар - варианты
 
+    /**
+     * @param $id
+     * @param $oldDataPhotos_item
+     * @return Media|null
+     */
     protected function downloadFile($id, $oldDataPhotos_item)
     {
         try {

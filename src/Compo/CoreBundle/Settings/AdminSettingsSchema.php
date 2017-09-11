@@ -18,6 +18,9 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class AdminSettingsSchema extends BaseAdminSettingsSchema
 {
+    /**
+     * @return array
+     */
     public function getFormDefaultOptions() {
 
         $options = [

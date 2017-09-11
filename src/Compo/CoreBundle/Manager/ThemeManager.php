@@ -13,6 +13,9 @@ class ThemeManager implements ThemeContextInterface
 {
     use ContainerAwareTrait;
 
+    /**
+     * @var string
+     */
     public $themeName = 'default';
 
     /**

@@ -7,6 +7,9 @@ namespace Compo\CoreBundle\Doctrine\ORM;
  */
 class EntityRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @return array
+     */
     public function getChoices()
     {
         $choices = array();

@@ -10,6 +10,9 @@ use Symfony\Component\Process\Process;
  */
 class BowerInstall extends \Sensio\Bundle\DistributionBundle\Composer\ScriptHandler
 {
+    /**
+     * @param Event $event
+     */
     public static function process(Event $event)
     {
         $io = $event->getIO();

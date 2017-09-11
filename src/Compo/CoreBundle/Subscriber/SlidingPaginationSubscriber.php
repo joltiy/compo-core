@@ -20,10 +20,23 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
  */
 class SlidingPaginationSubscriber implements EventSubscriberInterface
 {
+    /**
+     * @var
+     */
     private $route;
+    /**
+     * @var array
+     */
     private $params = array();
+    /**
+     * @var array
+     */
     private $options;
 
+    /**
+     * SlidingPaginationSubscriber constructor.
+     * @param array $options
+     */
     public function __construct(array $options)
     {
         $this->options = $options;
@@ -39,6 +52,9 @@ class SlidingPaginationSubscriber implements EventSubscriberInterface
         );
     }
 
+    /**
+     * @param GetResponseEvent $event
+     */
     public function onKernelRequest(GetResponseEvent $event)
     {
         if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) {
@@ -56,6 +72,9 @@ class SlidingPaginationSubscriber implements EventSubscriberInterface
         }
     }
 
+    /**
+     * @param PaginationEvent $event
+     */
     public function pagination(PaginationEvent $event)
     {
         // default sort field and order

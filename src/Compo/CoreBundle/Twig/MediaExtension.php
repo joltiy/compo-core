@@ -96,7 +96,11 @@ class MediaExtension extends \Twig_Extension
     }
 
 
-
+    /**
+     * @param $media
+     * @param array $options
+     * @return string
+     */
     public function getPath($media, $options = array())
     {
         $format = 'reference';
@@ -129,6 +133,15 @@ class MediaExtension extends \Twig_Extension
         return $publicUrl;
     }
 
+    /**
+     * @param $media
+     * @param array $options_filter
+     * @param array $attr
+     * @return mixed|string
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
     public function getThumbnail($media, $options_filter = array(), $attr = array())
     {
         $format = 'reference';

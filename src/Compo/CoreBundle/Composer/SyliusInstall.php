@@ -9,6 +9,9 @@ use Composer\Script\Event;
  */
 class SyliusInstall extends \Sensio\Bundle\DistributionBundle\Composer\ScriptHandler
 {
+    /**
+     * @param Event $event
+     */
     public static function process(Event $event)
     {
         $options = self::getOptions($event);

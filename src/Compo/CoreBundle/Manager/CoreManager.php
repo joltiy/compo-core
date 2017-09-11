@@ -12,6 +12,9 @@ class CoreManager
 {
     use ContainerAwareTrait;
 
+    /**
+     * @var
+     */
     protected $settings;
 
 

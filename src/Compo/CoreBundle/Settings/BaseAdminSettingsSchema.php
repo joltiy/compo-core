@@ -18,6 +18,9 @@ class BaseAdminSettingsSchema implements SchemaInterface
      */
     public $container;
 
+    /**
+     * @var string
+     */
     public $translationDomain = 'messages';
 
     /**
@@ -41,6 +44,10 @@ class BaseAdminSettingsSchema implements SchemaInterface
 
     }
 
+    /**
+     * @param OptionsResolver $resolver
+     * @throws \Exception
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
@@ -50,6 +57,10 @@ class BaseAdminSettingsSchema implements SchemaInterface
         ));
     }
 
+    /**
+     * @return array
+     * @throws \Exception
+     */
     public function getDefaultOptions()
     {
         return array(

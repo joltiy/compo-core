@@ -34,8 +34,15 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
      */
     protected $formBuilder;
 
+    /**
+     * @var
+     */
     public $mediaAdmin;
 
+    /**
+     * @return \Compo\Sonata\MediaBundle\Admin\MediaAdmin|object
+     * @throws \Exception
+     */
     public function getMediaAdmin()
     {
         if (!$this->mediaAdmin) {
@@ -44,7 +51,12 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
         return $this->mediaAdmin;
     }
 
-    public function getMediaBuilder( $formMapper)
+    /**
+     * @param $formMapper
+     * @return mixed
+     * @throws \Exception
+     */
+    public function getMediaBuilder($formMapper)
     {
         $admin_pool = $this->getContainer()->get('sonata.admin.pool');
 

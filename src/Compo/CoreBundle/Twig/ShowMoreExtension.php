@@ -11,6 +11,10 @@ namespace Compo\CoreBundle\Twig;
 use Twig_Extension;
 use Twig_SimpleFilter;
 
+/**
+ * Class ShowMoreExtension
+ * @package Compo\CoreBundle\Twig
+ */
 class ShowMoreExtension extends Twig_Extension
 {
     /**
@@ -23,6 +27,10 @@ class ShowMoreExtension extends Twig_Extension
         );
     }
 
+    /**
+     * @param $text
+     * @return mixed|string
+     */
     public function showMoreFilter($text)
     {
         // <!--more--></div>

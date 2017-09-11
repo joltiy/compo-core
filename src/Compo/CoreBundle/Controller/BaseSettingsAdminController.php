@@ -12,7 +12,13 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class BaseSettingsAdminController extends SettingsController
 {
+    /**
+     * @var string
+     */
     public $translationDomain = 'messages';
+    /**
+     * @var string
+     */
     protected $namespase = 'compo_core_settings';
 
     /**
