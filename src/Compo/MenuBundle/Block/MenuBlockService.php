@@ -67,6 +67,7 @@ class MenuBlockService extends AbstractBlockService
     /**
      * @param $menu MenuItem
      * @param $nodesList
+     * @return array
      */
     public function renderMenu($menu, $nodesList)
     {
@@ -94,6 +95,7 @@ class MenuBlockService extends AbstractBlockService
 
             } elseif ($item['type'] == 'page') {
 
+                /** @noinspection Symfony2PhpRouteMissingInspection */
                 $item['url'] = $this->getContainer()->get('router')->generate('page_slug', array('path' => $nodeItem->getPage()->getUrl()));
             } elseif ($item['type'] == 'tagging') {
 
@@ -101,7 +103,6 @@ class MenuBlockService extends AbstractBlockService
                     $catalogManager = $this->getContainer()->get('compo_catalog.manager.catalog');
 
                     $item['url'] = $catalogManager->getCatalogTaggingShowPermalink($nodeItem->getTagging()->getSlug());
-
 
 
                     $criteria = array();
@@ -225,6 +226,9 @@ class MenuBlockService extends AbstractBlockService
         ));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getCacheKeys(BlockInterface $block)
     {
         $settings = $block->getSettings();

@@ -64,7 +64,6 @@ class MenuItem
     protected $url;
 
 
-
     /**
      * @ORM\ManyToOne(targetEntity="Compo\MenuBundle\Entity\Menu", fetch="EAGER")
      * @ORM\JoinColumn(name="menu_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
@@ -147,7 +146,6 @@ class MenuItem
     protected $tagging_id;
 
 
-
     /**
      * @var integer
      *
@@ -227,8 +225,6 @@ class MenuItem
     }
 
 
-
-
     /**
      * Get id
      *
@@ -270,7 +266,6 @@ class MenuItem
     {
         $this->tagging = $tagging;
     }
-
 
 
     /**

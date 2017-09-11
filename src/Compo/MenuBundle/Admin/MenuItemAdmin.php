@@ -2,6 +2,7 @@
 
 namespace Compo\MenuBundle\Admin;
 
+use Compo\MenuBundle\Entity\MenuItem;
 use Compo\MenuBundle\Entity\MenuItemRepository;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Compo\Sonata\AdminBundle\Form\Type\TreeSelectorType;
@@ -33,6 +34,41 @@ class MenuItemAdmin extends AbstractAdmin
 
         $this->configureProperties(true);
 
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function preUpdate($object)
+    {
+        $this->updateParent($object);
+    }
+
+
+    /**
+     * @param $object MenuItem
+     */
+    public function updateParent($object)
+    {
+        if ($object->getMenu()) {
+            $object->getMenu()->setUpdatedAt(new \DateTime());
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function prePersist($object)
+    {
+        $this->updateParent($object);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function preRemove($object)
+    {
+        $this->updateParent($object);
     }
 
     /**
@@ -111,8 +147,7 @@ class MenuItemAdmin extends AbstractAdmin
             ->add('id')
             ->add('enabled')
             ->add('name')
-            ->add('title')
-        ;
+            ->add('title');
 
         $formMapper->add('parent', TreeSelectorType::class, array(
             'current' => $subject,
@@ -147,7 +182,6 @@ class MenuItemAdmin extends AbstractAdmin
             ));
 
 
-
         $query = $this->getDoctrine()->getManager()->createQuery('SELECT p FROM Compo\Sonata\PageBundle\Entity\Page p WHERE p.routeName = \'page_slug\' ORDER BY p.parent ASC, p.position ASC');
 
         $formMapper->add('page', 'sonata_type_model', array(
@@ -177,8 +211,11 @@ class MenuItemAdmin extends AbstractAdmin
         ));
 
 
-        $queryBuilder = $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager()->getRepository('CompoCatalogBundle:Catalog')->createQueryBuilder('c')
-            ->select('c')
+        /** @var \Doctrine\ORM\QueryBuilder $queryBuilder */
+        $queryBuilder = $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager()->getRepository('CompoCatalogBundle:Catalog')->createQueryBuilder('c');
+
+
+        $queryBuilder->select('c')
             ->orderBy('c.root, c.lft', 'ASC');
 
         $tree = $queryBuilder->getQuery()->getResult();
@@ -191,7 +228,6 @@ class MenuItemAdmin extends AbstractAdmin
         ));
 
 
-
         $formMapper->add('url');
         $formMapper->add('image');
 
@@ -200,7 +236,6 @@ class MenuItemAdmin extends AbstractAdmin
 
         $formMapper->end();
     }
-
 
     /**
      * @param ShowMapper $showMapper
@@ -221,7 +256,6 @@ class MenuItemAdmin extends AbstractAdmin
             ->add('updatedAt')
             ->add('deletedAt');
     }
-
 
     /**
      * {@inheritDoc}
@@ -247,29 +281,5 @@ class MenuItemAdmin extends AbstractAdmin
             array('uri' => $this->generateUrl('edit', array('id' => $this->getSubject()->getId())))
         );
 
-    }
-
-
-    public function preUpdate($object)
-    {
-        $this->updateParent($object);
-    }
-
-    public function prePersist($object)
-    {
-        $this->updateParent($object);
-    }
-
-    public function preRemove($object)
-    {
-        $this->updateParent($object);
-    }
-
-    public function updateParent($object)
-    {
-
-        if ($object->getMenu()) {
-            $object->getMenu()->setUpdatedAt(new \DateTime());
-        }
     }
 }
