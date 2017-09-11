@@ -99,6 +99,7 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
 
     /**
      * @param FormBuilderInterface $builder
+     * @throws \Exception
      */
     public function buildForm(FormBuilderInterface $builder)
     {

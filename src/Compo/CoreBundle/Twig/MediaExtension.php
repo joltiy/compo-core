@@ -46,7 +46,10 @@ class MediaExtension extends \Twig_Extension
     protected $environment;
 
     /**
+     * @param Pool $mediaService
      * @param ManagerInterface $mediaManager
+     * @param CacheManager $cacheManager
+     * @param FilterManager $filterManager
      */
     public function __construct(Pool $mediaService, ManagerInterface $mediaManager, CacheManager $cacheManager, FilterManager $filterManager)
     {
@@ -244,7 +247,7 @@ class MediaExtension extends \Twig_Extension
 
     /**
      * @param $media
-     * @return string
+     * @return int|null
      */
     public function getWidth($media)
     {
@@ -283,7 +286,7 @@ class MediaExtension extends \Twig_Extension
 
     /**
      * @param $media
-     * @return string
+     * @return int|null
      */
     public function getHeight($media)
     {

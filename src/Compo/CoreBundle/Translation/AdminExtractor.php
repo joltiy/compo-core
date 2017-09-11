@@ -83,9 +83,9 @@ class AdminExtractor implements ExtractorInterface, TranslatorInterface, Securit
      */
     public function extract()
     {
-        if ($this->catalogue) {
+        //if ($this->catalogue) {
             //throw new \RuntimeException('Invalid state');
-        }
+        //}
 
         $this->catalogue = new MessageCatalogue();
 
