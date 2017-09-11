@@ -13,7 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 class News
 {
     use \Compo\Sonata\AdminBundle\Entity\IdEntityTrait;
-
     use \Compo\Sonata\AdminBundle\Entity\NameEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\EnabledEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\DescriptionEntityTrait;
@@ -22,7 +21,6 @@ class News
     use \Compo\Sonata\AdminBundle\Entity\ViewsEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\PublicationAtEntityTrait;
-
     use \Compo\SeoBundle\Entity\Traits\SeoEntity;
 
     use \Gedmo\Timestampable\Traits\TimestampableEntity;

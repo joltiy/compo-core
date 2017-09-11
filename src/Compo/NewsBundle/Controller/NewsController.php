@@ -44,7 +44,6 @@ class NewsController extends Controller
             $seoPage->setLinkPrev($manager->getNewsIndexPermalink(array('page' => $page - 1), 0));
         }
 
-
         $seoPage->build();
 
         return $this->render('CompoNewsBundle:News:index.html.twig', array(
