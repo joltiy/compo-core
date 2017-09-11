@@ -17,6 +17,9 @@ class RedirectListener
 {
     use ContainerAwareTrait;
 
+    /**
+     * @var
+     */
     private $router;
 
     /** @var  Container */

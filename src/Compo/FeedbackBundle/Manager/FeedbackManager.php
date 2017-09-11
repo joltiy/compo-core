@@ -12,6 +12,9 @@ class FeedbackManager extends BaseEntityManager
 {
     use ContainerAwareTrait;
 
+    /**
+     * @var array
+     */
     public $types = array();
 
     /**

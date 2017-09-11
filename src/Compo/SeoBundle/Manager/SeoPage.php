@@ -12,6 +12,9 @@ class SeoPage extends BaseEntityManager
 {
     use ContainerAwareTrait;
 
+    /**
+     * @var array
+     */
     public $seoPages = array();
 
     /**

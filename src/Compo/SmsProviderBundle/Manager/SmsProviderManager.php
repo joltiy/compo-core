@@ -13,6 +13,9 @@ class SmsProviderManager extends BaseEntityManager
 {
     use ContainerAwareTrait;
 
+    /**
+     * @var array
+     */
     public $providers = array(
         'smsru' => "\\Compo\\SmsProviderBundle\\Provider\\SmsRuProvider"
     );

@@ -39,6 +39,9 @@ class FeedbackTag
      */
     protected $feedbacks;
 
+    /**
+     * @var int
+     */
     protected $feedbacksCount = 0;
 
     /**

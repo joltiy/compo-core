@@ -11,9 +11,18 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
 {
     use ContainerAwareTrait;
 
+    /**
+     * @var string
+     */
     public $context = 'default';
+    /**
+     * @var bool
+     */
     public $replaceTagging = true;
 
+    /**
+     * @var array
+     */
     public $templates = array(
 
         'default' => array(
@@ -26,6 +35,9 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
 
     );
 
+    /**
+     * @var array
+     */
     public $vars = array();
 
     /**

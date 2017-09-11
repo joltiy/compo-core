@@ -8,6 +8,9 @@ namespace Compo\SmsProviderBundle\Provider;
  */
 class SmsRuProvider
 {
+    /**
+     * @var
+     */
     public $account;
 
     /**

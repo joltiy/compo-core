@@ -12,8 +12,14 @@ class NotificationManager
 {
     use ContainerAwareTrait;
 
+    /**
+     * @var array
+     */
     public $events = array();
 
+    /**
+     * @var
+     */
     public $default_sender;
 
     /**
