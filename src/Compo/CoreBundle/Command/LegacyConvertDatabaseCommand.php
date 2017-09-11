@@ -176,6 +176,7 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
 
             $q = $this->em->createQuery('delete from ' . $currentRepository->getClassName() . ' m');
             $numDeleted = $q->execute();
+            $this->writelnMemmory('clearCurrent ' . $currentRepository->getClassName() . ': ' . $numDeleted);
 
             $this->em->getFilters()->enable('softdeleteable');
 

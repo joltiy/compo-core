@@ -2,9 +2,8 @@
 
 namespace Compo\CoreBundle\Translation;
 
-use Symfony\Bundle\FrameworkBundle\Translation\Translator;
-use Sylius\Bundle\ThemeBundle\Translation\Provider\TranslatorLoaderProviderInterface;
-use Sylius\Bundle\ThemeBundle\Translation\Provider\TranslatorResourceProviderInterface;
+use Sylius\Bundle\ThemeBundle\Translation\Provider\Loader\TranslatorLoaderProviderInterface;
+use Sylius\Bundle\ThemeBundle\Translation\Provider\Resource\TranslatorResourceProviderInterface;
 use Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface;
 use Symfony\Component\Translation\MessageSelector;
 use Symfony\Component\Translation\Translator as BaseTranslator;
