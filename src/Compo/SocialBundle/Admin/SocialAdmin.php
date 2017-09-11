@@ -32,7 +32,6 @@ class SocialAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('id')
-
             ->add('createdAt')
             ->add('updatedAt');
     }

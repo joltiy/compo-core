@@ -25,7 +25,6 @@ class NotificationEmailAdmin extends AbstractAdmin
         $this->setSortOrder('ASC');
         $this->configureProperties(true);
         $this->configureSettings(true, 'compo_notification_email_settings');
-
     }
 
     /**
@@ -87,10 +86,6 @@ class NotificationEmailAdmin extends AbstractAdmin
     /**
      * {@inheritDoc}
      */
-
-    /**
-     * @param ListMapper $listMapper
-     */
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
@@ -112,16 +107,11 @@ class NotificationEmailAdmin extends AbstractAdmin
     /**
      * {@inheritDoc}
      */
-
-    /**
-     * @param FormMapper $formMapper
-     */
     protected function configureFormFields(FormMapper $formMapper)
     {
         $notificationManager = $this->getContainer()->get('compo_notification.manager.notification');
 
         $subject = $this->getSubject();
-
 
         if ($this->isCurrentRoute('create')) {
             $help = '';

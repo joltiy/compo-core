@@ -33,9 +33,6 @@ class CompoNotificationExtension extends Extension
     /**
      * {@inheritDoc}
      */
-    /**
-     * @return string
-     */
     public function getAlias()
     {
         return 'compo_notification';

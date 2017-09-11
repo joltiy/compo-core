@@ -16,59 +16,59 @@ class NotificationEmailAccount
     use \Compo\Sonata\AdminBundle\Entity\NameEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\DescriptionEntityTrait;
-    
+
     use \Gedmo\Timestampable\Traits\TimestampableEntity;
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(type="string", nullable=false)
      */
     protected $username;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(type="string", nullable=false)
      */
     protected $password;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(type="string", nullable=false)
      */
     protected $hostname;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(type="string", nullable=false)
      */
     protected $transport;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(type="integer", nullable=false)
      */
     protected $port;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(type="string", nullable=false)
      */
     protected $encryption;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(type="string", nullable=false)
      */
     protected $authMode;
-    
+
     /**
      * @return string
      */

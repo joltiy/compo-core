@@ -17,7 +17,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class FeedbackTag
 {
     use \Compo\Sonata\AdminBundle\Entity\IdEntityTrait;
-
     use \Compo\Sonata\AdminBundle\Entity\NameEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\EnabledEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\DescriptionEntityTrait;
@@ -25,7 +24,6 @@ class FeedbackTag
 
     use \Gedmo\Timestampable\Traits\TimestampableEntity;
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
-
 
     /**
      * @var string
@@ -45,32 +43,12 @@ class FeedbackTag
     protected $feedbacksCount = 0;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
      * Constructor
      */
     public function __construct()
     {
         $this->feedbacks = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
 
     /**
      * @return int

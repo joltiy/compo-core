@@ -4,8 +4,8 @@ namespace Compo\SocialBundle\Block;
 
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Compo\SocialBundle\Entity\SocialRepository;
-use Sonata\BlockBundle\Block\BlockContextInterface;
 use Compo\Sonata\BlockBundle\Block\Service\AbstractBlockService;
+use Sonata\BlockBundle\Block\BlockContextInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 

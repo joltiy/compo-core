@@ -46,7 +46,7 @@ class NotificationEmailSettingsSchema extends BaseBundleAdminSettingsSchema
     {
         return $this->getDoctrine()->getRepository('CompoNotificationBundle:NotificationEmailAccount');
     }
-    
+
     /**
      * @inheritdoc
      */

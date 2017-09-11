@@ -27,8 +27,8 @@ class CompoSeoExtension extends Extension implements PrependExtensionInterface
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
 
-        $serviceDefintion = $container->getDefinition( 'compo_seo.page.manager' );
-        $serviceDefintion->addMethodCall( 'setSeoPages', array( $config[ 'pages'] ) );
+        $serviceDefintion = $container->getDefinition('compo_seo.page.manager');
+        $serviceDefintion->addMethodCall('setSeoPages', array($config['pages']));
     }
 
     /**
@@ -39,8 +39,6 @@ class CompoSeoExtension extends Extension implements PrependExtensionInterface
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('twig.yml');
         $loader->load('compo_seo.yml');
-
-
     }
 
     /**

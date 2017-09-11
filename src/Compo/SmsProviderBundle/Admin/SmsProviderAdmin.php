@@ -27,6 +27,17 @@ class SmsProviderAdmin extends AbstractAdmin
     }
 
     /**
+     * @param $type
+     * @return mixed
+     */
+    public function transformListType($type)
+    {
+        $types = $this->getContainer()->get('compo_sms_provider.manager.sms_provider')->getTypesChoices();
+
+        return $types[$type];
+    }
+
+    /**
      * @param DatagridMapper $datagridMapper
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
@@ -37,16 +48,6 @@ class SmsProviderAdmin extends AbstractAdmin
             ->add('name')
             ->add('createdAt')
             ->add('updatedAt');
-    }
-
-    /**
-     * @param $type
-     * @return mixed
-     */
-    public function transformListType($type) {
-        $types = $this->getContainer()->get('compo_sms_provider.manager.sms_provider')->getTypesChoices();
-
-        return $types[$type];
     }
 
     /**
@@ -61,7 +62,6 @@ class SmsProviderAdmin extends AbstractAdmin
             ->add('type', 'html', array(
                 'template' => 'CompoSmsProviderBundle:Admin:list_type.html.twig'
             ))
-
             ->add('_action', null, array(
                 'actions' => array(
                     'edit' => array(),
@@ -89,13 +89,10 @@ class SmsProviderAdmin extends AbstractAdmin
                 'required' => true,
                 'choices' => $smsTypesChoices
             ))
-
             ->add('login')
             ->add('password')
-
             ->end()
-            ->end()
-        ;
+            ->end();
     }
 
     /**
@@ -109,7 +106,6 @@ class SmsProviderAdmin extends AbstractAdmin
             ->add('name')
             ->add('createdAt')
             ->add('updatedAt')
-            ->add('deletedAt')
-        ;
+            ->add('deletedAt');
     }
 }

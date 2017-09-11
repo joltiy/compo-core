@@ -76,5 +76,4 @@ class SeoExtension extends AbstractAdminExtension
             ->end()
             ->end();
     }
-
 }

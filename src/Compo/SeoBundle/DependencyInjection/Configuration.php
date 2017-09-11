@@ -24,7 +24,6 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-
             ->arrayNode('pages')->prototype('array')->children()
             ->scalarNode('context')->isRequired()->end()
             ->scalarNode('header')->defaultValue('')->end()
@@ -33,7 +32,6 @@ class Configuration implements ConfigurationInterface
             ->scalarNode('metaDescription')->defaultValue('')->end()
             ->scalarNode('description')->defaultValue('')->end()
             ->scalarNode('descriptionAdditional')->defaultValue('')->end()
-
             ->end()
             ->end()
             ->end()

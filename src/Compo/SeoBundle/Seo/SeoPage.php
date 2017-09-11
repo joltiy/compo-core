@@ -15,6 +15,7 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
      * @var string
      */
     public $context = 'default';
+
     /**
      * @var bool
      */
@@ -24,7 +25,6 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
      * @var array
      */
     public $templates = array(
-
         'default' => array(
             'header' => '{{ page_internal.header|default(page_internal.name) }}',
             'description' => '{{ page_internal.description|default(page_internal.header)|default(page_internal.name) }}',
@@ -32,7 +32,6 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
             'metaDescription' => '{{ page_internal.metaDescription|default(page_internal.header)|default(page_internal.name) }}',
             'metaKeyword' => '{{ page_internal.metaKeyword|default(page_internal.header)|default(page_internal.name) }}',
         )
-
     );
 
     /**
@@ -192,14 +191,6 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Request
-     */
-    public function getRequest()
-    {
-        return $this->getContainer()->get('request_stack')->getCurrentRequest();
-    }
-
-    /**
      * @return array
      */
     public function getVars()
@@ -226,6 +217,14 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
     public function setVars($vars)
     {
         $this->vars = $vars;
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Request
+     */
+    public function getRequest()
+    {
+        return $this->getContainer()->get('request_stack')->getCurrentRequest();
     }
 
     /**
@@ -362,7 +361,7 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
             }
 
             if (isset($template['title']) && $title == '') {
-                $title = $this->buildTemplate($template['title'] );
+                $title = $this->buildTemplate($template['title']);
             }
 
             if (isset($template['metaKeyword']) && $meta_keyword == '') {
@@ -373,7 +372,7 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
             }
         }
 
-        $title = $this->buildTemplate($title . ' {% if page|default("0") > 1 %} (страница {{ page }}){% endif %}' );
+        $title = $this->buildTemplate($title . ' {% if page|default("0") > 1 %} (страница {{ page }}){% endif %}');
 
         // Чистка keywords
         $keywords_tmp = explode(',', $meta_keyword);

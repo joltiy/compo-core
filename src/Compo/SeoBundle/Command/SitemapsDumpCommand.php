@@ -1,21 +1,13 @@
 <?php
 
-/*
- * This file is part of the prestaSitemapPlugin package.
- * (c) David Epely <depely@prestaconcept.net>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Compo\SeoBundle\Command;
 
 use Presta\SitemapBundle\Service\DumperInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Command to dump the sitemaps to provided directory
@@ -56,7 +48,7 @@ class SitemapsDumpCommand extends ContainerAwareCommand
     /**
      * Code to execute for the command
      *
-     * @param InputInterface   $input  Input object from the console
+     * @param InputInterface $input Input object from the console
      * @param OutputInterface $output Output object for the console
      *
      * @throws \InvalidArgumentException
@@ -130,9 +122,9 @@ class SitemapsDumpCommand extends ContainerAwareCommand
         $scheme = 'https';
 
         if ('http' === $scheme && 80 != $context->getHttpPort()) {
-            $port = ':'.$context->getHttpPort();
+            $port = ':' . $context->getHttpPort();
         } elseif ('https' === $scheme && 443 != $context->getHttpsPort()) {
-            $port = ':'.$context->getHttpsPort();
+            $port = ':' . $context->getHttpsPort();
         }
 
         $host = $this->getContainer()->getParameter('server_name');

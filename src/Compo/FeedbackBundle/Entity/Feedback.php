@@ -13,13 +13,11 @@ use Doctrine\ORM\Mapping as ORM;
 class Feedback
 {
     use \Compo\Sonata\AdminBundle\Entity\IdEntityTrait;
-
     use \Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait;
 
     use \Gedmo\Timestampable\Traits\TimestampableEntity;
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
-
-
+    
     /**
      * Описание
      *

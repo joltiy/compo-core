@@ -10,11 +10,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class SeoPage
 {
+    use \Compo\Sonata\AdminBundle\Entity\IdEntityTrait;
+    use \Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait;
+
     use \Gedmo\Timestampable\Traits\TimestampableEntity;
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
-    use \Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait;
-    use \Compo\Sonata\AdminBundle\Entity\IdEntityTrait;
-    
+
     /**
      * @var string
      * @ORM\Column(type="string", nullable=false)
@@ -38,19 +39,19 @@ class SeoPage
      * @ORM\Column(type="text", nullable=false)
      */
     protected $metaDescription;
-    
+
     /**
      * @var string
      * @ORM\Column(type="text", nullable=false)
      */
     protected $description;
-    
+
     /**
      * @var string
      * @ORM\Column(type="text", nullable=false)
      */
     protected $descriptionAdditional;
-    
+
     /**
      * @var string
      * @ORM\Column(type="string", nullable=false)
@@ -168,7 +169,7 @@ class SeoPage
     {
         $this->context = $context;
     }
-    
+
     /**
      * @return string
      */

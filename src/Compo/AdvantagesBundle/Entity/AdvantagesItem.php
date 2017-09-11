@@ -34,7 +34,6 @@ class AdvantagesItem
     use \Gedmo\Timestampable\Traits\TimestampableEntity;
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
-
     /**
      * @var string
      *
@@ -48,7 +47,6 @@ class AdvantagesItem
      * @ORM\Column(type="string", nullable=true)
      */
     protected $url;
-
 
     /**
      * @ORM\ManyToOne(targetEntity="Compo\AdvantagesBundle\Entity\Advantages", fetch="EAGER")

@@ -38,7 +38,6 @@ class News
     public function __construct()
     {
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
-
     }
 
     /**

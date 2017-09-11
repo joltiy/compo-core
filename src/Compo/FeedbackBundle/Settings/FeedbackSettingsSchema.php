@@ -48,6 +48,5 @@ class FeedbackSettingsSchema extends BaseBundleAdminSettingsSchema
     public function buildFormTabMain()
     {
         $this->addTab('main');
-
     }
 }

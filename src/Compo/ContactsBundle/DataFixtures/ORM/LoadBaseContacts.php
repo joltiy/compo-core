@@ -30,5 +30,4 @@ class LoadBaseContacts implements FixtureInterface
             $manager->flush();
         }
     }
-
 }

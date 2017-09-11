@@ -3,11 +3,6 @@
 namespace Compo\CoreBundle\Block;
 
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
-use Compo\Sonata\BlockBundle\Block\Service\AbstractBlockService;
-use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\BlockBundle\Block\BlockContextInterface;
-use Sonata\BlockBundle\Model\BlockInterface;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Sonata\FormatterBundle\Block\FormatterBlockService;
 
@@ -17,9 +12,6 @@ use Sonata\FormatterBundle\Block\FormatterBlockService;
 class TextPageBlockService extends FormatterBlockService
 {
     use ContainerAwareTrait;
-
-
-
 
     /**
      * {@inheritdoc}

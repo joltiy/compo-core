@@ -2,7 +2,6 @@
 
 namespace Compo\ContactsBundle\Entity;
 
-
 /**
  * Contacts
  */

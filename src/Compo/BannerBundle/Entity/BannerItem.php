@@ -24,15 +24,14 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class BannerItem
 {
     use \Compo\Sonata\AdminBundle\Entity\IdEntityTrait;
-
     use \Compo\Sonata\AdminBundle\Entity\NameEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\EnabledEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\PositionEntityTrait;
+    use \Compo\Sonata\AdminBundle\Entity\ImageEntityTrait;
 
     use \Gedmo\Timestampable\Traits\TimestampableEntity;
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
-    use \Compo\Sonata\AdminBundle\Entity\ImageEntityTrait;
 
     /**
      * @var string
@@ -47,15 +46,13 @@ class BannerItem
      * @ORM\Column(type="string", nullable=true)
      */
     protected $url;
-
-
+    
     /**
      * @ORM\ManyToOne(targetEntity="Compo\BannerBundle\Entity\Banner", fetch="EAGER")
      * @ORM\JoinColumn(name="banner_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     protected $banner;
-
-
+    
     /**
      * @var string
      * @ORM\Column(type="string", nullable=true)
@@ -106,8 +103,7 @@ class BannerItem
     {
         $this->page = $page;
     }
-
-
+    
     /**
      * Get title
      *

@@ -18,33 +18,37 @@ class SeoPage extends BaseEntityManager
     public $seoPages = array();
 
     /**
+     * @return array
+     */
+    public function getSeoPages()
+    {
+        return $this->seoPages;
+    }
+
+    /**
      * @param $items
      */
-    public function setSeoPages($items) {
+    public function setSeoPages($items)
+    {
         foreach ($items as $item) {
             $this->seoPages[$item['context']] = $item;
         }
     }
 
     /**
-     * @return array
-     */
-    public function getSeoPages() {
-        return $this->seoPages;
-    }
-
-    /**
      * @param $context
      * @return mixed
      */
-    public function getSeoPageItem($context) {
+    public function getSeoPageItem($context)
+    {
         return $this->seoPages[$context];
     }
 
     /**
      * @return array
      */
-    public function getChoices() {
+    public function getChoices()
+    {
         $choices = array();
 
         foreach ($this->seoPages as $items) {

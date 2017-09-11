@@ -16,9 +16,10 @@ class Social
     use \Compo\Sonata\AdminBundle\Entity\PositionEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\NameEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\ImageEntityTrait;
-    
+
     use \Gedmo\Timestampable\Traits\TimestampableEntity;
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+    
     /**
      * Описание
      *
@@ -34,7 +35,7 @@ class Social
      * @ORM\Column(type="text", nullable=true)
      */
     protected $icon;
-    
+
     /**
      * @return string
      */

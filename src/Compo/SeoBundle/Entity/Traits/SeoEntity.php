@@ -52,7 +52,6 @@ trait SeoEntity
      */
     protected $header;
 
-
     /**
      * Запрет индексирование
      *

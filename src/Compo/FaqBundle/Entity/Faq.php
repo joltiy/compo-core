@@ -20,7 +20,6 @@ class Faq
     use \Compo\Sonata\AdminBundle\Entity\ViewsEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\PublicationAtEntityTrait;
-
     use \Compo\SeoBundle\Entity\Traits\SeoEntity;
 
     use \Gedmo\Timestampable\Traits\TimestampableEntity;

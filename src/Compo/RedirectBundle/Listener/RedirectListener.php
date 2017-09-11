@@ -51,7 +51,7 @@ class RedirectListener
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
-        $request   = $event->getRequest();
+        $request = $event->getRequest();
 
         $uri = $request->getRequestUri();
 

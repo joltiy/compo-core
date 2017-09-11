@@ -28,12 +28,13 @@ class SmsRuProvider
     {
         $this->account = $account;
     }
-    
+
     /**
      * @param $phone
      * @param $text
      */
-    public function send($phone, $text) {
+    public function send($phone, $text)
+    {
 
     }
 }
