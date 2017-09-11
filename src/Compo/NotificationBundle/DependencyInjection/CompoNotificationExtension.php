@@ -26,8 +26,8 @@ class CompoNotificationExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
 
-        $serviceDefintion = $container->getDefinition( 'compo_notification.manager.notification' );
-        $serviceDefintion->addMethodCall( 'setEvents', array( $config[ 'events'] ) );
+        $serviceDefintion = $container->getDefinition('compo_notification.manager.notification');
+        $serviceDefintion->addMethodCall('setEvents', array($config['events']));
     }
 
     /**

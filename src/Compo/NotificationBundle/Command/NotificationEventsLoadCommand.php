@@ -3,6 +3,7 @@
 namespace Compo\NotificationBundle\Command;
 
 use Compo\NotificationBundle\Entity\NotificationEmail;
+use Compo\NotificationBundle\Repository\NotificationEmailRepository;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -34,6 +35,7 @@ class NotificationEventsLoadCommand extends ContainerAwareCommand
 
         $em = $container->get('doctrine')->getManager();
 
+        /** @var NotificationEmailRepository $notificationEmailRepository */
         $notificationEmailRepository = $em->getRepository('CompoNotificationBundle:NotificationEmail');
 
         foreach ($events as $event_key => $event) {

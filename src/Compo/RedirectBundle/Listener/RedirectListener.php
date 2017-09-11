@@ -1,13 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jivoy1988
- * Date: 07.02.17
- * Time: 14:57
- */
 
 namespace Compo\RedirectBundle\Listener;
 
+use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Compo\RedirectBundle\Entity\Redirect;
 use Compo\RedirectBundle\Repository\RedirectRepository;
 use Symfony\Component\DependencyInjection\Container;
@@ -20,6 +15,8 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
  */
 class RedirectListener
 {
+    use ContainerAwareTrait;
+
     private $router;
 
     /** @var  Container */
@@ -55,7 +52,6 @@ class RedirectListener
 
         $uri = $request->getRequestUri();
 
-
         /** @var RedirectRepository $redirectRepository */
         $redirectRepository = $this->getContainer()->get('doctrine')->getManager()->getRepository('CompoRedirectBundle:Redirect');
 
@@ -68,29 +64,9 @@ class RedirectListener
             )
         );
 
-
-
         if ($redirect) {
             $event->setResponse(new RedirectResponse($redirect->getUrOut()));
             $event->stopPropagation();
         }
-
-
-    }
-
-    /**
-     * @return Container
-     */
-    public function getContainer()
-    {
-        return $this->container;
-    }
-
-    /**
-     * @param Container $container
-     */
-    public function setContainer($container)
-    {
-        $this->container = $container;
     }
 }

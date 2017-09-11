@@ -13,11 +13,9 @@ class SmsProviderManager extends BaseEntityManager
 {
     use ContainerAwareTrait;
 
-
     public $providers = array(
         'smsru' => "\\Compo\\SmsProviderBundle\\Provider\\SmsRuProvider"
     );
-
 
     /**
      * @return array
@@ -27,7 +25,6 @@ class SmsProviderManager extends BaseEntityManager
             'sms.ru' => 'smsru'
         );
     }
-
 
     /**
      * @param $id

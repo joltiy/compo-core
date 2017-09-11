@@ -18,6 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
+
         /** @noinspection PhpUnusedLocalVariableInspection */
         $rootNode = $treeBuilder->root('compo_seo');
 
@@ -37,9 +38,6 @@ class Configuration implements ConfigurationInterface
             ->end()
             ->end()
             ->end();
-
-
-
 
         return $treeBuilder;
     }

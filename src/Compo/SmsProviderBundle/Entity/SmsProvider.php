@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class SmsProvider
 {
+    use \Compo\Sonata\AdminBundle\Entity\IdEntityTrait;
+
     use \Compo\Sonata\AdminBundle\Entity\NameEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\DescriptionEntityTrait;
 
@@ -19,16 +21,6 @@ class SmsProvider
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
     use \Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
 
     /**
      * @var string
@@ -49,23 +41,6 @@ class SmsProvider
      * @ORM\Column(type="string", nullable=false)
      */
     protected $type;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-    }
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * @return string
@@ -114,7 +89,4 @@ class SmsProvider
     {
         $this->type = $type;
     }
-
-
-
 }

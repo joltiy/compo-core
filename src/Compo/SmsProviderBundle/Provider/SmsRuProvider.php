@@ -25,8 +25,7 @@ class SmsRuProvider
     {
         $this->account = $account;
     }
-
-
+    
     /**
      * @param $phone
      * @param $text

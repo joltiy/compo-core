@@ -13,11 +13,6 @@ use Sonata\AdminBundle\Show\ShowMapper;
 /**
  * {@inheritDoc}
  */
-
-/**
- * Class NotificationEmailAdmin
- * @package Compo\NotificationBundle\Admin
- */
 class NotificationEmailAdmin extends AbstractAdmin
 {
     /**
@@ -31,6 +26,44 @@ class NotificationEmailAdmin extends AbstractAdmin
         $this->configureProperties(true);
         $this->configureSettings(true, 'compo_notification_email_settings');
 
+    }
+
+    /**
+     * @param mixed $object
+     */
+    public function prePersist($object)
+    {
+        $this->fixData($object);
+    }
+
+    /**
+     * @param $object NotificationEmail
+     */
+    public function fixData($object)
+    {
+        $notificationManager = $this->getContainer()->get('compo_notification.manager.notification');
+
+        $event = $notificationManager->getEvent($object->getEvent());
+
+        if (!$object->getSubject()) {
+            $object->setSubject($notificationManager->getTemplateSource($event['subject']));
+        }
+
+        if (!$object->getRecipient()) {
+            $object->setRecipient($notificationManager->getTemplateSource($event['recipient']));
+        }
+
+        if (!$object->getBody()) {
+            $object->setBody($notificationManager->getTemplateSource($event['body']));
+        }
+    }
+
+    /**
+     * @param mixed $object
+     */
+    public function preUpdate($object)
+    {
+        $this->fixData($object);
     }
 
     /**
@@ -48,9 +81,12 @@ class NotificationEmailAdmin extends AbstractAdmin
             ->add('enabled')
             ->add('createdAt')
             ->add('updatedAt')
-            ->add('deletedAt')
-        ;
+            ->add('deletedAt');
     }
+
+    /**
+     * {@inheritDoc}
+     */
 
     /**
      * @param ListMapper $listMapper
@@ -70,9 +106,12 @@ class NotificationEmailAdmin extends AbstractAdmin
                     'edit' => array(),
                     'delete' => array(),
                 ),
-            ))
-        ;
+            ));
     }
+
+    /**
+     * {@inheritDoc}
+     */
 
     /**
      * @param FormMapper $formMapper
@@ -104,7 +143,7 @@ class NotificationEmailAdmin extends AbstractAdmin
             ->add('note')
             ->add('sender', null, array('required' => false))
             ->add('recipient', null, array('attr' => array('class' => 'highlight-src'), 'required' => false))
-            ->add('subject', null, array('attr' => array('class' => 'highlight-src'), 'required' => false) )
+            ->add('subject', null, array('attr' => array('class' => 'highlight-src'), 'required' => false))
             ->add('body', null, array('attr' => array('class' => 'highlight-src'), 'required' => false));
 
         $formMapper->add('help', HelpType::class, array(
@@ -129,52 +168,6 @@ class NotificationEmailAdmin extends AbstractAdmin
             ->add('enabled')
             ->add('createdAt')
             ->add('updatedAt')
-            ->add('deletedAt')
-        ;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    /**
-     * @param mixed $object
-     */
-    public function prePersist($object)
-    {
-        $this->fixData($object);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    /**
-     * @param mixed $object
-     */
-    public function preUpdate($object)
-    {
-        $this->fixData($object);
-    }
-
-
-    /**
-     * @param $object NotificationEmail
-     */
-    public function fixData($object)
-    {
-        $notificationManager = $this->getContainer()->get('compo_notification.manager.notification');
-
-        $event = $notificationManager->getEvent($object->getEvent());
-
-        if (!$object->getSubject()) {
-            $object->setSubject($notificationManager->getTemplateSource($event['subject']));
-        }
-
-        if (!$object->getRecipient()) {
-            $object->setRecipient($notificationManager->getTemplateSource($event['recipient']));
-        }
-
-        if (!$object->getBody()) {
-            $object->setBody($notificationManager->getTemplateSource($event['body']));
-        }
+            ->add('deletedAt');
     }
 }

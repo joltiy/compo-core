@@ -12,12 +12,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Social
 {
+    use \Compo\Sonata\AdminBundle\Entity\IdEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\PositionEntityTrait;
-    use \Gedmo\Timestampable\Traits\TimestampableEntity;
-    use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
     use \Compo\Sonata\AdminBundle\Entity\NameEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\ImageEntityTrait;
-
+    
+    use \Gedmo\Timestampable\Traits\TimestampableEntity;
+    use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
     /**
      * Описание
      *
@@ -33,24 +34,7 @@ class Social
      * @ORM\Column(type="text", nullable=true)
      */
     protected $icon;
-
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * Social constructor.
-     */
-    public function __construct()
-    {
-    }
-
+    
     /**
      * @return string
      */
@@ -82,28 +66,4 @@ class Social
     {
         $this->icon = $icon;
     }
-
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set id
-     *
-     * @param $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-
-
 }

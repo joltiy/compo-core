@@ -12,21 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class NotificationEmail
 {
+    use \Compo\Sonata\AdminBundle\Entity\IdEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\EnabledEntityTrait;
+    use \Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait;
 
     use \Gedmo\Timestampable\Traits\TimestampableEntity;
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
-
-    use \Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
 
     /**
      * @var string
@@ -65,23 +56,6 @@ class NotificationEmail
      * @ORM\Column(type="text", nullable=false)
      */
     protected $body;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-    }
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * @return string
@@ -179,7 +153,6 @@ class NotificationEmail
         $this->note = $note;
     }
 
-
     /**
      * @return string
      */
@@ -187,7 +160,7 @@ class NotificationEmail
     {
         if ($this->note) {
             return $this->note;
-        } elseif($this->id) {
+        } elseif ($this->id) {
             return (string)$this->id;
         } else {
             return '';

@@ -3,17 +3,12 @@
 namespace Compo\NotificationBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Helper\Table;
 
 /**
  * {@inheritDoc}
- */
-
-/**
- * Class NotificationEventsListCommand
- * @package Compo\NotificationBundle\Command
  */
 class NotificationEventsListCommand extends ContainerAwareCommand
 {
@@ -35,7 +30,6 @@ class NotificationEventsListCommand extends ContainerAwareCommand
         $container = $this->getContainer();
         $notificationManager = $container->get('compo_notification.manager.notification');
         $events = $notificationManager->getEvents();
-
 
         $table = new Table($output);
         $table->setHeaders(array('event', 'description', 'recipient', 'subject', 'body', 'help', 'type'));

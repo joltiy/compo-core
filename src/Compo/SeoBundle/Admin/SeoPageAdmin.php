@@ -74,7 +74,6 @@ class SeoPageAdmin extends AbstractAdmin
 
         $subject = $this->getSubject();
 
-
         if ($this->isCurrentRoute('create')) {
             $help = '';
         } else {
@@ -151,7 +150,6 @@ class SeoPageAdmin extends AbstractAdmin
     {
         $this->fixData($object);
     }
-
 
     /**
      * @param $object SeoPage

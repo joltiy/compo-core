@@ -2,7 +2,6 @@
 
 namespace Compo\SeoBundle\Manager;
 
-
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Compo\Sonata\CoreBundle\Model\BaseEntityManager;
 

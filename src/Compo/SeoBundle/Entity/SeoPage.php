@@ -14,8 +14,7 @@ class SeoPage
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
     use \Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\IdEntityTrait;
-
-
+    
     /**
      * @var string
      * @ORM\Column(type="string", nullable=false)
@@ -39,22 +38,19 @@ class SeoPage
      * @ORM\Column(type="text", nullable=false)
      */
     protected $metaDescription;
-
-
+    
     /**
      * @var string
      * @ORM\Column(type="text", nullable=false)
      */
     protected $description;
-
-
+    
     /**
      * @var string
      * @ORM\Column(type="text", nullable=false)
      */
     protected $descriptionAdditional;
-
-
+    
     /**
      * @var string
      * @ORM\Column(type="string", nullable=false)
@@ -172,8 +168,7 @@ class SeoPage
     {
         $this->context = $context;
     }
-
-
+    
     /**
      * @return string
      */
@@ -181,5 +176,4 @@ class SeoPage
     {
         return (string)$this->context;
     }
-
 }

@@ -11,7 +11,6 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-
 /**
  * {@inheritDoc}
  */
@@ -22,7 +21,6 @@ class SeoExtension extends AbstractAdminExtension
      */
     public function alterNewInstance(AdminInterface $admin, $object)
     {
-
     }
 
     /**

@@ -12,89 +12,63 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class NotificationEmailAccount
 {
+    use \Compo\Sonata\AdminBundle\Entity\IdEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\NameEntityTrait;
-
-    use \Gedmo\Timestampable\Traits\TimestampableEntity;
-    use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
-
     use \Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\DescriptionEntityTrait;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
+    
+    use \Gedmo\Timestampable\Traits\TimestampableEntity;
+    use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+    
     /**
      * @var string
      *
      * @ORM\Column(type="string", nullable=false)
      */
     protected $username;
-
+    
     /**
      * @var string
      *
      * @ORM\Column(type="string", nullable=false)
      */
     protected $password;
-
+    
     /**
      * @var string
      *
      * @ORM\Column(type="string", nullable=false)
      */
     protected $hostname;
-
+    
     /**
      * @var string
      *
      * @ORM\Column(type="string", nullable=false)
      */
     protected $transport;
-
+    
     /**
      * @var string
      *
      * @ORM\Column(type="integer", nullable=false)
      */
     protected $port;
-
+    
     /**
      * @var string
      *
      * @ORM\Column(type="string", nullable=false)
      */
     protected $encryption;
-
+    
     /**
      * @var string
      *
      * @ORM\Column(type="string", nullable=false)
      */
     protected $authMode;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-    }
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
+    
     /**
      * @return string
      */
@@ -206,5 +180,4 @@ class NotificationEmailAccount
     {
         $this->authMode = $auth_mode;
     }
-
 }

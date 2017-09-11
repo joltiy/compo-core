@@ -65,7 +65,6 @@ class SocialAdmin extends AbstractAdmin
             ->add('url')
             ->add('icon')
             ->add('image');
-
     }
 
     /**

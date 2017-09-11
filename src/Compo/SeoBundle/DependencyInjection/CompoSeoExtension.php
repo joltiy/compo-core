@@ -46,9 +46,6 @@ class CompoSeoExtension extends Extension implements PrependExtensionInterface
     /**
      * {@inheritDoc}
      */
-    /**
-     * @return string
-     */
     public function getAlias()
     {
         return 'compo_seo';

@@ -23,7 +23,6 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-
             ->arrayNode('events')->prototype('array')->children()
             ->scalarNode('event')->isRequired()->end()
             ->scalarNode('description')->isRequired()->defaultValue('')->end()
@@ -32,7 +31,6 @@ class Configuration implements ConfigurationInterface
             ->scalarNode('body')->isRequired()->defaultValue('')->end()
             ->scalarNode('help')->defaultValue('')->end()
             ->scalarNode('type')->isRequired()->defaultValue('')->end()
-
             ->end()
             ->end()
             ->end()

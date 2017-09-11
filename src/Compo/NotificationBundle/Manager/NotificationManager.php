@@ -8,11 +8,6 @@ use Compo\NotificationBundle\Entity\NotificationEmail;
 /**
  * {@inheritDoc}
  */
-
-/**
- * Class NotificationManager
- * @package Compo\NotificationBundle\Manager
- */
 class NotificationManager
 {
     use ContainerAwareTrait;
@@ -24,7 +19,8 @@ class NotificationManager
     /**
      * @return array
      */
-    public function getEmailTransport() {
+    public function getEmailTransport()
+    {
         return array(
             'smtp' => 'SMTP',
             'sendmail' => 'SendMail'
@@ -34,7 +30,8 @@ class NotificationManager
     /**
      * @return array
      */
-    public function getEmailEncryption() {
+    public function getEmailEncryption()
+    {
         return array(
             'tls' => 'TLS',
             'ssl' => 'SSL'
@@ -44,7 +41,8 @@ class NotificationManager
     /**
      * @return array
      */
-    public function getEmailAuthMode() {
+    public function getEmailAuthMode()
+    {
         return array(
             'plain' => 'Plain',
             'login' => 'Login',
@@ -53,48 +51,11 @@ class NotificationManager
     }
 
     /**
-     *
-     * @return object|\Sylius\Bundle\SettingsBundle\Model\SettingsInterface
-     */
-    public function getNotificationEmailSettings()
-    {
-        return $this->getContainer()->get('sylius.settings_manager')->load('compo_notification_email_settings');
-    }
-
-
-    /**
-     * @return \Doctrine\Common\Persistence\ObjectManager|object
-     */
-    public function getEntityManager()
-    {
-        return $this->getContainer()->get('doctrine')->getManager();
-    }
-
-    /**
-     *
-     */
-    public function getDefaultSender()
-    {
-        if (is_null($this->default_sender)) {
-            $settings = $this->getNotificationEmailSettings();
-
-            $id = $settings->get('notification_email_account_default');
-
-            if ($id) {
-                $this->default_sender = $this->getEntityManager()->getRepository('CompoNotificationBundle:NotificationEmailAccount')->find($id);
-            } else {
-                $this->default_sender = $this->getEntityManager()->getRepository('CompoNotificationBundle:NotificationEmailAccount')->findOneBy(array(), array('id' => 'ASC'));
-            }
-        }
-
-        return $this->default_sender;
-    }
-
-    /**
      * @param $src
      * @return string
      */
-    public function getTemplateSource($src) {
+    public function getTemplateSource($src)
+    {
 
         if (strpos($src, 'Compo') === 0) {
             $parser = $this->getContainer()->get('templating.name_parser');
@@ -119,6 +80,16 @@ class NotificationManager
     }
 
     /**
+     * @param array $events
+     */
+    public function setEvents($events)
+    {
+        foreach ($events as $event_key => $event) {
+            $this->events[$event['event']] = $event;
+        }
+    }
+
+    /**
      * @return array
      */
     public function getEventsChoice()
@@ -133,45 +104,12 @@ class NotificationManager
     }
 
     /**
-     * @param array $events
-     */
-    public function setEvents($events)
-    {
-        foreach ($events as $event_key => $event) {
-            $this->events[$event['event']] = $event;
-        }
-    }
-
-    /**
      * @param $name
      * @return mixed
      */
-    public function getEvent($name) {
+    public function getEvent($name)
+    {
         return $this->events[$name];
-    }
-
-    /**
-     * @param $event
-     * @return array|\Doctrine\Common\Persistence\ObjectRepository
-     */
-    public function getNotificationsEmail($event) {
-        /*
-        $events = array();
-
-        foreach ($this->events as $event_key => $event_val) {
-            if ($event_val['event'] == $event && $event_val['event'] == 'email') {
-                $events[$event_key] = $event_val;
-            }
-        }
-
-        return $events;
-        */
-
-
-        $notificationEmailRepository = $this->getContainer()->get('doctrine')->getRepository('CompoNotificationBundle:NotificationEmail');
-
-        return $notificationEmailRepository->findBy(array('event' => $event));
-
     }
 
     /**
@@ -183,7 +121,8 @@ class NotificationManager
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Syntax
      */
-    public function send($event, $vars) {
+    public function send($event, $vars)
+    {
         /** @var NotificationEmail[] $notifications */
         $notifications = $this->getNotificationsEmail($event);
 
@@ -222,8 +161,7 @@ class NotificationManager
                 if ($sender->getTransport() == 'smtp') {
                     $transport = (new \Swift_SmtpTransport($sender->getHostname(), $sender->getPort()))
                         ->setUsername($sender->getUsername())
-                        ->setPassword($sender->getPassword())
-                    ;
+                        ->setPassword($sender->getPassword());
                     $transport->setAuthMode($sender->getAuthMode());
                     $transport->setEncryption($sender->getEncryption());
                 } else {
@@ -254,6 +192,30 @@ class NotificationManager
     }
 
     /**
+     * @param $event
+     * @return array|\Doctrine\Common\Persistence\ObjectRepository
+     */
+    public function getNotificationsEmail($event)
+    {
+        /*
+        $events = array();
+
+        foreach ($this->events as $event_key => $event_val) {
+            if ($event_val['event'] == $event && $event_val['event'] == 'email') {
+                $events[$event_key] = $event_val;
+            }
+        }
+
+        return $events;
+        */
+
+        $notificationEmailRepository = $this->getContainer()->get('doctrine')->getRepository('CompoNotificationBundle:NotificationEmail');
+
+        return $notificationEmailRepository->findBy(array('event' => $event));
+
+    }
+
+    /**
      * @param $str
      * @param $vars
      * @return array
@@ -262,7 +224,8 @@ class NotificationManager
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Syntax
      */
-    public function prepareEmails($str, $vars) {
+    public function prepareEmails($str, $vars)
+    {
         $str = $this->renderTemplate($str, $vars);
 
         return explode(',', $str);
@@ -277,7 +240,8 @@ class NotificationManager
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Syntax
      */
-    public function renderTemplate($template, $vars) {
+    public function renderTemplate($template, $vars)
+    {
         $twig = $this->getContainer()->get('twig');
 
         $template = $twig->createTemplate($template);
@@ -285,4 +249,40 @@ class NotificationManager
         return $template->render($vars);
     }
 
+    /**
+     *
+     */
+    public function getDefaultSender()
+    {
+        if (is_null($this->default_sender)) {
+            $settings = $this->getNotificationEmailSettings();
+
+            $id = $settings->get('notification_email_account_default');
+
+            if ($id) {
+                $this->default_sender = $this->getEntityManager()->getRepository('CompoNotificationBundle:NotificationEmailAccount')->find($id);
+            } else {
+                $this->default_sender = $this->getEntityManager()->getRepository('CompoNotificationBundle:NotificationEmailAccount')->findOneBy(array(), array('id' => 'ASC'));
+            }
+        }
+
+        return $this->default_sender;
+    }
+
+    /**
+     *
+     * @return object|\Sylius\Bundle\SettingsBundle\Model\SettingsInterface
+     */
+    public function getNotificationEmailSettings()
+    {
+        return $this->getContainer()->get('sylius.settings_manager')->load('compo_notification_email_settings');
+    }
+
+    /**
+     * @return \Doctrine\Common\Persistence\ObjectManager|object
+     */
+    public function getEntityManager()
+    {
+        return $this->getContainer()->get('doctrine')->getManager();
+    }
 }

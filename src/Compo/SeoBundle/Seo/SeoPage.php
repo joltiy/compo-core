@@ -2,7 +2,6 @@
 
 namespace Compo\SeoBundle\Seo;
 
-
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 
 /**
@@ -80,7 +79,6 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         $this->replaceTagging = $replaceTagging;
     }
 
-
     /**
      * @return string
      */
@@ -113,8 +111,6 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         $this->linkPrev = $linkPrev;
     }
 
-
-
     /**
      * @return string
      */
@@ -130,7 +126,6 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
     {
         $this->descriptionAdditional = $descriptionAdditional;
     }
-
 
     /**
      * @return string
@@ -201,9 +196,6 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
             $this->getRequest()->get('_route') == 'page_slug'
             ||
             $this->getRequest()->get('_route') == '_page_internal_error_not_found'
-
-
-
         ) {
             $this->setContext('page');
         }
@@ -303,7 +295,9 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         $this->name = $name;
     }
 
-
+    /**
+     * @throws \Throwable
+     */
     public function build()
     {
         $this->addHtmlAttributes('lang', 'ru');
@@ -316,7 +310,6 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
 
         $templates = array_reverse($this->templates);
 
-
         /** @var \Compo\SeoBundle\Entity\SeoPage $contextTemplate */
         $contextTemplate = $container->get('compo_seo.page.manager')->findOneBy(array('context' => $this->context));
 
@@ -328,9 +321,6 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
                 'metaDescription' => $contextTemplate->getMetaDescription(),
             );
         }
-
-
-
 
         $name = '';
 
@@ -372,8 +362,6 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         }
 
         $title = $this->buildTemplate($title . ' {% if page|default("0") > 1 %} (страница {{ page }}){% endif %}' );
-
-
 
         // Чистка keywords
         $keywords_tmp = explode(',', $meta_keyword);
@@ -470,7 +458,6 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
 
             $result = $twig->render('index.html', $this->vars);
             */
-
 
         } catch (\Exception $e) {
             $result = '';

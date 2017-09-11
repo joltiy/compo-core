@@ -12,11 +12,6 @@ use Sonata\AdminBundle\Show\ShowMapper;
 /**
  * {@inheritDoc}
  */
-
-/**
- * Class NotificationEmailAccountAdmin
- * @package Compo\NotificationBundle\Admin
- */
 class NotificationEmailAccountAdmin extends AbstractAdmin
 {
     /**
@@ -44,8 +39,7 @@ class NotificationEmailAccountAdmin extends AbstractAdmin
             ->add('createdAt')
             ->add('updatedAt')
             ->add('deletedAt')
-            ->add('description')
-        ;
+            ->add('description');
     }
 
     /**
@@ -63,8 +57,7 @@ class NotificationEmailAccountAdmin extends AbstractAdmin
                     'edit' => array(),
                     'delete' => array(),
                 ),
-            ))
-        ;
+            ));
     }
 
     /**
@@ -111,7 +104,6 @@ class NotificationEmailAccountAdmin extends AbstractAdmin
             ->add('createdAt')
             ->add('updatedAt')
             ->add('deletedAt')
-            ->add('description')
-        ;
+            ->add('description');
     }
 }
