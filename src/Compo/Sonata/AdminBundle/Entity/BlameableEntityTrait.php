@@ -2,9 +2,14 @@
 
 namespace Compo\Sonata\AdminBundle\Entity;
 
+use Compo\Sonata\UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
+/**
+ * Trait BlameableEntityTrait
+ * @package Compo\Sonata\AdminBundle\Entity
+ */
 trait BlameableEntityTrait
 {
     /**
@@ -42,7 +47,7 @@ trait BlameableEntityTrait
     /**
      * Returns createdBy.
      *
-     * @return string
+     * @return User
      */
     public function getCreatedBy()
     {
@@ -65,7 +70,7 @@ trait BlameableEntityTrait
     /**
      * Returns updatedBy.
      *
-     * @return string
+     * @return User
      */
     public function getUpdatedBy()
     {

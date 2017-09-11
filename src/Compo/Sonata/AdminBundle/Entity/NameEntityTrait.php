@@ -6,6 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMS;
 
+/**
+ * Trait NameEntityTrait
+ * @package Compo\Sonata\AdminBundle\Entity
+ */
 trait NameEntityTrait
 {
     /**

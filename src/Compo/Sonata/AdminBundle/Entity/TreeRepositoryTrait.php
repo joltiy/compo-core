@@ -4,14 +4,26 @@ namespace Compo\Sonata\AdminBundle\Entity;
 
 use Doctrine\ORM\QueryBuilder;
 
+/**
+ * Trait TreeRepositoryTrait
+ * @package Compo\Sonata\AdminBundle\Entity
+ */
 trait TreeRepositoryTrait
 {
+    /**
+     * @return mixed
+     */
     public function findAll()
     {
         return $this->findBy(array(), array('lft' => 'ASC'));
     }
 
 
+    /**
+     * @param bool $exclude_id
+     * @param null $qb_callback
+     * @return array
+     */
     public function getForTreeSelector($exclude_id = false, $qb_callback = null)
     {
         /** @var QueryBuilder $queryBuilder */
@@ -31,6 +43,11 @@ trait TreeRepositoryTrait
         return $queryBuilder->getQuery()->getResult();
     }
 
+    /**
+     * @param null $startNode
+     * @param null $options
+     * @return array
+     */
     public function getFlatNodes($startNode = null, $options = null)
     {
         if (is_null($options)) {
@@ -53,6 +70,12 @@ trait TreeRepositoryTrait
         return $this->toFlat($htmlTree, ' » ');
     }
 
+    /**
+     * @param $node
+     * @param string $sep
+     * @param string $path
+     * @return array
+     */
     public function toFlat($node, $sep = ' > ', $path = '')
     {
         $els = array();
@@ -69,6 +92,13 @@ trait TreeRepositoryTrait
     }
 
 
+    /**
+     * @param null $node
+     * @param bool $direct
+     * @param array $options
+     * @param bool $includeNode
+     * @return mixed
+     */
     public function childrenHierarchyWithNodes($node = null, $direct = false, array $options = array(), $includeNode = false) {
 
         $tree = $this->childrenHierarchy($node, $direct, $options, $includeNode);
@@ -96,8 +126,7 @@ trait TreeRepositoryTrait
         $nodes = array();
 
         foreach ($nodes_array as $nodes_array_item) {
-
-
+            /** @var $nodes_array_item \Compo\Sonata\AdminBundle\Entity\IdEntityTrait */
             $nodes[$nodes_array_item->getId()] = $nodes_array_item;
         }
 

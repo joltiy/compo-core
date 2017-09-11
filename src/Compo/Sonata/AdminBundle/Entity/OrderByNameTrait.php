@@ -4,8 +4,15 @@ namespace Compo\Sonata\AdminBundle\Entity;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 
+/**
+ * Trait OrderByNameTrait
+ * @package Compo\Sonata\AdminBundle\Entity
+ */
 trait OrderByNameTrait
 {
+    /**
+     * @return QueryBuilder
+     */
     public function createQueryBuilderOrderByName()
     {
         /** @noinspection PhpUndefinedMethodInspection */

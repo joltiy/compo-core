@@ -11,13 +11,20 @@
 
 namespace Compo\Sonata\AdminBundle\Filter;
 
-use Compo\Sonata\AdminBundle\Form\Type\NumberRangeType;
+
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\DoctrineORMAdminBundle\Filter\Filter;
 
+/**
+ * Class NumberRangeFilter
+ * @package Compo\Sonata\AdminBundle\Filter
+ */
 class NumberRangeFilter extends Filter
 {
+    /**
+     * @var bool
+     */
     protected $range = true;
 
     /**
@@ -35,14 +42,14 @@ class NumberRangeFilter extends Filter
         if ($this->range && is_array($data['value'])) {
 
             // additional data check for ranged items
-            if (!array_key_exists('start', $data['value']) || !array_key_exists('end', $data['value'])) {
+            //if (!array_key_exists('start', $data['value']) || !array_key_exists('end', $data['value'])) {
                 //$data['value']['start'] = 0;
                 //return;
-            }
+            //}
 
-            if (!$data['value']['start'] || !$data['value']['end']) {
+            //if (!$data['value']['start'] || !$data['value']['end']) {
                 //return;
-            }
+            //}
 
 
             if (array_key_exists('start', $data['value']) && $data['value']['start']) {

@@ -13,12 +13,8 @@ namespace Compo\Sonata\AdminBundle\Form\Type;
 
 use Sonata\AdminBundle\Form\ChoiceList\ModelChoiceList;
 use Sonata\AdminBundle\Form\Type\ModelType;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Sonata\AdminBundle\Form\ChoiceList\ModelChoiceLoader;
 
 /**
  * Select a category.
@@ -27,10 +23,9 @@ use Sonata\AdminBundle\Form\ChoiceList\ModelChoiceLoader;
  */
 class TreeSelectorType extends ModelType
 {
-    /** @noinspection PhpDeprecationInspection */
-    /** @noinspection PhpDeprecationInspection */
-
-
+    /**
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $options = array();
@@ -57,6 +52,7 @@ class TreeSelectorType extends ModelType
             }
         } else {
             $options['choice_list'] = function (Options $options, $previousValue) use ($propertyAccessor) {
+                /** @noinspection PhpUndefinedMethodInspection */
                 if ($previousValue && count($choices = $previousValue->getChoices())) {
                     return $choices;
                 }

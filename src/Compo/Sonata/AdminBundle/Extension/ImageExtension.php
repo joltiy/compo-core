@@ -3,10 +3,10 @@
 namespace Compo\Sonata\AdminBundle\Extension;
 
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
-use Doctrine\ORM\QueryBuilder;
+
 use Compo\Sonata\AdminBundle\Admin\AbstractAdminExtension;
-use Sonata\AdminBundle\Datagrid\DatagridMapper;
-use Sonata\AdminBundle\Datagrid\ListMapper;
+
+
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**

@@ -13,6 +13,7 @@ namespace Compo\Sonata\AdminBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
@@ -36,6 +37,7 @@ class NumberRangeType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
+        /** @var $resolver OptionsResolver */
         $resolver->setDefaults(array(
             'field_options' => array(),
             'field_type' => 'text',

@@ -6,8 +6,7 @@ use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
-use Sonata\AdminBundle\Datagrid\ListMapper;
-use Sonata\AdminBundle\Form\FormMapper;
+
 
 /**
  * {@inheritDoc}

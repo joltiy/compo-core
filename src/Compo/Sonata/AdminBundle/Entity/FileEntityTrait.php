@@ -4,6 +4,10 @@ namespace Compo\Sonata\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Trait FileEntityTrait
+ * @package Compo\Sonata\AdminBundle\Entity
+ */
 trait FileEntityTrait
 {
     /**

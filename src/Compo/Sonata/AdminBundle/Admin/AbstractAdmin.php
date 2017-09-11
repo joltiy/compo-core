@@ -2,6 +2,7 @@
 
 namespace Compo\Sonata\AdminBundle\Admin;
 
+use Doctrine\Common\Cache\Cache;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Admin\AbstractAdmin as BaseAdmin;
 use Sonata\AdminBundle\Route\RouteCollection;
@@ -11,47 +12,91 @@ use Sonata\AdminBundle\Route\RouteCollection;
  */
 class AbstractAdmin extends BaseAdmin
 {
+    /**
+     * @var bool
+     */
     public $positionEnabled = false;
+    /**
+     * @var bool
+     */
     public $treeEnabled = false;
+    /**
+     * @var
+     */
     public $em;
+    /**
+     * @var array
+     */
     public $postionRelatedFields = array();
 
+    /**
+     * @var int
+     */
     protected $maxPerPage = 50;
+    /**
+     * @var int
+     */
     protected $maxPageLinks = 50;
+    /**
+     * @var array
+     */
     protected $datagridValues = array(
         '_page' => 1,
         '_per_page' => 50,
     );
 
+    /**
+     * @var array
+     */
     protected $perPageOptions = array(50, 100, 500, 1000, 10000);
+    /**
+     * @var array
+     */
     protected $searchResultActions = array('edit');
 
+    /**
+     * @var
+     */
     protected $settingsNamespace;
+    /**
+     * @var bool
+     */
     protected $settingsEnabled = false;
 
 
+    /**
+     * @param bool $settingsEnabled
+     * @param $settingsNamespace
+     */
     public function configureSettings($settingsEnabled = true, $settingsNamespace)
     {
         $this->setSettingsEnabled($settingsEnabled);
         $this->setSettingsNamespace($settingsNamespace);
     }
 
+    /**
+     * @param $key
+     */
     public function clearCache($key) {
         $em = $this->getDoctrine()->getManager();
 
+        /** @var Cache $cacheDriver */
         $cacheDriver = $em->getConfiguration()->getResultCacheImpl();
 
         $cacheDriver->delete($key);
     }
 
     /**
-     * @return string
+     * @return bool
      */
     public function getSettingsEnabled()
     {
         return $this->settingsEnabled;
     }
 
+    /**
+     * @param $settingsEnabled
+     */
     public function setSettingsEnabled($settingsEnabled)
     {
         $this->settingsEnabled = $settingsEnabled;
@@ -65,11 +110,17 @@ class AbstractAdmin extends BaseAdmin
         return $this->settingsNamespace;
     }
 
+    /**
+     * @param $settingsNamespace
+     */
     public function setSettingsNamespace($settingsNamespace)
     {
         $this->settingsNamespace = $settingsNamespace;
     }
 
+    /**
+     * @param $parentAssociationMapping
+     */
     public function setParentParentAssociationMapping($parentAssociationMapping)
     {
         $this->parentAssociationMapping = $parentAssociationMapping;
@@ -91,11 +142,17 @@ class AbstractAdmin extends BaseAdmin
         $this->postionRelatedFields = $postionRelatedFields;
     }
 
+    /**
+     * @param $order
+     */
     public function setSortOrder($order)
     {
         $this->datagridValues['_sort_order'] = $order;
     }
 
+    /**
+     * @param $by
+     */
     public function setSortBy($by)
     {
         $this->datagridValues['_sort_by'] = $by;

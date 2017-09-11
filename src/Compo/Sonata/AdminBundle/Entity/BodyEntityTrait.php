@@ -5,6 +5,10 @@ namespace Compo\Sonata\AdminBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 
+/**
+ * Trait BodyEntityTrait
+ * @package Compo\Sonata\AdminBundle\Entity
+ */
 trait BodyEntityTrait
 {
     /**

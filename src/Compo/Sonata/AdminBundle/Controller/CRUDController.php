@@ -1,19 +1,16 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jivoy1988
- * Date: 31.05.16
- * Time: 9:53
- */
 
 namespace Compo\Sonata\AdminBundle\Controller;
 
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
+use Doctrine\DBAL\DBALException;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 use Pix\SortableBehaviorBundle\Services\PositionHandler;
 use Sonata\AdminBundle\Controller\CRUDController as BaseCRUDController;
+use Sonata\AdminBundle\Exception\ModelManagerException;
+use Sonata\DoctrineORMAdminBundle\Model\ModelManager;
 use Sylius\Bundle\SettingsBundle\Form\Factory\SettingsFormFactoryInterface;
 use Sylius\Bundle\SettingsBundle\Manager\SettingsManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -379,11 +376,11 @@ class CRUDController extends BaseCRUDController
      */
     public function listAction(Request $request = null)
     {
-        if (isset($this->admin->treeEnabled) && $this->admin->treeEnabled) {
-            if (!$request->get('filter')) {
+        //if (isset($this->admin->treeEnabled) && $this->admin->treeEnabled) {
+            //if (!$request->get('filter')) {
                 //return new RedirectResponse($this->admin->generateUrl('tree', $request->query->all()));
-            }
-        }
+            //}
+        //}
 
         return parent::listAction();
     }
@@ -500,13 +497,12 @@ class CRUDController extends BaseCRUDController
     }
 
 
-
-
     /**
-     * @param ProxyQueryInterface $selectedModelQuery
-     * @param Request             $request
+     * @param \Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery
+     * @param Request $request
      *
      * @return RedirectResponse
+     * @throws ModelManagerException
      */
     public function batchActionDisable(\Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery, Request $request = null)
     {
@@ -514,6 +510,9 @@ class CRUDController extends BaseCRUDController
             throw new AccessDeniedException();
         }
 
+        /** @var QueryBuilder $selectedModelQuery */
+
+        /** @var ModelManager $modelManager */
         $modelManager = $this->admin->getModelManager();
 
         $selectedModelQuery->select('DISTINCT '.$selectedModelQuery->getRootAlias());
@@ -549,10 +548,9 @@ class CRUDController extends BaseCRUDController
     }
 
 
-
     /**
-     * @param ProxyQueryInterface $selectedModelQuery
-     * @param Request             $request
+     * @param \Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery
+     * @param Request $request
      *
      * @return RedirectResponse
      */
@@ -586,7 +584,7 @@ class CRUDController extends BaseCRUDController
 
         foreach ($chunks as $chunksIds) {
             $q = $em->createQuery('UPDATE ' . $class . ' o SET o.enabled = 1 WHERE o.id IN(' . implode(',', $chunksIds). ')');
-            $numUpdated = $q->execute();
+            $q->execute();
         }
 
         $this->addFlash('sonata_flash_success', 'flash_batch.enable_success');
@@ -597,10 +595,11 @@ class CRUDController extends BaseCRUDController
     }
 
     /**
-     * @param ProxyQueryInterface $selectedModelQuery
-     * @param Request             $request
+     * @param \Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery
+     * @param Request $request
      *
      * @return RedirectResponse
+     * @throws ModelManagerException
      */
     public function batchActionEnable2(\Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery, Request $request = null)
     {

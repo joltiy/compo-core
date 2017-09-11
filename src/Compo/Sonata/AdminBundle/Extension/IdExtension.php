@@ -28,6 +28,7 @@ class IdExtension extends AbstractAdminExtension
      */
     public function configureFormFields(FormMapper $formMapper)
     {
+        /** @var \Compo\Sonata\AdminBundle\Admin\AbstractAdmin $admin */
         $admin = $formMapper->getAdmin();
 
         if ($admin->isCurrentRoute('create')) {

@@ -5,6 +5,10 @@ namespace Compo\Sonata\AdminBundle\Entity;
 use Compo\Sonata\MediaBundle\Entity\Media;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Trait ImageEntityTrait
+ * @package Compo\Sonata\AdminBundle\Entity
+ */
 trait ImageEntityTrait
 {
     /**

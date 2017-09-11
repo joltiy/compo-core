@@ -5,6 +5,10 @@ namespace Compo\Sonata\AdminBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
+/**
+ * Trait TreeEntityTrait
+ * @package Compo\Sonata\AdminBundle\Entity
+ */
 trait TreeEntityTrait
 {
     /**

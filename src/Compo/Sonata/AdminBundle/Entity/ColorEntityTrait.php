@@ -4,6 +4,10 @@ namespace Compo\Sonata\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Trait ColorEntityTrait
+ * @package Compo\Sonata\AdminBundle\Entity
+ */
 trait ColorEntityTrait
 {
 
@@ -16,6 +20,9 @@ trait ColorEntityTrait
      */
     protected $color;
 
+    /**
+     * @return string
+     */
     public function getColorHtml()
     {
         return '<i class="fa fa-square" style="color: ' . $this->getColor() . ';"></i>';

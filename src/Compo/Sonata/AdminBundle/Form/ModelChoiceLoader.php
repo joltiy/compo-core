@@ -27,6 +27,9 @@ use Symfony\Component\PropertyAccess\PropertyPath;
  */
 class ModelChoiceLoader implements ChoiceLoaderInterface
 {
+    /**
+     * @var array
+     */
     public $identifier;
 
     /**
@@ -39,11 +42,23 @@ class ModelChoiceLoader implements ChoiceLoaderInterface
      */
     private $class;
 
+    /**
+     * @var null
+     */
     private $property;
 
+    /**
+     * @var null
+     */
     private $query;
 
+    /**
+     * @var array
+     */
     private $choices;
+    /**
+     * @var
+     */
     private $options;
 
     /**
@@ -56,15 +71,19 @@ class ModelChoiceLoader implements ChoiceLoaderInterface
      */
     private $propertyAccessor;
 
+    /**
+     * @var
+     */
     private $choiceList;
 
     /**
-     * @param ModelManagerInterface          $modelManager
-     * @param string                         $class
-     * @param null                           $property
-     * @param null                           $query
-     * @param array                          $choices
+     * @param ModelManagerInterface $modelManager
+     * @param string $class
+     * @param null $property
+     * @param null $query
+     * @param array $choices
      * @param PropertyAccessorInterface|null $propertyAccessor
+     * @param $options
      */
     public function __construct(ModelManagerInterface $modelManager, $class, $property = null, $query = null, $choices = array(), PropertyAccessorInterface $propertyAccessor = null, $options)
     {
@@ -122,7 +141,7 @@ class ModelChoiceLoader implements ChoiceLoaderInterface
                 $choices[$valueObject][] = $id;
             }
 
-            $finalChoices = array();
+            //$finalChoices = array();
 
 
             $tree = $this->options['tree'];

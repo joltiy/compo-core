@@ -10,6 +10,13 @@ use Sonata\AdminBundle\Form\FormMapper;
  */
 class AbstractAdminExtension extends BaseAbstractAdminExtension
 {
+    /**
+     * @param FormMapper $formMapper
+     * @param $name
+     * @param null $type
+     * @param array $options
+     * @param array $fieldDescriptionOptions
+     */
     public function replaceFormField(FormMapper $formMapper, $name, $type = null, array $options = array(), array $fieldDescriptionOptions = array()) {
 
         $admin = $formMapper->getAdmin();
