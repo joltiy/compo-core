@@ -3,7 +3,7 @@ services:
         class: Pix\SortableBehaviorBundle\Services\PositionORMHandler
         public: false
         arguments:
-            entityManager: "@doctrine.orm.entity_manager"
+            - "@doctrine.orm.entity_manager"
         calls:
             - [ 'setPositionField', ['%pix.sortable.behavior.position.field%']]
 
