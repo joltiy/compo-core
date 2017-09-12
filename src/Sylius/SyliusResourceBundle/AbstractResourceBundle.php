@@ -101,7 +101,7 @@ abstract class AbstractResourceBundle extends Bundle implements ResourceBundleIn
      *
      * @return string
      */
-    protected function getModelNamespace(): ?string
+    protected function getModelNamespace()
     {
         return null;
     }
