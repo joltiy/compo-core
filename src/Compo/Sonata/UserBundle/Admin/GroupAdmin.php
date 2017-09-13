@@ -19,20 +19,23 @@ class GroupAdmin extends \Sonata\UserBundle\Admin\Model\GroupAdmin
     {
         $formMapper
             ->tab('Group')
-                ->with('General', array('class' => 'col-md-6'))
-                    ->add('name')
-                ->end()
+            ->with('General', array('class' => 'col-md-6'))
+            ->add('name')
+            ->end()
             ->end()
             ->tab('Security')
-                ->with('Roles', array('class' => 'col-md-12', 'name' => false))
-                    ->add('roles', 'sonata_security_roles', array(
-                        'label' => false,
-                        'expanded' => true,
-                        'multiple' => true,
-                        'required' => false,
-                    ))
-                ->end()
+            ->with('Roles', array('class' => 'col-md-12', 'name' => false))
+            ->add(
+                'roles',
+                'sonata_security_roles',
+                array(
+                    'label' => false,
+                    'expanded' => true,
+                    'multiple' => true,
+                    'required' => false,
+                )
+            )
             ->end()
-        ;
+            ->end();
     }
 }

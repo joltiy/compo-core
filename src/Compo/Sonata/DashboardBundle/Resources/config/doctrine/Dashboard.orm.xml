@@ -9,9 +9,9 @@
             association mapping  : http://www.doctrine-project.org/projects/orm/2.0/docs/reference/association-mapping/en
     -->
     <entity
-        name="Compo\Sonata\DashboardBundle\Entity\Dashboard"
-        table="dashboard__dashboard"
-        >
+            name="Compo\Sonata\DashboardBundle\Entity\Dashboard"
+            table="dashboard__dashboard"
+    >
 
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO"/>

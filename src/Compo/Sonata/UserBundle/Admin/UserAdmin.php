@@ -30,7 +30,6 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
             ->tab('Security')
             ->with('Status', array('class' => 'col-md-6'))->end()
             ->with('Groups', array('class' => 'col-md-6'))->end()
-
             //->with('Keys', array('class' => 'col-md-4'))->end()
             //->with('Roles', array('class' => 'col-md-12'))->end()
             ->end();
@@ -40,21 +39,33 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
             ->with('General')
             ->add('username')
             ->add('email')
-            ->add('plainPassword', 'text', array(
-                'required' => !$this->getSubject() || null === $this->getSubject()->getId(),
-            ))
+            ->add(
+                'plainPassword',
+                'text',
+                array(
+                    'required' => !$this->getSubject() || null === $this->getSubject()->getId(),
+                )
+            )
             ->end()
             ->with('Profile')
             ->add('firstname', null, array('required' => false))
             ->add('lastname', null, array('required' => false))
-            ->add('gender', 'sonata_user_gender', array(
-                'required' => true,
-                'translation_domain' => $this->getTranslationDomain(),
-            ))
-            ->add('dateOfBirth', 'sonata_type_date_picker', array(
-                'format' => 'dd.MM.y',
-                'required' => false,
-            ))
+            ->add(
+                'gender',
+                'sonata_user_gender',
+                array(
+                    'required' => true,
+                    'translation_domain' => $this->getTranslationDomain(),
+                )
+            )
+            ->add(
+                'dateOfBirth',
+                'sonata_type_date_picker',
+                array(
+                    'format' => 'dd.MM.y',
+                    'required' => false,
+                )
+            )
             //->add('timezone', 'timezone', array('required' => false))
             ->add('phone', null, array('required' => false))
             ->end()
@@ -70,13 +81,16 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
                 //->add('credentialsExpired', null, array('required' => false))
                 ->end()
                 ->with('Groups')
-                ->add('groups', 'sonata_type_model', array(
-                    'required' => false,
-                    'expanded' => true,
-                    'multiple' => true,
-                ))
+                ->add(
+                    'groups',
+                    'sonata_type_model',
+                    array(
+                        'required' => false,
+                        'expanded' => true,
+                        'multiple' => true,
+                    )
+                )
                 ->end()
-
                 /*
                 ->with('Roles', array('name' => false))
                 ->add('realRoles', 'sonata_security_roles', array(

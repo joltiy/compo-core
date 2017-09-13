@@ -22,7 +22,7 @@ class BaseEntityManager extends \Sonata\CoreBundle\Model\BaseEntityManager
         $request_stack = $this->getContainer()->get('request_stack');
 
         if ($request_stack) {
-            $request =  $request_stack->getCurrentRequest();
+            $request = $request_stack->getCurrentRequest();
 
             if ($request) {
                 return $request;
@@ -35,7 +35,8 @@ class BaseEntityManager extends \Sonata\CoreBundle\Model\BaseEntityManager
     /**
      * @return array
      */
-    public function getChoices() {
+    public function getChoices()
+    {
         /** @var \Compo\CoreBundle\Doctrine\ORM\EntityRepository $repository */
         $repository = $this->getRepository();
 

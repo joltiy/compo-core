@@ -15,26 +15,28 @@ class BaseBreadcrumbMenuBlockService extends \Sonata\SeoBundle\Block\Breadcrumb\
     use ContainerAwareTrait;
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Request
-     */
-    public function getRequest()
-    {
-        return $this->getContainer()->get('request_stack')->getCurrentRequest();
-    }
-
-    /**
      * {@inheritDoc}
      */
     public function configureSettings(OptionsResolver $resolver)
     {
         parent::configureSettings($resolver);
 
-        $resolver->setDefaults(array(
-            'current_uri' => $this->getRequest()->getRequestUri(),
-            'menu_template' => 'SonataSeoBundle:Block:breadcrumb.html.twig',
-            'include_homepage_link' => true,
-            'context' => false,
-        ));
+        $resolver->setDefaults(
+            array(
+                'current_uri' => $this->getRequest()->getRequestUri(),
+                'menu_template' => 'SonataSeoBundle:Block:breadcrumb.html.twig',
+                'include_homepage_link' => true,
+                'context' => false,
+            )
+        );
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Request
+     */
+    public function getRequest()
+    {
+        return $this->getContainer()->get('request_stack')->getCurrentRequest();
     }
 
     /**

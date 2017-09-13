@@ -38,7 +38,8 @@
                 </div>
             {% endif %}
             <div class="sf-toolbar-info-piece">
-                {% if profiler_markup_version == 1 %}<hr />{% endif %}
+                {% if profiler_markup_version == 1 %}
+                    <hr/>{% endif %}
                 <b>Events</b>
                 <span>{{ collector.events|length }}</span>
             </div>
@@ -147,23 +148,29 @@
             {% if block.cache.handler %}
                 <tr style="vertical-align: top">
                     <td colspan="3">
-                        Cache Keys: <pre>{{ block.cache.keys|json_encode() }}</pre> <br />
-                        Contextual Keys: <pre>{{ block.cache.contextual_keys|json_encode() }}</pre>
+                        Cache Keys:
+                        <pre>{{ block.cache.keys|json_encode() }}</pre>
+                        <br/>
+                        Contextual Keys:
+                        <pre>{{ block.cache.contextual_keys|json_encode() }}</pre>
                     </td>
                     <td colspan="2">
-                        TTL: {{ block.cache.ttl }}s. <br />
-                        Lifetime: {{ block.cache.lifetime }}s. <br />
-                        Backend: {{ block.cache.handler }} <br />
-                        Loading from cache: {% if block.cache.from_cache %}YES{% else %}NO{% endif %} <br />
+                        TTL: {{ block.cache.ttl }}s. <br/>
+                        Lifetime: {{ block.cache.lifetime }}s. <br/>
+                        Backend: {{ block.cache.handler }} <br/>
+                        Loading from cache: {% if block.cache.from_cache %}YES{% else %}NO{% endif %} <br/>
                     </td>
                 </tr>
             {% endif %}
 
-            {% if block.assets.js|length > 0 or block.assets.css|length > 0  %}
+            {% if block.assets.js|length > 0 or block.assets.css|length > 0 %}
                 <tr>
                     <td colspan="5">
-                        Javascripts: <pre>{{ block.assets.js|json_encode() }}</pre><br />
-                        Stylesheets: <pre>{{ block.assets.css|json_encode() }}</pre>
+                        Javascripts:
+                        <pre>{{ block.assets.js|json_encode() }}</pre>
+                        <br/>
+                        Stylesheets:
+                        <pre>{{ block.assets.css|json_encode() }}</pre>
                     </td>
                 </tr>
             {% endif %}
@@ -195,35 +202,42 @@
             </tr>
 
 
-                <tr>
-                    <th>Cache backend</th>
-                    <td>
-                        {{ block.cache.handler }} - Loading from cache: {% if block.cache.from_cache %}YES{% else %}NO{% endif %}
-                    </td>
-                </tr>
-                <tr>
-                    <th>Cache TTL / Lifetime</th>
-                    <td>
-                        {{ block.cache.ttl }}s. / {{ block.cache.lifetime }}s
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        Cache Informations
-                    </th>
-                    <td>
-                        Cache Keys: <pre>{{ block.cache.keys|json_encode() }}</pre> <br />
-                        Contextual Keys: <pre>{{ block.cache.contextual_keys|json_encode() }}</pre> <br />
-                    </td>
-                </tr>
+            <tr>
+                <th>Cache backend</th>
+                <td>
+                    {{ block.cache.handler }} - Loading from cache: {% if block.cache.from_cache %}YES{% else %}NO{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Cache TTL / Lifetime</th>
+                <td>
+                    {{ block.cache.ttl }}s. / {{ block.cache.lifetime }}s
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Cache Informations
+                </th>
+                <td>
+                    Cache Keys:
+                    <pre>{{ block.cache.keys|json_encode() }}</pre>
+                    <br/>
+                    Contextual Keys:
+                    <pre>{{ block.cache.contextual_keys|json_encode() }}</pre>
+                    <br/>
+                </td>
+            </tr>
 
 
-            {% if block.assets.js|length > 0 or block.assets.css|length > 0  %}
+            {% if block.assets.js|length > 0 or block.assets.css|length > 0 %}
                 <tr>
                     <th>Assets</th>
                     <td>
-                        Javascripts: <pre>{{ block.assets.js|json_encode() }}</pre><br />
-                        Stylesheets: <pre>{{ block.assets.css|json_encode() }}</pre>
+                        Javascripts:
+                        <pre>{{ block.assets.js|json_encode() }}</pre>
+                        <br/>
+                        Stylesheets:
+                        <pre>{{ block.assets.css|json_encode() }}</pre>
                     </td>
                 </tr>
             {% endif %}

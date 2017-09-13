@@ -32,7 +32,7 @@ class PageController extends \Sonata\PageBundle\Controller\PageController
         $request_stack = $this->get('request_stack');
 
         if ($request_stack) {
-            $request =  $request_stack->getCurrentRequest();
+            $request = $request_stack->getCurrentRequest();
 
             if ($request) {
                 return $request;

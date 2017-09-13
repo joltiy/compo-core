@@ -23,7 +23,6 @@ class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuil
         $translator = $this->pool->getContainer()->get('translator');
 
 
-
         // get roles from the Admin classes
         foreach ($this->pool->getAdminServiceIds() as $id) {
             try {
@@ -42,13 +41,10 @@ class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuil
             }
 
 
-
             foreach ($admin->getSecurityInformation() as $role => $permissions) {
                 $information = $role;
                 $role_name = $baseRole;
                 $role_name = str_replace('_%s', '', $role_name);
-
-
 
 
                 $role = sprintf($baseRole, $role);
@@ -79,13 +75,12 @@ class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuil
         }
 
 
-
         $isMaster = $this->authorizationChecker->isGranted('ROLE_SUPER_ADMIN');
 
         // get roles from the service container
         foreach ($this->rolesHierarchy as $name => $rolesHierarchy) {
             if ($isMaster || $this->authorizationChecker->isGranted($name)) {
-                $roles[$name] = $name.': '.implode(', ', $rolesHierarchy);
+                $roles[$name] = $name . ': ' . implode(', ', $rolesHierarchy);
 
                 foreach ($rolesHierarchy as $role) {
                     if (!isset($roles[$role])) {
