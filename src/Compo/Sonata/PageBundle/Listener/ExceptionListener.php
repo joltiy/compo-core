@@ -153,6 +153,18 @@ class ExceptionListener extends \Sonata\PageBundle\Listener\ExceptionListener
     }
 
     /**
+     * Returns true if the http error code is defined.
+     *
+     * @param int $statusCode
+     *
+     * @return bool
+     */
+    public function hasErrorCode($statusCode)
+    {
+        return array_key_exists($statusCode, $this->httpErrorCodes);
+    }
+
+    /**
      * Logs exceptions.
      *
      * @param \Exception $originalException Original exception that called the listener
@@ -201,17 +213,5 @@ class ExceptionListener extends \Sonata\PageBundle\Listener\ExceptionListener
         }
 
         return $cms->getPageByRouteName($site, $this->httpErrorCodes[$statusCode]);
-    }
-
-    /**
-     * Returns true if the http error code is defined.
-     *
-     * @param int $statusCode
-     *
-     * @return bool
-     */
-    public function hasErrorCode($statusCode)
-    {
-        return array_key_exists($statusCode, $this->httpErrorCodes);
     }
 }

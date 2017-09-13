@@ -86,8 +86,8 @@ class AbstractBlockService extends BaseAbstractBlockService
 
         return new Metadata(
             'block.title_' . $nameArray[3], $this->getName(), false, $domain, array(
-            'class' => 'fa fa-file-text-o',
-        )
+                'class' => 'fa fa-file-text-o',
+            )
         );
     }
 

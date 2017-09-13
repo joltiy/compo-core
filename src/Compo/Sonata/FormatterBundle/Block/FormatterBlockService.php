@@ -84,8 +84,8 @@ class FormatterBlockService extends AbstractAdminBlockService
     {
         return new Metadata(
             $this->getName(), (null !== $code ? $code : $this->getName()), false, 'SonataFormatterBundle', array(
-            'class' => 'fa fa-file-text-o',
-        )
+                'class' => 'fa fa-file-text-o',
+            )
         );
     }
 }
