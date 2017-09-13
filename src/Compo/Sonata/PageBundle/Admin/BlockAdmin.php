@@ -80,7 +80,7 @@ class BlockAdmin extends \Sonata\PageBundle\Admin\BlockAdmin
     {
         $block = $this->getSubject();
 
-        if (is_null($block)) {
+        if (null === $block) {
             return;
         }
 

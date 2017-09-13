@@ -11,56 +11,15 @@ use Sonata\PageBundle\Site\SiteSelectorInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Templating\EngineInterface;
 
+/**
+ * {@inheritDoc}
+ */
 class ExceptionListener extends \Sonata\PageBundle\Listener\ExceptionListener
 {
-    /**
-     * @var SiteSelectorInterface
-     */
-    protected $siteSelector;
-
-    /**
-     * @var CmsManagerSelectorInterface
-     */
-    protected $cmsManagerSelector;
-
-    /**
-     * @var bool
-     */
-    protected $debug;
-
-    /**
-     * @var EngineInterface
-     */
-    protected $templating;
-
-    /**
-     * @var PageServiceManagerInterface
-     */
-    protected $pageServiceManager;
-
-    /**
-     * @var DecoratorStrategyInterface
-     */
-    protected $decoratorStrategy;
-
-    /**
-     * @var array
-     */
-    protected $httpErrorCodes;
-
-    /**
-     * @var LoggerInterface|null
-     */
-    protected $logger;
-
-    /**
-     * @var bool
-     */
-    protected $status;
-
+    /** @noinspection MagicMethodsValidityInspection */
+    /** @noinspection PhpMissingParentConstructorInspection */
     /**
      * @param SiteSelectorInterface       $siteSelector       Site selector
      * @param CmsManagerSelectorInterface $cmsManagerSelector CMS Manager selector
@@ -140,26 +99,6 @@ class ExceptionListener extends \Sonata\PageBundle\Listener\ExceptionListener
      */
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
-        if ($event->getException() instanceof NotFoundHttpException && $this->cmsManagerSelector->isEditor()) {
-            $pathInfo = $event->getRequest()->getPathInfo();
-
-            // can only create a CMS page, so the '_route' must be null
-            $creatable = !$event->getRequest()->get('_route') && $this->decoratorStrategy->isRouteUriDecorable($pathInfo);
-
-            if (false && $creatable) {
-                $response = new Response($this->templating->render('SonataPageBundle:Page:create.html.twig', array(
-                    'pathInfo' => $pathInfo,
-                    'site' => $this->siteSelector->retrieve(),
-                    'creatable' => $creatable,
-                )), 404);
-
-                $event->setResponse($response);
-                $event->stopPropagation();
-
-                return;
-            }
-        }
-
         if ($event->getException() instanceof InternalErrorException) {
             $this->handleInternalError($event);
         } else {
@@ -268,6 +207,7 @@ class ExceptionListener extends \Sonata\PageBundle\Listener\ExceptionListener
                 $this->logger->error($message, array('exception' => $originalException));
             }
         } else {
+            /** @noinspection ForgottenDebugOutputInspection */
             error_log($message);
         }
     }

@@ -135,7 +135,7 @@ class TreeSelectorType extends ModelType
             }
 
             /** @noinspection PhpUndefinedMethodInspection */
-            if (!is_null($item->getParent())) {
+            if (null !== $item->getParent()) {
                 continue;
             }
 

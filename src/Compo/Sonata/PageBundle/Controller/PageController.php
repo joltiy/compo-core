@@ -11,15 +11,9 @@
 
 namespace Compo\Sonata\PageBundle\Controller;
 
-use Compo\Sonata\PageBundle\Entity\Page;
-use Compo\Sonata\PageBundle\Entity\Site;
-use Sonata\AdminBundle\Controller\CRUDController as Controller;
-use Sonata\BlockBundle\Model\BlockInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
 
 /**
  * Page Admin Controller.
@@ -30,9 +24,11 @@ class PageController extends \Sonata\PageBundle\Controller\PageController
 {
 
 
+    /**
+     * @return null|Request
+     */
     public function getRequest()
     {
-
         $request_stack = $this->get('request_stack');
 
         if ($request_stack) {
@@ -40,12 +36,10 @@ class PageController extends \Sonata\PageBundle\Controller\PageController
 
             if ($request) {
                 return $request;
-            } else {
-                return new Request();
             }
-        } else {
-            return new Request();
         }
+
+        return new Request();
     }
 
 }

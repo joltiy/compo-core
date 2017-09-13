@@ -14,6 +14,10 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\MediaBundle\Form\DataTransformer\ProviderDataTransformer;
 
+/**
+ * Class MediaAdmin
+ * @package Compo\Sonata\MediaBundle\Admin
+ */
 class MediaAdmin extends \Sonata\MediaBundle\Admin\ORM\MediaAdmin
 {
     /**

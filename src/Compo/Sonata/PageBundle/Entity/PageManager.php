@@ -26,7 +26,7 @@ class PageManager extends \Sonata\PageBundle\Entity\PageManager
     public function loadPages(SiteInterface $site, $route_name = 'page_slug')
     {
 
-        if (is_null($route_name)) {
+        if (null === $route_name) {
             $query = $this->getEntityManager()
                 ->createQuery(sprintf('SELECT p FROM %s p INDEX BY p.id WHERE p.site = %d ORDER BY p.position ASC', $this->class, $site->getId()));
         } else {

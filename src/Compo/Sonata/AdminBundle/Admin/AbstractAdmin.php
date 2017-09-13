@@ -1,4 +1,5 @@
 <?php
+/** @noinspection ClassOverridesFieldOfSuperClassInspection */
 
 namespace Compo\Sonata\AdminBundle\Admin;
 
@@ -176,7 +177,7 @@ class AbstractAdmin extends BaseAdmin
                 '_sort_by' => 'position',
             );
 
-            $this->addExtension($this->getConfigurationPool()->getContainer()->get("compo.sonata.admin.extension.position"));
+            $this->addExtension($this->getConfigurationPool()->getContainer()->get('compo.sonata.admin.extension.position'));
         }
     }
 
@@ -202,11 +203,11 @@ class AbstractAdmin extends BaseAdmin
      * @param                                               $action
      * @param \Sonata\AdminBundle\Admin\AdminInterface|null $childAdmin
      * @param                                               $route
-     * @param bool $route_paramters
+     * @param bool|array $route_paramters
      */
     public function configureTabMenuShow(\Knp\Menu\ItemInterface $menu, $action, \Sonata\AdminBundle\Admin\AdminInterface $childAdmin = null, $route, $route_paramters = false)
     {
-        if (!$childAdmin && !in_array($action, array('edit'))) {
+        if (!$childAdmin && 'edit' !== $action) {
             return;
         }
 
@@ -251,7 +252,7 @@ class AbstractAdmin extends BaseAdmin
     public function configureSeo($enabled)
     {
         if ($enabled) {
-            $this->addExtension($this->getConfigurationPool()->getContainer()->get("compo_seo.seo.extension"));
+            $this->addExtension($this->getConfigurationPool()->getContainer()->get('compo_seo.seo.extension'));
         }
     }
 
@@ -261,7 +262,7 @@ class AbstractAdmin extends BaseAdmin
     public function configureProperties($enabled)
     {
         if ($enabled) {
-            $this->addExtension($this->getConfigurationPool()->getContainer()->get("compo.sonata.admin.extension.properties"));
+            $this->addExtension($this->getConfigurationPool()->getContainer()->get('compo.sonata.admin.extension.properties'));
         }
     }
 
@@ -270,7 +271,7 @@ class AbstractAdmin extends BaseAdmin
      */
     public function last_position()
     {
-        return $this->getConfigurationPool()->getContainer()->get("pix_sortable_behavior.position")->getLastPosition($this->getRoot()->getClass());
+        return $this->getConfigurationPool()->getContainer()->get('pix_sortable_behavior.position')->getLastPosition($this->getRoot()->getClass());
     }
 
     /**
@@ -374,9 +375,9 @@ class AbstractAdmin extends BaseAdmin
     {
         if ($name) {
             return $this->getDoctrine()->getRepository($name);
-        } else {
-            return $this->getDoctrine()->getRepository($this->getClass());
         }
+
+        return $this->getDoctrine()->getRepository($this->getClass());
     }
 
     /**

@@ -155,7 +155,7 @@ class ModelChoiceLoader implements ChoiceLoaderInterface
                 }
 
                 /** @noinspection PhpUndefinedMethodInspection */
-                if (!is_null($item->getParent())) {
+                if (null !== $item->getParent()) {
                     continue;
                 }
 

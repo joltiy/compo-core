@@ -25,18 +25,4 @@ use Sonata\TimelineBundle\Entity\Action as BaseAction;
  */
 class Action extends BaseAction
 {
-    /**
-     * @var int $id
-     */
-    protected $id;
-
-    /**
-     * Get id
-     *
-     * @return int $id
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 }

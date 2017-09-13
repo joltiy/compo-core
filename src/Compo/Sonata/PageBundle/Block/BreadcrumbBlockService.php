@@ -15,6 +15,7 @@ use Knp\Menu\FactoryInterface;
 use Knp\Menu\Provider\MenuProviderInterface;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\PageBundle\CmsManager\CmsManagerSelectorInterface;
+use Sonata\PageBundle\Model\Page;
 use Sonata\PageBundle\Model\PageInterface;
 use Sonata\SeoBundle\Block\Breadcrumb\BaseBreadcrumbMenuBlockService;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
@@ -69,6 +70,7 @@ class BreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
             return $menu;
         }
 
+        /** @var Page[] $parents */
         $parents = $page->getParents();
 
         foreach ($parents as $parent) {

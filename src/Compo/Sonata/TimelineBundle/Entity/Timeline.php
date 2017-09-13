@@ -25,18 +25,5 @@ use Sonata\TimelineBundle\Entity\Timeline as BaseTimeline;
  */
 class Timeline extends BaseTimeline
 {
-    /**
-     * @var int $id
-     */
-    protected $id;
 
-    /**
-     * Get id
-     *
-     * @return int $id
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 }

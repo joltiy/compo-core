@@ -44,11 +44,9 @@ class HelpType extends AbstractType
 
                 if (strpos($value, 'Compo') === 0) {
                     return $this->getContainer()->get('twig')->render($options['template']);
-
-                } else {
-                    return $options['template'];
                 }
 
+                return $options['template'];
             },
             function ($value) use ($options) {
                 return '';

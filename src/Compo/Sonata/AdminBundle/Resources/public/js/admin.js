@@ -2,12 +2,14 @@ function fillmanufactureCollection() {
     if ($('select.manufactureCollection-select2').length) {
         //$('.select2-container').parent().find('select').attr('style','');
 
-        if ($("select.manufacture-select2 option:selected").length) {
-            var request_data = {
-                manufacture: $("select.manufacture-select2 option:selected").val()
+        var request_data = {};
+
+        var manufacture_selected = $("select.manufacture-select2 option:selected");
+
+        if (manufacture_selected.length) {
+            request_data = {
+                manufacture: manufacture_selected.val()
             };
-        } else {
-            var request_data = {};
         }
 
 
@@ -19,12 +21,14 @@ function fillmanufactureCollection() {
             url: Routing.generate('admin_compo_manufacture_manufacturecollection_select2'),
             data: request_data,
             success: function (data) {
-                $("select.manufactureCollection-select2").select2("destroy");
+                var manufactureCollection_select = $("select.manufactureCollection-select2");
+
+                manufactureCollection_select.select2("destroy");
 
 
-                $("select.manufactureCollection-select2").html('');
+                manufactureCollection_select.html('');
 
-                $("select.manufactureCollection-select2").append('<option value=""></option>');
+                manufactureCollection_select.append('<option value=""></option>');
 
                 $.each(data, function (index, value) {
                     var option = $('<option value="' + value.id + '">' + value.text + '</option>');
@@ -33,10 +37,10 @@ function fillmanufactureCollection() {
                         option.attr('selected', 'selected');
                     }
 
-                    $("select.manufactureCollection-select2").append(option);
+                    manufactureCollection_select.append(option);
                 });
 
-                Admin.setup_select2($("select.manufactureCollection-select2").parent());
+                Admin.setup_select2(manufactureCollection_select.parent());
 
                 //$('.select2-container').parent().find('select').attr('style','display:block; position:absolute; bottom: 0; left: 0; clip:rect(0,0,0,0);');
             },
@@ -159,11 +163,13 @@ $(document).ready(function () {
     initOrderElements();
 
     $('.sidebar-toggle').click(function () {
-        if ($('body').data('collapse') == 0) {
-            $('body').data('collapse', 1);
+        var body = $('body');
+
+        if (body.data('collapse') == 0) {
+            body.data('collapse', 1);
             setCookie('admin_sidebar_collapse', 1);
         } else {
-            $('body').data('collapse', 0);
+            body.data('collapse', 0);
             setCookie('admin_sidebar_collapse', 0);
         }
     });

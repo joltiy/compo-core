@@ -8,6 +8,7 @@ use Sonata\BlockBundle\Block\Service\AbstractBlockService as BaseAbstractBlockSe
 use Sonata\CoreBundle\Model\Metadata;
 use Sonata\CoreBundle\Validator\ErrorElement;
 use Sonata\BlockBundle\Model\BlockInterface;
+use Sonata\PageBundle\Model\Block;
 
 /**
  * {@inheritDoc}
@@ -48,7 +49,11 @@ class AbstractBlockService extends BaseAbstractBlockService
         $this->updateName($object);
     }
 
+    /**
+     * @param $object
+     */
     public function updateName($object) {
+        /** @var Block $object */
         $name = $object->getName();
 
         if (!$name) {
@@ -123,6 +128,9 @@ class AbstractBlockService extends BaseAbstractBlockService
         $this->updateLabel($formMapper);
     }
 
+    /**
+     * @param FormMapper $formMapper
+     */
     public function updateLabel(FormMapper $formMapper) {
 
         $settings = $formMapper->get('settings');

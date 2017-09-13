@@ -9,6 +9,10 @@ namespace Compo\Sonata\UserBundle\Admin;
 use Sonata\AdminBundle\Form\FormMapper;
 
 
+/**
+ * Class UserAdmin
+ * @package Compo\Sonata\UserBundle\Admin
+ */
 class UserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
 {
 
@@ -37,7 +41,7 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
             ->add('username')
             ->add('email')
             ->add('plainPassword', 'text', array(
-                'required' => (!$this->getSubject() || is_null($this->getSubject()->getId())),
+                'required' => !$this->getSubject() || null === $this->getSubject()->getId(),
             ))
             ->end()
             ->with('Profile')

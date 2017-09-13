@@ -26,8 +26,8 @@ class DescriptionExtension extends AbstractAdminExtension
             $options = $field->getOptions();
 
             $options['required'] = false;
-            $options['format'] = "richhtml";
-            $options['ckeditor_context'] = "default";
+            $options['format'] = 'richhtml';
+            $options['ckeditor_context'] = 'default';
 
             $this->replaceFormField($formMapper,'description', SimpleFormatterType::class, $options);
         }
@@ -37,8 +37,8 @@ class DescriptionExtension extends AbstractAdminExtension
 
             $options = $field->getOptions();
             $options['required'] = false;
-            $options['format'] = "richhtml";
-            $options['ckeditor_context'] = "default";
+            $options['format'] = 'richhtml';
+            $options['ckeditor_context'] = 'default';
 
             $this->replaceFormField($formMapper,'body', SimpleFormatterType::class, $options);
         }

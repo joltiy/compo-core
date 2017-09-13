@@ -5,6 +5,10 @@ namespace Compo\Sonata\TimelineBundle\Twig\Extension;
 use Spy\Timeline\Model\ActionInterface;
 use Spy\Timeline\Model\ComponentInterface;
 
+/**
+ * Class SonataTimelineExtension
+ * @package Compo\Sonata\TimelineBundle\Twig\Extension
+ */
 class SonataTimelineExtension extends \Sonata\TimelineBundle\Twig\Extension\SonataTimelineExtension
 {
     /**

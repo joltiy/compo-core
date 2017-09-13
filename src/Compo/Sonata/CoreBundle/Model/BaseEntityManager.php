@@ -6,6 +6,9 @@ namespace Compo\Sonata\CoreBundle\Model;
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * {@inheritDoc}
+ */
 class BaseEntityManager extends \Sonata\CoreBundle\Model\BaseEntityManager
 {
     use ContainerAwareTrait;
@@ -23,15 +26,19 @@ class BaseEntityManager extends \Sonata\CoreBundle\Model\BaseEntityManager
 
             if ($request) {
                 return $request;
-            } else {
-                return new Request();
             }
-        } else {
-            return new Request();
         }
+
+        return new Request();
     }
 
+    /**
+     * @return array
+     */
     public function getChoices() {
-        return $this->getRepository()->getChoices();
+        /** @var \Compo\CoreBundle\Doctrine\ORM\EntityRepository $repository */
+        $repository = $this->getRepository();
+
+        return $repository->getChoices();
     }
 }

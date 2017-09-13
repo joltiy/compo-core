@@ -45,12 +45,12 @@ trait TreeRepositoryTrait
 
     /**
      * @param null $startNode
-     * @param null $options
+     * @param null|array $options
      * @return array
      */
     public function getFlatNodes($startNode = null, $options = null)
     {
-        if (is_null($options)) {
+        if (null === $options) {
             $options = array(
                 'decorate' => false,
                 'rootOpen' => '',
@@ -81,7 +81,7 @@ trait TreeRepositoryTrait
         $els = array();
         foreach ($node as $id => $opts) {
             $els[$opts['id']] = $path . $opts['name'];
-            if (isset($opts['__children']) && is_array($opts['__children']) && sizeof($opts['__children'])) {
+            if (isset($opts['__children']) && is_array($opts['__children']) && count($opts['__children'])) {
                 $r = $this->toFlat($opts['__children'], $sep, ($path . $opts['name'] . $sep));
                 foreach ($r as $r_id => $title) {
                     $els[$r_id] = $title;
@@ -149,6 +149,7 @@ trait TreeRepositoryTrait
         foreach ($tree as $key => $item) {
             $ids[] = $item['id'];
 
+            /** @noinspection SlowArrayOperationsInLoopInspection */
             $ids = array_merge($ids, $this->getIdsForTree($tree[$key]['__children']));
         }
 

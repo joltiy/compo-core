@@ -7,6 +7,9 @@ use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * {@inheritDoc}
+ */
 class BaseBreadcrumbMenuBlockService extends \Sonata\SeoBundle\Block\Breadcrumb\BaseBreadcrumbMenuBlockService
 {
     use ContainerAwareTrait;
@@ -19,6 +22,9 @@ class BaseBreadcrumbMenuBlockService extends \Sonata\SeoBundle\Block\Breadcrumb\
         return $this->getContainer()->get('request_stack')->getCurrentRequest();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function configureSettings(OptionsResolver $resolver)
     {
         parent::configureSettings($resolver);
@@ -36,7 +42,7 @@ class BaseBreadcrumbMenuBlockService extends \Sonata\SeoBundle\Block\Breadcrumb\
      *
      * @param BlockContextInterface $blockContext
      *
-     * @return ItemInterface
+     * @return \Knp\Menu\ItemInterface
      */
     protected function getRootMenu(BlockContextInterface $blockContext)
     {
@@ -66,6 +72,7 @@ class BaseBreadcrumbMenuBlockService extends \Sonata\SeoBundle\Block\Breadcrumb\
             $menu->addChild('sonata_seo_homepage_breadcrumb', array('uri' => '/'));
         }
 
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $menu;
     }
 }

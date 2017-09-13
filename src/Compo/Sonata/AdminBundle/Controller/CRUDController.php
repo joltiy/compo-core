@@ -24,6 +24,7 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 class CRUDController extends BaseCRUDController
 {
+
     /**
      * The related Admin class.
      *
@@ -90,7 +91,7 @@ class CRUDController extends BaseCRUDController
     public function settingsAction(Request $request, $namespace = null)
     {
 
-        if (is_null($namespace)) {
+        if (null === $namespace) {
             $namespace = $this->admin->getSettingsNamespace();
         }
 
@@ -171,17 +172,17 @@ class CRUDController extends BaseCRUDController
 
         $after_object = $repo->find($request->request->get('after_id'));
 
+        $after_pos = 0;
+
         if ($after_object) {
             $after_pos = $after_object->getPosition();
-        } else {
-            $after_pos = 0;
         }
+
+        $new_pos = 0;
 
         // Если позиция не определена, то 1, иначе + 1 от позиции после которого должен стоять.
         if ($after_object) {
             $new_pos = $after_pos + 1;
-        } else {
-            $new_pos = 0;
         }
 
         // Обновляем позиции текущего и последующих
@@ -515,7 +516,9 @@ class CRUDController extends BaseCRUDController
         /** @var ModelManager $modelManager */
         $modelManager = $this->admin->getModelManager();
 
-        $selectedModelQuery->select('DISTINCT '.$selectedModelQuery->getRootAlias());
+        $aliases = $selectedModelQuery->getRootAliases();
+
+        $selectedModelQuery->select('DISTINCT '. $aliases[0]);
 
         try {
             $entityManager = $modelManager->getEntityManager($this->admin->getClass());

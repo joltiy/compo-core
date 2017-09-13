@@ -26,7 +26,7 @@ class SharedBlockAdmin extends \Sonata\PageBundle\Admin\SharedBlockAdmin
     {
         $block = $this->getSubject();
 
-        if (is_null($block)) {
+        if (null === $block) {
             return;
         }
 

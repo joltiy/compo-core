@@ -2,6 +2,10 @@
 
 namespace Compo\Sonata\UserBundle\Security;
 
+/**
+ * Class EditableRolesBuilder
+ * @package Compo\Sonata\UserBundle\Security
+ */
 class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuilder
 {
     /**
@@ -33,7 +37,7 @@ class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuil
             // TODO get the base role from the admin or security handler
             $baseRole = $securityHandler->getBaseRole($admin);
 
-            if (strlen($baseRole) == 0) { // the security handler related to the admin does not provide a valid string
+            if ('' === $baseRole) { // the security handler related to the admin does not provide a valid string
                 continue;
             }
 
@@ -51,13 +55,13 @@ class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuil
 
                 $role_label = $role;
 
-                if ($information == 'GUEST') {
+                if ($information === 'GUEST') {
                     $role_label = $translator->trans($role_name) . ' - Просмотр';
-                } elseif ($information == 'STAFF') {
+                } elseif ($information === 'STAFF') {
                     $role_label = $translator->trans($role_name) . ' - Редактирование';
-                } elseif ($information == 'EDITOR') {
+                } elseif ($information === 'EDITOR') {
                     $role_label = $translator->trans($role_name) . ' - Действия';
-                } elseif ($information == 'ADMIN') {
+                } elseif ($information === 'ADMIN') {
                     $role_label = $translator->trans($role_name) . ' - Настройки';
                 }
 
@@ -80,7 +84,7 @@ class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuil
 
         // get roles from the service container
         foreach ($this->rolesHierarchy as $name => $rolesHierarchy) {
-            if ($this->authorizationChecker->isGranted($name) || $isMaster) {
+            if ($isMaster || $this->authorizationChecker->isGranted($name)) {
                 $roles[$name] = $name.': '.implode(', ', $rolesHierarchy);
 
                 foreach ($rolesHierarchy as $role) {

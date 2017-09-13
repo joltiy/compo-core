@@ -12,6 +12,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * {@inheritDoc}
+ */
 class FormatterBlockService extends AbstractAdminBlockService
 {
     /**
@@ -65,7 +68,7 @@ class FormatterBlockService extends AbstractAdminBlockService
      */
     public function getBlockMetadata($code = null)
     {
-        return new Metadata($this->getName(), (!is_null($code) ? $code : $this->getName()), false, 'SonataFormatterBundle', array(
+        return new Metadata($this->getName(), (null !== $code ? $code : $this->getName()), false, 'SonataFormatterBundle', array(
             'class' => 'fa fa-file-text-o',
         ));
     }
