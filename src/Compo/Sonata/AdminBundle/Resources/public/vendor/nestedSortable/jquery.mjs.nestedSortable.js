@@ -776,7 +776,7 @@
                     depth--;
                 }
 
-                id = ($(item).attr(o.attribute || "id")).match(o.expression || (/(.+)[-=_](.+)/));
+                id = ($(item).attr(o.attribute || "id") || "").match(o.expression || (/(.+)[-=_](.+)/));
 
                 if (depth === sDepth) {
                     pid = o.rootID;
