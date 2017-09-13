@@ -6,7 +6,7 @@ use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
+
 
 /**
  * {@inheritDoc}
@@ -20,28 +20,7 @@ class DescriptionExtension extends AbstractAdminExtension
      */
     public function configureFormFields(FormMapper $formMapper)
     {
-        if (false && $formMapper->has('description')) {
-            $field = $formMapper->getFormBuilder()->get('description');
 
-            $options = $field->getOptions();
-
-            $options['required'] = false;
-            $options['format'] = 'richhtml';
-            $options['ckeditor_context'] = 'default';
-
-            $this->replaceFormField($formMapper,'description', SimpleFormatterType::class, $options);
-        }
-
-        if (false && $formMapper->has('body')) {
-            $field = $formMapper->getFormBuilder()->get('body');
-
-            $options = $field->getOptions();
-            $options['required'] = false;
-            $options['format'] = 'richhtml';
-            $options['ckeditor_context'] = 'default';
-
-            $this->replaceFormField($formMapper,'body', SimpleFormatterType::class, $options);
-        }
     }
 
     /**

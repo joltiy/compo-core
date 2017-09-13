@@ -85,7 +85,7 @@ class ModelChoiceLoader implements ChoiceLoaderInterface
      * @param PropertyAccessorInterface|null $propertyAccessor
      * @param $options
      */
-    public function __construct(ModelManagerInterface $modelManager, $class, $property = null, $query = null, $choices = array(), PropertyAccessorInterface $propertyAccessor = null, $options)
+    public function __construct(ModelManagerInterface $modelManager, $class, $property = null, $query = null, array $choices = array(), PropertyAccessorInterface $propertyAccessor = null, $options)
     {
         $this->modelManager = $modelManager;
         $this->class = $class;
@@ -150,7 +150,7 @@ class ModelChoiceLoader implements ChoiceLoaderInterface
 
             foreach ($tree as $item) {
                 /** @noinspection PhpUndefinedMethodInspection */
-                if ($this->options['current'] && $this->options['current']->getId() == $item->getId()) {
+                if ($this->options['current'] && $this->options['current']->getId() === $item->getId()) {
                     continue;
                 }
 
@@ -195,7 +195,7 @@ class ModelChoiceLoader implements ChoiceLoaderInterface
         /** @noinspection PhpUndefinedMethodInspection */
         foreach ($category->getChildren() as $child) {
             /** @noinspection PhpUndefinedMethodInspection */
-            if ($options['current'] && $options['current']->getId() == $child->getId()) {
+            if ($options['current'] && $options['current']->getId() === $child->getId()) {
                 continue;
             }
 

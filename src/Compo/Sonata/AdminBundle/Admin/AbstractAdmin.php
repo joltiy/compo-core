@@ -163,7 +163,7 @@ class AbstractAdmin extends BaseAdmin
      * @param $positionEnabled
      * @param array $postionRelatedFields
      */
-    public function configurePosition($positionEnabled, $postionRelatedFields = array())
+    public function configurePosition($positionEnabled, array $postionRelatedFields = array())
     {
         $this->positionEnabled = $positionEnabled;
 
@@ -189,7 +189,7 @@ class AbstractAdmin extends BaseAdmin
         /** @var QueryBuilder $query */
         $query = parent::createQuery($context);
 
-        if ($this->treeEnabled && $context == 'list') {
+        if ($this->treeEnabled && $context === 'list') {
             $query->andWhere(
                 $query->expr()->gt($query->getRootAliases()[0] . '.lvl', '0')
             );
@@ -306,7 +306,7 @@ class AbstractAdmin extends BaseAdmin
     {
         $list = array();
 
-        if (in_array($action, array('create', 'acl', 'history', 'tree', 'show', 'edit', 'delete', 'list', 'batch', 'settings'))
+        if (in_array($action, array('create', 'acl', 'history', 'tree', 'show', 'edit', 'delete', 'list', 'batch', 'settings'), true)
             && $this->hasAccess('create')
             && $this->hasRoute('create')
         ) {
@@ -315,7 +315,7 @@ class AbstractAdmin extends BaseAdmin
             );
         }
 
-        if (in_array($action, array('edit', 'show', 'delete', 'acl', 'history'))
+        if (in_array($action, array('edit', 'show', 'delete', 'acl', 'history'), true)
             && $this->canAccessObject('edit', $object)
             && $this->hasRoute('edit')
         ) {
@@ -324,7 +324,7 @@ class AbstractAdmin extends BaseAdmin
             );
         }
 
-        if (in_array($action, array('history', 'show', 'edit', 'acl'))
+        if (in_array($action, array('history', 'show', 'edit', 'acl'), true)
             && $this->canAccessObject('history', $object)
             && $this->hasRoute('history')
         ) {
@@ -345,7 +345,7 @@ class AbstractAdmin extends BaseAdmin
         }
         */
 
-        if (in_array($action, array('create', 'list', 'tree', 'history', 'show', 'edit', 'delete', 'acl', 'batch', 'settings'))
+        if (in_array($action, array('create', 'list', 'tree', 'history', 'show', 'edit', 'delete', 'acl', 'batch', 'settings'), true)
             && $this->hasAccess('list')
             && $this->hasRoute('list')
         ) {
@@ -355,7 +355,7 @@ class AbstractAdmin extends BaseAdmin
         }
 
         if (
-            in_array($action, array('settings', 'batch', 'tree', 'list'))
+            in_array($action, array('settings', 'batch', 'tree', 'list'), true)
             && $this->hasAccess('acl') && $this->hasRoute('settings')
         ) {
             $list['settings'] = array(

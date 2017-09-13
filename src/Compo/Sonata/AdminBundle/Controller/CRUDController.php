@@ -110,7 +110,7 @@ class CRUDController extends BaseCRUDController
             if ($form->isValid()) {
                 $manager->save($form->getData());
 
-                $message = $this->getTranslator()->trans('settings.updated_successful', array());
+                $message = $this->getTranslator()->trans('settings.updated_successful');
                 $this->get('session')->getFlashBag()->add('sonata_flash_success', $message);
 
                 return $this->redirect($request->headers->get('referer'));
@@ -481,7 +481,7 @@ class CRUDController extends BaseCRUDController
                 if ($this->admin->hasRoute($route) && $this->admin->isGranted(strtoupper($route), $object)) {
                     $params = array();
 
-                    if ($route == 'edit') {
+                    if ($route === 'edit') {
                         $params['current_tab_index'] = $request->get('current_tab_index');
                     }
                     $url = $this->admin->generateObjectUrl($route, $object, $params);
@@ -504,6 +504,7 @@ class CRUDController extends BaseCRUDController
      *
      * @return RedirectResponse
      * @throws ModelManagerException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function batchActionDisable(\Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery, Request $request = null)
     {
@@ -525,9 +526,12 @@ class CRUDController extends BaseCRUDController
 
             $i = 0;
             foreach ($selectedModelQuery->getQuery()->iterate() as $pos => $object) {
+
+                /** @noinspection PhpUndefinedMethodInspection */
                 $object[0]->setEnabled(false);
                 $modelManager->update($object[0]);
 
+                /** @noinspection TypeUnsafeComparisonInspection */
                 if ((++$i % 100) == 0) {
                     $entityManager->flush();
                     $entityManager->clear();
@@ -566,6 +570,7 @@ class CRUDController extends BaseCRUDController
         /** @var QueryBuilder $qb */
         $qb = $selectedModelQuery->getQueryBuilder();
 
+        /** @var QueryBuilder $selectedModelQuery */
         $selectedModelQuery->select($qb->getRootAliases()[0] . '.id');
 
         $result = $selectedModelQuery->execute(array(), Query::HYDRATE_ARRAY);
@@ -586,6 +591,7 @@ class CRUDController extends BaseCRUDController
         $em = $this->getAdmin()->getDoctrine()->getManager();
 
         foreach ($chunks as $chunksIds) {
+            /** @var Query $q */
             $q = $em->createQuery('UPDATE ' . $class . ' o SET o.enabled = 1 WHERE o.id IN(' . implode(',', $chunksIds). ')');
             $q->execute();
         }
@@ -603,6 +609,7 @@ class CRUDController extends BaseCRUDController
      *
      * @return RedirectResponse
      * @throws ModelManagerException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function batchActionEnable2(\Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery, Request $request = null)
     {
@@ -610,18 +617,23 @@ class CRUDController extends BaseCRUDController
             throw new AccessDeniedException();
         }
 
+        /** @var ModelManager $modelManager */
         $modelManager = $this->admin->getModelManager();
 
-        $selectedModelQuery->select('DISTINCT '.$selectedModelQuery->getRootAlias());
+        /** @var QueryBuilder $selectedModelQuery */
+        $selectedModelQuery->select('DISTINCT '.$selectedModelQuery->getRootAliases()[0]);
 
         try {
             $entityManager = $modelManager->getEntityManager($this->admin->getClass());
 
             $i = 0;
             foreach ($selectedModelQuery->getQuery()->iterate() as $pos => $object) {
+
+                /** @noinspection PhpUndefinedMethodInspection */
                 $object[0]->setEnabled(true);
                 $modelManager->update($object[0]);
 
+                /** @noinspection TypeUnsafeComparisonInspection */
                 if ((++$i % 100) == 0) {
                     $entityManager->flush();
                     $entityManager->clear();

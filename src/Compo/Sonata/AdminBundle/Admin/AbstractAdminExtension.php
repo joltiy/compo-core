@@ -43,7 +43,7 @@ class AbstractAdminExtension extends BaseAbstractAdminExtension
             }
 
             foreach ($tb as $tb_key => $tb_item) {
-                if (in_array($group, $tb_item['groups'])) {
+                if (in_array($group, $tb_item['groups'], true)) {
                     $tab = $tb_key;
                 }
             }

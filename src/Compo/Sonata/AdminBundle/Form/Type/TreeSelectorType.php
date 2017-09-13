@@ -130,7 +130,7 @@ class TreeSelectorType extends ModelType
 
         foreach ($tree as $item) {
             /** @noinspection PhpUndefinedMethodInspection */
-            if ($options['current'] && $options['current']->getId() == $item->getId()) {
+            if ($options['current'] && $options['current']->getId() === $item->getId()) {
                 continue;
             }
 
@@ -166,7 +166,7 @@ class TreeSelectorType extends ModelType
         /** @noinspection PhpUndefinedMethodInspection */
         foreach ($category->getChildren() as $child) {
             /** @noinspection PhpUndefinedMethodInspection */
-            if ($options['current'] && $options['current']->getId() == $child->getId()) {
+            if ($options['current'] && $options['current']->getId() === $child->getId()) {
                 continue;
             }
 
