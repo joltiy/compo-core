@@ -35,13 +35,16 @@ class MenuItemAdminController extends CRUDController
             $node = $repo->findOneBy(array('menu' => $request->get('id')));
             $tree = $repo->childrenHierarchy($node);
 
-            return $this->render($this->admin->getTemplate('tree'), array(
-                'action' => 'tree',
-                'nodes' => $tree,
-                'form' => $this->admin->getDatagrid()->getForm()->createView(),
-            ));
-        } else {
-            return parent::listAction();
+            return $this->render(
+                $this->admin->getTemplate('tree'),
+                array(
+                    'action' => 'tree',
+                    'nodes' => $tree,
+                    'form' => $this->admin->getDatagrid()->getForm()->createView(),
+                )
+            );
         }
+
+        return parent::listAction();
     }
 }

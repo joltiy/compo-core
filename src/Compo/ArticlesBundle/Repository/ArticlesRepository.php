@@ -15,6 +15,7 @@ class ArticlesRepository extends \Compo\CoreBundle\Doctrine\ORM\EntityRepository
     /**
      * @param $slug
      * @return Articles
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function findBySlug($slug)
     {
@@ -34,13 +35,7 @@ class ArticlesRepository extends \Compo\CoreBundle\Doctrine\ORM\EntityRepository
         $qb->setParameter(':datetime', $currentTime);
         $qb->setParameter(':slug', $slug);
 
-        $result = $qb->getQuery()->getResult();
-
-        if ($result) {
-            return $result[0];
-        } else {
-            return null;
-        }
+        return $qb->getQuery()->getOneOrNullResult();
     }
 
     /**

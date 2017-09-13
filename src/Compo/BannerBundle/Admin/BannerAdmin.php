@@ -64,12 +64,16 @@ class BannerAdmin extends AbstractAdmin
             ->add('id')
             ->addIdentifier('name')
             ->add('description')
-            ->add('_action', 'actions', array(
-                'actions' => array(
-                    'edit' => array(),
-                    'delete' => array(),
+            ->add(
+                '_action',
+                'actions',
+                array(
+                    'actions' => array(
+                        'edit' => array(),
+                        'delete' => array(),
+                    )
                 )
-            ));
+            );
     }
 
     /**
@@ -104,19 +108,20 @@ class BannerAdmin extends AbstractAdmin
      */
     protected function configureTabMenu(MenuItemInterface $banner, $action, AdminInterface $childAdmin = null)
     {
-        if (!$childAdmin && in_array($action, array('edit'))) {
+        if ('edit' === $action && !$childAdmin) {
             $this->configureTabBannerList($banner, $action);
         }
 
-        if ($childAdmin && in_array($action, array('list'))) {
+        if ('list' === $action && $childAdmin) {
             $this->configureTabBannerList($banner, $action);
         }
 
         /** @var BannerItemAdmin $childAdmin */
-        if ($childAdmin && in_array($action, array('edit'))) {
+        if ('edit' === $action && $childAdmin) {
             $childAdmin->configureTabBannerItem($banner, $action);
 
-            $tabBanner = $banner->addChild('tab_menu.banner',
+            $tabBanner = $banner->addChild(
+                'tab_menu.banner',
                 array(
                     'label' => $this->trans('tab_menu.banner', array('%name%' => $this->getSubject()->getName())),
                     'attributes' => array('dropdown' => true)

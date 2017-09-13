@@ -36,7 +36,7 @@ class FaqAdmin extends AbstractAdmin
     {
         $list = array();
 
-        if (in_array($action, array('history', 'acl', 'show', 'delete', 'edit'))) {
+        if (in_array($action, array('history', 'acl', 'show', 'delete', 'edit'), true)) {
             $list['show_on_site'] = array(
                 'template' => $this->getTemplate('button_show_on_site'),
                 'uri' => $this->generatePermalink($this->getSubject())
@@ -61,11 +61,11 @@ class FaqAdmin extends AbstractAdmin
     {
         $manager = $this->getContainer()->get('compo_faq.manager.faq');
 
-        if (is_null($object)) {
+        if (null === $object) {
             return $manager->getFaqIndexPermalink();
-        } else {
-            return $manager->getArticleShowPermalink($object);
         }
+
+        return $manager->getArticleShowPermalink($object);
     }
 
     /**
@@ -93,13 +93,17 @@ class FaqAdmin extends AbstractAdmin
             ->addIdentifier('publicationAt')
             ->addIdentifier('name')
             ->add('enabled')
-            ->add('_action', null, array(
-                'actions' => array(
-                    'edit' => array(),
-                    'delete' => array(),
-                    'show_on_site' => array(),
+            ->add(
+                '_action',
+                null,
+                array(
+                    'actions' => array(
+                        'edit' => array(),
+                        'delete' => array(),
+                        'show_on_site' => array(),
+                    )
                 )
-            ));
+            );
     }
 
     /**

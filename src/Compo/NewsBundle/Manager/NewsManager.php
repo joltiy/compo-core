@@ -84,6 +84,7 @@ class NewsManager extends BaseEntityManager
     /**
      * @param $slug
      * @return News
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function findBySlug($slug)
     {
@@ -125,7 +126,7 @@ class NewsManager extends BaseEntityManager
      * @param int $absolute
      * @return string
      */
-    public function getNewsIndexPermalink($parameters = array(), $absolute = 1)
+    public function getNewsIndexPermalink(array $parameters = array(), $absolute = 1)
     {
         return $this->getContainer()->get('router')->generate($this->getNewsIndexRoute(), $this->getNewsIndexRouteParameters($parameters), $absolute);
     }

@@ -39,11 +39,15 @@ class FeedbackFormBlockService extends AbstractBlockService
 
         $data = $container->get('form.factory')->create($feedbackType['form'], null, array('type' => $type))->createView();
 
-        return $this->renderResponse($template, array(
-            'block' => $block,
-            'settings' => $settings,
-            'form' => $data
-        ), $response);
+        return $this->renderResponse(
+            $template,
+            array(
+                'block' => $block,
+                'settings' => $settings,
+                'form' => $data
+            ),
+            $response
+        );
     }
 
     /**
@@ -51,7 +55,7 @@ class FeedbackFormBlockService extends AbstractBlockService
      */
     public function buildForm(FormMapper $formMapper, BlockInterface $block)
     {
-        $formMapper->add('settings', 'sonata_type_immutable_array', array());
+        $formMapper->add('settings', 'sonata_type_immutable_array');
     }
 
     /**
@@ -59,9 +63,11 @@ class FeedbackFormBlockService extends AbstractBlockService
      */
     public function configureSettings(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'template' => '',
-            'type' => '',
-        ));
+        $resolver->setDefaults(
+            array(
+                'template' => '',
+                'type' => '',
+            )
+        );
     }
 }

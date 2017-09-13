@@ -17,7 +17,7 @@ class Feedback
 
     use \Gedmo\Timestampable\Traits\TimestampableEntity;
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
-    
+
     /**
      * Описание
      *

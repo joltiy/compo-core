@@ -21,7 +21,7 @@ class FaqLastBlockService extends AbstractBlockService
     {
         $container = $this->getContainer();
 
-        $manager = $container->get("compo_faq.manager.faq");
+        $manager = $container->get('compo_faq.manager.faq');
 
         $settigs = $blockContext->getSettings();
         $block = $blockContext->getBlock();
@@ -29,11 +29,15 @@ class FaqLastBlockService extends AbstractBlockService
 
         $publications = $manager->findLastPublications($settigs['limit']);
 
-        return $this->renderResponse($template, array(
-            'faq' => $publications,
-            'block' => $block,
-            'settings' => $settigs,
-        ), $response);
+        return $this->renderResponse(
+            $template,
+            array(
+                'faq' => $publications,
+                'block' => $block,
+                'settings' => $settigs,
+            ),
+            $response
+        );
     }
 
     /**
@@ -41,11 +45,15 @@ class FaqLastBlockService extends AbstractBlockService
      */
     public function buildForm(FormMapper $formMapper, BlockInterface $block)
     {
-        $formMapper->add('settings', 'sonata_type_immutable_array', array(
-            'keys' => array(
-                array('limit', 'integer', array('required' => true)),
-            ),
-        ));
+        $formMapper->add(
+            'settings',
+            'sonata_type_immutable_array',
+            array(
+                'keys' => array(
+                    array('limit', 'integer', array('required' => true)),
+                ),
+            )
+        );
     }
 
     /**
@@ -53,9 +61,11 @@ class FaqLastBlockService extends AbstractBlockService
      */
     public function configureSettings(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'limit' => 5,
-            'template' => 'CompoFaqBundle:Block:faq_last.html.twig',
-        ));
+        $resolver->setDefaults(
+            array(
+                'limit' => 5,
+                'template' => 'CompoFaqBundle:Block:faq_last.html.twig',
+            )
+        );
     }
 }

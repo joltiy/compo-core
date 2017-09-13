@@ -62,9 +62,13 @@ class NotificationEmailSettingsSchema extends BaseBundleAdminSettingsSchema
     {
         $tab = $this->addTab('main');
 
-        $tab->add('notification_email_account_default', ChoiceType::class, array(
-            'choices' => $this->getNotificationEmailAccountRepository()->getChoices()
-        ));
+        $tab->add(
+            'notification_email_account_default',
+            ChoiceType::class,
+            array(
+                'choices' => $this->getNotificationEmailAccountRepository()->getChoices()
+            )
+        );
 
         $tab->add('notification_email_recipient_default', TextType::class);
     }

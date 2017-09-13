@@ -39,7 +39,7 @@ class NotificationEventsLoadCommand extends ContainerAwareCommand
         $notificationEmailRepository = $em->getRepository('CompoNotificationBundle:NotificationEmail');
 
         foreach ($events as $event_key => $event) {
-            if ($event['type'] == 'email') {
+            if ($event['type'] === 'email') {
                 if (!$notificationEmailRepository->findBy(array('event' => $event['event']))) {
                     $emailEvent = new NotificationEmail();
                     $emailEvent->setEvent($event['event']);

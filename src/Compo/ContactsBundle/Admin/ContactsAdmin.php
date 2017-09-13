@@ -66,13 +66,17 @@ class ContactsAdmin extends AbstractAdmin
             // ->add('walk_instruction')
             // ->add('car_instruction')
             //  ->add('maps_code')
-            ->add('_action', null, array(
-                'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
-                    //  'delete' => array(),
+            ->add(
+                '_action',
+                null,
+                array(
+                    'actions' => array(
+                        'show' => array(),
+                        'edit' => array(),
+                        //  'delete' => array(),
+                    )
                 )
-            ));
+            );
     }
 
     /**

@@ -29,24 +29,33 @@ class ArticlesBreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
         $article = $block->getSetting('article');
 
         if ($article) {
-            $menu->addChild('breadcrumb.articles', array(
-                'uri' => $router->generate('compo_articles_index'),
-                'label' => 'breadcrumb.articles',
-                'extras' => array(
-                    'translation_domain' => 'CompoArticlesBundle'
+            $menu->addChild(
+                'breadcrumb.articles',
+                array(
+                    'uri' => $router->generate('compo_articles_index'),
+                    'label' => 'breadcrumb.articles',
+                    'extras' => array(
+                        'translation_domain' => 'CompoArticlesBundle'
+                    )
                 )
-            ));
+            );
 
-            $menu->addChild($article->getSlug(), array(
-                'label' => $article->getName()
-            ));
-        } else {
-            $menu->addChild('breadcrumb.articles', array(
-                'label' => 'breadcrumb.articles',
-                'extras' => array(
-                    'translation_domain' => 'CompoArticlesBundle'
+            $menu->addChild(
+                $article->getSlug(),
+                array(
+                    'label' => $article->getName()
                 )
-            ));
+            );
+        } else {
+            $menu->addChild(
+                'breadcrumb.articles',
+                array(
+                    'label' => 'breadcrumb.articles',
+                    'extras' => array(
+                        'translation_domain' => 'CompoArticlesBundle'
+                    )
+                )
+            );
         }
 
         return $menu;

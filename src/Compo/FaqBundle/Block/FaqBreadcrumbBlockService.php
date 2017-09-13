@@ -29,24 +29,33 @@ class FaqBreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
         $article = $block->getSetting('article');
 
         if ($article) {
-            $menu->addChild('breadcrumb.faq', array(
-                'uri' => $router->generate('compo_faq_index'),
-                'label' => 'breadcrumb.faq',
-                'extras' => array(
-                    'translation_domain' => 'CompoFaqBundle'
+            $menu->addChild(
+                'breadcrumb.faq',
+                array(
+                    'uri' => $router->generate('compo_faq_index'),
+                    'label' => 'breadcrumb.faq',
+                    'extras' => array(
+                        'translation_domain' => 'CompoFaqBundle'
+                    )
                 )
-            ));
+            );
 
-            $menu->addChild($article->getSlug(), array(
-                'label' => $article->getName()
-            ));
-        } else {
-            $menu->addChild('breadcrumb.faq', array(
-                'label' => 'breadcrumb.faq',
-                'extras' => array(
-                    'translation_domain' => 'CompoFaqBundle'
+            $menu->addChild(
+                $article->getSlug(),
+                array(
+                    'label' => $article->getName()
                 )
-            ));
+            );
+        } else {
+            $menu->addChild(
+                'breadcrumb.faq',
+                array(
+                    'label' => 'breadcrumb.faq',
+                    'extras' => array(
+                        'translation_domain' => 'CompoFaqBundle'
+                    )
+                )
+            );
         }
 
         return $menu;

@@ -68,11 +68,15 @@ class SeoExtension extends AbstractAdminExtension
             ->add('title', 'textarea', array('required' => false, 'attr' => array('class' => 'highlight-src')))
             ->add('metaDescription', 'textarea', array('required' => false, 'attr' => array('class' => 'highlight-src')))
             ->add('metaKeyword', 'textarea', array('required' => false, 'attr' => array('class' => 'highlight-src')))
-            ->add('seoVars', SeoVarsType::class, array(
-                'mapped' => false,
-                'required' => false,
-                'by_reference' => false,
-            ))
+            ->add(
+                'seoVars',
+                SeoVarsType::class,
+                array(
+                    'mapped' => false,
+                    'required' => false,
+                    'by_reference' => false,
+                )
+            )
             ->end()
             ->end();
     }

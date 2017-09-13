@@ -48,9 +48,12 @@ class FaqController extends Controller
 
         $seoPage->build();
 
-        return $this->render('CompoFaqBundle:Faq:index.html.twig', array(
-            'pager' => $pager,
-        ));
+        return $this->render(
+            'CompoFaqBundle:Faq:index.html.twig',
+            array(
+                'pager' => $pager,
+            )
+        );
     }
 
     /**
@@ -74,21 +77,27 @@ class FaqController extends Controller
         $seoPage->setContext('faq_show');
         $seoPage->addVar('faq', $article);
 
-        $seoPage->addTemplates('faq_show', array(
-            'header' => $article->getName(),
-            'title' => $article->getName(),
-            'metaKeyword' => $article->getMetaKeyword(),
-            'metaDescription' => $article->getMetaDescription(),
-        ));
+        $seoPage->addTemplates(
+            'faq_show',
+            array(
+                'header' => $article->getName(),
+                'title' => $article->getName(),
+                'metaKeyword' => $article->getMetaKeyword(),
+                'metaDescription' => $article->getMetaDescription(),
+            )
+        );
 
         $seoPage->setLinkCanonical($manager->getArticleShowPermalink($article, 0));
 
 
         $seoPage->build();
 
-        return $this->render('CompoFaqBundle:Faq:show.html.twig', array(
-            'article' => $article,
-        ));
+        return $this->render(
+            'CompoFaqBundle:Faq:show.html.twig',
+            array(
+                'article' => $article,
+            )
+        );
     }
 
     /**
@@ -105,6 +114,6 @@ class FaqController extends Controller
             throw $this->createNotFoundException('compo_faq.exception.not_found_faq');
         }
 
-        return $this->redirectToRoute('compo_faq_show_by_slug', array('slug' => $article->getSlug()), 302);
+        return $this->redirectToRoute('compo_faq_show_by_slug', array('slug' => $article->getSlug()));
     }
 }

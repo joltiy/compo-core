@@ -87,12 +87,16 @@ class MenuItemAdmin extends AbstractAdmin
             ->addIdentifier('name')
             ->add('url')
             ->add('enabled')
-            ->add('_action', null, array(
-                'actions' => array(
-                    'edit' => array(),
-                    'delete' => array(),
+            ->add(
+                '_action',
+                null,
+                array(
+                    'actions' => array(
+                        'edit' => array(),
+                        'delete' => array(),
+                    )
                 )
-            ));
+            );
     }
 
     /**
@@ -102,7 +106,7 @@ class MenuItemAdmin extends AbstractAdmin
     {
         $subject = $this->getSubject();
 
-        if (is_null($subject)) {
+        if (null === $subject) {
             $id = null;
             $menu_id = null;
             $root_menu_item = null;
@@ -120,23 +124,32 @@ class MenuItemAdmin extends AbstractAdmin
 
         if ($root_menu_item) {
             // Родительские категории
-            $tree = $repository->getForTreeSelector($id, function ($qb) use ($root_menu_item) {
-                /** @var QueryBuilder $qb */
-                $qb->andWhere('c.root = ' . $root_menu_item->getId());
-            });
+            $tree = $repository->getForTreeSelector(
+                $id,
+                function ($qb) use ($root_menu_item) {
+                    /** @var QueryBuilder $qb */
+                    $qb->andWhere('c.root = ' . $root_menu_item->getId());
+                }
+            );
         } else {
             // Родительские категории
             $tree = $repository->getForTreeSelector($id);
         }
 
 
-        $formMapper->tab('form.tab_main_menu', array(
-            'translation_domain' => $this->getTranslationDomain()
-        ));
+        $formMapper->tab(
+            'form.tab_main_menu',
+            array(
+                'translation_domain' => $this->getTranslationDomain()
+            )
+        );
 
-        $formMapper->with('form.tab_main', array(
-            'name' => false
-        ));
+        $formMapper->with(
+            'form.tab_main',
+            array(
+                'name' => false
+            )
+        );
 
         $formMapper
             ->add('id')
@@ -144,64 +157,88 @@ class MenuItemAdmin extends AbstractAdmin
             ->add('name')
             ->add('title');
 
-        $formMapper->add('parent', TreeSelectorType::class, array(
-            'current' => $subject,
-            'model_manager' => $this->getModelManager(),
-            'class' => $this->getClass(),
-            'tree' => $tree,
-            'required' => true,
-        ));
+        $formMapper->add(
+            'parent',
+            TreeSelectorType::class,
+            array(
+                'current' => $subject,
+                'model_manager' => $this->getModelManager(),
+                'class' => $this->getClass(),
+                'tree' => $tree,
+                'required' => true,
+            )
+        );
 
         $formMapper
-            ->add('type', 'sonata_type_choice_field_mask', array(
-                'choices' => array(
-                    'URL' => 'url',
-                    'Страница' => 'page',
-                    'Тегирование' => 'tagging',
-                    'Категория' => 'catalog',
-                    'Страна' => 'country',
-                    'Производитель' => 'manufacture',
-                ),
-                'map' => array(
-                    'url' => array('url'),
-                    'page' => array('page'),
-                    'tagging' => array('tagging'),
-                    'catalog' => array('catalog'),
-                    'country' => array('country'),
-                    'manufacture' => array('manufacture'),
-                ),
-                'placeholder' => 'Укажите тип',
-                'required' => true
-            ));
+            ->add(
+                'type',
+                'sonata_type_choice_field_mask',
+                array(
+                    'choices' => array(
+                        'URL' => 'url',
+                        'Страница' => 'page',
+                        'Тегирование' => 'tagging',
+                        'Категория' => 'catalog',
+                        'Страна' => 'country',
+                        'Производитель' => 'manufacture',
+                    ),
+                    'map' => array(
+                        'url' => array('url'),
+                        'page' => array('page'),
+                        'tagging' => array('tagging'),
+                        'catalog' => array('catalog'),
+                        'country' => array('country'),
+                        'manufacture' => array('manufacture'),
+                    ),
+                    'placeholder' => 'Укажите тип',
+                    'required' => true
+                )
+            );
 
 
         $query = $this->getDoctrine()->getManager()->createQuery('SELECT p FROM Compo\Sonata\PageBundle\Entity\Page p WHERE p.routeName = \'page_slug\' ORDER BY p.parent ASC, p.position ASC');
 
-        $formMapper->add('page', 'sonata_type_model', array(
-            'required' => false,
-            'query' => $query
-        ));
+        $formMapper->add(
+            'page',
+            'sonata_type_model',
+            array(
+                'required' => false,
+                'query' => $query
+            )
+        );
 
         $query = $this->getDoctrine()->getManager()->createQuery('SELECT p FROM Compo\CountryBundle\Entity\Country p ORDER BY p.name ASC');
 
-        $formMapper->add('country', 'sonata_type_model', array(
-            'required' => false,
-            'query' => $query
-        ));
+        $formMapper->add(
+            'country',
+            'sonata_type_model',
+            array(
+                'required' => false,
+                'query' => $query
+            )
+        );
 
         $query = $this->getDoctrine()->getManager()->createQuery('SELECT p FROM Compo\ManufactureBundle\Entity\Manufacture p ORDER BY p.name ASC');
 
-        $formMapper->add('manufacture', 'sonata_type_model', array(
-            'required' => false,
-            'query' => $query
-        ));
+        $formMapper->add(
+            'manufacture',
+            'sonata_type_model',
+            array(
+                'required' => false,
+                'query' => $query
+            )
+        );
 
         $query = $this->getDoctrine()->getManager()->createQuery('SELECT p FROM Compo\TaggingBundle\Entity\Tagging p ORDER BY p.name ASC');
 
-        $formMapper->add('tagging', 'sonata_type_model', array(
-            'required' => false,
-            'query' => $query
-        ));
+        $formMapper->add(
+            'tagging',
+            'sonata_type_model',
+            array(
+                'required' => false,
+                'query' => $query
+            )
+        );
 
 
         /** @var \Doctrine\ORM\QueryBuilder $queryBuilder */
@@ -213,12 +250,16 @@ class MenuItemAdmin extends AbstractAdmin
 
         $tree = $queryBuilder->getQuery()->getResult();
 
-        $formMapper->add('catalog', TreeSelectorType::class, array(
-            'model_manager' => $this->getConfigurationPool()->getContainer()->get('compo_catalog.admin.catalog')->getModelManager(),
-            'class' => $this->getConfigurationPool()->getContainer()->get('compo_catalog.admin.catalog')->getClass(),
-            'tree' => $tree,
-            'required' => true,
-        ));
+        $formMapper->add(
+            'catalog',
+            TreeSelectorType::class,
+            array(
+                'model_manager' => $this->getConfigurationPool()->getContainer()->get('compo_catalog.admin.catalog')->getModelManager(),
+                'class' => $this->getConfigurationPool()->getContainer()->get('compo_catalog.admin.catalog')->getClass(),
+                'tree' => $tree,
+                'required' => true,
+            )
+        );
 
 
         $formMapper->add('url');
@@ -253,7 +294,7 @@ class MenuItemAdmin extends AbstractAdmin
      */
     protected function configureTabMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
     {
-        if (in_array($action, array('edit'))) {
+        if ('edit' === $action) {
             $this->configureTabMenuItem($menu, $action);
 
             /** @var MenuAdmin $menuAdmin */

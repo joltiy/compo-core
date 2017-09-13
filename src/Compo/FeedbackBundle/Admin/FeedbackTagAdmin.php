@@ -42,16 +42,24 @@ class FeedbackTagAdmin extends AbstractAdmin
         $listMapper
             ->add('id')
             ->addIdentifier('name')
-            ->add('enabled', null, array(
-                'editable' => true,
-                'required' => true
-            ))
-            ->add('_action', 'actions', array(
-                'actions' => array(
-                    'edit' => array(),
-                    'delete' => array(),
+            ->add(
+                'enabled',
+                null,
+                array(
+                    'editable' => true,
+                    'required' => true
                 )
-            ));
+            )
+            ->add(
+                '_action',
+                'actions',
+                array(
+                    'actions' => array(
+                        'edit' => array(),
+                        'delete' => array(),
+                    )
+                )
+            );
     }
 
     /**

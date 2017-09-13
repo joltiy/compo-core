@@ -52,12 +52,16 @@ class NotificationEmailAccountAdmin extends AbstractAdmin
             ->addIdentifier('name')
             ->add('username')
             ->add('description')
-            ->add('_action', null, array(
-                'actions' => array(
-                    'edit' => array(),
-                    'delete' => array(),
-                ),
-            ));
+            ->add(
+                '_action',
+                null,
+                array(
+                    'actions' => array(
+                        'edit' => array(),
+                        'delete' => array(),
+                    ),
+                )
+            );
     }
 
     /**
@@ -73,19 +77,31 @@ class NotificationEmailAccountAdmin extends AbstractAdmin
             ->add('id')
             ->add('name')
             ->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false))
-            ->add('transport', 'choice', array(
-                'choices' => $notificationManager->getEmailTransport(),
-            ))
+            ->add(
+                'transport',
+                'choice',
+                array(
+                    'choices' => $notificationManager->getEmailTransport(),
+                )
+            )
             ->add('username')
             ->add('password')
             ->add('hostname')
             ->add('port')
-            ->add('encryption', 'choice', array(
-                'choices' => $notificationManager->getEmailEncryption(),
-            ))
-            ->add('authMode', 'choice', array(
-                'choices' => $notificationManager->getEmailAuthMode(),
-            ))
+            ->add(
+                'encryption',
+                'choice',
+                array(
+                    'choices' => $notificationManager->getEmailEncryption(),
+                )
+            )
+            ->add(
+                'authMode',
+                'choice',
+                array(
+                    'choices' => $notificationManager->getEmailAuthMode(),
+                )
+            )
             ->end()
             ->end();
     }

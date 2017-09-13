@@ -46,12 +46,16 @@ class NewsTagAdmin extends AbstractAdmin
             ->addIdentifier('name')
             ->add('description')
             ->add('colorHtml', 'html')
-            ->add('_action', null, array(
-                'actions' => array(
-                    'edit' => array(),
-                    'delete' => array(),
+            ->add(
+                '_action',
+                null,
+                array(
+                    'actions' => array(
+                        'edit' => array(),
+                        'delete' => array(),
+                    )
                 )
-            ));
+            );
     }
 
     /**

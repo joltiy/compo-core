@@ -5,7 +5,6 @@ namespace Compo\BannerBundle\Block;
 use Compo\BannerBundle\Entity\Banner;
 use Compo\BannerBundle\Entity\BannerItemRepository;
 use Compo\BannerBundle\Entity\BannerRepository;
-use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Compo\Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Block\BlockContextInterface;
@@ -18,31 +17,33 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class BannerBlockService extends AbstractBlockService
 {
-    use ContainerAwareTrait;
-
     /**
      * {@inheritdoc}
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
-        $em = $this->container->get("doctrine.orm.entity_manager");
+        $em = $this->container->get('doctrine.orm.entity_manager');
 
         $settings = $blockContext->getSettings();
 
         /** @var BannerItemRepository $repo */
-        $repo = $em->getRepository("CompoBannerBundle:BannerItem");
+        $repo = $em->getRepository('CompoBannerBundle:BannerItem');
+
+        $list = array();
 
         if ($settings['id']) {
             $list = $repo->findBy(array('banner' => $settings['id'], 'enabled' => true), array('position' => 'asc'));
-        } else {
-            $list = array();
         }
 
-        return $this->renderResponse($blockContext->getTemplate(), array(
-            'list' => $list,
-            'block' => $blockContext->getBlock(),
-            'settings' => $blockContext->getSettings(),
-        ), $response);
+        return $this->renderResponse(
+            $blockContext->getTemplate(),
+            array(
+                'list' => $list,
+                'block' => $blockContext->getBlock(),
+                'settings' => $blockContext->getSettings(),
+            ),
+            $response
+        );
     }
 
     /**
@@ -63,11 +64,15 @@ class BannerBlockService extends AbstractBlockService
             $choices[$item->getId()] = $item->getName();
         }
 
-        $formMapper->add('settings', 'sonata_type_immutable_array', array(
-            'keys' => array(
-                array('id', 'choice', array('choices' => $choices, 'label' => 'Баннеры')),
-            ),
-        ));
+        $formMapper->add(
+            'settings',
+            'sonata_type_immutable_array',
+            array(
+                'keys' => array(
+                    array('id', 'choice', array('choices' => $choices, 'label' => 'Баннеры')),
+                ),
+            )
+        );
     }
 
     /**
@@ -75,10 +80,12 @@ class BannerBlockService extends AbstractBlockService
      */
     public function configureSettings(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'id' => null,
-            'template' => 'CompoBannerBundle:Block:slider.html.twig',
-        ));
+        $resolver->setDefaults(
+            array(
+                'id' => null,
+                'template' => 'CompoBannerBundle:Block:slider.html.twig',
+            )
+        );
     }
 
     /**
@@ -93,10 +100,10 @@ class BannerBlockService extends AbstractBlockService
         $keys['environment'] = $this->getContainer()->get('kernel')->getEnvironment();
 
         if (isset($settings['id'])) {
-            $em = $this->getContainer()->get("doctrine")->getManager();
+            $em = $this->getContainer()->get('doctrine')->getManager();
 
             /** @var BannerRepository $repository */
-            $repository = $em->getRepository("CompoBannerBundle:Banner");
+            $repository = $em->getRepository('CompoBannerBundle:Banner');
 
             $item = $repository->find($settings['id']);
 

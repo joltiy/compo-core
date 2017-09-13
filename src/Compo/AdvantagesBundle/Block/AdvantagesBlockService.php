@@ -4,7 +4,6 @@ namespace Compo\AdvantagesBundle\Block;
 
 use Compo\AdvantagesBundle\Entity\AdvantagesItemRepository;
 use Compo\AdvantagesBundle\Entity\AdvantagesRepository;
-use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Compo\Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Block\BlockContextInterface;
@@ -17,19 +16,17 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class AdvantagesBlockService extends AbstractBlockService
 {
-    use ContainerAwareTrait;
-
     /**
      * {@inheritdoc}
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
-        $em = $this->getContainer()->get("doctrine")->getManager();
+        $em = $this->getContainer()->get('doctrine')->getManager();
 
         $settings = $blockContext->getSettings();
 
         /** @var AdvantagesItemRepository $repository */
-        $repository = $em->getRepository("CompoAdvantagesBundle:AdvantagesItem");
+        $repository = $em->getRepository('CompoAdvantagesBundle:AdvantagesItem');
 
         $list = array();
 
@@ -96,10 +93,10 @@ class AdvantagesBlockService extends AbstractBlockService
         $keys['environment'] = $this->getContainer()->get('kernel')->getEnvironment();
 
         if (isset($settings['id'])) {
-            $em = $this->getContainer()->get("doctrine")->getManager();
+            $em = $this->getContainer()->get('doctrine')->getManager();
 
             /** @var AdvantagesRepository $repository */
-            $repository = $em->getRepository("CompoAdvantagesBundle:Advantages");
+            $repository = $em->getRepository('CompoAdvantagesBundle:Advantages');
 
             $item = $repository->find($settings['id']);
 

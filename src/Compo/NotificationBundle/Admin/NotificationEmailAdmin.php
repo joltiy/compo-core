@@ -90,18 +90,26 @@ class NotificationEmailAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id')
-            ->addIdentifier('event', 'trans', array(
-                'catalogue' => 'CompoNotificationBundle',
-            ))
+            ->addIdentifier(
+                'event',
+                'trans',
+                array(
+                    'catalogue' => 'CompoNotificationBundle',
+                )
+            )
             ->add('recipient')
             ->add('note')
             ->add('enabled')
-            ->add('_action', null, array(
-                'actions' => array(
-                    'edit' => array(),
-                    'delete' => array(),
-                ),
-            ));
+            ->add(
+                '_action',
+                null,
+                array(
+                    'actions' => array(
+                        'edit' => array(),
+                        'delete' => array(),
+                    ),
+                )
+            );
     }
 
     /**
@@ -126,20 +134,28 @@ class NotificationEmailAdmin extends AbstractAdmin
 
         $formMapper->add('id')
             ->add('enabled')
-            ->add('event', 'choice', array(
-                'choices' => $notificationManager->getEventsChoice(),
-                'choice_translation_domain' => 'CompoNotificationBundle',
-            ))
+            ->add(
+                'event',
+                'choice',
+                array(
+                    'choices' => $notificationManager->getEventsChoice(),
+                    'choice_translation_domain' => 'CompoNotificationBundle',
+                )
+            )
             ->add('note')
             ->add('sender', null, array('required' => false))
             ->add('recipient', null, array('attr' => array('class' => 'highlight-src'), 'required' => false))
             ->add('subject', null, array('attr' => array('class' => 'highlight-src'), 'required' => false))
             ->add('body', null, array('attr' => array('class' => 'highlight-src'), 'required' => false));
 
-        $formMapper->add('help', HelpType::class, array(
-            'template' => $help
+        $formMapper->add(
+            'help',
+            HelpType::class,
+            array(
+                'template' => $help
 
-        ));
+            )
+        );
         $formMapper->end()
             ->end();
     }

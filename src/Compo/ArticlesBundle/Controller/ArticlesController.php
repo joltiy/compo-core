@@ -45,14 +45,18 @@ class ArticlesController extends Controller
 
         $seoPage->build();
 
-        return $this->render('CompoArticlesBundle:Articles:index.html.twig', array(
-            'pager' => $pager,
-        ));
+        return $this->render(
+            'CompoArticlesBundle:Articles:index.html.twig',
+            array(
+                'pager' => $pager,
+            )
+        );
     }
 
     /**
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function showByIdAction($id)
     {
@@ -64,12 +68,13 @@ class ArticlesController extends Controller
             throw $this->createNotFoundException('compo_articles.exception.not_found_article');
         }
 
-        return $this->redirectToRoute('compo_articles_show_by_slug', array('slug' => $article->getSlug()), 302);
+        return $this->redirectToRoute('compo_articles_show_by_slug', array('slug' => $article->getSlug()));
     }
 
     /**
      * @param $slug
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @throws \Throwable
      */
     public function showBySlugAction($slug)
@@ -88,19 +93,25 @@ class ArticlesController extends Controller
         $seoPage->setContext('article_show');
         $seoPage->addVar('article', $article);
 
-        $seoPage->addTemplates('article_show', array(
-            'header' => $article->getHeader(),
-            'title' => $article->getTitle(),
-            'metaKeyword' => $article->getMetaKeyword(),
-            'metaDescription' => $article->getMetaDescription(),
-        ));
+        $seoPage->addTemplates(
+            'article_show',
+            array(
+                'header' => $article->getHeader(),
+                'title' => $article->getTitle(),
+                'metaKeyword' => $article->getMetaKeyword(),
+                'metaDescription' => $article->getMetaDescription(),
+            )
+        );
 
         $seoPage->setLinkCanonical($manager->getArticleShowPermalink($article, 0));
 
         $seoPage->build();
 
-        return $this->render('CompoArticlesBundle:Articles:show.html.twig', array(
-            'article' => $article,
-        ));
+        return $this->render(
+            'CompoArticlesBundle:Articles:show.html.twig',
+            array(
+                'article' => $article,
+            )
+        );
     }
 }

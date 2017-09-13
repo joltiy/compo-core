@@ -20,7 +20,7 @@ class LoadBaseContacts implements FixtureInterface
         /** @var ContactsRepository $contactsRepository */
         $contactsRepository = $manager->getRepository('CompoContactsBundle:Contacts');
 
-        if (count($contactsRepository->findAll()) == 0) {
+        if (count($contactsRepository->findAll()) === 0) {
             $contacts = new Contacts();
             $contacts->setEmail('test@test.com');
             $contacts->setAddress('test address');

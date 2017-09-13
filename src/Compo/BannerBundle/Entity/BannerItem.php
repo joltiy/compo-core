@@ -46,13 +46,13 @@ class BannerItem
      * @ORM\Column(type="string", nullable=true)
      */
     protected $url;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Compo\BannerBundle\Entity\Banner", fetch="EAGER")
      * @ORM\JoinColumn(name="banner_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     protected $banner;
-    
+
     /**
      * @var string
      * @ORM\Column(type="string", nullable=true)
@@ -103,7 +103,7 @@ class BannerItem
     {
         $this->page = $page;
     }
-    
+
     /**
      * Get title
      *

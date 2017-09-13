@@ -45,12 +45,16 @@ class SocialAdmin extends AbstractAdmin
             ->add('id')
             ->addIdentifier('name')
             ->add('url')
-            ->add('_action', 'actions', array(
-                'actions' => array(
-                    'edit' => array(),
-                    'delete' => array(),
+            ->add(
+                '_action',
+                'actions',
+                array(
+                    'actions' => array(
+                        'edit' => array(),
+                        'delete' => array(),
+                    )
                 )
-            ));
+            );
 
     }
 

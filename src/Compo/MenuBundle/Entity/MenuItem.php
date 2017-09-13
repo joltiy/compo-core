@@ -294,7 +294,7 @@ class MenuItem
     {
         $this->manufacture_id = $manufacture_id;
     }
-    
+
     /**
      * Get title
      *

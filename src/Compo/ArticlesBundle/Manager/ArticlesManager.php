@@ -84,6 +84,7 @@ class ArticlesManager extends BaseEntityManager
     /**
      * @param $slug
      * @return Articles
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function findBySlug($slug)
     {
@@ -125,7 +126,7 @@ class ArticlesManager extends BaseEntityManager
      * @param int $absolute
      * @return string
      */
-    public function getArticlesIndexPermalink($parameters = array(), $absolute = 1)
+    public function getArticlesIndexPermalink(array $parameters = array(), $absolute = 1)
     {
         return $this->getContainer()->get('router')->generate($this->getArticlesIndexRoute(), $this->getArticlesIndexRouteParameters($parameters), $absolute);
     }

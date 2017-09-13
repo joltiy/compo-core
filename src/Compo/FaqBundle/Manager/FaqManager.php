@@ -125,7 +125,7 @@ class FaqManager extends BaseEntityManager
      * @param int $absolute
      * @return string
      */
-    public function getFaqIndexPermalink($parameters = array(), $absolute = 1)
+    public function getFaqIndexPermalink(array $parameters = array(), $absolute = 1)
     {
         return $this->getContainer()->get('router')->generate($this->getFaqIndexRoute(), $this->getFaqIndexRouteParameters($parameters), $absolute);
     }

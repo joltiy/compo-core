@@ -19,7 +19,7 @@ class Social
 
     use \Gedmo\Timestampable\Traits\TimestampableEntity;
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
-    
+
     /**
      * Описание
      *

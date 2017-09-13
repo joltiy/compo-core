@@ -160,10 +160,12 @@ class NotificationEmail
     {
         if ($this->note) {
             return $this->note;
-        } elseif ($this->id) {
-            return (string)$this->id;
-        } else {
-            return '';
         }
+
+        if ($this->id) {
+            return (string)$this->id;
+        }
+
+        return '';
     }
 }

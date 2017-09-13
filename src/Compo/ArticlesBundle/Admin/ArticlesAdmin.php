@@ -36,7 +36,7 @@ class ArticlesAdmin extends AbstractAdmin
     {
         $list = array();
 
-        if (in_array($action, array('history', 'acl', 'show', 'delete', 'edit'))) {
+        if (in_array($action, array('history', 'acl', 'show', 'delete', 'edit'), true)) {
             $list['show_on_site'] = array(
                 'template' => $this->getTemplate('button_show_on_site'),
                 'uri' => $this->generatePermalink($this->getSubject())
@@ -63,9 +63,9 @@ class ArticlesAdmin extends AbstractAdmin
 
         if ($object) {
             return $manager->getArticleShowPermalink($object);
-        } else {
-            return $manager->getArticlesIndexPermalink();
         }
+
+        return $manager->getArticlesIndexPermalink();
     }
 
     /**
@@ -93,13 +93,17 @@ class ArticlesAdmin extends AbstractAdmin
             ->addIdentifier('publicationAt')
             ->addIdentifier('name')
             ->add('enabled')
-            ->add('_action', null, array(
-                'actions' => array(
-                    'edit' => array(),
-                    'delete' => array(),
-                    'show_on_site' => array(),
+            ->add(
+                '_action',
+                null,
+                array(
+                    'actions' => array(
+                        'edit' => array(),
+                        'delete' => array(),
+                        'show_on_site' => array(),
+                    )
                 )
-            ));
+            );
     }
 
     /**

@@ -48,12 +48,16 @@ class RedirectAdmin extends AbstractAdmin
             ->addIdentifier('urIn')
             ->addIdentifier('urOut')
             ->add('enabled')
-            ->add('_action', null, array(
-                'actions' => array(
-                    'edit' => array(),
-                    'delete' => array(),
+            ->add(
+                '_action',
+                null,
+                array(
+                    'actions' => array(
+                        'edit' => array(),
+                        'delete' => array(),
+                    )
                 )
-            ));
+            );
     }
 
     /**
@@ -69,7 +73,7 @@ class RedirectAdmin extends AbstractAdmin
             ->add('urOut')
             ->add('enabled')
             ->end()
-            ->end();;
+            ->end();
     }
 
     /**

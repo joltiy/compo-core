@@ -153,7 +153,7 @@ class AdvantagesItemAdmin extends AbstractAdmin
      */
     protected function configureTabMenu(MenuItemInterface $advantages, $action, AdminInterface $childAdmin = null)
     {
-        if (in_array($action, array('edit'))) {
+        if ('edit' === $action) {
             $this->configureTabAdvantagesItem($advantages, $action);
 
             /** @var AdvantagesAdmin $advantagesAdmin */

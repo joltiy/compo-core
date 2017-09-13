@@ -72,7 +72,7 @@ class SitemapsDumpCommand extends ContainerAwareCommand
         if ($input->getOption('section')) {
             $output->writeln(
                 sprintf(
-                    "Dumping sitemaps section <comment>%s</comment> into <comment>%s</comment> directory",
+                    'Dumping sitemaps section <comment>%s</comment> into <comment>%s</comment> directory',
                     $input->getOption('section'),
                     $targetDir
                 )
@@ -80,7 +80,7 @@ class SitemapsDumpCommand extends ContainerAwareCommand
         } else {
             $output->writeln(
                 sprintf(
-                    "Dumping <comment>all sections</comment> of sitemaps into <comment>%s</comment> directory",
+                    'Dumping <comment>all sections</comment> of sitemaps into <comment>%s</comment> directory',
                     $targetDir
                 )
             );
@@ -91,12 +91,12 @@ class SitemapsDumpCommand extends ContainerAwareCommand
         $filenames = $dumper->dump($targetDir, $baseUrl, $input->getOption('section'), $options);
 
         if ($filenames === false) {
-            $output->writeln("<error>No URLs were added to sitemap by EventListeners</error> - this may happen when provided section is invalid");
+            $output->writeln('<error>No URLs were added to sitemap by EventListeners</error> - this may happen when provided section is invalid');
 
             return;
         }
 
-        $output->writeln("<info>Created/Updated the following sitemap files:</info>");
+        $output->writeln('<info>Created/Updated the following sitemap files:</info>');
         foreach ($filenames as $filename) {
             $output->writeln("    <comment>$filename</comment>");
         }
@@ -121,9 +121,9 @@ class SitemapsDumpCommand extends ContainerAwareCommand
 
         $scheme = 'https';
 
-        if ('http' === $scheme && 80 != $context->getHttpPort()) {
+        if ('http' === $scheme && 80 !== $context->getHttpPort()) {
             $port = ':' . $context->getHttpPort();
-        } elseif ('https' === $scheme && 443 != $context->getHttpsPort()) {
+        } elseif ('https' === $scheme && 443 !== $context->getHttpsPort()) {
             $port = ':' . $context->getHttpsPort();
         }
 

@@ -37,7 +37,7 @@ class NewsAdmin extends AbstractAdmin
     {
         $list = array();
 
-        if (in_array($action, array('history', 'acl', 'show', 'delete', 'edit'))) {
+        if (in_array($action, array('history', 'acl', 'show', 'delete', 'edit'), true)) {
             $list['show_on_site'] = array(
                 'template' => $this->getTemplate('button_show_on_site'),
                 'uri' => $this->generatePermalink($this->getSubject())
@@ -62,11 +62,11 @@ class NewsAdmin extends AbstractAdmin
     {
         $manager = $this->getContainer()->get('compo_news.manager.news');
 
-        if (is_null($object)) {
+        if (null === $object) {
             return $manager->getNewsIndexPermalink();
-        } else {
-            return $manager->getNewsShowPermalink($object);
         }
+
+        return $manager->getNewsShowPermalink($object);
     }
 
     /**
@@ -94,13 +94,17 @@ class NewsAdmin extends AbstractAdmin
             ->addIdentifier('publicationAt')
             ->addIdentifier('name')
             ->add('enabled')
-            ->add('_action', null, array(
-                'actions' => array(
-                    'edit' => array(),
-                    'delete' => array(),
-                    'show_on_site' => array(),
+            ->add(
+                '_action',
+                null,
+                array(
+                    'actions' => array(
+                        'edit' => array(),
+                        'delete' => array(),
+                        'show_on_site' => array(),
+                    )
                 )
-            ));
+            );
     }
 
     /**
@@ -125,7 +129,10 @@ class NewsAdmin extends AbstractAdmin
             ->from('CompoNewsBundle:NewsTag', 'c')
             ->orderBy('c.name', 'ASC');
 
-        $formMapper->add('tags', 'sonata_type_model', array(
+        $formMapper->add(
+            'tags',
+            'sonata_type_model',
+            array(
                 'by_reference' => false,
                 'multiple' => true,
                 'expanded' => false,

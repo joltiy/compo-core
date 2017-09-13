@@ -45,8 +45,9 @@ class FeedbackController extends Controller
      */
     public function postAction(Request $request)
     {
-        if (!$request->isXmlHttpRequest())
-            throw new \HttpRequestMethodException();
+        if (!$request->isXmlHttpRequest()) {
+            throw new \HttpRequestMethodException('Not isXmlHttpRequest');
+        }
 
         $request_params = $this->getJsonParams($request);
 
@@ -65,22 +66,22 @@ class FeedbackController extends Controller
             $csrf->refreshToken('feedback_protection');
 
             return View::create(array('success' => false, 'error' => 'form_not_valid'), 400);
-        } else {
-            try {
-                $em = $this->getDoctrine()->getManager();
+        }
 
-                $em->persist($feedback);
-                $em->flush();
+        try {
+            $em = $this->getDoctrine()->getManager();
 
-                $csrf->refreshToken('feedback_protection');
+            $em->persist($feedback);
+            $em->flush();
 
-                $this->get('compo_notification.manager.notification')->send($feedback->getType() . '_for_user', array('feedback' => $feedback));
-                $this->get('compo_notification.manager.notification')->send($feedback->getType() . '_for_admin', array('feedback' => $feedback));
+            $csrf->refreshToken('feedback_protection');
 
-                return View::create(array('success' => true, 'message' => 'contacts_sent'), 200);
-            } catch (\Exception $e) {
-                return View::create(array('success' => false, 'error' => $e->getMessage()), 400);
-            }
+            $this->get('compo_notification.manager.notification')->send($feedback->getType() . '_for_user', array('feedback' => $feedback));
+            $this->get('compo_notification.manager.notification')->send($feedback->getType() . '_for_admin', array('feedback' => $feedback));
+
+            return View::create(array('success' => true, 'message' => 'contacts_sent'), 200);
+        } catch (\Exception $e) {
+            return View::create(array('success' => false, 'error' => $e->getMessage()), 400);
         }
     }
 }
