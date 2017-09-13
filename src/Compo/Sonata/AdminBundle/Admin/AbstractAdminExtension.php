@@ -17,16 +17,13 @@ class AbstractAdminExtension extends BaseAbstractAdminExtension
      * @param array $options
      * @param array $fieldDescriptionOptions
      */
-    public function replaceFormField(FormMapper $formMapper, $name, $type = null, array $options = array(), array $fieldDescriptionOptions = array()) {
+    public function replaceFormField(FormMapper $formMapper, $name, $type = null, array $options = array(), array $fieldDescriptionOptions = array())
+    {
 
         $admin = $formMapper->getAdmin();
 
         $fg = $admin->getFormGroups();
         $tb = $admin->getFormTabs();
-
-
-
-
 
 
         $keys = $formMapper->keys();
@@ -55,22 +52,16 @@ class AbstractAdminExtension extends BaseAbstractAdminExtension
 
             $formMapper->remove($name);
 
-            if($formMapper->hasOpenTab()) {
+            if ($formMapper->hasOpenTab()) {
                 $formMapper->end();
             }
-            if($formMapper->hasOpenTab()) {
+            if ($formMapper->hasOpenTab()) {
                 $formMapper->end();
             }
             $formMapper->tab($tab);
 
 
-
             $formMapper->with($group);
-
-
-
-
-
 
 
             $formMapper->add($name, $type, $options, $fieldDescriptionOptions);
@@ -79,7 +70,6 @@ class AbstractAdminExtension extends BaseAbstractAdminExtension
             $formMapper->end();
 
             $formMapper->reorder($keys);
-
 
 
             $admin->setFormTabs($tb);

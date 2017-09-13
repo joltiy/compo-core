@@ -29,7 +29,10 @@ class BlameableExtension extends AbstractAdminExtension
      */
     public function configureFormFields(FormMapper $formMapper)
     {
-        $this->replaceFormField($formMapper,'createdBy', 'sonata_type_model_list',
+        $this->replaceFormField(
+            $formMapper,
+            'createdBy',
+            'sonata_type_model_list',
             array(
                 'required' => false
             ),
@@ -42,7 +45,10 @@ class BlameableExtension extends AbstractAdminExtension
             )
         );
 
-        $this->replaceFormField($formMapper,'updatedBy', 'sonata_type_model_list',
+        $this->replaceFormField(
+            $formMapper,
+            'updatedBy',
+            'sonata_type_model_list',
             array(
                 'required' => false
             ),

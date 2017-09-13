@@ -78,13 +78,30 @@ class AbstractAdmin extends BaseAdmin
     /**
      * @param $key
      */
-    public function clearCache($key) {
+    public function clearCache($key)
+    {
         $em = $this->getDoctrine()->getManager();
 
         /** @var Cache $cacheDriver */
         $cacheDriver = $em->getConfiguration()->getResultCacheImpl();
 
         $cacheDriver->delete($key);
+    }
+
+    /**
+     * @return \Doctrine\Bundle\DoctrineBundle\Registry|object
+     */
+    public function getDoctrine()
+    {
+        return $this->getContainer()->get('doctrine');
+    }
+
+    /**
+     * @return null|\Symfony\Component\DependencyInjection\ContainerInterface
+     */
+    public function getContainer()
+    {
+        return $this->getConfigurationPool()->getContainer();
     }
 
     /**
@@ -295,7 +312,6 @@ class AbstractAdmin extends BaseAdmin
         return $instance;
     }
 
-
     /**
      * @param      $action
      * @param null $object
@@ -378,22 +394,6 @@ class AbstractAdmin extends BaseAdmin
         }
 
         return $this->getDoctrine()->getRepository($this->getClass());
-    }
-
-    /**
-     * @return \Doctrine\Bundle\DoctrineBundle\Registry|object
-     */
-    public function getDoctrine()
-    {
-        return $this->getContainer()->get('doctrine');
-    }
-
-    /**
-     * @return null|\Symfony\Component\DependencyInjection\ContainerInterface
-     */
-    public function getContainer()
-    {
-        return $this->getConfigurationPool()->getContainer();
     }
 
     /**

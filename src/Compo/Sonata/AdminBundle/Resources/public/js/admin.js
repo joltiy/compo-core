@@ -55,6 +55,7 @@ function setCookie(key, value) {
     expires.setTime(expires.getTime() + (24 * 60 * 60 * 1000));
     document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
 }
+
 function getCookie(key) {
     var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
     return keyValue ? keyValue[2] : null;
@@ -427,8 +428,7 @@ $(document).ready(function () {
     fillmanufactureCollection();
 
 
-
-    CodeMirror.defineMode("htmltwig", function(config, parserConfig) {
+    CodeMirror.defineMode("htmltwig", function (config, parserConfig) {
         return CodeMirror.overlayMode(CodeMirror.getMode(config, parserConfig.backdrop || "text/html"), CodeMirror.getMode(config, "twig"));
     });
 
@@ -444,8 +444,9 @@ $(document).ready(function () {
         });
 
 
-
-        myCodeMirror.on("blur", function() {myCodeMirror.save()});
+        myCodeMirror.on("blur", function () {
+            myCodeMirror.save()
+        });
     });
 
 

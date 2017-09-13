@@ -7,7 +7,6 @@ use Compo\Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
-
 /**
  * {@inheritDoc}
  */

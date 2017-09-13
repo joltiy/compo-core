@@ -43,12 +43,12 @@ class NumberRangeFilter extends Filter
 
             // additional data check for ranged items
             //if (!array_key_exists('start', $data['value']) || !array_key_exists('end', $data['value'])) {
-                //$data['value']['start'] = 0;
-                //return;
+            //$data['value']['start'] = 0;
+            //return;
             //}
 
             //if (!$data['value']['start'] || !$data['value']['end']) {
-                //return;
+            //return;
             //}
 
 
@@ -83,13 +83,16 @@ class NumberRangeFilter extends Filter
     public function getRenderSettings()
     {
 
-        return array('sonata_type_filter_default', array(
-            'field_type' => $this->getFieldType(),
-            'field_options' => $this->getFieldOptions(),
-            'operator_type' => 'hidden',
-            'operator_options' => array(),
-            'label' => $this->getLabel()
-        ));
+        return array(
+            'sonata_type_filter_default',
+            array(
+                'field_type' => $this->getFieldType(),
+                'field_options' => $this->getFieldOptions(),
+                'operator_type' => 'hidden',
+                'operator_options' => array(),
+                'label' => $this->getLabel()
+            )
+        );
     }
 
 

@@ -30,6 +30,15 @@ trait BlameableEntityTrait
      */
     protected $updatedBy;
 
+    /**
+     * Returns createdBy.
+     *
+     * @return User
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
 
     /**
      * Sets createdBy.
@@ -45,13 +54,13 @@ trait BlameableEntityTrait
     }
 
     /**
-     * Returns createdBy.
+     * Returns updatedBy.
      *
      * @return User
      */
-    public function getCreatedBy()
+    public function getUpdatedBy()
     {
-        return $this->createdBy;
+        return $this->updatedBy;
     }
 
     /**
@@ -65,15 +74,5 @@ trait BlameableEntityTrait
         $this->updatedBy = $updatedBy;
 
         return $this;
-    }
-
-    /**
-     * Returns updatedBy.
-     *
-     * @return User
-     */
-    public function getUpdatedBy()
-    {
-        return $this->updatedBy;
     }
 }

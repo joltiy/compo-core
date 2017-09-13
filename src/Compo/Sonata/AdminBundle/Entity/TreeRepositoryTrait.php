@@ -67,6 +67,7 @@ trait TreeRepositoryTrait
             false, // load all children, not only direct
             $options
         );
+
         return $this->toFlat($htmlTree, ' » ');
     }
 
@@ -88,6 +89,7 @@ trait TreeRepositoryTrait
                 }
             }
         }
+
         return $els;
     }
 
@@ -99,15 +101,13 @@ trait TreeRepositoryTrait
      * @param bool $includeNode
      * @return mixed
      */
-    public function childrenHierarchyWithNodes($node = null, $direct = false, array $options = array(), $includeNode = false) {
+    public function childrenHierarchyWithNodes($node = null, $direct = false, array $options = array(), $includeNode = false)
+    {
 
         $tree = $this->childrenHierarchy($node, $direct, $options, $includeNode);
 
         return $this->fillTreeNodes($tree);
     }
-
-
-
 
 
     /**

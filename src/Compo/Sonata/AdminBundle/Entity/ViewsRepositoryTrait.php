@@ -16,16 +16,16 @@ trait ViewsRepositoryTrait
      * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function increaseViews($object)
-   {
-       $views = $object->getViews() + 1;
+    {
+        $views = $object->getViews() + 1;
 
-       $object->setViews($views);
+        $object->setViews($views);
 
-       /** @var EntityManager $em */
-       $em = $this->getEntityManager();
+        /** @var EntityManager $em */
+        $em = $this->getEntityManager();
 
-       $em->persist($object);
+        $em->persist($object);
 
-       $em->flush();
-   }
+        $em->flush();
+    }
 }

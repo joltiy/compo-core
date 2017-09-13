@@ -36,7 +36,10 @@ class IdExtension extends AbstractAdminExtension
                 $formMapper->remove('id');
             }
         } else {
-            $this->replaceFormField($formMapper,'id', 'text',
+            $this->replaceFormField(
+                $formMapper,
+                'id',
+                'text',
                 array(
                     'required' => false,
                     'attr' => array('readonly' => true),
@@ -44,8 +47,6 @@ class IdExtension extends AbstractAdminExtension
                 )
             );
         }
-
-
 
 
     }

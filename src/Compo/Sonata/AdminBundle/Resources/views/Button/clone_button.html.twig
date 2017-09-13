@@ -2,5 +2,5 @@
     {% set label = label|default('action.link_clone') %}
     {% set uri = uri|default(admin.generateObjectUrl('clone', object)) %}
 
-    <a class="sonata-action-element" href="{{ uri }}"><i class="fa fa-copy"></i>  {{ label|trans({}, admin.translationDomain) }}</a>
+    <a class="sonata-action-element" href="{{ uri }}"><i class="fa fa-copy"></i> {{ label|trans({}, admin.translationDomain) }}</a>
 {% endif %}

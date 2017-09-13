@@ -21,11 +21,13 @@ class HelpType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'mapped' => false,
-            'template' => '',
-            'required' => false
-        ));
+        $resolver->setDefaults(
+            array(
+                'mapped' => false,
+                'template' => '',
+                'required' => false
+            )
+        );
     }
 
 
@@ -35,23 +37,25 @@ class HelpType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        $builder->addModelTransformer(new CallbackTransformer(
-            function ($value) use ($options) {
+        $builder->addModelTransformer(
+            new CallbackTransformer(
+                function ($value) use ($options) {
 
-                if (isset($options['template']) && $options['template']) {
-                    $value = $options['template'];
+                    if (isset($options['template']) && $options['template']) {
+                        $value = $options['template'];
+                    }
+
+                    if (strpos($value, 'Compo') === 0) {
+                        return $this->getContainer()->get('twig')->render($options['template']);
+                    }
+
+                    return $options['template'];
+                },
+                function ($value) use ($options) {
+                    return '';
                 }
-
-                if (strpos($value, 'Compo') === 0) {
-                    return $this->getContainer()->get('twig')->render($options['template']);
-                }
-
-                return $options['template'];
-            },
-            function ($value) use ($options) {
-                return '';
-            }
-        ));
+            )
+        );
     }
 
     /**

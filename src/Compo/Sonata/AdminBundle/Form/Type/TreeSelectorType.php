@@ -34,8 +34,6 @@ class TreeSelectorType extends ModelType
             $options['choice_loader'] = function (Options $options, $previousValue) use ($propertyAccessor) {
 
 
-
-
                 return new \Compo\Sonata\AdminBundle\Form\ModelChoiceLoader(
                     $options['model_manager'],
                     $options['class'],
@@ -72,45 +70,49 @@ class TreeSelectorType extends ModelType
             return $this->getChoices($options);
         };
 
-        $resolver->setDefaults(array_merge($options, array(
-            'compound' => function (Options $options) {
-                if (isset($options['multiple']) && $options['multiple']) {
-                    if (isset($options['expanded']) && $options['expanded']) {
-                        //checkboxes
-                        return true;
-                    }
+        $resolver->setDefaults(
+            array_merge(
+                $options,
+                array(
+                    'compound' => function (Options $options) {
+                        if (isset($options['multiple']) && $options['multiple']) {
+                            if (isset($options['expanded']) && $options['expanded']) {
+                                //checkboxes
+                                return true;
+                            }
 
-                    //select tag (with multiple attribute)
-                    return false;
-                }
+                            //select tag (with multiple attribute)
+                            return false;
+                        }
 
-                if (isset($options['expanded']) && $options['expanded']) {
-                    //radio buttons
-                    return true;
-                }
+                        if (isset($options['expanded']) && $options['expanded']) {
+                            //radio buttons
+                            return true;
+                        }
 
-                //select tag
-                return false;
-            },
+                        //select tag
+                        return false;
+                    },
 
-            'template' => 'choice',
-            'multiple' => false,
-            'expanded' => false,
-            'model_manager' => null,
-            'class' => null,
-            'property' => null,
-            'query' => null,
-            'choices' => array(),
-            'preferred_choices' => array(),
-            'btn_add' => 'link_add',
-            'btn_list' => 'link_list',
-            'btn_delete' => 'link_delete',
-            'btn_catalogue' => 'SonataAdminBundle',
+                    'template' => 'choice',
+                    'multiple' => false,
+                    'expanded' => false,
+                    'model_manager' => null,
+                    'class' => null,
+                    'property' => null,
+                    'query' => null,
+                    'choices' => array(),
+                    'preferred_choices' => array(),
+                    'btn_add' => 'link_add',
+                    'btn_list' => 'link_list',
+                    'btn_delete' => 'link_delete',
+                    'btn_catalogue' => 'SonataAdminBundle',
 
-            'tree' => null,
-            'current' => null,
-        )));
-
+                    'tree' => null,
+                    'current' => null,
+                )
+            )
+        );
 
 
     }

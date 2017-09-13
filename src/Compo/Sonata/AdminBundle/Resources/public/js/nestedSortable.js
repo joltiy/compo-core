@@ -428,10 +428,10 @@
 
             if (previousItem != null) {
                 while (
-                previousItem[0].nodeName.toLowerCase() !== "li" ||
-                previousItem[0].className.indexOf(o.disabledClass) !== -1 ||
-                previousItem[0] === this.currentItem[0] ||
-                previousItem[0] === this.helper[0]
+                    previousItem[0].nodeName.toLowerCase() !== "li" ||
+                    previousItem[0].className.indexOf(o.disabledClass) !== -1 ||
+                    previousItem[0] === this.currentItem[0] ||
+                    previousItem[0] === this.helper[0]
                     ) {
                     if (previousItem[0].previousSibling) {
                         previousItem = $(previousItem[0].previousSibling);
@@ -455,10 +455,10 @@
 
             if (nextItem != null) {
                 while (
-                nextItem[0].nodeName.toLowerCase() !== "li" ||
-                nextItem[0].className.indexOf(o.disabledClass) !== -1 ||
-                nextItem[0] === this.currentItem[0] ||
-                nextItem[0] === this.helper[0]
+                    nextItem[0].nodeName.toLowerCase() !== "li" ||
+                    nextItem[0].className.indexOf(o.disabledClass) !== -1 ||
+                    nextItem[0] === this.currentItem[0] ||
+                    nextItem[0] === this.helper[0]
                     ) {
                     if (nextItem[0].nextSibling) {
                         nextItem = $(nextItem[0].nextSibling);
@@ -624,9 +624,9 @@
                 );
             } else {
                 return verticalDirection && (
-                        (verticalDirection === "down" && isOverBottomHalf) ||
-                        (verticalDirection === "up" && isOverTopHalf)
-                    );
+                    (verticalDirection === "down" && isOverBottomHalf) ||
+                    (verticalDirection === "up" && isOverTopHalf)
+                );
             }
 
         },
@@ -649,7 +649,7 @@
 
             //relocate event
             if (!(this._pid_current === this._uiHash().item.parent().parent().attr("id") &&
-                this._sort_current === this._uiHash().item.index())) {
+                    this._sort_current === this._uiHash().item.index())) {
                 this._trigger("relocate", this._relocate_event, this._uiHash());
             }
 
@@ -876,10 +876,10 @@
                 // Check if the parent has changed to prevent it, when o.disableParentChange is true
                 oldParent = this.currentItem.parent().parent(),
                 disabledByParentchange = o.disableParentChange && (
-                        //From somewhere to somewhere else, except the root
-                        typeof parentItem !== 'undefined' && !oldParent.is(parentItem) ||
-                        typeof parentItem === 'undefined' && oldParent.is("li")	//From somewhere to the root
-                    );
+                    //From somewhere to somewhere else, except the root
+                    typeof parentItem !== 'undefined' && !oldParent.is(parentItem) ||
+                    typeof parentItem === 'undefined' && oldParent.is("li")	//From somewhere to the root
+                );
             // mjs - is the root protected?
             // mjs - are we nesting too deep?
             if (

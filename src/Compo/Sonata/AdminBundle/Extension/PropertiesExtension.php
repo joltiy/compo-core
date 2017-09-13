@@ -36,50 +36,61 @@ class PropertiesExtension extends AbstractAdminExtension
         }
 
         $formMapper->tab('form.tab_properties')
-
-        ->with('form.group_properties_created', array('name' => false, 'class' => 'col-lg-6'))
-        ->add('createdBy', 'sonata_type_model_list',
-            array(
-                'required' => false
-            ),
-            array(
-                'link_parameters' => array(
-                    'context' => 'default',
-                    'hide_context' => true,
+            ->with('form.group_properties_created', array('name' => false, 'class' => 'col-lg-6'))
+            ->add(
+                'createdBy',
+                'sonata_type_model_list',
+                array(
+                    'required' => false
                 ),
-                'translation_domain' => 'SonataAdminBundle'
+                array(
+                    'link_parameters' => array(
+                        'context' => 'default',
+                        'hide_context' => true,
+                    ),
+                    'translation_domain' => 'SonataAdminBundle'
+                )
             )
-        )
-        ->add('createdAt', 'sonata_type_datetime_picker', array(
-            'format' => 'dd.MM.y HH:mm:ss',
-            'required' => true,
-        ), array(
-            'translation_domain' => 'SonataAdminBundle'
-        ))
-        ->end()
-
-        ->with('form.group_properties_updated', array('name' => false, 'class' => 'col-lg-6'))
-        ->add('updatedBy', 'sonata_type_model_list',
-            array(
-                'required' => false
-            ),
-            array(
-                'link_parameters' => array(
-                    'context' => 'default',
-                    'hide_context' => true,
+            ->add(
+                'createdAt',
+                'sonata_type_datetime_picker',
+                array(
+                    'format' => 'dd.MM.y HH:mm:ss',
+                    'required' => true,
                 ),
-                'translation_domain' => 'SonataAdminBundle'
+                array(
+                    'translation_domain' => 'SonataAdminBundle'
+                )
             )
-        )
-        ->add('updatedAt', 'sonata_type_datetime_picker', array(
-            'format' => 'dd.MM.y HH:mm:ss',
-            'required' => true,
-        ), array(
-            'translation_domain' => 'SonataAdminBundle'
-        ))
-        ->end()
-
-        ->end();
+            ->end()
+            ->with('form.group_properties_updated', array('name' => false, 'class' => 'col-lg-6'))
+            ->add(
+                'updatedBy',
+                'sonata_type_model_list',
+                array(
+                    'required' => false
+                ),
+                array(
+                    'link_parameters' => array(
+                        'context' => 'default',
+                        'hide_context' => true,
+                    ),
+                    'translation_domain' => 'SonataAdminBundle'
+                )
+            )
+            ->add(
+                'updatedAt',
+                'sonata_type_datetime_picker',
+                array(
+                    'format' => 'dd.MM.y HH:mm:ss',
+                    'required' => true,
+                ),
+                array(
+                    'translation_domain' => 'SonataAdminBundle'
+                )
+            )
+            ->end()
+            ->end();
     }
 
     /**
