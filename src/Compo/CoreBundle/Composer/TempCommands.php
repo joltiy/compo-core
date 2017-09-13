@@ -18,9 +18,10 @@ class TempCommands
      *
      * @param Event $event Event
      */
-    public static function fixPostInstallSymlinkTwitterBootstrap(/** @noinspection PhpUndefinedClassInspection */
-        Event $event)
-    {
+    public static function fixPostInstallSymlinkTwitterBootstrap(
+        /** @noinspection PhpUndefinedClassInspection */
+        Event $event
+    ) {
         /** @noinspection PhpUndefinedMethodInspection */
         $vendor = $event->getComposer()->getConfig()->get('vendor-dir');
 

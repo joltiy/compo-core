@@ -1,9 +1,8 @@
 <?php
 
 use Symfony\Component\Yaml\Yaml;
-
 use function Deployer\{
-    get, commandExist, set, task, run, writeln, runLocally, download, upload
+    commandExist, download, get, runLocally, set, task, upload, writeln
 };
 
 /** @noinspection PhpIncludeInspection */
@@ -48,174 +47,210 @@ set('dump_assets', true);
 set('writable_use_sudo', false);
 
 /** @noinspection PhpUndefinedFunctionInspection */
-set('bin/php', function () {
-    /** @noinspection PhpUndefinedFunctionInspection */
-    return get('bin_php');
-});
+set(
+    'bin/php',
+    function () {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        return get('bin_php');
+    }
+);
 
 /** @noinspection PhpUndefinedFunctionInspection */
 set('timezone', 'Europe/Moscow');
 date_default_timezone_set('Europe/Moscow');
 
 /** @noinspection PhpUndefinedFunctionInspection */
-task('timezone', function () {
-    /** @noinspection PhpUndefinedFunctionInspection */
-    set('timezone', 'Europe/Moscow');
-    date_default_timezone_set('Europe/Moscow');
-})->desc('timezone');
-
-
-task('deploy:vendors', function () {
-    if (!commandExist('unzip')) {
-        writeln('<comment>To speed up composer installation setup "unzip" command with PHP zip extension https://goo.gl/sxzFcD</comment>');
+task(
+    'timezone',
+    function () {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        set('timezone', 'Europe/Moscow');
+        date_default_timezone_set('Europe/Moscow');
     }
-    run('cd {{release_path}} && {{env_vars}} {{bin/composer}} {{composer_options}}', [
-        'timeout' => 6800,
-    ]);
-});
+)->desc('timezone');
+
+
+task(
+    'deploy:vendors',
+    function () {
+        if (!commandExist('unzip')) {
+            writeln('<comment>To speed up composer installation setup "unzip" command with PHP zip extension https://goo.gl/sxzFcD</comment>');
+        }
+        run(
+            'cd {{release_path}} && {{env_vars}} {{bin/composer}} {{composer_options}}',
+            [
+                'timeout' => 6800,
+            ]
+        );
+    }
+);
 
 /** @noinspection PhpUndefinedFunctionInspection */
-task('database:sync-from-remote', function () {
-    /** @noinspection PhpUndefinedFunctionInspection */
-    $databasePath = "{{deploy_path}}/backup/database";
-    // mysqldump -u [username] -p [database name] > [database name].sql
-
-    run("mkdir -p " . $databasePath);
-
-    $parametrs = get('parameters');
-
-    $exportDatabasePath = $databasePath . "/" . $parametrs['database_name'] . ".sql";
-
-    run("mysqldump -u " . $parametrs['database_user'] . " " . $parametrs['database_name'] . " > " . $exportDatabasePath);
-
-    $projectDir = runLocally('pwd');
-
-    $varDir = $projectDir . '/var/database';
-    runLocally("mkdir -p " . $varDir);
-
-    $localDatabasePath = $varDir . "/" . $parametrs['database_name'] . ".sql";
-
-    download( $exportDatabasePath, $localDatabasePath );
-
-
-    runLocally("cd " . $projectDir . " && " . " php bin/console doctrine:database:drop --if-exists --force --quiet --no-interaction --no-debug");
-    runLocally("cd " . $projectDir . " && " . " php bin/console doctrine:database:create --if-not-exists");
-
-    $parameters = Yaml::parse(file_get_contents($projectDir . '/app/config/parameters.yml'));
-
-    // mysql -u[database user] -p [database name] < file.sql
-    runLocally("cd " . $projectDir . " && "
-        . " mysql --user=" . $parameters['parameters']['database_user']." --password=".$parameters['parameters']['database_password']
-        . ' ' . $parameters['parameters']['database_name']
-        . ' < '
-        . $localDatabasePath
-    );
-})->desc('database:sync-from-remote');
-
-
-
-/** @noinspection PhpUndefinedFunctionInspection */
-task('database:sync-to-remote', function () {
-
-    $projectDir = runLocally('pwd');
-    $varDir = $projectDir . '/var/database';
-    runLocally("mkdir -p " . $varDir);
-
-    $parameters = Yaml::parse(file_get_contents($projectDir . '/app/config/parameters.yml'));
-
-    $exportDatabasePath = $varDir . "/" . $parameters['parameters']['database_name'] . ".sql";
-
-    runLocally("mysqldump -u " . $parameters['parameters']['database_user'] . " " . $parameters['parameters']['database_name'] . " > " . $exportDatabasePath);
-
-    run("mkdir -p {{release_path}}/var/database/" );
-
-    upload($exportDatabasePath, '{{release_path}}/var/database/' . $parameters['parameters']['database_name'] . ".sql");
-
-
-
-    run("cd {{release_path}} && " . " php bin/console doctrine:database:drop --if-exists --force --quiet --no-interaction --no-debug");
-    run("cd {{release_path}} && " . " php bin/console doctrine:database:create --if-not-exists");
-
-    $parametrs = get('parameters');
-
-
-    run("cd {{release_path}} && "
-        . " mysql --user=" . $parametrs['database_user']." --password=".$parametrs['database_password']
-        . ' ' . $parametrs['database_name']
-        . ' < '
-        . '{{release_path}}/var/database/' . $parametrs['database_name'] . ".sql"
-    );
-
-
-})->desc('database:sync-to-remote');
-
-
-/** @noinspection PhpUndefinedFunctionInspection */
-task('uploads:sync-from-remote', function () {
-    $projectDir = runLocally('pwd');
-
-    download( "{{deploy_path}}/shared/web/uploads/", $projectDir . '/web/uploads/' , array('-anv'));
-})->desc('uploads:sync-from-remote');
-
-task('local:cache:clear', function (){
-    $projectDir = runLocally('pwd');
-
-    runLocally("cd " . $projectDir . " && " . " rm -rf var/cache/dev var/cache/prod");
-
-})->desc('local:cache:clear');
-
-task('sync-from-remote', [
+task(
     'database:sync-from-remote',
-    'uploads:sync-from-remote',
-    'local:cache:clear',
-])->desc('sync-from-remote');
+    function () {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        $databasePath = "{{deploy_path}}/backup/database";
+        // mysqldump -u [username] -p [database name] > [database name].sql
+
+        run("mkdir -p " . $databasePath);
+
+        $parametrs = get('parameters');
+
+        $exportDatabasePath = $databasePath . "/" . $parametrs['database_name'] . ".sql";
+
+        run("mysqldump -u " . $parametrs['database_user'] . " " . $parametrs['database_name'] . " > " . $exportDatabasePath);
+
+        $projectDir = runLocally('pwd');
+
+        $varDir = $projectDir . '/var/database';
+        runLocally("mkdir -p " . $varDir);
+
+        $localDatabasePath = $varDir . "/" . $parametrs['database_name'] . ".sql";
+
+        download($exportDatabasePath, $localDatabasePath);
 
 
+        runLocally("cd " . $projectDir . " && " . " php bin/console doctrine:database:drop --if-exists --force --quiet --no-interaction --no-debug");
+        runLocally("cd " . $projectDir . " && " . " php bin/console doctrine:database:create --if-not-exists");
 
+        $parameters = Yaml::parse(file_get_contents($projectDir . '/app/config/parameters.yml'));
 
-
-/** @noinspection PhpUndefinedFunctionInspection */
-task('compo:core:update', function () {
-    /** @noinspection PhpUndefinedFunctionInspection */
-    run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console compo:core:update --env={{env}} --no-debug');
-    //run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console fos:elastica:populate --env=dev --no-debug');
-
-    run("cd {{deploy_path}} && ln -sfn current/web public_html");
-
-})->desc('compo:core:update');
-
-/** @noinspection PhpUndefinedFunctionInspection */
-task('compo:core:install', function () {
-    /** @noinspection PhpUndefinedFunctionInspection */
-    run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console compo:core:install --env={{env}} --no-debug');
-
-    run("cd {{deploy_path}} && ln -sfn current/web public_html");
-
-})->desc('compo:core:install');
-
-/** @noinspection PhpUndefinedFunctionInspection */
-task('compo:create-configs', function () {
-    /** @noinspection PhpUndefinedFunctionInspection */
-    run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console compo:create-configs --env={{env}} --no-debug');
-})->desc('compo:create-configs');
-
-/** @noinspection PhpUndefinedFunctionInspection */
-task('symfony:env_vars', function () {
-    /** @noinspection PhpUndefinedFunctionInspection */
-    $parametrs = get('parameters');
-
-    $parametrs_array = array();
-
-    foreach ($parametrs as $parametrs_key => $parametrs_val) {
-        $parametrs_array[] = "PARAMETERS__" . strtoupper($parametrs_key) . "=" . $parametrs_val;
+        // mysql -u[database user] -p [database name] < file.sql
+        runLocally(
+            "cd " . $projectDir . " && "
+            . " mysql --user=" . $parameters['parameters']['database_user'] . " --password=" . $parameters['parameters']['database_password']
+            . ' ' . $parameters['parameters']['database_name']
+            . ' < '
+            . $localDatabasePath
+        );
     }
+)->desc('database:sync-from-remote');
 
-    $parametrs_array[] = 'SYMFONY_ENV=prod';
 
-    /** @noinspection PhpUndefinedFunctionInspection */
-    set('env_vars', implode(' ', $parametrs_array));
+/** @noinspection PhpUndefinedFunctionInspection */
+task(
+    'database:sync-to-remote',
+    function () {
 
-})->setPrivate();
+        $projectDir = runLocally('pwd');
+        $varDir = $projectDir . '/var/database';
+        runLocally("mkdir -p " . $varDir);
+
+        $parameters = Yaml::parse(file_get_contents($projectDir . '/app/config/parameters.yml'));
+
+        $exportDatabasePath = $varDir . "/" . $parameters['parameters']['database_name'] . ".sql";
+
+        runLocally("mysqldump -u " . $parameters['parameters']['database_user'] . " " . $parameters['parameters']['database_name'] . " > " . $exportDatabasePath);
+
+        run("mkdir -p {{release_path}}/var/database/");
+
+        upload($exportDatabasePath, '{{release_path}}/var/database/' . $parameters['parameters']['database_name'] . ".sql");
+
+
+        run("cd {{release_path}} && " . " php bin/console doctrine:database:drop --if-exists --force --quiet --no-interaction --no-debug");
+        run("cd {{release_path}} && " . " php bin/console doctrine:database:create --if-not-exists");
+
+        $parametrs = get('parameters');
+
+
+        run(
+            "cd {{release_path}} && "
+            . " mysql --user=" . $parametrs['database_user'] . " --password=" . $parametrs['database_password']
+            . ' ' . $parametrs['database_name']
+            . ' < '
+            . '{{release_path}}/var/database/' . $parametrs['database_name'] . ".sql"
+        );
+
+
+    }
+)->desc('database:sync-to-remote');
+
+
+/** @noinspection PhpUndefinedFunctionInspection */
+task(
+    'uploads:sync-from-remote',
+    function () {
+        $projectDir = runLocally('pwd');
+
+        download("{{deploy_path}}/shared/web/uploads/", $projectDir . '/web/uploads/', array('-anv'));
+    }
+)->desc('uploads:sync-from-remote');
+
+task(
+    'local:cache:clear',
+    function () {
+        $projectDir = runLocally('pwd');
+
+        runLocally("cd " . $projectDir . " && " . " rm -rf var/cache/dev var/cache/prod");
+
+    }
+)->desc('local:cache:clear');
+
+task(
+    'sync-from-remote',
+    [
+        'database:sync-from-remote',
+        'uploads:sync-from-remote',
+        'local:cache:clear',
+    ]
+)->desc('sync-from-remote');
+
+
+/** @noinspection PhpUndefinedFunctionInspection */
+task(
+    'compo:core:update',
+    function () {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console compo:core:update --env={{env}} --no-debug');
+        //run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console fos:elastica:populate --env=dev --no-debug');
+
+        run("cd {{deploy_path}} && ln -sfn current/web public_html");
+
+    }
+)->desc('compo:core:update');
+
+/** @noinspection PhpUndefinedFunctionInspection */
+task(
+    'compo:core:install',
+    function () {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console compo:core:install --env={{env}} --no-debug');
+
+        run("cd {{deploy_path}} && ln -sfn current/web public_html");
+
+    }
+)->desc('compo:core:install');
+
+/** @noinspection PhpUndefinedFunctionInspection */
+task(
+    'compo:create-configs',
+    function () {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console compo:create-configs --env={{env}} --no-debug');
+    }
+)->desc('compo:create-configs');
+
+/** @noinspection PhpUndefinedFunctionInspection */
+task(
+    'symfony:env_vars',
+    function () {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        $parametrs = get('parameters');
+
+        $parametrs_array = array();
+
+        foreach ($parametrs as $parametrs_key => $parametrs_val) {
+            $parametrs_array[] = "PARAMETERS__" . strtoupper($parametrs_key) . "=" . $parametrs_val;
+        }
+
+        $parametrs_array[] = 'SYMFONY_ENV=prod';
+
+        /** @noinspection PhpUndefinedFunctionInspection */
+        set('env_vars', implode(' ', $parametrs_array));
+
+    }
+)->setPrivate();
 
 /*
 desc('Restart PHP-FPM service');
@@ -228,149 +263,174 @@ after('deploy:symlink', 'php-fpm:restart');
 */
 
 /** @noinspection PhpUndefinedFunctionInspection */
-task('php-fpm:restart', function () {
-    // The user must have rights for restart service
-    // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart nginx.service
-    run('sudo systemctl restart php7.0-fpm.service');
-});
-
-/** @noinspection PhpUndefinedFunctionInspection */
-task('php-fpm:reload', function () {
-    // The user must have rights for restart service
-    // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart nginx.service
-    run('sudo systemctl reload php7.0-fpm.service');
-});
-
-
-/** @noinspection PhpUndefinedFunctionInspection */
-task('nginx:restart', function () {
-    // The user must have rights for restart service
-    // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart nginx.service
-    run('sudo systemctl restart nginx.service');
-});
-
-/** @noinspection PhpUndefinedFunctionInspection */
-task('nginx:reload', function () {
-    // The user must have rights for restart service
-    // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart nginx.service
-    run('sudo systemctl reload nginx.service');
-});
-
-/** @noinspection PhpUndefinedFunctionInspection */
-task('deploy:assetic:dump', function () {
-    /** @noinspection PhpUndefinedFunctionInspection */
-    if (get('dump_assets')) {
-        // php bin/console sylius:theme:assets:install --symlink --relative
-
-        run('{{env_vars}} cd {{release_path}} && {{bin/php}} {{bin/console}} sylius:theme:assets:install --symlink --relative {{console_options}}');
-
-        $env = get('env');
-
-        set('env', 'dev');
-
-        run('{{env_vars}} cd {{release_path}} && {{bin/php}} {{bin/console}} assetic:dump --env=dev');
-
-        set('env', $env);
-
-        run('{{env_vars}} cd {{release_path}} && {{bin/php}} {{bin/console}} assetic:dump {{console_options}}');
+task(
+    'php-fpm:restart',
+    function () {
+        // The user must have rights for restart service
+        // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart nginx.service
+        run('sudo systemctl restart php7.0-fpm.service');
     }
-})->desc('Dump assets');
-
-
+);
 
 /** @noinspection PhpUndefinedFunctionInspection */
-task('deploy:sitemaps', function () {
-
-    $sitemapsPath = "{{deploy_path}}/backup/sitemaps";
-
-    run("mkdir -p $sitemapsPath");
-
-    try {
-        run("cp -rf {{deploy_path}}/current/web/sitemap.* $sitemapsPath/");
-        run("cp -rf $sitemapsPath/sitemap.* {{release_path}}/web/");
-    } catch (\Exception $e) {
-
-    }
-
-
-})->desc('deploy:sitemaps');
-
-
-
-/** @noinspection PhpUndefinedFunctionInspection */
-task('deploy:market', function () {
-
-    $sitemapsPath = "{{deploy_path}}/backup/market";
-
-    run("mkdir -p $sitemapsPath");
-
-    try {
-        run("cp -rf {{deploy_path}}/current/web/yandex.market.* $sitemapsPath/");
-        run("cp -rf $sitemapsPath/yandex.market.* {{release_path}}/web/");
-    } catch (\Exception $e) {
-
-    }
-
-
-})->desc('deploy:market');
-
-
-/** @noinspection PhpUndefinedFunctionInspection */
-task('install', [
-    'timezone',
-    'deploy:prepare',
-    'deploy:lock',
-    'timezone',
-    'deploy:release',
-    'deploy:update_code',
-    //'deploy:clear_paths',
-    'deploy:create_cache_dir',
-    'deploy:shared',
-    'deploy:sitemaps',
-    'deploy:market',
-    //'deploy:assets',
-    //'deploy:copy_dirs',
-    'symfony:env_vars',
-    'deploy:vendors',
-    //'deploy:assets:install',
-    'deploy:assetic:dump',
-    //'deploy:cache:warmup',
-    'deploy:writable',
-    'deploy:symlink',
-
-    'compo:core:install',
+task(
     'php-fpm:reload',
-    'nginx:reload',
+    function () {
+        // The user must have rights for restart service
+        // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart nginx.service
+        run('sudo systemctl reload php7.0-fpm.service');
+    }
+);
 
-    'deploy:unlock',
-    'cleanup',
-])->desc('Install your project');
 
 /** @noinspection PhpUndefinedFunctionInspection */
-task('deploy', [
-    'timezone',
-    'deploy:prepare',
-    'deploy:lock',
-    'timezone',
-    'deploy:release',
-    'deploy:update_code',
-    //'deploy:clear_paths',
-    'deploy:create_cache_dir',
-    'deploy:shared',
-    'deploy:sitemaps',
-    'deploy:market',
-    //'deploy:assets',
-    //'deploy:copy_dirs',
-    'symfony:env_vars',
-    'deploy:vendors',
-    //'deploy:assets:install',
-    'deploy:assetic:dump',
-    //'deploy:cache:warmup',
-    'deploy:writable',
-    'deploy:symlink',
-    'php-fpm:reload',
+task(
+    'nginx:restart',
+    function () {
+        // The user must have rights for restart service
+        // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart nginx.service
+        run('sudo systemctl restart nginx.service');
+    }
+);
+
+/** @noinspection PhpUndefinedFunctionInspection */
+task(
     'nginx:reload',
-    'compo:core:update',
-    'deploy:unlock',
-    'cleanup',
-])->desc('Deploy your project');
+    function () {
+        // The user must have rights for restart service
+        // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart nginx.service
+        run('sudo systemctl reload nginx.service');
+    }
+);
+
+/** @noinspection PhpUndefinedFunctionInspection */
+task(
+    'deploy:assetic:dump',
+    function () {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        if (get('dump_assets')) {
+            // php bin/console sylius:theme:assets:install --symlink --relative
+
+            run('{{env_vars}} cd {{release_path}} && {{bin/php}} {{bin/console}} sylius:theme:assets:install --symlink --relative {{console_options}}');
+
+            $env = get('env');
+
+            set('env', 'dev');
+
+            run('{{env_vars}} cd {{release_path}} && {{bin/php}} {{bin/console}} assetic:dump --env=dev');
+
+            set('env', $env);
+
+            run('{{env_vars}} cd {{release_path}} && {{bin/php}} {{bin/console}} assetic:dump {{console_options}}');
+        }
+    }
+)->desc('Dump assets');
+
+
+/** @noinspection PhpUndefinedFunctionInspection */
+task(
+    'deploy:sitemaps',
+    function () {
+
+        $sitemapsPath = "{{deploy_path}}/backup/sitemaps";
+
+        run("mkdir -p $sitemapsPath");
+
+        try {
+            run("cp -rf {{deploy_path}}/current/web/sitemap.* $sitemapsPath/");
+            run("cp -rf $sitemapsPath/sitemap.* {{release_path}}/web/");
+        } catch (\Exception $e) {
+
+        }
+
+
+    }
+)->desc('deploy:sitemaps');
+
+
+/** @noinspection PhpUndefinedFunctionInspection */
+task(
+    'deploy:market',
+    function () {
+
+        $sitemapsPath = "{{deploy_path}}/backup/market";
+
+        run("mkdir -p $sitemapsPath");
+
+        try {
+            run("cp -rf {{deploy_path}}/current/web/yandex.market.* $sitemapsPath/");
+            run("cp -rf $sitemapsPath/yandex.market.* {{release_path}}/web/");
+        } catch (\Exception $e) {
+
+        }
+
+
+    }
+)->desc('deploy:market');
+
+
+/** @noinspection PhpUndefinedFunctionInspection */
+task(
+    'install',
+    [
+        'timezone',
+        'deploy:prepare',
+        'deploy:lock',
+        'timezone',
+        'deploy:release',
+        'deploy:update_code',
+        //'deploy:clear_paths',
+        'deploy:create_cache_dir',
+        'deploy:shared',
+        'deploy:sitemaps',
+        'deploy:market',
+        //'deploy:assets',
+        //'deploy:copy_dirs',
+        'symfony:env_vars',
+        'deploy:vendors',
+        //'deploy:assets:install',
+        'deploy:assetic:dump',
+        //'deploy:cache:warmup',
+        'deploy:writable',
+        'deploy:symlink',
+
+        'compo:core:install',
+        'php-fpm:reload',
+        'nginx:reload',
+
+        'deploy:unlock',
+        'cleanup',
+    ]
+)->desc('Install your project');
+
+/** @noinspection PhpUndefinedFunctionInspection */
+task(
+    'deploy',
+    [
+        'timezone',
+        'deploy:prepare',
+        'deploy:lock',
+        'timezone',
+        'deploy:release',
+        'deploy:update_code',
+        //'deploy:clear_paths',
+        'deploy:create_cache_dir',
+        'deploy:shared',
+        'deploy:sitemaps',
+        'deploy:market',
+        //'deploy:assets',
+        //'deploy:copy_dirs',
+        'symfony:env_vars',
+        'deploy:vendors',
+        //'deploy:assets:install',
+        'deploy:assetic:dump',
+        //'deploy:cache:warmup',
+        'deploy:writable',
+        'deploy:symlink',
+        'php-fpm:reload',
+        'nginx:reload',
+        'compo:core:update',
+        'deploy:unlock',
+        'cleanup',
+    ]
+)->desc('Deploy your project');

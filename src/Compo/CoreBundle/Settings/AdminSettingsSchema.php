@@ -106,50 +106,78 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
      */
     public function buildForm(FormBuilderInterface $builder)
     {
-        $main_tab = $builder->create('main_tab', TabType::class, array(
-            'label' => 'settings.main_tab',
-            'inherit_data' => true,
-        ));
+        $main_tab = $builder->create(
+            'main_tab',
+            TabType::class,
+            array(
+                'label' => 'settings.main_tab',
+                'inherit_data' => true,
+            )
+        );
         $main_tab->add('email', EmailType::class);
 
-        $header_tab = $builder->create('header_tab', TabType::class, array(
-            'label' => 'settings.header_tab',
-            'inherit_data' => true,
-        ));
+        $header_tab = $builder->create(
+            'header_tab',
+            TabType::class,
+            array(
+                'label' => 'settings.header_tab',
+                'inherit_data' => true,
+            )
+        );
 
-        $header_tab->add('header_menu', ChoiceType::class, array(
-            'choices' => $this->getMenuRepository()->getChoices()
-        ));
+        $header_tab->add(
+            'header_menu',
+            ChoiceType::class,
+            array(
+                'choices' => $this->getMenuRepository()->getChoices()
+            )
+        );
 
         $header_tab->add('header_phones', CKEditorType::class);
         $header_tab->add('header_timework', CKEditorType::class);
         $header_tab->add('header_timework_description', CKEditorType::class);
 
 
-        $footer_tab = $builder->create('footer_tab', TabType::class, array(
-            'label' => 'settings.footer_tab',
-            'inherit_data' => true,
-        ));
+        $footer_tab = $builder->create(
+            'footer_tab',
+            TabType::class,
+            array(
+                'label' => 'settings.footer_tab',
+                'inherit_data' => true,
+            )
+        );
 
-        $footer_tab->add('footer_menu', ChoiceType::class, array(
-            'choices' => $this->getMenuRepository()->getChoices()
-        ));
+        $footer_tab->add(
+            'footer_menu',
+            ChoiceType::class,
+            array(
+                'choices' => $this->getMenuRepository()->getChoices()
+            )
+        );
 
         $footer_tab->add('footer_copyright', CKEditorType::class);
         $footer_tab->add('footer_address', CKEditorType::class);
         $footer_tab->add('footer_phones', CKEditorType::class);
 
 
-        $logo_tab = $builder->create('logo_tab', TabType::class, array(
-            'label' => 'settings.logo_tab',
-            'inherit_data' => true,
-        ));
+        $logo_tab = $builder->create(
+            'logo_tab',
+            TabType::class,
+            array(
+                'label' => 'settings.logo_tab',
+                'inherit_data' => true,
+            )
+        );
 
-        $logo_tab->add('logo_image', MediaType::class, array(
-            'required' => false,
-            'context' => 'default',
-            'provider' => 'sonata.media.provider.image',
-        ));
+        $logo_tab->add(
+            'logo_image',
+            MediaType::class,
+            array(
+                'required' => false,
+                'context' => 'default',
+                'provider' => 'sonata.media.provider.image',
+            )
+        );
 
         $builder
             ->add($main_tab)

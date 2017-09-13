@@ -51,26 +51,36 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
         $admin = $admin_pool->getAdminByAdminCode('compo_core.admin.settings');
         // simulate an association ...
         /** @noinspection PhpUndefinedMethodInspection */
-        $fieldDescription = $this->getMediaAdmin()->getModelManager()->getNewFieldDescriptionInstance($this->mediaAdmin->getClass(), 'media', array(
-            'translation_domain' => 'SonataMediaBundle',
-        ));
+        $fieldDescription = $this->getMediaAdmin()->getModelManager()->getNewFieldDescriptionInstance(
+            $this->mediaAdmin->getClass(),
+            'media',
+            array(
+                'translation_domain' => 'SonataMediaBundle',
+            )
+        );
         $fieldDescription->setAssociationAdmin($this->getMediaAdmin());
         $fieldDescription->setAdmin($admin);
         $fieldDescription->setOption('edit', 'list');
-        $fieldDescription->setAssociationMapping(array(
-            'fieldName' => 'media',
-            'type' => ClassMetadataInfo::MANY_TO_ONE,
-        ));
+        $fieldDescription->setAssociationMapping(
+            array(
+                'fieldName' => 'media',
+                'type' => ClassMetadataInfo::MANY_TO_ONE,
+            )
+        );
 
         /** @noinspection PhpUndefinedMethodInspection */
-        return $formMapper->add('mediaId', 'sonata_type_model_list', array(
-            'sonata_field_description' => $fieldDescription,
-            'class' => $this->getMediaAdmin()->getClass(),
-            'model_manager' => $this->getMediaAdmin()->getModelManager(),
-            'label' => 'form.label_media',
-            'required' => false,
+        return $formMapper->add(
+            'mediaId',
+            'sonata_type_model_list',
+            array(
+                'sonata_field_description' => $fieldDescription,
+                'class' => $this->getMediaAdmin()->getClass(),
+                'model_manager' => $this->getMediaAdmin()->getModelManager(),
+                'label' => 'form.label_media',
+                'required' => false,
 
-        ));
+            )
+        );
     }
 
     /**
@@ -98,6 +108,7 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
         if (!$this->mediaAdmin) {
             $this->mediaAdmin = $this->container->get('sonata.media.admin.media');
         }
+
         return $this->mediaAdmin;
     }
 
@@ -151,10 +162,14 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
      */
     public function createTab($name)
     {
-        return $this->getFormBuilder()->create('tab_label_settings_' . $name, TabType::class, array(
-            'label' => 'tab.label_settings_' . $name,
-            'inherit_data' => true,
-        ));
+        return $this->getFormBuilder()->create(
+            'tab_label_settings_' . $name,
+            TabType::class,
+            array(
+                'label' => 'tab.label_settings_' . $name,
+                'inherit_data' => true,
+            )
+        );
     }
 
     /**

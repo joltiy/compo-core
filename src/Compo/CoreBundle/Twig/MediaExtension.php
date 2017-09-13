@@ -187,10 +187,13 @@ class MediaExtension extends \Twig_Extension
 
         $attr['src'] = $this->getPath($media, $options_filter);
 
-        return $this->render($provider->getTemplate('helper_thumbnail'), array(
-            'media' => $media,
-            'options' => $attr,
-        ));
+        return $this->render(
+            $provider->getTemplate('helper_thumbnail'),
+            array(
+                'media' => $media,
+                'options' => $attr,
+            )
+        );
     }
 
     /**
@@ -201,9 +204,11 @@ class MediaExtension extends \Twig_Extension
     private function getMedia($media)
     {
         if (!$media instanceof MediaInterface && strlen($media) > 0) {
-            $media = $this->mediaManager->findOneBy(array(
-                'id' => $media,
-            ));
+            $media = $this->mediaManager->findOneBy(
+                array(
+                    'id' => $media,
+                )
+            );
         }
 
         if (!$media instanceof MediaInterface) {

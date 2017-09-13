@@ -18,11 +18,13 @@ class TextPageBlockService extends FormatterBlockService
      */
     public function configureSettings(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'format' => 'richhtml',
-            'rawContent' => '<b>Текстовая страница с форматированием</b>',
-            'content' => '<b>Текстовая страница с форматированием</b>',
-            'template' => 'CompoCoreBundle:Block:text_page.html.twig',
-        ));
+        $resolver->setDefaults(
+            array(
+                'format' => 'richhtml',
+                'rawContent' => '<b>Текстовая страница с форматированием</b>',
+                'content' => '<b>Текстовая страница с форматированием</b>',
+                'template' => 'CompoCoreBundle:Block:text_page.html.twig',
+            )
+        );
     }
 }

@@ -51,8 +51,7 @@ class ThemeTranslator extends BaseTranslator implements WarmableInterface
         MessageSelector $messageSelector,
         $locale,
         array $options = []
-    )
-    {
+    ) {
         $this->assertOptionsAreKnown($options);
 
         $this->loaderProvider = $loaderProvider;

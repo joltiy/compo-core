@@ -38,9 +38,11 @@ class BowerInstall extends \Sensio\Bundle\DistributionBundle\Composer\ScriptHand
 
             $process = new Process('bower install ' . $root_dir . '/' . $path, $root_dir, null, null, 300);
 
-            $process->run(function ($type, $buffer) use ($event) {
-                $event->getIO()->write($buffer, false);
-            });
+            $process->run(
+                function ($type, $buffer) use ($event) {
+                    $event->getIO()->write($buffer, false);
+                }
+            );
 
             if (!$process->isSuccessful()) {
                 throw new \RuntimeException('An error occurred when bower.');

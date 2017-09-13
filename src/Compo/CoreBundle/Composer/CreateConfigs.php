@@ -23,9 +23,10 @@ class CreateConfigs
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public static function process(/** @noinspection PhpUndefinedClassInspection */
-        Event $event)
-    {
+    public static function process(
+        /** @noinspection PhpUndefinedClassInspection */
+        Event $event
+    ) {
         /** @noinspection PhpUndefinedMethodInspection */
         $vendor = $event->getComposer()->getConfig()->get('vendor-dir');
 
@@ -41,11 +42,13 @@ class CreateConfigs
 
         $parameters['auth_basic_user_file'] = $root_dir . '/config/htpasswd.conf';
 
-        $loader = new \Twig_Loader_Array(array(
-            'nginx.conf.twig' => file_get_contents($root_dir . '/config/nginx.conf.twig'),
-            'php-fpm.conf.twig' => file_get_contents($root_dir . '/config/php-fpm.conf.twig'),
-            'servers.yml.dist' => file_get_contents($root_dir . '/config/servers.yml.dist'),
-        ));
+        $loader = new \Twig_Loader_Array(
+            array(
+                'nginx.conf.twig' => file_get_contents($root_dir . '/config/nginx.conf.twig'),
+                'php-fpm.conf.twig' => file_get_contents($root_dir . '/config/php-fpm.conf.twig'),
+                'servers.yml.dist' => file_get_contents($root_dir . '/config/servers.yml.dist'),
+            )
+        );
 
         $twig = new \Twig_Environment($loader, array('autoescape' => false, 'debug' => false));
 

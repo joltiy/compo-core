@@ -61,9 +61,12 @@ class InstallCommand extends BaseDeployCommand
      */
     public function runDoctrineCreateDatabase()
     {
-        $this->runCommand("doctrine:database:create", array(
-            '--if-not-exists' => true
-        ));
+        $this->runCommand(
+            "doctrine:database:create",
+            array(
+                '--if-not-exists' => true
+            )
+        );
     }
 
     /**
@@ -71,17 +74,22 @@ class InstallCommand extends BaseDeployCommand
      */
     public function runCreateAdmin()
     {
-        $admin = $this->getContainer()->get('fos_user.user_manager')->findOneBy(array(
-            'username' => 'admin'
-        ));
+        $admin = $this->getContainer()->get('fos_user.user_manager')->findOneBy(
+            array(
+                'username' => 'admin'
+            )
+        );
 
         if (!$admin) {
-            $this->runCommand("fos:user:create", array(
-                '--super-admin' => true,
-                'username' => 'admin',
-                'email' => 'admin@admin.com',
-                'password' => 'admin'
-            ));
+            $this->runCommand(
+                "fos:user:create",
+                array(
+                    '--super-admin' => true,
+                    'username' => 'admin',
+                    'email' => 'admin@admin.com',
+                    'password' => 'admin'
+                )
+            );
         }
     }
 
@@ -93,19 +101,22 @@ class InstallCommand extends BaseDeployCommand
         $sites = $this->getSites();
 
         if (!$sites) {
-            $this->runCommand("sonata:page:create-site", array(
-                'command' => 'sonata:page:create-site',
-                '--enabled' => true,
-                '--name' => 'localhost',
-                '--locale' => '-',
-                '--host' => 'localhost',
-                '--relativePath' => '/',
-                '--enabledFrom' => 'now',
-                '--enabledTo' => '+10 years',
-                '--default' => 'true',
-                '--no-interaction' => 'true',
-                '--no-confirmation' => 'true',
-            ));
+            $this->runCommand(
+                "sonata:page:create-site",
+                array(
+                    'command' => 'sonata:page:create-site',
+                    '--enabled' => true,
+                    '--name' => 'localhost',
+                    '--locale' => '-',
+                    '--host' => 'localhost',
+                    '--relativePath' => '/',
+                    '--enabledFrom' => 'now',
+                    '--enabledTo' => '+10 years',
+                    '--default' => 'true',
+                    '--no-interaction' => 'true',
+                    '--no-confirmation' => 'true',
+                )
+            );
         }
     }
 }

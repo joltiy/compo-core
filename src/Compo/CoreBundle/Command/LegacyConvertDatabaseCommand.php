@@ -284,26 +284,54 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
         $this->processMedia();
         $this->processRootCatalog();
 
-        if (in_array('main', $this->tables)) $this->processCurrency();
-        if (in_array('main', $this->tables)) $this->processProductAvailability();
-        if (in_array('main', $this->tables)) $this->processSupplier();
-        if (in_array('main', $this->tables)) $this->processCountry();
-        if (in_array('main', $this->tables)) $this->processManufacture();
-        if (in_array('main', $this->tables)) $this->processCollection();
-        if (in_array('main', $this->tables)) $this->processCatalog();
-        if (in_array('catalog', $this->tables)) $this->processCatalog();
+        if (in_array('main', $this->tables)) {
+            $this->processCurrency();
+        }
+        if (in_array('main', $this->tables)) {
+            $this->processProductAvailability();
+        }
+        if (in_array('main', $this->tables)) {
+            $this->processSupplier();
+        }
+        if (in_array('main', $this->tables)) {
+            $this->processCountry();
+        }
+        if (in_array('main', $this->tables)) {
+            $this->processManufacture();
+        }
+        if (in_array('main', $this->tables)) {
+            $this->processCollection();
+        }
+        if (in_array('main', $this->tables)) {
+            $this->processCatalog();
+        }
+        if (in_array('catalog', $this->tables)) {
+            $this->processCatalog();
+        }
 
-        if (in_array('product', $this->tables)) $this->processProduct();
+        if (in_array('product', $this->tables)) {
+            $this->processProduct();
+        }
 
-        if (in_array('features', $this->tables)) $this->processFeatures();
+        if (in_array('features', $this->tables)) {
+            $this->processFeatures();
+        }
 
-        if (in_array('accessory', $this->tables)) $this->processProductVariation();
+        if (in_array('accessory', $this->tables)) {
+            $this->processProductVariation();
+        }
 
-        if (in_array('accessory', $this->tables)) $this->processProductAccessory();
+        if (in_array('accessory', $this->tables)) {
+            $this->processProductAccessory();
+        }
 
-        if (in_array('accessory', $this->tables)) $this->processProductVariation2();
+        if (in_array('accessory', $this->tables)) {
+            $this->processProductVariation2();
+        }
 
-        if (in_array('accessory', $this->tables)) $this->processProductAccessory2();
+        if (in_array('accessory', $this->tables)) {
+            $this->processProductAccessory2();
+        }
     }
 
 
@@ -946,10 +974,12 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
 
             foreach ($oldDataPhotos as $oldDataPhotos_item) {
 
-                $isset_photo = $ProductAdditionalImagesRepository->findOneBy(array(
-                    'id' => $oldDataPhotos_item['id'],
-                    // 'product' => $newItem
-                ));
+                $isset_photo = $ProductAdditionalImagesRepository->findOneBy(
+                    array(
+                        'id' => $oldDataPhotos_item['id'],
+                        // 'product' => $newItem
+                    )
+                );
 
                 if (!$isset_photo) {
                     $photo_media = $this->downloadMedia($oldDataPhotos_item['image_id']);
@@ -981,9 +1011,11 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
 
             foreach ($oldDataPhotos as $oldDataPhotos_item) {
 
-                $isset_photo = $ProductAdditionalFilesRepository->findOneBy(array(
-                    'id' => $oldDataPhotos_item['id'],
-                ));
+                $isset_photo = $ProductAdditionalFilesRepository->findOneBy(
+                    array(
+                        'id' => $oldDataPhotos_item['id'],
+                    )
+                );
 
                 if (!$isset_photo) {
                     $photo_media = $this->downloadFile($oldDataPhotos_item['filename'], $oldDataPhotos_item);
@@ -1116,10 +1148,12 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
 
             $this->output->writeln($name . '. ' . $i . ' (OLD): ' . $feature_type_item['header']);
 
-            $fa = $featureAttributeRepositoru->findOneBy(array(
-                'name' => $feature_type_item['header'],
-                'category_id' => $feature_type_item['brunch'],
-            ));
+            $fa = $featureAttributeRepositoru->findOneBy(
+                array(
+                    'name' => $feature_type_item['header'],
+                    'category_id' => $feature_type_item['brunch'],
+                )
+            );
 
             if (!$fa) {
                 $fa = new FeatureAttribute();
@@ -1175,10 +1209,12 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
 
                 foreach ($feature_values as $feature_values_item) {
 
-                    $fv = $featureVariantRepositoru->findOneBy(array(
-                        'name' => $feature_values_item['header'],
-                        'feature' => $fa
-                    ));
+                    $fv = $featureVariantRepositoru->findOneBy(
+                        array(
+                            'name' => $feature_values_item['header'],
+                            'feature' => $fa
+                        )
+                    );
 
                     if (!$fv) {
                         $fv = new FeatureVariant();
@@ -1494,11 +1530,13 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
         foreach ($oldData as $oldDataItem_key => $oldDataItem) {
             $i++;
 
-            $newItem = $currentRepository->findOneBy(array(
-                'name' => $oldDataItem['header'],
-                'sku' => $oldDataItem['articul'],
-                'price' => $oldDataItem['price']
-            ));
+            $newItem = $currentRepository->findOneBy(
+                array(
+                    'name' => $oldDataItem['header'],
+                    'sku' => $oldDataItem['articul'],
+                    'price' => $oldDataItem['price']
+                )
+            );
 
             if (!$product = $currentRepository->find($oldDataItem['parent_id'])) {
                 continue;
@@ -1661,11 +1699,13 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
         foreach ($oldData as $oldDataItem) {
             $i++;
 
-            $newItem = $currentRepository->findOneBy(array(
-                'name' => $oldDataItem['header'],
-                'sku' => $oldDataItem['articul'],
-                'price' => $oldDataItem['price']
-            ));
+            $newItem = $currentRepository->findOneBy(
+                array(
+                    'name' => $oldDataItem['header'],
+                    'sku' => $oldDataItem['articul'],
+                    'price' => $oldDataItem['price']
+                )
+            );
 
 
             $this->output->writeln($name . '. ' . $i . ': ' . $oldDataItem['header']);

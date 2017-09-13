@@ -12,7 +12,7 @@ ob_end_clean();
 file_put_contents($out . '/index.html', $contents);
 
 # Each
-foreach ($browsers as $browser)
+foreach ($browsers as $browser) {
     foreach ($adapters as $adapter) {
         ob_start();
         /** @noinspection PhpIncludeInspection */
@@ -21,6 +21,7 @@ foreach ($browsers as $browser)
         ob_end_clean();
         file_put_contents($out . "/${url}", $contents);
     }
+}
 
 # Done
 ?>

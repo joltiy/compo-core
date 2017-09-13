@@ -34,6 +34,7 @@ trait JsonTrait
     {
         $jsonResponse = new JsonResponse();
         $jsonResponse->setData($data);
+
         return $jsonResponse;
     }
 
