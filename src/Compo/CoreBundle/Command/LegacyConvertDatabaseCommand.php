@@ -192,9 +192,8 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
 
     /**
      * @param $currentRepository \Doctrine\Common\Persistence\ObjectRepository
-     * @param bool $clear
      */
-    protected function clearCurrent($currentRepository, $clear = true)
+    protected function clearCurrent($currentRepository)
     {
 
         $this->writelnMemmory('clearCurrent ' . $currentRepository->getClassName());
