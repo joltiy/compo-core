@@ -167,7 +167,8 @@ class MenuBlockService extends AbstractBlockService
                 // URL's completely match
                 $node->setCurrent(true);
             } else {
-                if ($item['url'] !== $this->getRequest()->getBaseUrl() . '/' && (0 === strpos($this->getRequest()->getRequestUri(), $item['url']))) {
+
+                if ($item['url']&& $item['url'] !== $this->getRequest()->getBaseUrl() . '/' && (0 === strpos($this->getRequest()->getRequestUri(), $item['url']))) {
                     // URL isn't just "/" and the first container of the URL match
                     $node->setCurrent(true);
                 }
