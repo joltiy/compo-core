@@ -104,7 +104,7 @@ class MediaExtension extends \Twig_Extension
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function getThumbnail($media, $options_filter = array(), $attr = array())
+    public function getThumbnail($media, array $options_filter = array(), array $attr = array())
     {
         $format = 'reference';
 
@@ -235,7 +235,7 @@ class MediaExtension extends \Twig_Extension
      * @param array $options
      * @return string
      */
-    public function getPath($media, $options = array())
+    public function getPath($media, array $options = array())
     {
         $format = 'reference';
 

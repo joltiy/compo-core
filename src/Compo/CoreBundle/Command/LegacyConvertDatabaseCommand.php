@@ -270,7 +270,7 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
         $this->oldConnection = $oldConnection;
 
         $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
-        $this->oldConnection->getConfiguration()->setSQLLogger(null);
+        $this->oldConnection->getConfiguration()->setSQLLogger();
 
         gc_enable();
         $this->process();
@@ -284,52 +284,52 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
         $this->processMedia();
         $this->processRootCatalog();
 
-        if (in_array('main', $this->tables)) {
+        if (in_array('main', $this->tables, true)) {
             $this->processCurrency();
         }
-        if (in_array('main', $this->tables)) {
+        if (in_array('main', $this->tables, true)) {
             $this->processProductAvailability();
         }
-        if (in_array('main', $this->tables)) {
+        if (in_array('main', $this->tables, true)) {
             $this->processSupplier();
         }
-        if (in_array('main', $this->tables)) {
+        if (in_array('main', $this->tables, true)) {
             $this->processCountry();
         }
-        if (in_array('main', $this->tables)) {
+        if (in_array('main', $this->tables, true)) {
             $this->processManufacture();
         }
-        if (in_array('main', $this->tables)) {
+        if (in_array('main', $this->tables, true)) {
             $this->processCollection();
         }
-        if (in_array('main', $this->tables)) {
+        if (in_array('main', $this->tables, true)) {
             $this->processCatalog();
         }
-        if (in_array('catalog', $this->tables)) {
+        if (in_array('catalog', $this->tables, true)) {
             $this->processCatalog();
         }
 
-        if (in_array('product', $this->tables)) {
+        if (in_array('product', $this->tables, true)) {
             $this->processProduct();
         }
 
-        if (in_array('features', $this->tables)) {
+        if (in_array('features', $this->tables, true)) {
             $this->processFeatures();
         }
 
-        if (in_array('accessory', $this->tables)) {
+        if (in_array('accessory', $this->tables, true)) {
             $this->processProductVariation();
         }
 
-        if (in_array('accessory', $this->tables)) {
+        if (in_array('accessory', $this->tables, true)) {
             $this->processProductAccessory();
         }
 
-        if (in_array('accessory', $this->tables)) {
+        if (in_array('accessory', $this->tables, true)) {
             $this->processProductVariation2();
         }
 
-        if (in_array('accessory', $this->tables)) {
+        if (in_array('accessory', $this->tables, true)) {
             $this->processProductAccessory2();
         }
     }
@@ -487,7 +487,7 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
      */
     protected function changeIdGenerator($newItem)
     {
-        $metadata = $this->em->getClassMetaData(get_class($newItem));
+        $metadata = $this->em->getClassMetadata(get_class($newItem));
         /** @noinspection PhpUndefinedMethodInspection */
         $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
         /** @noinspection PhpUndefinedMethodInspection */
@@ -873,10 +873,10 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
 
         $currentRepository = $this->em->getRepository('CompoProductBundle:Product');
 
+        $limit = '';
+
         if ($this->limit) {
             $limit = ' LIMIT 0,' . $this->limit;
-        } else {
-            $limit = '';
         }
 
         $oldData = $this->oldConnection->fetchAll('SELECT * FROM `tovar` ORDER BY id ASC ' . $limit);
@@ -902,7 +902,7 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
                 $this->changeIdGenerator($newItem);
                 $newItem->setId($oldDataItem['id']);
             } else {
-                $metadata = $this->em->getClassMetaData(get_class($newItem));
+                $metadata = $this->em->getClassMetadata(get_class($newItem));
                 /** @noinspection PhpUndefinedMethodInspection */
                 $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_AUTO);
                 /** @noinspection PhpUndefinedMethodInspection */
@@ -1098,9 +1098,9 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
 
             $file_path = $cache_dir . '/' . $id;
 
-            file_put_contents($file_path, file_get_contents($this->oldFilesPath . $id));
+            copy($this->oldFilesPath . $id, $file_path);
 
-            if ($http_response_header[0] != 'HTTP/1.1 200 OK') {
+            if ($http_response_header[0] !== 'HTTP/1.1 200 OK') {
                 return null;
             }
 
@@ -1178,7 +1178,7 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
 
             $fa->setName($feature_type_item['header']);
 
-            if (trim(strip_tags($fa->getDescription())) == '' && trim(strip_tags($feature_type_item['description'])) != '') {
+            if (trim(strip_tags($fa->getDescription())) === '' && trim(strip_tags($feature_type_item['description'])) !== '') {
                 $fa->setDescription($feature_type_item['description']);
             }
 
@@ -1220,7 +1220,7 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
                         $fv = new FeatureVariant();
                     }
 
-                    if (trim($fv->getDescription()) == '' && trim(strip_tags($feature_values_item['description'])) != '') {
+                    if (trim($fv->getDescription()) === '' && trim(strip_tags($feature_values_item['description'])) !== '') {
                         $fv->setDescription($feature_values_item['description']);
                     }
 
@@ -1304,7 +1304,7 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
                         /** @var FeatureAttribute $featureAttribute */
                         $featureAttribute = $this->features[$oldProductFeaturesItem['feature_id']]['feature'];
 
-                        if ($featureAttribute->getType() == 'variant') {
+                        if ($featureAttribute->getType() === 'variant') {
                             if (isset($this->features[$oldProductFeaturesItem['feature_id']]['variants'][$oldProductFeaturesItem['header']])) {
                                 $featureValue->setValueVariant($this->features[$oldProductFeaturesItem['feature_id']]['variants'][$oldProductFeaturesItem['header']]);
                                 $featureValue->setFeature($featureAttribute);
@@ -1608,7 +1608,7 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
                     $newCatalogItem->setSlug($this->getContainer()->get('sonata.core.slugify.cocur')->slugify($old_complect_type['header']));
                     $newCatalogItem->setParent($catalogRepository->findOneBy(array('lvl' => 0)));
 
-                    $metadata = $this->em->getClassMetaData(get_class($newCatalogItem));
+                    $metadata = $this->em->getClassMetadata(get_class($newCatalogItem));
                     /** @noinspection PhpUndefinedMethodInspection */
                     $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_AUTO);
                     /** @noinspection PhpUndefinedMethodInspection */
@@ -1773,7 +1773,7 @@ class LegacyConvertDatabaseCommand extends ContainerAwareCommand
                     $newCatalogItem->setSlug($this->getContainer()->get('sonata.core.slugify.cocur')->slugify($old_complect_type['header']));
                     $newCatalogItem->setParent($catalogRepository->findOneBy(array('lvl' => 0)));
 
-                    $metadata = $this->em->getClassMetaData(get_class($newCatalogItem));
+                    $metadata = $this->em->getClassMetadata(get_class($newCatalogItem));
                     /** @noinspection PhpUndefinedMethodInspection */
                     $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_AUTO);
                     /** @noinspection PhpUndefinedMethodInspection */

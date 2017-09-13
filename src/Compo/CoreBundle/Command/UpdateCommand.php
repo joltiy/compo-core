@@ -46,7 +46,7 @@ class UpdateCommand extends BaseDeployCommand
 
         $this->runCacheWarmup();
 
-        $this->runCommand("compo:notification:load");
+        $this->runCommand('compo:notification:load');
 
         return 0;
     }

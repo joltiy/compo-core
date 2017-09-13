@@ -49,7 +49,7 @@ class InstallCommand extends BaseDeployCommand
 
         $this->runCacheWarmup();
 
-        $this->runCommand("compo:notification:load");
+        $this->runCommand('compo:notification:load');
     }
 
 
@@ -62,7 +62,7 @@ class InstallCommand extends BaseDeployCommand
     public function runDoctrineCreateDatabase()
     {
         $this->runCommand(
-            "doctrine:database:create",
+            'doctrine:database:create',
             array(
                 '--if-not-exists' => true
             )
@@ -82,7 +82,7 @@ class InstallCommand extends BaseDeployCommand
 
         if (!$admin) {
             $this->runCommand(
-                "fos:user:create",
+                'fos:user:create',
                 array(
                     '--super-admin' => true,
                     'username' => 'admin',
@@ -102,7 +102,7 @@ class InstallCommand extends BaseDeployCommand
 
         if (!$sites) {
             $this->runCommand(
-                "sonata:page:create-site",
+                'sonata:page:create-site',
                 array(
                     'command' => 'sonata:page:create-site',
                     '--enabled' => true,

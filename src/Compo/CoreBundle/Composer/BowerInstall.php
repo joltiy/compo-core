@@ -31,6 +31,7 @@ class BowerInstall extends \Sensio\Bundle\DistributionBundle\Composer\ScriptHand
 
         $vendor = $event->getComposer()->getConfig()->get('vendor-dir');
 
+        /** @noinspection RealpathInSteamContextInspection */
         $root_dir = realpath($vendor . '/../');
 
         foreach ($paths as $path) {

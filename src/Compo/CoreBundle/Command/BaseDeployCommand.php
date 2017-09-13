@@ -29,7 +29,7 @@ class BaseDeployCommand extends ContainerAwareCommand
     public function runDoctrineMigrate()
     {
         $this->runCommand(
-            "doctrine:migrations:migrate",
+            'doctrine:migrations:migrate',
             array(
                 '--no-interaction' => 1
             )
@@ -44,7 +44,7 @@ class BaseDeployCommand extends ContainerAwareCommand
      *
      * @throws \Exception
      */
-    public function runCommand($command, $arrayInput = array())
+    public function runCommand($command, array $arrayInput = array())
     {
         $application = $this->getApplication();
 
@@ -85,7 +85,7 @@ class BaseDeployCommand extends ContainerAwareCommand
         foreach ($sites as $site) {
             /** @var $site Site */
             $this->runCommand(
-                "sonata:page:update-core-routes",
+                'sonata:page:update-core-routes',
                 array(
                     '--site' => array($site->getId())
                 )
@@ -137,10 +137,10 @@ class BaseDeployCommand extends ContainerAwareCommand
     public function runCacheClear($warmup = true)
     {
         if ($warmup) {
-            $this->runCommand("cache:clear");
+            $this->runCommand('cache:clear');
         } else {
             $this->runCommand(
-                "cache:clear",
+                'cache:clear',
                 array(
                     '--no-warmup' => 1,
                 )
@@ -155,10 +155,11 @@ class BaseDeployCommand extends ContainerAwareCommand
     {
         $cache_dir = $this->getContainer()->getParameter('kernel.cache_dir');
 
+        /** @noinspection MkdirRaceConditionInspection */
         mkdir($cache_dir . '/jms_diextra/metadata', 0777, true);
 
         $this->runCommand(
-            "sylius:theme:assets:install",
+            'sylius:theme:assets:install',
             array(
                 '--symlink' => true,
                 '--relative' => true
@@ -172,7 +173,7 @@ class BaseDeployCommand extends ContainerAwareCommand
     public function runDoctrineSchemaUpdate()
     {
         $this->runCommand(
-            "doctrine:schema:update",
+            'doctrine:schema:update',
             array(
                 '--force' => true
             )
@@ -185,7 +186,7 @@ class BaseDeployCommand extends ContainerAwareCommand
     public function runDoctrineFixturesLoadAppend()
     {
         $this->runCommand(
-            "doctrine:fixtures:load",
+            'doctrine:fixtures:load',
             array(
                 '--append' => true
             )
@@ -199,7 +200,7 @@ class BaseDeployCommand extends ContainerAwareCommand
      */
     public function runCacheWarmup()
     {
-        $this->runCommand("cache:warmup");
+        $this->runCommand('cache:warmup');
     }
 
     /**
@@ -210,7 +211,7 @@ class BaseDeployCommand extends ContainerAwareCommand
     public function runSchemaDrop()
     {
         $this->runCommand(
-            "doctrine:schema:drop",
+            'doctrine:schema:drop',
             array(
                 '--no-interaction' => 1,
                 '--force' => 1,

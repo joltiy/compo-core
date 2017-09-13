@@ -156,7 +156,7 @@ class LegacyConvertAllImagesCommand extends ContainerAwareCommand
         $this->oldConnection = $oldConnection;
 
         $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
-        $this->oldConnection->getConfiguration()->setSQLLogger(null);
+        $this->oldConnection->getConfiguration()->setSQLLogger();
 
         gc_enable();
         $this->process();

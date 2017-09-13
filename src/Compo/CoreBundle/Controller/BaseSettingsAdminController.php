@@ -30,7 +30,7 @@ class BaseSettingsAdminController extends SettingsController
     public function updateAction(Request $request, $namespace = null)
     {
 
-        if (is_null($namespace)) {
+        if (null === $namespace) {
             $namespace = $this->getNamespase();
         }
 
@@ -49,7 +49,7 @@ class BaseSettingsAdminController extends SettingsController
             if ($form->isValid()) {
                 $manager->save($form->getData());
 
-                $message = $this->getTranslator()->trans('settings.updated_successful', array());
+                $message = $this->getTranslator()->trans('settings.updated_successful');
                 $this->get('session')->getFlashBag()->add('sonata_flash_success', $message);
 
                 return $this->redirect($request->headers->get('referer'));

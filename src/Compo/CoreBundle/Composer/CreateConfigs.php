@@ -30,6 +30,7 @@ class CreateConfigs
         /** @noinspection PhpUndefinedMethodInspection */
         $vendor = $event->getComposer()->getConfig()->get('vendor-dir');
 
+        /** @noinspection RealpathInSteamContextInspection */
         $root_dir = realpath($vendor . '/../app/');
 
         $parameters = Yaml::parse(file_get_contents($root_dir . '/config/parameters.yml'));
@@ -37,6 +38,7 @@ class CreateConfigs
 
 
         if (!$parameters['server_root']) {
+            /** @noinspection RealpathInSteamContextInspection */
             $parameters['server_root'] = realpath($root_dir . '/../web/');
         }
 
@@ -52,15 +54,15 @@ class CreateConfigs
 
         $twig = new \Twig_Environment($loader, array('autoescape' => false, 'debug' => false));
 
-        if (!file_exists($root_dir . '/config/htpasswd.conf') || file_get_contents($root_dir . '/config/htpasswd.conf') != $parameters['server_user'] . ':' . crypt($parameters['server_password'], base64_encode($parameters['server_password']))) {
+        if (!file_exists($root_dir . '/config/htpasswd.conf') || file_get_contents($root_dir . '/config/htpasswd.conf') !== $parameters['server_user'] . ':' . crypt($parameters['server_password'], base64_encode($parameters['server_password']))) {
             file_put_contents($root_dir . '/config/htpasswd.conf', $parameters['server_user'] . ':' . crypt($parameters['server_password'], base64_encode($parameters['server_password'])));
         }
 
-        if (!file_exists($root_dir . '/config/nginx.conf') || file_get_contents($root_dir . '/config/nginx.conf') != $twig->render('nginx.conf.twig', $parameters)) {
+        if (!file_exists($root_dir . '/config/nginx.conf') || file_get_contents($root_dir . '/config/nginx.conf') !== $twig->render('nginx.conf.twig', $parameters)) {
             file_put_contents($root_dir . '/config/nginx.conf', $twig->render('nginx.conf.twig', $parameters));
         }
 
-        if (!file_exists($root_dir . '/config/php-fpm.conf') || file_get_contents($root_dir . '/config/php-fpm.conf') != $twig->render('php-fpm.conf.twig', $parameters)) {
+        if (!file_exists($root_dir . '/config/php-fpm.conf') || file_get_contents($root_dir . '/config/php-fpm.conf') !== $twig->render('php-fpm.conf.twig', $parameters)) {
             file_put_contents($root_dir . '/config/php-fpm.conf', $twig->render('php-fpm.conf.twig', $parameters));
         }
 

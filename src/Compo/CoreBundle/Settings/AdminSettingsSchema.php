@@ -190,9 +190,7 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
                 if ($id) {
                     $container = $this->getContainer();
                     $mediaManager = $container->get('sonata.media.manager.media');
-                    $media = $mediaManager->find($id);
-
-                    return $media;
+                    return $mediaManager->find($id);
                 } else {
                     return new Media();
                 }

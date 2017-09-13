@@ -76,6 +76,7 @@ task(
         if (!commandExist('unzip')) {
             writeln('<comment>To speed up composer installation setup "unzip" command with PHP zip extension https://goo.gl/sxzFcD</comment>');
         }
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
         run(
             'cd {{release_path}} && {{env_vars}} {{bin/composer}} {{composer_options}}',
             [
@@ -90,36 +91,36 @@ task(
     'database:sync-from-remote',
     function () {
         /** @noinspection PhpUndefinedFunctionInspection */
-        $databasePath = "{{deploy_path}}/backup/database";
+        $databasePath = '{{deploy_path}}/backup/database';
         // mysqldump -u [username] -p [database name] > [database name].sql
 
-        run("mkdir -p " . $databasePath);
+        run('mkdir -p ' . $databasePath);
 
         $parametrs = get('parameters');
 
-        $exportDatabasePath = $databasePath . "/" . $parametrs['database_name'] . ".sql";
+        $exportDatabasePath = $databasePath . '/' . $parametrs['database_name'] . '.sql';
 
-        run("mysqldump -u " . $parametrs['database_user'] . " " . $parametrs['database_name'] . " > " . $exportDatabasePath);
+        run('mysqldump -u ' . $parametrs['database_user'] . ' ' . $parametrs['database_name'] . ' > ' . $exportDatabasePath);
 
         $projectDir = runLocally('pwd');
 
         $varDir = $projectDir . '/var/database';
-        runLocally("mkdir -p " . $varDir);
+        runLocally('mkdir -p ' . $varDir);
 
-        $localDatabasePath = $varDir . "/" . $parametrs['database_name'] . ".sql";
+        $localDatabasePath = $varDir . '/' . $parametrs['database_name'] . '.sql';
 
         download($exportDatabasePath, $localDatabasePath);
 
 
-        runLocally("cd " . $projectDir . " && " . " php bin/console doctrine:database:drop --if-exists --force --quiet --no-interaction --no-debug");
-        runLocally("cd " . $projectDir . " && " . " php bin/console doctrine:database:create --if-not-exists");
+        runLocally('cd ' . $projectDir . ' && ' . ' php bin/console doctrine:database:drop --if-exists --force --quiet --no-interaction --no-debug');
+        runLocally('cd ' . $projectDir . ' && ' . ' php bin/console doctrine:database:create --if-not-exists');
 
         $parameters = Yaml::parse(file_get_contents($projectDir . '/app/config/parameters.yml'));
 
         // mysql -u[database user] -p [database name] < file.sql
         runLocally(
-            "cd " . $projectDir . " && "
-            . " mysql --user=" . $parameters['parameters']['database_user'] . " --password=" . $parameters['parameters']['database_password']
+            'cd ' . $projectDir . ' && '
+            . ' mysql --user=' . $parameters['parameters']['database_user'] . ' --password=' . $parameters['parameters']['database_password']
             . ' ' . $parameters['parameters']['database_name']
             . ' < '
             . $localDatabasePath
@@ -135,31 +136,31 @@ task(
 
         $projectDir = runLocally('pwd');
         $varDir = $projectDir . '/var/database';
-        runLocally("mkdir -p " . $varDir);
+        runLocally('mkdir -p ' . $varDir);
 
         $parameters = Yaml::parse(file_get_contents($projectDir . '/app/config/parameters.yml'));
 
-        $exportDatabasePath = $varDir . "/" . $parameters['parameters']['database_name'] . ".sql";
+        $exportDatabasePath = $varDir . '/' . $parameters['parameters']['database_name'] . '.sql';
 
-        runLocally("mysqldump -u " . $parameters['parameters']['database_user'] . " " . $parameters['parameters']['database_name'] . " > " . $exportDatabasePath);
+        runLocally('mysqldump -u ' . $parameters['parameters']['database_user'] . ' ' . $parameters['parameters']['database_name'] . ' > ' . $exportDatabasePath);
 
-        run("mkdir -p {{release_path}}/var/database/");
+        run('mkdir -p {{release_path}}/var/database/');
 
-        upload($exportDatabasePath, '{{release_path}}/var/database/' . $parameters['parameters']['database_name'] . ".sql");
+        upload($exportDatabasePath, '{{release_path}}/var/database/' . $parameters['parameters']['database_name'] . '.sql');
 
 
-        run("cd {{release_path}} && " . " php bin/console doctrine:database:drop --if-exists --force --quiet --no-interaction --no-debug");
-        run("cd {{release_path}} && " . " php bin/console doctrine:database:create --if-not-exists");
+        run('cd {{release_path}} && ' . ' php bin/console doctrine:database:drop --if-exists --force --quiet --no-interaction --no-debug');
+        run('cd {{release_path}} && ' . ' php bin/console doctrine:database:create --if-not-exists');
 
         $parametrs = get('parameters');
 
 
         run(
-            "cd {{release_path}} && "
-            . " mysql --user=" . $parametrs['database_user'] . " --password=" . $parametrs['database_password']
+            'cd {{release_path}} && '
+            . ' mysql --user=' . $parametrs['database_user'] . ' --password=' . $parametrs['database_password']
             . ' ' . $parametrs['database_name']
             . ' < '
-            . '{{release_path}}/var/database/' . $parametrs['database_name'] . ".sql"
+            . '{{release_path}}/var/database/' . $parametrs['database_name'] . '.sql'
         );
 
 
@@ -173,7 +174,7 @@ task(
     function () {
         $projectDir = runLocally('pwd');
 
-        download("{{deploy_path}}/shared/web/uploads/", $projectDir . '/web/uploads/', array('-anv'));
+        download('{{deploy_path}}/shared/web/uploads/', $projectDir . '/web/uploads/', array('-anv'));
     }
 )->desc('uploads:sync-from-remote');
 
@@ -182,7 +183,7 @@ task(
     function () {
         $projectDir = runLocally('pwd');
 
-        runLocally("cd " . $projectDir . " && " . " rm -rf var/cache/dev var/cache/prod");
+        runLocally('cd ' . $projectDir . ' && ' . ' rm -rf var/cache/dev var/cache/prod');
 
     }
 )->desc('local:cache:clear');
@@ -205,7 +206,7 @@ task(
         run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console compo:core:update --env={{env}} --no-debug');
         //run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console fos:elastica:populate --env=dev --no-debug');
 
-        run("cd {{deploy_path}} && ln -sfn current/web public_html");
+        run('cd {{deploy_path}} && ln -sfn current/web public_html');
 
     }
 )->desc('compo:core:update');
@@ -217,7 +218,7 @@ task(
         /** @noinspection PhpUndefinedFunctionInspection */
         run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console compo:core:install --env={{env}} --no-debug');
 
-        run("cd {{deploy_path}} && ln -sfn current/web public_html");
+        run('cd {{deploy_path}} && ln -sfn current/web public_html');
 
     }
 )->desc('compo:core:install');
@@ -241,7 +242,7 @@ task(
         $parametrs_array = array();
 
         foreach ($parametrs as $parametrs_key => $parametrs_val) {
-            $parametrs_array[] = "PARAMETERS__" . strtoupper($parametrs_key) . "=" . $parametrs_val;
+            $parametrs_array[] = 'PARAMETERS__' . strtoupper($parametrs_key) . '=' . $parametrs_val;
         }
 
         $parametrs_array[] = 'SYMFONY_ENV=prod';
@@ -332,7 +333,7 @@ task(
     'deploy:sitemaps',
     function () {
 
-        $sitemapsPath = "{{deploy_path}}/backup/sitemaps";
+        $sitemapsPath = '{{deploy_path}}/backup/sitemaps';
 
         run("mkdir -p $sitemapsPath");
 
@@ -353,7 +354,7 @@ task(
     'deploy:market',
     function () {
 
-        $sitemapsPath = "{{deploy_path}}/backup/market";
+        $sitemapsPath = '{{deploy_path}}/backup/market';
 
         run("mkdir -p $sitemapsPath");
 

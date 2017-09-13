@@ -27,7 +27,7 @@ class TempCommands
 
         $linkTarget = $vendor . DIRECTORY_SEPARATOR . 'mopa/bootstrap-bundle/Mopa/Bundle/BootstrapBundle\Resources\public\bootstrap';
 
-        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN' && is_dir($linkTarget)) {
+        if (0 === stripos(PHP_OS, 'WIN') && is_dir($linkTarget)) {
             rmdir($linkTarget);
         }
     }

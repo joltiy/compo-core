@@ -77,9 +77,9 @@ class LegacyConvertImageCommand extends ContainerAwareCommand
         } else {
             $file_path = $cache_dir . '/' . $filename;
 
-            file_put_contents($file_path, file_get_contents($path));
+            copy($path, $file_path);
 
-            if ($http_response_header[0] != 'HTTP/1.1 200 OK') {
+            if ($http_response_header[0] !== 'HTTP/1.1 200 OK') {
                 exit;
             }
         }
@@ -89,7 +89,7 @@ class LegacyConvertImageCommand extends ContainerAwareCommand
         $media->setContext('default');
         $media->setProviderName('sonata.media.provider.image');
 
-        $mediaManager->save($media, true);
+        $mediaManager->save($media);
 
         exit;
     }
