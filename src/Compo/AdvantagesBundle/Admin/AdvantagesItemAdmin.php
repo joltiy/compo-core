@@ -88,12 +88,16 @@ class AdvantagesItemAdmin extends AbstractAdmin
             ->addIdentifier('name')
             ->add('url')
             ->add('enabled')
-            ->add('_action', null, array(
-                'actions' => array(
-                    'edit' => array(),
-                    'delete' => array(),
+            ->add(
+                '_action',
+                null,
+                array(
+                    'actions' => array(
+                        'edit' => array(),
+                        'delete' => array(),
+                    ),
                 )
-            ));
+            );
     }
 
     /**
@@ -101,13 +105,19 @@ class AdvantagesItemAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->tab('form.tab_main_advantages', array(
-            'translation_domain' => $this->getTranslationDomain()
-        ));
+        $formMapper->tab(
+            'form.tab_main_advantages',
+            array(
+                'translation_domain' => $this->getTranslationDomain(),
+            )
+        );
 
-        $formMapper->with('form.tab_main', array(
-            'name' => false
-        ));
+        $formMapper->with(
+            'form.tab_main',
+            array(
+                'name' => false,
+            )
+        );
 
         $formMapper->add('id');
         $formMapper->add('enabled');

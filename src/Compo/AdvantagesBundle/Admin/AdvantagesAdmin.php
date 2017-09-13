@@ -67,13 +67,17 @@ class AdvantagesAdmin extends AbstractAdmin
             ->add('id')
             ->addIdentifier('name')
             ->add('description')
-            ->add('_action', 'actions', array(
-                'actions' => array(
-                    'edit' => array(),
-                    'list' => array('route' => 'compo_advantages.admin.advantages|compo_advantages.admin.advantages_item.list'),
-                    'delete' => array(),
+            ->add(
+                '_action',
+                'actions',
+                array(
+                    'actions' => array(
+                        'edit' => array(),
+                        'list' => array('route' => 'compo_advantages.admin.advantages|compo_advantages.admin.advantages_item.list'),
+                        'delete' => array(),
+                    ),
                 )
-            ));
+            );
     }
 
     /**
@@ -119,10 +123,11 @@ class AdvantagesAdmin extends AbstractAdmin
         if ($childAdmin && in_array($action, array('edit'))) {
             $childAdmin->configureTabAdvantagesItem($advantages, $action);
 
-            $tabAdvantages = $advantages->addChild('tab_menu.advantages',
+            $tabAdvantages = $advantages->addChild(
+                'tab_menu.advantages',
                 array(
                     'label' => $this->trans('tab_menu.advantages', array('%name%' => $this->getSubject()->getName())),
-                    'attributes' => array('dropdown' => true)
+                    'attributes' => array('dropdown' => true),
                 )
             );
 
