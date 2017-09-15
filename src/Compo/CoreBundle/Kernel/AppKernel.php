@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\Kernel;
 class AppKernel extends Kernel
 {
     /**
-     * @return array
+     * {@inheritDoc}
      */
     public function registerBundles()
     {
