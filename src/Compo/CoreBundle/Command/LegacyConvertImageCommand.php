@@ -49,10 +49,9 @@ class LegacyConvertImageCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        return;
         $container = $this->getContainer();
 
-        $id = $input->getOption('path');
+        $id = $input->getOption('id');
         $path = $input->getOption('path');
         $filename = $input->getOption('name');
 
@@ -91,5 +90,4 @@ class LegacyConvertImageCommand extends ContainerAwareCommand
 
         $mediaManager->save($media);
     }
-
 }
