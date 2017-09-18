@@ -112,3 +112,9 @@ services:
             - "@doctrine.orm.entity_manager"
         tags:
             - { name: "kernel.event_subscriber", priority: 100 }
+
+
+    console.completion_command:
+      class: Stecman\Component\Symfony\Console\BashCompletion\CompletionCommand
+      tags:
+          -  { name: console.command }

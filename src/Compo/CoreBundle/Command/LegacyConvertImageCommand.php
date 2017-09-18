@@ -13,16 +13,6 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class LegacyConvertImageCommand extends ContainerAwareCommand
 {
-    /**
-     * @var \Doctrine\Common\Persistence\ObjectManager
-     */
-    public $em;
-
-    /**
-     * @var OutputInterface
-     */
-    public $output;
-
 
     /**
      * {@inheritdoc}
@@ -44,6 +34,12 @@ class LegacyConvertImageCommand extends ContainerAwareCommand
                 null,
                 InputOption::VALUE_REQUIRED,
                 'name'
+            )->addOption(
+                'id',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'id',
+                0
             );
 
     }
@@ -53,14 +49,12 @@ class LegacyConvertImageCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        return;
         $container = $this->getContainer();
-        $em = $container->get('doctrine')->getManager();
 
+        $id = $input->getOption('path');
         $path = $input->getOption('path');
         $filename = $input->getOption('name');
-
-        $this->em = $em;
-        $this->output = $output;
 
         $kernel = $container->get('kernel');
 
@@ -72,7 +66,7 @@ class LegacyConvertImageCommand extends ContainerAwareCommand
             $file_path = $path;
 
             if (!file_exists($file_path)) {
-                exit;
+                throw new \Exception('Path not found: ' . $file_path);
             }
         } else {
             $file_path = $cache_dir . '/' . $filename;
@@ -80,18 +74,22 @@ class LegacyConvertImageCommand extends ContainerAwareCommand
             copy($path, $file_path);
 
             if ($http_response_header[0] !== 'HTTP/1.1 200 OK') {
-                exit;
+                throw new \Exception('Path not found: ' . $path);
             }
         }
 
-        $media = new Media();
+        if ($id) {
+            $media = $mediaManager->find($id);
+        } else {
+            $media = new Media();
+        }
+
+        $media->setName($filename);
         $media->setBinaryContent($file_path);
         $media->setContext('default');
         $media->setProviderName('sonata.media.provider.image');
 
         $mediaManager->save($media);
-
-        exit;
     }
 
 }
