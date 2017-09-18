@@ -143,9 +143,9 @@ class LegacyConvertAllImagesCommand extends BaseLegacyConvertCommand
                 if (isset($this->mediaIsset[$media_key])) {
                     $this->dbpics[$id]['media_id'] = $this->mediaIsset[$media_key];
 
-                    $command = $console . ' compo:legacy:convert:image --env=prod --no-debug --name=' . $media_key . ' --path=' . $this->getOldMediaPath() . '/' . $media_key . ' --id=' . $this->dbpics[$id]['media_id'];
+                    $command = $console . ' compo:legacy:convert:image --env=prod --no-debug --name=' . $media_key . ' --path=' . $this->getOldMediaPath() . $media_key . ' --id=' . $this->dbpics[$id]['media_id'];
                 } else {
-                    $command = $console . ' compo:legacy:convert:image --env=prod --no-debug --name=' . $media_key . ' --path=' . $this->getOldMediaPath() . '/' . $media_key;
+                    $command = $console . ' compo:legacy:convert:image --env=prod --no-debug --name=' . $media_key . ' --path=' . $this->getOldMediaPath() . $media_key;
                 }
 
                 $this->getOutput()->writeln('');
@@ -185,7 +185,6 @@ class LegacyConvertAllImagesCommand extends BaseLegacyConvertCommand
                 }
             }
         }
-
 
         $this->getIo()->progressFinish();
 
