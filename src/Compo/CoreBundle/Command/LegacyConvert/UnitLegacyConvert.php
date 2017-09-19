@@ -13,7 +13,8 @@ class UnitLegacyConvert extends BaseLegacyConvert
     /**
      *
      */
-    public function configure() {
+    public function configure()
+    {
         $this->setTableName('unit');
         $this->setRepositoryName('CompoUnitBundle:Unit');
         $this->setEntityClass(Unit::class);
@@ -23,7 +24,8 @@ class UnitLegacyConvert extends BaseLegacyConvert
     /**
      * @return array
      */
-    public function getOldData() {
+    public function getOldData()
+    {
         return array(
             array(
                 'id' => 1,
@@ -89,7 +91,8 @@ class UnitLegacyConvert extends BaseLegacyConvert
      * @param $oldDataItem
      * @param $newItem Unit
      */
-    public function iterateItem($oldDataItemKey, $oldDataItem, $newItem) {
+    public function iterateItem($oldDataItemKey, $oldDataItem, $newItem)
+    {
         $newItem->setId($oldDataItem['id']);
         $newItem->setName($oldDataItem['name']);
         $newItem->setShortNameNational($oldDataItem['shortNameNational']);

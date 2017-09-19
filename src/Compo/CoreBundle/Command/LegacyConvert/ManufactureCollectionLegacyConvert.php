@@ -3,12 +3,8 @@
 namespace Compo\CoreBundle\Command\LegacyConvert;
 
 
-use Compo\ArticlesBundle\Entity\Articles;
-use Compo\CountryBundle\Entity\Country;
-use Compo\ManufactureBundle\Entity\Manufacture;
 use Compo\ManufactureBundle\Entity\ManufactureCollection;
 use Compo\ManufactureBundle\Entity\ManufactureCollectionAdditionalImages;
-use Compo\SupplierBundle\Entity\Supplier;
 
 /**
  * Class ArticlesLegacyConvert
@@ -19,7 +15,8 @@ class ManufactureCollectionLegacyConvert extends BaseLegacyConvert
     /**
      *
      */
-    public function configure() {
+    public function configure()
+    {
         $this->setTableName('tovar');
         $this->setRepositoryName('CompoManufactureBundle:ManufactureCollection');
         $this->setEntityClass(ManufactureCollection::class);
@@ -30,7 +27,8 @@ class ManufactureCollectionLegacyConvert extends BaseLegacyConvert
      * @param $oldDataItem
      * @param $newItem ManufactureCollection
      */
-    public function iterateItem($oldDataItemKey, $oldDataItem, $newItem) {
+    public function iterateItem($oldDataItemKey, $oldDataItem, $newItem)
+    {
         $manufactureRepository = $this->getEntityManager()->getRepository('CompoManufactureBundle:Manufacture');
         $manufactureCollectionAdditionalImagesRepository = $this->getEntityManager()->getRepository('CompoManufactureBundle:ManufactureCollectionAdditionalImages');
 

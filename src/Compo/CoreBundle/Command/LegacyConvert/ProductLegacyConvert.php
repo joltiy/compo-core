@@ -3,7 +3,6 @@
 namespace Compo\CoreBundle\Command\LegacyConvert;
 
 
-use Compo\ArticlesBundle\Entity\Articles;
 use Compo\ProductBundle\Entity\Product;
 
 /**
@@ -21,7 +20,8 @@ class ProductLegacyConvert extends BaseLegacyConvert
     /**
      *
      */
-    public function configure() {
+    public function configure()
+    {
         $this->setTableName('complects');
         $this->setRepositoryName('CompoProductBundle:Product');
         $this->setEntityClass(Product::class);
@@ -46,7 +46,8 @@ class ProductLegacyConvert extends BaseLegacyConvert
      * @param $oldDataItem
      * @param $newItem Product
      */
-    public function iterateItem($oldDataItemKey, $oldDataItem, $newItem) {
+    public function iterateItem($oldDataItemKey, $oldDataItem, $newItem)
+    {
         $catalogRepos = $this->getEntityManager()->getRepository('CompoCatalogBundle:Catalog');
 
         $newItem->setId($oldDataItem['id']);
@@ -96,7 +97,7 @@ class ProductLegacyConvert extends BaseLegacyConvert
         $newItem->setManufactureCollection($collection);
 
         if (isset($this->tovar[$oldDataItem['parent_id']])) {
-            if ($this->tovar[$oldDataItem['parent_id']]['catalog_id'] === 84) {
+            if ((int)$this->tovar[$oldDataItem['parent_id']]['catalog_id'] === 84) {
                 $newItem->setCatalog($catalogRepos->find(84));
             } else {
                 $newItem->setCatalog($catalogRepos->find(2));
@@ -142,7 +143,6 @@ class ProductLegacyConvert extends BaseLegacyConvert
 
             $newItem->setSupplier($sup);
         }
-
 
 
         if ($oldDataItem['state']) {

@@ -13,7 +13,8 @@ class NewsLegacyConvert extends BaseLegacyConvert
     /**
      *
      */
-    public function configure() {
+    public function configure()
+    {
         $this->setTableName('news');
         $this->setRepositoryName('CompoNewsBundle:News');
         $this->setEntityClass(News::class);
@@ -24,7 +25,8 @@ class NewsLegacyConvert extends BaseLegacyConvert
      * @param $oldDataItem
      * @param $newItem News
      */
-    public function iterateItem($oldDataItemKey, $oldDataItem, $newItem) {
+    public function iterateItem($oldDataItemKey, $oldDataItem, $newItem)
+    {
         $newItem->setId($oldDataItem['id']);
         $newItem->setName($oldDataItem['header']);
 

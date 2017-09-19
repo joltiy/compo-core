@@ -3,7 +3,6 @@
 namespace Compo\CoreBundle\Command\LegacyConvert;
 
 use Compo\CurrencyBundle\Entity\Currency;
-use Compo\ProductBundle\Entity\ProductTag;
 
 /**
  * Class ArticlesLegacyConvert
@@ -14,7 +13,8 @@ class CurrencyLegacyConvert extends BaseLegacyConvert
     /**
      *
      */
-    public function configure() {
+    public function configure()
+    {
         $this->setTableName('currency');
         $this->setRepositoryName('CompoCurrencyBundle:Currency');
         $this->setEntityClass(Currency::class);
@@ -24,7 +24,8 @@ class CurrencyLegacyConvert extends BaseLegacyConvert
     /**
      * @return array
      */
-    public function getOldData() {
+    public function getOldData()
+    {
         return array(
             array(
                 'id' => 1,
@@ -61,7 +62,8 @@ class CurrencyLegacyConvert extends BaseLegacyConvert
      * @param $oldDataItem
      * @param $newItem Currency
      */
-    public function iterateItem($oldDataItemKey, $oldDataItem, $newItem) {
+    public function iterateItem($oldDataItemKey, $oldDataItem, $newItem)
+    {
         $newItem->setName($oldDataItem['name']);
         $newItem->setId($oldDataItem['id']);
         $newItem->setCode($oldDataItem['code']);

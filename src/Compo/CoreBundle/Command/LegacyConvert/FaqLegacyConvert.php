@@ -13,7 +13,8 @@ class FaqLegacyConvert extends BaseLegacyConvert
     /**
      *
      */
-    public function configure() {
+    public function configure()
+    {
         $this->setTableName('faq');
         $this->setRepositoryName('CompoFaqBundle:Faq');
         $this->setEntityClass(Faq::class);
@@ -24,7 +25,8 @@ class FaqLegacyConvert extends BaseLegacyConvert
      * @param $oldDataItem
      * @param $newItem Faq
      */
-    public function iterateItem($oldDataItemKey, $oldDataItem, $newItem) {
+    public function iterateItem($oldDataItemKey, $oldDataItem, $newItem)
+    {
         $newItem->setId($oldDataItem['id']);
         $newItem->setName($oldDataItem['header']);
 

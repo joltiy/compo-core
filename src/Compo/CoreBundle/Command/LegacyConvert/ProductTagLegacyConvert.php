@@ -13,7 +13,8 @@ class ProductTagLegacyConvert extends BaseLegacyConvert
     /**
      *
      */
-    public function configure() {
+    public function configure()
+    {
         $this->setTableName('tags');
         $this->setRepositoryName('CompoProductBundle:ProductTag');
         $this->setEntityClass(ProductTag::class);
@@ -23,7 +24,8 @@ class ProductTagLegacyConvert extends BaseLegacyConvert
     /**
      * @return array
      */
-    public function getOldData() {
+    public function getOldData()
+    {
         return array(
             array(
                 'id' => 1,
@@ -45,7 +47,8 @@ class ProductTagLegacyConvert extends BaseLegacyConvert
      * @param $oldDataItem
      * @param $newItem ProductTag
      */
-    public function iterateItem($oldDataItemKey, $oldDataItem, $newItem) {
+    public function iterateItem($oldDataItemKey, $oldDataItem, $newItem)
+    {
         $newItem->setId($oldDataItem['id']);
         $newItem->setName($oldDataItem['name']);
         $newItem->setEnabled(true);

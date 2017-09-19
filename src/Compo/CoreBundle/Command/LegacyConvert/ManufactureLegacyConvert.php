@@ -3,10 +3,7 @@
 namespace Compo\CoreBundle\Command\LegacyConvert;
 
 
-use Compo\ArticlesBundle\Entity\Articles;
-use Compo\CountryBundle\Entity\Country;
 use Compo\ManufactureBundle\Entity\Manufacture;
-use Compo\SupplierBundle\Entity\Supplier;
 
 /**
  * Class ArticlesLegacyConvert
@@ -17,7 +14,8 @@ class ManufactureLegacyConvert extends BaseLegacyConvert
     /**
      *
      */
-    public function configure() {
+    public function configure()
+    {
         $this->setTableName('manufacture');
         $this->setRepositoryName('CompoManufactureBundle:Manufacture');
         $this->setEntityClass(Manufacture::class);
@@ -28,7 +26,8 @@ class ManufactureLegacyConvert extends BaseLegacyConvert
      * @param $oldDataItem
      * @param $newItem Manufacture
      */
-    public function iterateItem($oldDataItemKey, $oldDataItem, $newItem) {
+    public function iterateItem($oldDataItemKey, $oldDataItem, $newItem)
+    {
         $countryRepository = $this->getEntityManager()->getRepository('CompoCountryBundle:Country');
 
         $newItem->setName($oldDataItem['header']);

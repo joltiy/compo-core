@@ -3,9 +3,7 @@
 namespace Compo\CoreBundle\Command\LegacyConvert;
 
 
-use Compo\ArticlesBundle\Entity\Articles;
 use Compo\CountryBundle\Entity\Country;
-use Compo\SupplierBundle\Entity\Supplier;
 
 /**
  * Class ArticlesLegacyConvert
@@ -16,7 +14,8 @@ class CountryLegacyConvert extends BaseLegacyConvert
     /**
      *
      */
-    public function configure() {
+    public function configure()
+    {
         $this->setTableName('countrys');
         $this->setRepositoryName('CompoCountryBundle:Country');
         $this->setEntityClass(Country::class);
@@ -27,7 +26,8 @@ class CountryLegacyConvert extends BaseLegacyConvert
      * @param $oldDataItem
      * @param $newItem Country
      */
-    public function iterateItem($oldDataItemKey, $oldDataItem, $newItem) {
+    public function iterateItem($oldDataItemKey, $oldDataItem, $newItem)
+    {
         $newItem->setName($oldDataItem['header']);
         $newItem->setEnabled((bool)$oldDataItem['visible']);
         $newItem->setSlug(str_replace('.html', '', $oldDataItem['alt_name']));

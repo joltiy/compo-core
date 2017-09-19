@@ -2,9 +2,7 @@
 
 namespace Compo\CoreBundle\Command\LegacyConvert;
 
-use Compo\CurrencyBundle\Entity\Currency;
 use Compo\ProductBundle\Entity\ProductAvailability;
-use Compo\ProductBundle\Entity\ProductTag;
 
 /**
  * Class ArticlesLegacyConvert
@@ -15,7 +13,8 @@ class ProductAvailabilityLegacyConvert extends BaseLegacyConvert
     /**
      *
      */
-    public function configure() {
+    public function configure()
+    {
         $this->setTableName('ProductAvailability');
         $this->setRepositoryName('CompoProductBundle:ProductAvailability');
         $this->setEntityClass(ProductAvailability::class);
@@ -25,7 +24,8 @@ class ProductAvailabilityLegacyConvert extends BaseLegacyConvert
     /**
      * @return array
      */
-    public function getOldData() {
+    public function getOldData()
+    {
         return array(
             array(
                 'id' => 10,
@@ -65,7 +65,8 @@ class ProductAvailabilityLegacyConvert extends BaseLegacyConvert
      * @param $oldDataItem
      * @param $newItem ProductAvailability
      */
-    public function iterateItem($oldDataItemKey, $oldDataItem, $newItem) {
+    public function iterateItem($oldDataItemKey, $oldDataItem, $newItem)
+    {
         $newItem->setName($oldDataItem['name']);
         $newItem->setId($oldDataItem['id']);
         $newItem->setColor($oldDataItem['color']);

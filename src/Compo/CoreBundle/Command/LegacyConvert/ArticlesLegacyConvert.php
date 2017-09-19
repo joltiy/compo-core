@@ -14,7 +14,8 @@ class ArticlesLegacyConvert extends BaseLegacyConvert
     /**
      *
      */
-    public function configure() {
+    public function configure()
+    {
         $this->setTableName('articles');
         $this->setRepositoryName('CompoArticlesBundle:Articles');
         $this->setEntityClass(Articles::class);
@@ -25,7 +26,8 @@ class ArticlesLegacyConvert extends BaseLegacyConvert
      * @param $oldDataItem
      * @param $newItem Articles
      */
-    public function iterateItem($oldDataItemKey, $oldDataItem, $newItem) {
+    public function iterateItem($oldDataItemKey, $oldDataItem, $newItem)
+    {
         $newItem->setId($oldDataItem['id']);
         $newItem->setName($oldDataItem['header']);
         $newItem->setBody($oldDataItem['text']);

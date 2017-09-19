@@ -20,7 +20,8 @@ class FeaturesLegacyConvert extends BaseLegacyConvert
     /**
      *
      */
-    public function configure() {
+    public function configure()
+    {
         $this->setTableName('feature_attribute');
         $this->setRepositoryName('CompoFeaturesBundle:FeatureAttribute');
         $this->setEntityClass(FeatureAttribute::class);
@@ -46,7 +47,8 @@ class FeaturesLegacyConvert extends BaseLegacyConvert
      * @param $oldDataItem
      * @param $newItem FeatureAttribute
      */
-    public function iterateItem($oldDataItemKey, $oldDataItem, $newItem) {
+    public function iterateItem($oldDataItemKey, $oldDataItem, $newItem)
+    {
         $catalogRepos = $this->getEntityManager()->getRepository('CompoCatalogBundle:Catalog');
         $unitRepos = $this->getEntityManager()->getRepository('CompoUnitBundle:Unit');
         $featureVariantRepositoru = $this->getEntityManager()->getRepository('CompoFeaturesBundle:FeatureVariant');
@@ -63,6 +65,10 @@ class FeaturesLegacyConvert extends BaseLegacyConvert
             $newItem->setType('string');
         }
 
+        if (strpos($oldDataItem['header'], 'Размер дверцы') !== false) {
+            $newItem->setType('decimal');
+        }
+
         $newItem->setVisibleFilter(1);
         $newItem->setVisibleCard(1);
         $newItem->setVisibleCollection(1);
@@ -76,14 +82,16 @@ class FeaturesLegacyConvert extends BaseLegacyConvert
         $newItem->setName(trim($name));
 
         foreach ($this->feature_catalog as $feature_catalog_item) {
-            if ($feature_catalog_item['feature_attribute_id'] === $oldDataItem['id']) {
-                if ($feature_catalog_item['catalog_id'] === 84) {
+            if ((int)$feature_catalog_item['feature_attribute_id'] === (int)$oldDataItem['id']) {
+                if ((int)$feature_catalog_item['catalog_id'] === 84) {
                     $newItem->setCatalog($catalogRepos->find(84));
                 } else {
                     $newItem->setCatalog($catalogRepos->find(2));
                 }
             } else {
-                $newItem->setCatalog($catalogRepos->find(2));
+                if ((int)$feature_catalog_item['catalog_id'] !== 84) {
+                    $newItem->setCatalog($catalogRepos->find(2));
+                }
             }
         }
 
@@ -113,12 +121,7 @@ class FeaturesLegacyConvert extends BaseLegacyConvert
 
             foreach ($feature_values as $feature_values_item) {
 
-                $fv = $featureVariantRepositoru->findOneBy(
-                    array(
-                        'name' => $feature_values_item['header'],
-                        'feature' => $newItem,
-                    )
-                );
+                $fv = $featureVariantRepositoru->find($feature_values_item['id']);
 
                 if (!$fv) {
                     $fv = new FeatureVariant();
@@ -127,6 +130,12 @@ class FeaturesLegacyConvert extends BaseLegacyConvert
                 if (trim($fv->getDescription()) === '' && trim(strip_tags($feature_values_item['description'])) !== '') {
                     $fv->setDescription($feature_values_item['description']);
                 }
+
+                $this->getCommand()->changeIdGenerator($fv);
+
+                $fv->setId($feature_values_item['id']);
+
+                $fv->setFeature($newItem);
 
                 $fv->setFeature($newItem);
                 $fv->setEnabled(1);
@@ -137,7 +146,6 @@ class FeaturesLegacyConvert extends BaseLegacyConvert
             }
         }
     }
-
 
 
 }

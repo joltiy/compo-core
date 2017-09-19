@@ -126,6 +126,14 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
     }
 
     /**
+     * @param int $from
+     */
+    public function setFrom(int $from)
+    {
+        $this->from = $from;
+    }
+
+    /**
      * @return bool
      */
     public function isDryRun(): bool
@@ -139,14 +147,6 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
     public function setDryRun(bool $dryRun)
     {
         $this->dryRun = $dryRun;
-    }
-
-    /**
-     * @param int $from
-     */
-    public function setFrom(int $from)
-    {
-        $this->from = $from;
     }
 
     /**
@@ -211,6 +211,96 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
     public function setMedia(array $media)
     {
         $this->media = $media;
+    }
+
+    /**
+     * @param $id
+     * @return null|Media
+     */
+    public function downloadMedia($id)
+    {
+        $media = null;
+
+        if (isset($this->media[$id]) && $this->media[$id]['media_id']) {
+            $container = $this->getContainer();
+
+            $mediaManager = $container->get('sonata.media.manager.media');
+
+            $media = $mediaManager->find($this->media[$id]['media_id']);
+        }
+
+        return $media;
+    }
+
+    /**
+     * @param $name
+     * @return \Doctrine\Common\Persistence\ObjectRepository
+     */
+    public function getCurrentRepository($name)
+    {
+        return $this->getEntityManager()->getRepository($name);
+    }
+
+    /**
+     * @param $currentRepository \Doctrine\Common\Persistence\ObjectRepository
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function clearCurrent($currentRepository)
+    {
+        if ($this->isDrop()) {
+            $this->getIo()->note('Clear: ' . $currentRepository->getClassName());
+
+            /** @var EntityManager $em */
+            $em = $this->getEntityManager();
+
+            $em->getFilters()->disable('softdeleteable');
+
+
+            $q = $em->createQuery('delete from ' . $currentRepository->getClassName() . ' m');
+            $numDeleted = $q->execute();
+
+            $this->getIo()->note('Clear: ' . $numDeleted);
+
+            $em->getFilters()->enable('softdeleteable');
+
+            $em->flush();
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDrop(): bool
+    {
+        return $this->drop;
+    }
+
+    /**
+     * @param bool $drop
+     */
+    public function setDrop(bool $drop)
+    {
+        $this->drop = $drop;
+    }
+
+    /**
+     * @param string $prefix
+     */
+    public function writeln($prefix = '')
+    {
+        $this->output->writeln($prefix);
+    }
+
+    /**
+     * @param $newItem
+     */
+    public function changeIdGenerator($newItem)
+    {
+        $metadata = $this->getEntityManager()->getClassMetadata(get_class($newItem));
+        /** @noinspection PhpUndefinedMethodInspection */
+        $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
+        /** @noinspection PhpUndefinedMethodInspection */
+        $metadata->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());
     }
 
     /**
@@ -286,6 +376,43 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
     }
 
     /**
+     * @param $table
+     * @return array
+     */
+    public function getOldData($table)
+    {
+        $this->getIo()->note('Load from old table: ' . $table);
+
+        $query = 'SELECT * FROM `' . $table . '` ORDER BY id ASC';
+
+        if ($this->limit && $this->from) {
+            $query .= ' LIMIT ' . $this->limit . ',' . $this->from;
+        }
+
+        $oldData = $this->getOldConnection()->fetchAll($query);
+
+        $this->getIo()->note('Count: ' . count($oldData));
+
+        return $oldData;
+    }
+
+    /**
+     * @return \Doctrine\DBAL\Connection
+     */
+    public function getOldConnection(): \Doctrine\DBAL\Connection
+    {
+        return $this->oldConnection;
+    }
+
+    /**
+     * @param \Doctrine\DBAL\Connection $oldConnection
+     */
+    public function setOldConnection(\Doctrine\DBAL\Connection $oldConnection)
+    {
+        $this->oldConnection = $oldConnection;
+    }
+
+    /**
      */
     protected function writelnMemory()
     {
@@ -299,25 +426,6 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
     public function getEntityManager(): EntityManager
     {
         return $this->getContainer()->get('doctrine')->getManager();
-    }
-
-    /**
-     * @param $id
-     * @return null|Media
-     */
-    public function downloadMedia($id)
-    {
-        $media = null;
-
-        if (isset($this->media[$id]) && $this->media[$id]['media_id']) {
-            $container = $this->getContainer();
-
-            $mediaManager = $container->get('sonata.media.manager.media');
-
-            $media = $mediaManager->find($this->media[$id]['media_id']);
-        }
-
-        return $media;
     }
 
     /**
@@ -394,97 +502,8 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
                 InputOption::VALUE_REQUIRED,
                 'Tables',
                 false
-            )
-        ;
+            );
 
-    }
-
-    /**
-     * @param $name
-     * @return \Doctrine\Common\Persistence\ObjectRepository
-     */
-    public function getCurrentRepository($name)
-    {
-        return $this->getEntityManager()->getRepository($name);
-    }
-
-    /**
-     * @param $table
-     * @return array
-     */
-    public function getOldData($table)
-    {
-        $this->getIo()->note('Load from old table: ' . $table);
-
-        $query = 'SELECT * FROM `' . $table . '` ORDER BY id ASC';
-
-        if ($this->limit && $this->from) {
-            $query .= ' LIMIT ' . $this->limit . ',' . $this->from;
-        }
-
-        $oldData = $this->getOldConnection()->fetchAll($query);
-
-        $this->getIo()->note('Count: ' . count($oldData));
-
-        return $oldData;
-    }
-
-    /**
-     * @return \Doctrine\DBAL\Connection
-     */
-    public function getOldConnection(): \Doctrine\DBAL\Connection
-    {
-        return $this->oldConnection;
-    }
-
-    /**
-     * @param \Doctrine\DBAL\Connection $oldConnection
-     */
-    public function setOldConnection(\Doctrine\DBAL\Connection $oldConnection)
-    {
-        $this->oldConnection = $oldConnection;
-    }
-
-    /**
-     * @param $currentRepository \Doctrine\Common\Persistence\ObjectRepository
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    public function clearCurrent($currentRepository)
-    {
-        if ($this->isDrop()) {
-            $this->getIo()->note('Clear: ' . $currentRepository->getClassName());
-
-            /** @var EntityManager $em */
-            $em = $this->getEntityManager();
-
-            $em->getFilters()->disable('softdeleteable');
-
-
-            $q = $em->createQuery('delete from ' . $currentRepository->getClassName() . ' m');
-            $numDeleted = $q->execute();
-
-            $this->getIo()->note('Clear: ' . $numDeleted);
-
-            $em->getFilters()->enable('softdeleteable');
-
-            $em->flush();
-        }
-    }
-
-    /**
-     * @return bool
-     */
-    public function isDrop(): bool
-    {
-        return $this->drop;
-    }
-
-    /**
-     * @param bool $drop
-     */
-    public function setDrop(bool $drop)
-    {
-        $this->drop = $drop;
     }
 
     /**
@@ -531,6 +550,14 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
     }
 
     /**
+     *
+     */
+    protected function startProcess()
+    {
+
+    }
+
+    /**
      * Создать подключение к старой БД
      *
      * @param array $config
@@ -555,28 +582,6 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
         $this->setOldConnection($oldConnection);
 
         $this->getIo()->success('Create old connection');
-    }
-
-
-
-    /**
-     * @param string $prefix
-     */
-    public function writeln($prefix = '')
-    {
-        $this->output->writeln($prefix);
-    }
-
-    /**
-     * @param $newItem
-     */
-    public function changeIdGenerator($newItem)
-    {
-        $metadata = $this->getEntityManager()->getClassMetadata(get_class($newItem));
-        /** @noinspection PhpUndefinedMethodInspection */
-        $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
-        /** @noinspection PhpUndefinedMethodInspection */
-        $metadata->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());
     }
 
 

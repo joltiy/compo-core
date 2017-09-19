@@ -48,25 +48,6 @@ class LegacyConvertAllImagesCommand extends BaseLegacyConvertCommand
     }
 
     /**
-     * {@inheritDoc}
-     */
-    protected function configure()
-    {
-        parent::configure();
-
-        $this
-            ->setName('compo:legacy:convert:all-images')
-            ->setDescription('Convert all images from old database')
-            ->addOption(
-                'oldMediaPath',
-                null,
-                InputOption::VALUE_REQUIRED,
-                'Media images path',
-                $this->oldMediaPath
-            );
-    }
-
-    /**
      * Процесс конвертации изображений
      */
     public function startProcess()
@@ -145,11 +126,10 @@ class LegacyConvertAllImagesCommand extends BaseLegacyConvertCommand
                 if ($mediaIsset) {
                     $this->dbpics[$id]['media_id'] = $this->mediaIsset[$media_key];
 
-                    $command = $console . ' compo:legacy:convert:image --dry-run='.(int)$this->isDryRun().' --name=' . $media_key . ' --path=' . $this->getOldMediaPath() . $media_key . ' --id=' . $this->dbpics[$id]['media_id'];
+                    $command = $console . ' compo:legacy:convert:image --dry-run=' . (int)$this->isDryRun() . ' --name=' . $media_key . ' --path=' . $this->getOldMediaPath() . $media_key . ' --id=' . $this->dbpics[$id]['media_id'];
                 } else {
-                    $command = $console . ' compo:legacy:convert:image --dry-run='.(int)$this->isDryRun().' --name=' . $media_key . ' --path=' . $this->getOldMediaPath() . $media_key;
+                    $command = $console . ' compo:legacy:convert:image --dry-run=' . (int)$this->isDryRun() . ' --name=' . $media_key . ' --path=' . $this->getOldMediaPath() . $media_key;
                 }
-
 
 
                 $process = new Process($command);
@@ -212,5 +192,24 @@ class LegacyConvertAllImagesCommand extends BaseLegacyConvertCommand
     public function setOldMediaPath(string $oldMediaPath)
     {
         $this->oldMediaPath = $oldMediaPath;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function configure()
+    {
+        parent::configure();
+
+        $this
+            ->setName('compo:legacy:convert:all-images')
+            ->setDescription('Convert all images from old database')
+            ->addOption(
+                'oldMediaPath',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'Media images path',
+                $this->oldMediaPath
+            );
     }
 }
