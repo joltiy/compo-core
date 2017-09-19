@@ -134,22 +134,23 @@ class LegacyConvertAllImagesCommand extends BaseLegacyConvertCommand
             $media_key = $item_data['id'] . '.' . $item_data['type'];
 
 
-            if (isset($this->mediaIsset[$media_key]) && !$this->isDrop()) {
+            $mediaIsset = isset($this->mediaIsset[$media_key]);
+
+            if ($mediaIsset && !$this->isDrop()) {
                 $this->dbpics[$id]['media_id'] = $this->mediaIsset[$media_key];
 
                 $this->getIo()->progressAdvance();
             } else {
 
-                if (isset($this->mediaIsset[$media_key])) {
+                if ($mediaIsset) {
                     $this->dbpics[$id]['media_id'] = $this->mediaIsset[$media_key];
 
-                    $command = $console . ' compo:legacy:convert:image --env=prod --no-debug --name=' . $media_key . ' --path=' . $this->getOldMediaPath() . $media_key . ' --id=' . $this->dbpics[$id]['media_id'];
+                    $command = $console . ' compo:legacy:convert:image --dry-run='.(int)$this->isDryRun().' --name=' . $media_key . ' --path=' . $this->getOldMediaPath() . $media_key . ' --id=' . $this->dbpics[$id]['media_id'];
                 } else {
-                    $command = $console . ' compo:legacy:convert:image --env=prod --no-debug --name=' . $media_key . ' --path=' . $this->getOldMediaPath() . $media_key;
+                    $command = $console . ' compo:legacy:convert:image --dry-run='.(int)$this->isDryRun().' --name=' . $media_key . ' --path=' . $this->getOldMediaPath() . $media_key;
                 }
 
-                $this->getOutput()->writeln('');
-                $this->getIo()->note($command);
+
 
                 $process = new Process($command);
 
@@ -164,8 +165,10 @@ class LegacyConvertAllImagesCommand extends BaseLegacyConvertCommand
         while (count($queue) > 0) {
 
             while (count($queue_running) < $this->getThread()) {
+                /** @var Process $queue_item */
                 $queue_item = array_shift($queue);
                 $queue_item->start();
+
                 $queue_running[] = $queue_item;
             }
 
@@ -173,6 +176,8 @@ class LegacyConvertAllImagesCommand extends BaseLegacyConvertCommand
                 if (!$queue_item->isRunning()) {
                     unset($queue_running[$queue_key]);
                     $this->getIo()->progressAdvance();
+                    $this->getOutput()->writeln('');
+                    $this->getOutput()->writeln($queue_item->getCommandLine());
                 }
             }
         }
@@ -182,6 +187,8 @@ class LegacyConvertAllImagesCommand extends BaseLegacyConvertCommand
                 if (!$queue_item->isRunning()) {
                     unset($queue_running[$queue_key]);
                     $this->getIo()->progressAdvance();
+                    $this->getOutput()->writeln('');
+                    $this->getOutput()->writeln($queue_item->getCommandLine());
                 }
             }
         }

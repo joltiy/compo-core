@@ -69,6 +69,12 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
     protected $thread = 10;
 
     /**
+     *
+     * @var bool
+     */
+    protected $dryRun = false;
+
+    /**
      * Удалить старые данные
      *
      * @var bool
@@ -117,6 +123,22 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
     public function getFrom(): int
     {
         return $this->from;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDryRun(): bool
+    {
+        return $this->dryRun;
+    }
+
+    /**
+     * @param bool $dryRun
+     */
+    public function setDryRun(bool $dryRun)
+    {
+        $this->dryRun = $dryRun;
     }
 
     /**
@@ -267,6 +289,7 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
      */
     protected function writelnMemory()
     {
+        $this->getIo()->writeln('');
         $this->getIo()->note('Memmory: ' . number_format(memory_get_usage(), 0, ',', ' ') . ' B');
     }
 
@@ -282,7 +305,7 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
      * @param $id
      * @return null|Media
      */
-    protected function downloadMedia($id)
+    public function downloadMedia($id)
     {
         $media = null;
 
@@ -313,6 +336,12 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
                 null,
                 InputOption::VALUE_REQUIRED,
                 'Drop old data',
+                false
+            )->addOption(
+                'dry-run',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'Dry-run',
                 false
             )
             ->addOption(
@@ -359,7 +388,14 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
                 InputOption::VALUE_REQUIRED,
                 'Count thread',
                 10
-            );
+            )->addOption(
+                'tables',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'Tables',
+                false
+            )
+        ;
 
     }
 
@@ -367,7 +403,7 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
      * @param $name
      * @return \Doctrine\Common\Persistence\ObjectRepository
      */
-    protected function getCurrentRepository($name)
+    public function getCurrentRepository($name)
     {
         return $this->getEntityManager()->getRepository($name);
     }
@@ -376,7 +412,7 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
      * @param $table
      * @return array
      */
-    protected function getOldData($table)
+    public function getOldData($table)
     {
         $this->getIo()->note('Load from old table: ' . $table);
 
@@ -413,7 +449,7 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
      * @param $currentRepository \Doctrine\Common\Persistence\ObjectRepository
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    protected function clearCurrent($currentRepository)
+    public function clearCurrent($currentRepository)
     {
         if ($this->isDrop()) {
             $this->getIo()->note('Clear: ' . $currentRepository->getClassName());
@@ -427,7 +463,7 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
             $q = $em->createQuery('delete from ' . $currentRepository->getClassName() . ' m');
             $numDeleted = $q->execute();
 
-            $this->getIo()->success('Clear: ' . $numDeleted);
+            $this->getIo()->note('Clear: ' . $numDeleted);
 
             $em->getFilters()->enable('softdeleteable');
 
@@ -477,6 +513,7 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
         $this->setDrop($input->getOption('drop'));
         $this->setLimit($input->getOption('limit'));
         $this->setThread($input->getOption('thread'));
+        $this->setDryRun($input->getOption('dry-run'));
 
         $this->createOldConnection(
             array(
@@ -520,18 +557,20 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
         $this->getIo()->success('Create old connection');
     }
 
-    /**
-     *
-     */
-    protected function startProcess()
-    {
 
+
+    /**
+     * @param string $prefix
+     */
+    public function writeln($prefix = '')
+    {
+        $this->output->writeln($prefix);
     }
 
     /**
      * @param $newItem
      */
-    protected function changeIdGenerator($newItem)
+    public function changeIdGenerator($newItem)
     {
         $metadata = $this->getEntityManager()->getClassMetadata(get_class($newItem));
         /** @noinspection PhpUndefinedMethodInspection */

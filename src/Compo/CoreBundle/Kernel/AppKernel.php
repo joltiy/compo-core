@@ -132,6 +132,7 @@ class AppKernel extends Kernel
             new \JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new \JMS\SerializerBundle\JMSSerializerBundle($this),
             new \JMS\TranslationBundle\JMSTranslationBundle(),
+            new \JMS\JobQueueBundle\JMSJobQueueBundle(),
         );
 
         // Бандлы для test/dev окружения

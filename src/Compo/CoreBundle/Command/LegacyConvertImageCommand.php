@@ -40,6 +40,12 @@ class LegacyConvertImageCommand extends ContainerAwareCommand
                 InputOption::VALUE_REQUIRED,
                 'id',
                 0
+            )->addOption(
+                'dry-run',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'Dry-run',
+                false
             );
 
     }
