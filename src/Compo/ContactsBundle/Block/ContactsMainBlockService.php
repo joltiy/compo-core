@@ -29,7 +29,7 @@ class ContactsMainBlockService extends AbstractBlockService
         return $this->renderResponse($template, array(
             'block' => $block,
             'settings' => $settings,
-            'contacts' => $contacts[0]
+            'contacts' => $contacts
         ), $response);
     }
 
