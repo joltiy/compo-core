@@ -34,7 +34,7 @@ class UpdateCommand extends BaseDeployCommand
     {
         parent::execute($input, $output);
 
-        $this->runCacheClear(false);
+        //$this->runCacheClear(false);
 
         //$this->runDoctrineMigrate();
 
