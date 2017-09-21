@@ -5,7 +5,6 @@ namespace Compo\Sonata\AdminBundle\Extension;
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
-use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
@@ -20,7 +19,28 @@ class PropertiesExtension extends AbstractAdminExtension
      */
     public function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
+        if (!$this->isUseEntityTraits($datagridMapper->getAdmin(), array(
+            'Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait',
+            'Gedmo\Timestampable\Traits\TimestampableEntity'
+        ) )) {
+            return;
+        }
 
+        if (!$datagridMapper->has('createdAt')) {
+            $datagridMapper->add('createdAt');
+        }
+
+        if (!$datagridMapper->has('updatedAt')) {
+            $datagridMapper->add('updatedAt');
+        }
+
+        if (!$datagridMapper->has('createdBy')) {
+            $datagridMapper->add('createdBy');
+        }
+
+        if (!$datagridMapper->has('updatedBy')) {
+            $datagridMapper->add('updatedBy');
+        }
     }
 
     /**
@@ -32,6 +52,13 @@ class PropertiesExtension extends AbstractAdminExtension
         $admin = $formMapper->getAdmin();
 
         if ($admin->isCurrentRoute('create')) {
+            return;
+        }
+
+        if (!$this->isUseEntityTraits($admin, array(
+            'Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait',
+            'Gedmo\Timestampable\Traits\TimestampableEntity'
+        ) )) {
             return;
         }
 
@@ -91,13 +118,5 @@ class PropertiesExtension extends AbstractAdminExtension
             )
             ->end()
             ->end();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function configureListFields(ListMapper $listMapper)
-    {
-
     }
 }

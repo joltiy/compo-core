@@ -4,8 +4,8 @@ namespace Compo\Sonata\AdminBundle\Extension;
 
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdminExtension;
+use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
-use Sonata\AdminBundle\Form\FormMapper;
 
 /**
  * {@inheritDoc}
@@ -17,9 +17,17 @@ class DescriptionExtension extends AbstractAdminExtension
     /**
      * {@inheritDoc}
      */
-    public function configureFormFields(FormMapper $formMapper)
+    public function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
+        if (!$this->isUseEntityTraits($datagridMapper->getAdmin(), array(
+            'Compo\Sonata\AdminBundle\Entity\DescriptionEntityTrait',
+        ) )) {
+            return;
+        }
 
+        if (!$datagridMapper->has('description')) {
+            $datagridMapper->add('description');
+        }
     }
 
     /**

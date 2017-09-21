@@ -14,7 +14,7 @@ services:
         class: Compo\NewsBundle\Settings\NewsSettingsSchema
         parent: compo_core.abstract_container_aware
         tags:
-            - { name: "sylius.settings_schema", namespace: "compo_news", alias: "compo_news" }
+            - { name: "sylius.settings_schema", namespace: "compo_news", admin: compo_news.admin.news }
 
     compo_news.block.breadcrumb:
         class: Compo\NewsBundle\Block\NewsBreadcrumbBlockService

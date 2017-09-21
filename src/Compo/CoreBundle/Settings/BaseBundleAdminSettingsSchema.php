@@ -20,6 +20,11 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
     public $container;
 
     /**
+     * @var SettingsBuilderInterface
+     */
+    public $settingsBuilder;
+
+    /**
      * @var string
      */
     public $translationDomain = 'messages';
@@ -38,6 +43,22 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
      * @var FormBuilderInterface
      */
     protected $formBuilder;
+
+    /**
+     * @return SettingsBuilderInterface
+     */
+    public function getSettingsBuilder(): SettingsBuilderInterface
+    {
+        return $this->settingsBuilder;
+    }
+
+    /**
+     * @param SettingsBuilderInterface $settingsBuilder
+     */
+    public function setSettingsBuilder(SettingsBuilderInterface $settingsBuilder)
+    {
+        $this->settingsBuilder = $settingsBuilder;
+    }
 
     /**
      * @param $formMapper
@@ -128,7 +149,19 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
     {
         $this->setFormBuilder($builder);
 
+
+
+
         $this->buildFormSettings();
+
+    }
+
+    /**
+     * @return array
+     */
+    public function getDefaultSettings()
+    {
+        return array();
     }
 
     /**
@@ -193,7 +226,15 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
      */
     public function buildSettings(SettingsBuilderInterface $builder)
     {
+        $this->setSettingsBuilder($builder);
 
+        $items = $this->getDefaultSettings();
+
+        $this->getSettingsBuilder()->setDefaults($items);
+
+        foreach ($items as $item_name => $types) {
+            $this->getSettingsBuilder()->addAllowedTypes($item_name, array('null', 'integer', 'object', 'string'));
+        }
     }
 
     /**

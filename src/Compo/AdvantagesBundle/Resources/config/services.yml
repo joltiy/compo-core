@@ -3,7 +3,7 @@ services:
         class: Compo\AdvantagesBundle\Admin\AdvantagesAdmin
         arguments: [~, Compo\AdvantagesBundle\Entity\Advantages, CompoAdvantagesBundle:AdvantagesAdmin]
         tags:
-            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: advantages, label_translator_strategy: sonata.admin.label.strategy.underscore }
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: advantages }
         calls:
             - [ addChild, ['@compo_advantages.admin.advantages_item']]
 

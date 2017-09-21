@@ -1,6 +1,6 @@
 <?php
 
-namespace Compo\Sonata\AdminBundle\Entity;
+namespace Compo\Sonata\AdminBundle\Repository;
 
 use Doctrine\ORM\QueryBuilder;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\QueryBuilder;
  * Trait TreeRepositoryTrait
  * @package Compo\Sonata\AdminBundle\Entity
  */
-trait TreeRepositoryTrait
+trait TreeTrait
 {
     /**
      * @return mixed
@@ -103,7 +103,6 @@ trait TreeRepositoryTrait
      */
     public function childrenHierarchyWithNodes($node = null, $direct = false, array $options = array(), $includeNode = false)
     {
-
         $tree = $this->childrenHierarchy($node, $direct, $options, $includeNode);
 
         return $this->fillTreeNodes($tree);

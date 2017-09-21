@@ -26,5 +26,4 @@ class TabMenuExtension extends AbstractAdminExtension
             }
         }
     }
-
 }

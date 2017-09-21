@@ -4,7 +4,6 @@ namespace Compo\Sonata\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * Trait DescriptionAdditionalEntityTrait
  * @package Compo\Sonata\AdminBundle\Entity
@@ -34,5 +33,4 @@ trait DescriptionAdditionalEntityTrait
     {
         $this->descriptionAdditional = $descriptionAdditional;
     }
-
 }

@@ -10,6 +10,27 @@ use Sonata\AdminBundle\Form\FormMapper;
  */
 class AbstractAdminExtension extends BaseAbstractAdminExtension
 {
+
+    /**
+     * @param \Sonata\AdminBundle\Admin\AdminInterface $admin
+     * @param array $traits
+     * @return bool
+     */
+    public function isUseEntityTraits($admin, array $traits = array()) {
+
+        $traitsAdmin = class_uses($admin->getClass());
+
+        foreach ($traits as $trait) {
+            if (
+                !in_array($trait, $traitsAdmin, true)
+            ) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     /**
      * @param FormMapper $formMapper
      * @param $name

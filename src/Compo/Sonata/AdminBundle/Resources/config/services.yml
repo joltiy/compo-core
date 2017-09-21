@@ -9,6 +9,40 @@ services:
         tags:
             - { name: sonata.admin.extension, global: true }
 
+    compo.sonata.admin.alias.extension:
+        class: Compo\Sonata\AdminBundle\Extension\AliasExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+
+    compo.sonata.admin.body.extension:
+        class: Compo\Sonata\AdminBundle\Extension\BodyExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+
+    compo.sonata.admin.color.extension:
+        class: Compo\Sonata\AdminBundle\Extension\ColorExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+
+    compo.sonata.admin.description_additional.extension:
+        class: Compo\Sonata\AdminBundle\Extension\DescriptionAdditionalExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+
+    compo.sonata.admin.name.extension:
+        class: Compo\Sonata\AdminBundle\Extension\NameExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+
+    compo.sonata.admin.publication_at.extension:
+        class: Compo\Sonata\AdminBundle\Extension\PublicationAtExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+
+    compo.sonata.admin.views.extension:
+        class: Compo\Sonata\AdminBundle\Extension\ViewsExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
 
     compo.sonata.admin.extension.position:
         class: Compo\Sonata\AdminBundle\Extension\PositionExtension
@@ -29,8 +63,6 @@ services:
             - { name: sonata.admin.extension, global: true }
         parent: compo_core.abstract_container_aware
 
-
-
     compo.sonata.admin.extension.without_image:
         class: Compo\Sonata\AdminBundle\Extension\WithoutImageExtension
         tags:
@@ -46,7 +78,7 @@ services:
     compo.sonata.admin.extension.properties:
         class: Compo\Sonata\AdminBundle\Extension\PropertiesExtension
         tags:
-            - { name: sonata.admin.extension, global: false }
+            - { name: sonata.admin.extension, global: true, priority: 100 }
         parent: compo_core.abstract_container_aware
 
     compo.sonata.admin.form.type.tree_selector:
@@ -54,8 +86,6 @@ services:
         arguments: ["@property_accessor"]
         tags:
             - { name: form.type, alias: compo_tree_selector }
-
-
 
     compo.sonata.admin.filter.type.number_range:
         class: Compo\Sonata\AdminBundle\Filter\NumberRangeFilter
@@ -78,9 +108,3 @@ services:
         tags:
             - { name: sonata.admin.extension, global: true }
         parent: compo_core.abstract_container_aware
-
-
-    compo.sonata.admin.blameable.extension:
-        class: Compo\Sonata\AdminBundle\Extension\BlameableExtension
-        tags:
-            - { name: sonata.admin.extension, global: true }

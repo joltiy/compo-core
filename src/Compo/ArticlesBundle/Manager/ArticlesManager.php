@@ -5,7 +5,7 @@ namespace Compo\ArticlesBundle\Manager;
 use Compo\ArticlesBundle\Entity\Articles;
 use Compo\ArticlesBundle\Repository\ArticlesRepository;
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
-use Compo\Sonata\AdminBundle\Entity\ViewsRepositoryTrait;
+use Compo\Sonata\AdminBundle\Repository\ViewsTrait;
 use Sonata\CoreBundle\Model\BaseEntityManager;
 
 /**
@@ -14,7 +14,7 @@ use Sonata\CoreBundle\Model\BaseEntityManager;
 class ArticlesManager extends BaseEntityManager
 {
     use ContainerAwareTrait;
-    use ViewsRepositoryTrait;
+    use ViewsTrait;
 
     /**
      * @param $criteria

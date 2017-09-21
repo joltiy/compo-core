@@ -12,12 +12,35 @@ use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * {@inheritDoc}
  */
-class AdminSettingsSchema extends BaseAdminSettingsSchema
+class AdminSettingsSchema extends BaseBundleAdminSettingsSchema
 {
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(
+            array(
+                'action' => $this->getContainer()->get('router')->generate($this->getBaseRouteName() . '_update') . '?',
+                'label_format' => 'form.label_settings_%name%',
+                'translation_domain' => $this->getTranslationDomain(),
+            )
+        );
+    }
+    /**
+     * @return array
+     * @throws \Exception
+     */
+    public function getDefaultOptions()
+    {
+        return array(
+            'action' => $this->getContainer()->get('router')->generate(  'compo_core_update') . '?',
+            'label_format' => 'form.label_settings_%name%',
+            'translation_domain' => $this->getTranslationDomain(),
+        );
+    }
     /**
      * @param SettingsBuilderInterface $builder
      */
@@ -26,45 +49,13 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
         $this->setTranslationDomain('CompoCoreBundle');
         $this->setBaseRouteName('compo_core_settings');
 
-        $builder
-            ->setDefaults(
-                $this->getFormDefaultOptions()
-            );
-
-        $items =
-            [
-                'email' => ['string', 'NULL'],
-
-
-                'header_menu' => array('null', 'integer', 'object'),
-
-                'header_timework' => ['string', 'NULL'],
-                'header_timework_description' => ['string', 'NULL'],
-
-                'header_phones' => ['string', 'NULL'],
-
-                'footer_menu' => array('null', 'integer', 'object'),
-
-                'footer_copyright' => ['string', 'NULL'],
-
-                'footer_address' => ['string', 'NULL'],
-                'footer_phones' => ['string', 'NULL'],
-
-                'logo_image' => array('null', 'integer', 'object'),
-            ];
-
-
-        foreach ($items as $item_name => $types) {
-            $builder->addAllowedTypes($item_name, $types);
-        }
-
-
+        parent::buildSettings($builder);
     }
 
     /**
      * @return array
      */
-    public function getFormDefaultOptions()
+    public function getDefaultSettings()
     {
         $options = [
             'email' => 'info@example.com',
@@ -101,11 +92,12 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
     }
 
     /**
-     * @param FormBuilderInterface $builder
      * @throws \Exception
      */
-    public function buildForm(FormBuilderInterface $builder)
+    public function buildFormSettings()
     {
+        $builder = $this->getFormBuilder();
+
         $main_tab = $builder->create(
             'main_tab',
             TabType::class,

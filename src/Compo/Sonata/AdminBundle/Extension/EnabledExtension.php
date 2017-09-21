@@ -2,8 +2,9 @@
 
 namespace Compo\Sonata\AdminBundle\Extension;
 
-use Sonata\AdminBundle\Admin\AbstractAdminExtension;
+use Compo\Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use Sonata\AdminBundle\Admin\AdminInterface;
+use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
@@ -12,8 +13,6 @@ use Sonata\AdminBundle\Form\FormMapper;
  */
 class EnabledExtension extends AbstractAdminExtension
 {
-
-
     /**
      * {@inheritdoc}
      */
@@ -34,7 +33,6 @@ class EnabledExtension extends AbstractAdminExtension
             $formMapper->get('enabled')->setRequired(false);
         }
     }
-
 
     /**
      * {@inheritDoc}
@@ -60,5 +58,21 @@ class EnabledExtension extends AbstractAdminExtension
         }
 
         return $actions;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        if (!$this->isUseEntityTraits($datagridMapper->getAdmin(), array(
+            'Compo\Sonata\AdminBundle\Entity\EnabledEntityTrait',
+        ) )) {
+            return;
+        }
+
+        if (!$datagridMapper->has('enabled')) {
+            $datagridMapper->add('enabled');
+        }
     }
 }

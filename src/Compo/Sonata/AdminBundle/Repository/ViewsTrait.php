@@ -1,15 +1,14 @@
 <?php
 
-namespace Compo\Sonata\AdminBundle\Entity;
+namespace Compo\Sonata\AdminBundle\Repository;
 
 use Doctrine\ORM\EntityManager;
-
 
 /**
  * Trait ViewsRepositoryTrait
  * @package Compo\Sonata\AdminBundle\Entity
  */
-trait ViewsRepositoryTrait
+trait ViewsTrait
 {
     /**
      * @param $object \Compo\Sonata\AdminBundle\Entity\ViewsEntityTrait

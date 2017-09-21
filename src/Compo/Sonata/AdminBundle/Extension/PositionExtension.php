@@ -13,7 +13,6 @@ use Sonata\AdminBundle\Route\RouteCollection;
  */
 class PositionExtension extends AbstractAdminExtension
 {
-
     /**
      * {@inheritDoc}
      */

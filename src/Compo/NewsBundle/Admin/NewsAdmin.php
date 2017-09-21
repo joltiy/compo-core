@@ -26,8 +26,6 @@ class NewsAdmin extends AbstractAdmin
         $this->setSortBy('publicationAt');
         $this->setSortOrder('DESC');
         $this->configureSeo(true);
-        $this->configureSettings(true, 'compo_news');
-        $this->configureProperties(true);
     }
 
     /**

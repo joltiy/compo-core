@@ -20,16 +20,6 @@ class AdvantagesAdmin extends AbstractAdmin
     /**
      * {@inheritDoc}
      */
-    public function configure()
-    {
-        $this->setTranslationDomain('CompoAdvantagesBundle');
-
-        $this->configureProperties(true);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function postRemove($object)
     {
         $em = $this->getDoctrine()->getManager();

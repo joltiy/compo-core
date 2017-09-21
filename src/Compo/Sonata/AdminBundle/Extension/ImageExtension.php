@@ -6,14 +6,12 @@ use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use Sonata\AdminBundle\Form\FormMapper;
 
-
 /**
  * {@inheritDoc}
  */
 class ImageExtension extends AbstractAdminExtension
 {
     use ContainerAwareTrait;
-
 
     /**
      * {@inheritDoc}

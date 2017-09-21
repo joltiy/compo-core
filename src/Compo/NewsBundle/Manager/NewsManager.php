@@ -5,7 +5,7 @@ namespace Compo\NewsBundle\Manager;
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Compo\NewsBundle\Entity\News;
 use Compo\NewsBundle\Repository\NewsRepository;
-use Compo\Sonata\AdminBundle\Entity\ViewsRepositoryTrait;
+use Compo\Sonata\AdminBundle\Repository\ViewsTrait;
 use Sonata\CoreBundle\Model\BaseEntityManager;
 
 /**
@@ -14,7 +14,7 @@ use Sonata\CoreBundle\Model\BaseEntityManager;
 class NewsManager extends BaseEntityManager
 {
     use ContainerAwareTrait;
-    use ViewsRepositoryTrait;
+    use ViewsTrait;
 
     /**
      * @param $criteria

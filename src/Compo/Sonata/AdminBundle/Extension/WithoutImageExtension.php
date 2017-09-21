@@ -7,14 +7,12 @@ use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 
-
 /**
  * {@inheritDoc}
  */
 class WithoutImageExtension extends AbstractAdminExtension
 {
     use ContainerAwareTrait;
-
 
     /**
      * {@inheritDoc}
@@ -43,6 +41,5 @@ class WithoutImageExtension extends AbstractAdminExtension
                 )
             );
         }
-
     }
 }

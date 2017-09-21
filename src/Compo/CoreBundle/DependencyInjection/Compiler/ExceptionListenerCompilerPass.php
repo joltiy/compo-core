@@ -8,16 +8,13 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * {@inheritDoc}
  */
-class FallbackTranslator implements CompilerPassInterface
+class ExceptionListenerCompilerPass implements CompilerPassInterface
 {
     /**
      * {@inheritDoc}
      */
     public function process(ContainerBuilder $container)
     {
-        $definition = $container->getDefinition('translator.default');
-        $definition->setClass(\Compo\CoreBundle\Translation\FallbackTranslator::class);
-
         $definition = $container->getDefinition('sonata.page.kernel.exception_listener');
         $definition->setClass(\Compo\Sonata\PageBundle\Listener\ExceptionListener::class);
 

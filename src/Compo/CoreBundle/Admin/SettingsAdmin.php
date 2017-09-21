@@ -15,7 +15,8 @@ class SettingsAdmin extends BaseSettingsAdmin
     public function configure()
     {
         $this->setTranslationDomain('CompoCoreBundle');
-        $this->setBaseRouteName('compo_core_settings');
+        $this->setBaseRouteName('compo_core');
         $this->setNamespase('compo_core_settings');
     }
+
 }
