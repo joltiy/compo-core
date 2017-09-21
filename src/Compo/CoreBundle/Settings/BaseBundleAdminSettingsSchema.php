@@ -233,7 +233,7 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
         $this->getSettingsBuilder()->setDefaults($items);
 
         foreach ($items as $item_name => $types) {
-            $this->getSettingsBuilder()->addAllowedTypes($item_name, array('null', 'integer', 'object', 'string'));
+            $this->getSettingsBuilder()->addAllowedTypes($item_name, array('null', 'integer', 'object', 'string', 'array'));
         }
     }
 
