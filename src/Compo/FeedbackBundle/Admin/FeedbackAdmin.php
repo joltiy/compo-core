@@ -19,11 +19,8 @@ class FeedbackAdmin extends AbstractAdmin
      */
     public function configure()
     {
-        $this->setTranslationDomain('CompoFeedbackBundle');
         $this->setSortBy('createdAt');
         $this->setSortOrder('DESC');
-        $this->configureSettings(true, 'compo_feedback');
-        $this->configureProperties(true);
     }
 
     /**

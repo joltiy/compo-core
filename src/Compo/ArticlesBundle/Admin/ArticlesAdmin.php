@@ -21,12 +21,8 @@ class ArticlesAdmin extends AbstractAdmin
      */
     public function configure()
     {
-        $this->setTranslationDomain('CompoArticlesBundle');
         $this->setSortBy('publicationAt');
         $this->setSortOrder('DESC');
-        $this->configureSeo(true);
-        $this->configureSettings(true, 'compo_articles');
-        $this->configureProperties(true);
     }
 
     /**

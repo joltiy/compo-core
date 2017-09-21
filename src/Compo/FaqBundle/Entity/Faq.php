@@ -3,10 +3,13 @@
 namespace Compo\FaqBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Faq
- *
+ * 
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
+
  * @ORM\Table(name="faq")
  * @ORM\Entity(repositoryClass="Compo\FaqBundle\Repository\FaqRepository")
  */

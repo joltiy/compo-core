@@ -12,42 +12,20 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 class FaqSettingsSchema extends BaseBundleAdminSettingsSchema
 {
     /**
-     * @param SettingsBuilderInterface $builder
+     * {@inheritDoc}
      */
-    public function buildSettings(SettingsBuilderInterface $builder)
-    {
-        $this->setTranslationDomain('CompoFaqBundle');
-
-        $this->setBaseRouteName('admin_compo_faq_faq');
-
-        $builder
-            ->setDefaults(
-                [
-                    'faq_per_page' => 21,
-                ]
-            );
-        $items =
-            [
-                'faq_per_page' => ['integer'],
-            ];
-
-        foreach ($items as $item_name => $types) {
-            $builder->addAllowedTypes($item_name, $types);
-        }
+    public function getDefaultSettings() {
+        return [
+            'faq_per_page' => 21,
+        ];
     }
+    
+    
 
     /**
      * {@inheritDoc}
      */
     public function buildFormSettings()
-    {
-        $this->buildFormTabMain();
-    }
-
-    /**
-     * Основные
-     */
-    public function buildFormTabMain()
     {
         $tab = $this->addTab('main');
 

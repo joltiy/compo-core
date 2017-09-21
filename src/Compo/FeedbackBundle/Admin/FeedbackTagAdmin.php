@@ -19,7 +19,6 @@ class FeedbackTagAdmin extends AbstractAdmin
      */
     public function configure()
     {
-        $this->setTranslationDomain('CompoFeedbackBundle');
         $this->setSortBy('name');
     }
 

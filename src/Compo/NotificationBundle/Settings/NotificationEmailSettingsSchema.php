@@ -13,33 +13,15 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 class NotificationEmailSettingsSchema extends BaseBundleAdminSettingsSchema
 {
     /**
-     * @param SettingsBuilderInterface $builder
+     * {@inheritDoc}
      */
-    public function buildSettings(SettingsBuilderInterface $builder)
-    {
-        $this->setTranslationDomain('CompoNotificationBundle');
-
-        $this->setBaseRouteName('admin_compo_notification_notificationemail');
-
-        $builder
-            ->setDefaults(
-                [
-                    'notification_email_account_default' => $this->getNotificationEmailAccountRepository()->getDefaultId(),
-                    'notification_email_recipient_default' => '',
-                ]
-            );
-
-        $items =
-            [
-                'notification_email_account_default' => array('null', 'integer', 'object'),
-                'notification_email_recipient_default' => ['string', 'NULL'],
-            ];
-
-        foreach ($items as $item_name => $types) {
-            $builder->addAllowedTypes($item_name, $types);
-        }
+    public function getDefaultSettings() {
+        return [
+            'notification_email_account_default' => $this->getNotificationEmailAccountRepository()->getDefaultId(),
+            'notification_email_recipient_default' => '',
+        ];
     }
-
+    
     /**
      */
     public function getNotificationEmailAccountRepository()
@@ -51,14 +33,6 @@ class NotificationEmailSettingsSchema extends BaseBundleAdminSettingsSchema
      * @inheritdoc
      */
     public function buildFormSettings()
-    {
-        $this->buildFormMainTab();
-    }
-
-    /**
-     * Основные настройки
-     */
-    public function buildFormMainTab()
     {
         $tab = $this->addTab('main');
 

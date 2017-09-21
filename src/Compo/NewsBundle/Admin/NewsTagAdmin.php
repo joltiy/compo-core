@@ -19,7 +19,6 @@ class NewsTagAdmin extends AbstractAdmin
      */
     public function configure()
     {
-        $this->setTranslationDomain('CompoNewsBundle');
         $this->configurePosition(true);
     }
 

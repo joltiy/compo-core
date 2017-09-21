@@ -20,10 +20,8 @@ class SmsProviderAdmin extends AbstractAdmin
      */
     public function configure()
     {
-        $this->setTranslationDomain('CompoSmsProviderBundle');
         $this->setSortBy('id');
         $this->setSortOrder('DESC');
-        $this->configureProperties(true);
     }
 
     /**

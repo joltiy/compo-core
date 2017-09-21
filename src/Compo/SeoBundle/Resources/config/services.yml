@@ -2,7 +2,7 @@ services:
     compo_seo.seo.extension:
         class: Compo\SeoBundle\Extension\SeoExtension
         tags:
-            - { name: sonata.admin.extension, target: compo_product.admin.product }
+            - { name: sonata.admin.extension, global: true, priority: 100 }
 
     compo_seo.form.type.seo_vars:
         class: Compo\SeoBundle\Form\SeoVarsType
@@ -27,4 +27,4 @@ services:
         class: Compo\SeoBundle\Admin\SeoPageAdmin
         arguments: [~, Compo\SeoBundle\Entity\SeoPage, CompoSeoBundle:SeoPageAdmin]
         tags:
-            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: seo_page, label_translator_strategy: sonata.admin.label.strategy.underscore }
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: seo_page }

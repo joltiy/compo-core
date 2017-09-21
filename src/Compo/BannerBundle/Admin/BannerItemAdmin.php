@@ -21,10 +21,8 @@ class BannerItemAdmin extends AbstractAdmin
      */
     public function configure()
     {
-        $this->setTranslationDomain('CompoBannerBundle');
         $this->configurePosition(true, array('banner'));
         $this->setParentParentAssociationMapping('banner');
-        $this->configureProperties(true);
     }
 
     /**

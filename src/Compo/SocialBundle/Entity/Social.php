@@ -3,10 +3,11 @@
 namespace Compo\SocialBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Social
- *
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Compo\SocialBundle\Entity\SocialRepository")
  */
@@ -16,6 +17,7 @@ class Social
     use \Compo\Sonata\AdminBundle\Entity\PositionEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\NameEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\ImageEntityTrait;
+    use \Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait;
 
     use \Gedmo\Timestampable\Traits\TimestampableEntity;
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;

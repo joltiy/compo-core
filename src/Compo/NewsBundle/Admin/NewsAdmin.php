@@ -22,10 +22,8 @@ class NewsAdmin extends AbstractAdmin
      */
     public function configure()
     {
-        $this->setTranslationDomain('CompoNewsBundle');
         $this->setSortBy('publicationAt');
         $this->setSortOrder('DESC');
-        $this->configureSeo(true);
     }
 
     /**

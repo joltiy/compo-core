@@ -30,6 +30,5 @@ class AdminLabelCompilerPass implements CompilerPassInterface
 
             $definition->setTags($tags);
         }
-
     }
 }

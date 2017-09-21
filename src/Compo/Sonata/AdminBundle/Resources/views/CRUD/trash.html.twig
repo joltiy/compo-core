@@ -1,0 +1,12 @@
+{% extends 'SonataAdminBundle:CRUD:base_list.html.twig' %}
+
+{% block table_body %}
+    <tbody>
+    {% for object in admin.datagrid.results %}
+        <tr>
+            {% include '@CompoSonataAdmin/CRUD/list_trash_inner_row.html.twig' %}
+        </tr>
+    {% endfor %}
+    </tbody>
+{% endblock %}
+

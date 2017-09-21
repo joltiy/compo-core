@@ -16,6 +16,7 @@ use Sylius\Bundle\SettingsBundle\Manager\SettingsManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -31,6 +32,134 @@ class CRUDController extends BaseCRUDController
      * @var AbstractAdmin
      */
     protected $admin;
+
+
+    public function historyRevertAction($id, $revision)
+    {
+        $id     = $this->getRequest()->get($this->admin->getIdParameter());
+        $object = $this->admin->getObject($id);
+
+        if (!$object) {
+            throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
+        }
+
+        $request = $this->getRequest();
+        if ($request->getMethod() === 'POST') {
+            // check the csrf token
+            $this->validateCsrfToken('sonata.history.revert');
+
+            try {
+                $manager = $this->get('sonata.admin.audit.manager');
+
+                if (!$manager->hasReader($this->admin->getClass())) {
+                    throw new NotFoundHttpException(sprintf('unable to find the audit reader for class : %s', $this->admin->getClass()));
+                }
+
+                $reader = $manager->getReader($this->admin->getClass());
+                $reader->revert($object, $revision);
+
+                if ($this->isXmlHttpRequest()) {
+                    return $this->renderJson(array('result' => 'ok'));
+                }
+
+                $this->addFlash('sonata_flash_info', $this->get('translator')->trans('flash_history_revert_successfull', array(), 'PicossSonataExtraAdminBundle'));
+
+            } catch (ModelManagerException $e) {
+
+                if ($this->isXmlHttpRequest()) {
+                    return $this->renderJson(array('result' => 'error'));
+                }
+
+                $this->addFlash('sonata_flash_info', $this->get('translator')->trans('flash_history_revert_error', array(), 'PicossSonataExtraAdminBundle'));
+            }
+
+            return new RedirectResponse($this->admin->generateUrl('list'));
+        }
+
+        return $this->render('@CompoSonataAdmin/CRUD/history_revert.html.twig', array(
+            'object'     => $object,
+            'revision'   => $revision,
+            'action'     => 'revert',
+            'csrf_token' => $this->getCsrfToken('sonata.history.revert')
+        ));
+    }
+
+    /**
+     * return the Response object associated to the trash action
+     *
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     *
+     * @return Response
+     */
+    public function trashAction()
+    {
+        if (false === $this->admin->isGranted('LIST')) {
+            throw new AccessDeniedException();
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->getFilters()->disable('softdeleteable');
+        $em->getFilters()->enable('softdeleteabletrash');
+
+        $datagrid = $this->admin->getDatagrid();
+        $formView = $datagrid->getForm()->createView();
+
+        // set the theme for the current Admin Form
+        $this->get('twig')->getExtension('Symfony\Bridge\Twig\Extension\FormExtension')->renderer->setTheme($formView, $this->admin->getFilterTheme());
+
+        return $this->render('@CompoSonataAdmin/CRUD/trash.html.twig', array(
+            'action'     => 'trash',
+            'form'       => $formView,
+            'datagrid'   => $datagrid,
+            'csrf_token' => $this->getCsrfToken('sonata.batch'),
+        ));
+    }
+
+    public function untrashAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->getFilters()->disable('softdeleteable');
+        $em->getFilters()->enable('softdeleteabletrash');
+
+        $id     = $request->get($this->admin->getIdParameter());
+        $object = $this->admin->getObject($id);
+
+        if (!$object) {
+            throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
+        }
+
+        if ($request->getMethod() == 'POST') {
+            // check the csrf token
+            $this->validateCsrfToken('sonata.untrash');
+
+            try {
+                $object->setDeletedAt(null);
+                $this->admin->update($object);
+
+                if ($this->isXmlHttpRequest()) {
+                    return $this->renderJson(array('result' => 'ok'));
+                }
+
+                $this->addFlash('sonata_flash_info', $this->get('translator')->trans('flash_untrash_successfull', array(), 'PicossSonataExtraAdminBundle'));
+
+            } catch (ModelManagerException $e) {
+
+                if ($this->isXmlHttpRequest()) {
+                    return $this->renderJson(array('result' => 'error'));
+                }
+
+                $this->addFlash('sonata_flash_info', $this->get('translator')->trans('flash_untrash_error', array(), 'PicossSonataExtraAdminBundle'));
+            }
+
+            return new RedirectResponse($this->admin->generateUrl('list'));
+        }
+
+        return $this->render('@CompoSonataAdmin/CRUD/untrash.html.twig', array(
+            'object'     => $object,
+            'action'     => 'untrash',
+            'csrf_token' => $this->getCsrfToken('sonata.untrash')
+        ));
+    }
 
     /**
      * @param Request $request

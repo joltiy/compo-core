@@ -20,15 +20,6 @@ class BannerAdmin extends AbstractAdmin
     /**
      * {@inheritDoc}
      */
-    public function configure()
-    {
-        $this->setTranslationDomain('CompoBannerBundle');
-        $this->configureProperties(true);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function postRemove($object)
     {
         $banner_items = $this->getDoctrine()->getRepository('CompoBannerBundle:BannerItem')->findBy(array('banner' => $object));

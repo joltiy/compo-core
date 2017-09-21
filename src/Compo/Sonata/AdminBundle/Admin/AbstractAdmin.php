@@ -322,7 +322,7 @@ class AbstractAdmin extends BaseAdmin
     {
         $list = array();
 
-        if (in_array($action, array('create', 'acl', 'history', 'tree', 'show', 'edit', 'delete', 'list', 'batch', 'settings'), true)
+        if (in_array($action, array('create', 'acl', 'trash', 'history', 'tree', 'show', 'edit', 'delete', 'list', 'batch', 'settings'), true)
             && $this->hasAccess('create')
             && $this->hasRoute('create')
         ) {
@@ -331,7 +331,7 @@ class AbstractAdmin extends BaseAdmin
             );
         }
 
-        if (in_array($action, array('edit', 'show', 'delete', 'acl', 'history'), true)
+        if (in_array($action, array('edit', 'show',  'trash','delete', 'acl', 'history'), true)
             && $this->canAccessObject('edit', $object)
             && $this->hasRoute('edit')
         ) {
@@ -340,13 +340,15 @@ class AbstractAdmin extends BaseAdmin
             );
         }
 
-        if (in_array($action, array('history', 'show', 'edit', 'acl'), true)
+        if (in_array($action, array('history', 'show', 'trash', 'edit', 'acl', 'trash'), true)
             && $this->canAccessObject('history', $object)
             && $this->hasRoute('history')
         ) {
             $list['history'] = array(
                 'template' => $this->getTemplate('button_history'),
             );
+
+
         }
 
         /*
@@ -361,7 +363,7 @@ class AbstractAdmin extends BaseAdmin
         }
         */
 
-        if (in_array($action, array('create', 'list', 'tree', 'history', 'show', 'edit', 'delete', 'acl', 'batch', 'settings'), true)
+        if (in_array($action, array('create', 'trash', 'list', 'tree', 'history', 'show', 'edit', 'delete', 'acl', 'batch', 'settings'), true)
             && $this->hasAccess('list')
             && $this->hasRoute('list')
         ) {
@@ -371,7 +373,7 @@ class AbstractAdmin extends BaseAdmin
         }
 
         if (
-            in_array($action, array('settings', 'batch', 'tree', 'list'), true)
+            in_array($action, array('settings', 'trash', 'batch', 'tree', 'list'), true)
             && $this->hasAccess('acl') && $this->hasRoute('settings')
         ) {
             $list['settings'] = array(
@@ -379,7 +381,42 @@ class AbstractAdmin extends BaseAdmin
             );
         }
 
+
+        if (
+            in_array($action, array('settings', 'trash', 'batch', 'tree', 'list'), true)
+            && $this->hasAccess('acl')
+        ) {
+            if ($this->isUseEntityTraits($this, array(
+                'Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity'
+            ) )) {
+                $list['trash'] = array(
+                    'template' => '@CompoSonataAdmin/Button/trash_button.html.twig',
+                );
+            }
+        }
+
+
         return $list;
+    }
+
+    /**
+     * @param \Sonata\AdminBundle\Admin\AdminInterface $admin
+     * @param array $traits
+     * @return bool
+     */
+    public function isUseEntityTraits($admin, array $traits = array()) {
+
+        $traitsAdmin = class_uses($admin->getClass());
+
+        foreach ($traits as $trait) {
+            if (
+            !in_array($trait, $traitsAdmin, true)
+            ) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -414,6 +451,15 @@ class AbstractAdmin extends BaseAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);
+
+        //if ($this->manager->hasReader($this->getClass())) {
+            $collection->add('history_revert', $this->getRouterIdParameter() . '/history/{revision}/revert');
+        //}
+
+        //if ($this->trashManager->hasReader($this->getClass())) {
+            $collection->add('trash', 'trash');
+            $collection->add('untrash', $this->getRouterIdParameter() . '/untrash');
+        //}
 
         if ($this->treeEnabled) {
             $collection->add('tree', 'tree', array('_controller' => $this->baseControllerName . ':tree'));

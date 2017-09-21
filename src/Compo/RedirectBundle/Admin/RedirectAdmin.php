@@ -18,8 +18,6 @@ class RedirectAdmin extends AbstractAdmin
      */
     public function configure()
     {
-        $this->setTranslationDomain('CompoRedirectBundle');
-
         $this->setSortBy('id');
         $this->setSortOrder('DESC');
     }

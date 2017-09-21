@@ -20,11 +20,8 @@ class NotificationEmailAdmin extends AbstractAdmin
      */
     public function configure()
     {
-        $this->setTranslationDomain('CompoNotificationBundle');
         $this->setSortBy('event');
         $this->setSortOrder('ASC');
-        $this->configureProperties(true);
-        $this->configureSettings(true, 'compo_notification_email_settings');
     }
 
     /**

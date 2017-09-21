@@ -2,8 +2,8 @@
 
 namespace Compo\AdvantagesBundle\Block;
 
-use Compo\AdvantagesBundle\Entity\AdvantagesItemRepository;
-use Compo\AdvantagesBundle\Entity\AdvantagesRepository;
+use Compo\AdvantagesBundle\Entity\Advantages;
+use Compo\AdvantagesBundle\Entity\AdvantagesItem;
 use Compo\Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Block\BlockContextInterface;
@@ -21,12 +21,9 @@ class AdvantagesBlockService extends AbstractBlockService
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
-        $em = $this->getContainer()->get('doctrine')->getManager();
-
         $settings = $blockContext->getSettings();
 
-        /** @var AdvantagesItemRepository $repository */
-        $repository = $em->getRepository('CompoAdvantagesBundle:AdvantagesItem');
+        $repository = $this->getDoctrineManager()->getRepository(AdvantagesItem::class);
 
         $list = array();
 
@@ -50,10 +47,7 @@ class AdvantagesBlockService extends AbstractBlockService
      */
     public function buildForm(FormMapper $formMapper, BlockInterface $block)
     {
-        $em = $this->getContainer()->get('doctrine')->getManager();
-
-        /** @var AdvantagesRepository $repository */
-        $repository = $em->getRepository('CompoAdvantagesBundle:Advantages');
+        $repository = $this->getDoctrineManager()->getRepository(Advantages::class);
 
         $choices = $repository->getChoices();
 
@@ -93,10 +87,7 @@ class AdvantagesBlockService extends AbstractBlockService
         $keys['environment'] = $this->getContainer()->get('kernel')->getEnvironment();
 
         if (isset($settings['id'])) {
-            $em = $this->getContainer()->get('doctrine')->getManager();
-
-            /** @var AdvantagesRepository $repository */
-            $repository = $em->getRepository('CompoAdvantagesBundle:Advantages');
+            $repository = $this->getDoctrineManager()->getRepository(Advantages::class);
 
             $item = $repository->find($settings['id']);
 

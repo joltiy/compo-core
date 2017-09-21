@@ -3,7 +3,6 @@
 namespace Compo\NewsBundle\Settings;
 
 use Compo\CoreBundle\Settings\BaseBundleAdminSettingsSchema;
-use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 /**

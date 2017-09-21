@@ -21,10 +21,8 @@ class SeoPageAdmin extends AbstractAdmin
      */
     public function configure()
     {
-        $this->setTranslationDomain('CompoSeoBundle');
         $this->setSortBy('context');
         $this->setSortOrder('ASC');
-        $this->configureProperties(true);
     }
 
     /**

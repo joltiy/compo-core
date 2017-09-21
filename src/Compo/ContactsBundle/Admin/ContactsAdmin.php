@@ -17,15 +17,6 @@ class ContactsAdmin extends AbstractAdmin
     /**
      * {@inheritDoc}
      */
-    public function configure()
-    {
-        $this->setTranslationDomain('CompoContactsBundle');
-        //$this->configureProperties(true);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection

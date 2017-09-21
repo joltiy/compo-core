@@ -24,15 +24,10 @@ class MenuItemAdmin extends AbstractAdmin
      */
     public function configure()
     {
-        // Домен переводов
-        $this->setTranslationDomain('CompoMenuBundle');
-
         // Включение древовидного представления для категорий
         $this->configureTree(true);
 
         $this->setParentParentAssociationMapping('menu');
-
-        $this->configureProperties(true);
     }
 
     /**

@@ -20,8 +20,6 @@ class SocialAdmin extends AbstractAdmin
      */
     public function configure()
     {
-        $this->setTranslationDomain('CompoSocialBundle');
-
         $this->configurePosition(true);
     }
 

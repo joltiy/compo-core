@@ -3,7 +3,7 @@
 namespace Compo\SeoBundle\Extension;
 
 use Compo\SeoBundle\Form\SeoVarsType;
-use Sonata\AdminBundle\Admin\AbstractAdminExtension;
+use Compo\Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -57,6 +57,12 @@ class SeoExtension extends AbstractAdminExtension
      */
     public function configureFormFields(FormMapper $formMapper)
     {
+        if (!$this->isUseEntityTraits($formMapper->getAdmin(), array(
+            'Compo\SeoBundle\Entity\Traits\SeoEntity'
+        ) )) {
+            return;
+        }
+
         $formMapper
             ->tab('form.tab_seo')
             ->with('form.group_seo_main', array('name' => false, 'class' => 'col-lg-6'))

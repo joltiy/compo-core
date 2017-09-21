@@ -149,6 +149,28 @@ class BaseDeployCommand extends ContainerAwareCommand
     }
 
     /**
+     *
+     * @throws \Exception
+     */
+    public function runAsseticDump()
+    {
+        $this->runCommand(
+            'assetic:dump',
+            array(
+                '--env' => 'dev',
+            )
+        );
+
+        $this->runCommand(
+            'assetic:dump',
+            array(
+                '--env' => 'prod',
+                '--no-debug'
+            )
+        );
+    }
+
+    /**
      * @throws \Exception
      */
     public function runSyliusThemeAssetsInstall()
@@ -156,7 +178,7 @@ class BaseDeployCommand extends ContainerAwareCommand
         $cache_dir = $this->getContainer()->getParameter('kernel.cache_dir');
 
         /** @noinspection MkdirRaceConditionInspection */
-        mkdir($cache_dir . '/jms_diextra/metadata', 0777, true);
+        //mkdir($cache_dir . '/jms_diextra/metadata', 0777, true);
 
         $this->runCommand(
             'sylius:theme:assets:install',
@@ -200,6 +222,7 @@ class BaseDeployCommand extends ContainerAwareCommand
      */
     public function runCacheWarmup()
     {
+        $this->runCommand('cache:warmup');
         $this->runCommand('cache:warmup');
     }
 

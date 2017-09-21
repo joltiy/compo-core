@@ -21,16 +21,6 @@ class MenuAdmin extends AbstractAdmin
     /**
      * {@inheritDoc}
      */
-    public function configure()
-    {
-        $this->setTranslationDomain('CompoMenuBundle');
-
-        $this->configureProperties(true);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function postPersist($menu)
     {
         /** @var Menu $menu */

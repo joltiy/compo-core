@@ -18,25 +18,6 @@ use Sonata\AdminBundle\Show\ShowMapper;
 class AdvantagesAdmin extends AbstractAdmin
 {
     /**
-     * {@inheritDoc}
-     */
-    public function postRemove($object)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $advantages_items = $em->getRepository('CompoAdvantagesBundle:AdvantagesItem')->findBy(array('advantages' => $object));
-
-        /** @var AdvantagesItem $item */
-        foreach ($advantages_items as $item) {
-            $item->setDeletedAt(new \DateTime());
-
-            $em->persist($item);
-        }
-
-        $em->flush();
-    }
-
-    /**
      * @param DatagridMapper $datagridMapper
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)

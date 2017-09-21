@@ -21,12 +21,8 @@ class FaqAdmin extends AbstractAdmin
      */
     public function configure()
     {
-        $this->setTranslationDomain('CompoFaqBundle');
         $this->setSortBy('publicationAt');
         $this->setSortOrder('DESC');
-        $this->configureSeo(true);
-        $this->configureSettings(true, 'compo_faq');
-        $this->configureProperties(true);
     }
 
     /**

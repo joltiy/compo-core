@@ -3,10 +3,11 @@
 namespace Compo\RedirectBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Redirect
- *
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ORM\Table(name="redirect")
  * @ORM\Entity(repositoryClass="Compo\RedirectBundle\Repository\RedirectRepository")
  */

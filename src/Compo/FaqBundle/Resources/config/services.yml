@@ -3,7 +3,7 @@ services:
         class: Compo\FaqBundle\Admin\FaqAdmin
         arguments: [~, Compo\FaqBundle\Entity\Faq, CompoFaqBundle:FaqAdmin]
         tags:
-            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: faq, label_translator_strategy: sonata.admin.label.strategy.underscore }
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: faq }
 
     compo_faq.manager.faq:
         class: Compo\FaqBundle\Manager\FaqManager
@@ -14,7 +14,7 @@ services:
         class: Compo\FaqBundle\Settings\FaqSettingsSchema
         parent: compo_core.abstract_container_aware
         tags:
-            - { name: "sylius.settings_schema", namespace: "compo_faq", alias: "compo_faq" }
+            - { name: "sylius.settings_schema", namespace: "compo_faq", admin: "compo_faq.admin.faq" }
 
     compo_faq.block.breadcrumb:
         class: Compo\FaqBundle\Block\FaqBreadcrumbBlockService

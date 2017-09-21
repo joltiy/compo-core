@@ -22,14 +22,9 @@ class AdvantagesItemAdmin extends AbstractAdmin
      */
     public function configure()
     {
-        // Домен переводов
-        $this->setTranslationDomain('CompoAdvantagesBundle');
-
         $this->configurePosition(true, array('advantages'));
 
         $this->setParentParentAssociationMapping('advantages');
-
-        $this->configureProperties(true);
     }
 
     /**
@@ -105,12 +100,7 @@ class AdvantagesItemAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->tab(
-            'form.tab_main_advantages',
-            array(
-                'translation_domain' => $this->getTranslationDomain(),
-            )
-        );
+        $formMapper->tab('form.tab_main_advantages');
 
         $formMapper->with(
             'form.tab_main',

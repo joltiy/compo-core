@@ -190,4 +190,11 @@ class AbstractBlockService extends BaseAbstractBlockService
 
         $this->updateLabel($formMapper);
     }
+
+    /**
+     * @return \Doctrine\Common\Persistence\ObjectManager|object
+     */
+    public function getDoctrineManager() {
+        return $this->getContainer()->get('doctrine')->getManager();
+    }
 }

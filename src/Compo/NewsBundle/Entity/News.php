@@ -3,10 +3,13 @@
 namespace Compo\NewsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * News
- *
+ * 
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
+ * 
  * @ORM\Table(name="news")
  * @ORM\Entity(repositoryClass="Compo\NewsBundle\Repository\NewsRepository")
  */

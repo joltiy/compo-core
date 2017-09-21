@@ -9,4 +9,4 @@ services:
         class: Compo\RedirectBundle\Admin\RedirectAdmin
         arguments: [~, Compo\RedirectBundle\Entity\Redirect, CompoRedirectBundle:RedirectAdmin]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: redirect, label_translator_strategy: sonata.admin.label.strategy.underscore }
+            - { name: sonata.admin, manager_type: orm, label: redirect }

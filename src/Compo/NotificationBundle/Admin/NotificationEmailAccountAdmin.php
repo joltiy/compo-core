@@ -19,10 +19,8 @@ class NotificationEmailAccountAdmin extends AbstractAdmin
      */
     public function configure()
     {
-        $this->setTranslationDomain('CompoNotificationBundle');
         $this->setSortBy('id');
         $this->setSortOrder('ASC');
-        $this->configureProperties(true);
     }
 
     /**

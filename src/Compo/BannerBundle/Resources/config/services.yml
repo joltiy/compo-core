@@ -3,7 +3,7 @@ services:
         class: Compo\BannerBundle\Admin\BannerAdmin
         arguments: [~, Compo\BannerBundle\Entity\Banner, CompoBannerBundle:BannerAdmin]
         tags:
-            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: banner, label_translator_strategy: sonata.admin.label.strategy.underscore }
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: banner }
         calls:
             - [ addChild, ['@compo_banner.admin.banner_item']]
 
@@ -19,4 +19,4 @@ services:
         class: Compo\BannerBundle\Admin\BannerItemAdmin
         arguments: [~, Compo\BannerBundle\Entity\BannerItem, CompoBannerBundle:BannerItemAdmin]
         tags:
-            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: banner_item, label_translator_strategy: sonata.admin.label.strategy.underscore }
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: banner_item }

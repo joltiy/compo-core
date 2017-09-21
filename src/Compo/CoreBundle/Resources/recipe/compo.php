@@ -27,9 +27,9 @@ set('copy_dirs', ['vendor']);
 /** @noinspection PhpUndefinedFunctionInspection */
 set('env', 'prod');
 /** @noinspection PhpUndefinedFunctionInspection */
-set('shared_dirs', array('var/logs', 'web/uploads', 'web/userfiles'));
+set('shared_dirs', array('var/logs', 'web/uploads', 'web/userfiles', 'var/sessions' ));
 /** @noinspection PhpUndefinedFunctionInspection */
-set('shared_files', array('app/config/parameters.yml', 'web/robots.txt', 'var/logs', 'var/sessions'));
+set('shared_files', array('app/config/parameters.yml', 'web/robots.txt' ));
 /** @noinspection PhpUndefinedFunctionInspection */
 set('writable_dirs', array('var/cache', 'var/sessions', 'var/logs', 'web/uploads'));
 
@@ -390,12 +390,13 @@ task(
         'symfony:env_vars',
         'deploy:vendors',
         //'deploy:assets:install',
-        'deploy:assetic:dump',
+        //'deploy:assetic:dump',
         //'deploy:cache:warmup',
         'deploy:writable',
         'deploy:symlink',
 
         'compo:core:install',
+
         'php-fpm:reload',
         'nginx:reload',
 
@@ -424,7 +425,7 @@ task(
         'symfony:env_vars',
         'deploy:vendors',
         //'deploy:assets:install',
-        'deploy:assetic:dump',
+        //'deploy:assetic:dump',
         //'deploy:cache:warmup',
         'deploy:writable',
         'deploy:symlink',
