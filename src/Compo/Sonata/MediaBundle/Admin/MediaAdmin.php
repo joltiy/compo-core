@@ -14,6 +14,10 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\MediaBundle\Form\DataTransformer\ProviderDataTransformer;
 
+/**
+ * Class MediaAdmin
+ * @package Compo\Sonata\MediaBundle\Admin
+ */
 class MediaAdmin extends \Sonata\MediaBundle\Admin\ORM\MediaAdmin
 {
     /**
@@ -45,15 +49,19 @@ class MediaAdmin extends \Sonata\MediaBundle\Admin\ORM\MediaAdmin
             $providers[$name] = $name;
         }
 
-        $datagridMapper->add('providerName', 'doctrine_orm_choice', array(
-            'field_options' => array(
-                'choices' => $providers,
-                'required' => false,
-                'multiple' => false,
-                'expanded' => false,
-            ),
-            'field_type' => 'choice',
-        ));
+        $datagridMapper->add(
+            'providerName',
+            'doctrine_orm_choice',
+            array(
+                'field_options' => array(
+                    'choices' => $providers,
+                    'required' => false,
+                    'multiple' => false,
+                    'expanded' => false,
+                ),
+                'field_type' => 'choice',
+            )
+        );
     }
 
     /**

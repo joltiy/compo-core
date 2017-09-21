@@ -11,8 +11,6 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
  */
 class SortableExtension extends AbstractAdminExtension
 {
-
-
     /**
      * {@inheritdoc}
      */
@@ -29,6 +27,5 @@ class SortableExtension extends AbstractAdminExtension
                 $fieldDescription->setOption('sort_field_mapping', array('fieldName' => 'name'));
             }
         }
-
     }
 }

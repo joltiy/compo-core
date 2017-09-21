@@ -9,7 +9,6 @@ use Symfony\Component\PropertyAccess\PropertyAccessor;
  */
 class QuietPropertyAccessor extends PropertyAccessor
 {
-
     /**
      * {@inheritDoc}
      */

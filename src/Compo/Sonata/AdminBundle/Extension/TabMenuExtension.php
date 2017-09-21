@@ -21,10 +21,9 @@ class TabMenuExtension extends AbstractAdminExtension
         $current = $admin->getRequest()->getBaseUrl() . $admin->getRequest()->getPathInfo();
 
         foreach ($menu->getChildren() as $child) {
-            if ($current == $child->getUri()) {
+            if ($current === $child->getUri()) {
                 $child->setCurrent(true);
             }
         }
     }
-
 }

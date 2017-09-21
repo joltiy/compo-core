@@ -5,7 +5,7 @@ namespace Compo\NewsBundle\Manager;
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Compo\NewsBundle\Entity\News;
 use Compo\NewsBundle\Repository\NewsRepository;
-use Compo\Sonata\AdminBundle\Entity\ViewsRepositoryTrait;
+use Compo\Sonata\AdminBundle\Repository\ViewsTrait;
 use Sonata\CoreBundle\Model\BaseEntityManager;
 
 /**
@@ -14,7 +14,7 @@ use Sonata\CoreBundle\Model\BaseEntityManager;
 class NewsManager extends BaseEntityManager
 {
     use ContainerAwareTrait;
-    use ViewsRepositoryTrait;
+    use ViewsTrait;
 
     /**
      * @param $criteria
@@ -84,6 +84,7 @@ class NewsManager extends BaseEntityManager
     /**
      * @param $slug
      * @return News
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function findBySlug($slug)
     {
@@ -125,7 +126,7 @@ class NewsManager extends BaseEntityManager
      * @param int $absolute
      * @return string
      */
-    public function getNewsIndexPermalink($parameters = array(), $absolute = 1)
+    public function getNewsIndexPermalink(array $parameters = array(), $absolute = 1)
     {
         return $this->getContainer()->get('router')->generate($this->getNewsIndexRoute(), $this->getNewsIndexRouteParameters($parameters), $absolute);
     }

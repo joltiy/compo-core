@@ -19,11 +19,8 @@ class FeedbackAdmin extends AbstractAdmin
      */
     public function configure()
     {
-        $this->setTranslationDomain('CompoFeedbackBundle');
         $this->setSortBy('createdAt');
         $this->setSortOrder('DESC');
-        $this->configureSettings(true, 'compo_feedback');
-        $this->configureProperties(true);
     }
 
     /**
@@ -48,12 +45,16 @@ class FeedbackAdmin extends AbstractAdmin
             ->add('name')
             ->add('phone')
             ->add('email')
-            ->add('_action', null, array(
-                'actions' => array(
-                    'edit' => array(),
-                    'delete' => array(),
+            ->add(
+                '_action',
+                null,
+                array(
+                    'actions' => array(
+                        'edit' => array(),
+                        'delete' => array(),
+                    )
                 )
-            ));
+            );
     }
 
     /**
@@ -74,16 +75,23 @@ class FeedbackAdmin extends AbstractAdmin
             ->with('form.group_main', array('name' => false, 'class' => 'col-lg-6'))
             ->add('id')
             ->add('createdAt')
-            ->add('type', 'choice', array(
-                'choices' => $feedbackManager->getTypesChoice(),
-                'choice_translation_domain' => 'CompoFeedbackBundle',
-            ))
+            ->add(
+                'type',
+                'choice',
+                array(
+                    'choices' => $feedbackManager->getTypesChoice(),
+                    'choice_translation_domain' => 'CompoFeedbackBundle',
+                )
+            )
             ->add('name')
             ->add('email')
             ->add('phone')
             ->add('page')
             ->add('message')
-            ->add('tags', 'sonata_type_model', array(
+            ->add(
+                'tags',
+                'sonata_type_model',
+                array(
                     'by_reference' => false,
                     'multiple' => true,
                     'expanded' => false,

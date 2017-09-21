@@ -20,6 +20,11 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
     public $container;
 
     /**
+     * @var SettingsBuilderInterface
+     */
+    public $settingsBuilder;
+
+    /**
      * @var string
      */
     public $translationDomain = 'messages';
@@ -40,6 +45,22 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
     protected $formBuilder;
 
     /**
+     * @return SettingsBuilderInterface
+     */
+    public function getSettingsBuilder(): SettingsBuilderInterface
+    {
+        return $this->settingsBuilder;
+    }
+
+    /**
+     * @param SettingsBuilderInterface $settingsBuilder
+     */
+    public function setSettingsBuilder(SettingsBuilderInterface $settingsBuilder)
+    {
+        $this->settingsBuilder = $settingsBuilder;
+    }
+
+    /**
      * @param $formMapper
      * @return mixed
      * @throws \Exception
@@ -51,26 +72,36 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
         $admin = $admin_pool->getAdminByAdminCode('compo_core.admin.settings');
         // simulate an association ...
         /** @noinspection PhpUndefinedMethodInspection */
-        $fieldDescription = $this->getMediaAdmin()->getModelManager()->getNewFieldDescriptionInstance($this->mediaAdmin->getClass(), 'media', array(
-            'translation_domain' => 'SonataMediaBundle',
-        ));
+        $fieldDescription = $this->getMediaAdmin()->getModelManager()->getNewFieldDescriptionInstance(
+            $this->mediaAdmin->getClass(),
+            'media',
+            array(
+                'translation_domain' => 'SonataMediaBundle',
+            )
+        );
         $fieldDescription->setAssociationAdmin($this->getMediaAdmin());
         $fieldDescription->setAdmin($admin);
         $fieldDescription->setOption('edit', 'list');
-        $fieldDescription->setAssociationMapping(array(
-            'fieldName' => 'media',
-            'type' => ClassMetadataInfo::MANY_TO_ONE,
-        ));
+        $fieldDescription->setAssociationMapping(
+            array(
+                'fieldName' => 'media',
+                'type' => ClassMetadataInfo::MANY_TO_ONE,
+            )
+        );
 
         /** @noinspection PhpUndefinedMethodInspection */
-        return $formMapper->add('mediaId', 'sonata_type_model_list', array(
-            'sonata_field_description' => $fieldDescription,
-            'class' => $this->getMediaAdmin()->getClass(),
-            'model_manager' => $this->getMediaAdmin()->getModelManager(),
-            'label' => 'form.label_media',
-            'required' => false,
+        return $formMapper->add(
+            'mediaId',
+            'sonata_type_model_list',
+            array(
+                'sonata_field_description' => $fieldDescription,
+                'class' => $this->getMediaAdmin()->getClass(),
+                'model_manager' => $this->getMediaAdmin()->getModelManager(),
+                'label' => 'form.label_media',
+                'required' => false,
 
-        ));
+            )
+        );
     }
 
     /**
@@ -98,6 +129,7 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
         if (!$this->mediaAdmin) {
             $this->mediaAdmin = $this->container->get('sonata.media.admin.media');
         }
+
         return $this->mediaAdmin;
     }
 
@@ -117,7 +149,19 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
     {
         $this->setFormBuilder($builder);
 
+
+
+
         $this->buildFormSettings();
+
+    }
+
+    /**
+     * @return array
+     */
+    public function getDefaultSettings()
+    {
+        return array();
     }
 
     /**
@@ -151,10 +195,14 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
      */
     public function createTab($name)
     {
-        return $this->getFormBuilder()->create('tab_label_settings_' . $name, TabType::class, array(
-            'label' => 'tab.label_settings_' . $name,
-            'inherit_data' => true,
-        ));
+        return $this->getFormBuilder()->create(
+            'tab_label_settings_' . $name,
+            TabType::class,
+            array(
+                'label' => 'tab.label_settings_' . $name,
+                'inherit_data' => true,
+            )
+        );
     }
 
     /**
@@ -178,7 +226,15 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
      */
     public function buildSettings(SettingsBuilderInterface $builder)
     {
+        $this->setSettingsBuilder($builder);
 
+        $items = $this->getDefaultSettings();
+
+        $this->getSettingsBuilder()->setDefaults($items);
+
+        foreach ($items as $item_name => $types) {
+            $this->getSettingsBuilder()->addAllowedTypes($item_name, array('null', 'integer', 'object', 'string'));
+        }
     }
 
     /**

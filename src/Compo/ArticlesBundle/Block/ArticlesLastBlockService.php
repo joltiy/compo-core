@@ -21,7 +21,7 @@ class ArticlesLastBlockService extends AbstractBlockService
     {
         $container = $this->getContainer();
 
-        $manager = $container->get("compo_articles.manager.articles");
+        $manager = $container->get('compo_articles.manager.articles');
 
         $settigs = $blockContext->getSettings();
         $block = $blockContext->getBlock();
@@ -29,11 +29,15 @@ class ArticlesLastBlockService extends AbstractBlockService
 
         $publications = $manager->findLastPublications($settigs['limit']);
 
-        return $this->renderResponse($template, array(
-            'articles' => $publications,
-            'block' => $block,
-            'settings' => $settigs,
-        ), $response);
+        return $this->renderResponse(
+            $template,
+            array(
+                'articles' => $publications,
+                'block' => $block,
+                'settings' => $settigs,
+            ),
+            $response
+        );
     }
 
     /**
@@ -41,11 +45,15 @@ class ArticlesLastBlockService extends AbstractBlockService
      */
     public function buildForm(FormMapper $formMapper, BlockInterface $block)
     {
-        $formMapper->add('settings', 'sonata_type_immutable_array', array(
-            'keys' => array(
-                array('limit', 'integer', array('required' => true)),
-            ),
-        ));
+        $formMapper->add(
+            'settings',
+            'sonata_type_immutable_array',
+            array(
+                'keys' => array(
+                    array('limit', 'integer', array('required' => true)),
+                ),
+            )
+        );
     }
 
     /**
@@ -53,9 +61,11 @@ class ArticlesLastBlockService extends AbstractBlockService
      */
     public function configureSettings(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'limit' => 5,
-            'template' => 'CompoArticlesBundle:Block:articles_last.html.twig',
-        ));
+        $resolver->setDefaults(
+            array(
+                'limit' => 5,
+                'template' => 'CompoArticlesBundle:Block:articles_last.html.twig',
+            )
+        );
     }
 }

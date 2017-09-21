@@ -3,6 +3,7 @@
 namespace Compo\Sonata\AdminBundle\Extension;
 
 use Compo\Sonata\AdminBundle\Admin\AbstractAdminExtension;
+use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
@@ -11,7 +12,21 @@ use Sonata\AdminBundle\Form\FormMapper;
  */
 class IdExtension extends AbstractAdminExtension
 {
+    /**
+     * {@inheritDoc}
+     */
+    public function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        if (!$this->isUseEntityTraits($datagridMapper->getAdmin(), array(
+            'Compo\Sonata\AdminBundle\Entity\IdEntityTrait',
+        ) )) {
+            return;
+        }
 
+        if (!$datagridMapper->has('id')) {
+            $datagridMapper->add('id');
+        }
+    }
 
     /**
      * {@inheritdoc}
@@ -28,6 +43,12 @@ class IdExtension extends AbstractAdminExtension
      */
     public function configureFormFields(FormMapper $formMapper)
     {
+        if (!$this->isUseEntityTraits($formMapper->getAdmin(), array(
+            'Compo\Sonata\AdminBundle\Entity\IdEntityTrait',
+        ) )) {
+            return;
+        }
+
         /** @var \Compo\Sonata\AdminBundle\Admin\AbstractAdmin $admin */
         $admin = $formMapper->getAdmin();
 
@@ -36,7 +57,10 @@ class IdExtension extends AbstractAdminExtension
                 $formMapper->remove('id');
             }
         } else {
-            $this->replaceFormField($formMapper,'id', 'text',
+            $this->replaceFormField(
+                $formMapper,
+                'id',
+                'text',
                 array(
                     'required' => false,
                     'attr' => array('readonly' => true),
@@ -44,9 +68,5 @@ class IdExtension extends AbstractAdminExtension
                 )
             );
         }
-
-
-
-
     }
 }

@@ -559,7 +559,7 @@ file that was distributed with this source code.
     {{ block('choice_widget') }}
     {% set main_form_name = id|slice(0, id|length - name|length) %}
     <script>
-        jQuery(document).ready(function() {
+        jQuery(document).ready(function () {
             var allFields = {{ all_fields|json_encode|raw }};
             var map = {{ map|json_encode|raw }};
 
@@ -570,14 +570,12 @@ file that was distributed with this source code.
             });
 
 
-            function choice_field_mask_show(val)
-            {
+            function choice_field_mask_show(val) {
 
                 var controlGroupIdFunc = function (field) {
                     return '#sonata-ba-field-container-{{ main_form_name }}' + field;
 
                 };
-
 
 
                 if (map[val] == undefined) {
@@ -593,13 +591,13 @@ file that was distributed with this source code.
                 });
 
 
-
                 jQuery.each(map[val], function (i, field) {
 
 
                     jQuery(controlGroupIdFunc(field)).show();
                 });
             }
+
             choice_field_mask_show(showMaskChoiceEl.val());
         });
 
@@ -670,7 +668,7 @@ file that was distributed with this source code.
             {% endfor %}
 
             {% if require_js %}
-            require(['ckeditor'], function() {
+            require(['ckeditor'], function () {
                 {% endif %}
 
                 {{ ckeditor_destroy(id) }}

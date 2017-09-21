@@ -50,7 +50,6 @@ trait TreeEntityTrait
      */
     protected $root;
 
-
     /**
      * Get lft
      *

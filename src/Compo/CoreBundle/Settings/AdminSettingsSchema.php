@@ -12,12 +12,35 @@ use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * {@inheritDoc}
  */
-class AdminSettingsSchema extends BaseAdminSettingsSchema
+class AdminSettingsSchema extends BaseBundleAdminSettingsSchema
 {
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(
+            array(
+                'action' => $this->getContainer()->get('router')->generate($this->getBaseRouteName() . '_update') . '?',
+                'label_format' => 'form.label_settings_%name%',
+                'translation_domain' => $this->getTranslationDomain(),
+            )
+        );
+    }
+    /**
+     * @return array
+     * @throws \Exception
+     */
+    public function getDefaultOptions()
+    {
+        return array(
+            'action' => $this->getContainer()->get('router')->generate(  'compo_core_update') . '?',
+            'label_format' => 'form.label_settings_%name%',
+            'translation_domain' => $this->getTranslationDomain(),
+        );
+    }
     /**
      * @param SettingsBuilderInterface $builder
      */
@@ -26,45 +49,13 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
         $this->setTranslationDomain('CompoCoreBundle');
         $this->setBaseRouteName('compo_core_settings');
 
-        $builder
-            ->setDefaults(
-                $this->getFormDefaultOptions()
-            );
-
-        $items =
-            [
-                'email' => ['string', 'NULL'],
-
-
-                'header_menu' => array('null', 'integer', 'object'),
-
-                'header_timework' => ['string', 'NULL'],
-                'header_timework_description' => ['string', 'NULL'],
-
-                'header_phones' => ['string', 'NULL'],
-
-                'footer_menu' => array('null', 'integer', 'object'),
-
-                'footer_copyright' => ['string', 'NULL'],
-
-                'footer_address' => ['string', 'NULL'],
-                'footer_phones' => ['string', 'NULL'],
-
-                'logo_image' => array('null', 'integer', 'object'),
-            ];
-
-
-        foreach ($items as $item_name => $types) {
-            $builder->addAllowedTypes($item_name, $types);
-        }
-
-
+        parent::buildSettings($builder);
     }
 
     /**
      * @return array
      */
-    public function getFormDefaultOptions()
+    public function getDefaultSettings()
     {
         $options = [
             'email' => 'info@example.com',
@@ -101,55 +92,84 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
     }
 
     /**
-     * @param FormBuilderInterface $builder
      * @throws \Exception
      */
-    public function buildForm(FormBuilderInterface $builder)
+    public function buildFormSettings()
     {
-        $main_tab = $builder->create('main_tab', TabType::class, array(
-            'label' => 'settings.main_tab',
-            'inherit_data' => true,
-        ));
+        $builder = $this->getFormBuilder();
+
+        $main_tab = $builder->create(
+            'main_tab',
+            TabType::class,
+            array(
+                'label' => 'settings.main_tab',
+                'inherit_data' => true,
+            )
+        );
         $main_tab->add('email', EmailType::class);
 
-        $header_tab = $builder->create('header_tab', TabType::class, array(
-            'label' => 'settings.header_tab',
-            'inherit_data' => true,
-        ));
+        $header_tab = $builder->create(
+            'header_tab',
+            TabType::class,
+            array(
+                'label' => 'settings.header_tab',
+                'inherit_data' => true,
+            )
+        );
 
-        $header_tab->add('header_menu', ChoiceType::class, array(
-            'choices' => $this->getMenuRepository()->getChoices()
-        ));
+        $header_tab->add(
+            'header_menu',
+            ChoiceType::class,
+            array(
+                'choices' => $this->getMenuRepository()->getChoices()
+            )
+        );
 
         $header_tab->add('header_phones', CKEditorType::class);
         $header_tab->add('header_timework', CKEditorType::class);
         $header_tab->add('header_timework_description', CKEditorType::class);
 
 
-        $footer_tab = $builder->create('footer_tab', TabType::class, array(
-            'label' => 'settings.footer_tab',
-            'inherit_data' => true,
-        ));
+        $footer_tab = $builder->create(
+            'footer_tab',
+            TabType::class,
+            array(
+                'label' => 'settings.footer_tab',
+                'inherit_data' => true,
+            )
+        );
 
-        $footer_tab->add('footer_menu', ChoiceType::class, array(
-            'choices' => $this->getMenuRepository()->getChoices()
-        ));
+        $footer_tab->add(
+            'footer_menu',
+            ChoiceType::class,
+            array(
+                'choices' => $this->getMenuRepository()->getChoices()
+            )
+        );
 
         $footer_tab->add('footer_copyright', CKEditorType::class);
         $footer_tab->add('footer_address', CKEditorType::class);
         $footer_tab->add('footer_phones', CKEditorType::class);
 
 
-        $logo_tab = $builder->create('logo_tab', TabType::class, array(
-            'label' => 'settings.logo_tab',
-            'inherit_data' => true,
-        ));
+        $logo_tab = $builder->create(
+            'logo_tab',
+            TabType::class,
+            array(
+                'label' => 'settings.logo_tab',
+                'inherit_data' => true,
+            )
+        );
 
-        $logo_tab->add('logo_image', MediaType::class, array(
-            'required' => false,
-            'context' => 'default',
-            'provider' => 'sonata.media.provider.image',
-        ));
+        $logo_tab->add(
+            'logo_image',
+            MediaType::class,
+            array(
+                'required' => false,
+                'context' => 'default',
+                'provider' => 'sonata.media.provider.image',
+            )
+        );
 
         $builder
             ->add($main_tab)
@@ -162,9 +182,8 @@ class AdminSettingsSchema extends BaseAdminSettingsSchema
                 if ($id) {
                     $container = $this->getContainer();
                     $mediaManager = $container->get('sonata.media.manager.media');
-                    $media = $mediaManager->find($id);
 
-                    return $media;
+                    return $mediaManager->find($id);
                 } else {
                     return new Media();
                 }

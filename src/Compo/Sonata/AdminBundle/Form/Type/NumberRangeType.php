@@ -38,10 +38,12 @@ class NumberRangeType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         /** @var $resolver OptionsResolver */
-        $resolver->setDefaults(array(
-            'field_options' => array(),
-            'field_type' => 'text',
-        ));
+        $resolver->setDefaults(
+            array(
+                'field_options' => array(),
+                'field_type' => 'text',
+            )
+        );
     }
 
 

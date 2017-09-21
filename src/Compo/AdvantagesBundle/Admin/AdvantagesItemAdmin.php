@@ -22,14 +22,9 @@ class AdvantagesItemAdmin extends AbstractAdmin
      */
     public function configure()
     {
-        // Домен переводов
-        $this->setTranslationDomain('CompoAdvantagesBundle');
-
         $this->configurePosition(true, array('advantages'));
 
         $this->setParentParentAssociationMapping('advantages');
-
-        $this->configureProperties(true);
     }
 
     /**
@@ -88,12 +83,16 @@ class AdvantagesItemAdmin extends AbstractAdmin
             ->addIdentifier('name')
             ->add('url')
             ->add('enabled')
-            ->add('_action', null, array(
-                'actions' => array(
-                    'edit' => array(),
-                    'delete' => array(),
+            ->add(
+                '_action',
+                null,
+                array(
+                    'actions' => array(
+                        'edit' => array(),
+                        'delete' => array(),
+                    ),
                 )
-            ));
+            );
     }
 
     /**
@@ -101,13 +100,14 @@ class AdvantagesItemAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->tab('form.tab_main_advantages', array(
-            'translation_domain' => $this->getTranslationDomain()
-        ));
+        $formMapper->tab('form.tab_main_advantages');
 
-        $formMapper->with('form.tab_main', array(
-            'name' => false
-        ));
+        $formMapper->with(
+            'form.tab_main',
+            array(
+                'name' => false,
+            )
+        );
 
         $formMapper->add('id');
         $formMapper->add('enabled');
@@ -143,7 +143,7 @@ class AdvantagesItemAdmin extends AbstractAdmin
      */
     protected function configureTabMenu(MenuItemInterface $advantages, $action, AdminInterface $childAdmin = null)
     {
-        if (in_array($action, array('edit'))) {
+        if ('edit' === $action) {
             $this->configureTabAdvantagesItem($advantages, $action);
 
             /** @var AdvantagesAdmin $advantagesAdmin */

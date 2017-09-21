@@ -3,10 +3,11 @@
 namespace Compo\SmsProviderBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * SmsProvider
- *
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ORM\Table(name="sms_provider")
  * @ORM\Entity(repositoryClass="Compo\SmsProviderBundle\Repository\SmsProviderRepository")
  */

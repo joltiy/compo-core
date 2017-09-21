@@ -49,7 +49,7 @@ class AdvantagesItem
     protected $url;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Compo\AdvantagesBundle\Entity\Advantages", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="Compo\AdvantagesBundle\Entity\Advantages", fetch="EAGER", inversedBy="items")
      * @ORM\JoinColumn(name="advantages_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     protected $advantages;

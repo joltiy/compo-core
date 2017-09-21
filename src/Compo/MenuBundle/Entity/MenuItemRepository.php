@@ -2,7 +2,7 @@
 
 namespace Compo\MenuBundle\Entity;
 
-use Compo\Sonata\AdminBundle\Entity\TreeRepositoryTrait;
+use Compo\Sonata\AdminBundle\Repository\TreeTrait;
 
 /**
  * MenuItemRepository
@@ -12,5 +12,5 @@ use Compo\Sonata\AdminBundle\Entity\TreeRepositoryTrait;
  */
 class MenuItemRepository extends \Gedmo\Tree\Entity\Repository\NestedTreeRepository
 {
-    use TreeRepositoryTrait;
+    use TreeTrait;
 }

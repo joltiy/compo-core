@@ -15,6 +15,7 @@ use Knp\Menu\FactoryInterface;
 use Knp\Menu\Provider\MenuProviderInterface;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\PageBundle\CmsManager\CmsManagerSelectorInterface;
+use Sonata\PageBundle\Model\Page;
 use Sonata\PageBundle\Model\PageInterface;
 use Sonata\SeoBundle\Block\Breadcrumb\BaseBreadcrumbMenuBlockService;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
@@ -32,11 +33,11 @@ class BreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
     protected $cmsSelector;
 
     /**
-     * @param string                      $context
-     * @param string                      $name
-     * @param EngineInterface             $templating
-     * @param MenuProviderInterface       $menuProvider
-     * @param FactoryInterface            $factory
+     * @param string $context
+     * @param string $name
+     * @param EngineInterface $templating
+     * @param MenuProviderInterface $menuProvider
+     * @param FactoryInterface $factory
      * @param CmsManagerSelectorInterface $cmsSelector
      */
     public function __construct($context, $name, EngineInterface $templating, MenuProviderInterface $menuProvider, FactoryInterface $factory, CmsManagerSelectorInterface $cmsSelector)
@@ -69,6 +70,7 @@ class BreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
             return $menu;
         }
 
+        /** @var Page[] $parents */
         $parents = $page->getParents();
 
         foreach ($parents as $parent) {
@@ -76,21 +78,27 @@ class BreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
                 continue;
             }
 
-            $menu->addChild($parent->getName(), array(
-                'route' => 'page_slug',
-                'routeParameters' => array(
-                    'path' => $parent->getUrl(),
-                ),
-            ));
+            $menu->addChild(
+                $parent->getName(),
+                array(
+                    'route' => 'page_slug',
+                    'routeParameters' => array(
+                        'path' => $parent->getUrl(),
+                    ),
+                )
+            );
         }
 
         if (!$page->isError()) {
-            $menu->addChild($page->getName(), array(
-                //'route' => 'page_slug',
-                'routeParameters' => array(
-                    'path' => $page->getUrl(),
-                ),
-            ));
+            $menu->addChild(
+                $page->getName(),
+                array(
+                    //'route' => 'page_slug',
+                    'routeParameters' => array(
+                        'path' => $page->getUrl(),
+                    ),
+                )
+            );
         }
 
         return $menu;

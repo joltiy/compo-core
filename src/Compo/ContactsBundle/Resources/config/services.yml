@@ -3,7 +3,7 @@ services:
         class: Compo\ContactsBundle\Admin\ContactsAdmin
         arguments: [~, Compo\ContactsBundle\Entity\Contacts, CompoContactsBundle:ContactsAdmin]
         tags:
-            - { name: sonata.admin, manager_type: orm, audit: true, group: admin, label: contacts , label_translator_strategy: sonata.admin.label.strategy.underscore}
+            - { name: sonata.admin, manager_type: orm, audit: true, group: admin, label: contacts }
 
     compo_contacts.manager.contacts:
         class: Compo\ContactsBundle\Manager\ContactsManager
@@ -11,8 +11,8 @@ services:
         parent: compo_core.abstract_container_aware
 
     compo_contacts.block.service.contacts_main:
-            class:  Compo\ContactsBundle\Block\ContactsMainBlockService
-            parent: compo_core.abstract_container_aware
-            arguments: ["compo_contacts.block.service.contacts_main", "@templating"]
-            tags:
-                  - { name: sonata.block }
+        class:  Compo\ContactsBundle\Block\ContactsMainBlockService
+        parent: compo_core.abstract_container_aware
+        arguments: ["compo_contacts.block.service.contacts_main", "@templating"]
+        tags:
+              - { name: sonata.block }

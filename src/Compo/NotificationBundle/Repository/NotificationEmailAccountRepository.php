@@ -21,8 +21,8 @@ class NotificationEmailAccountRepository extends EntityRepository
 
         if ($currency) {
             return $currency->getId();
-        } else {
-            return null;
         }
+
+        return null;
     }
 }

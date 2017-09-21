@@ -46,9 +46,12 @@ class PageAdminController extends Controller
         /** @var Page $page */
         foreach ($query->execute() as $page) {
             $this->get('sonata.notification.backend')
-                ->createAndPublish('sonata.page.create_snapshot', array(
-                    'pageId' => $page->getId(),
-                ));
+                ->createAndPublish(
+                    'sonata.page.create_snapshot',
+                    array(
+                        'pageId' => $page->getId(),
+                    )
+                );
         }
 
         return new RedirectResponse($this->admin->generateUrl('list', $this->admin->getFilterParameters()));
@@ -60,9 +63,9 @@ class PageAdminController extends Controller
      */
     public function listAction(Request $request = null)
     {
-        if (!$request->get('filter')) {
-            //return new RedirectResponse($this->admin->generateUrl('tree'));
-        }
+        //if (!$request->get('filter')) {
+        //return new RedirectResponse($this->admin->generateUrl('tree'));
+        //}
 
         return parent::listAction();
     }
@@ -84,37 +87,40 @@ class PageAdminController extends Controller
 
         /** @var Site $site */
         foreach ($sites as $site) {
-            if ($siteId && $site->getId() == $siteId) {
+            if ($siteId && $site->getId() === $siteId) {
                 $currentSite = $site;
             } elseif (!$siteId && $site->getIsDefault()) {
                 $currentSite = $site;
             }
         }
-        if (!$currentSite && count($sites) == 1) {
+        if (!$currentSite && count($sites) === 1) {
             $currentSite = $sites[0];
         }
+
+        $pages = array();
 
         if ($currentSite) {
             $pages = $pageManager->loadPages($currentSite);
             //$pages = $pageManager->loadPages($currentSite, null);
 
-        } else {
-            $pages = array();
         }
 
         $datagrid = $this->admin->getDatagrid();
         $formView = $datagrid->getForm()->createView();
 
-        $this->get('twig')->getExtension('form')->renderer->setTheme($formView, $this->admin->getFilterTheme());
+        $this->get('twig')->getExtension('Symfony\Bridge\Twig\Extension\FormExtension')->renderer->setTheme($formView, $this->admin->getFilterTheme());
 
-        return $this->render($this->admin->getTemplate('tree'), array(
-            'action' => 'tree',
-            'sites' => $sites,
-            'currentSite' => $currentSite,
-            'pages' => $pages,
-            'form' => $formView,
-            'csrf_token' => $this->getCsrfToken('sonata.batch'),
-        ));
+        return $this->render(
+            $this->admin->getTemplate('tree'),
+            array(
+                'action' => 'tree',
+                'sites' => $sites,
+                'currentSite' => $currentSite,
+                'pages' => $pages,
+                'form' => $formView,
+                'csrf_token' => $this->getCsrfToken('sonata.batch'),
+            )
+        );
 
 
     }
@@ -126,16 +132,22 @@ class PageAdminController extends Controller
     {
         $this->admin->checkAccess('create');
 
-        if ($request->getMethod() == 'GET' && !$this->getRequest()->get('siteId')) {
+        if ($request->getMethod() === 'GET' && !$this->getRequest()->get('siteId')) {
             $sites = $this->get('sonata.page.manager.site')->findBy(array());
 
-            if (count($sites) == 1) {
+            if (count($sites) === 1) {
                 /** @var Site $site */
                 $site = $sites[0];
-                return $this->redirect($this->admin->generateUrl('create', array(
-                    'siteId' => $site->getId(),
-                    'uniqid' => $this->admin->getUniqid(),
-                )));
+
+                return $this->redirect(
+                    $this->admin->generateUrl(
+                        'create',
+                        array(
+                            'siteId' => $site->getId(),
+                            'uniqid' => $this->admin->getUniqid(),
+                        )
+                    )
+                );
             }
 
             try {
@@ -144,14 +156,22 @@ class PageAdminController extends Controller
                 $current = false;
             }
 
-            return $this->render($this->admin->getTemplate('select_site'), array(
-                'sites' => $sites,
-                'current' => $current,
-            ));
+            return $this->render(
+                $this->admin->getTemplate('select_site'),
+                array(
+                    'sites' => $sites,
+                    'current' => $current,
+                )
+            );
         }
 
         return parent::createAction();
     }
+
+    /**
+     * @param Request|null $request
+     * @return Response
+     */
     public function composeAction(Request $request = null)
     {
         $this->admin->checkAccess('compose');
@@ -160,6 +180,8 @@ class PageAdminController extends Controller
         }
 
         $id = $request->get($this->admin->getIdParameter());
+
+        /** @var \Sonata\PageBundle\Model\Page $page */
         $page = $this->admin->getObject($id);
         if (!$page) {
             throw new NotFoundHttpException(sprintf('unable to find the page with id : %s', $id));
@@ -167,7 +189,6 @@ class PageAdminController extends Controller
 
         $containers = array();
         $orphanContainers = array();
-        $children = array();
 
         $templateManager = $this->get('sonata.page.template_manager');
         $template = $templateManager->get($page->getTemplateCode());
@@ -189,8 +210,6 @@ class PageAdminController extends Controller
                 } else {
                     $orphanContainers[] = $block;
                 }
-            } else {
-                $children[] = $block;
             }
         }
 
@@ -199,27 +218,32 @@ class PageAdminController extends Controller
 
         foreach ($containers as $id => $container) {
             if ($container['block'] === false && $templateContainers[$id]['shared'] === false) {
-                $blockContainer = $blockInteractor->createNewContainer(array(
-                    'page' => $page,
-                    'name' => $templateContainers[$id]['name'],
-                    'code' => $id,
-                ));
+                $blockContainer = $blockInteractor->createNewContainer(
+                    array(
+                        'page' => $page,
+                        'name' => $templateContainers[$id]['name'],
+                        'code' => $id,
+                    )
+                );
 
                 $containers[$id]['block'] = $blockContainer;
             }
         }
 
-        return $this->render($this->admin->getTemplate('compose'), array(
-            'object' => $page,
-            'action' => 'edit',
-            'template' => $template,
-            'page' => $page,
-            'containers' => $containers,
-            'orphanContainers' => $orphanContainers,
-            'csrfTokens' => array(
-                'remove' => $this->getCsrfToken('sonata.delete'),
-            ),
-        ));
+        return $this->render(
+            $this->admin->getTemplate('compose'),
+            array(
+                'object' => $page,
+                'action' => 'edit',
+                'template' => $template,
+                'page' => $page,
+                'containers' => $containers,
+                'orphanContainers' => $orphanContainers,
+                'csrfTokens' => array(
+                    'remove' => $this->getCsrfToken('sonata.delete'),
+                ),
+            )
+        );
     }
 
     /**
@@ -245,7 +269,6 @@ class PageAdminController extends Controller
 
         $containers = array();
         $orphanContainers = array();
-        $children = array();
 
         $templateManager = $this->get('sonata.page.template_manager');
         $template = $templateManager->get($page->getTemplateCode());
@@ -268,8 +291,6 @@ class PageAdminController extends Controller
                 } else {
                     $orphanContainers[] = $block;
                 }
-            } else {
-                $children[] = $block;
             }
         }
 
@@ -278,28 +299,33 @@ class PageAdminController extends Controller
 
         foreach ($containers as $id => $container) {
             if ($container['block'] === false && $templateContainers[$id]['shared'] === false) {
-                $blockContainer = $blockInteractor->createNewContainer(array(
-                    'page' => $page,
-                    'name' => $templateContainers[$id]['name'],
-                    'code' => $id,
-                ));
+                $blockContainer = $blockInteractor->createNewContainer(
+                    array(
+                        'page' => $page,
+                        'name' => $templateContainers[$id]['name'],
+                        'code' => $id,
+                    )
+                );
 
                 $containers[$id]['block'] = $blockContainer;
             }
         }
 
 
-        return $this->render($this->admin->getTemplate('compose'), array(
-            'object' => $page,
-            'action' => 'edit',
-            'template' => $template,
-            'page' => $page,
-            'containers' => $containers,
-            'orphanContainers' => $orphanContainers,
-            'csrfTokens' => array(
-                'remove' => $this->getCsrfToken('sonata.delete'),
-            ),
-        ));
+        return $this->render(
+            $this->admin->getTemplate('compose'),
+            array(
+                'object' => $page,
+                'action' => 'edit',
+                'template' => $template,
+                'page' => $page,
+                'containers' => $containers,
+                'orphanContainers' => $orphanContainers,
+                'csrfTokens' => array(
+                    'remove' => $this->getCsrfToken('sonata.delete'),
+                ),
+            )
+        );
     }
 
     /**
@@ -333,7 +359,7 @@ class PageAdminController extends Controller
 
             if (isset($container['blocks']) && count($container['blocks']) > 0) {
                 foreach ($blockServices as $code => $service) {
-                    if (in_array($code, $container['blocks'])) {
+                    if (in_array($code, $container['blocks'], true)) {
                         continue;
                     }
 
@@ -342,11 +368,14 @@ class PageAdminController extends Controller
             }
         }
 
-        return $this->render($this->admin->getTemplate('compose_container_show'), array(
-            'blockServices' => $blockServices,
-            'container' => $block,
-            'page' => $block->getPage(),
-        ));
+        return $this->render(
+            $this->admin->getTemplate('compose_container_show'),
+            array(
+                'blockServices' => $blockServices,
+                'container' => $block,
+                'page' => $block->getPage(),
+            )
+        );
     }
 
 

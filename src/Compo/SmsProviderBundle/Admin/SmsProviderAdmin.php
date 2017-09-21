@@ -20,10 +20,8 @@ class SmsProviderAdmin extends AbstractAdmin
      */
     public function configure()
     {
-        $this->setTranslationDomain('CompoSmsProviderBundle');
         $this->setSortBy('id');
         $this->setSortOrder('DESC');
-        $this->configureProperties(true);
     }
 
     /**
@@ -59,15 +57,23 @@ class SmsProviderAdmin extends AbstractAdmin
             ->add('id')
             ->addIdentifier('name')
             ->add('description')
-            ->add('type', 'html', array(
-                'template' => 'CompoSmsProviderBundle:Admin:list_type.html.twig'
-            ))
-            ->add('_action', null, array(
-                'actions' => array(
-                    'edit' => array(),
-                    'delete' => array(),
+            ->add(
+                'type',
+                'html',
+                array(
+                    'template' => 'CompoSmsProviderBundle:Admin:list_type.html.twig'
                 )
-            ));
+            )
+            ->add(
+                '_action',
+                null,
+                array(
+                    'actions' => array(
+                        'edit' => array(),
+                        'delete' => array(),
+                    )
+                )
+            );
     }
 
     /**
@@ -85,10 +91,14 @@ class SmsProviderAdmin extends AbstractAdmin
             ->add('id')
             ->add('name', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false))
             ->add('description')
-            ->add('type', ChoiceType::class, array(
-                'required' => true,
-                'choices' => $smsTypesChoices
-            ))
+            ->add(
+                'type',
+                ChoiceType::class,
+                array(
+                    'required' => true,
+                    'choices' => $smsTypesChoices
+                )
+            )
             ->add('login')
             ->add('password')
             ->end()

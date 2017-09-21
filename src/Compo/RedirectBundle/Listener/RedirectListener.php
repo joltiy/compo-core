@@ -17,20 +17,6 @@ class RedirectListener
     use ContainerAwareTrait;
 
     /**
-     * @var
-     */
-    private $router;
-
-    /**
-     * RedirectListener constructor.
-     * @param $router
-     */
-    public function __construct($router)
-    {
-        $this->router = $router;
-    }
-
-    /**
      * @return \Symfony\Component\HttpFoundation\Request
      * @throws \Exception
      */
@@ -53,10 +39,12 @@ class RedirectListener
         $redirectRepository = $this->getContainer()->get('doctrine')->getManager()->getRepository('CompoRedirectBundle:Redirect');
 
         /** @var Redirect $redirect */
-        $redirect = $redirectRepository->findOneBy(array(
-            'urIn' => $uri,
-            'enabled' => true
-        ), array(
+        $redirect = $redirectRepository->findOneBy(
+            array(
+                'urIn' => $uri,
+                'enabled' => true
+            ),
+            array(
                 'id' => 'ASC'
             )
         );

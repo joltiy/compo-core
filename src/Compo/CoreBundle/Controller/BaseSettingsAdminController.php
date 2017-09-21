@@ -30,7 +30,7 @@ class BaseSettingsAdminController extends SettingsController
     public function updateAction(Request $request, $namespace = null)
     {
 
-        if (is_null($namespace)) {
+        if (null === $namespace) {
             $namespace = $this->getNamespase();
         }
 
@@ -49,7 +49,7 @@ class BaseSettingsAdminController extends SettingsController
             if ($form->isValid()) {
                 $manager->save($form->getData());
 
-                $message = $this->getTranslator()->trans('settings.updated_successful', array());
+                $message = $this->getTranslator()->trans('settings.updated_successful');
                 $this->get('session')->getFlashBag()->add('sonata_flash_success', $message);
 
                 return $this->redirect($request->headers->get('referer'));
@@ -62,16 +62,19 @@ class BaseSettingsAdminController extends SettingsController
 
         $admin->setRequest($request);
 
-        return $this->render('CompoCoreBundle:Admin:settings.html.twig', array(
-            'action' => 'list',
-            'breadcrumbs_builder' => $this->get('sonata.admin.breadcrumbs_builder'),
-            'base_template' => 'CompoSonataAdminBundle::standard_layout_compo.html.twig',
-            'admin' => $admin,
-            'settings' => $settings,
-            'form' => $form->createView(),
-            'admin_pool' => $admin_pool,
-            'translation_domain' => $this->getTranslationDomain()
-        ));
+        return $this->render(
+            'CompoCoreBundle:Admin:settings.html.twig',
+            array(
+                'action' => 'list',
+                'breadcrumbs_builder' => $this->get('sonata.admin.breadcrumbs_builder'),
+                'base_template' => 'CompoSonataAdminBundle::standard_layout_compo.html.twig',
+                'admin' => $admin,
+                'settings' => $settings,
+                'form' => $form->createView(),
+                'admin_pool' => $admin_pool,
+                'translation_domain' => $this->getTranslationDomain()
+            )
+        );
     }
 
     /**

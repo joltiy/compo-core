@@ -17,15 +17,6 @@ class ContactsAdmin extends AbstractAdmin
     /**
      * {@inheritDoc}
      */
-    public function configure()
-    {
-        $this->setTranslationDomain('CompoContactsBundle');
-        //$this->configureProperties(true);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection
@@ -66,13 +57,17 @@ class ContactsAdmin extends AbstractAdmin
             // ->add('walk_instruction')
             // ->add('car_instruction')
             //  ->add('maps_code')
-            ->add('_action', null, array(
-                'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
-                    //  'delete' => array(),
+            ->add(
+                '_action',
+                null,
+                array(
+                    'actions' => array(
+                        'show' => array(),
+                        'edit' => array(),
+                        //  'delete' => array(),
+                    )
                 )
-            ));
+            );
     }
 
     /**

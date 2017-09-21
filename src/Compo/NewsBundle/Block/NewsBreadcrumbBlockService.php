@@ -25,24 +25,33 @@ class NewsBreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
         $news = $block->getSetting('news');
 
         if ($news) {
-            $menu->addChild('news', array(
-                'uri' => $this->getContainer()->get('router')->generate('compo_news_index'),
-                'label' => 'breadcrumb.news',
-                'extras' => array(
-                    'translation_domain' => 'CompoNewsBundle'
+            $menu->addChild(
+                'news',
+                array(
+                    'uri' => $this->getContainer()->get('router')->generate('compo_news_index'),
+                    'label' => 'breadcrumb.news',
+                    'extras' => array(
+                        'translation_domain' => 'CompoNewsBundle'
+                    )
                 )
-            ));
+            );
 
-            $menu->addChild($news->getSlug(), array(
-                'label' => $news->getName()
-            ));
-        } else {
-            $menu->addChild('all', array(
-                'label' => 'breadcrumb.news',
-                'extras' => array(
-                    'translation_domain' => 'CompoNewsBundle'
+            $menu->addChild(
+                $news->getSlug(),
+                array(
+                    'label' => $news->getName()
                 )
-            ));
+            );
+        } else {
+            $menu->addChild(
+                'all',
+                array(
+                    'label' => 'breadcrumb.news',
+                    'extras' => array(
+                        'translation_domain' => 'CompoNewsBundle'
+                    )
+                )
+            );
         }
 
         return $menu;

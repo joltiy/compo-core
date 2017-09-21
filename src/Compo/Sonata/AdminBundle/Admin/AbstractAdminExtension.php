@@ -10,6 +10,27 @@ use Sonata\AdminBundle\Form\FormMapper;
  */
 class AbstractAdminExtension extends BaseAbstractAdminExtension
 {
+
+    /**
+     * @param \Sonata\AdminBundle\Admin\AdminInterface $admin
+     * @param array $traits
+     * @return bool
+     */
+    public function isUseEntityTraits($admin, array $traits = array()) {
+
+        $traitsAdmin = class_uses($admin->getClass());
+
+        foreach ($traits as $trait) {
+            if (
+                !in_array($trait, $traitsAdmin, true)
+            ) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     /**
      * @param FormMapper $formMapper
      * @param $name
@@ -17,16 +38,13 @@ class AbstractAdminExtension extends BaseAbstractAdminExtension
      * @param array $options
      * @param array $fieldDescriptionOptions
      */
-    public function replaceFormField(FormMapper $formMapper, $name, $type = null, array $options = array(), array $fieldDescriptionOptions = array()) {
+    public function replaceFormField(FormMapper $formMapper, $name, $type = null, array $options = array(), array $fieldDescriptionOptions = array())
+    {
 
         $admin = $formMapper->getAdmin();
 
         $fg = $admin->getFormGroups();
         $tb = $admin->getFormTabs();
-
-
-
-
 
 
         $keys = $formMapper->keys();
@@ -43,7 +61,7 @@ class AbstractAdminExtension extends BaseAbstractAdminExtension
             }
 
             foreach ($tb as $tb_key => $tb_item) {
-                if (in_array($group, $tb_item['groups'])) {
+                if (in_array($group, $tb_item['groups'], true)) {
                     $tab = $tb_key;
                 }
             }
@@ -55,22 +73,16 @@ class AbstractAdminExtension extends BaseAbstractAdminExtension
 
             $formMapper->remove($name);
 
-            if($formMapper->hasOpenTab()) {
+            if ($formMapper->hasOpenTab()) {
                 $formMapper->end();
             }
-            if($formMapper->hasOpenTab()) {
+            if ($formMapper->hasOpenTab()) {
                 $formMapper->end();
             }
             $formMapper->tab($tab);
 
 
-
             $formMapper->with($group);
-
-
-
-
-
 
 
             $formMapper->add($name, $type, $options, $fieldDescriptionOptions);
@@ -79,7 +91,6 @@ class AbstractAdminExtension extends BaseAbstractAdminExtension
             $formMapper->end();
 
             $formMapper->reorder($keys);
-
 
 
             $admin->setFormTabs($tb);

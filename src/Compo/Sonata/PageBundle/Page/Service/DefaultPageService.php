@@ -12,10 +12,7 @@
 namespace Compo\Sonata\PageBundle\Page\Service;
 
 use Sonata\PageBundle\Model\PageInterface;
-use Sonata\PageBundle\Page\TemplateManagerInterface;
-use Sonata\SeoBundle\Seo\SeoPageInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+
 
 /**
  * Default page service to render a page template.
@@ -30,15 +27,18 @@ class DefaultPageService extends \Sonata\PageBundle\Page\Service\DefaultPageServ
      * Updates the SEO page values for given page instance.
      *
      * @param PageInterface $page
+     * @throws \Throwable
      */
     protected function updateSeoPage(PageInterface $page)
     {
         $this->seoPage->addVar('page_internal', $page);
 
-        if ($page->getRouteName() == 'page_slug'
+        $route = $page->getRouteName();
+
+        if ($route === 'page_slug'
 
             ||
-            $page->getRouteName() == '_page_internal_error_not_found'
+            $route === '_page_internal_error_not_found'
 
         ) {
             $this->seoPage->build();

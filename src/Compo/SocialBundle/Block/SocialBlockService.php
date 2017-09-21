@@ -2,7 +2,6 @@
 
 namespace Compo\SocialBundle\Block;
 
-use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Compo\SocialBundle\Entity\SocialRepository;
 use Compo\Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Sonata\BlockBundle\Block\BlockContextInterface;
@@ -14,26 +13,28 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class SocialBlockService extends AbstractBlockService
 {
-    use ContainerAwareTrait;
-
     /**
      * {@inheritdoc}
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
-        $em = $this->container->get("doctrine")->getManager();
+        $em = $this->container->get('doctrine')->getManager();
 
         /** @var SocialRepository $repo */
-        $repo = $em->getRepository("CompoSocialBundle:Social");
+        $repo = $em->getRepository('CompoSocialBundle:Social');
 
         $list = $repo->findBy(array(), array('position' => 'ASC'));
 
-        return $this->renderResponse($blockContext->getTemplate(), array(
+        return $this->renderResponse(
+            $blockContext->getTemplate(),
+            array(
 
-            'list' => $list,
-            'block' => $blockContext->getBlock(),
-            'settings' => $blockContext->getSettings(),
-        ), $response);
+                'list' => $list,
+                'block' => $blockContext->getBlock(),
+                'settings' => $blockContext->getSettings(),
+            ),
+            $response
+        );
     }
 
     /**
@@ -41,8 +42,10 @@ class SocialBlockService extends AbstractBlockService
      */
     public function configureSettings(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'template' => 'CompoSocialBundle:Block:list.html.twig',
-        ));
+        $resolver->setDefaults(
+            array(
+                'template' => 'CompoSocialBundle:Block:list.html.twig',
+            )
+        );
     }
 }

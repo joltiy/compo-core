@@ -3,9 +3,12 @@
 namespace Compo\ArticlesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Articles
+ *
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  *
  * @ORM\Table(name="articles")
  * @ORM\Entity(repositoryClass="Compo\ArticlesBundle\Repository\ArticlesRepository")

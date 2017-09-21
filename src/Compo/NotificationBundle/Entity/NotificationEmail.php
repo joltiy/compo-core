@@ -3,10 +3,13 @@
 namespace Compo\NotificationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Notification
- *
+ * 
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
+
  * @ORM\Table(name="notification_email")
  * @ORM\Entity(repositoryClass="Compo\NotificationBundle\Repository\NotificationEmailRepository")
  */
@@ -160,10 +163,12 @@ class NotificationEmail
     {
         if ($this->note) {
             return $this->note;
-        } elseif ($this->id) {
-            return (string)$this->id;
-        } else {
-            return '';
         }
+
+        if ($this->id) {
+            return (string)$this->id;
+        }
+
+        return '';
     }
 }

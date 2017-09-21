@@ -21,16 +21,6 @@ class MenuAdmin extends AbstractAdmin
     /**
      * {@inheritDoc}
      */
-    public function configure()
-    {
-        $this->setTranslationDomain('CompoMenuBundle');
-
-        $this->configureProperties(true);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function postPersist($menu)
     {
         /** @var Menu $menu */
@@ -91,12 +81,16 @@ class MenuAdmin extends AbstractAdmin
             ->add('id')
             ->addIdentifier('name')
             ->add('description')
-            ->add('_action', 'actions', array(
-                'actions' => array(
-                    'edit' => array(),
-                    'delete' => array(),
+            ->add(
+                '_action',
+                'actions',
+                array(
+                    'actions' => array(
+                        'edit' => array(),
+                        'delete' => array(),
+                    )
                 )
-            ));
+            );
     }
 
     /**
@@ -131,19 +125,20 @@ class MenuAdmin extends AbstractAdmin
      */
     protected function configureTabMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
     {
-        if (!$childAdmin && in_array($action, array('edit'))) {
+        if (!$childAdmin && 'edit' === $action) {
             $this->configureTabMenuList($menu, $action);
         }
 
-        if ($childAdmin && in_array($action, array('list'))) {
+        if ($childAdmin && 'list' === $action) {
             $this->configureTabMenuList($menu, $action);
         }
 
         /** @var MenuItemAdmin $childAdmin */
-        if ($childAdmin && in_array($action, array('edit'))) {
+        if ($childAdmin && 'edit' === $action) {
             $childAdmin->configureTabMenuItem($menu, $action);
 
-            $tabMenu = $menu->addChild('tab_menu.menu',
+            $tabMenu = $menu->addChild(
+                'tab_menu.menu',
                 array(
                     'label' => $this->trans('tab_menu.menu', array('%name%' => $this->getSubject()->getName())),
                     'attributes' => array('dropdown' => true)

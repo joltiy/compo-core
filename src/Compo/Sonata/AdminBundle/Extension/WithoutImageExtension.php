@@ -7,14 +7,12 @@ use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 
-
 /**
  * {@inheritDoc}
  */
 class WithoutImageExtension extends AbstractAdminExtension
 {
     use ContainerAwareTrait;
-
 
     /**
      * {@inheritDoc}
@@ -25,20 +23,23 @@ class WithoutImageExtension extends AbstractAdminExtension
 
             $datagridMapper->remove('without_image');
 
-            $datagridMapper->add('without_image', 'doctrine_orm_callback', array(
-                'callback' => function ($queryBuilder, $alias, $field, $value) {
-                    if (!$value['value']) {
-                        return false;
-                    }
+            $datagridMapper->add(
+                'without_image',
+                'doctrine_orm_callback',
+                array(
+                    'callback' => function ($queryBuilder, $alias, $field, $value) {
+                        if (!$value['value']) {
+                            return false;
+                        }
 
-                    /** @var QueryBuilder $queryBuilder */
-                    $queryBuilder->andWhere($queryBuilder->getRootAliases()[0] . '.image IS NULL');
+                        /** @var QueryBuilder $queryBuilder */
+                        $queryBuilder->andWhere($queryBuilder->getRootAliases()[0] . '.image IS NULL');
 
-                    return true;
-                },
-                'field_type' => 'checkbox'
-            ));
+                        return true;
+                    },
+                    'field_type' => 'checkbox'
+                )
+            );
         }
-
     }
 }

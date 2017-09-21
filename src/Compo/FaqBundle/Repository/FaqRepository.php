@@ -38,9 +38,9 @@ class FaqRepository extends \Compo\CoreBundle\Doctrine\ORM\EntityRepository
 
         if ($result) {
             return $result[0];
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**

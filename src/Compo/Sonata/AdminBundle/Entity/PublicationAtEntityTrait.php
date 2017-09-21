@@ -11,9 +11,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 trait PublicationAtEntityTrait
 {
-
     /**
      * @var \DateTime
+     *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */

@@ -18,35 +18,6 @@ use Sonata\AdminBundle\Show\ShowMapper;
 class AdvantagesAdmin extends AbstractAdmin
 {
     /**
-     * {@inheritDoc}
-     */
-    public function configure()
-    {
-        $this->setTranslationDomain('CompoAdvantagesBundle');
-
-        $this->configureProperties(true);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function postRemove($object)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $advantages_items = $em->getRepository('CompoAdvantagesBundle:AdvantagesItem')->findBy(array('advantages' => $object));
-
-        /** @var AdvantagesItem $item */
-        foreach ($advantages_items as $item) {
-            $item->setDeletedAt(new \DateTime());
-
-            $em->persist($item);
-        }
-
-        $em->flush();
-    }
-
-    /**
      * @param DatagridMapper $datagridMapper
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
@@ -67,13 +38,17 @@ class AdvantagesAdmin extends AbstractAdmin
             ->add('id')
             ->addIdentifier('name')
             ->add('description')
-            ->add('_action', 'actions', array(
-                'actions' => array(
-                    'edit' => array(),
-                    'list' => array('route' => 'compo_advantages.admin.advantages|compo_advantages.admin.advantages_item.list'),
-                    'delete' => array(),
+            ->add(
+                '_action',
+                'actions',
+                array(
+                    'actions' => array(
+                        'edit' => array(),
+                        'list' => array('route' => 'compo_advantages.admin.advantages|compo_advantages.admin.advantages_item.list'),
+                        'delete' => array(),
+                    ),
                 )
-            ));
+            );
     }
 
     /**
@@ -107,22 +82,23 @@ class AdvantagesAdmin extends AbstractAdmin
      */
     protected function configureTabMenu(MenuItemInterface $advantages, $action, AdminInterface $childAdmin = null)
     {
-        if (!$childAdmin && in_array($action, array('edit'))) {
+        if (!$childAdmin && 'edit' === $action) {
             $this->configureTabAdvantagesList($advantages, $action);
         }
 
-        if ($childAdmin && in_array($action, array('list'))) {
+        if ($childAdmin && 'list' === $action) {
             $this->configureTabAdvantagesList($advantages, $action);
         }
 
         /** @var AdvantagesItemAdmin $childAdmin */
-        if ($childAdmin && in_array($action, array('edit'))) {
+        if ($childAdmin && 'edit' === $action) {
             $childAdmin->configureTabAdvantagesItem($advantages, $action);
 
-            $tabAdvantages = $advantages->addChild('tab_menu.advantages',
+            $tabAdvantages = $advantages->addChild(
+                'tab_menu.advantages',
                 array(
                     'label' => $this->trans('tab_menu.advantages', array('%name%' => $this->getSubject()->getName())),
-                    'attributes' => array('dropdown' => true)
+                    'attributes' => array('dropdown' => true),
                 )
             );
 

@@ -19,7 +19,6 @@ class NewsTagAdmin extends AbstractAdmin
      */
     public function configure()
     {
-        $this->setTranslationDomain('CompoNewsBundle');
         $this->configurePosition(true);
     }
 
@@ -46,12 +45,16 @@ class NewsTagAdmin extends AbstractAdmin
             ->addIdentifier('name')
             ->add('description')
             ->add('colorHtml', 'html')
-            ->add('_action', null, array(
-                'actions' => array(
-                    'edit' => array(),
-                    'delete' => array(),
+            ->add(
+                '_action',
+                null,
+                array(
+                    'actions' => array(
+                        'edit' => array(),
+                        'delete' => array(),
+                    )
                 )
-            ));
+            );
     }
 
     /**

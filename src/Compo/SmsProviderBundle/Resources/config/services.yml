@@ -3,7 +3,7 @@ services:
         class: Compo\SmsProviderBundle\Admin\SmsProviderAdmin
         arguments: [~, Compo\SmsProviderBundle\Entity\SmsProvider, CompoSmsProviderBundle:SmsProviderAdmin]
         tags:
-            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: sms_provider, label_translator_strategy: sonata.admin.label.strategy.underscore }
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: sms_provider }
 
     compo_sms_provider.manager.sms_provider:
         class: Compo\SmsProviderBundle\Manager\SmsProviderManager

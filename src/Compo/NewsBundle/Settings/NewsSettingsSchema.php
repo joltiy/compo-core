@@ -3,7 +3,6 @@
 namespace Compo\NewsBundle\Settings;
 
 use Compo\CoreBundle\Settings\BaseBundleAdminSettingsSchema;
-use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 /**
@@ -12,42 +11,18 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 class NewsSettingsSchema extends BaseBundleAdminSettingsSchema
 {
     /**
-     * @param SettingsBuilderInterface $builder
+     * {@inheritDoc}
      */
-    public function buildSettings(SettingsBuilderInterface $builder)
-    {
-        $this->setTranslationDomain('CompoNewsBundle');
-
-        $this->setBaseRouteName('admin_compo_news_news');
-
-        $builder
-            ->setDefaults(
-                [
-                    'news_per_page' => 21,
-                ]
-            );
-        $items =
-            [
-                'news_per_page' => ['integer'],
-            ];
-
-        foreach ($items as $item_name => $types) {
-            $builder->addAllowedTypes($item_name, $types);
-        }
+    public function getDefaultSettings() {
+        return [
+            'news_per_page' => 21,
+        ];
     }
 
     /**
      * {@inheritDoc}
      */
     public function buildFormSettings()
-    {
-        $this->buildFormTabMain();
-    }
-
-    /**
-     * Основные
-     */
-    public function buildFormTabMain()
     {
         $tab = $this->addTab('main');
 

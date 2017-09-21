@@ -13,14 +13,13 @@ use Sonata\AdminBundle\Route\RouteCollection;
  */
 class PositionExtension extends AbstractAdminExtension
 {
-
     /**
      * {@inheritDoc}
      */
     public function alterNewInstance(AdminInterface $admin, $object)
     {
         /** @var AbstractAdmin $admin */
-        $last_position = $admin->getConfigurationPool()->getContainer()->get("pix_sortable_behavior.position")->getLastPosition($admin->getRoot()->getClass());
+        $last_position = $admin->getConfigurationPool()->getContainer()->get('pix_sortable_behavior.position')->getLastPosition($admin->getRoot()->getClass());
 
         $object->setPosition($last_position);
     }
@@ -43,7 +42,7 @@ class PositionExtension extends AbstractAdminExtension
     {
         $_action = $listMapper->get('_action');
 
-        if (!is_null($_action)) {
+        if (null !== $_action) {
             $options = $_action->getOptions();
 
             //$options['actions']['move'] = array('template' => 'PixSortableBehaviorBundle:Default:_sort.html.twig');

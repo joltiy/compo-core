@@ -7,9 +7,29 @@ use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * {@inheritDoc}
+ */
 class BaseBreadcrumbMenuBlockService extends \Sonata\SeoBundle\Block\Breadcrumb\BaseBreadcrumbMenuBlockService
 {
     use ContainerAwareTrait;
+
+    /**
+     * {@inheritDoc}
+     */
+    public function configureSettings(OptionsResolver $resolver)
+    {
+        parent::configureSettings($resolver);
+
+        $resolver->setDefaults(
+            array(
+                'current_uri' => $this->getRequest()->getRequestUri(),
+                'menu_template' => 'SonataSeoBundle:Block:breadcrumb.html.twig',
+                'include_homepage_link' => true,
+                'context' => false,
+            )
+        );
+    }
 
     /**
      * @return \Symfony\Component\HttpFoundation\Request
@@ -19,24 +39,12 @@ class BaseBreadcrumbMenuBlockService extends \Sonata\SeoBundle\Block\Breadcrumb\
         return $this->getContainer()->get('request_stack')->getCurrentRequest();
     }
 
-    public function configureSettings(OptionsResolver $resolver)
-    {
-        parent::configureSettings($resolver);
-
-        $resolver->setDefaults(array(
-            'current_uri' => $this->getRequest()->getRequestUri(),
-            'menu_template' => 'SonataSeoBundle:Block:breadcrumb.html.twig',
-            'include_homepage_link' => true,
-            'context' => false,
-        ));
-    }
-
     /**
      * Initialize breadcrumb menu.
      *
      * @param BlockContextInterface $blockContext
      *
-     * @return ItemInterface
+     * @return \Knp\Menu\ItemInterface
      */
     protected function getRootMenu(BlockContextInterface $blockContext)
     {
@@ -66,6 +74,7 @@ class BaseBreadcrumbMenuBlockService extends \Sonata\SeoBundle\Block\Breadcrumb\
             $menu->addChild('sonata_seo_homepage_breadcrumb', array('uri' => '/'));
         }
 
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $menu;
     }
 }

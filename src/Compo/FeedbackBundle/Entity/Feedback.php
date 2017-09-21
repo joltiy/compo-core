@@ -3,10 +3,12 @@
 namespace Compo\FeedbackBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Feedback
- *
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
+
  * @ORM\Table(name="feedback_messages")
  * @ORM\Entity(repositoryClass="Compo\FeedbackBundle\Repository\FeedbackRepository")
  */
@@ -17,7 +19,7 @@ class Feedback
 
     use \Gedmo\Timestampable\Traits\TimestampableEntity;
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
-    
+
     /**
      * Описание
      *

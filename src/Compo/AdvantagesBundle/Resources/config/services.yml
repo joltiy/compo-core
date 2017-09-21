@@ -3,20 +3,19 @@ services:
         class: Compo\AdvantagesBundle\Admin\AdvantagesAdmin
         arguments: [~, Compo\AdvantagesBundle\Entity\Advantages, CompoAdvantagesBundle:AdvantagesAdmin]
         tags:
-            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: advantages, label_translator_strategy: sonata.admin.label.strategy.underscore }
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: advantages }
         calls:
             - [ addChild, ['@compo_advantages.admin.advantages_item']]
-
-    compo_advantages.block.service.advantages:
-        class: Compo\AdvantagesBundle\Block\AdvantagesBlockService
-        arguments: ["compo_advantages.block.service.advantages", "@templating"]
-        tags:
-            - { name: sonata.block }
-        calls:
-            - [ setContainer, ['@service_container']]
 
     compo_advantages.admin.advantages_item:
         class: Compo\AdvantagesBundle\Admin\AdvantagesItemAdmin
         arguments: [~, Compo\AdvantagesBundle\Entity\AdvantagesItem, CompoAdvantagesBundle:AdvantagesItemAdmin]
         tags:
-            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: advantages_item, label_translator_strategy: sonata.admin.label.strategy.underscore }
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: advantages_item }
+
+    compo_advantages.block.service.advantages:
+        class: Compo\AdvantagesBundle\Block\AdvantagesBlockService
+        parent: compo_core.abstract_container_aware
+        arguments: ["compo_advantages.block.service.advantages", "@templating"]
+        tags:
+            - { name: sonata.block }

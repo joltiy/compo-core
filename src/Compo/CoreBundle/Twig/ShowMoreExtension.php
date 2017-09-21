@@ -39,7 +39,7 @@ class ShowMoreExtension extends Twig_Extension
 
         $text_array = explode('<!--more-->', $text, 2);
 
-        if (count($text_array) == 2 && $text_array[0] && $text_array[1]) {
+        if (count($text_array) === 2 && $text_array[0] && $text_array[1]) {
             $result = '<div class="show-more-block">';
 
             $result .= '<div class="show-more-teaser">' . $text_array[0] . '</div>';

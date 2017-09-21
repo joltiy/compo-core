@@ -5,7 +5,7 @@ namespace Compo\FaqBundle\Manager;
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Compo\FaqBundle\Entity\Faq;
 use Compo\FaqBundle\Repository\FaqRepository;
-use Compo\Sonata\AdminBundle\Entity\ViewsRepositoryTrait;
+use Compo\Sonata\AdminBundle\Repository\ViewsTrait;
 use Sonata\CoreBundle\Model\BaseEntityManager;
 
 /**
@@ -14,7 +14,7 @@ use Sonata\CoreBundle\Model\BaseEntityManager;
 class FaqManager extends BaseEntityManager
 {
     use ContainerAwareTrait;
-    use ViewsRepositoryTrait;
+    use ViewsTrait;
 
     /**
      * @param $criteria
@@ -125,7 +125,7 @@ class FaqManager extends BaseEntityManager
      * @param int $absolute
      * @return string
      */
-    public function getFaqIndexPermalink($parameters = array(), $absolute = 1)
+    public function getFaqIndexPermalink(array $parameters = array(), $absolute = 1)
     {
         return $this->getContainer()->get('router')->generate($this->getFaqIndexRoute(), $this->getFaqIndexRouteParameters($parameters), $absolute);
     }

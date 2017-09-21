@@ -1,4 +1,5 @@
 <?php
+/** @noinspection ClassOverridesFieldOfSuperClassInspection */
 
 namespace Compo\Sonata\AdminBundle\Admin;
 
@@ -77,13 +78,30 @@ class AbstractAdmin extends BaseAdmin
     /**
      * @param $key
      */
-    public function clearCache($key) {
+    public function clearCache($key)
+    {
         $em = $this->getDoctrine()->getManager();
 
         /** @var Cache $cacheDriver */
         $cacheDriver = $em->getConfiguration()->getResultCacheImpl();
 
         $cacheDriver->delete($key);
+    }
+
+    /**
+     * @return \Doctrine\Bundle\DoctrineBundle\Registry|object
+     */
+    public function getDoctrine()
+    {
+        return $this->getContainer()->get('doctrine');
+    }
+
+    /**
+     * @return null|\Symfony\Component\DependencyInjection\ContainerInterface
+     */
+    public function getContainer()
+    {
+        return $this->getConfigurationPool()->getContainer();
     }
 
     /**
@@ -162,7 +180,7 @@ class AbstractAdmin extends BaseAdmin
      * @param $positionEnabled
      * @param array $postionRelatedFields
      */
-    public function configurePosition($positionEnabled, $postionRelatedFields = array())
+    public function configurePosition($positionEnabled, array $postionRelatedFields = array())
     {
         $this->positionEnabled = $positionEnabled;
 
@@ -176,7 +194,7 @@ class AbstractAdmin extends BaseAdmin
                 '_sort_by' => 'position',
             );
 
-            $this->addExtension($this->getConfigurationPool()->getContainer()->get("compo.sonata.admin.extension.position"));
+            $this->addExtension($this->getConfigurationPool()->getContainer()->get('compo.sonata.admin.extension.position'));
         }
     }
 
@@ -188,7 +206,7 @@ class AbstractAdmin extends BaseAdmin
         /** @var QueryBuilder $query */
         $query = parent::createQuery($context);
 
-        if ($this->treeEnabled && $context == 'list') {
+        if ($this->treeEnabled && $context === 'list') {
             $query->andWhere(
                 $query->expr()->gt($query->getRootAliases()[0] . '.lvl', '0')
             );
@@ -202,11 +220,11 @@ class AbstractAdmin extends BaseAdmin
      * @param                                               $action
      * @param \Sonata\AdminBundle\Admin\AdminInterface|null $childAdmin
      * @param                                               $route
-     * @param bool $route_paramters
+     * @param bool|array $route_paramters
      */
     public function configureTabMenuShow(\Knp\Menu\ItemInterface $menu, $action, \Sonata\AdminBundle\Admin\AdminInterface $childAdmin = null, $route, $route_paramters = false)
     {
-        if (!$childAdmin && !in_array($action, array('edit'))) {
+        if (!$childAdmin && 'edit' !== $action) {
             return;
         }
 
@@ -251,7 +269,7 @@ class AbstractAdmin extends BaseAdmin
     public function configureSeo($enabled)
     {
         if ($enabled) {
-            $this->addExtension($this->getConfigurationPool()->getContainer()->get("compo_seo.seo.extension"));
+            $this->addExtension($this->getConfigurationPool()->getContainer()->get('compo_seo.seo.extension'));
         }
     }
 
@@ -261,7 +279,7 @@ class AbstractAdmin extends BaseAdmin
     public function configureProperties($enabled)
     {
         if ($enabled) {
-            $this->addExtension($this->getConfigurationPool()->getContainer()->get("compo.sonata.admin.extension.properties"));
+            $this->addExtension($this->getConfigurationPool()->getContainer()->get('compo.sonata.admin.extension.properties'));
         }
     }
 
@@ -270,7 +288,7 @@ class AbstractAdmin extends BaseAdmin
      */
     public function last_position()
     {
-        return $this->getConfigurationPool()->getContainer()->get("pix_sortable_behavior.position")->getLastPosition($this->getRoot()->getClass());
+        return $this->getConfigurationPool()->getContainer()->get('pix_sortable_behavior.position')->getLastPosition($this->getRoot()->getClass());
     }
 
     /**
@@ -294,7 +312,6 @@ class AbstractAdmin extends BaseAdmin
         return $instance;
     }
 
-
     /**
      * @param      $action
      * @param null $object
@@ -305,7 +322,7 @@ class AbstractAdmin extends BaseAdmin
     {
         $list = array();
 
-        if (in_array($action, array('create', 'acl', 'history', 'tree', 'show', 'edit', 'delete', 'list', 'batch', 'settings'))
+        if (in_array($action, array('create', 'acl', 'trash', 'history', 'tree', 'show', 'edit', 'delete', 'list', 'batch', 'settings'), true)
             && $this->hasAccess('create')
             && $this->hasRoute('create')
         ) {
@@ -314,7 +331,7 @@ class AbstractAdmin extends BaseAdmin
             );
         }
 
-        if (in_array($action, array('edit', 'show', 'delete', 'acl', 'history'))
+        if (in_array($action, array('edit', 'show',  'trash','delete', 'acl', 'history'), true)
             && $this->canAccessObject('edit', $object)
             && $this->hasRoute('edit')
         ) {
@@ -323,13 +340,15 @@ class AbstractAdmin extends BaseAdmin
             );
         }
 
-        if (in_array($action, array('history', 'show', 'edit', 'acl'))
+        if (in_array($action, array('history', 'show', 'trash', 'edit', 'acl', 'trash'), true)
             && $this->canAccessObject('history', $object)
             && $this->hasRoute('history')
         ) {
             $list['history'] = array(
                 'template' => $this->getTemplate('button_history'),
             );
+
+
         }
 
         /*
@@ -344,7 +363,7 @@ class AbstractAdmin extends BaseAdmin
         }
         */
 
-        if (in_array($action, array('create', 'list', 'tree', 'history', 'show', 'edit', 'delete', 'acl', 'batch', 'settings'))
+        if (in_array($action, array('create', 'trash', 'list', 'tree', 'history', 'show', 'edit', 'delete', 'acl', 'batch', 'settings'), true)
             && $this->hasAccess('list')
             && $this->hasRoute('list')
         ) {
@@ -354,7 +373,7 @@ class AbstractAdmin extends BaseAdmin
         }
 
         if (
-            in_array($action, array('settings', 'batch', 'tree', 'list'))
+            in_array($action, array('settings', 'trash', 'batch', 'tree', 'list'), true)
             && $this->hasAccess('acl') && $this->hasRoute('settings')
         ) {
             $list['settings'] = array(
@@ -362,7 +381,42 @@ class AbstractAdmin extends BaseAdmin
             );
         }
 
+
+        if (
+            in_array($action, array('settings', 'trash', 'batch', 'tree', 'list'), true)
+            && $this->hasAccess('acl')
+        ) {
+            if ($this->isUseEntityTraits($this, array(
+                'Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity'
+            ) )) {
+                $list['trash'] = array(
+                    'template' => '@CompoSonataAdmin/Button/trash_button.html.twig',
+                );
+            }
+        }
+
+
         return $list;
+    }
+
+    /**
+     * @param \Sonata\AdminBundle\Admin\AdminInterface $admin
+     * @param array $traits
+     * @return bool
+     */
+    public function isUseEntityTraits($admin, array $traits = array()) {
+
+        $traitsAdmin = class_uses($admin->getClass());
+
+        foreach ($traits as $trait) {
+            if (
+            !in_array($trait, $traitsAdmin, true)
+            ) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -374,25 +428,9 @@ class AbstractAdmin extends BaseAdmin
     {
         if ($name) {
             return $this->getDoctrine()->getRepository($name);
-        } else {
-            return $this->getDoctrine()->getRepository($this->getClass());
         }
-    }
 
-    /**
-     * @return \Doctrine\Bundle\DoctrineBundle\Registry|object
-     */
-    public function getDoctrine()
-    {
-        return $this->getContainer()->get('doctrine');
-    }
-
-    /**
-     * @return null|\Symfony\Component\DependencyInjection\ContainerInterface
-     */
-    public function getContainer()
-    {
-        return $this->getConfigurationPool()->getContainer();
+        return $this->getDoctrine()->getRepository($this->getClass());
     }
 
     /**
@@ -413,6 +451,15 @@ class AbstractAdmin extends BaseAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);
+
+        //if ($this->manager->hasReader($this->getClass())) {
+            $collection->add('history_revert', $this->getRouterIdParameter() . '/history/{revision}/revert');
+        //}
+
+        //if ($this->trashManager->hasReader($this->getClass())) {
+            $collection->add('trash', 'trash');
+            $collection->add('untrash', $this->getRouterIdParameter() . '/untrash');
+        //}
 
         if ($this->treeEnabled) {
             $collection->add('tree', 'tree', array('_controller' => $this->baseControllerName . ':tree'));

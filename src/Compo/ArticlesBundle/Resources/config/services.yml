@@ -3,7 +3,7 @@ services:
         class: Compo\ArticlesBundle\Admin\ArticlesAdmin
         arguments: [~, Compo\ArticlesBundle\Entity\Articles, CompoArticlesBundle:ArticlesAdmin]
         tags:
-            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: articles, label_translator_strategy: sonata.admin.label.strategy.underscore }
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: articles }
 
     compo_articles.manager.articles:
         class: Compo\ArticlesBundle\Manager\ArticlesManager
@@ -14,7 +14,7 @@ services:
         class: Compo\ArticlesBundle\Settings\ArticlesSettingsSchema
         parent: compo_core.abstract_container_aware
         tags:
-            - { name: "sylius.settings_schema", namespace: "compo_articles", alias: "compo_articles" }
+            - { name: "sylius.settings_schema", namespace: "compo_articles", admin: compo_articles.admin.articles }
 
     compo_articles.block.breadcrumb:
         class: Compo\ArticlesBundle\Block\ArticlesBreadcrumbBlockService

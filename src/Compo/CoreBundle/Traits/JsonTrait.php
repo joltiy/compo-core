@@ -15,7 +15,7 @@ trait JsonTrait
      * @param Request $request
      * @return array|mixed
      */
-    function getJsonParams(Request $request)
+    public function getJsonParams(Request $request)
     {
         $request_params = [];
 
@@ -34,6 +34,7 @@ trait JsonTrait
     {
         $jsonResponse = new JsonResponse();
         $jsonResponse->setData($data);
+
         return $jsonResponse;
     }
 

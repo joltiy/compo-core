@@ -33,14 +33,12 @@ services:
         tags:
             - { name: "sylius.settings_schema", namespace: "compo_core_settings", alias: "compo_core_settings" }
 
-
     compo_core.admin.settings:
         class: Compo\CoreBundle\Admin\SettingsAdmin
         parent: compo_core.abstract_container_aware
         arguments: [~, Sylius\Bundle\SettingsBundle\Model\Settings, CompoCoreBundle:SettingsAdmin]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: core_settings, label_translator_strategy: sonata.admin.label.strategy.underscore }
-
+            - { name: sonata.admin, manager_type: orm, label: core_settings }
 
     knp_paginator.subscriber.sliding_pagination:
         class: Compo\CoreBundle\Subscriber\SlidingPaginationSubscriber
@@ -112,3 +110,9 @@ services:
             - "@doctrine.orm.entity_manager"
         tags:
             - { name: "kernel.event_subscriber", priority: 100 }
+
+
+    console.completion_command:
+      class: Stecman\Component\Symfony\Console\BashCompletion\CompletionCommand
+      tags:
+          -  { name: console.command }

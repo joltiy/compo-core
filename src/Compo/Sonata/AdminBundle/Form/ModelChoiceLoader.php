@@ -85,7 +85,7 @@ class ModelChoiceLoader implements ChoiceLoaderInterface
      * @param PropertyAccessorInterface|null $propertyAccessor
      * @param $options
      */
-    public function __construct(ModelManagerInterface $modelManager, $class, $property = null, $query = null, $choices = array(), PropertyAccessorInterface $propertyAccessor = null, $options)
+    public function __construct(ModelManagerInterface $modelManager, $class, $property = null, $query = null, array $choices = array(), PropertyAccessorInterface $propertyAccessor = null, $options)
     {
         $this->modelManager = $modelManager;
         $this->class = $class;
@@ -102,6 +102,14 @@ class ModelChoiceLoader implements ChoiceLoaderInterface
             $this->propertyPath = new PropertyPath($property);
             $this->propertyAccessor = $propertyAccessor ?: PropertyAccess::createPropertyAccessor();
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function loadChoicesForValues(array $values, $value = null)
+    {
+        return $this->loadChoiceList($value)->getChoicesForValues($values);
     }
 
     /**
@@ -126,7 +134,7 @@ class ModelChoiceLoader implements ChoiceLoaderInterface
                 } else {
                     // Otherwise expect a __toString() method in the entity
                     try {
-                        $valueObject = (string) $entity;
+                        $valueObject = (string)$entity;
                     } catch (\Exception $e) {
                         throw new RuntimeException(sprintf('Unable to convert the entity "%s" to string, provide "property" option or implement "__toString()" method in your entity.', ClassUtils::getClass($entity)), 0, $e);
                     }
@@ -150,12 +158,12 @@ class ModelChoiceLoader implements ChoiceLoaderInterface
 
             foreach ($tree as $item) {
                 /** @noinspection PhpUndefinedMethodInspection */
-                if ($this->options['current'] && $this->options['current']->getId() == $item->getId()) {
+                if ($this->options['current'] && $this->options['current']->getId() === $item->getId()) {
                     continue;
                 }
 
                 /** @noinspection PhpUndefinedMethodInspection */
-                if (!is_null($item->getParent())) {
+                if (null !== $item->getParent()) {
                     continue;
                 }
 
@@ -170,15 +178,26 @@ class ModelChoiceLoader implements ChoiceLoaderInterface
             $finalChoices = $choices;
 
 
-
-
-
-
             $this->choiceList = new ArrayChoiceList($finalChoices, $value);
         }
 
         return $this->choiceList;
     }
+
+    /**
+     * @param object $entity
+     *
+     * @return array
+     */
+    private function getIdentifierValues($entity)
+    {
+        try {
+            return $this->modelManager->getIdentifierValues($entity);
+        } catch (\Exception $e) {
+            throw new \InvalidArgumentException(sprintf('Unable to retrieve the identifier values for entity %s', ClassUtils::getClass($entity)), 0, $e);
+        }
+    }
+
     /**
      * @param         $category
      * @param Options $options
@@ -195,7 +214,7 @@ class ModelChoiceLoader implements ChoiceLoaderInterface
         /** @noinspection PhpUndefinedMethodInspection */
         foreach ($category->getChildren() as $child) {
             /** @noinspection PhpUndefinedMethodInspection */
-            if ($options['current'] && $options['current']->getId() == $child->getId()) {
+            if ($options['current'] && $options['current']->getId() === $child->getId()) {
                 continue;
             }
 
@@ -206,13 +225,6 @@ class ModelChoiceLoader implements ChoiceLoaderInterface
         }
 
     }
-    /**
-     * {@inheritdoc}
-     */
-    public function loadChoicesForValues(array $values, $value = null)
-    {
-        return $this->loadChoiceList($value)->getChoicesForValues($values);
-    }
 
     /**
      * {@inheritdoc}
@@ -220,19 +232,5 @@ class ModelChoiceLoader implements ChoiceLoaderInterface
     public function loadValuesForChoices(array $choices, $value = null)
     {
         return $this->loadChoiceList($value)->getValuesForChoices($choices);
-    }
-
-    /**
-     * @param object $entity
-     *
-     * @return array
-     */
-    private function getIdentifierValues($entity)
-    {
-        try {
-            return $this->modelManager->getIdentifierValues($entity);
-        } catch (\Exception $e) {
-            throw new \InvalidArgumentException(sprintf('Unable to retrieve the identifier values for entity %s', ClassUtils::getClass($entity)), 0, $e);
-        }
     }
 }

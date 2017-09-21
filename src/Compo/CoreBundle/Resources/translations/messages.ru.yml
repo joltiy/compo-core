@@ -431,3 +431,10 @@ seo_page: 'SEO'
 users: 'Пользователи'
 groups: 'Группы'
 notifications: 'Уведомления'
+
+
+date_range_start: 'От'
+date_range_end: 'До'
+
+filter.label_created_by: 'Создал'
+filter.label_updated_by: 'Обновил'

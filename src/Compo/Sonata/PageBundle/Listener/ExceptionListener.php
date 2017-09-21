@@ -11,65 +11,24 @@ use Sonata\PageBundle\Site\SiteSelectorInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Templating\EngineInterface;
 
+/**
+ * {@inheritDoc}
+ */
 class ExceptionListener extends \Sonata\PageBundle\Listener\ExceptionListener
 {
+    /** @noinspection MagicMethodsValidityInspection */
+    /** @noinspection PhpMissingParentConstructorInspection */
     /**
-     * @var SiteSelectorInterface
-     */
-    protected $siteSelector;
-
-    /**
-     * @var CmsManagerSelectorInterface
-     */
-    protected $cmsManagerSelector;
-
-    /**
-     * @var bool
-     */
-    protected $debug;
-
-    /**
-     * @var EngineInterface
-     */
-    protected $templating;
-
-    /**
-     * @var PageServiceManagerInterface
-     */
-    protected $pageServiceManager;
-
-    /**
-     * @var DecoratorStrategyInterface
-     */
-    protected $decoratorStrategy;
-
-    /**
-     * @var array
-     */
-    protected $httpErrorCodes;
-
-    /**
-     * @var LoggerInterface|null
-     */
-    protected $logger;
-
-    /**
-     * @var bool
-     */
-    protected $status;
-
-    /**
-     * @param SiteSelectorInterface       $siteSelector       Site selector
+     * @param SiteSelectorInterface $siteSelector Site selector
      * @param CmsManagerSelectorInterface $cmsManagerSelector CMS Manager selector
-     * @param bool                        $debug              Debug mode
-     * @param EngineInterface             $templating         Templating engine
+     * @param bool $debug Debug mode
+     * @param EngineInterface $templating Templating engine
      * @param PageServiceManagerInterface $pageServiceManager Page service manager
-     * @param DecoratorStrategyInterface  $decoratorStrategy  Decorator strategy
-     * @param array                       $httpErrorCodes     An array of http error codes' routes
-     * @param LoggerInterface|null        $logger             Logger instance
+     * @param DecoratorStrategyInterface $decoratorStrategy Decorator strategy
+     * @param array $httpErrorCodes An array of http error codes' routes
+     * @param LoggerInterface|null $logger Logger instance
      */
     public function __construct(SiteSelectorInterface $siteSelector, CmsManagerSelectorInterface $cmsManagerSelector, $debug, EngineInterface $templating, PageServiceManagerInterface $pageServiceManager, DecoratorStrategyInterface $decoratorStrategy, array $httpErrorCodes, LoggerInterface $logger = null)
     {
@@ -94,44 +53,6 @@ class ExceptionListener extends \Sonata\PageBundle\Listener\ExceptionListener
     }
 
     /**
-     * Returns true if the http error code is defined.
-     *
-     * @param int $statusCode
-     *
-     * @return bool
-     */
-    public function hasErrorCode($statusCode)
-    {
-        return array_key_exists($statusCode, $this->httpErrorCodes);
-    }
-
-    /**
-     * Returns a fully loaded page from a route name by the http error code throw.
-     *
-     * @param int $statusCode
-     *
-     * @return \Sonata\PageBundle\Model\PageInterface
-     *
-     * @throws \RuntimeException      When site is not found, check your state database
-     * @throws InternalErrorException When you do not configure page for http error code
-     */
-    public function getErrorCodePage($statusCode)
-    {
-        if (!$this->hasErrorCode($statusCode)) {
-            throw new InternalErrorException(sprintf('There is not page configured to handle the status code %d', $statusCode));
-        }
-
-        $cms = $this->cmsManagerSelector->retrieve();
-        $site = $this->siteSelector->retrieve();
-
-        if (!$site) {
-            throw new \RuntimeException('No site available');
-        }
-
-        return $cms->getPageByRouteName($site, $this->httpErrorCodes[$statusCode]);
-    }
-
-    /**
      * Handles a kernel exception.
      *
      * @param GetResponseForExceptionEvent $event
@@ -140,26 +61,6 @@ class ExceptionListener extends \Sonata\PageBundle\Listener\ExceptionListener
      */
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
-        if ($event->getException() instanceof NotFoundHttpException && $this->cmsManagerSelector->isEditor()) {
-            $pathInfo = $event->getRequest()->getPathInfo();
-
-            // can only create a CMS page, so the '_route' must be null
-            $creatable = !$event->getRequest()->get('_route') && $this->decoratorStrategy->isRouteUriDecorable($pathInfo);
-
-            if (false && $creatable) {
-                $response = new Response($this->templating->render('SonataPageBundle:Page:create.html.twig', array(
-                    'pathInfo' => $pathInfo,
-                    'site' => $this->siteSelector->retrieve(),
-                    'creatable' => $creatable,
-                )), 404);
-
-                $event->setResponse($response);
-                $event->stopPropagation();
-
-                return;
-            }
-        }
-
         if ($event->getException() instanceof InternalErrorException) {
             $this->handleInternalError($event);
         } else {
@@ -174,9 +75,12 @@ class ExceptionListener extends \Sonata\PageBundle\Listener\ExceptionListener
      */
     private function handleInternalError(GetResponseForExceptionEvent $event)
     {
-        $content = $this->templating->render('SonataPageBundle::internal_error.html.twig', array(
-            'exception' => $event->getException(),
-        ));
+        $content = $this->templating->render(
+            'SonataPageBundle::internal_error.html.twig',
+            array(
+                'exception' => $event->getException(),
+            )
+        );
 
         $event->setResponse(new Response($content, 500));
     }
@@ -249,11 +153,23 @@ class ExceptionListener extends \Sonata\PageBundle\Listener\ExceptionListener
     }
 
     /**
+     * Returns true if the http error code is defined.
+     *
+     * @param int $statusCode
+     *
+     * @return bool
+     */
+    public function hasErrorCode($statusCode)
+    {
+        return array_key_exists($statusCode, $this->httpErrorCodes);
+    }
+
+    /**
      * Logs exceptions.
      *
-     * @param \Exception  $originalException  Original exception that called the listener
-     * @param \Exception  $generatedException Generated exception
-     * @param string|null $message            Message to log
+     * @param \Exception $originalException Original exception that called the listener
+     * @param \Exception $generatedException Generated exception
+     * @param string|null $message Message to log
      */
     private function logException(\Exception $originalException, \Exception $generatedException, $message = null)
     {
@@ -268,7 +184,34 @@ class ExceptionListener extends \Sonata\PageBundle\Listener\ExceptionListener
                 $this->logger->error($message, array('exception' => $originalException));
             }
         } else {
+            /** @noinspection ForgottenDebugOutputInspection */
             error_log($message);
         }
+    }
+
+    /**
+     * Returns a fully loaded page from a route name by the http error code throw.
+     *
+     * @param int $statusCode
+     *
+     * @return \Sonata\PageBundle\Model\PageInterface
+     *
+     * @throws \RuntimeException      When site is not found, check your state database
+     * @throws InternalErrorException When you do not configure page for http error code
+     */
+    public function getErrorCodePage($statusCode)
+    {
+        if (!$this->hasErrorCode($statusCode)) {
+            throw new InternalErrorException(sprintf('There is not page configured to handle the status code %d', $statusCode));
+        }
+
+        $cms = $this->cmsManagerSelector->retrieve();
+        $site = $this->siteSelector->retrieve();
+
+        if (!$site) {
+            throw new \RuntimeException('No site available');
+        }
+
+        return $cms->getPageByRouteName($site, $this->httpErrorCodes[$statusCode]);
     }
 }

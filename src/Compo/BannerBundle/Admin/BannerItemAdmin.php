@@ -21,10 +21,8 @@ class BannerItemAdmin extends AbstractAdmin
      */
     public function configure()
     {
-        $this->setTranslationDomain('CompoBannerBundle');
         $this->configurePosition(true, array('banner'));
         $this->setParentParentAssociationMapping('banner');
-        $this->configureProperties(true);
     }
 
     /**
@@ -79,12 +77,16 @@ class BannerItemAdmin extends AbstractAdmin
             ->addIdentifier('name')
             ->add('url')
             ->add('enabled')
-            ->add('_action', null, array(
-                'actions' => array(
-                    'edit' => array(),
-                    'delete' => array(),
+            ->add(
+                '_action',
+                null,
+                array(
+                    'actions' => array(
+                        'edit' => array(),
+                        'delete' => array(),
+                    )
                 )
-            ));
+            );
     }
 
     /**
@@ -92,13 +94,19 @@ class BannerItemAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->tab('form.tab_main_banner', array(
-            'translation_domain' => $this->getTranslationDomain()
-        ));
+        $formMapper->tab(
+            'form.tab_main_banner',
+            array(
+                'translation_domain' => $this->getTranslationDomain()
+            )
+        );
 
-        $formMapper->with('form.tab_main', array(
-            'name' => false
-        ))
+        $formMapper->with(
+            'form.tab_main',
+            array(
+                'name' => false
+            )
+        )
             ->add('id')
             ->add('enabled')
             ->add('banner')
@@ -135,7 +143,7 @@ class BannerItemAdmin extends AbstractAdmin
      */
     protected function configureTabMenu(MenuItemInterface $banner, $action, AdminInterface $childAdmin = null)
     {
-        if (in_array($action, array('edit'))) {
+        if ('edit' === $action) {
             $this->configureTabBannerItem($banner, $action);
 
             /** @var BannerAdmin $bannerAdmin */

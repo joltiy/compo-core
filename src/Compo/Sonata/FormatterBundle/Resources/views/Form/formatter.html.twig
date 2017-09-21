@@ -22,8 +22,8 @@
             CKEDITOR.dtd.$removeEmpty['i'] = false;
 
             var isInstanceActive = isInstanceActive || function (instance) {
-                    return instance && instance.status !== "destroyed";
-                };
+                return instance && instance.status !== "destroyed";
+            };
 
             jQuery('#{{ form.children[format_field].vars.id }}').parents("form").on('click', function () {
                 if (isInstanceActive({{ source_id }}_rich_instance)) {

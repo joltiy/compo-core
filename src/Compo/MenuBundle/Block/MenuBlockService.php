@@ -39,14 +39,14 @@ class MenuBlockService extends AbstractBlockService
             $menu = $factory->createItem($settings['id']);
 
             /** @var MenuRepository $repositoryMenu */
-            $repositoryMenu = $em->getRepository("CompoMenuBundle:Menu");
+            $repositoryMenu = $em->getRepository('CompoMenuBundle:Menu');
 
             $menuObject = $repositoryMenu->find($settings['id']);
 
             /** @var MenuItemRepository $repo */
-            $repo = $em->getRepository("CompoMenuBundle:MenuItem");
+            $repo = $em->getRepository('CompoMenuBundle:MenuItem');
 
-            $tree = $repo->childrenHierarchyWithNodes($repo->findOneBy(array('menu' => $menuObject)), false, array(), false);
+            $tree = $repo->childrenHierarchyWithNodes($repo->findOneBy(array('menu' => $menuObject)));
         } else {
             $menu = $factory->createItem('');
         }
@@ -55,13 +55,17 @@ class MenuBlockService extends AbstractBlockService
 
         $renderer = new ListRenderer(new Matcher());
 
-        return $this->renderResponse($blockContext->getTemplate(), array(
-            'nodes' => $tree,
-            'menu' => $renderer->render($menu),
+        return $this->renderResponse(
+            $blockContext->getTemplate(),
+            array(
+                'nodes' => $tree,
+                'menu' => $renderer->render($menu),
 
-            'block' => $blockContext->getBlock(),
-            'settings' => $blockContext->getSettings(),
-        ), $response);
+                'block' => $blockContext->getBlock(),
+                'settings' => $blockContext->getSettings(),
+            ),
+            $response
+        );
     }
 
     /**
@@ -81,9 +85,7 @@ class MenuBlockService extends AbstractBlockService
                 continue;
             }
 
-            if ($item['type'] == 'url') {
-
-            } elseif ($item['type'] == 'catalog') {
+            if ($item['type'] === 'catalog') {
                 if (!$nodeItem->getCatalog()) {
                     continue;
                 }
@@ -92,11 +94,11 @@ class MenuBlockService extends AbstractBlockService
 
                 $item['url'] = $catalogManager->getCatalogShowPermalink($nodeItem->getCatalog());
 
-            } elseif ($item['type'] == 'page') {
+            } elseif ($item['type'] === 'page') {
 
                 /** @noinspection Symfony2PhpRouteMissingInspection */
                 $item['url'] = $this->getContainer()->get('router')->generate('page_slug', array('path' => $nodeItem->getPage()->getUrl()));
-            } elseif ($item['type'] == 'tagging') {
+            } elseif ($item['type'] === 'tagging') {
 
                 if ($nodeItem->getTagging()) {
                     $catalogManager = $this->getContainer()->get('compo_catalog.manager.catalog');
@@ -114,7 +116,7 @@ class MenuBlockService extends AbstractBlockService
                     $item['products_count'] = $filter['products_count'];
                 }
 
-            } elseif ($item['type'] == 'manufacture') {
+            } elseif ($item['type'] === 'manufacture') {
 
                 if ($nodeItem->getManufacture()) {
                     $manufactureManager = $this->getContainer()->get('compo_manufacture.manager.manufacture');
@@ -125,19 +127,22 @@ class MenuBlockService extends AbstractBlockService
                 }
 
 
-            } elseif ($item['type'] == 'country') {
+            } elseif ($item['type'] === 'country') {
 
                 if ($nodeItem->getCountry()) {
 
                     $router = $this->getContainer()->get('router');
 
-                    $item['url'] = $router->generate('catalog_index', array(
-                        'country' => array(
-                            'items' => array(
-                                $nodeItem->getCountry()->getId() => $nodeItem->getCountry()->getId()
+                    $item['url'] = $router->generate(
+                        'catalog_index',
+                        array(
+                            'country' => array(
+                                'items' => array(
+                                    $nodeItem->getCountry()->getId() => $nodeItem->getCountry()->getId()
+                                )
                             )
                         )
-                    ));
+                    );
 
                     $item['country'] = $nodeItem->getCountry();
                 }
@@ -161,9 +166,12 @@ class MenuBlockService extends AbstractBlockService
             if ($item['url'] === $this->getRequest()->getRequestUri()) {
                 // URL's completely match
                 $node->setCurrent(true);
-            } else if ($item['url'] !== $this->getRequest()->getBaseUrl() . '/' && (substr($this->getRequest()->getRequestUri(), 0, strlen($item['url'])) === $item['url'])) {
-                // URL isn't just "/" and the first container of the URL match
-                $node->setCurrent(true);
+            } else {
+
+                if ($item['url']&& $item['url'] !== $this->getRequest()->getBaseUrl() . '/' && (0 === strpos($this->getRequest()->getRequestUri(), $item['url']))) {
+                    // URL isn't just "/" and the first container of the URL match
+                    $node->setCurrent(true);
+                }
             }
 
             if (count($item['__children'])) {
@@ -181,13 +189,17 @@ class MenuBlockService extends AbstractBlockService
      */
     public function buildForm(FormMapper $formMapper, BlockInterface $block)
     {
-        $formMapper->add('settings', 'sonata_type_immutable_array', array(
-            'keys' => array(
-                array('id', 'choice', array('required' => true, 'choices' => $this->getMenuRepository()->getChoices())),
-                array('class', 'text', array('required' => false)),
-                array('template', 'text', array('required' => false)),
-            ),
-        ));
+        $formMapper->add(
+            'settings',
+            'sonata_type_immutable_array',
+            array(
+                'keys' => array(
+                    array('id', 'choice', array('required' => true, 'choices' => $this->getMenuRepository()->getChoices())),
+                    array('class', 'text', array('required' => false)),
+                    array('template', 'text', array('required' => false)),
+                ),
+            )
+        );
     }
 
     /**
@@ -211,11 +223,13 @@ class MenuBlockService extends AbstractBlockService
      */
     public function configureSettings(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'class' => '',
-            'id' => null,
-            'template' => 'CompoMenuBundle:Menu:base_menu.html.twig',
-        ));
+        $resolver->setDefaults(
+            array(
+                'class' => '',
+                'id' => null,
+                'template' => 'CompoMenuBundle:Menu:base_menu.html.twig',
+            )
+        );
     }
 
     /**
@@ -230,10 +244,10 @@ class MenuBlockService extends AbstractBlockService
         $keys['environment'] = $this->getContainer()->get('kernel')->getEnvironment();
 
         if (isset($settings['id'])) {
-            $em = $this->getContainer()->get("doctrine")->getManager();
+            $em = $this->getContainer()->get('doctrine')->getManager();
 
             /** @var MenuRepository $repository */
-            $repository = $em->getRepository("CompoMenuBundle:Menu");
+            $repository = $em->getRepository('CompoMenuBundle:Menu');
 
             $item = $repository->find($settings['id']);
 

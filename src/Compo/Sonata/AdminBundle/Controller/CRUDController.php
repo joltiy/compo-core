@@ -16,6 +16,7 @@ use Sylius\Bundle\SettingsBundle\Manager\SettingsManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -24,12 +25,193 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 class CRUDController extends BaseCRUDController
 {
+
     /**
      * The related Admin class.
      *
      * @var AbstractAdmin
      */
     protected $admin;
+
+
+    public function historyRevertAction($id, $revision)
+    {
+        $id     = $this->getRequest()->get($this->admin->getIdParameter());
+        $object = $this->admin->getObject($id);
+
+        if (!$object) {
+            throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
+        }
+
+        $request = $this->getRequest();
+        if ($request->getMethod() === 'POST') {
+            // check the csrf token
+            $this->validateCsrfToken('sonata.history.revert');
+
+            try {
+                $manager = $this->get('sonata.admin.audit.manager');
+
+                if (!$manager->hasReader($this->admin->getClass())) {
+                    throw new NotFoundHttpException(sprintf('unable to find the audit reader for class : %s', $this->admin->getClass()));
+                }
+
+                $reader = $manager->getReader($this->admin->getClass());
+                $reader->revert($object, $revision);
+
+                if ($this->isXmlHttpRequest()) {
+                    return $this->renderJson(array('result' => 'ok'));
+                }
+
+                $this->addFlash('sonata_flash_info', $this->get('translator')->trans('flash_history_revert_successfull', array(), 'PicossSonataExtraAdminBundle'));
+
+            } catch (ModelManagerException $e) {
+
+                if ($this->isXmlHttpRequest()) {
+                    return $this->renderJson(array('result' => 'error'));
+                }
+
+                $this->addFlash('sonata_flash_info', $this->get('translator')->trans('flash_history_revert_error', array(), 'PicossSonataExtraAdminBundle'));
+            }
+
+            return new RedirectResponse($this->admin->generateUrl('list'));
+        }
+
+        return $this->render('@CompoSonataAdmin/CRUD/history_revert.html.twig', array(
+            'object'     => $object,
+            'revision'   => $revision,
+            'action'     => 'revert',
+            'csrf_token' => $this->getCsrfToken('sonata.history.revert')
+        ));
+    }
+
+    /**
+     * return the Response object associated to the trash action
+     *
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     *
+     * @return Response
+     */
+    public function trashAction()
+    {
+        if (false === $this->admin->isGranted('LIST')) {
+            throw new AccessDeniedException();
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->getFilters()->disable('softdeleteable');
+        $em->getFilters()->enable('softdeleteabletrash');
+
+        $datagrid = $this->admin->getDatagrid();
+        $formView = $datagrid->getForm()->createView();
+
+        // set the theme for the current Admin Form
+        $this->get('twig')->getExtension('Symfony\Bridge\Twig\Extension\FormExtension')->renderer->setTheme($formView, $this->admin->getFilterTheme());
+
+        return $this->render('@CompoSonataAdmin/CRUD/trash.html.twig', array(
+            'action'     => 'trash',
+            'form'       => $formView,
+            'datagrid'   => $datagrid,
+            'csrf_token' => $this->getCsrfToken('sonata.batch'),
+        ));
+    }
+
+    public function untrashAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->getFilters()->disable('softdeleteable');
+        $em->getFilters()->enable('softdeleteabletrash');
+
+        $id     = $request->get($this->admin->getIdParameter());
+        $object = $this->admin->getObject($id);
+
+        if (!$object) {
+            throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
+        }
+
+        if ($request->getMethod() == 'POST') {
+            // check the csrf token
+            $this->validateCsrfToken('sonata.untrash');
+
+            try {
+                $object->setDeletedAt(null);
+                $this->admin->update($object);
+
+                if ($this->isXmlHttpRequest()) {
+                    return $this->renderJson(array('result' => 'ok'));
+                }
+
+                $this->addFlash('sonata_flash_info', $this->get('translator')->trans('flash_untrash_successfull', array(), 'PicossSonataExtraAdminBundle'));
+
+            } catch (ModelManagerException $e) {
+
+                if ($this->isXmlHttpRequest()) {
+                    return $this->renderJson(array('result' => 'error'));
+                }
+
+                $this->addFlash('sonata_flash_info', $this->get('translator')->trans('flash_untrash_error', array(), 'PicossSonataExtraAdminBundle'));
+            }
+
+            return new RedirectResponse($this->admin->generateUrl('list'));
+        }
+
+        return $this->render('@CompoSonataAdmin/CRUD/untrash.html.twig', array(
+            'object'     => $object,
+            'action'     => 'untrash',
+            'csrf_token' => $this->getCsrfToken('sonata.untrash')
+        ));
+    }
+
+    /**
+     * @param Request $request
+     * @param string $namespace
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function settingsAction(Request $request, $namespace = null)
+    {
+
+        if (null === $namespace) {
+            $namespace = $this->admin->getSettingsNamespace();
+        }
+
+        $manager = $this->getSettingsManager();
+        $settings = $manager->load($namespace);
+
+        $form = $this
+            ->getSettingsFormFactory()
+            ->create($namespace);
+
+        $form->setData($settings);
+
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+
+            if ($form->isValid()) {
+                $manager->save($form->getData());
+
+                $message = $this->getTranslator()->trans('settings.updated_successful');
+                $this->get('session')->getFlashBag()->add('sonata_flash_success', $message);
+
+                return $this->redirect($request->headers->get('referer'));
+            }
+        }
+
+        $admin_pool = $this->get('sonata.admin.pool');
+
+        return $this->render(
+            'CompoCoreBundle:Admin:settings.html.twig',
+            array(
+                'action' => 'settings',
+                'breadcrumbs_builder' => $this->get('sonata.admin.breadcrumbs_builder'),
+                'admin' => $this->admin,
+
+                'settings' => $settings,
+                'form' => $form->createView(),
+                'admin_pool' => $admin_pool,
+                'translation_domain' => $this->admin->getTranslationDomain()
+            )
+        );
+    }
 
     /**
      * @return SettingsManagerInterface
@@ -53,81 +235,6 @@ class CRUDController extends BaseCRUDController
     protected function getTranslator()
     {
         return $this->container->get('translator');
-    }
-
-    /**
-     * Check that user can change given schema.
-     *
-     * @param string $schemaAlias
-     *
-     * @return bool
-     */
-    protected function isGrantedOr403($schemaAlias)
-    {
-        if (!$this->container->has('sylius.authorization_checker')) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return bool
-     */
-    protected function isApiRequest(Request $request)
-    {
-        return 'html' !== $request->getRequestFormat();
-    }
-
-    /**
-     * @param Request $request
-     * @param string $namespace
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     */
-    public function settingsAction(Request $request, $namespace = null)
-    {
-
-        if (is_null($namespace)) {
-            $namespace = $this->admin->getSettingsNamespace();
-        }
-
-        $manager = $this->getSettingsManager();
-        $settings = $manager->load($namespace);
-
-        $form = $this
-            ->getSettingsFormFactory()
-            ->create($namespace);
-
-        $form->setData($settings);
-
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-
-            if ($form->isValid()) {
-                $manager->save($form->getData());
-
-                $message = $this->getTranslator()->trans('settings.updated_successful', array());
-                $this->get('session')->getFlashBag()->add('sonata_flash_success', $message);
-
-                return $this->redirect($request->headers->get('referer'));
-            }
-        }
-
-        $admin_pool = $this->get('sonata.admin.pool');
-
-        return $this->render('CompoCoreBundle:Admin:settings.html.twig', array(
-            'action' => 'settings',
-            'breadcrumbs_builder' => $this->get('sonata.admin.breadcrumbs_builder'),
-            'admin' => $this->admin,
-
-            'settings' => $settings,
-            'form' => $form->createView(),
-            'admin_pool' => $admin_pool,
-            'translation_domain' => $this->admin->getTranslationDomain()
-        ));
     }
 
     /**
@@ -171,17 +278,17 @@ class CRUDController extends BaseCRUDController
 
         $after_object = $repo->find($request->request->get('after_id'));
 
+        $after_pos = 0;
+
         if ($after_object) {
             $after_pos = $after_object->getPosition();
-        } else {
-            $after_pos = 0;
         }
+
+        $new_pos = 0;
 
         // Если позиция не определена, то 1, иначе + 1 от позиции после которого должен стоять.
         if ($after_object) {
             $new_pos = $after_pos + 1;
-        } else {
-            $new_pos = 0;
         }
 
         // Обновляем позиции текущего и последующих
@@ -232,13 +339,15 @@ class CRUDController extends BaseCRUDController
         if ($after_object) {
             $this->admin->update($after_object);
         }
-        return $this->renderJson(array(
-            'result' => 'ok',
-            'objectId' => $this->admin->getNormalizedIdentifier($object)
-        ));
+
+        return $this->renderJson(
+            array(
+                'result' => 'ok',
+                'objectId' => $this->admin->getNormalizedIdentifier($object)
+            )
+        );
 
     }
-
 
     /**
      * Move element
@@ -306,6 +415,7 @@ class CRUDController extends BaseCRUDController
             $response = new Response(json_encode(array('result' => true)), 200);
 
             $response->headers->set('Content-Type', 'application/json');
+
             return $response;
         } else {
             $translator = $this->get('translator');
@@ -350,10 +460,12 @@ class CRUDController extends BaseCRUDController
             $this->admin->update($object);
 
             if ($this->isXmlHttpRequest()) {
-                return $this->renderJson(array(
-                    'result' => 'ok',
-                    'objectId' => $this->admin->getNormalizedIdentifier($object)
-                ));
+                return $this->renderJson(
+                    array(
+                        'result' => 'ok',
+                        'objectId' => $this->admin->getNormalizedIdentifier($object)
+                    )
+                );
             }
 
             $this->addFlash(
@@ -361,13 +473,14 @@ class CRUDController extends BaseCRUDController
                 $translator->trans('flash_success_position_updated')
             );
 
-            return new RedirectResponse($this->admin->generateUrl(
-                'list',
-                array('filter' => $this->admin->getFilterParameters())
-            ));
+            return new RedirectResponse(
+                $this->admin->generateUrl(
+                    'list',
+                    array('filter' => $this->admin->getFilterParameters())
+                )
+            );
         }
     }
-
 
     /**
      * @param Request $request
@@ -377,9 +490,9 @@ class CRUDController extends BaseCRUDController
     public function listAction(Request $request = null)
     {
         //if (isset($this->admin->treeEnabled) && $this->admin->treeEnabled) {
-            //if (!$request->get('filter')) {
-                //return new RedirectResponse($this->admin->generateUrl('tree', $request->query->all()));
-            //}
+        //if (!$request->get('filter')) {
+        //return new RedirectResponse($this->admin->generateUrl('tree', $request->query->all()));
+        //}
         //}
 
         return parent::listAction();
@@ -405,15 +518,122 @@ class CRUDController extends BaseCRUDController
             $repo = $em->getRepository($this->admin->getClass());
             $tree = $repo->childrenHierarchy();
 
-            return $this->render($this->admin->getTemplate('tree'), array(
-                'action' => 'tree',
-                'nodes' => $tree,
-                'form' => $this->admin->getDatagrid()->getForm()->createView(),
-            ));
+            return $this->render(
+                $this->admin->getTemplate('tree'),
+                array(
+                    'action' => 'tree',
+                    'nodes' => $tree,
+                    'form' => $this->admin->getDatagrid()->getForm()->createView(),
+                )
+            );
         } else {
             return parent::listAction();
         }
 
+    }
+
+    /**
+     * @param \Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery
+     * @param Request $request
+     *
+     * @return RedirectResponse
+     * @throws ModelManagerException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function batchActionDisable(\Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery, Request $request = null)
+    {
+        if (!$this->admin->isGranted('EDIT')) {
+            throw new AccessDeniedException();
+        }
+
+        /** @var QueryBuilder $selectedModelQuery */
+
+        /** @var ModelManager $modelManager */
+        $modelManager = $this->admin->getModelManager();
+
+        $aliases = $selectedModelQuery->getRootAliases();
+
+        $selectedModelQuery->select('DISTINCT ' . $aliases[0]);
+
+        try {
+            $entityManager = $modelManager->getEntityManager($this->admin->getClass());
+
+            $i = 0;
+            foreach ($selectedModelQuery->getQuery()->iterate() as $pos => $object) {
+
+                /** @noinspection PhpUndefinedMethodInspection */
+                $object[0]->setEnabled(false);
+                $modelManager->update($object[0]);
+
+                /** @noinspection TypeUnsafeComparisonInspection */
+                if ((++$i % 100) == 0) {
+                    $entityManager->flush();
+                    $entityManager->clear();
+                }
+            }
+
+            $entityManager->flush();
+            $entityManager->clear();
+        } catch (\PDOException $e) {
+            throw new ModelManagerException('', 0, $e);
+        } catch (DBALException $e) {
+            throw new ModelManagerException('', 0, $e);
+        }
+
+
+        $this->addFlash('sonata_flash_success', 'flash_batch.disable_success');
+
+        return new RedirectResponse(
+            $this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters()))
+        );
+    }
+
+    /**
+     * @param \Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery
+     * @param Request $request
+     *
+     * @return RedirectResponse
+     */
+    public function batchActionEnable(\Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery, Request $request = null)
+    {
+        if (!$this->admin->isGranted('EDIT')) {
+            throw new AccessDeniedException();
+        }
+
+        /** @var QueryBuilder $qb */
+        $qb = $selectedModelQuery->getQueryBuilder();
+
+        /** @var QueryBuilder $selectedModelQuery */
+        $selectedModelQuery->select($qb->getRootAliases()[0] . '.id');
+
+        $result = $selectedModelQuery->execute(array(), Query::HYDRATE_ARRAY);
+
+        $ids = array();
+
+        foreach ($result as $result_item) {
+            $ids[] = $result_item['id'];
+        }
+
+        $chunks = array_chunk($ids, 500);
+
+        $repository = $this->getAdmin()->getRepository();
+
+        $class = $repository->getClassName();
+
+
+        $em = $this->getAdmin()->getDoctrine()->getManager();
+
+        foreach ($chunks as $chunksIds) {
+            /** @var Query $q */
+            $q = $em->createQuery('UPDATE ' . $class . ' o SET o.enabled = 1 WHERE o.id IN(' . implode(',', $chunksIds) . ')');
+            $q->execute();
+        }
+
+        $this->addFlash('sonata_flash_success', 'flash_batch.enable_success');
+
+        return new RedirectResponse(
+            $this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters()))
+        );
     }
 
     /**
@@ -430,6 +650,85 @@ class CRUDController extends BaseCRUDController
     public function setAdmin(AbstractAdmin $admin)
     {
         $this->admin = $admin;
+    }
+
+    /**
+     * @param \Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery
+     * @param Request $request
+     *
+     * @return RedirectResponse
+     * @throws ModelManagerException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function batchActionEnable2(\Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery, Request $request = null)
+    {
+        if (!$this->admin->isGranted('EDIT')) {
+            throw new AccessDeniedException();
+        }
+
+        /** @var ModelManager $modelManager */
+        $modelManager = $this->admin->getModelManager();
+
+        /** @var QueryBuilder $selectedModelQuery */
+        $selectedModelQuery->select('DISTINCT ' . $selectedModelQuery->getRootAliases()[0]);
+
+        try {
+            $entityManager = $modelManager->getEntityManager($this->admin->getClass());
+
+            $i = 0;
+            foreach ($selectedModelQuery->getQuery()->iterate() as $pos => $object) {
+
+                /** @noinspection PhpUndefinedMethodInspection */
+                $object[0]->setEnabled(true);
+                $modelManager->update($object[0]);
+
+                /** @noinspection TypeUnsafeComparisonInspection */
+                if ((++$i % 100) == 0) {
+                    $entityManager->flush();
+                    $entityManager->clear();
+                }
+            }
+
+            $entityManager->flush();
+            $entityManager->clear();
+        } catch (\PDOException $e) {
+            throw new ModelManagerException('', 0, $e);
+        } catch (DBALException $e) {
+            throw new ModelManagerException('', 0, $e);
+        }
+
+
+        $this->addFlash('sonata_flash_success', 'flash_batch.enable_success');
+
+        return new RedirectResponse(
+            $this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters()))
+        );
+    }
+
+    /**
+     * Check that user can change given schema.
+     *
+     * @param string $schemaAlias
+     *
+     * @return bool
+     */
+    protected function isGrantedOr403($schemaAlias)
+    {
+        if (!$this->container->has('sylius.authorization_checker')) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return bool
+     */
+    protected function isApiRequest(Request $request)
+    {
+        return 'html' !== $request->getRequestFormat();
     }
 
     /**
@@ -480,7 +779,7 @@ class CRUDController extends BaseCRUDController
                 if ($this->admin->hasRoute($route) && $this->admin->isGranted(strtoupper($route), $object)) {
                     $params = array();
 
-                    if ($route == 'edit') {
+                    if ($route === 'edit') {
                         $params['current_tab_index'] = $request->get('current_tab_index');
                     }
                     $url = $this->admin->generateObjectUrl($route, $object, $params);
@@ -494,150 +793,5 @@ class CRUDController extends BaseCRUDController
         }
 
         return new RedirectResponse($url);
-    }
-
-
-    /**
-     * @param \Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery
-     * @param Request $request
-     *
-     * @return RedirectResponse
-     * @throws ModelManagerException
-     */
-    public function batchActionDisable(\Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery, Request $request = null)
-    {
-        if (!$this->admin->isGranted('EDIT')) {
-            throw new AccessDeniedException();
-        }
-
-        /** @var QueryBuilder $selectedModelQuery */
-
-        /** @var ModelManager $modelManager */
-        $modelManager = $this->admin->getModelManager();
-
-        $selectedModelQuery->select('DISTINCT '.$selectedModelQuery->getRootAlias());
-
-        try {
-            $entityManager = $modelManager->getEntityManager($this->admin->getClass());
-
-            $i = 0;
-            foreach ($selectedModelQuery->getQuery()->iterate() as $pos => $object) {
-                $object[0]->setEnabled(false);
-                $modelManager->update($object[0]);
-
-                if ((++$i % 100) == 0) {
-                    $entityManager->flush();
-                    $entityManager->clear();
-                }
-            }
-
-            $entityManager->flush();
-            $entityManager->clear();
-        } catch (\PDOException $e) {
-            throw new ModelManagerException('', 0, $e);
-        } catch (DBALException $e) {
-            throw new ModelManagerException('', 0, $e);
-        }
-
-
-        $this->addFlash('sonata_flash_success', 'flash_batch.disable_success');
-
-        return new RedirectResponse(
-            $this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters()))
-        );
-    }
-
-
-    /**
-     * @param \Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery
-     * @param Request $request
-     *
-     * @return RedirectResponse
-     */
-    public function batchActionEnable(\Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery, Request $request = null)
-    {
-        if (!$this->admin->isGranted('EDIT')) {
-            throw new AccessDeniedException();
-        }
-
-        /** @var QueryBuilder $qb */
-        $qb = $selectedModelQuery->getQueryBuilder();
-
-        $selectedModelQuery->select($qb->getRootAliases()[0] . '.id');
-
-        $result = $selectedModelQuery->execute(array(), Query::HYDRATE_ARRAY);
-
-        $ids = array();
-
-        foreach ($result as $result_item) {
-            $ids[] = $result_item['id'];
-        }
-
-        $chunks = array_chunk($ids, 500);
-
-        $repository = $this->getAdmin()->getRepository();
-
-        $class = $repository->getClassName();
-
-
-        $em = $this->getAdmin()->getDoctrine()->getManager();
-
-        foreach ($chunks as $chunksIds) {
-            $q = $em->createQuery('UPDATE ' . $class . ' o SET o.enabled = 1 WHERE o.id IN(' . implode(',', $chunksIds). ')');
-            $q->execute();
-        }
-
-        $this->addFlash('sonata_flash_success', 'flash_batch.enable_success');
-
-        return new RedirectResponse(
-            $this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters()))
-        );
-    }
-
-    /**
-     * @param \Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery
-     * @param Request $request
-     *
-     * @return RedirectResponse
-     * @throws ModelManagerException
-     */
-    public function batchActionEnable2(\Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery, Request $request = null)
-    {
-        if (!$this->admin->isGranted('EDIT')) {
-            throw new AccessDeniedException();
-        }
-
-        $modelManager = $this->admin->getModelManager();
-
-        $selectedModelQuery->select('DISTINCT '.$selectedModelQuery->getRootAlias());
-
-        try {
-            $entityManager = $modelManager->getEntityManager($this->admin->getClass());
-
-            $i = 0;
-            foreach ($selectedModelQuery->getQuery()->iterate() as $pos => $object) {
-                $object[0]->setEnabled(true);
-                $modelManager->update($object[0]);
-
-                if ((++$i % 100) == 0) {
-                    $entityManager->flush();
-                    $entityManager->clear();
-                }
-            }
-
-            $entityManager->flush();
-            $entityManager->clear();
-        } catch (\PDOException $e) {
-            throw new ModelManagerException('', 0, $e);
-        } catch (DBALException $e) {
-            throw new ModelManagerException('', 0, $e);
-        }
-
-
-        $this->addFlash('sonata_flash_success', 'flash_batch.enable_success');
-
-        return new RedirectResponse(
-            $this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters()))
-        );
     }
 }

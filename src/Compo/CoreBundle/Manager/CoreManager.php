@@ -23,7 +23,7 @@ class CoreManager
      */
     public function getSettings()
     {
-        if (is_null($this->settings)) {
+        if (null === $this->settings) {
             $this->settings = $this->getContainer()->get('sylius.settings_manager')->load('compo_core_settings');
         }
 

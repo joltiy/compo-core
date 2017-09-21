@@ -39,20 +39,23 @@ class TemplateChoiceType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'choices' => $this->getTemplates(),
-            'choice_translation_domain' => false,
-        ));
+        /** @noinspection PhpParamsInspection */
+        $this->configureOptions($resolver);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $this->configureOptions($resolver);
+        $resolver->setDefaults(
+            array(
+                'choices' => $this->getTemplates(),
+                'choice_translation_domain' => false,
+            )
+        );
     }
 
     /**
@@ -79,16 +82,16 @@ class TemplateChoiceType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
+    public function getName()
     {
-        return 'sonata_page_template';
+        return $this->getBlockPrefix();
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
-        return $this->getBlockPrefix();
+        return 'sonata_page_template';
     }
 }

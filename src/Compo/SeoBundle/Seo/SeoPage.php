@@ -50,11 +50,6 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
     protected $linkPrev;
 
     /**
-     * @var array
-     */
-    protected $htmlAttributes = array();
-
-    /**
      * @var string
      */
     protected $name;
@@ -161,9 +156,9 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
     {
         if ($this->header) {
             return $this->header;
-        } else {
-            return $this->name;
         }
+
+        return $this->name;
     }
 
     /**
@@ -195,10 +190,12 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
      */
     public function getVars()
     {
+        $route = $this->getRequest()->get('_route');
+
         if (
-            $this->getRequest()->get('_route') == 'page_slug'
+            $route === 'page_slug'
             ||
-            $this->getRequest()->get('_route') == '_page_internal_error_not_found'
+            $route === '_page_internal_error_not_found'
         ) {
             $this->setContext('page');
         }
@@ -252,9 +249,9 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
     {
         if (isset($this->vars[$name])) {
             return $this->vars[$name];
-        } else {
-            return $default;
         }
+
+        return $default;
     }
 
     /**
@@ -274,9 +271,9 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
     {
         if (isset($this->templates[$name])) {
             return $this->templates[$name];
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**
@@ -284,10 +281,7 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
      */
     public function getSite()
     {
-        $container = $this->getContainer();
-        $site = $container->get('sonata.page.site.selector')->retrieve();
-
-        return $site;
+        return $this->getContainer()->get('sonata.page.site.selector')->retrieve();
     }
 
     /**
@@ -344,30 +338,30 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         $meta_description = '';
 
         foreach ($templates as $template) {
-            if (isset($template['name']) && $header == '') {
+            if ($name === '' && isset($template['name'])) {
                 $name = $this->buildTemplate($template['name']);
             }
 
-            if (isset($template['header']) && $header == '') {
+            if ($header === '' && isset($template['header'])) {
                 $header = $this->buildTemplate($template['header']);
             }
 
-            if (isset($template['description']) && $description == '') {
+            if ($description === '' && isset($template['description'])) {
                 $description = $this->buildTemplate($template['description']);
             }
 
-            if (isset($template['descriptionAdditional']) && $descriptionAdditional == '') {
+            if ($descriptionAdditional === '' && isset($template['descriptionAdditional'])) {
                 $descriptionAdditional = $this->buildTemplate($template['descriptionAdditional']);
             }
 
-            if (isset($template['title']) && $title == '') {
+            if ($title === '' && isset($template['title'])) {
                 $title = $this->buildTemplate($template['title']);
             }
 
-            if (isset($template['metaKeyword']) && $meta_keyword == '') {
+            if ($meta_keyword === '' && isset($template['metaKeyword'])) {
                 $meta_keyword = $this->buildTemplate($template['metaKeyword']);
             }
-            if (isset($template['metaDescription']) && $meta_description == '') {
+            if ($meta_description === '' && isset($template['metaDescription'])) {
                 $meta_description = $this->buildTemplate($template['metaDescription']);
             }
         }
@@ -380,7 +374,7 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         foreach ($keywords_tmp as $key => $item) {
             $item = trim($item);
             $keywords_tmp[$key] = $item;
-            if ($item == '') {
+            if ($item === '') {
                 unset($keywords_tmp[$key]);
             }
         }
@@ -439,7 +433,7 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
      * @return mixed|string
      * @throws \Throwable
      */
-    public function buildTemplate($template, $vars = array())
+    public function buildTemplate($template, array $vars = array())
     {
         // Заменяем переменные в шаблоне
         //$found_template[$key] = preg_replace(array_keys($vars_preg_replace), array_values($vars_preg_replace), $value);
@@ -489,7 +483,7 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         $result = trim($result, ',:');
 
         // Удалить два и более пробела
-        $result = trim(preg_replace('/ {2,}/im', ' ', $result));
+        $result = trim(preg_replace('/ {2,}/m', ' ', $result));
 
         return $result;
     }

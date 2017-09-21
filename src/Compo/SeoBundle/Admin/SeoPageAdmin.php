@@ -21,10 +21,8 @@ class SeoPageAdmin extends AbstractAdmin
      */
     public function configure()
     {
-        $this->setTranslationDomain('CompoSeoBundle');
         $this->setSortBy('context');
         $this->setSortOrder('ASC');
-        $this->configureProperties(true);
     }
 
     /**
@@ -96,19 +94,27 @@ class SeoPageAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id')
-            ->addIdentifier('context', 'trans', array(
-                'catalogue' => 'CompoSeoBundle',
-            ))
+            ->addIdentifier(
+                'context',
+                'trans',
+                array(
+                    'catalogue' => 'CompoSeoBundle',
+                )
+            )
             ->add('header')
             ->add('title')
             ->add('metaDescription')
             ->add('metaKeyword')
-            ->add('_action', null, array(
-                'actions' => array(
-                    'edit' => array(),
-                    'delete' => array(),
-                ),
-            ));
+            ->add(
+                '_action',
+                null,
+                array(
+                    'actions' => array(
+                        'edit' => array(),
+                        'delete' => array(),
+                    ),
+                )
+            );
     }
 
     /**
@@ -125,10 +131,10 @@ class SeoPageAdmin extends AbstractAdmin
         } else {
             $context = $manager->getSeoPageItem($subject->getContext());
 
+            $help = 'CompoSeoBundle:Form:seo_vars.html.twig';
+
             if (isset($context['help'])) {
                 $help = $context['help'];
-            } else {
-                $help = 'CompoSeoBundle:Form:seo_vars.html.twig';
             }
         }
 
@@ -137,10 +143,14 @@ class SeoPageAdmin extends AbstractAdmin
             ->with('form.group_main', array('name' => false, 'class' => 'col-lg-12'));
 
         $formMapper->add('id')
-            ->add('context', 'choice', array(
-                'choices' => $manager->getChoices(),
-                'choice_translation_domain' => 'CompoSeoBundle',
-            ))
+            ->add(
+                'context',
+                'choice',
+                array(
+                    'choices' => $manager->getChoices(),
+                    'choice_translation_domain' => 'CompoSeoBundle',
+                )
+            )
             ->add('title', null, array('attr' => array('class' => 'highlight-src'), 'required' => false))
             ->add('metaKeyword', null, array('attr' => array('class' => 'highlight-src'), 'required' => false))
             ->add('metaDescription', null, array('attr' => array('class' => 'highlight-src'), 'required' => false))
@@ -148,10 +158,14 @@ class SeoPageAdmin extends AbstractAdmin
             ->add('description', null, array('attr' => array('class' => ''), 'required' => false))
             ->add('descriptionAdditional', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false));
 
-        $formMapper->add('help', HelpType::class, array(
-            'template' => $help
+        $formMapper->add(
+            'help',
+            HelpType::class,
+            array(
+                'template' => $help
 
-        ));
+            )
+        );
 
         $formMapper->end()
             ->end();

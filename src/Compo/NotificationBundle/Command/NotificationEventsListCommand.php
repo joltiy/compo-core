@@ -35,15 +35,17 @@ class NotificationEventsListCommand extends ContainerAwareCommand
         $table->setHeaders(array('event', 'description', 'recipient', 'subject', 'body', 'help', 'type'));
 
         foreach ($events as $event_key => $event) {
-            $table->addRow(array(
-                $event['event'],
-                $event['description'],
-                $event['recipient'],
-                $event['subject'],
-                $event['body'],
-                $event['help'],
-                $event['type']
-            ));
+            $table->addRow(
+                array(
+                    $event['event'],
+                    $event['description'],
+                    $event['recipient'],
+                    $event['subject'],
+                    $event['body'],
+                    $event['help'],
+                    $event['type']
+                )
+            );
         }
 
         $table->render();

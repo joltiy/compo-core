@@ -3,10 +3,13 @@
 namespace Compo\NewsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * News
- *
+ * 
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
+ * 
  * @ORM\Table(name="news")
  * @ORM\Entity(repositoryClass="Compo\NewsBundle\Repository\NewsRepository")
  */
@@ -29,7 +32,7 @@ class News
     /**
      * @ORM\ManyToMany(targetEntity="Compo\NewsBundle\Entity\NewsTag")
      * @ORM\JoinTable(name="news_tags",
-     *      joinColumns={@ORM\JoinColumn(name="news_id", referencedColumnName="id")},
+     *      joinColumns={@ORM\JoinColumn(name="news_id", referencedColumnName="id", onDelete="CASCADE")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
      *      )
      */

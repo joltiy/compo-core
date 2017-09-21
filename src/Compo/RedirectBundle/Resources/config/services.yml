@@ -4,10 +4,9 @@ services:
         class: Compo\RedirectBundle\Listener\RedirectListener
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 500 }
-        arguments: [ '@router' ]
 
     compo_redirect.admin.redirect:
         class: Compo\RedirectBundle\Admin\RedirectAdmin
         arguments: [~, Compo\RedirectBundle\Entity\Redirect, CompoRedirectBundle:RedirectAdmin]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: redirect, label_translator_strategy: sonata.admin.label.strategy.underscore }
+            - { name: sonata.admin, manager_type: orm, label: redirect }

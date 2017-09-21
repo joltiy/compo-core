@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\Kernel;
 class AppKernel extends Kernel
 {
     /**
-     * @return array
+     * {@inheritDoc}
      */
     public function registerBundles()
     {
@@ -132,6 +132,7 @@ class AppKernel extends Kernel
             new \JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new \JMS\SerializerBundle\JMSSerializerBundle($this),
             new \JMS\TranslationBundle\JMSTranslationBundle(),
+            new \JMS\JobQueueBundle\JMSJobQueueBundle(),
         );
 
         // Бандлы для test/dev окружения
@@ -140,7 +141,6 @@ class AppKernel extends Kernel
             $bundles[] = new \Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new \Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new \Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
-            $bundles[] = new \Bazinga\Bundle\FakerBundle\BazingaFakerBundle();
         }
 
         return $bundles;
@@ -169,7 +169,7 @@ class AppKernel extends Kernel
      */
     public function getCacheDir()
     {
-        return dirname(__DIR__) . '/var/cache/' . $this->getEnvironment();
+        return dirname($this->getRootDir()) . '/var/cache/' . $this->getEnvironment();
     }
 
     /**
@@ -177,20 +177,6 @@ class AppKernel extends Kernel
      */
     public function getLogDir()
     {
-        return dirname(__DIR__) . '/var/logs';
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function initializeContainer()
-    {
-        parent::initializeContainer();
-        /*
-        if (PHP_SAPI == 'cli') {
-            $this->getContainer()->enterScope('request');
-            $this->getContainer()->set('request', new \Symfony\Component\HttpFoundation\Request(), 'request');
-        }
-        */
+        return dirname($this->getRootDir()) . '/var/logs';
     }
 }

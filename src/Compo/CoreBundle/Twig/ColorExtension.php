@@ -23,7 +23,7 @@ class ColorExtension extends \Twig_Extension
      */
     public static function lighten($color, $percent)
     {
-        $mode = "";
+        $mode = '';
         $color = self::normalizeColor($color, $mode);
         for ($i = 0; $i <= 2; $i++) {
             $color[$i] = round($color[$i] + (self::COLORPERCENT * $percent));
@@ -31,6 +31,7 @@ class ColorExtension extends \Twig_Extension
                 $color[$i] = 255;
             }
         }
+
         return self::resolveColor($color, $mode);
     }
 
@@ -49,14 +50,15 @@ class ColorExtension extends \Twig_Extension
             $color = str_replace(' ', '', $color);
             $color = explode(',', $color);
             $count = count($color);
+            /** @noinspection ForeachInvariantsInspection */
             for ($i = 0; $i <= $count; $i++) {
-                $color[$i] = ($i == 3) ? (float)$color[$i] : (int)$color[$i];
+                $color[$i] = ($i === 3) ? (float)$color[$i] : (int)$color[$i];
             }
         } else {
             $mode = 'hex';
             $color = str_replace('#', '', $color);
-            if (strlen($color) == 3) {
-                $color = str_repeat(substr($color, 0, 1), 2) . str_repeat(substr($color, 1, 1), 2) . str_repeat(substr($color, 2, 1), 2);
+            if (strlen($color) === 3) {
+                $color = str_repeat($color[0], 2) . str_repeat($color[1], 2) . str_repeat($color[2], 2);
             }
             $color = [
                 hexdec(substr($color, 0, 2)),
@@ -64,6 +66,7 @@ class ColorExtension extends \Twig_Extension
                 hexdec(substr($color, 4, 2))
             ];
         }
+
         return $color;
     }
 
@@ -76,23 +79,25 @@ class ColorExtension extends \Twig_Extension
     protected static function resolveColor($color, $mode = 'hex')
     {
         switch ($mode) {
-            case "hex":
+            case 'hex':
                 $red = sprintf('%02x', ($color[0]));
                 $green = sprintf('%02x', ($color[1]));
                 $blue = sprintf('%02x', ($color[2]));
                 $color = '#' . $red . $green . $blue;
                 break;
-            case "rgb":
+            case 'rgb':
                 $colorStr = (self::hasAlpha($color)) ? 'rgba(' : 'rgb(';
 
                 $colorStr .= '' . $color[0] . ',' . $color[1] . ',' . $color[2];
 
+                /** @noinspection ArgumentEqualsDefaultValueInspection */
                 $colorStr .= (self::hasAlpha($color)) ? ',' . number_format($color[3], 2, '.', ',') . ')' : ')';
                 $color = $colorStr;
                 break;
             default:
-                $color = "";
+                $color = '';
         }
+
         return $color;
     }
 
@@ -103,7 +108,7 @@ class ColorExtension extends \Twig_Extension
      */
     protected static function hasAlpha($color)
     {
-        return (count($color) > 3) ? true : false;
+        return count($color) > 3;
     }
 
     /**
@@ -114,7 +119,7 @@ class ColorExtension extends \Twig_Extension
      */
     public static function darken($color, $percent)
     {
-        $mode = "";
+        $mode = '';
         $color = self::normalizeColor($color, $mode);
         for ($i = 0; $i <= 2; $i++) {
             $color[$i] = round($color[$i] - (self::COLORPERCENT * $percent));
@@ -122,6 +127,7 @@ class ColorExtension extends \Twig_Extension
                 $color[$i] = 0;
             }
         }
+
         return self::resolveColor($color, $mode);
     }
 
@@ -133,9 +139,9 @@ class ColorExtension extends \Twig_Extension
      */
     public static function red($color, $set = null)
     {
-        $mode = "";
+        $mode = '';
         $color = self::normalizeColor($color, $mode);
-        if (!is_null($set)) {
+        if (null !== $set) {
             $newColor = [
                 $set,
                 $color[1],
@@ -144,6 +150,7 @@ class ColorExtension extends \Twig_Extension
             if (self::hasAlpha($color)) {
                 $newColor[3] = $color[3];
             }
+
             return self::resolveColor($newColor, $mode);
         } else {
             return $color[0];
@@ -158,9 +165,9 @@ class ColorExtension extends \Twig_Extension
      */
     public static function green($color, $set = null)
     {
-        $mode = "";
+        $mode = '';
         $color = self::normalizeColor($color, $mode);
-        if (!is_null($set)) {
+        if (null !== $set) {
             $newColor = [
                 $color[0],
                 $set,
@@ -169,6 +176,7 @@ class ColorExtension extends \Twig_Extension
             if (self::hasAlpha($color)) {
                 $newColor[3] = $color[3];
             }
+
             return self::resolveColor($newColor, $mode);
         } else {
             return $color[1];
@@ -183,9 +191,9 @@ class ColorExtension extends \Twig_Extension
      */
     public static function blue($color, $set = null)
     {
-        $mode = "";
+        $mode = '';
         $color = self::normalizeColor($color, $mode);
-        if (!is_null($set)) {
+        if (null !== $set) {
             $newColor = [
                 $color[0],
                 $color[1],
@@ -194,6 +202,7 @@ class ColorExtension extends \Twig_Extension
             if (self::hasAlpha($color)) {
                 $newColor[3] = $color[3];
             }
+
             return self::resolveColor($newColor, $mode);
         } else {
             return $color[2];
@@ -208,10 +217,11 @@ class ColorExtension extends \Twig_Extension
      */
     public static function alpha($color, $set = null)
     {
-        $mode = "";
+        $mode = '';
         $color = self::normalizeColor($color, $mode);
-        if (!is_null($set)) {
+        if (null !== $set) {
             $color[3] = ($set / 100);
+
             return self::resolveColor($color, 'rgb');
         } else {
             return (self::hasAlpha($color)) ? $color[3] : (float)1;
@@ -225,12 +235,15 @@ class ColorExtension extends \Twig_Extension
      */
     public static function mix($colors)
     {
-        if (!is_array($colors))
+        if (!is_array($colors)) {
             $colors = func_get_args();
-        if (empty($colors))
-            return "";
-        if (count($colors) == 1)
+        }
+        if (empty($colors)) {
+            return '';
+        }
+        if (count($colors) === 1) {
             return $colors[0];
+        }
 
         $amountColors = count($colors);
         foreach ($colors as $key => $val) {
@@ -249,6 +262,7 @@ class ColorExtension extends \Twig_Extension
             round($totalGreen / $amountColors),
             round($totalBlue / $amountColors),
         ];
+
         return self::resolveColor($color);
     }
 

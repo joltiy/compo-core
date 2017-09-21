@@ -4,9 +4,8 @@ namespace Compo\Sonata\AdminBundle\Extension;
 
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdminExtension;
+use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
-use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
 
 /**
  * {@inheritDoc}
@@ -18,29 +17,16 @@ class DescriptionExtension extends AbstractAdminExtension
     /**
      * {@inheritDoc}
      */
-    public function configureFormFields(FormMapper $formMapper)
+    public function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        if (false && $formMapper->has('description')) {
-            $field = $formMapper->getFormBuilder()->get('description');
-
-            $options = $field->getOptions();
-
-            $options['required'] = false;
-            $options['format'] = "richhtml";
-            $options['ckeditor_context'] = "default";
-
-            $this->replaceFormField($formMapper,'description', SimpleFormatterType::class, $options);
+        if (!$this->isUseEntityTraits($datagridMapper->getAdmin(), array(
+            'Compo\Sonata\AdminBundle\Entity\DescriptionEntityTrait',
+        ) )) {
+            return;
         }
 
-        if (false && $formMapper->has('body')) {
-            $field = $formMapper->getFormBuilder()->get('body');
-
-            $options = $field->getOptions();
-            $options['required'] = false;
-            $options['format'] = "richhtml";
-            $options['ckeditor_context'] = "default";
-
-            $this->replaceFormField($formMapper,'body', SimpleFormatterType::class, $options);
+        if (!$datagridMapper->has('description')) {
+            $datagridMapper->add('description');
         }
     }
 

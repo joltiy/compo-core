@@ -18,7 +18,6 @@ trait EnabledEntityTrait
      */
     protected $enabled = false;
 
-
     /**
      * @return boolean
      */

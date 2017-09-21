@@ -3,7 +3,7 @@ services:
         class: Compo\FeedbackBundle\Admin\FeedbackAdmin
         arguments: [~, Compo\FeedbackBundle\Entity\Feedback, CompoFeedbackBundle:FeedbackAdmin]
         tags:
-            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: feedback, label_translator_strategy: sonata.admin.label.strategy.underscore }
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: feedback }
 
     compo_feedback.manager.feedback:
         class: Compo\FeedbackBundle\Manager\FeedbackManager
@@ -14,13 +14,13 @@ services:
         class: Compo\FeedbackBundle\Settings\FeedbackSettingsSchema
         parent: compo_core.abstract_container_aware
         tags:
-            - { name: "sylius.settings_schema", namespace: "compo_feedback", alias: "compo_feedback" }
+            - { name: "sylius.settings_schema", namespace: "compo_feedback", admin: "compo_feedback.admin.feedback" }
 
     compo_feedback.admin.feedback_tag:
         class: Compo\FeedbackBundle\Admin\FeedbackTagAdmin
         arguments: [~, Compo\FeedbackBundle\Entity\FeedbackTag, CompoFeedbackBundle:FeedbackTagAdmin]
         tags:
-            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: feedback_tag, label_translator_strategy: sonata.admin.label.strategy.underscore }
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: feedback_tag }
 
     compo_feedback.block.service.feedback_form:
         class:  Compo\FeedbackBundle\Block\FeedbackFormBlockService

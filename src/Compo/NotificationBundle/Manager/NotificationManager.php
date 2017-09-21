@@ -62,19 +62,17 @@ class NotificationManager
      */
     public function getTemplateSource($src)
     {
-
         if (strpos($src, 'Compo') === 0) {
             $parser = $this->getContainer()->get('templating.name_parser');
             $locator = $this->getContainer()->get('templating.loader');
             $path = $locator->load($parser->parse($src));
+
             if ($path) {
                 return $path->getContent();
-            } else {
-                return $src;
             }
-        } else {
-            return $src;
         }
+
+        return $src;
     }
 
     /**
@@ -164,7 +162,7 @@ class NotificationManager
                 }
 
 
-                if ($sender->getTransport() == 'smtp') {
+                if ($sender->getTransport() === 'smtp') {
                     $transport = (new \Swift_SmtpTransport($sender->getHostname(), $sender->getPort()))
                         ->setUsername($sender->getUsername())
                         ->setPassword($sender->getPassword());
@@ -260,7 +258,7 @@ class NotificationManager
      */
     public function getDefaultSender()
     {
-        if (is_null($this->default_sender)) {
+        if (null === $this->default_sender) {
             $settings = $this->getNotificationEmailSettings();
 
             $id = $settings->get('notification_email_account_default');

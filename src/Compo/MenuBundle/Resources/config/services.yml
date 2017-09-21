@@ -3,7 +3,7 @@ services:
         class: Compo\MenuBundle\Admin\MenuAdmin
         arguments: [~, Compo\MenuBundle\Entity\Menu, CompoMenuBundle:MenuAdmin]
         tags:
-            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: menu, label_translator_strategy: sonata.admin.label.strategy.underscore }
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: menu }
         calls:
             - [ addChild, ['@compo_menu.admin.menu_item']]
 
@@ -18,4 +18,4 @@ services:
         class: Compo\MenuBundle\Admin\MenuItemAdmin
         arguments: [~, Compo\MenuBundle\Entity\MenuItem, CompoMenuBundle:MenuItemAdmin]
         tags:
-            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: menu_item, label_translator_strategy: sonata.admin.label.strategy.underscore }
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: menu_item }

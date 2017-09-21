@@ -11,41 +11,18 @@ use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 class FeedbackSettingsSchema extends BaseBundleAdminSettingsSchema
 {
     /**
-     * @param SettingsBuilderInterface $builder
+     * {@inheritDoc}
      */
-    public function buildSettings(SettingsBuilderInterface $builder)
-    {
-        $this->setTranslationDomain('CompoFeedbackBundle');
-
-        $this->setBaseRouteName('admin_compo_feedback_feedback');
-
-        $builder
-            ->setDefaults(
-                [
-
-                ]
-            );
-        $items =
-            [
-
-            ];
-        foreach ($items as $item_name => $types) {
-            $builder->addAllowedTypes($item_name, $types);
-        }
+    public function getDefaultSettings() {
+        return [
+        ];
     }
+    
 
     /**
      * {@inheritDoc}
      */
     public function buildFormSettings()
-    {
-        $this->buildFormTabMain();
-    }
-
-    /**
-     * Основные
-     */
-    public function buildFormTabMain()
     {
         $this->addTab('main');
     }

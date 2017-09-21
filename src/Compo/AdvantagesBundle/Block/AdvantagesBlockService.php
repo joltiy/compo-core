@@ -2,9 +2,8 @@
 
 namespace Compo\AdvantagesBundle\Block;
 
-use Compo\AdvantagesBundle\Entity\AdvantagesItemRepository;
-use Compo\AdvantagesBundle\Entity\AdvantagesRepository;
-use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
+use Compo\AdvantagesBundle\Entity\Advantages;
+use Compo\AdvantagesBundle\Entity\AdvantagesItem;
 use Compo\Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Block\BlockContextInterface;
@@ -17,19 +16,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class AdvantagesBlockService extends AbstractBlockService
 {
-    use ContainerAwareTrait;
-
     /**
      * {@inheritdoc}
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
-        $em = $this->getContainer()->get("doctrine")->getManager();
-
         $settings = $blockContext->getSettings();
 
-        /** @var AdvantagesItemRepository $repository */
-        $repository = $em->getRepository("CompoAdvantagesBundle:AdvantagesItem");
+        $repository = $this->getDoctrineManager()->getRepository(AdvantagesItem::class);
 
         $list = array();
 
@@ -37,11 +31,15 @@ class AdvantagesBlockService extends AbstractBlockService
             $list = $repository->findBy(array('advantages' => $settings['id'], 'enabled' => true), array('position' => 'asc'));
         }
 
-        return $this->renderResponse($settings['template'], array(
-            'list' => $list,
-            'block' => $blockContext->getBlock(),
-            'settings' => $blockContext->getSettings(),
-        ), $response);
+        return $this->renderResponse(
+            $settings['template'],
+            array(
+                'list' => $list,
+                'block' => $blockContext->getBlock(),
+                'settings' => $blockContext->getSettings(),
+            ),
+            $response
+        );
     }
 
     /**
@@ -49,18 +47,19 @@ class AdvantagesBlockService extends AbstractBlockService
      */
     public function buildForm(FormMapper $formMapper, BlockInterface $block)
     {
-        $em = $this->getContainer()->get('doctrine')->getManager();
-
-        /** @var AdvantagesRepository $repository */
-        $repository = $em->getRepository('CompoAdvantagesBundle:Advantages');
+        $repository = $this->getDoctrineManager()->getRepository(Advantages::class);
 
         $choices = $repository->getChoices();
 
-        $formMapper->add('settings', 'sonata_type_immutable_array', array(
-            'keys' => array(
-                array('id', 'choice', array('choices' => $choices, 'label' => 'Приемущества')),
-            ),
-        ));
+        $formMapper->add(
+            'settings',
+            'sonata_type_immutable_array',
+            array(
+                'keys' => array(
+                    array('id', 'choice', array('choices' => $choices, 'label' => 'Приемущества')),
+                ),
+            )
+        );
     }
 
     /**
@@ -68,10 +67,12 @@ class AdvantagesBlockService extends AbstractBlockService
      */
     public function configureSettings(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'id' => null,
-            'template' => 'CompoAdvantagesBundle:Block:advantages.html.twig',
-        ));
+        $resolver->setDefaults(
+            array(
+                'id' => null,
+                'template' => 'CompoAdvantagesBundle:Block:advantages.html.twig',
+            )
+        );
     }
 
     /**
@@ -86,10 +87,7 @@ class AdvantagesBlockService extends AbstractBlockService
         $keys['environment'] = $this->getContainer()->get('kernel')->getEnvironment();
 
         if (isset($settings['id'])) {
-            $em = $this->getContainer()->get("doctrine")->getManager();
-
-            /** @var AdvantagesRepository $repository */
-            $repository = $em->getRepository("CompoAdvantagesBundle:Advantages");
+            $repository = $this->getDoctrineManager()->getRepository(Advantages::class);
 
             $item = $repository->find($settings['id']);
 

@@ -5,9 +5,10 @@ namespace Compo\Sonata\BlockBundle\Block\Service;
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Block\Service\AbstractBlockService as BaseAbstractBlockService;
+use Sonata\BlockBundle\Model\BlockInterface;
 use Sonata\CoreBundle\Model\Metadata;
 use Sonata\CoreBundle\Validator\ErrorElement;
-use Sonata\BlockBundle\Model\BlockInterface;
+use Sonata\PageBundle\Model\Block;
 
 /**
  * {@inheritDoc}
@@ -48,7 +49,12 @@ class AbstractBlockService extends BaseAbstractBlockService
         $this->updateName($object);
     }
 
-    public function updateName($object) {
+    /**
+     * @param $object
+     */
+    public function updateName($object)
+    {
+        /** @var Block $object */
         $name = $object->getName();
 
         if (!$name) {
@@ -59,6 +65,30 @@ class AbstractBlockService extends BaseAbstractBlockService
 
             $object->setName($name);
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockMetadata($code = null)
+    {
+        $name = $this->getName();
+
+        $nameArray = explode('.', $name);
+
+        $domainArray = explode('_', $nameArray[0]);
+
+        foreach ($domainArray as $key => $value) {
+            $domainArray[$key] = ucfirst($value);
+        }
+
+        $domain = implode('', $domainArray) . 'Bundle';
+
+        return new Metadata(
+            'block.title_' . $nameArray[3], $this->getName(), false, $domain, array(
+                'class' => 'fa fa-file-text-o',
+            )
+        );
     }
 
     /**
@@ -95,15 +125,6 @@ class AbstractBlockService extends BaseAbstractBlockService
     }
 
     /**
-     * @param FormMapper $formMapper
-     * @param BlockInterface $block
-     */
-    public function buildForm(FormMapper $formMapper, BlockInterface $block)
-    {
-
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function buildEditForm(FormMapper $formMapper, BlockInterface $block)
@@ -114,16 +135,19 @@ class AbstractBlockService extends BaseAbstractBlockService
     }
 
     /**
-     * {@inheritdoc}
+     * @param FormMapper $formMapper
+     * @param BlockInterface $block
      */
-    public function buildCreateForm(FormMapper $formMapper, BlockInterface $block)
+    public function buildForm(FormMapper $formMapper, BlockInterface $block)
     {
-        $this->buildForm($formMapper, $block);
 
-        $this->updateLabel($formMapper);
     }
 
-    public function updateLabel(FormMapper $formMapper) {
+    /**
+     * @param FormMapper $formMapper
+     */
+    public function updateLabel(FormMapper $formMapper)
+    {
 
         $settings = $formMapper->get('settings');
 
@@ -160,22 +184,17 @@ class AbstractBlockService extends BaseAbstractBlockService
     /**
      * {@inheritdoc}
      */
-    public function getBlockMetadata($code = null)
+    public function buildCreateForm(FormMapper $formMapper, BlockInterface $block)
     {
-        $name = $this->getName();
+        $this->buildForm($formMapper, $block);
 
-        $nameArray = explode('.', $name);
+        $this->updateLabel($formMapper);
+    }
 
-        $domainArray = explode('_', $nameArray[0]);
-
-        foreach ($domainArray as $key => $value) {
-            $domainArray[$key] = ucfirst($value);
-        }
-
-        $domain = implode('', $domainArray) . 'Bundle';
-
-        return new Metadata('block.title_' . $nameArray[3], $this->getName(), false, $domain, array(
-            'class' => 'fa fa-file-text-o',
-        ));
+    /**
+     * @return \Doctrine\Common\Persistence\ObjectManager|object
+     */
+    public function getDoctrineManager() {
+        return $this->getContainer()->get('doctrine')->getManager();
     }
 }

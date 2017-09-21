@@ -24,9 +24,12 @@ class BlockAdmin extends \Sonata\PageBundle\Admin\BlockAdmin
 
         $container = $this->getConfigurationPool()->getContainer();
 
-        $container->get('sonata.notification.backend.runtime')->createAndPublish('sonata.page.create_snapshot', array(
-            'pageId' => $object->getPage()->getId()
-        ));
+        $container->get('sonata.notification.backend.runtime')->createAndPublish(
+            'sonata.page.create_snapshot',
+            array(
+                'pageId' => $object->getPage()->getId()
+            )
+        );
     }
 
     /**
@@ -38,9 +41,12 @@ class BlockAdmin extends \Sonata\PageBundle\Admin\BlockAdmin
 
         $container = $this->getConfigurationPool()->getContainer();
 
-        $container->get('sonata.notification.backend.runtime')->createAndPublish('sonata.page.create_snapshot', array(
-            'pageId' => $object->getPage()->getId()
-        ));
+        $container->get('sonata.notification.backend.runtime')->createAndPublish(
+            'sonata.page.create_snapshot',
+            array(
+                'pageId' => $object->getPage()->getId()
+            )
+        );
     }
 
     /**
@@ -54,9 +60,12 @@ class BlockAdmin extends \Sonata\PageBundle\Admin\BlockAdmin
 
         $container = $this->getConfigurationPool()->getContainer();
 
-        $container->get('sonata.notification.backend.runtime')->createAndPublish('sonata.page.create_snapshot', array(
-            'pageId' => $object->getPage()->getId()
-        ));
+        $container->get('sonata.notification.backend.runtime')->createAndPublish(
+            'sonata.page.create_snapshot',
+            array(
+                'pageId' => $object->getPage()->getId()
+            )
+        );
     }
 
     /**
@@ -68,9 +77,12 @@ class BlockAdmin extends \Sonata\PageBundle\Admin\BlockAdmin
 
         $container = $this->getConfigurationPool()->getContainer();
 
-        $container->get('sonata.notification.backend.runtime')->createAndPublish('sonata.page.create_snapshot', array(
-            'pageId' => $object->getPage()->getId()
-        ));
+        $container->get('sonata.notification.backend.runtime')->createAndPublish(
+            'sonata.page.create_snapshot',
+            array(
+                'pageId' => $object->getPage()->getId()
+            )
+        );
     }
 
     /**
@@ -80,7 +92,7 @@ class BlockAdmin extends \Sonata\PageBundle\Admin\BlockAdmin
     {
         $block = $this->getSubject();
 
-        if (is_null($block)) {
+        if (null === $block) {
             return;
         }
 

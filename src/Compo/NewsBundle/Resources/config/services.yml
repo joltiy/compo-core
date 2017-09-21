@@ -3,7 +3,7 @@ services:
         class: Compo\NewsBundle\Admin\NewsAdmin
         arguments: [~, Compo\NewsBundle\Entity\News, CompoNewsBundle:NewsAdmin]
         tags:
-            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: news, label_translator_strategy: sonata.admin.label.strategy.underscore }
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: news }
 
     compo_news.manager.news:
         class: Compo\NewsBundle\Manager\NewsManager
@@ -14,7 +14,7 @@ services:
         class: Compo\NewsBundle\Settings\NewsSettingsSchema
         parent: compo_core.abstract_container_aware
         tags:
-            - { name: "sylius.settings_schema", namespace: "compo_news", alias: "compo_news" }
+            - { name: "sylius.settings_schema", namespace: "compo_news", admin: compo_news.admin.news }
 
     compo_news.block.breadcrumb:
         class: Compo\NewsBundle\Block\NewsBreadcrumbBlockService
@@ -43,4 +43,4 @@ services:
         class: Compo\NewsBundle\Admin\NewsTagAdmin
         arguments: [~, Compo\NewsBundle\Entity\NewsTag, CompoNewsBundle:NewsTagAdmin]
         tags:
-            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: news_tag, label_translator_strategy: sonata.admin.label.strategy.underscore }
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: news_tag }

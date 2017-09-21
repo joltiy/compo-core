@@ -24,7 +24,11 @@ class TimestampableExtension extends AbstractAdminExtension
         if ($datagridMapper->has('createdAt')) {
             $datagridMapper->remove('createdAt');
 
-            $datagridMapper->add('createdAt', 'doctrine_orm_date_range', array('field_type' => 'sonata_type_date_range_picker',
+            $datagridMapper->add(
+                'createdAt',
+                'doctrine_orm_date_range',
+                array(
+                    'field_type' => 'sonata_type_date_range_picker',
                     'field_options' => [
                         'field_options' => [
                             'format' => 'dd.MM.yyyy'
@@ -37,20 +41,28 @@ class TimestampableExtension extends AbstractAdminExtension
         if ($datagridMapper->has('updatedAt')) {
             $datagridMapper->remove('updatedAt');
 
-            $datagridMapper->add('updatedAt', 'doctrine_orm_date_range', array(
-                'field_type' => 'sonata_type_date_range_picker',
-                'field_options' => array(
+            $datagridMapper->add(
+                'updatedAt',
+                'doctrine_orm_date_range',
+                array(
+                    'field_type' => 'sonata_type_date_range_picker',
                     'field_options' => array(
-                        'format' => 'dd.MM.yyyy'
+                        'field_options' => array(
+                            'format' => 'dd.MM.yyyy'
+                        )
                     )
                 )
-            ));
+            );
         }
 
         if ($datagridMapper->has('publicationAt')) {
             $datagridMapper->remove('publicationAt');
 
-            $datagridMapper->add('publicationAt', 'doctrine_orm_date_range', array('field_type' => 'sonata_type_date_range_picker',
+            $datagridMapper->add(
+                'publicationAt',
+                'doctrine_orm_date_range',
+                array(
+                    'field_type' => 'sonata_type_date_range_picker',
                     'field_options' => [
                         'field_options' => [
                             'format' => 'dd.MM.yyyy'
@@ -66,26 +78,44 @@ class TimestampableExtension extends AbstractAdminExtension
      */
     public function configureFormFields(FormMapper $formMapper)
     {
-        $this->replaceFormField($formMapper,'publicationAt', 'sonata_type_datetime_picker', array(
-            'format' => 'dd.MM.y HH:mm:ss',
-            'required' => true,
-        ), array(
-            'translation_domain' => 'SonataAdminBundle'
-        ));
+        $this->replaceFormField(
+            $formMapper,
+            'publicationAt',
+            'sonata_type_datetime_picker',
+            array(
+                'format' => 'dd.MM.y HH:mm:ss',
+                'required' => true,
+            ),
+            array(
+                'translation_domain' => 'SonataAdminBundle'
+            )
+        );
 
-        $this->replaceFormField($formMapper,'createdAt', 'sonata_type_datetime_picker', array(
-            'format' => 'dd.MM.y HH:mm:ss',
-            'required' => true,
-        ), array(
-            'translation_domain' => 'SonataAdminBundle'
-        ));
+        $this->replaceFormField(
+            $formMapper,
+            'createdAt',
+            'sonata_type_datetime_picker',
+            array(
+                'format' => 'dd.MM.y HH:mm:ss',
+                'required' => true,
+            ),
+            array(
+                'translation_domain' => 'SonataAdminBundle'
+            )
+        );
 
-        $this->replaceFormField($formMapper,'updatedAt', 'sonata_type_datetime_picker', array(
-            'format' => 'dd.MM.y HH:mm:ss',
-            'required' => true,
-        ), array(
-            'translation_domain' => 'SonataAdminBundle'
-        ));
+        $this->replaceFormField(
+            $formMapper,
+            'updatedAt',
+            'sonata_type_datetime_picker',
+            array(
+                'format' => 'dd.MM.y HH:mm:ss',
+                'required' => true,
+            ),
+            array(
+                'translation_domain' => 'SonataAdminBundle'
+            )
+        );
     }
 
     /**

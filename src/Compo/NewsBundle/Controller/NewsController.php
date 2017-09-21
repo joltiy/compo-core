@@ -47,9 +47,12 @@ class NewsController extends Controller
 
         $seoPage->build();
 
-        return $this->render('CompoNewsBundle:News:index.html.twig', array(
-            'pager' => $pager,
-        ));
+        return $this->render(
+            'CompoNewsBundle:News:index.html.twig',
+            array(
+                'pager' => $pager,
+            )
+        );
     }
 
     /**
@@ -73,20 +76,26 @@ class NewsController extends Controller
         $seoPage->setContext('news_show');
         $seoPage->addVar('news', $article);
 
-        $seoPage->addTemplates('news_show', array(
-            'header' => $article->getHeader(),
-            'title' => $article->getTitle(),
-            'metaKeyword' => $article->getMetaKeyword(),
-            'metaDescription' => $article->getMetaDescription(),
-        ));
+        $seoPage->addTemplates(
+            'news_show',
+            array(
+                'header' => $article->getHeader(),
+                'title' => $article->getTitle(),
+                'metaKeyword' => $article->getMetaKeyword(),
+                'metaDescription' => $article->getMetaDescription(),
+            )
+        );
 
         $seoPage->setLinkCanonical($manager->getNewsShowPermalink($article, 0));
 
         $seoPage->build();
 
-        return $this->render('CompoNewsBundle:News:show.html.twig', array(
-            'news' => $article,
-        ));
+        return $this->render(
+            'CompoNewsBundle:News:show.html.twig',
+            array(
+                'news' => $article,
+            )
+        );
     }
 
     /**
@@ -103,6 +112,6 @@ class NewsController extends Controller
             throw $this->createNotFoundException('compo_news.exception.not_found_news');
         }
 
-        return $this->redirectToRoute('compo_news_show_by_slug', array('slug' => $article->getSlug()), 302);
+        return $this->redirectToRoute('compo_news_show_by_slug', array('slug' => $article->getSlug()));
     }
 }

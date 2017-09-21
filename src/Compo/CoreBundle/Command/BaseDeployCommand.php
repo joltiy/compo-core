@@ -28,9 +28,12 @@ class BaseDeployCommand extends ContainerAwareCommand
      */
     public function runDoctrineMigrate()
     {
-        $this->runCommand("doctrine:migrations:migrate", array(
-            '--no-interaction' => 1
-        ));
+        $this->runCommand(
+            'doctrine:migrations:migrate',
+            array(
+                '--no-interaction' => 1
+            )
+        );
     }
 
     /**
@@ -41,7 +44,7 @@ class BaseDeployCommand extends ContainerAwareCommand
      *
      * @throws \Exception
      */
-    public function runCommand($command, $arrayInput = array())
+    public function runCommand($command, array $arrayInput = array())
     {
         $application = $this->getApplication();
 
@@ -81,9 +84,12 @@ class BaseDeployCommand extends ContainerAwareCommand
 
         foreach ($sites as $site) {
             /** @var $site Site */
-            $this->runCommand("sonata:page:update-core-routes", array(
-                '--site' => array($site->getId())
-            ));
+            $this->runCommand(
+                'sonata:page:update-core-routes',
+                array(
+                    '--site' => array($site->getId())
+                )
+            );
         }
     }
 
@@ -104,16 +110,21 @@ class BaseDeployCommand extends ContainerAwareCommand
      */
     public function runCreateSnapshots()
     {
-        $pages = $this->getContainer()->get('sonata.page.manager.page')->findBy(array(
-            'edited' => 1
-        ));
+        $pages = $this->getContainer()->get('sonata.page.manager.page')->findBy(
+            array(
+                'edited' => 1
+            )
+        );
 
         foreach ($pages as $item) {
             /** @var $item Page */
-            $this->getContainer()->get('sonata.notification.backend.runtime')->createAndPublish('sonata.page.create_snapshot', array(
-                'pageId' => $item->getId(),
-                'mode' => 'sync',
-            ));
+            $this->getContainer()->get('sonata.notification.backend.runtime')->createAndPublish(
+                'sonata.page.create_snapshot',
+                array(
+                    'pageId' => $item->getId(),
+                    'mode' => 'sync',
+                )
+            );
         }
     }
 
@@ -126,12 +137,37 @@ class BaseDeployCommand extends ContainerAwareCommand
     public function runCacheClear($warmup = true)
     {
         if ($warmup) {
-            $this->runCommand("cache:clear");
+            $this->runCommand('cache:clear');
         } else {
-            $this->runCommand("cache:clear", array(
-                '--no-warmup' => 1,
-            ));
+            $this->runCommand(
+                'cache:clear',
+                array(
+                    '--no-warmup' => 1,
+                )
+            );
         }
+    }
+
+    /**
+     *
+     * @throws \Exception
+     */
+    public function runAsseticDump()
+    {
+        $this->runCommand(
+            'assetic:dump',
+            array(
+                '--env' => 'dev',
+            )
+        );
+
+        $this->runCommand(
+            'assetic:dump',
+            array(
+                '--env' => 'prod',
+                '--no-debug'
+            )
+        );
     }
 
     /**
@@ -141,12 +177,16 @@ class BaseDeployCommand extends ContainerAwareCommand
     {
         $cache_dir = $this->getContainer()->getParameter('kernel.cache_dir');
 
-        mkdir($cache_dir . '/jms_diextra/metadata', 0777, true);
+        /** @noinspection MkdirRaceConditionInspection */
+        //mkdir($cache_dir . '/jms_diextra/metadata', 0777, true);
 
-        $this->runCommand("sylius:theme:assets:install", array(
-            '--symlink' => true,
-            '--relative' => true
-        ));
+        $this->runCommand(
+            'sylius:theme:assets:install',
+            array(
+                '--symlink' => true,
+                '--relative' => true
+            )
+        );
     }
 
     /**
@@ -154,9 +194,12 @@ class BaseDeployCommand extends ContainerAwareCommand
      */
     public function runDoctrineSchemaUpdate()
     {
-        $this->runCommand("doctrine:schema:update", array(
-            '--force' => true
-        ));
+        $this->runCommand(
+            'doctrine:schema:update',
+            array(
+                '--force' => true
+            )
+        );
     }
 
     /**
@@ -164,9 +207,12 @@ class BaseDeployCommand extends ContainerAwareCommand
      */
     public function runDoctrineFixturesLoadAppend()
     {
-        $this->runCommand("doctrine:fixtures:load", array(
-            '--append' => true
-        ));
+        $this->runCommand(
+            'doctrine:fixtures:load',
+            array(
+                '--append' => true
+            )
+        );
     }
 
     /**
@@ -176,7 +222,8 @@ class BaseDeployCommand extends ContainerAwareCommand
      */
     public function runCacheWarmup()
     {
-        $this->runCommand("cache:warmup");
+        $this->runCommand('cache:warmup');
+        $this->runCommand('cache:warmup');
     }
 
     /**
@@ -186,13 +233,16 @@ class BaseDeployCommand extends ContainerAwareCommand
      */
     public function runSchemaDrop()
     {
-        $this->runCommand("doctrine:schema:drop", array(
-            '--no-interaction' => 1,
-            '--force' => 1,
-            '--quiet' => 1,
-            '--no-debug' => 1,
-            '--full-database' => 1
-        ));
+        $this->runCommand(
+            'doctrine:schema:drop',
+            array(
+                '--no-interaction' => 1,
+                '--force' => 1,
+                '--quiet' => 1,
+                '--no-debug' => 1,
+                '--full-database' => 1
+            )
+        );
     }
 
     /**

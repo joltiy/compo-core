@@ -21,7 +21,7 @@ class NewsLastBlockService extends AbstractBlockService
     {
         $container = $this->getContainer();
 
-        $manager = $container->get("compo_news.manager.news");
+        $manager = $container->get('compo_news.manager.news');
 
         $settigs = $blockContext->getSettings();
         $block = $blockContext->getBlock();
@@ -29,11 +29,15 @@ class NewsLastBlockService extends AbstractBlockService
 
         $publications = $manager->findLastPublications($settigs['limit']);
 
-        return $this->renderResponse($template, array(
-            'news' => $publications,
-            'block' => $block,
-            'settings' => $settigs,
-        ), $response);
+        return $this->renderResponse(
+            $template,
+            array(
+                'news' => $publications,
+                'block' => $block,
+                'settings' => $settigs,
+            ),
+            $response
+        );
     }
 
     /**
@@ -41,11 +45,15 @@ class NewsLastBlockService extends AbstractBlockService
      */
     public function buildForm(FormMapper $formMapper, BlockInterface $block)
     {
-        $formMapper->add('settings', 'sonata_type_immutable_array', array(
-            'keys' => array(
-                array('limit', 'integer', array('required' => true)),
-            ),
-        ));
+        $formMapper->add(
+            'settings',
+            'sonata_type_immutable_array',
+            array(
+                'keys' => array(
+                    array('limit', 'integer', array('required' => true)),
+                ),
+            )
+        );
     }
 
     /**
@@ -53,9 +61,11 @@ class NewsLastBlockService extends AbstractBlockService
      */
     public function configureSettings(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'limit' => 5,
-            'template' => 'CompoNewsBundle:Block:news_last.html.twig',
-        ));
+        $resolver->setDefaults(
+            array(
+                'limit' => 5,
+                'template' => 'CompoNewsBundle:Block:news_last.html.twig',
+            )
+        );
     }
 }
