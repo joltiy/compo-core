@@ -16,3 +16,8 @@ jms_translation:
             excluded_names: ["*TestCase.php", "*Test.php"]
             excluded_dirs: [cache, data, logs]
             extractors: [compo_admin]
+
+jms_di_extra:
+    annotation_patterns:
+        - JMS\DiExtraBundle\Annotation
+        - Sonata\AdminBundle\Annotation
