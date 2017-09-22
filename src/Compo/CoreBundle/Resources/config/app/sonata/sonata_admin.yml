@@ -46,7 +46,7 @@ sonata_admin:
     extensions:
         compo.sonata.admin.tabmenu.extension:
             instanceof:
-                - \Sonata\AdminBundle\Admin\Admin
+                - \Sonata\AdminBundle\Admin\AdminInterface
 
         compo_seo.seo.extension:
             implements:
