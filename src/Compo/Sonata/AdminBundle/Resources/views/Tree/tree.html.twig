@@ -5,6 +5,8 @@
 {% import _self as tree %}
 
 {% macro renderNodes(nodesList, admin, lvl) %}
+    {% import _self as tree %}
+
     <ul class="tree-list product-catalog-tree">
         {% for node in nodesList %}
             {% set aliasName = admin.class|split('\\') %}
@@ -56,7 +58,7 @@
                 </div>
 
                 {% if node.__children|length %}
-                    {{ _self.renderNodes(node.__children, admin, node.lvl+1 ) }}
+                    {{ tree.renderNodes(node.__children, admin, node.lvl+1 ) }}
                 {% endif %}
             </li>
         {% endfor %}
