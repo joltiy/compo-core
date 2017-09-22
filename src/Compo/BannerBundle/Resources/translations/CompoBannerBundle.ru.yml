@@ -32,11 +32,6 @@ tab_menu.title_banner_banner_item_list: 'Баннеры: %name%'
 
 tab_menu.title_banner_edit: 'Баннеры: %name%'
 
-tab_menu.title_banner_list: Баннеры
-
 tab_menu.title_banner_create: 'Создание баннера'
-
-tab_menu.title_banner_edit: 'Баннеры: %name%'
-
 
 form.label_banner: 'Баннеры'

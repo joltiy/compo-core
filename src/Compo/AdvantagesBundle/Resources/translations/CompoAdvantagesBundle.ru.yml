@@ -32,10 +32,6 @@ tab_menu.title_advantages_advantages_item_list: 'Преимущества: %name
 
 tab_menu.title_advantages_edit: 'Преимущества: %name%'
 
-tab_menu.title_advantages_list: Преимущества
-
 tab_menu.title_advantages_create: 'Создание Преимущества'
-
-tab_menu.title_advantages_edit: 'Преимущества: %name%'
 
 form.label_advantages: 'Преимущества'
