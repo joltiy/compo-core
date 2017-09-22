@@ -61,7 +61,6 @@ form:
     label_url: 'URL'
     label_id: 'ID'
     label_file: 'Файл'
-    label_priority: 'Приоритет'
     label_video: 'Видео'
     label_video_html: 'Видео (код HTML)'
     label_body: 'Текст'
