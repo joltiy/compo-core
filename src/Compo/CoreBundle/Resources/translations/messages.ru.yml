@@ -34,7 +34,6 @@ filter:
     label_position: 'Позиция'
     label_alias: 'Служебное имя'
     label_deleted_at: 'Дата удаления'
-    label_description: 'Описание'
     label_url: 'URL'
     label_body: 'Текст'
     label_priority: 'Приоритет'
