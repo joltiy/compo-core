@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\CoreBundle\Form\Type\ColorType;
 
 /**
  * {@inheritDoc}
@@ -66,12 +67,17 @@ class FeedbackTagAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $formMapper->tab('form.tab_main');
+        $formMapper->with('form.group_main', array('name' => false, 'class' => ''));
+        
         $formMapper
             ->add('enabled')
             ->add('name')
             ->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false))
-            ->add('color', 'sonata_type_color_selector', array('required' => false))
+            ->add('color', ColorType::class, array('required' => false))
             ->add('cssClass');
+        $formMapper->end();
+        $formMapper->end();
     }
 
     /**

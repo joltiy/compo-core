@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\CoreBundle\Form\Type\ColorType;
 
 /**
  * {@inheritDoc}
@@ -62,10 +63,16 @@ class NewsTagAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $formMapper->tab('form.tab_main');
+        $formMapper->with('form.group_main', array('name' => false, 'class' => ''));
+
         $formMapper
             ->add('name')
             ->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false))
-            ->add('color', 'sonata_type_color_selector');
+            ->add('color', ColorType::class);
+
+        $formMapper->end();
+        $formMapper->end();
     }
 
     /**

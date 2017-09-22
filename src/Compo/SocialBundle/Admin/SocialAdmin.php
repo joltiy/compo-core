@@ -61,11 +61,16 @@ class SocialAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $formMapper->tab('form.tab_main');
+        $formMapper->with('form.group_main', array('name' => false, 'class' => ''));
         $formMapper
             ->add('name')
             ->add('url')
             ->add('icon')
             ->add('image');
+
+        $formMapper->end();
+        $formMapper->end();
     }
 
     /**
