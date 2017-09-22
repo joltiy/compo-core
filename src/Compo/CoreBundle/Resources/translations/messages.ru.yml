@@ -131,6 +131,7 @@ show:
     label_root: 'root'
     label_type: 'Тип'
     label_percent: 'Процент'
+    label_publication_at: 'Дата публикации'
 
 "This is the user profile template. Feel free to override it.": "This is the block"
 "This is the user authentication edition template. Feel free to override it.": "This is the block"
@@ -196,8 +197,6 @@ action.link_show_on_site: 'Показать на сайте'
 action.link_history: 'Изменения'
 action.link_acl: 'Права доступа'
 
-show:
-    label_publication_at: 'Дата публикации'
 
 
 flash_batch.disable_success: 'Выключение выполнено успешно'

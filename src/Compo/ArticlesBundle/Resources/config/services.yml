@@ -21,7 +21,6 @@ services:
         arguments: ["compo_articles", compo_articles.block.breadcrumb, "@templating", "@knp_menu.menu_provider", "@knp_menu.factory"]
         parent: compo_core.abstract_container_aware
         tags:
-            - { name: sonata.block }
             - { name: sonata.breadcrumb }
 
     compo_articles.block.service.articles_last:

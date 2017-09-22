@@ -25,7 +25,7 @@ services:
     compo_feedback.block.service.feedback_form:
         class:  Compo\FeedbackBundle\Block\FeedbackFormBlockService
         parent: compo_core.abstract_container_aware
-        arguments: ["compo_contacts.block.service.feedback_form", "@templating"]
+        arguments: ["compo_feedback.block.service.feedback_form", "@templating"]
         tags:
              - { name: sonata.block }
 
