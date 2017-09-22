@@ -21,7 +21,7 @@ sonata_page:
     hide_disabled_blocks: true
     multisite:             host_with_path # host
     use_streamed_response: true # set the value to false in debug mode or if the reverse proxy does not handle streamed response
-    slugify_service: sonata.core.slugify.cocur
+    slugify_service: sonata.core.slugify.native
     is_inline_edition_on: false
 
     ignore_uri_patterns:
