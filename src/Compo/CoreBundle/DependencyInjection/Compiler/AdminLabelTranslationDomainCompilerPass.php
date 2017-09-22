@@ -25,7 +25,9 @@ class AdminLabelTranslationDomainCompilerPass implements CompilerPassInterface
             if (isset($arguments[2])) {
                 $baseControllerNameArray = explode(':', $arguments[2]);
 
-                $definition->addMethodCall('setTranslationDomain', array($baseControllerNameArray[0]));
+                if (count($baseControllerNameArray) > 1) {
+                    $definition->addMethodCall('setTranslationDomain', array($baseControllerNameArray[0]));
+                }
             }
         }
     }
