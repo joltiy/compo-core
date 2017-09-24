@@ -43,7 +43,7 @@ class AdvantagesAdmin extends AbstractAdmin
                 array(
                     'actions' => array(
                         'edit' => array(),
-                        'list' => array('route' => 'compo_advantages.admin.advantages|compo_advantages.admin.advantages_item.list'),
+                        'list' => array('route' => 'compo_advantages.admin.advantages_item.list'),
                         'delete' => array(),
                     ),
                 )
