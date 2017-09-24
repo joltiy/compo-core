@@ -22,17 +22,18 @@ class Advantages
 {
     use \Compo\Sonata\AdminBundle\Entity\NameEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\DescriptionEntityTrait;
-    use \Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\IdEntityTrait;
 
+    use \Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait;
     use \Gedmo\Timestampable\Traits\TimestampableEntity;
+
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
     /**
      * @ORM\OneToMany(targetEntity="Compo\AdvantagesBundle\Entity\AdvantagesItem", mappedBy="advantages", cascade={"all"}))
      */
     protected $items;
-    
+
     /**
      * Constructor
      */
