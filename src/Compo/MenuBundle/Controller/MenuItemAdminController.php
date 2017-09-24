@@ -30,8 +30,13 @@ class MenuItemAdminController extends CRUDController
 
             $em = $this->getDoctrine()->getManager();
 
+
             /** @var NestedTreeRepository $repo */
             $repo = $em->getRepository($this->admin->getClass());
+            $repo->verify();
+            $repo->recover();
+            $em->flush();
+
             $node = $repo->findOneBy(array('menu' => $request->get('id')));
             $tree = $repo->childrenHierarchy($node);
 
