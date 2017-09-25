@@ -139,8 +139,8 @@ class SeoPageAdmin extends AbstractAdmin
         }
 
         $formMapper
-            ->tab('form.tab_main')
-            ->with('form.group_main', array('name' => false, 'class' => 'col-lg-12'));
+            ->tab('main')
+            ->with('main', array('name' => false, 'class' => 'col-lg-12'));
 
         $formMapper->add('id')
             ->add(

@@ -71,8 +71,8 @@ class FeedbackAdmin extends AbstractAdmin
             ->orderBy('c.name', 'ASC');
 
         $formMapper
-            ->tab('form.tab_main')
-            ->with('form.group_main', array('name' => false, 'class' => 'col-lg-6'))
+            ->tab('main')
+            ->with('main', array('name' => false, 'class' => 'col-lg-6'))
             ->add('id')
             ->add('createdAt')
             ->add(

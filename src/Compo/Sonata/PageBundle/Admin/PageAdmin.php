@@ -417,32 +417,32 @@ class PageAdmin extends AbstractAdmin
 
         // define group zoning
         $formMapper
-            ->with('form_page.group_main_label', array('class' => 'col-md-6'))->end()
-            ->with('form_page.group_seo_label', array('class' => 'col-md-6'))->end()// ->with('form_page.group_advanced_label', array('class' => 'col-md-6'))->end()
+            ->with('main', array('class' => 'col-md-6'))->end()
+            ->with('seo', array('class' => 'col-md-6'))->end()// ->with('form_page.group_advanced_label', array('class' => 'col-md-6'))->end()
         ;
 
         if (!$this->getSubject() || (!$this->getSubject()->isInternal() && !$this->getSubject()->isError())) {
             $formMapper
-                ->with('form_page.group_main_label')
+                ->with('main')
                 ->add('url', 'text', array('attr' => array('readonly' => 'readonly')))
                 ->end();
         }
 
         $formMapper
-            ->with('form_page.group_main_label')
+            ->with('main')
             ->add('name')
             ->add('enabled', null, array('required' => false))
             ->add('position')
             ->end();
 
         $formMapper
-            ->with('form_page.group_main_label')
+            ->with('main')
             ->add('templateCode', TemplateChoiceType::class, array('required' => true))
             ->end();
 
         if (!$this->getSubject() || ($this->getSubject() && $this->getSubject()->getParent()) || ($this->getSubject() && !$this->getSubject()->getId())) {
             $formMapper
-                ->with('form_page.group_main_label')
+                ->with('main')
                 ->add(
                     'parent',
                     PageSelectorType::class,
@@ -466,7 +466,7 @@ class PageAdmin extends AbstractAdmin
 
         if (!$this->getSubject() || !$this->getSubject()->isDynamic()) {
             $formMapper
-                ->with('form_page.group_main_label')
+                ->with('main')
                 ->add('pageAlias', null, array('required' => false))
                 /*
                 ->add('target', 'sonata_page_selector', array(
@@ -489,14 +489,14 @@ class PageAdmin extends AbstractAdmin
 
         if (!$this->getSubject() || !$this->getSubject()->isHybrid()) {
             $formMapper
-                ->with('form_page.group_seo_label')
+                ->with('seo')
                 ->add('slug', 'text', array('required' => false))
                 //->add('customUrl', 'text', array('required' => false))
                 ->end();
         }
 
         $formMapper
-            ->with('form_page.group_seo_label', array('collapsed' => true))
+            ->with('seo', array('collapsed' => true))
             ->add('header', TextType::class, array('required' => false))
             ->add('title', null, array('required' => false))
             ->add('metaKeyword', 'textarea', array('required' => false))

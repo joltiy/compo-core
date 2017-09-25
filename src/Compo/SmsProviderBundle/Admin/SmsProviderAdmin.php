@@ -86,8 +86,8 @@ class SmsProviderAdmin extends AbstractAdmin
         $smsTypesChoices = $manager->getTypesChoices();
 
         $formMapper
-            ->tab('form.tab_main')
-            ->with('form.group_main', array('name' => false, 'class' => 'col-lg-6'))
+            ->tab('main')
+            ->with('main', array('name' => false, 'class' => 'col-lg-6'))
             ->add('id')
             ->add('name', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false))
             ->add('description')

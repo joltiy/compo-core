@@ -108,8 +108,8 @@ class FaqAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->tab('form.tab_main')
-            ->with('form.group_main', array('name' => false))
+            ->tab('main')
+            ->with('main', array('name' => false))
             ->add('id')
             ->add('enabled')
             ->add('publicationAt')
@@ -122,8 +122,8 @@ class FaqAdmin extends AbstractAdmin
             ->end()
             ->end();
 
-        $formMapper->tab('media_tab');
-        $formMapper->with('media_image_group');
+        $formMapper->tab('media');
+        $formMapper->with('media_image');
         $formMapper->add('image');
         $formMapper->end();
         $formMapper->end();

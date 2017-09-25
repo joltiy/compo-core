@@ -99,8 +99,8 @@ class MenuAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->tab('form.tab_main')
-            ->with('form.group_main', array('name' => false))
+            ->tab('main')
+            ->with('main', array('name' => false))
             ->add('id')
             ->add('name')
             ->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false));
@@ -123,7 +123,7 @@ class MenuAdmin extends AbstractAdmin
     /**
      * {@inheritDoc}
      */
-    protected function configureTabMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
+    protected function configureTabMenu2(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
     {
         if (!$childAdmin && 'edit' === $action) {
             $this->configureTabMenuList($menu, $action);

@@ -109,8 +109,8 @@ class NewsAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->tab('form.tab_main')
-            ->with('form.group_main', array('name' => false, 'class' => 'col-lg-6'))
+            ->tab('main')
+            ->with('main', array('name' => false, 'class' => 'col-lg-6'))
             ->add('id')
             ->add('enabled')
             ->add('publicationAt')
@@ -141,8 +141,8 @@ class NewsAdmin extends AbstractAdmin
         $formMapper->end()
             ->end();
 
-        $formMapper->tab('media_tab');
-        $formMapper->with('media_image_group');
+        $formMapper->tab('media');
+        $formMapper->with('media_image');
         $formMapper->add('image');
         $formMapper->end();
         $formMapper->end();

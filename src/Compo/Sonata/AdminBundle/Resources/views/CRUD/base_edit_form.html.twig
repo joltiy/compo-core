@@ -37,7 +37,7 @@
                             <div class="nav-tabs-custom">
                                 <ul class="nav nav-tabs" role="tablist">
                                     {% for name, form_tab in admin.formtabs %}
-                                        <li{% if (app.request.query.get('current_tab_index') and loop.index == app.request.query.get('current_tab_index')) or (app.request.query.get('current_tab_index', false) == false and loop.index == 1) %} class="active"{% endif %}><a href="#tab_{{ admin.uniqid }}_{{ loop.index }}" data-index={{ loop.index }} data-toggle="tab"><i class="fa fa-exclamation-circle has-errors hide" aria-hidden="true"></i> {{ admin.trans(name, {}, form_tab.translation_domain) }}</a></li>
+                                        <li{% if (app.request.query.get('current_tab_index') and loop.index == app.request.query.get('current_tab_index')) or (app.request.query.get('current_tab_index', false) == false and loop.index == 1) %} class="active"{% endif %}><a href="#tab_{{ admin.uniqid }}_{{ loop.index }}" data-index={{ loop.index }} data-toggle="tab"><i class="fa fa-exclamation-circle has-errors hide" aria-hidden="true"></i> {{ admin.trans(form_tab.label, {}, form_tab.translation_domain) }}</a></li>
                                     {% endfor %}
                                 </ul>
                                 <div class="tab-content">
@@ -93,7 +93,6 @@
                                 {% endif %}
 
                                 {% if admin.hasroute('delete') and admin.isGranted('DELETE', object) %}
-                                    {{ 'delete_or'|trans({}, 'SonataAdminBundle') }}
                                     <a class="btn btn-danger" href="{{ admin.generateObjectUrl('delete', object) }}"><i class="fa fa-minus-circle" aria-hidden="true"></i> {{ 'link_delete'|trans({}, 'SonataAdminBundle') }}</a>
                                 {% endif %}
 

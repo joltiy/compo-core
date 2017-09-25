@@ -70,8 +70,8 @@ class NotificationEmailAccountAdmin extends AbstractAdmin
         $notificationManager = $this->getContainer()->get('compo_notification.manager.notification');
 
         $formMapper
-            ->tab('form.tab_main')
-            ->with('form.group_main', array('name' => false, 'class' => 'col-lg-12'))
+            ->tab('main')
+            ->with('main', array('name' => false, 'class' => 'col-lg-12'))
             ->add('id')
             ->add('name')
             ->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false))

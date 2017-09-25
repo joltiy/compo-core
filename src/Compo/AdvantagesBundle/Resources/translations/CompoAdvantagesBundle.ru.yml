@@ -1,37 +1,3 @@
-breadcrumb:
-    link_advantages_batch: 'Действия над преимущества'
-    link_advantages_create: 'Создание преимущества'
-    link_advantages_delete: 'Удаление преимущества'
-    link_advantages_edit: 'Редактирование преимущества'
-    link_advantages_item_batch: 'Действия над преимуществами'
-    link_advantages_item_create: 'Создание преимущества'
-    link_advantages_item_delete: 'Удаление преимущества'
-    link_advantages_item_edit: 'Редактирование преимущества'
-    link_advantages_item_list: 'Список преимуществ'
-    link_advantages_item_update: 'Обновление преимущества'
-    link_advantages_list: 'Приемущества'
-    link_advantages_update: 'Обвновление преимущества'
-
-form:
-    label_page: Страница
-    label_parent: 'Родительский элемент'
-
 advantages: Преимущества
-
-tab_menu.title_advantages_list: 'Преимущества'
-breadcrumb.link_advantages_item_tree: 'Список Преимуществ'
-tab_menu.title_advantages_item_create: 'Создание Преимущества'
-form.tab_main_advantages: 'Приемущество'
-
-tab_menu.title_advantages_advantages_item_edit: 'Преимущество: %name%'
-
-tab_menu.advantages: 'Преимущество'
-tab_menu.link_advantages_list: 'Список Преимуществ'
-
-tab_menu.title_advantages_advantages_item_list: 'Преимущества: %name%'
-
-tab_menu.title_advantages_edit: 'Преимущества: %name%'
-
-tab_menu.title_advantages_create: 'Создание Преимущества'
-
-form.label_advantages: 'Преимущества'
+advantages_item: Преимущества
+form.label_advantages: Преимущества

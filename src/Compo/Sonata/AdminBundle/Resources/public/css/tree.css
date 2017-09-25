@@ -18,6 +18,7 @@
     border-top: 1px solid #e3e3e3;
     margin-top: -1px;
     overflow: hidden;
+    border-right: 1px solid #e3e3e3;
 }
 
 .tree ul li > div.node {
@@ -63,4 +64,8 @@
 
 .drop-over > .node-item i.fa-folder-o:before {
     content: "\f07b";
+}
+
+.tree > ul.tree-list.product-catalog-tree.ui-sortable {
+    padding-left: 0;
 }

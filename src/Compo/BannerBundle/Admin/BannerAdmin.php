@@ -73,8 +73,8 @@ class BannerAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->tab('form.tab_main')
-            ->with('form.group_main', array('name' => false))
+            ->tab('main')
+            ->with('main', array('name' => false))
             ->add('id')
             ->add('name')
             ->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false));

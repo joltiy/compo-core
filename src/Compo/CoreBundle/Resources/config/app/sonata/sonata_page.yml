@@ -83,6 +83,8 @@ sonata_page:
                         - sonata.block.service.text
                         - sonata.formatter.block.formatter
                         - compo_core.block.service.error_404
+                        - compo_core.block.service.text_page
+
                  content_bottom:
                      name: "Внизу"
                      blocks:

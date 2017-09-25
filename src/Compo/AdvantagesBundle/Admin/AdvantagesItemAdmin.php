@@ -5,8 +5,6 @@ namespace Compo\AdvantagesBundle\Admin;
 use Compo\AdvantagesBundle\Entity\AdvantagesItem;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
-use Knp\Menu\ItemInterface as MenuItemInterface;
-use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -100,10 +98,10 @@ class AdvantagesItemAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->tab('form.tab_main_advantages');
+        $formMapper->tab('main');
 
         $formMapper->with(
-            'form.tab_main',
+            'main',
             array(
                 'name' => false,
             )
@@ -138,33 +136,4 @@ class AdvantagesItemAdmin extends AbstractAdmin
             ->add('deletedAt');
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    protected function configureTabMenu(MenuItemInterface $advantages, $action, AdminInterface $childAdmin = null)
-    {
-        if ('edit' === $action) {
-            $this->configureTabAdvantagesItem($advantages, $action);
-
-            /** @var AdvantagesAdmin $advantagesAdmin */
-            $advantagesAdmin = $this->getConfigurationPool()->getAdminByAdminCode('compo_advantages.admin.advantages');
-            $advantagesAdmin->setSubject($this->getSubject()->getAdvantages());
-            $tabAdvantages = $advantages->addChild('tab_menu.advantages', array('label' => $this->trans('tab_menu.advantages', array('%name%' => $this->getSubject()->getAdvantages()->getName())), 'attributes' => array('dropdown' => true)));
-
-            $advantagesAdmin->configureTabAdvantagesList($tabAdvantages, $action);
-        }
-    }
-
-    /**
-     * @param MenuItemInterface $advantages
-     * @param $action
-     * @param AdminInterface|null $childAdmin
-     */
-    public function configureTabAdvantagesItem(MenuItemInterface $advantages, $action, AdminInterface $childAdmin = null)
-    {
-        $advantages->addChild(
-            $this->trans('tab_menu.link_edit'),
-            array('uri' => $this->generateUrl('edit', array('id' => $this->getSubject()->getId())))
-        );
-    }
 }

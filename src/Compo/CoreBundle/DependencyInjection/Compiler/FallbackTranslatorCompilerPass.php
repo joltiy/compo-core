@@ -2,6 +2,7 @@
 
 namespace Compo\CoreBundle\DependencyInjection\Compiler;
 
+use Compo\Sonata\AdminBundle\Admin\BreadcrumbsBuilder;
 use Compo\Sonata\AdminBundle\Model\AuditReader;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -23,5 +24,8 @@ class FallbackTranslatorCompilerPass implements CompilerPassInterface
         $definition = $container->getDefinition('sonata.admin.audit.orm.reader');
         $definition->setClass(AuditReader::class);
         $definition->addMethodCall('setContainer', array(new Reference('service_container')));
+
+        $definition = $container->getDefinition('sonata.admin.breadcrumbs_builder');
+        $definition->setClass(BreadcrumbsBuilder::class);
     }
 }

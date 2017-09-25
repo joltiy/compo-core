@@ -62,8 +62,12 @@ class PropertiesExtension extends AbstractAdminExtension
             return;
         }
 
-        $formMapper->tab('form.tab_properties')
-            ->with('form.group_properties_created', array('name' => false, 'class' => 'col-lg-6'))
+        if (!$admin->isPropertiesEnabled()) {
+            return;
+        }
+
+        $formMapper->tab('properties')
+            ->with('properties_created', array('name' => false, 'class' => 'col-lg-6'))
             ->add(
                 'createdBy',
                 'sonata_type_model_list',
@@ -90,7 +94,7 @@ class PropertiesExtension extends AbstractAdminExtension
                 )
             )
             ->end()
-            ->with('form.group_properties_updated', array('name' => false, 'class' => 'col-lg-6'))
+            ->with('properties_updated', array('name' => false, 'class' => 'col-lg-6'))
             ->add(
                 'updatedBy',
                 'sonata_type_model_list',

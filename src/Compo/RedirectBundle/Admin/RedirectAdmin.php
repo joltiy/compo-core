@@ -64,8 +64,8 @@ class RedirectAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->tab('form.tab_main')
-            ->with('form.group_main', array('name' => false, 'class' => 'col-lg-12'))
+            ->tab('main')
+            ->with('main', array('name' => false, 'class' => 'col-lg-12'))
             ->add('id')
             ->add('urIn')
             ->add('urOut')

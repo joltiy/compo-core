@@ -95,14 +95,14 @@ class BannerItemAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper->tab(
-            'form.tab_main_banner',
+            'main_banner',
             array(
                 'translation_domain' => $this->getTranslationDomain()
             )
         );
 
         $formMapper->with(
-            'form.tab_main',
+            'main',
             array(
                 'name' => false
             )

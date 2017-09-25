@@ -269,6 +269,13 @@ $(document).ready(function () {
     }
 
 
+    $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
+        $('.CodeMirror').each(function(i, el){
+            el.CodeMirror.refresh();
+        });
+    });
+
+
     $(document).on('click', '.sonata-ba-form .nav-tabs a', function (event) {
 
         var form = $(event.target).closest("form");
@@ -432,6 +439,7 @@ $(document).ready(function () {
         return CodeMirror.overlayMode(CodeMirror.getMode(config, parserConfig.backdrop || "text/html"), CodeMirror.getMode(config, "twig"));
     });
 
+
     $('.highlight-src').each(function () {
         var el = $(this);
 
@@ -447,6 +455,10 @@ $(document).ready(function () {
         myCodeMirror.on("blur", function () {
             myCodeMirror.save()
         });
+
+        setTimeout(function() {
+            myCodeMirror.refresh();
+        },1);
     });
 
 

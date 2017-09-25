@@ -133,14 +133,14 @@ class MenuItemAdmin extends AbstractAdmin
 
 
         $formMapper->tab(
-            'form.tab_main_menu',
+            'main_menu',
             array(
                 'translation_domain' => $this->getTranslationDomain()
             )
         );
 
         $formMapper->with(
-            'form.tab_main',
+            'main',
             array(
                 'name' => false
             )
@@ -287,7 +287,7 @@ class MenuItemAdmin extends AbstractAdmin
     /**
      * {@inheritDoc}
      */
-    protected function configureTabMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
+    protected function configureTabMenu3(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
     {
         if ('edit' === $action) {
             $this->configureTabMenuItem($menu, $action);

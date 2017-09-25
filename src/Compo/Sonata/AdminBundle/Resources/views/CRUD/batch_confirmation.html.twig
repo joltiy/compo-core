@@ -58,8 +58,7 @@ file that was distributed with this source code.
     </div>
 {% endblock %}
 
-
 {% block navbar_title %}
-    {% set title_batch = "tab_menu.title_" ~ admin.label ~ '_' ~ action_label ~ '_batch' %}
-    {{ title_batch|trans({}, admin.translationDomain) }}
+    {% set title_batch = 'tab_menu.title_batch' %}
+    {{ title_batch|trans({"%name%": admin.label|trans({}, admin.translationDomain)}, admin.translationDomain) }}
 {% endblock %}

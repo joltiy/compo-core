@@ -63,8 +63,8 @@ class NewsTagAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->tab('form.tab_main');
-        $formMapper->with('form.group_main', array('name' => false, 'class' => ''));
+        $formMapper->tab('main');
+        $formMapper->with('main', array('name' => false, 'class' => ''));
 
         $formMapper
             ->add('name')

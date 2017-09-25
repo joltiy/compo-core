@@ -5,8 +5,11 @@ namespace Compo\Sonata\AdminBundle\Admin;
 
 use Doctrine\Common\Cache\Cache;
 use Doctrine\ORM\QueryBuilder;
+use Knp\Menu\ItemInterface as MenuItemInterface;
 use Sonata\AdminBundle\Admin\AbstractAdmin as BaseAdmin;
+use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * {@inheritDoc}
@@ -63,6 +66,24 @@ class AbstractAdmin extends BaseAdmin
      * @var bool
      */
     protected $settingsEnabled = false;
+
+    protected $propertiesEnabled = true;
+
+    /**
+     * @return bool
+     */
+    public function isPropertiesEnabled(): bool
+    {
+        return $this->propertiesEnabled;
+    }
+
+    /**
+     * @param bool $propertiesEnabled
+     */
+    public function setPropertiesEnabled(bool $propertiesEnabled)
+    {
+        $this->propertiesEnabled = $propertiesEnabled;
+    }
 
 
     /**
@@ -199,6 +220,25 @@ class AbstractAdmin extends BaseAdmin
     }
 
     /**
+     * This method is being called by the main admin class and the child class,
+     * the getFormBuilder is only call by the main admin class.
+     *
+     * @param FormBuilderInterface $formBuilder
+     */
+    public function defineFormBuilder(FormBuilderInterface $formBuilder)
+    {
+        $mapper = new \Compo\Sonata\AdminBundle\Form\FormMapper($this->getFormContractor(), $formBuilder, $this);
+
+        $this->configureFormFields($mapper);
+
+        foreach ($this->getExtensions() as $extension) {
+            $extension->configureFormFields($mapper);
+        }
+
+        $this->attachInlineValidator();
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function createQuery($context = 'list')
@@ -331,7 +371,7 @@ class AbstractAdmin extends BaseAdmin
             );
         }
 
-        if (in_array($action, array('edit', 'show',  'trash','delete', 'acl', 'history'), true)
+        if (in_array($action, array('edit', 'show', 'trash', 'delete', 'acl', 'history'), true)
             && $this->canAccessObject('edit', $object)
             && $this->hasRoute('edit')
         ) {
@@ -386,9 +426,12 @@ class AbstractAdmin extends BaseAdmin
             in_array($action, array('settings', 'trash', 'batch', 'tree', 'list'), true)
             && $this->hasAccess('acl')
         ) {
-            if ($this->isUseEntityTraits($this, array(
-                'Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity'
-            ) )) {
+            if ($this->isUseEntityTraits(
+                $this,
+                array(
+                    'Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity'
+                )
+            )) {
                 $list['trash'] = array(
                     'template' => '@CompoSonataAdmin/Button/trash_button.html.twig',
                 );
@@ -404,7 +447,8 @@ class AbstractAdmin extends BaseAdmin
      * @param array $traits
      * @return bool
      */
-    public function isUseEntityTraits($admin, array $traits = array()) {
+    public function isUseEntityTraits($admin, array $traits = array())
+    {
 
         $traitsAdmin = class_uses($admin->getClass());
 
@@ -446,6 +490,138 @@ class AbstractAdmin extends BaseAdmin
     }
 
     /**
+     * {@inheritDoc}
+     */
+    protected function configureTabMenu(MenuItemInterface $tabMenu, $action, AdminInterface $childAdmin = null)
+    {
+        if (!$childAdmin) {
+            if ($this->getSubject() && $action !== 'create') {
+                $tabMenu->addChild(
+                    $this->trans('tab_menu.link_edit'),
+                    array(
+                        'uri' => $this->generateUrl('edit', array('id' => $this->getSubject()->getId()))
+                    )
+                )->setAttribute('icon', 'fa fa-pencil');
+
+
+                if ($this->hasRoute('history')) {
+                    $tabMenu->addChild(
+                        $this->trans('tab_menu.link_history'),
+                        array('uri' => $this->generateUrl('history', array('id' => $this->getSubject()->getId())))
+                    )->setAttribute('icon', 'fa fa-archive');
+                }
+            }
+
+            if (
+                $action !== 'edit' && $action !== 'history' && $action !== 'delete'
+            ) {
+
+                $tabMenu->addChild(
+                    $this->trans('tab_menu.link_list'),
+                    array('uri' => $this->generateUrl('list', array()))
+                )->setAttribute('icon', 'fa fa-list');
+                if ($this->hasRoute('create')) {
+                    $tabMenu->addChild(
+                        $this->trans('tab_menu.link_create'),
+                        array('uri' => $this->generateUrl('create', array()))
+                    )->setAttribute('icon', 'fa fa-plus');
+                }
+
+
+                if ($this->hasRoute('trash')) {
+                    $tabMenu->addChild(
+                        $this->trans('tab_menu.link_trash'),
+                        array('uri' => $this->generateUrl('trash', array()))
+                    )->setAttribute('icon', 'fa fa-trash');
+                }
+
+            }
+
+
+            if ($this->getSubject() && $action !== 'create') {
+                $children = $this->getChildren();
+
+                /** @var AdminInterface $child */
+                foreach ($children as $child) {
+
+                    $tabMenu->addChild(
+                        'tab_menu.link_list_' . $child->getLabel(),
+                        array(
+                            'label' => $this->trans('tab_menu.title_list', array('%name%' => $this->trans($child->getLabel()))),
+
+                            'uri' => $this->generateUrl($child->getBaseCodeRoute() . '.list', array('id' => $this->getSubject()->getId()))
+                        )
+                    )->setAttribute('icon', 'fa fa-list');
+                    /*
+                    $tabMenuDropdown = $tabMenu->addChild(
+                        'tab_menu.' . $child->getLabel(),
+                        array(
+                            'label' => $this->trans('tab_menu.title_list', array('%name%' => $this->trans($child->getLabel()))),
+                            'attributes' => array('dropdown' => true),
+                        )
+                    );
+
+                    $tabMenuDropdown->addChild(
+                        $this->trans('tab_menu.link_list'),
+                        array('uri' => $this->generateUrl($child->getBaseCodeRoute() . '.list', array('id' => $this->getSubject()->getId())))
+                    );
+
+                    $tabMenuDropdown->addChild(
+                        $this->trans('tab_menu.link_create'),
+                        array('uri' => $this->generateUrl($child->getBaseCodeRoute() . '.create', array('id' => $this->getSubject()->getId())))
+                    );
+
+                    $tabMenuDropdown->addChild(
+                        $this->trans('tab_menu.link_trash'),
+                        array('uri' => $this->generateUrl($child->getBaseCodeRoute() . '.trash', array('id' => $this->getSubject()->getId())))
+                    );
+                    */
+                }
+            }
+        } else {
+
+            if ($this->getSubject() && $action !== 'create' && $action !== 'list' && $action !== 'tree') {
+
+                $tabMenu->addChild(
+                    $this->trans('tab_menu.link_edit'),
+                    array('uri' => $childAdmin->generateUrl('edit', array('id' => $childAdmin->getSubject()->getId())))
+                )->setAttribute('icon', 'fa fa-pencil');
+
+                if ($childAdmin->hasRoute('history')) {
+                    $tabMenu->addChild(
+                        $this->trans('tab_menu.link_history'),
+                        array('uri' => $childAdmin->generateUrl('history', array('id' => $childAdmin->getSubject()->getId())))
+                    )->setAttribute('icon', 'fa fa-archive');
+                }
+
+            }
+
+            if ($action === 'create' || $action === 'tree' || $action === 'list' || $action === 'trash') {
+                $tabMenu->addChild(
+                    $this->trans('tab_menu.link_list'),
+                    array('uri' => $this->generateUrl($childAdmin->getBaseCodeRoute() . '.list', array('id' => $this->getSubject()->getId())))
+                )->setAttribute('icon', 'fa fa-list');
+
+                if ($this->hasRoute('create')) {
+                    $tabMenu->addChild(
+                        $this->trans('tab_menu.link_create'),
+                        array('uri' => $this->generateUrl($childAdmin->getBaseCodeRoute() . '.create', array('id' => $this->getSubject()->getId())))
+                    )->setAttribute('icon', 'fa fa-plus');
+                }
+
+                /*
+                if ($childAdmin->hasRoute('trash')) {
+                    $tabMenu->addChild(
+                        $this->trans('tab_menu.link_trash'),
+                        array('uri' => $this->generateUrl($childAdmin->getBaseCodeRoute() . '.trash', array('id' => $this->getSubject()->getId())))
+                    );
+                }
+                */
+            }
+        }
+    }
+
+    /**
      * @param \Sonata\AdminBundle\Route\RouteCollection $collection
      */
     protected function configureRoutes(RouteCollection $collection)
@@ -453,12 +629,12 @@ class AbstractAdmin extends BaseAdmin
         parent::configureRoutes($collection);
 
         //if ($this->manager->hasReader($this->getClass())) {
-            $collection->add('history_revert', $this->getRouterIdParameter() . '/history/{revision}/revert');
+        $collection->add('history_revert', $this->getRouterIdParameter() . '/history/{revision}/revert');
         //}
 
         //if ($this->trashManager->hasReader($this->getClass())) {
-            $collection->add('trash', 'trash');
-            $collection->add('untrash', $this->getRouterIdParameter() . '/untrash');
+        $collection->add('trash', 'trash');
+        $collection->add('untrash', $this->getRouterIdParameter() . '/untrash');
         //}
 
         if ($this->treeEnabled) {

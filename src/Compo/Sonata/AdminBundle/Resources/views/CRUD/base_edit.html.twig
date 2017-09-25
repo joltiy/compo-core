@@ -12,15 +12,20 @@ file that was distributed with this source code.
 {% extends base_template %}
 
 {% block title %}
-    {% if admin.id(object) is not null and admin.isChild() %}
-        {% set title_edit = "tab_menu.title_" ~ admin.getParent().label ~ '_' ~ admin.label ~ '_edit' %}
-        {{ title_edit|trans({'%name%': admin.subject}, admin.translationDomain) }}
-    {% elseif admin.id(object) is not null %}
-        {% set title_edit = "tab_menu.title_" ~ admin.label ~ '_edit' %}
+    {% if admin.id(object) is not null %}
+        {% set title_edit = "tab_menu.title_edit" %}
         {{ title_edit|trans({'%name%': admin.subject }, admin.translationDomain) }}
     {% else %}
-        {% set title_create = "tab_menu.title_" ~ admin.label ~ '_create' %}
-        {{ title_create|trans({}, admin.translationDomain) }}
+        {% set title_create = "tab_menu.title_create" %}
+        {% set title_create_name = admin.label|trans({}, admin.translationDomain) %}
+
+        {% if admin.isChild() %}
+            {{ title_create|trans({'%name%': admin.getParent().subject}, admin.translationDomain) }}
+        {% else %}
+            {{ title_create|trans({'%name%': title_create_name}, admin.translationDomain) }}
+
+        {% endif %}
+
     {% endif %}
 {% endblock %}
 

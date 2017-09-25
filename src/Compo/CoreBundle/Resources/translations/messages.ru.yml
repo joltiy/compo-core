@@ -435,3 +435,39 @@ date_range_end: 'До'
 
 filter.label_created_by: 'Создал'
 filter.label_updated_by: 'Обновил'
+tab_menu.link_create: 'Создать'
+tab_menu.link_trash: 'Корзина'
+tab_menu.link_history: 'Изменения'
+
+tab_menu.title_tree: "%name%"
+
+tab_menu.title_list: "%name%"
+tab_menu.title_create: "%name%"
+tab_menu.title_trash: "%name%"
+tab_menu.title_edit: "%name%"
+tab_menu.title_history: "%name%"
+tab_menu.title_delete: "%name%"
+tab_menu.title_action_delete_batch: "%name%"
+tab_menu.title_batch:  "%name%"
+
+breadcrumb.link_list: "%name%"
+breadcrumb.link_create: "Создать"
+breadcrumb.link_trash: "Корзина"
+breadcrumb.link_tree: "%name%"
+breadcrumb.link_settings: "Настройки"
+
+form.group_media_image: 'Изображение'
+form.group_media_images_additional: 'Дополнительные изображения'
+form.group_media_files_additional: 'Дополнительные файлы'
+form.group_main: 'Основное'
+form.group_seo: 'SEO'
+
+form.group_map: 'Карта'
+
+tab.label_settings_index: 'Главная'
+form.label_settings_index_menu_mobile: 'Мобильное меню'
+form.label_settings_index_menu_features: 'По текстуре и поверхности'
+form.label_settings_index_menu_size: 'По размеру'
+form.label_settings_index_menu_interior: 'Для интерьера'
+tab.label_settings_popup_tab: 'Модальные окна'
+tab.label_settings_order: 'Заказ'

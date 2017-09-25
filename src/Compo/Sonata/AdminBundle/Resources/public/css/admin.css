@@ -1,32 +1,32 @@
-/* Fix. Высота кнопок */
+/* Fix. Ð’Ñ‹ÑÐ¾Ñ‚Ð° ÐºÐ½Ð¾Ð¿Ð¾Ðº */
 .btn {
     padding: 4px 12px;
 }
 
-/* Fix. Высота */
+/* Fix. Ð’Ñ‹ÑÐ¾Ñ‚Ð° */
 label {
     line-height: 30px;
 }
 
-/* Fix. Положение чекбокса */
+/* Fix. ÐŸÐ¾Ð»Ð¾Ð¶ÐµÐ½Ð¸Ðµ Ñ‡ÐµÐºÐ±Ð¾ÐºÑÐ° */
 .form-inline .checkbox div[class^="icheckbox"], .form-inline .checkbox-inline div[class^="icheckbox"], .form-inline .radio div[class^="iradio"], .form-inline .radio-inline div[class^="iradio"] {
     margin-top: -2px;
 }
 
-/* Fix. Пагинация. Вертикальное выравниквание */
+/* Fix. ÐŸÐ°Ð³Ð¸Ð½Ð°Ñ†Ð¸Ñ. Ð’ÐµÑ€Ñ‚Ð¸ÐºÐ°Ð»ÑŒÐ½Ð¾Ðµ Ð²Ñ‹Ñ€Ð°Ð²Ð½Ð¸ÐºÐ²Ð°Ð½Ð¸Ðµ */
 .num_pages, .num_results {
     line-height: 30px;
     display: inline-block;
     vertical-align: middle;
 }
 
-/* Fix. Выпадающий список, иконка. Вертикальное выравниквание */
+/* Fix. Ð’Ñ‹Ð¿Ð°Ð´Ð°ÑŽÑ‰Ð¸Ð¹ ÑÐ¿Ð¸ÑÐ¾Ðº, Ð¸ÐºÐ¾Ð½ÐºÐ°. Ð’ÐµÑ€Ñ‚Ð¸ÐºÐ°Ð»ÑŒÐ½Ð¾Ðµ Ð²Ñ‹Ñ€Ð°Ð²Ð½Ð¸ÐºÐ²Ð°Ð½Ð¸Ðµ */
 .btn .caret {
     top: -2px;
     position: relative;
 }
 
-/* Fix. Список объектов, действия. Вертикальное выравниквание */
+/* Fix. Ð¡Ð¿Ð¸ÑÐ¾Ðº Ð¾Ð±ÑŠÐµÐºÑ‚Ð¾Ð², Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ñ. Ð’ÐµÑ€Ñ‚Ð¸ÐºÐ°Ð»ÑŒÐ½Ð¾Ðµ Ð²Ñ‹Ñ€Ð°Ð²Ð½Ð¸ÐºÐ²Ð°Ð½Ð¸Ðµ */
 .sonata-ba-list-field-name-_action .btn-group {
     white-space: nowrap;
     vertical-align: top;
@@ -36,27 +36,27 @@ label {
     vertical-align: top;
 }
 
-/* Fix. Список объектов. Вертикальное выравниквание */
+/* Fix. Ð¡Ð¿Ð¸ÑÐ¾Ðº Ð¾Ð±ÑŠÐµÐºÑ‚Ð¾Ð². Ð’ÐµÑ€Ñ‚Ð¸ÐºÐ°Ð»ÑŒÐ½Ð¾Ðµ Ð²Ñ‹Ñ€Ð°Ð²Ð½Ð¸ÐºÐ²Ð°Ð½Ð¸Ðµ */
 .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
     line-height: 28px;
 }
 
-/* Sidebar, поле поиска. Вертикальное выравнивание */
+/* Sidebar, Ð¿Ð¾Ð»Ðµ Ð¿Ð¾Ð¸ÑÐºÐ°. Ð’ÐµÑ€Ñ‚Ð¸ÐºÐ°Ð»ÑŒÐ½Ð¾Ðµ Ð²Ñ‹Ñ€Ð°Ð²Ð½Ð¸Ð²Ð°Ð½Ð¸Ðµ */
 .skin-black .sidebar-form {
     margin: 15px 10px;
 }
 
-/* Основное меню списка объектов. Вертикальное выравнивание */
+/* ÐžÑÐ½Ð¾Ð²Ð½Ð¾Ðµ Ð¼ÐµÐ½ÑŽ ÑÐ¿Ð¸ÑÐºÐ° Ð¾Ð±ÑŠÐµÐºÑ‚Ð¾Ð². Ð’ÐµÑ€Ñ‚Ð¸ÐºÐ°Ð»ÑŒÐ½Ð¾Ðµ Ð²Ñ‹Ñ€Ð°Ð²Ð½Ð¸Ð²Ð°Ð½Ð¸Ðµ */
 .content-header {
     padding: 8px 15px 0 15px;
 }
 
-/* Контент. Отступ от меню */
+/* ÐšÐ¾Ð½Ñ‚ÐµÐ½Ñ‚. ÐžÑ‚ÑÑ‚ÑƒÐ¿ Ð¾Ñ‚ Ð¼ÐµÐ½ÑŽ */
 .content {
     padding-top: 7px;
 }
 
-/* Редактирование. Поле. Минимальная высота. */
+/* Ð ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ. ÐŸÐ¾Ð»Ðµ. ÐœÐ¸Ð½Ð¸Ð¼Ð°Ð»ÑŒÐ½Ð°Ñ Ð²Ñ‹ÑÐ¾Ñ‚Ð°. */
 .form-control {
     height: 35px;
 }
@@ -67,12 +67,12 @@ label {
     }
 }
 
-/* Редактирование. Поле. Select2 Минимальная высота. */
+/* Ð ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ. ÐŸÐ¾Ð»Ðµ. Select2 ÐœÐ¸Ð½Ð¸Ð¼Ð°Ð»ÑŒÐ½Ð°Ñ Ð²Ñ‹ÑÐ¾Ñ‚Ð°. */
 .sonata-ba-field .select2-container {
     padding-top: 2px;
 }
 
-/* Форма редактирования настроек. Вкладки, отступы. */
+/* Ð¤Ð¾Ñ€Ð¼Ð° Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ñ Ð½Ð°ÑÑ‚Ñ€Ð¾ÐµÐº. Ð’ÐºÐ»Ð°Ð´ÐºÐ¸, Ð¾Ñ‚ÑÑ‚ÑƒÐ¿Ñ‹. */
 .settings-form .tab-pane {
     padding-left: 15px;
     padding-right: 15px;
@@ -314,7 +314,7 @@ th.table-th-total {
     display: none;
 }
 
-/* Действия для поля в форме, например "Добавить" у выбодащего списка M:1 */
+/* Ð”ÐµÐ¹ÑÑ‚Ð²Ð¸Ñ Ð´Ð»Ñ Ð¿Ð¾Ð»Ñ Ð² Ñ„Ð¾Ñ€Ð¼Ðµ, Ð½Ð°Ð¿Ñ€Ð¸Ð¼ÐµÑ€ "Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ" Ñƒ Ð²Ñ‹Ð±Ð¾Ð´Ð°Ñ‰ÐµÐ³Ð¾ ÑÐ¿Ð¸ÑÐºÐ° M:1 */
 .sonata-ba-field-standard-natural .field-actions {
     text-align: right;
 }
@@ -451,7 +451,7 @@ th.sonata-ba-list-field-header-datetime {
 }
 
 .filter-www .brands-wrap {
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .catalog-filter-block .panel-title .font-icon {
@@ -464,4 +464,87 @@ th.sonata-ba-list-field-header-datetime {
 
 .catalog-filter-admin .price-slider {
     margin: 0 20px;
+}
+
+.url-type {
+    margin-top: 7px;
+    display: inline-block;
+}
+.required:after {
+    position: absolute;
+    top: 0;
+    right: -10px;
+    color: #f00;
+}
+.form-horizontal .required:after{
+    right: 5px;
+}
+.navbar-collapse-actions .fa {
+    margin-right: 5px;
+}
+.navbar-collapse-actions .navbar-nav>li>a:focus,
+.navbar-collapse-actions .navbar-nav>li>a:hover {
+    background-color: #e7e7e7;
+}
+
+.sonata-bc .breadcrumb {
+    white-space: nowrap;
+    overflow-x: auto;
+    display: block;
+    width: auto;
+    float: none;
+    border-bottom: 1px solid #eaeaea;
+    margin-bottom: 10px;
+    border-top: 1px solid #eaeaea;
+}
+.sonata-bc .breadcrumb.navbar-top-links li a,
+.sonata-bc .breadcrumb.navbar-top-links li span {
+    padding: 5px;
+    min-height: initial;
+}
+
+.sonata-ba-form-actions {
+    padding-bottom: 0;
+}
+
+.sonata-ba-form-actions .btn {
+    margin-bottom: 19px;
+}
+
+.navbar-header-admin {
+    display: block;
+    width: 100%;
+}
+
+.navbar-header-admin .navbar-brand {
+    min-height: initial;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 0;
+}
+
+.navbar-collapse.navbar-collapse-actions {
+    border: none;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 10px;
+}
+
+.sonata-filter-form .form-group .btn {
+    margin-bottom: 10px;
+}
+
+@media (min-width: 768px) {
+    .navbar-collapse-actions .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
+        margin-left: 0;
+    }
+
+    .navbar-collapse.navbar-collapse-actions {
+        padding-left: 0;
+        padding-right: 0;
+    }
 }
