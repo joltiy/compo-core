@@ -147,7 +147,7 @@ class MenuBlockService extends AbstractBlockService
                     $item['country'] = $nodeItem->getCountry();
                 }
             } else {
-                $item['url'] = '';
+                $item['url'] = $nodeItem->getUrl();
             }
 
             $item['node'] = $nodeItem;
