@@ -3,6 +3,7 @@
 namespace Compo\ContactsBundle\Admin;
 
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -78,7 +79,7 @@ class ContactsAdmin extends AbstractAdmin
         $formMapper
             ->tab('main')
             ->with('major', array('class' => 'col-md-9'))
-            ->add('phone')
+            ->add('phone', CKEditorType::class)
             ->add('email')
             ->add('worktime', 'ckeditor')
             ->add('address', 'ckeditor')
