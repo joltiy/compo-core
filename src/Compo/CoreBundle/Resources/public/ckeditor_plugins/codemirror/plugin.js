@@ -19,6 +19,7 @@
                     autoFormatOnStart: false,
                     autoFormatOnUncomment: true,
                     continueComments: true,
+                    dragDrop: false,
                     enableCodeFolding: true,
                     enableCodeFormatting: true,
                     enableSearchTools: true,
@@ -720,6 +721,8 @@
                     showTrailingSpace: config.showTrailingSpace,
                     showCursorWhenSelecting: true,
                     styleActiveLine: config.styleActiveLine,
+                    dragDrop: false,
+
                     //extraKeys: {"Ctrl-Space": "autocomplete"},
                     extraKeys: extraKeys,
                     foldGutter: true,
@@ -919,6 +922,7 @@
             });
 
             editor.on('instanceReady', function (evt) {
+                window["codemirror_" + editor.id].setOption("dragDrop", false);
 
                 // Fix native context menu
                 editor.container.getPrivate().events.contextmenu.listeners.splice(0, 1);
@@ -1108,6 +1112,7 @@ CKEDITOR.plugins.sourcearea = {
                 } else if (this.state == CKEDITOR.TRISTATE_OFF) {
                     window["codemirror_" + editor.id].setOption("autoCloseTags", true);
                 }
+                window["codemirror_" + editor.id].setOption("dragDrop", false);
 
                 this.toggleState();
             },

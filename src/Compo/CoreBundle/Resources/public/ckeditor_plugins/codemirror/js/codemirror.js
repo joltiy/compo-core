@@ -7182,7 +7182,7 @@ function defineOptions(CodeMirror) {
     cm.display.input.readOnlyChanged(val)
   })
   option("disableInput", false, function (cm, val) {if (!val) { cm.display.input.reset() }}, true)
-  option("dragDrop", true, dragDropChanged)
+  option("dragDrop", false, dragDropChanged)
   option("allowDropFileTypes", null)
 
   option("cursorBlinkRate", 530)
@@ -7213,6 +7213,7 @@ function guttersChanged(cm) {
 }
 
 function dragDropChanged(cm, value, old) {
+  /*
   var wasOn = old && old != Init
   if (!value != !wasOn) {
     var funcs = cm.display.dragFunctions
@@ -7223,6 +7224,7 @@ function dragDropChanged(cm, value, old) {
     toggle(cm.display.scroller, "dragleave", funcs.leave)
     toggle(cm.display.scroller, "drop", funcs.drop)
   }
+  */
 }
 
 function wrappingChanged(cm) {

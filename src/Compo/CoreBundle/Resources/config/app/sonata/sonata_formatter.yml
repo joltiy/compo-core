@@ -38,7 +38,7 @@ ivory_ck_editor:
             allowedContent: true
             extraAllowedContent: '*{*}'
             toolbar: "compo"
-            extraPlugins: 'widget,lineutils,wysiwygarea,dialog,autocorrect,base64image,basewidget,basicstyles,blockquote,bootstrapVisibility,bt_table,btbutton,button,codemirror,collapsibleItem,contextmenu,dialogui,elementspath,embedbase,enterkey,entities,filebrowser,filetools,floatingspace,floatpanel,format,glyphicons,horizontalrule,htmlwriter,indent,indentlist,lineheight,list,listblock,maximize,menu,menubutton,notification,notificationaggregator,oembed,panel,pastebase64,pastetext,placeholder,twigexp,twigvar,popup,quicktable,removeformat,resize,richcombo,sourcearea,stylescombo,tab,tabletoolstoolbar,toolbar,undo,uploadwidget,widgetselection,wordcount,wpmore,youtube'
+            extraPlugins: 'widget,lineutils,wysiwygarea,dialog,autocorrect,base64image,basewidget,basicstyles,blockquote,bootstrapVisibility,bt_table,btbutton,button,codemirror,contextmenu,dialogui,elementspath,embedbase,enterkey,entities,filebrowser,filetools,floatingspace,floatpanel,format,glyphicons,horizontalrule,htmlwriter,indent,indentlist,lineheight,list,listblock,maximize,menu,menubutton,notification,notificationaggregator,oembed,panel,pastebase64,pastetext,placeholder,twigexp,twigvar,popup,quicktable,removeformat,resize,richcombo,sourcearea,stylescombo,tab,tabletoolstoolbar,toolbar,undo,uploadwidget,widgetselection,wordcount,wpmore,youtube'
             enterMode: "CKEDITOR.ENTER_P"
             disableNativeSpellChecker: false
             filebrowserBrowseRoute: admin_sonata_media_media_ckeditor_browser
@@ -67,6 +67,10 @@ ivory_ck_editor:
                 countHTML: false
                 maxWordCount: -1
                 maxCharCount: -1
+            codemirror:
+                enableCodeFolding: false
+                moveOnDrag: false
+                dragDrop: false
 
     toolbars:
         configs:
