@@ -12,27 +12,27 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="drawing-order__flex-wrap">
-                        {{ form_row(form.name,{ "label_attr": {"class":"drawing-order__label-text"} , 'attr' : {"validator" : "required","no-validation-message":"true","class" : "drawing-order__input-text","data-ng-model":"feedback.form.name"  }}  ) }}
+                        {{ form_row(form.name,{ "label_attr": {"class":"drawing-order__label-text"} , 'attr' : {"validator" : "required","class" : "drawing-order__input-text","data-ng-model":"feedback.form.name"  }}  ) }}
                     </div>
                 </div>
 
 
                 <div class="col-md-12">
                     <div class="drawing-order__flex-wrap">
-                        {{ form_row(form.email,{ "label_attr": {"class":"drawing-order__label-text"} , 'attr' : {"validator" : "required, email","no-validation-message":"true","class" : "drawing-order__input-text","data-ng-model":"feedback.form.email"  }}  ) }}
+                        {{ form_row(form.email,{ "label_attr": {"class":"drawing-order__label-text"} , 'attr' : {"validator" : "required, email","class" : "drawing-order__input-text","data-ng-model":"feedback.form.email"  }}  ) }}
                     </div>
                 </div>
 
                 <div class="col-md-12">
                     <div class="drawing-order__flex-wrap">
-                        {{ form_row(form.phone,{ "label_attr": {"class":"drawing-order__label-text"} , 'attr' : {"validator" : "required","data-ng-phone-mask":"","no-validation-message":"true","class" : "drawing-order__input-text" ,"data-ng-model":"feedback.form.phone" }}  ) }}
+                        {{ form_row(form.phone,{ "label_attr": {"class":"drawing-order__label-text"} , 'attr' : {"validator" : "required","data-ng-phone-mask":"","class" : "drawing-order__input-text" ,"data-ng-model":"feedback.form.phone" }}  ) }}
                     </div>
                 </div>
 
             </div>
 
             <div class="drawing-order__flex-wrap different">
-                {{ form_row(form.message,{ "label_attr": {"class":"drawing-order__label-text"} , 'attr' : {"validator" : "required","no-validation-message":"true","class" : "drawing-order__textarea" ,"data-ng-model":"feedback.form.message"  }}  ) }}
+                {{ form_row(form.message,{ "label_attr": {"class":"drawing-order__label-text"} , 'attr' : {"validator" : "required","class" : "drawing-order__textarea" ,"data-ng-model":"feedback.form.message"  }}  ) }}
             </div>
 
             <input type="submit" validation-submit="feedbackForm" value="Отправить сообщение" data-ng-disabled="feedback.disablesubmit" data-ng-click="feedback.send()" class="drawing-order__input-submit pull-right">
