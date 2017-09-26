@@ -106,15 +106,18 @@ class BannerBlockService extends AbstractBlockService
             $repository = $em->getRepository('CompoBannerBundle:Banner');
 
             $item = $repository->find($settings['id']);
+            if ($item) {
+                $key = $this->getName() . ':' . $settings['id'];
 
-            $key = $this->getName() . ':' . $settings['id'];
+                if (isset($settings['template'])) {
+                    $key = $key . ':' . $settings['template'];
+                }
 
-            if (isset($settings['template'])) {
-                $key = $key . ':' . $settings['template'];
+                $keys['block_id'] = $key;
+                $keys['updated_at'] = $item->getUpdatedAt()->format('U');
             }
 
-            $keys['block_id'] = $key;
-            $keys['updated_at'] = $item->getUpdatedAt()->format('U');
+
         }
 
         return $keys;

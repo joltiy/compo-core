@@ -91,14 +91,18 @@ class AdvantagesBlockService extends AbstractBlockService
 
             $item = $repository->find($settings['id']);
 
-            $key = $this->getName() . ':' . $settings['id'];
+            if ($item) {
+                $key = $this->getName() . ':' . $settings['id'];
 
-            if (isset($settings['template'])) {
-                $key = $key . ':' . $settings['template'];
+                if (isset($settings['template'])) {
+                    $key = $key . ':' . $settings['template'];
+                }
+
+                $keys['block_id'] = $key;
+                $keys['updated_at'] = $item->getUpdatedAt()->format('U');
             }
 
-            $keys['block_id'] = $key;
-            $keys['updated_at'] = $item->getUpdatedAt()->format('U');
+
         }
 
         return $keys;
