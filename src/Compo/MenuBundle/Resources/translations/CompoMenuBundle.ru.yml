@@ -42,5 +42,6 @@ form.label_catalog: 'Категория'
 form.label_manufacture: 'Производитель'
 form.label_country: 'Страна'
 
+form.label_target: 'Открывать в'
 
 menu_item: 'Элементы меню'

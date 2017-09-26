@@ -151,6 +151,30 @@ class MenuItem
     protected $catalog_id;
 
     /**
+     *
+     * @var string
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $target;
+
+    /**
+     * @return string
+     */
+    public function getTarget()
+    {
+        return $this->target;
+    }
+
+    /**
+     * @param string $target
+     */
+    public function setTarget($target)
+    {
+        $this->target = $target;
+    }
+
+
+    /**
      * @return mixed
      */
     public function getCatalog()

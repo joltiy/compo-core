@@ -258,6 +258,19 @@ class MenuItemAdmin extends AbstractAdmin
 
 
         $formMapper->add('url');
+
+        $formMapper->add(
+            'target',
+            'choice',
+            array(
+                'required' => false,
+                'choices' => array(
+                    'В новом окне' => '_blank'
+                ),
+                'multiple' => false,
+            )
+        );
+
         $formMapper->add('image');
 
         $formMapper->end();
