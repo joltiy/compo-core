@@ -36,7 +36,7 @@ class BannerBlockService extends AbstractBlockService
         }
 
         return $this->renderResponse(
-            $blockContext->getTemplate(),
+            $settings['template'],
             array(
                 'list' => $list,
                 'block' => $blockContext->getBlock(),
@@ -56,20 +56,21 @@ class BannerBlockService extends AbstractBlockService
         $menuRepository = $em->getRepository('CompoBannerBundle:Banner');
 
         /** @var Banner[] $list */
-        $list = $menuRepository->findAll();
-
-        $choices = array();
-
-        foreach ($list as $item) {
-            $choices[$item->getId()] = $item->getName();
-        }
+        $list = $menuRepository->getChoices();
 
         $formMapper->add(
             'settings',
             'sonata_type_immutable_array',
             array(
                 'keys' => array(
-                    array('id', 'choice', array('choices' => $choices, 'label' => 'Баннеры')),
+                    array('id', 'choice', array('choices' => $list, 'label' => 'Баннеры')),
+                    array('template', 'choice', array(
+                        'choices' => array(
+                            'Обычный' => 'CompoBannerBundle:Block:slider.html.twig',
+                            'Менеджеры' => 'CompoBannerBundle:Block:managers.html.twig'
+                        ),
+                        'label' => 'Шаблон'
+                    )),
                 ),
             )
         );
