@@ -922,7 +922,7 @@
             });
 
             editor.on('instanceReady', function (evt) {
-                window["codemirror_" + editor.id].setOption("dragDrop", false);
+
 
                 // Fix native context menu
                 editor.container.getPrivate().events.contextmenu.listeners.splice(0, 1);
@@ -933,6 +933,7 @@
                 if (selectAllCommand != null) {
                     selectAllCommand.exec = function () {
                         if (editor.mode === 'source') {
+                            window["codemirror_" + editor.id].setOption("dragDrop", false);
                             window["codemirror_" + editor.id].setSelection({
                                 line: 0,
                                 ch: 0
