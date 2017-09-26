@@ -111,7 +111,10 @@ class BannerItemAdmin extends AbstractAdmin
             ->add('enabled')
             ->add('banner')
             ->add('name')
-            ->add('title');
+            ->add('title')
+            ->add('description')
+
+        ;
 
 
         $formMapper->add('url');
