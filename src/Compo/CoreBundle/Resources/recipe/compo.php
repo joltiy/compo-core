@@ -318,11 +318,11 @@ task(
 
             set('env', 'dev');
 
-            run('{{env_vars}} cd {{release_path}} && {{bin/php}} {{bin/console}} assetic:dump --env=dev');
+            run('{{env_vars}} cd {{release_path}} && {{bin/php}} {{bin/console}} assetic:dump --env=dev --forks=8');
 
             set('env', $env);
 
-            run('{{env_vars}} cd {{release_path}} && {{bin/php}} {{bin/console}} assetic:dump {{console_options}}');
+            run('{{env_vars}} cd {{release_path}} && {{bin/php}} {{bin/console}} assetic:dump --forks=8 {{console_options}}');
         }
     }
 )->desc('Dump assets');
