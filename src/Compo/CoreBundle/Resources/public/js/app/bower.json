@@ -2,6 +2,7 @@
   "name": "compo-core",
   "dependencies": {
     "compo-feedback": "./../../../../../FeedbackBundle/Resources/public/js/app/bower.json",
+
     "angular": "^1.6.4"
   },
   "license": "MIT",
