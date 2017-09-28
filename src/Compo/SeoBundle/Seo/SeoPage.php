@@ -40,6 +40,11 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
     public $vars = array();
 
     /**
+     * @var array
+     */
+    protected $htmlAttributes = array();
+
+    /**
      * @var string
      */
     protected $linkNext;
