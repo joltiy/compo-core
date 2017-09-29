@@ -32,3 +32,5 @@ services:
       arguments: ["@security.token_storage", "@security.authorization_checker", "@sonata.admin.pool", "%security.role_hierarchy.roles%"]
 
 
+  security.acl.permission.map:
+      class: Sonata\AdminBundle\Security\Acl\Permission\AdminPermissionMap
