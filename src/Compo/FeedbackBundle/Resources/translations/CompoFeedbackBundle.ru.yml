@@ -24,7 +24,7 @@ tab_menu:
     title_feedback_settings: 'Настройки обратной связи'
 
 
-feedback_tag: 'Метки'
+feedback_tag: 'Метки обратной связи'
 breadcrumb.link_feedback_tag_list: 'Метки обратной связи'
 tab_menu.title_feedback_tag_list: 'Метки обратной связи'
 breadcrumb.link_feedback_tag_create: 'Создание метки'
@@ -40,3 +40,4 @@ compo_feedback.write_to_director: 'Написать директору'
 list.label_phone: 'Телефон'
 list.label_email: 'E-mail'
 form.label_page: 'Страница'
+

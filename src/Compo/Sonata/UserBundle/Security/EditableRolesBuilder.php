@@ -60,6 +60,7 @@ class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuil
                 continue;
             }
 
+
             $isMaster = $admin->isGranted('MASTER');
             $securityHandler = $admin->getSecurityHandler();
             // TODO get the base role from the admin or security handler
@@ -97,28 +98,11 @@ class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuil
                 continue;
             }
 
-            foreach ($items as $role) {
-                $information = $role;
+            foreach ($items as $role_item) {
 
-                $role_item = $role;
+                $role = sprintf($baseRole, $role_item);
 
-                $role_name = $baseRole;
-                $role_name = str_replace('_%s', '', $role_name);
-
-
-                $role = sprintf($baseRole, $role);
-
-                /*
-                if ($information === 'GUEST') {
-                    $role_label = $translator->trans($role_name) . ' - Просмотр';
-                } elseif ($information === 'STAFF') {
-                    $role_label = $translator->trans($role_name) . ' - Редактирование';
-                } elseif ($information === 'EDITOR') {
-                    $role_label = $translator->trans($role_name) . ' - Действия';
-                } elseif ($information === 'ADMIN') {
-                    $role_label = $translator->trans($role_name) . ' - Настройки';
-                }
-                */
+                dump($role);
 
                 $role_label = $translator->trans($admin->getLabel(), array(), $admin->getTranslationDomain())
                     . ' - '

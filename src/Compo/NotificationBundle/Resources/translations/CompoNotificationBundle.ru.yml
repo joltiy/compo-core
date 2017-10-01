@@ -36,3 +36,5 @@ form.label_settings_notification_email_account_default: "E-mail аккаунт �
 form.label_settings_notification_email_recipient_default: "E-mail адреса получателей уведомлений по умолчанию"
 
 compo_notification.test: "Тестовое уведомление"
+
+notifications: 'Уведомления'
