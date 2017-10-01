@@ -36,6 +36,10 @@ class CRUDController extends BaseCRUDController
 
     public function historyRevertAction($id, $revision)
     {
+        if (false === $this->admin->hasAccess('edit')) {
+            throw new AccessDeniedException();
+        }
+
         $id     = $this->getRequest()->get($this->admin->getIdParameter());
         $object = $this->admin->getObject($id);
 
@@ -93,7 +97,7 @@ class CRUDController extends BaseCRUDController
      */
     public function trashAction()
     {
-        if (false === $this->admin->isGranted('LIST')) {
+        if (false === $this->admin->isGranted('UNDELETE')) {
             throw new AccessDeniedException();
         }
 
@@ -117,6 +121,10 @@ class CRUDController extends BaseCRUDController
 
     public function untrashAction(Request $request, $id)
     {
+        if (false === $this->admin->hasAccess('undelete')) {
+            throw new AccessDeniedException();
+        }
+
         $em = $this->getDoctrine()->getManager();
         $em->getFilters()->disable('softdeleteable');
         $em->getFilters()->enable('softdeleteabletrash');
@@ -169,6 +177,9 @@ class CRUDController extends BaseCRUDController
      */
     public function settingsAction(Request $request, $namespace = null)
     {
+        if (false === $this->admin->hasAccess('settings')) {
+            throw new AccessDeniedException();
+        }
 
         if (null === $namespace) {
             $namespace = $this->admin->getSettingsNamespace();
@@ -245,6 +256,10 @@ class CRUDController extends BaseCRUDController
      */
     public function sortableAction()
     {
+        if (false === $this->admin->hasAccess('edit')) {
+            throw new AccessDeniedException();
+        }
+
         $request = $this->getRequest();
 
         $em = $this->getDoctrine()->getManager();
@@ -359,6 +374,9 @@ class CRUDController extends BaseCRUDController
      */
     public function moveAction(Request $request)
     {
+        if (false === $this->admin->hasAccess('edit')) {
+            throw new AccessDeniedException();
+        }
         if ($this->admin->treeEnabled) {
             if (false === $this->admin->isGranted('EDIT')) {
                 throw new AccessDeniedException();

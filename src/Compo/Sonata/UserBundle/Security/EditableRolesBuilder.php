@@ -23,6 +23,35 @@ class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuil
         $translator = $this->pool->getContainer()->get('translator');
 
 
+
+        $isMaster = $this->authorizationChecker->isGranted('ROLE_SUPER_ADMIN');
+
+        // get roles from the service container
+        foreach ($this->rolesHierarchy as $name => $rolesHierarchy) {
+            if ($isMaster || $this->authorizationChecker->isGranted($name)) {
+                $roles[$name] = $translator->trans($name, array(), 'messages');
+
+
+                foreach ($rolesHierarchy as $role) {
+                    if (!isset($roles[$role])) {
+
+                        if (!in_array($role, array(
+                            'ROLE_SONATA_ADMIN',
+                            'ROLE_USER',
+                            'ROLE_SONATA_MEDIA_ADMIN_MEDIA_LIST',
+                            'ROLE_SONATA_MEDIA_ADMIN_MEDIA_CREATE',
+                            'ROLE_SONATA_MEDIA_ADMIN_MEDIA_VIEW',
+                            'ROLE_SONATA_MEDIA_ADMIN_MEDIA_EDIT'
+                        ))) {
+
+                            $roles[$role] = $translator->trans($role, array(), 'messages');
+
+                        }
+                    }
+                }
+            }
+        }
+
         // get roles from the Admin classes
         foreach ($this->pool->getAdminServiceIds() as $id) {
             try {
@@ -41,16 +70,45 @@ class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuil
             }
 
 
-            foreach ($admin->getSecurityInformation() as $role => $permissions) {
+            //dump($admin); exit;
+
+            $items = array(
+                "LIST",
+                "VIEW",
+                "EDIT",
+                "CREATE",
+                "DELETE",
+                "UNDELETE",
+                "EXPORT",
+                "IMPORT",
+                "SETTINGS"
+            );
+
+            if (in_array($id, array(
+                'sonata.media.admin.media',
+                'sonata.media.admin.gallery',
+                'sonata.media.admin.gallery_has_media',
+                'sonata.page.admin.snapshot',
+                'sonata.page.admin.shared_block',
+                'sonata.dashboard.admin.dashboard',
+                'sonata.dashboard.admin.block'
+
+            ), true)) {
+                continue;
+            }
+
+            foreach ($items as $role) {
                 $information = $role;
+
+                $role_item = $role;
+
                 $role_name = $baseRole;
                 $role_name = str_replace('_%s', '', $role_name);
 
 
                 $role = sprintf($baseRole, $role);
 
-                $role_label = $role;
-
+                /*
                 if ($information === 'GUEST') {
                     $role_label = $translator->trans($role_name) . ' - Просмотр';
                 } elseif ($information === 'STAFF') {
@@ -60,7 +118,11 @@ class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuil
                 } elseif ($information === 'ADMIN') {
                     $role_label = $translator->trans($role_name) . ' - Настройки';
                 }
+                */
 
+                $role_label = $translator->trans($admin->getLabel(), array(), $admin->getTranslationDomain())
+                    . ' - '
+                    . $translator->trans('ROLE_' . $role_item, array(), $admin->getTranslationDomain());
 
                 if ($isMaster) {
                     // if the user has the MASTER permission, allow to grant access the admin roles to other users
@@ -75,20 +137,7 @@ class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuil
         }
 
 
-        $isMaster = $this->authorizationChecker->isGranted('ROLE_SUPER_ADMIN');
 
-        // get roles from the service container
-        foreach ($this->rolesHierarchy as $name => $rolesHierarchy) {
-            if ($isMaster || $this->authorizationChecker->isGranted($name)) {
-                $roles[$name] = $name . ': ' . implode(', ', $rolesHierarchy);
-
-                foreach ($rolesHierarchy as $role) {
-                    if (!isset($roles[$role])) {
-                        $roles[$role] = $role;
-                    }
-                }
-            }
-        }
 
         return array($roles, $rolesReadOnly);
     }

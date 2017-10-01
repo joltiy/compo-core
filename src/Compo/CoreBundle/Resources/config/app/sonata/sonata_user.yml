@@ -17,7 +17,7 @@ sonata_user:
         user:  Compo\Sonata\UserBundle\Entity\User
         group: Compo\Sonata\UserBundle\Entity\Group
 
-    security_acl:             true
+    security_acl:             false
 
     table:
         user_group:           fos_user_user_group

@@ -551,6 +551,10 @@
                  <target>Группы пользователей</target>
              </trans-unit>
 
+             <trans-unit id="Group">
+                 <source>Group</source>
+                 <target>Группа</target>
+             </trans-unit>
 
         </body>
     </file>

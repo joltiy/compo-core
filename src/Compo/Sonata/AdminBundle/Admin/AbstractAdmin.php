@@ -496,15 +496,17 @@ class AbstractAdmin extends BaseAdmin
     {
         if (!$childAdmin) {
             if ($this->getSubject() && $action !== 'create') {
-                $tabMenu->addChild(
-                    $this->trans('tab_menu.link_edit'),
-                    array(
-                        'uri' => $this->generateUrl('edit', array('id' => $this->getSubject()->getId()))
-                    )
-                )->setAttribute('icon', 'fa fa-pencil');
+                if ($this->hasAccess('edit', $this->getSubject())) {
+                    $tabMenu->addChild(
+                        $this->trans('tab_menu.link_edit'),
+                        array(
+                            'uri' => $this->generateUrl('edit', array('id' => $this->getSubject()->getId()))
+                        )
+                    )->setAttribute('icon', 'fa fa-pencil');
 
+                }
 
-                if ($this->hasRoute('history')) {
+                if ($this->hasAccess('edit', $this->getSubject()) && $this->hasRoute('history')) {
                     $tabMenu->addChild(
                         $this->trans('tab_menu.link_history'),
                         array('uri' => $this->generateUrl('history', array('id' => $this->getSubject()->getId())))
@@ -515,20 +517,21 @@ class AbstractAdmin extends BaseAdmin
             if (
                 $action !== 'edit' && $action !== 'history' && $action !== 'delete'
             ) {
+                if ($this->hasAccess('list')) {
+                    $tabMenu->addChild(
+                        $this->trans('tab_menu.link_list'),
+                        array('uri' => $this->generateUrl('list', array()))
+                    )->setAttribute('icon', 'fa fa-list');
+                }
 
-                $tabMenu->addChild(
-                    $this->trans('tab_menu.link_list'),
-                    array('uri' => $this->generateUrl('list', array()))
-                )->setAttribute('icon', 'fa fa-list');
-                if ($this->hasRoute('create')) {
+                if ($this->hasRoute('create') && $this->hasAccess('create')) {
                     $tabMenu->addChild(
                         $this->trans('tab_menu.link_create'),
                         array('uri' => $this->generateUrl('create', array()))
                     )->setAttribute('icon', 'fa fa-plus');
                 }
 
-
-                if ($this->hasRoute('trash')) {
+                if ($this->hasRoute('trash') && $this->hasAccess('undelete')) {
                     $tabMenu->addChild(
                         $this->trans('tab_menu.link_trash'),
                         array('uri' => $this->generateUrl('trash', array()))
@@ -544,14 +547,17 @@ class AbstractAdmin extends BaseAdmin
                 /** @var AdminInterface $child */
                 foreach ($children as $child) {
 
-                    $tabMenu->addChild(
-                        'tab_menu.link_list_' . $child->getLabel(),
-                        array(
-                            'label' => $this->trans('tab_menu.title_list', array('%name%' => $this->trans($child->getLabel()))),
+                    if ($child->hasAccess('list')) {
+                        $tabMenu->addChild(
+                            'tab_menu.link_list_' . $child->getLabel(),
+                            array(
+                                'label' => $this->trans('tab_menu.title_list', array('%name%' => $this->trans($child->getLabel()))),
 
-                            'uri' => $this->generateUrl($child->getBaseCodeRoute() . '.list', array('id' => $this->getSubject()->getId()))
-                        )
-                    )->setAttribute('icon', 'fa fa-list');
+                                'uri' => $this->generateUrl($child->getBaseCodeRoute() . '.list', array('id' => $this->getSubject()->getId()))
+                            )
+                        )->setAttribute('icon', 'fa fa-list');
+                    }
+
                     /*
                     $tabMenuDropdown = $tabMenu->addChild(
                         'tab_menu.' . $child->getLabel(),
@@ -582,12 +588,15 @@ class AbstractAdmin extends BaseAdmin
 
             if ($this->getSubject() && $action !== 'create' && $action !== 'list' && $action !== 'tree') {
 
-                $tabMenu->addChild(
-                    $this->trans('tab_menu.link_edit'),
-                    array('uri' => $childAdmin->generateUrl('edit', array('id' => $childAdmin->getSubject()->getId())))
-                )->setAttribute('icon', 'fa fa-pencil');
+                if ($childAdmin->hasAccess('edit', $childAdmin->getSubject())) {
+                    $tabMenu->addChild(
+                        $this->trans('tab_menu.link_edit'),
+                        array('uri' => $childAdmin->generateUrl('edit', array('id' => $childAdmin->getSubject()->getId())))
+                    )->setAttribute('icon', 'fa fa-pencil');
+                }
 
-                if ($childAdmin->hasRoute('history')) {
+
+                if ($childAdmin->hasRoute('history') && $childAdmin->hasAccess('edit', $childAdmin->getSubject())) {
                     $tabMenu->addChild(
                         $this->trans('tab_menu.link_history'),
                         array('uri' => $childAdmin->generateUrl('history', array('id' => $childAdmin->getSubject()->getId())))
@@ -597,12 +606,15 @@ class AbstractAdmin extends BaseAdmin
             }
 
             if ($action === 'create' || $action === 'tree' || $action === 'list' || $action === 'trash') {
-                $tabMenu->addChild(
-                    $this->trans('tab_menu.link_list'),
-                    array('uri' => $this->generateUrl($childAdmin->getBaseCodeRoute() . '.list', array('id' => $this->getSubject()->getId())))
-                )->setAttribute('icon', 'fa fa-list');
 
-                if ($this->hasRoute('create')) {
+                if ($childAdmin->hasAccess('list')) {
+                    $tabMenu->addChild(
+                        $this->trans('tab_menu.link_list'),
+                        array('uri' => $this->generateUrl($childAdmin->getBaseCodeRoute() . '.list', array('id' => $this->getSubject()->getId())))
+                    )->setAttribute('icon', 'fa fa-list');
+                }
+
+                if ($this->hasRoute('create') && $childAdmin->hasAccess('create')) {
                     $tabMenu->addChild(
                         $this->trans('tab_menu.link_create'),
                         array('uri' => $this->generateUrl($childAdmin->getBaseCodeRoute() . '.create', array('id' => $this->getSubject()->getId())))
@@ -619,6 +631,38 @@ class AbstractAdmin extends BaseAdmin
                 */
             }
         }
+    }
+
+    protected function getAccess()
+    {
+        $access = array_merge(array(
+            'acl' => 'MASTER',
+            'export' => 'EXPORT',
+            'historyCompareRevisions' => 'EDIT',
+            'historyViewRevision' => 'EDIT',
+            'history' => 'EDIT',
+            'edit' => 'EDIT',
+            'show' => 'VIEW',
+            'create' => 'CREATE',
+            'delete' => 'DELETE',
+            'batchDelete' => 'DELETE',
+            'list' => 'LIST',
+            'tree' => 'LIST',
+            'trash' => 'UNDELETE',
+            'undelete' => 'UNDELETE',
+
+            'settings' => 'SETTINGS',
+
+        ), $this->getAccessMapping());
+
+        foreach ($this->extensions as $extension) {
+            // TODO: remove method check in next major release
+            if (method_exists($extension, 'getAccessMapping')) {
+                $access = array_merge($access, $extension->getAccessMapping($this));
+            }
+        }
+
+        return $access;
     }
 
     /**

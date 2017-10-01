@@ -3,7 +3,16 @@
         <div class="user-roles-list">
             <div class="editable">
                 <h4>{{ 'field.label_roles_editable'|trans({}, "SonataUserBundle") }}</h4>
-                {{ block('choice_widget') }}
+                {% spaceless %}
+                    {% set attr = attr|merge({'class': attr.class|default('') ~ ' list-unstyled'}) %}
+                    <ul {{ block('widget_container_attributes') }}>
+                        {% for child in form %}
+                            <li>
+                                {{ form_widget(child, {'horizontal': false, 'horizontal_input_wrapper_class': ''}) }} {# {'horizontal': false, 'horizontal_input_wrapper_class': ''} needed to avoid MopaBootstrapBundle messing with the DOM #}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endspaceless %}
             </div>
             {% if read_only_choices|length > 0 %}
                 <div class="readonly">
