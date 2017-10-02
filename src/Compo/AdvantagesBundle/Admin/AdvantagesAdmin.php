@@ -34,7 +34,8 @@ class AdvantagesAdmin extends AbstractAdmin
         $listMapper
             ->add('id')
             ->addIdentifier('name')
-            ->add('description')
+            ->add('description', null, array(
+            ))
             ->add(
                 '_action'
             );

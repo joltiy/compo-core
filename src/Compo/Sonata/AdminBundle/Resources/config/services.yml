@@ -4,6 +4,12 @@ services:
         tags:
             - { name: sonata.admin.extension, global: true }
 
+    compo.sonata.admin.list_fields.extension:
+        class: Compo\Sonata\AdminBundle\Extension\ListFieldsExtension
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: sonata.admin.extension, global: true, priority: 200 }
+
     compo.sonata.admin.actions.extension:
         class: Compo\Sonata\AdminBundle\Extension\ActionsExtension
         tags:

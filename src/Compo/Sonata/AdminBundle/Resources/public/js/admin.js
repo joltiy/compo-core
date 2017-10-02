@@ -138,10 +138,75 @@ Admin.setup_icheck = function (subject) {
     }
 };
 
+Admin.add_list_fields = function(subject) {
+    Admin.log('[core|add_filters] configure filters on', subject);
+
+    jQuery('a.sonata-toggle-list-field', subject).click( function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        var item = $(this);
+
+        if (item.hasClass("required-list-field")) {
+            return false;
+        }
+
+        item.toggleClass('active');
+
+        if (item.hasClass("active")) {
+            item.find('.fa')
+                .removeClass('fa-square-o')
+                .addClass('fa-check-square-o')
+            ;
+        } else {
+            item.find('.fa')
+                .removeClass('fa-check-square-o')
+                .addClass('fa-square-o')
+            ;
+        }
+    });
+
+    jQuery('a.sonata-toggle-list-field-apply', subject).click( function(e) {
+        var item = $(this);
+
+        var items = item.parent().parent().find('.active');
+        var code = item.parent().parent().data('code');
+
+        var data = {
+            'code': code,
+            'fields': []
+        };
+
+        items.each(function () {
+            var el = $(this);
+
+            data.fields.push(el.data('field-name'));
+        });
+
+
+        $.ajax({
+            method: "POST",
+            url: Routing.generate('compo_core_update_user_settings'),
+            data: data
+        })
+        .done(function( msg ) {
+            window.location.reload();
+        });
+
+    });
+
+
+
+};
+
+
+
 Admin.shared_setup = function (subject) {
     Admin.log("[core|shared_setup] Register services on", subject);
     Admin.set_object_field_value(subject);
     Admin.add_filters(subject);
+    Admin.add_list_fields(subject);
+
     Admin.setup_select2(subject);
     Admin.setup_icheck(subject);
     Admin.setup_xeditable(subject);

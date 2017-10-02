@@ -11,3 +11,10 @@ sonata_media_pixlr:
 _sonata_admin:
     resource: .
     type:     sonata_admin
+
+compo_core_update_user_settings:
+    path: /admin/compo_core/update_user_settings
+    defaults: { _controller: "CompoCoreBundle:SettingsAdmin:updateUserSettings", _sonata_admin: 'compo_core.admin.settings' }
+    methods:  POST
+    options:
+        expose: true

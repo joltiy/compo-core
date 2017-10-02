@@ -7,7 +7,8 @@ doctrine:
         entity_managers:
             default:
                 mappings:
-                    CompoSonataUserBundle: ~
+                    CompoSonataUserBundle:
+                        type: annotation
                     SonataUserBundle: ~
                     FOSUserBundle: ~
 

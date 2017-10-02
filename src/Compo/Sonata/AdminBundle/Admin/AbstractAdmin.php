@@ -69,7 +69,16 @@ class AbstractAdmin extends BaseAdmin
 
     protected $propertiesEnabled = true;
 
+    protected $listFields = array();
 
+
+    public function isRequiredListField($name) {
+        if (in_array($name, array('batch', 'id', 'name', '_action'))) {
+            return true;
+        }
+
+        return false;
+    }
 
     /**
      * @return bool
@@ -489,6 +498,13 @@ class AbstractAdmin extends BaseAdmin
         $this->setTemplate('button_show_on_site', 'CompoSonataAdminBundle:Button:show_on_site_button.html.twig');
         $this->setTemplate('button_settings', 'CompoSonataAdminBundle:Button:settings_button.html.twig');
         $this->setTemplate('button_tree', 'CompoSonataAdminBundle:Button:tree_button.html.twig');
+
+
+
+
+
+
+
 
         parent::initialize();
     }

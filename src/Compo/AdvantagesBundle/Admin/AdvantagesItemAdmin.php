@@ -79,7 +79,9 @@ class AdvantagesItemAdmin extends AbstractAdmin
         $listMapper
             ->add('id')
             ->addIdentifier('name')
-            ->add('url')
+            ->add('url', null, array(
+                'default' => false
+            ))
             ->add('enabled')
             ->add('_action');
     }
