@@ -572,7 +572,6 @@ class AbstractAdmin extends BaseAdmin
 
 
             if ($this->getSubject() && $action !== 'create') {
-                $children = $this->getChildren();
 
                 if ($this->hasRoute('clone') && $this->hasAccess('create')) {
 
@@ -581,6 +580,7 @@ class AbstractAdmin extends BaseAdmin
                         array('uri' => $this->generateUrl('clone', array('id' => $this->getSubject()->getId())))
                     )->setAttribute('icon', 'fa fa-copy');
                 }
+                $children = $this->getChildren();
 
                 /** @var AdminInterface $child */
                 foreach ($children as $child) {
@@ -630,6 +630,8 @@ class AbstractAdmin extends BaseAdmin
                 }
             }
         } else {
+
+
 
             if ($this->getSubject() && $action !== 'create' && $action !== 'list' && $action !== 'tree' && $action !== 'trash' && $action !== 'untrash') {
 
@@ -682,6 +684,52 @@ class AbstractAdmin extends BaseAdmin
                 }
 
             }
+
+
+
+            $children = $childAdmin->getChildren();
+
+            /** @var AdminInterface $child */
+            foreach ($children as $child) {
+                continue;
+                if ($child->hasAccess('list')) {
+                    $tabMenu->addChild(
+                        'tab_menu.link_list_' . $child->getLabel(),
+                        array(
+                            'label' => $this->trans('tab_menu.title_list', array('%name%' => $this->trans($child->getLabel()))),
+
+                            'uri' => $child->generateUrl('list', array('id' => $childAdmin->getSubject()->getId()))
+                        )
+                    )->setAttribute('icon', 'fa fa-list');
+                }
+
+                /*
+                $tabMenuDropdown = $tabMenu->addChild(
+                    'tab_menu.' . $child->getLabel(),
+                    array(
+                        'label' => $this->trans('tab_menu.title_list', array('%name%' => $this->trans($child->getLabel()))),
+                        'attributes' => array('dropdown' => true),
+                    )
+                );
+
+                $tabMenuDropdown->addChild(
+                    $this->trans('tab_menu.link_list'),
+                    array('uri' => $this->generateUrl($child->getBaseCodeRoute() . '.list', array('id' => $this->getSubject()->getId())))
+                );
+
+                $tabMenuDropdown->addChild(
+                    $this->trans('tab_menu.link_create'),
+                    array('uri' => $this->generateUrl($child->getBaseCodeRoute() . '.create', array('id' => $this->getSubject()->getId())))
+                );
+
+                $tabMenuDropdown->addChild(
+                    $this->trans('tab_menu.link_trash'),
+                    array('uri' => $this->generateUrl($child->getBaseCodeRoute() . '.trash', array('id' => $this->getSubject()->getId())))
+                );
+                */
+            }
+
+
         }
     }
 
