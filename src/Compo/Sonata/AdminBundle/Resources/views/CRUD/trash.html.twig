@@ -2,8 +2,9 @@
 
 {% block navbar_title %}
     {% if admin.isChild() %}
-        {% set title_list = "tab_menu.title_" ~ admin.getParent().label ~ '_' ~ admin.label ~ '_trash' %}
-        {{ title_list|trans({'%name%': admin.getParent().subject}, admin.translationDomain) }}
+        {% set title_trash = "tab_menu.title_trash" %}
+
+        {{ title_trash|trans({'%name%': admin.getParent().subject}, admin.translationDomain) }}
     {% else %}
         {% set title_trash = "tab_menu.title_trash" %}
         {% set title_trash_name = admin.label|trans({}, admin.translationDomain) %}

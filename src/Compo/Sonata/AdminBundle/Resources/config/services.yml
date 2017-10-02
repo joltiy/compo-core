@@ -4,10 +4,20 @@ services:
         tags:
             - { name: sonata.admin.extension, global: true }
 
+    compo.sonata.admin.actions.extension:
+        class: Compo\Sonata\AdminBundle\Extension\ActionsExtension
+        tags:
+            - { name: sonata.admin.extension, global: true, priority: 22 }
+
+    compo.sonata.admin.extension.position:
+        class: Compo\Sonata\AdminBundle\Extension\PositionExtension
+        tags:
+            - { name: sonata.admin.extension, global: true, priority: 21 }
+
     compo.sonata.admin.sortable.extension:
         class: Compo\Sonata\AdminBundle\Extension\SortableExtension
         tags:
-            - { name: sonata.admin.extension, global: true }
+            - { name: sonata.admin.extension, global: true, priority: 10 }
 
     compo.sonata.admin.alias.extension:
         class: Compo\Sonata\AdminBundle\Extension\AliasExtension
@@ -43,9 +53,6 @@ services:
         class: Compo\Sonata\AdminBundle\Extension\ViewsExtension
         tags:
             - { name: sonata.admin.extension, global: true }
-
-    compo.sonata.admin.extension.position:
-        class: Compo\Sonata\AdminBundle\Extension\PositionExtension
 
     compo.sonata.admin.extension.id:
         class: Compo\Sonata\AdminBundle\Extension\IdExtension

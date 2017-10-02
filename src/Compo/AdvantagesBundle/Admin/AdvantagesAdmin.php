@@ -36,15 +36,7 @@ class AdvantagesAdmin extends AbstractAdmin
             ->addIdentifier('name')
             ->add('description')
             ->add(
-                '_action',
-                'actions',
-                array(
-                    'actions' => array(
-                        'edit' => array(),
-                        'list' => array('route' => 'compo_advantages.admin.advantages_item.list'),
-                        'delete' => array(),
-                    ),
-                )
+                '_action'
             );
     }
 

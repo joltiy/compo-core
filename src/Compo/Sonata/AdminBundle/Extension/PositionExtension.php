@@ -18,10 +18,13 @@ class PositionExtension extends AbstractAdminExtension
      */
     public function alterNewInstance(AdminInterface $admin, $object)
     {
-        /** @var AbstractAdmin $admin */
-        $last_position = $admin->getConfigurationPool()->getContainer()->get('pix_sortable_behavior.position')->getLastPosition($admin->getRoot()->getClass());
+        if (isset($admin->positionEnabled) && $admin->positionEnabled) {
+            /** @var AbstractAdmin $admin */
+            $last_position = $admin->getConfigurationPool()->getContainer()->get('pix_sortable_behavior.position')->getLastPosition($admin->getRoot()->getClass());
 
-        $object->setPosition($last_position);
+            $object->setPosition($last_position);
+        }
+
     }
 
     /**
@@ -29,10 +32,12 @@ class PositionExtension extends AbstractAdminExtension
      */
     public function configureRoutes(AdminInterface $admin, RouteCollection $collection)
     {
-        //$collection->add('move', $admin->getRouterIdParameter() . '/move/{position}');
+        if (isset($admin->positionEnabled) && $admin->positionEnabled) {
 
-        $collection->add('sortable', 'sortable', array('_controller' => $admin->getBaseControllerName() . ':sortable'));
+            //$collection->add('move', $admin->getRouterIdParameter() . '/move/{position}');
 
+            $collection->add('sortable', 'sortable', array('_controller' => $admin->getBaseControllerName() . ':sortable'));
+        }
     }
 
     /**
@@ -40,15 +45,18 @@ class PositionExtension extends AbstractAdminExtension
      */
     public function configureListFields(ListMapper $listMapper)
     {
-        $_action = $listMapper->get('_action');
+        if (isset($listMapper->getAdmin()->positionEnabled) && $listMapper->getAdmin()->positionEnabled) {
 
-        if (null !== $_action) {
-            $options = $_action->getOptions();
+            $_action = $listMapper->get('_action');
 
-            //$options['actions']['move'] = array('template' => 'PixSortableBehaviorBundle:Default:_sort.html.twig');
-            $options['actions']['sortable'] = array('template' => 'CompoSonataAdminBundle:Button:_sort.html.twig');
+            if (null !== $_action) {
+                $options = $_action->getOptions();
 
-            $_action->setOptions($options);
+                //$options['actions']['move'] = array('template' => 'PixSortableBehaviorBundle:Default:_sort.html.twig');
+                $options['actions']['sortable'] = array('template' => 'CompoSonataAdminBundle:Button:_sort.html.twig');
+
+                $_action->setOptions($options);
+            }
         }
     }
 }

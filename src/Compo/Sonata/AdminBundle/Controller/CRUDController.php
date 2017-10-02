@@ -33,6 +33,40 @@ class CRUDController extends BaseCRUDController
      */
     protected $admin;
 
+    /**
+     * @return RedirectResponse
+     */
+    public function cloneAction()
+    {
+        $object = $this->admin->getSubject();
+
+        if (false === $this->admin->hasAccess('edit')) {
+            throw new AccessDeniedException();
+        }
+
+        if (false === $this->admin->hasAccess('create')) {
+            throw new AccessDeniedException();
+        }
+
+        if (!$object) {
+            throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', 0));
+        }
+
+        $clonedObject = clone $object;
+
+        $clonedObject->setName($object->getName() . ' (Копия)');
+
+        $clonedObject->setId(null);
+
+        $this->admin->create($clonedObject);
+
+        $this->addFlash('sonata_flash_success', 'Создана копия');
+
+        return new RedirectResponse($this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters())));
+
+        // if you have a filtered list and want to keep your filters after the redirect
+        // return new RedirectResponse($this->admin->generateUrl('list', $this->admin->getFilterParameters()));
+    }
 
     public function historyRevertAction($id, $revision)
     {
@@ -95,15 +129,33 @@ class CRUDController extends BaseCRUDController
      *
      * @return Response
      */
-    public function trashAction()
+    public function trashAction(Request $request)
     {
         if (false === $this->admin->isGranted('UNDELETE')) {
             throw new AccessDeniedException();
         }
 
-        $em = $this->getDoctrine()->getManager();
-        $em->getFilters()->disable('softdeleteable');
-        $em->getFilters()->enable('softdeleteabletrash');
+        if ($this->admin->getParent()) {
+            $em = $this->admin->getModelManager()->getEntityManager($this->admin->getClass());
+
+            $em->getFilters()->enable('softdeleteable');
+            $em->getFilters()->enable('softdeleteabletrash');
+
+            $em->getFilters()->getFilter('softdeleteable')->enableForEntity($this->admin->getParent()->getClass());
+            $em->getFilters()->getFilter('softdeleteabletrash')->disableForEntity($this->admin->getParent()->getClass());
+
+            $em->getFilters()->getFilter('softdeleteable')->disableForEntity($this->admin->getClass());
+
+
+
+        } else {
+            $em = $this->admin->getModelManager()->getEntityManager($this->admin->getClass());
+
+            if ($em->getFilters()->isEnabled('softdeleteable')) {
+                $em->getFilters()->disable('softdeleteable');
+                $em->getFilters()->enable('softdeleteabletrash');
+            }
+        }
 
         $datagrid = $this->admin->getDatagrid();
         $formView = $datagrid->getForm()->createView();
@@ -126,8 +178,29 @@ class CRUDController extends BaseCRUDController
         }
 
         $em = $this->getDoctrine()->getManager();
-        $em->getFilters()->disable('softdeleteable');
-        $em->getFilters()->enable('softdeleteabletrash');
+
+        if ($this->admin->getParent()) {
+            $em = $this->admin->getModelManager()->getEntityManager($this->admin->getClass());
+
+            $em->getFilters()->enable('softdeleteable');
+            $em->getFilters()->enable('softdeleteabletrash');
+
+            $em->getFilters()->getFilter('softdeleteable')->enableForEntity($this->admin->getParent()->getClass());
+            $em->getFilters()->getFilter('softdeleteabletrash')->disableForEntity($this->admin->getParent()->getClass());
+
+            $em->getFilters()->getFilter('softdeleteable')->disableForEntity($this->admin->getClass());
+
+
+
+        } else {
+            $em = $this->admin->getModelManager()->getEntityManager($this->admin->getClass());
+
+            if ($em->getFilters()->isEnabled('softdeleteable')) {
+                $em->getFilters()->disable('softdeleteable');
+                $em->getFilters()->enable('softdeleteabletrash');
+            }
+        }
+
 
         $id     = $request->get($this->admin->getIdParameter());
         $object = $this->admin->getObject($id);

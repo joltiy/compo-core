@@ -5,11 +5,13 @@ namespace Compo\ArticlesBundle\Admin;
 use Compo\ArticlesBundle\Entity\Articles;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
+use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
+use Knp\Menu\ItemInterface as MenuItemInterface;
 
 /**
  * {@inheritDoc}
@@ -23,30 +25,6 @@ class ArticlesAdmin extends AbstractAdmin
     {
         $this->setSortBy('publicationAt');
         $this->setSortOrder('DESC');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function configureActionButtons($action, $object = null)
-    {
-        $list = array();
-
-        if (in_array($action, array('history', 'acl', 'show', 'delete', 'edit'), true)) {
-            $list['show_on_site'] = array(
-                'template' => $this->getTemplate('button_show_on_site'),
-                'uri' => $this->generatePermalink($this->getSubject())
-            );
-        } else {
-            $list['show_on_site'] = array(
-                'template' => $this->getTemplate('button_show_on_site'),
-                'uri' => $this->generatePermalink()
-            );
-        }
-
-        $list = array_merge($list, parent::configureActionButtons($action, $object));
-
-        return $list;
     }
 
     /**
@@ -89,17 +67,7 @@ class ArticlesAdmin extends AbstractAdmin
             ->addIdentifier('publicationAt')
             ->addIdentifier('name')
             ->add('enabled')
-            ->add(
-                '_action',
-                null,
-                array(
-                    'actions' => array(
-                        'edit' => array(),
-                        'delete' => array(),
-                        'show_on_site' => array(),
-                    )
-                )
-            );
+            ->add('_action');
     }
 
     /**
@@ -116,7 +84,7 @@ class ArticlesAdmin extends AbstractAdmin
             ->add('views')
             ->add('name')
             ->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false))
-            ->add('body', SimpleFormatterType::class, array('required' => false, 'format' => 'richhtml', 'ckeditor_context' => 'default'))
+            ->add('body', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false))
             ->end()
             ->end();
 

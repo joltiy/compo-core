@@ -1,10 +1,32 @@
 {% extends base_template %}
 
-{% block actions %}
-    <li>{% include 'SonataAdminBundle:Button:list_button.html.twig' %}</li>
+{%- block actions -%}
+    {% include 'SonataAdminBundle:CRUD:action_buttons.html.twig' %}
+{%- endblock -%}
+
+{% block tab_menu %}{{ knp_menu_render(admin.sidemenu('trash'), {'currentClass' : 'active', 'template': sonata_admin.adminPool.getTemplate('tab_menu_template')}, 'twig') }}{% endblock %}
+
+{% block title %}
+    {% if admin.id(object) is not null %}
+        {% set title_edit = "tab_menu.title_untrash" %}
+        {{ title_edit|trans({'%name%': admin.subject }, admin.translationDomain) }}
+    {% else %}
+        {% set title_create = "tab_menu.title_untrash" %}
+        {% set title_create_name = admin.label|trans({}, admin.translationDomain) %}
+
+        {% if admin.isChild() %}
+            {{ title_create|trans({'%name%': admin.getParent().subject}, admin.translationDomain) }}
+        {% else %}
+            {{ title_create|trans({'%name%': title_create_name}, admin.translationDomain) }}
+
+        {% endif %}
+
+    {% endif %}
 {% endblock %}
 
-{% block tab_menu %}{{ knp_menu_render(admin.sidemenu(action), {'currentClass' : 'active'}, 'list') }}{% endblock %}
+{% block navbar_title %}
+    {{ block('title') }}
+{% endblock %}
 
 {% block content %}
     <div class="sonata-ba-delete">

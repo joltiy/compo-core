@@ -352,6 +352,7 @@ breadcrumb.link_create: "Создать"
 breadcrumb.link_trash: "Корзина"
 breadcrumb.link_tree: "%name%"
 breadcrumb.link_settings: "Настройки"
+tab_menu.title_untrash: "%name%"
 
 form.group_media_image: 'Изображение'
 form.group_media_images_additional: 'Дополнительные изображения'
@@ -397,3 +398,13 @@ ROLE_USER: 'Пользователь'
 ROLE_SONATA_ADMIN: 'Администратор (админки)'
 ROLE_SUPER_ADMIN: 'Администратор (супер)'
 SONATA: 'Админка'
+
+title_restore: 'Восстановить'
+message_restore_confirmation: 'Восстановить элемент?'
+btn_restore: 'Восстановить'
+restore_or: ' или '
+link_action_trash: 'Вернуться в корзину'
+flash_untrash_successfull: 'Элемент успешно восстановлен'
+
+
+tab_menu.link_clone: 'Клонировать'

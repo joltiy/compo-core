@@ -548,3 +548,19 @@ th.sonata-ba-list-field-header-datetime {
         padding-right: 0;
     }
 }
+.sonata-link-identifier-child-list {
+    float: right;
+}
+
+.sonata-link-identifier-child {
+    opacity: 0;
+    margin-left: 3px;
+}
+
+.sonata-ba-list-field:hover .sonata-link-identifier-child {
+    opacity: 0.7;
+}
+
+.sonata-ba-list-field:hover .sonata-link-identifier-child:hover {
+    opacity: 1;
+}

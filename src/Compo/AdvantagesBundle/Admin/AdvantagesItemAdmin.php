@@ -81,16 +81,7 @@ class AdvantagesItemAdmin extends AbstractAdmin
             ->addIdentifier('name')
             ->add('url')
             ->add('enabled')
-            ->add(
-                '_action',
-                null,
-                array(
-                    'actions' => array(
-                        'edit' => array(),
-                        'delete' => array(),
-                    ),
-                )
-            );
+            ->add('_action');
     }
 
     /**

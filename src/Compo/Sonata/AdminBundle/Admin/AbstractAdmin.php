@@ -69,6 +69,8 @@ class AbstractAdmin extends BaseAdmin
 
     protected $propertiesEnabled = true;
 
+
+
     /**
      * @return bool
      */
@@ -215,7 +217,7 @@ class AbstractAdmin extends BaseAdmin
                 '_sort_by' => 'position',
             );
 
-            $this->addExtension($this->getConfigurationPool()->getContainer()->get('compo.sonata.admin.extension.position'));
+            //$this->addExtension($this->getConfigurationPool()->getContainer()->get('compo.sonata.admin.extension.position'));
         }
     }
 
@@ -360,6 +362,8 @@ class AbstractAdmin extends BaseAdmin
      */
     public function configureActionButtons($action, $object = null)
     {
+        return array();
+
         $list = array();
 
         if (in_array($action, array('create', 'acl', 'trash', 'history', 'tree', 'show', 'edit', 'delete', 'list', 'batch', 'settings'), true)
@@ -503,8 +507,9 @@ class AbstractAdmin extends BaseAdmin
                             'uri' => $this->generateUrl('edit', array('id' => $this->getSubject()->getId()))
                         )
                     )->setAttribute('icon', 'fa fa-pencil');
-
                 }
+
+
 
                 if ($this->hasAccess('edit', $this->getSubject()) && $this->hasRoute('history')) {
                     $tabMenu->addChild(
@@ -512,6 +517,8 @@ class AbstractAdmin extends BaseAdmin
                         array('uri' => $this->generateUrl('history', array('id' => $this->getSubject()->getId())))
                     )->setAttribute('icon', 'fa fa-archive');
                 }
+
+
             }
 
             if (
@@ -524,12 +531,6 @@ class AbstractAdmin extends BaseAdmin
                     )->setAttribute('icon', 'fa fa-list');
                 }
 
-                if ($this->hasRoute('create') && $this->hasAccess('create')) {
-                    $tabMenu->addChild(
-                        $this->trans('tab_menu.link_create'),
-                        array('uri' => $this->generateUrl('create', array()))
-                    )->setAttribute('icon', 'fa fa-plus');
-                }
 
                 if ($this->hasRoute('trash') && $this->hasAccess('undelete')) {
                     $tabMenu->addChild(
@@ -538,11 +539,32 @@ class AbstractAdmin extends BaseAdmin
                     )->setAttribute('icon', 'fa fa-trash');
                 }
 
+                if ($this->hasRoute('create') && $this->hasAccess('create')) {
+                    $tabMenu->addChild(
+                        $this->trans('tab_menu.link_create'),
+                        array('uri' => $this->generateUrl('create', array()))
+                    )->setAttribute('icon', 'fa fa-plus');
+                }
+
+                if (method_exists($this, 'generatePermalink') && $this->generatePermalink()) {
+                    $tabMenu->addChild(
+                        $this->trans('tab_menu.link_show_on_site'),
+                        array('uri' => $this->generatePermalink(), 'linkAttributes' => array('target' => '_blank'))
+                    )->setAttribute('icon', 'fa fa-eye');
+                }
             }
 
 
             if ($this->getSubject() && $action !== 'create') {
                 $children = $this->getChildren();
+
+                if ($this->hasRoute('clone') && $this->hasAccess('create')) {
+
+                    $tabMenu->addChild(
+                        $this->trans('tab_menu.link_clone'),
+                        array('uri' => $this->generateUrl('clone', array('id' => $this->getSubject()->getId())))
+                    )->setAttribute('icon', 'fa fa-copy');
+                }
 
                 /** @var AdminInterface $child */
                 foreach ($children as $child) {
@@ -583,10 +605,17 @@ class AbstractAdmin extends BaseAdmin
                     );
                     */
                 }
+
+                if (method_exists($this, 'generatePermalink') && $this->generatePermalink($this->getSubject())) {
+                    $tabMenu->addChild(
+                        $this->trans('tab_menu.link_show_on_site'),
+                        array('uri' => $this->generatePermalink($this->getSubject()), 'linkAttributes' => array('target' => '_blank'))
+                    )->setAttribute('icon', 'fa fa-eye');
+                }
             }
         } else {
 
-            if ($this->getSubject() && $action !== 'create' && $action !== 'list' && $action !== 'tree') {
+            if ($this->getSubject() && $action !== 'create' && $action !== 'list' && $action !== 'tree' && $action !== 'trash' && $action !== 'untrash') {
 
                 if ($childAdmin->hasAccess('edit', $childAdmin->getSubject())) {
                     $tabMenu->addChild(
@@ -603,9 +632,17 @@ class AbstractAdmin extends BaseAdmin
                     )->setAttribute('icon', 'fa fa-archive');
                 }
 
+                if ($childAdmin->hasRoute('clone') && $childAdmin->hasAccess('create')) {
+
+                    $tabMenu->addChild(
+                        $this->trans('tab_menu.link_clone'),
+                        array('uri' => $childAdmin->generateUrl('clone', array('id' => $childAdmin->getSubject()->getId())))
+                    )->setAttribute('icon', 'fa fa-copy');
+                }
+
             }
 
-            if ($action === 'create' || $action === 'tree' || $action === 'list' || $action === 'trash') {
+            if ($action === 'create' || $action === 'tree' || $action === 'list' || $action === 'trash' || $action === 'untrash') {
 
                 if ($childAdmin->hasAccess('list')) {
                     $tabMenu->addChild(
@@ -621,14 +658,13 @@ class AbstractAdmin extends BaseAdmin
                     )->setAttribute('icon', 'fa fa-plus');
                 }
 
-                /*
                 if ($childAdmin->hasRoute('trash')) {
                     $tabMenu->addChild(
                         $this->trans('tab_menu.link_trash'),
                         array('uri' => $this->generateUrl($childAdmin->getBaseCodeRoute() . '.trash', array('id' => $this->getSubject()->getId())))
-                    );
+                    )->setAttribute('icon', 'fa fa-trash');
                 }
-                */
+
             }
         }
     }
@@ -671,6 +707,8 @@ class AbstractAdmin extends BaseAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);
+
+        $collection->add('clone', $this->getRouterIdParameter() . '/clone');
 
         //if ($this->manager->hasReader($this->getClass())) {
         $collection->add('history_revert', $this->getRouterIdParameter() . '/history/{revision}/revert');

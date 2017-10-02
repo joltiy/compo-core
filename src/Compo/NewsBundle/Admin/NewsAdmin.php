@@ -117,7 +117,7 @@ class NewsAdmin extends AbstractAdmin
             ->add('views')
             ->add('name')
             ->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false))
-            ->add('body', SimpleFormatterType::class, array('required' => false, 'format' => 'richhtml', 'ckeditor_context' => 'default'));
+            ->add('body', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false));
 
         /** @var QueryBuilder $tagsQb */
         $tagsQb = $this->getDoctrine()->getManager()->createQueryBuilder('c');
