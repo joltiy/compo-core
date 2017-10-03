@@ -265,11 +265,10 @@ file that was distributed with this source code.
                 <ul class="dropdown-menu" role="menu" data-code="{{ admin.code }}">
                     {% for listField in admin.list.elements %}
                         {% set listFieldActive = listField.options.active %}
-                        {% set listFieldRequired = ((admin.isRequiredListField(listField.name))) %}
 
-                        {% if not listFieldRequired %}
+                        {% if listField.name != 'batch' and listField.name != 'id' and listField.name != 'name' and listField.name != '_action' %}
                             <li>
-                                <a href="#" class="sonata-toggle-list-field sonata-ba-action {{ (listFieldActive) ? 'active' : '' }} {{ (listFieldRequired) ? 'required-list-field' : '' }}" data-field-name="{{ listField.name  }}">
+                                <a href="#" class="sonata-toggle-list-field sonata-ba-action {{ (listFieldActive) ? 'active' : '' }}" data-field-name="{{ listField.name  }}">
                                     <i class="fa {{ (listFieldActive) ? 'fa-check-square-o' : 'fa-square-o' }}"></i>{{ listField.options.label|trans({}, listField.options.translationDomain|default(admin.translationDomain) ?: admin.translationDomain) }}
                                 </a>
                             </li>

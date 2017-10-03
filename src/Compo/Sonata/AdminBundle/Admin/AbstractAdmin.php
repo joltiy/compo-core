@@ -85,13 +85,7 @@ class AbstractAdmin extends BaseAdmin
         ),
     );
 
-    public function isRequiredListField($name) {
-        if (in_array($name, array('batch', 'id', 'name', '_action'))) {
-            return true;
-        }
 
-        return false;
-    }
 
     /**
      * @return bool
