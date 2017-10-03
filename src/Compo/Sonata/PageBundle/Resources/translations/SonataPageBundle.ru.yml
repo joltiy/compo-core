@@ -62,3 +62,5 @@ tab_menu.title_page_edit: 'Страница: %name%'
 shared_block: 'Блок (расширенный)'
 block: 'Страницы (блок)'
 snapshot: 'Страницы (снапшот)'
+
+header.switch_user_exit: 'Развоплотиться'
