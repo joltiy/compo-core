@@ -353,9 +353,9 @@ $(document).ready(function () {
 
 
     $('.product-catalog-tree li').each(function () {
-        var badge = $('.badge', this);
+        var badge = $('.badge-count', this);
 
-        var badge_first = $('.badge', this).first();
+        var badge_first = $('.badge-count', this).first();
 
         var count = 0;
 

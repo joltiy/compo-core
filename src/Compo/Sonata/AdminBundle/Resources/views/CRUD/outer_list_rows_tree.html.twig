@@ -16,6 +16,7 @@ This template can be customized to match your needs. You should only extends the
     - sonata_mosaic_description
 -->
 
+
 {% import _self as tree %}
 
 {% macro renderNodes(nodesList, admin, lvl) %}
@@ -51,23 +52,20 @@ This template can be customized to match your needs. You should only extends the
                     <a href="{{ admin.routeGenerator.generateUrl(admin, 'edit', { id: node.id} ) }}">{{ node.name }}</a>
 
                     <div class="pull-right">
-                        <a class="btn btn-sm btn-default"
-                           href="{{ admin.routeGenerator.generateUrl(admin, 'create', { parentId: node.id} ) }}"
-                        >
-                            <i class="fa fa-plus"></i>
-                        </a>
 
-                        <a class="btn btn-sm btn-default"
-                           href="{{ admin.routeGenerator.generateUrl(admin, 'edit', { id: node.id} ) }}"
-                        >
-                            <i class="fa fa-pencil"></i>
-                        </a>
+                        {% set object = node.node %}
+                        {% for field_description in admin.list.elements if field_description.getOption('active') %}
+                            {% if field_description.name == '_action' %}
 
-                        <a class="btn btn-sm btn-default"
-                           href="{{ admin.routeGenerator.generateUrl(admin, 'delete', { id: node.id} ) }}"
-                        >
-                            <i class="fa fa-times"></i>
-                        </a>
+                                <div class="btn-group">
+                                    {% for actions in field_description.options.actions %}
+                                        {% include actions.template %}
+                                    {% endfor %}
+                                </div>
+
+                            {% endif %}
+                        {% endfor %}
+
                     </div>
                 </div>
 

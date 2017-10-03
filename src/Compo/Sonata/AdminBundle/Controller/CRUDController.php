@@ -637,7 +637,7 @@ class CRUDController extends BaseCRUDController
         /** @var NestedTreeRepository $repo */
         $repo = $em->getRepository($this->admin->getClass());
 
-        return $repo->childrenHierarchy();
+        return $repo->childrenHierarchyWithNodes();
     }
 
     /**
