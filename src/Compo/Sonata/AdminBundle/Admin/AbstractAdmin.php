@@ -4,11 +4,13 @@
 namespace Compo\Sonata\AdminBundle\Admin;
 
 use Doctrine\Common\Cache\Cache;
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\QueryBuilder;
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use Sonata\AdminBundle\Admin\AbstractAdmin as BaseAdmin;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\DoctrineORMAdminBundle\Model\ModelManager;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
@@ -186,7 +188,26 @@ class AbstractAdmin extends BaseAdmin
     {
         $this->parentAssociationMapping = $parentAssociationMapping;
     }
+    public function getParentAssociationMapping()
+    {
+        $mm = $this->getModelManager();
+        if ($mm instanceof ModelManager) {
+            // Get associations from this entity to the parent entity (if any)
+            $associations = $mm->getMetadata($this->getClass())
+                ->getAssociationsByTargetClass($this->getParent()->getClass());
+            foreach ($associations as $association) {
+                // When this admin is child the association must be of the following types
+                switch ($association['type']) {
+                    case ClassMetadataInfo::MANY_TO_ONE:
+                    case ClassMetadataInfo::ONE_TO_ONE:
+                        return $association['fieldName'];
+                    break;
+                }
+            }
+        }
 
+        return null;
+    }
     /**
      * @return array
      */
