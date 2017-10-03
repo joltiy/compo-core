@@ -497,7 +497,13 @@ $(document).ready(function () {
         fillmanufactureCollection();
     });
 
-    fillmanufactureCollection();
+
+    // $("select.manufactureCollection-select2 option:selected")
+
+
+
+
+    //fillmanufactureCollection();
 
 
     CodeMirror.defineMode("htmltwig", function (config, parserConfig) {

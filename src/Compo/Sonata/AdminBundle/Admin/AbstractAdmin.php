@@ -188,6 +188,7 @@ class AbstractAdmin extends BaseAdmin
     {
         $this->parentAssociationMapping = $parentAssociationMapping;
     }
+
     public function getParentAssociationMapping()
     {
         $mm = $this->getModelManager();
