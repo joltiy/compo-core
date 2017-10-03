@@ -230,7 +230,7 @@ file that was distributed with this source code.
 
 {% block list_filters_actions %}
     {%- if admin.datagrid.filters|length %}
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right {% if admin.getListMode() == 'tree' %}hide{% endif %}">
 
             <li class="dropdown sonata-actions">
                 <a href="#" class="dropdown-toggle sonata-ba-action" data-toggle="dropdown">
@@ -254,7 +254,7 @@ file that was distributed with this source code.
 
     {# @var admin \Sonata\AdminBundle\Admin\AbstractAdmin #}
     {%- if admin.list.elements|length %}
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right {% if admin.getListMode() == 'tree' %}hide{% endif %}">
 
             <li class="dropdown sonata-actions">
                 <a href="#" class="dropdown-toggle sonata-ba-action" data-toggle="dropdown">

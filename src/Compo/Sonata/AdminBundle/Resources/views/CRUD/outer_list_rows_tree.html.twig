@@ -1,6 +1,20 @@
-{# COMPO Отрисовка дерева, сортировка drag&drop #}
+{#
 
-{% extends 'CompoSonataAdminBundle:CRUD:list.html.twig' %}
+This file is part of the Sonata package.
+
+(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
+<!--
+This template can be customized to match your needs. You should only extends the template and used the differents block to customize the view:
+    - sonata_mosaic_default_view
+    - sonata_mosaic_hover_view
+    - sonata_mosaic_description
+-->
 
 {% import _self as tree %}
 
@@ -65,16 +79,16 @@
     </ul>
 {% endmacro %}
 
+<tr>
+    <td colspan="{{ admin.list.elements|length - (app.request.isXmlHttpRequest ? (admin.list.has('_action') + admin.list.has('batch')) : 0) }}">
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
 
+                        <div class="tree">
+                            {{ tree.renderNodes(nodes, admin, 0) }}
+                        </div>
 
-{% block list_table %}
-    <div class="col-xs-12 col-md-12">
-        <div class="box box-primary">
-            <div class="box-content">
-                <div class="tree">
-                    {{ tree.renderNodes(nodes, admin, 0) }}
-                </div>
             </div>
         </div>
-    </div>
-{% endblock %}
+    </td>
+</tr>

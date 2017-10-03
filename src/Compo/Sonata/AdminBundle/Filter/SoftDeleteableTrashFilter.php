@@ -11,10 +11,19 @@ class SoftDeleteableTrashFilter extends SQLFilter
     protected $listener;
     protected $entityManager;
     protected $disabled = array();
+    protected $enabled = array();
 
     public function addFilterConstraint(ClassMetadata $targetEntity, $targetTableAlias)
     {
         $class = $targetEntity->getName();
+
+        if (count($this->enabled)) {
+            if ((array_key_exists($class, $this->enabled) && $this->enabled[$class] === true)) {
+
+            } else {
+                return '';
+            }
+        }
         if (array_key_exists($class, $this->disabled) && $this->disabled[$class] === true) {
             return '';
         } elseif (array_key_exists($targetEntity->rootEntityName, $this->disabled) && $this->disabled[$targetEntity->rootEntityName] === true) {
@@ -49,6 +58,8 @@ class SoftDeleteableTrashFilter extends SQLFilter
 
     public function enableForEntity($class)
     {
+        $this->enabled[$class] = true;
+
         $this->disabled[$class] = false;
     }
 

@@ -54,7 +54,9 @@ class CRUDController extends BaseCRUDController
 
         $clonedObject = clone $object;
 
-        $clonedObject->setName($object->getName() . ' (Копия)');
+        if (method_exists($clonedObject, 'setName')) {
+            $clonedObject->setName($object->getName() . ' (Копия)');
+        }
 
         $clonedObject->setId(null);
 
@@ -135,27 +137,18 @@ class CRUDController extends BaseCRUDController
             throw new AccessDeniedException();
         }
 
-        if ($this->admin->getParent()) {
-            $em = $this->admin->getModelManager()->getEntityManager($this->admin->getClass());
-
-            $em->getFilters()->enable('softdeleteable');
-            $em->getFilters()->enable('softdeleteabletrash');
-
-            $em->getFilters()->getFilter('softdeleteable')->enableForEntity($this->admin->getParent()->getClass());
-            $em->getFilters()->getFilter('softdeleteabletrash')->disableForEntity($this->admin->getParent()->getClass());
-
-            $em->getFilters()->getFilter('softdeleteable')->disableForEntity($this->admin->getClass());
+        $em = $this->get('doctrine')->getManager();
 
 
-
-        } else {
-            $em = $this->admin->getModelManager()->getEntityManager($this->admin->getClass());
-
-            if ($em->getFilters()->isEnabled('softdeleteable')) {
-                $em->getFilters()->disable('softdeleteable');
-                $em->getFilters()->enable('softdeleteabletrash');
-            }
+        if ($em->getFilters()->isEnabled('softdeleteable')) {
+            $em->getFilters()->disable('softdeleteable');
         }
+
+        if (!$em->getFilters()->isEnabled('softdeleteabletrash')) {
+            $em->getFilters()->enable('softdeleteabletrash');
+        }
+
+        $em->getFilters()->getFilter('softdeleteabletrash')->enableForEntity($this->admin->getClass());
 
         $datagrid = $this->admin->getDatagrid();
         $formView = $datagrid->getForm()->createView();
@@ -585,42 +578,66 @@ class CRUDController extends BaseCRUDController
         //return new RedirectResponse($this->admin->generateUrl('tree', $request->query->all()));
         //}
         //}
+        $listMode = $request->get('_list_mode');
+        if ($listMode = $request->get('_list_mode')) {
+            $this->admin->setListMode($listMode);
+        }
+        $listMode = $this->admin->getListMode();
+        if ($listMode === 'tree') {
 
-        return parent::listAction();
+
+            if (isset($this->admin->treeEnabled) && $this->admin->treeEnabled) {
+                $request = $this->getRequest();
+
+                $this->admin->checkAccess('list');
+
+                $preResponse = $this->preList($request);
+                if ($preResponse !== null) {
+                    return $preResponse;
+                }
+
+                if ($listMode = $request->get('_list_mode')) {
+                    $this->admin->setListMode($listMode);
+                }
+
+                $datagrid = $this->admin->getDatagrid();
+                $formView = $datagrid->getForm()->createView();
+
+
+
+                return $this->render($this->admin->getTemplate('list'), array(
+                    'nodes' => $this->getTreeNodes($request),
+
+                    'action' => 'list',
+                    'form' => $formView,
+                    'datagrid' => $datagrid,
+                    'csrf_token' => $this->getCsrfToken('sonata.batch'),
+                    'export_formats' => $this->has('sonata.admin.admin_exporter') ?
+                        $this->get('sonata.admin.admin_exporter')->getAvailableFormats($this->admin) :
+                        $this->admin->getExportFormats(),
+                ), null);
+
+
+
+            } else {
+                return parent::listAction($request);
+            }
+
+
+        } else {
+            return parent::listAction($request);
+        }
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function treeAction(Request $request = null)
-    {
-        $request->getBasePath();
+    public function getTreeNodes($request) {
+        // set the theme for the current Admin Form
+        //$this->setFormTheme($formView, $this->admin->getFilterTheme());
+        $em = $this->getDoctrine()->getManager();
 
-        if (isset($this->admin->treeEnabled) && $this->admin->treeEnabled) {
+        /** @var NestedTreeRepository $repo */
+        $repo = $em->getRepository($this->admin->getClass());
 
-            if (false === $this->admin->isGranted('LIST')) {
-                throw new AccessDeniedException();
-            }
-            $em = $this->getDoctrine()->getManager();
-
-            /** @var NestedTreeRepository $repo */
-            $repo = $em->getRepository($this->admin->getClass());
-            $tree = $repo->childrenHierarchy();
-
-            return $this->render(
-                $this->admin->getTemplate('tree'),
-                array(
-                    'action' => 'tree',
-                    'nodes' => $tree,
-                    'form' => $this->admin->getDatagrid()->getForm()->createView(),
-                )
-            );
-        } else {
-            return parent::listAction();
-        }
-
+        return $repo->childrenHierarchy();
     }
 
     /**
@@ -833,7 +850,7 @@ class CRUDController extends BaseCRUDController
 
         if (isset($this->admin->treeEnabled) && $this->admin->treeEnabled) {
             $this->admin->setTemplate('tree', 'CompoSonataAdminBundle:Tree:tree.html.twig');
-            $this->admin->setTemplate('list', 'CompoSonataAdminBundle:Tree:list.html.twig');
+            //$this->admin->setTemplate('list', 'CompoSonataAdminBundle:Tree:list.html.twig');
         }
     }
 

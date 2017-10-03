@@ -85,10 +85,7 @@ class MenuAdmin extends AbstractAdmin
                 '_action',
                 'actions',
                 array(
-                    'actions' => array(
-                        'edit' => array(),
-                        'delete' => array(),
-                    )
+
                 )
             );
     }
@@ -120,56 +117,5 @@ class MenuAdmin extends AbstractAdmin
             ->add('name');
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    protected function configureTabMenu2(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
-    {
-        if (!$childAdmin && 'edit' === $action) {
-            $this->configureTabMenuList($menu, $action);
-        }
 
-        if ($childAdmin && 'list' === $action) {
-            $this->configureTabMenuList($menu, $action);
-        }
-
-        /** @var MenuItemAdmin $childAdmin */
-        if ($childAdmin && 'edit' === $action) {
-            $childAdmin->configureTabMenuItem($menu, $action);
-
-            $tabMenu = $menu->addChild(
-                'tab_menu.menu',
-                array(
-                    'label' => $this->trans('tab_menu.menu', array('%name%' => $this->getSubject()->getName())),
-                    'attributes' => array('dropdown' => true)
-                )
-            );
-
-            $this->configureTabMenuList($tabMenu, $action);
-        }
-    }
-
-    /**
-     * @param MenuItemInterface $menu
-     * @param $action
-     * @param AdminInterface|null $childAdmin
-     */
-    public function configureTabMenuList(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
-    {
-        if ($childAdmin) {
-            $subject = $childAdmin->getSubject()->getMenu();
-        } else {
-            $subject = $this->getSubject();
-        }
-
-        $menu->addChild(
-            $this->trans('tab_menu.link_edit'),
-            array('uri' => $this->generateUrl('edit', array('id' => $subject->getId())))
-        );
-
-        $menu->addChild(
-            $this->trans('tab_menu.link_menu_list'),
-            array('uri' => $this->generateUrl('compo_menu.admin.menu|compo_menu.admin.menu_item.tree', array('id' => $subject->getId())))
-        );
-    }
 }

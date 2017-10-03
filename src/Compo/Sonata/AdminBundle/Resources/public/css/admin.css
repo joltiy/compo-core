@@ -564,3 +564,14 @@ th.sonata-ba-list-field-header-datetime {
 .sonata-ba-list-field:hover .sonata-link-identifier-child:hover {
     opacity: 1;
 }
+
+.navbar-collapse-actions .navbar-nav>li.dropdown>a {
+    display: inline-block;
+    border-right: 1px solid #DDD;
+}
+.navbar-collapse-actions .navbar-nav>li.dropdown>a.dropdown-toggle {
+    display: inline-block;
+    float: right;
+    border-right: 0px solid #DDD;
+}
+

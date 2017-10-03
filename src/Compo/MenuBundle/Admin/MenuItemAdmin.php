@@ -28,6 +28,8 @@ class MenuItemAdmin extends AbstractAdmin
         $this->configureTree(true);
 
         $this->setParentParentAssociationMapping('menu');
+
+
     }
 
     /**
@@ -86,10 +88,7 @@ class MenuItemAdmin extends AbstractAdmin
                 '_action',
                 null,
                 array(
-                    'actions' => array(
-                        'edit' => array(),
-                        'delete' => array(),
-                    )
+
                 )
             );
     }
@@ -297,33 +296,4 @@ class MenuItemAdmin extends AbstractAdmin
             ->add('deletedAt');
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    protected function configureTabMenu3(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
-    {
-        if ('edit' === $action) {
-            $this->configureTabMenuItem($menu, $action);
-
-            /** @var MenuAdmin $menuAdmin */
-            $menuAdmin = $this->getConfigurationPool()->getAdminByAdminCode('compo_menu.admin.menu');
-            $menuAdmin->setSubject($this->getSubject()->getMenu());
-            $tabMenu = $menu->addChild('tab_menu.menu', array('label' => $this->trans('tab_menu.menu', array('%name%' => $this->getSubject()->getMenu()->getName())), 'attributes' => array('dropdown' => true)));
-
-            $menuAdmin->configureTabMenuList($tabMenu, $action);
-        }
-    }
-
-    /**
-     * @param MenuItemInterface $menu
-     * @param $action
-     * @param AdminInterface|null $childAdmin
-     */
-    public function configureTabMenuItem(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
-    {
-        $menu->addChild(
-            $this->trans('tab_menu.link_edit'),
-            array('uri' => $this->generateUrl('edit', array('id' => $this->getSubject()->getId())))
-        );
-    }
 }

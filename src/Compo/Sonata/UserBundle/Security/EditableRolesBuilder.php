@@ -102,7 +102,7 @@ class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuil
 
                 $role = sprintf($baseRole, $role_item);
 
-                dump($role);
+                //dump($role);
 
                 $role_label = $translator->trans($admin->getLabel(), array(), $admin->getTranslationDomain())
                     . ' - '

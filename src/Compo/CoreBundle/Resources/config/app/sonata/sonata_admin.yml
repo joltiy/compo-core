@@ -35,7 +35,7 @@ sonata_admin:
         title_mode:           "single_image"
 
     persist_filters:      false
-    show_mosaic_button:   false
+    show_mosaic_button:   true
 
     templates:
         layout:  CompoSonataAdminBundle::standard_layout_compo.html.twig

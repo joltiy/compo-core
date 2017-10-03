@@ -47,19 +47,10 @@ sonata-ba-list-field-name-{{ field_description.name }}
         {% if (admin.children) %}
             <span class="sonata-link-identifier-child-list">
             {% for child in admin.children %}
-
-                {% if admin.children %}
-
-                    <a class="sonata-link-identifier sonata-link-identifier-child"
-                       href="{{ admin.generateUrl(  'list', {'id': object.id, 'childId': object.id}) }}">
+                <a class="sonata-link-identifier sonata-link-identifier-child"
+                   href="{{ admin.generateUrl(   child.code ~ '.list',{'id': object.id} ) }}">
                         <span class="badge badge-default">{{ child.label|trans({}, child.translationDomain) }}</span>
                     </a>
-                {% else %}
-                    <a class="sonata-link-identifier sonata-link-identifier-child"
-                       href="{{ admin.generateUrl(child.baseCodeRoute ~ '.list', {'id': object.id}) }}">
-                        <span class="badge badge-default">{{ child.label|trans({}, child.translationDomain) }}</span>
-                    </a>
-                {% endif %}
             {% endfor %}
             </span>
         {% endif %}

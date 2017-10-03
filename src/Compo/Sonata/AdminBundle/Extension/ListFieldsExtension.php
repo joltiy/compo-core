@@ -39,6 +39,8 @@ class ListFieldsExtension extends AbstractAdminExtension
                 $_action = $listMapper->get($key);
                 $_action_options = $_action->getOptions();
 
+                $_action_options['active'] = true;
+
                 if (in_array($key, array('batch', 'id', 'name', '_action'))) {
                     $_action_options['active'] = true;
                 } elseif (!in_array($key, $fields)) {
@@ -57,6 +59,8 @@ class ListFieldsExtension extends AbstractAdminExtension
 
             foreach ($elements as $item) {
                 $options = $item->getOptions();
+
+                $options['active'] = true;
 
                 if (!isset($options['default']) || !$options['default']) {
                     $fields[] = $item->getName();

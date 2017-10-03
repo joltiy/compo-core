@@ -67,6 +67,7 @@
                             </div>
                         {% endif %}
 
+                        {#
                         {% if admin is defined and action is defined and action == 'list' and admin.listModes|length > 1 %}
                             <div class="nav navbar-right btn-group">
                                 {% for mode, settings in admin.listModes %}
@@ -74,7 +75,7 @@
                                 {% endfor %}
                             </div>
                         {% endif %}
-
+#}
                         {% block sonata_admin_content_actions_wrappers %}
                             {% if _actions|replace({ '<li>': '', '</li>': '' })|trim is not empty %}
                                 <ul class="nav navbar-nav navbar-right">

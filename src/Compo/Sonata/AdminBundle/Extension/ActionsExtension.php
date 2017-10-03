@@ -25,6 +25,13 @@ class ActionsExtension extends AbstractAdminExtension
                 $options = $_action->getOptions();
 
                 if (!isset($options['actions'])) {
+
+
+                    if (isset($listMapper->getAdmin()->treeEnabled) && $listMapper->getAdmin()->treeEnabled) {
+                        $options['actions']['create_parent'] = array(
+                            'template' => 'SonataAdminBundle:CRUD:list__action_create_parent.html.twig'
+                        );
+                    }
                     /*
                     $options['actions']['edit'] = array(
                         'template' => 'SonataAdminBundle:CRUD:list__action_edit.html.twig'

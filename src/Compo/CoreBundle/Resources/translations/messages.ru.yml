@@ -406,5 +406,12 @@ restore_or: ' или '
 link_action_trash: 'Вернуться в корзину'
 flash_untrash_successfull: 'Элемент успешно восстановлен'
 
+tab_menu.title_revert: "%name%"
+title_history_revert: 'Восстановить'
+message_history_revert_confirmation: 'Восстановить ревизию?'
+history_revert_or: ' или '
+btn_history_revert: 'Востановить'
 
+link_action_history_list: 'В список изменений'
 tab_menu.link_clone: 'Клонировать'
+tab_menu.link_tree: 'Дерево'

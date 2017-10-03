@@ -48,7 +48,7 @@ file that was distributed with this source code.
                                {% if admin.hasRoute('sortable') %}data-sortable-action="{{ admin.generateUrl('sortable') }}"{% endif %}>
                             {% block table_header %}
                                 <thead>
-                                <tr class="sonata-ba-list-field-header">
+                                <tr class="sonata-ba-list-field-header {% if admin.getListMode() == 'tree' %}hide{% endif %}">
                                     {% for field_description in admin.list.elements if field_description.getOption('active') %}
                                         {% if admin.hasRoute('batch') and field_description.getOption('code') == '_batch' and batchactions|length > 0 %}
                                             <th class="sonata-ba-list-field-header sonata-ba-list-field-header-batch">
@@ -86,7 +86,13 @@ file that was distributed with this source code.
 
                             {% block table_body %}
                                 <tbody>
-                                {% include admin.getTemplate('outer_list_rows_' ~ admin.getListMode()) %}
+                                {% if admin.getListMode() == 'list' %}
+                                    {% include admin.getTemplate('outer_list_rows_' ~ admin.getListMode()) %}
+                                {% elseif admin.getListMode() == 'mosaic' %}
+                                    {% include admin.getTemplate('outer_list_rows_' ~ admin.getListMode()) %}
+                                {% elseif admin.getListMode() == 'tree' %}
+                                    {% include admin.getTemplate('outer_list_rows_' ~ admin.getListMode()) %}
+                                {% endif %}
                                 </tbody>
                             {% endblock %}
 
@@ -116,7 +122,7 @@ file that was distributed with this source code.
                 </div>
                 {% block list_footer %}
                     {% if admin.datagrid.results|length > 0 %}
-                        <div class="box-footer">
+                        <div class="box-footer {% if admin.getListMode() == 'tree' %}hide{% endif %}">
                             <div class="form-inline clearfix">
                                 {% if not app.request.isXmlHttpRequest %}
                                     <div class="pull-left">
