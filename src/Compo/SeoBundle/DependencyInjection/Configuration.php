@@ -32,6 +32,7 @@ class Configuration implements ConfigurationInterface
             ->scalarNode('metaDescription')->defaultValue('')->end()
             ->scalarNode('description')->defaultValue('')->end()
             ->scalarNode('descriptionAdditional')->defaultValue('')->end()
+            ->scalarNode('admin')->defaultValue('')->end()
             ->end()
             ->end()
             ->end()
