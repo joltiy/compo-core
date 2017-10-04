@@ -12,8 +12,9 @@ ini_set('date.timezone', 'Europe/Moscow');
 date_default_timezone_set('Europe/Moscow');
 
 set('ssh_type', 'native');
-set('ssh_multiplexing', false);
-
+set('ssh_multiplexing', true);
+set('git_tty', true);
+set('default_stage', 'stage');
 set('writable_mode', 'chmod');
 
 // Symfony shared dirs
