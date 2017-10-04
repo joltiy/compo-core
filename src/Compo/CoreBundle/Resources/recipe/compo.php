@@ -2,7 +2,7 @@
 
 use Symfony\Component\Yaml\Yaml;
 use function Deployer\{
-    commandExist, download, get, run, runLocally, set, task, upload, writeln
+    commandExist, download, get, run, runLocally, set, task, upload, writeln, after
 };
 
 /** @noinspection PhpIncludeInspection */
@@ -437,3 +437,15 @@ task(
         'cleanup',
     ]
 )->desc('Deploy your project');
+
+task('rollback:after', [
+    'php-fpm:reload',
+    'nginx:reload',
+    'deploy:vendors',
+
+    'compo:core:update',
+    'php-fpm:reload',
+    'nginx:reload',
+]);
+
+after('rollback', 'rollback:after');
