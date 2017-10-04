@@ -14,7 +14,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Страница <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 {% if page is defined %}
-                                    <li><a href="{{ sonata_admin.objectUrl('sonata.page.admin.page', 'edit', page) }}" target="_new"><i class="fa fa-pencil"></i>{{ "header.edit_page"|trans({}, 'SonataPageBundle') }}</a></li>
+                                    <li><a href="{{ sonata_admin.objectUrl('sonata.page.admin.page', 'edit', page) }}" target="_new"><i class="fa fa-pencil"></i> {{ "header.edit_page"|trans({}, 'SonataPageBundle') }}</a></li>
                                     <li class="divider"></li>
                                 {% endif %}
                                 {% if page is defined %}
@@ -27,11 +27,11 @@
                                     <li class="divider"></li>
                                 {% endif %}
 
-                                <li><a href="{{ sonata_admin.url('sonata.page.admin.page', 'list') }}" target="_new"><i class="fa fa-list"></i>{{ "header.view_all_pages"|trans({}, 'SonataPageBundle') }}</a></li>
+                                <li><a href="{{ sonata_admin.url('sonata.page.admin.page', 'list') }}" target="_new"><i class="fa fa-list"></i> {{ "header.view_all_pages"|trans({}, 'SonataPageBundle') }}</a></li>
 
                                 {% if error_codes is defined and error_codes|length %}
                                     <li class="divider"></li>
-                                    <li><a href="{{ path('sonata_page_exceptions_list') }}" target="_new"><i class="fa fa-exclamation-triangle"></i>{{ "header.view_all_exceptions"|trans({}, 'SonataPageBundle') }}</a></li>
+                                    <li><a href="{{ path('sonata_page_exceptions_list') }}" target="_new"><i class="fa fa-exclamation-triangle"></i> {{ "header.view_all_exceptions"|trans({}, 'SonataPageBundle') }}</a></li>
                                 {% endif %}
                             </ul>
                         </li>
