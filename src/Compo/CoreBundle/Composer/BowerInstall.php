@@ -42,6 +42,14 @@ class BowerInstall extends \Sensio\Bundle\DistributionBundle\Composer\ScriptHand
 
         }
 
+        $process = new Process('git config --global url."https://".insteadOf git://', $root_dir, null, null, 300);
+
+        $process->run(
+            function ($type, $buffer) use ($event) {
+                $event->getIO()->write($buffer, false);
+            }
+        );
+
         $process = new Process('bower install ' . implode(" ", $pathsArray), $root_dir, null, null, 300);
 
         $process->run(
@@ -51,7 +59,22 @@ class BowerInstall extends \Sensio\Bundle\DistributionBundle\Composer\ScriptHand
         );
 
         if (!$process->isSuccessful()) {
+            $process = new Process('git config --global --unset url."https://".insteadOf', $root_dir, null, null, 300);
+
+            $process->run(
+                function ($type, $buffer) use ($event) {
+                    $event->getIO()->write($buffer, false);
+                }
+            );
             throw new \RuntimeException('An error occurred when bower.');
         }
+
+        $process = new Process('git config --global --unset url."https://".insteadOf', $root_dir, null, null, 300);
+
+        $process->run(
+            function ($type, $buffer) use ($event) {
+                $event->getIO()->write($buffer, false);
+            }
+        );
     }
 }
