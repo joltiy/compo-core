@@ -38,7 +38,11 @@ class SeoPage extends BaseEntityManager
      */
     public function getSeoPageItem($context)
     {
-        return $this->seoPages[$context];
+        if (isset($this->seoPages[$context])) {
+            return $this->seoPages[$context];
+        }
+
+        return null;
     }
 
     /**
