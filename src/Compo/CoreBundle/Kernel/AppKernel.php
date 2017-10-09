@@ -34,9 +34,13 @@ class AppKernel extends Kernel
             new \Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
             new \Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
 
+            new \Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
+
             new \Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new \Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
             new \Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+
+            new \Craue\FormFlowBundle\CraueFormFlowBundle(),
 
             new \FOS\UserBundle\FOSUserBundle(),
             new \FOS\RestBundle\FOSRestBundle(),
@@ -48,7 +52,6 @@ class AppKernel extends Kernel
             new \SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
             new \Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new \Spy\TimelineBundle\SpyTimelineBundle(),
-            new \Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
             new \Liuggio\ExcelBundle\LiuggioExcelBundle(),
             new \Liip\ImagineBundle\LiipImagineBundle(),
             new \WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
@@ -140,6 +143,8 @@ class AppKernel extends Kernel
             $bundles[] = new \Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new \Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new \Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+            $bundles[] = new \Symfony\Bundle\WebServerBundle\WebServerBundle();
+
         }
 
         return $bundles;
@@ -155,13 +160,6 @@ class AppKernel extends Kernel
         $loader->load($this->getRootDir() . '/config/config_' . $this->getEnvironment() . '.yml');
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getRootDir()
-    {
-        return __DIR__;
-    }
 
     /**
      * {@inheritDoc}
