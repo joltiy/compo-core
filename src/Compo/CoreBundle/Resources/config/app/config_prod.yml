@@ -1,14 +1,3 @@
-#framework:
-#    validation:
-#        cache: validator.mapping.cache.doctrine.apc
-#    serializer:
-#        cache: serializer.mapping.cache.doctrine.apc
-
-#doctrine:
-#    orm:
-#        metadata_cache_driver: apc
-#        result_cache_driver: apc
-#        query_cache_driver: apc
 
 monolog:
     handlers:
@@ -22,6 +11,8 @@ monolog:
             level: debug
         console:
             type:  console
+            process_psr_3_messages: false
+
 
 assetic_static_gzip:
     use: true
