@@ -182,27 +182,108 @@ class AbstractAdmin extends BaseAdmin
     {
         $this->parentAssociationMapping = $parentAssociationMapping;
     }
-
-    public function getParentAssociationMapping()
+    /**
+     * {@inheritdoc}
+     */
+    public function getFilterParameters()
     {
+        $parameters = array();
+
+        // build the values array
+        if ($this->hasRequest()) {
+            $filters = $this->request->query->get('filter', array());
+
+            // if persisting filters, save filters to session, or pull them out of session if no new filters set
+            if ($this->persistFilters) {
+                if ($filters == array() && $this->request->query->get('filters') != 'reset') {
+                    $filters = $this->request->getSession()->get($this->getCode().'.filter.parameters', array());
+                } else {
+                    $this->request->getSession()->set($this->getCode().'.filter.parameters', $filters);
+                }
+            }
+
+            $parameters = array_merge(
+                $this->getModelManager()->getDefaultSortValues($this->getClass()),
+                $this->datagridValues,
+                $this->getDefaultFilterValues(),
+                $filters
+            );
+
+            if (!$this->determinedPerPageValue($parameters['_per_page'])) {
+                $parameters['_per_page'] = $this->maxPerPage;
+            }
+
+            // always force the parent value
+            if ($this->isChild() && $this->getParentAssociationMapping()) {
+                $name = str_replace('.', '__', $this->getParentAssociationMapping());
+                $parameters[$name] = array('value' => $this->request->get($this->getParent()->getIdParameter()));
+
+
+                if ($this->getParentAssociationMappingType() == ClassMetadataInfo::MANY_TO_MANY) {
+                    $parameters[$name] = array('value' => array($this->request->get($this->getParent()->getIdParameter())));
+
+                } else {
+                    $parameters[$name] = array('value' => $this->request->get($this->getParent()->getIdParameter()));
+
+                }
+
+            }
+        }
+
+        return $parameters;
+    }
+
+    public function getParentAssociationMappingType()
+    {
+        $name = null;
+
         $mm = $this->getModelManager();
         if ($mm instanceof ModelManager) {
             // Get associations from this entity to the parent entity (if any)
             $associations = $mm->getMetadata($this->getClass())
                 ->getAssociationsByTargetClass($this->getParent()->getClass());
             foreach ($associations as $association) {
+                $name = $association['type'];
+                break;
+            }
+        }
+
+        return $name;
+    }
+
+
+
+    public function getParentAssociationMapping()
+    {
+        $name = null;
+
+        $mm = $this->getModelManager();
+        if ($mm instanceof ModelManager) {
+            // Get associations from this entity to the parent entity (if any)
+            $associations = $mm->getMetadata($this->getClass())
+                ->getAssociationsByTargetClass($this->getParent()->getClass());
+
+
+
+            foreach ($associations as $association) {
                 // When this admin is child the association must be of the following types
                 switch ($association['type']) {
                     case ClassMetadataInfo::MANY_TO_ONE:
                     case ClassMetadataInfo::ONE_TO_ONE:
-                        return $association['fieldName'];
+                        $name = $association['fieldName'];
+                        return $name;
+                    break;
+                    case ClassMetadataInfo::MANY_TO_MANY:
+                        $name = $association['fieldName'] ;
                     break;
                 }
+
             }
         }
 
-        return null;
+        return $name;
     }
+
     /**
      * @return array
      */
