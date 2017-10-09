@@ -27,7 +27,6 @@ doctrine:
             default:
                 auto_mapping: true
                 naming_strategy: doctrine.orm.naming_strategy.underscore
-                mappings: ~
                 query_cache_driver:
                     type:                 "%cache_driver%"
                     namespace: "%database_name%"
@@ -42,7 +41,7 @@ doctrine:
                         rand: DoctrineExtensions\Query\Mysql\Rand
 
                 # TODO: Может заменить на свой? Или трейты...
-                default_repository_class:  Doctrine\ORM\EntityRepository
+                #default_repository_class:  Doctrine\ORM\EntityRepository
 
                 mappings:
                     gedmo_translatable:
@@ -91,7 +90,7 @@ doctrine_cache:
             type: "%cache_driver%"
 
 doctrine_migrations:
-   dir_name: "%kernel.root_dir%/migrations"
+    dir_name: "%kernel.root_dir%/migrations"
 
 stof_doctrine_extensions:
     orm:
