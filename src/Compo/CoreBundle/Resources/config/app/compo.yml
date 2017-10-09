@@ -1,15 +1,20 @@
 parameters:
     locale: "ru"
-    sonata.page.service.default.class: Compo\Sonata\PageBundle\Page\Service\DefaultPageService
 
-    sonata.page.manager.page.class: Compo\Sonata\PageBundle\Entity\PageManager
+    translator.class: Compo\CoreBundle\Translation\FallbackTranslator
 
     sonata.seo.page.default.class: Compo\SeoBundle\Seo\SeoPage
+
+    sonata.page.block.breadcrumb.class: Compo\Sonata\PageBundle\Block\BreadcrumbBlockService
+
+    sonata.page.service.default.class: Compo\Sonata\PageBundle\Page\Service\DefaultPageService
+    sonata.page.manager.page.class: Compo\Sonata\PageBundle\Entity\PageManager
 
     sonata.page.admin.page.class: Compo\Sonata\PageBundle\Admin\PageAdmin
     sonata.page.admin.site.class: Compo\Sonata\PageBundle\Admin\SiteAdmin
     sonata.page.admin.block.class: Compo\Sonata\PageBundle\Admin\BlockAdmin
     sonata.page.admin.shared_block.class: Compo\Sonata\PageBundle\Admin\SharedBlockAdmin
+
     sonata.user.admin.user.class: Compo\Sonata\UserBundle\Admin\UserAdmin
     sonata.user.admin.group.class: Compo\Sonata\UserBundle\Admin\GroupAdmin
 
@@ -20,10 +25,7 @@ parameters:
     sonata.formatter.block.formatter.class: Compo\Sonata\FormatterBundle\Block\FormatterBlockService
     sonata.block.service.text.class: Compo\Sonata\BlockBundle\Block\Service\TextBlockService
 
-    translator.class: Compo\CoreBundle\Translation\FallbackTranslator
     sylius.settings.form_factory.class: Compo\CoreBundle\Form\Factory\SettingsFormFactory
-
-    sonata.page.block.breadcrumb.class: Compo\Sonata\PageBundle\Block\BreadcrumbBlockService
 
     fos_elastica.property_accessor.class: Compo\CoreBundle\PropertyAccess\QuietPropertyAccessor
 
