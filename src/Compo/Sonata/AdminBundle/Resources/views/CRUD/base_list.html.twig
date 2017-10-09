@@ -263,7 +263,7 @@ file that was distributed with this source code.
                 </a>
 
                 <ul class="dropdown-menu" role="menu" data-code="{{ admin.code }}">
-                    {% for listField in admin.list.elements %}
+                    {% for listField in admin.list.elements if listField.options.active is defined %}
                         {% set listFieldActive = listField.options.active %}
 
                         {% if listField.name != 'batch' and listField.name != 'id' and listField.name != 'name' and listField.name != '_action' %}
