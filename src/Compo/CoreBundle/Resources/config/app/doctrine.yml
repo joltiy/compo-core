@@ -37,6 +37,9 @@ doctrine:
                 result_cache_driver:
                     type:                 "%cache_driver%"
                     namespace: "%database_name%"
+                dql:
+                    numeric_functions:
+                        rand: DoctrineExtensions\Query\Mysql\Rand
 
                 # TODO: Может заменить на свой? Или трейты...
                 default_repository_class:  Doctrine\ORM\EntityRepository
@@ -81,9 +84,11 @@ doctrine:
                         enabled: false
 
 doctrine_cache:
-   providers:
-       annotation_cache:
-           type: "%cache_driver%"
+    providers:
+        annotation_cache:
+            type: "%cache_driver%"
+        sylius_settings:
+            type: "%cache_driver%"
 
 doctrine_migrations:
    dir_name: "%kernel.root_dir%/migrations"

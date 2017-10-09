@@ -2,7 +2,9 @@
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    # TODO: 404, 403, 500
 #    exception_controller: CompoCoreBundle:Error404:index
+    exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'
 
     form_themes:
         - 'SonataDoctrineORMAdminBundle:Form:form_admin_fields.html.twig'
@@ -12,8 +14,6 @@ twig:
         - 'SonataCoreBundle:Form:colorpicker.html.twig'
         - 'SonataCoreBundle:Form:color.html.twig'
         - 'MopaBootstrapBundle:Form:fields.html.twig'
-
-    exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'
 
     paths:
         '%kernel.root_dir%/../vendor/comporu/compo-core/src/Compo/CoreBundle/Resources/views/Form/themes': AngularForm

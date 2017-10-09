@@ -1,0 +1,11 @@
+sylius_settings:
+    driver: doctrine/orm
+
+sylius_theme:
+    sources:
+        filesystem:
+            enabled: true
+            filename: composer.json
+            directories:
+                - "%kernel.root_dir%/themes"
+    context: compo_core.manager.theme
