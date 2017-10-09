@@ -4,12 +4,20 @@ assetic:
         enabled:              false
         profiler:             false
 
-    write_to: "%kernel.root_dir%/../web"
-
+    write_to: "%kernel.root_dir%/../web/assetic"
+    #bundles: []
     bundles:        [CompoCoreBundle]
 
     filters:
         cssrewrite: ~
+        less:
+            apply_to: '\.less'
+            node: /usr/bin/node
+            node_paths: [/usr/local/lib/node_modules]
+        compass:
+            sass: /usr/bin/compass
+            apply_to: '\.(scss|sass)$'
+
         yui_js:  { jar: "%kernel.root_dir%/../vendor/comporu/compo-core/src/Compo/CoreBundle/Resources/bin/yuicompressor.jar" }
         yui_css: { jar: "%kernel.root_dir%/../vendor/comporu/compo-core/src/Compo/CoreBundle/Resources/bin/yuicompressor.jar" }
 
