@@ -33,7 +33,7 @@ class SyliusInstall extends \Sensio\Bundle\DistributionBundle\Composer\ScriptHan
         static::executeCommand($event, $consoleDir, 'fos:js-routing:dump --target='.$root_dir . '/web/assetic/fos_js_routes.js', $options['process-timeout']);
         static::executeCommand($event, $consoleDir, 'fos:js-routing:dump --target='.$root_dir . '/web/assetic/fos_js_routes.js', $options['process-timeout']);
 
-        static::executeCommand($event, $consoleDir, 'mopa:bootstrap:symlink:sass', $options['process-timeout']);
+        //static::executeCommand($event, $consoleDir, 'mopa:bootstrap:symlink:sass', $options['process-timeout']);
 
         copy(
             $consoleDir . '/../' . 'vendor/mopa/bootstrap-bundle/Mopa/Bundle/BootstrapBundle/Resources/public/sass/mopabootstrapbundle-3.2.scss',
