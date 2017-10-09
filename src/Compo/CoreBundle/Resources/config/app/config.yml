@@ -31,8 +31,6 @@ imports:
     - { resource: sonata/sonata_notification.yml }
     - { resource: sonata/sonata_dashboard.yml }
 
-    - { resource: services.yml }
-
     - { resource: compo.yml }
 
     - { resource: '@CompoSonataAdminBundle/Resources/config/services.yml' }

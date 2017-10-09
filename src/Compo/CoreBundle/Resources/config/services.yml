@@ -1,0 +1,161 @@
+services:
+    gedmo.listener.softdeleteable:
+        class: Gedmo\SoftDeleteable\SoftDeleteableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ '@annotation_reader' ] ]
+
+    gedmo.listener.tree:
+        class: Gedmo\Tree\TreeListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ '@annotation_reader' ] ]
+
+    twig.text_extension:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - name: twig.extension
+
+    compo.sonata.admin.tabmenu.extension:
+        class: Compo\Sonata\AdminBundle\Extension\TabMenuExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+
+    sonata.seo.page.default:
+        class: Compo\SeoBundle\Seo\SeoPage
+        parent: compo_core.abstract_container_aware
+
+    sonata.user.editable_role_builder:
+        class: Compo\Sonata\UserBundle\Security\EditableRolesBuilder
+        arguments: ["@security.token_storage", "@security.authorization_checker", "@sonata.admin.pool", "%security.role_hierarchy.roles%"]
+
+
+#  security.acl.permission.map:
+#      class: Sonata\AdminBundle\Security\Acl\Permission\AdminPermissionMap
+
+    validator.mapping.cache.doctrine.apcu.dotrine:
+        class: Doctrine\Common\Cache\ApcuCache
+        calls:
+            - [ setNamespace, [ "%validator.mapping.cache.prefix%" ] ]
+
+
+    validator.mapping.cache.doctrine.apcu:
+        class: Symfony\Component\Validator\Mapping\Cache\DoctrineCache
+        arguments: ["@validator.mapping.cache.doctrine.apcu.dotrine"]
+
+
+    compo_core.abstract_container_aware:
+        abstract:  true
+        calls:
+            - [setContainer, ["@service_container"]]
+
+    compo_core.translator.extractor:
+        class: Compo\CoreBundle\Translation\AdminExtractor
+        tags: [{name: jms_translation.extractor, alias: compo_admin}]
+        arguments:
+            - "@sonata.admin.pool"
+
+    compo_core.twig_extension:
+        class: Compo\CoreBundle\Twig\ColorExtension
+        public: false
+        tags:
+            - { name: twig.extension }
+
+    compo_core.twig.media_extension:
+        class: Compo\CoreBundle\Twig\MediaExtension
+        arguments: ["@sonata.media.pool", "@sonata.media.manager.media", "@liip_imagine.cache.manager", "@liip_imagine.filter.manager"]
+        tags:
+            - { name: twig.extension }
+
+    compo_core.twig.show_more_extension:
+        class: Compo\CoreBundle\Twig\ShowMoreExtension
+        tags:
+            - { name: twig.extension }
+
+    compo_core.settings_schema.meta:
+        class: Compo\CoreBundle\Settings\AdminSettingsSchema
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: "sylius.settings_schema", namespace: "compo_core_settings", alias: "compo_core_settings" }
+
+    compo_core.admin.settings:
+        class: Compo\CoreBundle\Admin\SettingsAdmin
+        parent: compo_core.abstract_container_aware
+        arguments: [~, Sylius\Bundle\SettingsBundle\Model\Settings, CompoCoreBundle:SettingsAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: core_settings }
+
+    compo_core.block.service.news_with_articles_last:
+        class: Compo\CoreBundle\Block\NewsWithArticlesLastBlockService
+        parent: compo_core.abstract_container_aware
+        arguments: ["compo_core.block.service.news_with_articles_last", "@templating"]
+        tags:
+            - { name: sonata.block }
+
+    compo_core.block.service.text_page:
+        class: Compo\CoreBundle\Block\TextPageBlockService
+        parent: compo_core.abstract_container_aware
+        arguments: ["compo_core.block.service.text_page", "@templating"]
+        tags:
+            - { name: sonata.block }
+
+    compo_core.block.service.error_404:
+        class: Compo\CoreBundle\Block\Error404BlockService
+        parent: compo_core.abstract_container_aware
+        arguments: ["compo_core.block.service.error_404", "@templating"]
+        tags:
+            - { name: sonata.block }
+
+    compo_core.manager.theme:
+        class: Compo\CoreBundle\Manager\ThemeManager
+        parent: compo_core.abstract_container_aware
+
+    compo_core.manager:
+        class: Compo\CoreBundle\Manager\CoreManager
+        parent: compo_core.abstract_container_aware
+
+    compo_core.sitemap.subscriber:
+        class:     Compo\Sonata\PageBundle\Event\SitemapPageSubscriber
+        arguments:
+            - "@router"
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: "kernel.event_subscriber", priority: 100 }
+
+    knp_paginator.subscriber.sliding_pagination:
+        class: Compo\CoreBundle\Subscriber\SlidingPaginationSubscriber
+        arguments: [{defaultPaginationTemplate: "%knp_paginator.template.pagination%", defaultSortableTemplate: "%knp_paginator.template.sortable%", defaultFiltrationTemplate: "%knp_paginator.template.filtration%", defaultPageRange: "%knp_paginator.page_range%"}]
+        tags:
+            - { name: knp_paginator.subscriber }
+            - { name: kernel.event_listener, event: "kernel.request", method: "onKernelRequest" }
+
+    sylius.theme.translation.translator:
+        class: Compo\CoreBundle\Translation\ThemeTranslator
+        arguments:
+            - "@sylius.theme.translation.loader_provider"
+            - "@sylius.theme.translation.resource_provider"
+            - "@translator.selector"
+            - "%kernel.default_locale%"
+            - {"cache_dir": "%kernel.cache_dir%/translations", "debug": "%kernel.debug%"}
+
+    quiet_property_accessor:
+        class: Compo\CoreBundle\PropertyAccess\QuietPropertyAccessor
+
+    my_model_to_elastica_transformer:
+        class: FOS\ElasticaBundle\Transformer\ModelToElasticaAutoTransformer
+        arguments: [[], "@event_dispatcher"]
+        calls:
+            - [setPropertyAccessor, ["@quiet_property_accessor"]]
+
+    sonata.page.form.template_choice:
+        class: Compo\Sonata\PageBundle\Form\Type\TemplateChoiceType
+        tags:
+            - { name: form.type, alias: sonata_page_template }
+        arguments: ["@sonata.page.template_manager"]
+
+    console.completion_command:
+        class: Stecman\Component\Symfony\Console\BashCompletion\CompletionCommand
+        tags:
+            -  { name: console.command }
