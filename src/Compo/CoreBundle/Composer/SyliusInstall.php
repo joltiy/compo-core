@@ -30,8 +30,8 @@ class SyliusInstall extends \Sensio\Bundle\DistributionBundle\Composer\ScriptHan
 
         //       "Mopa\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::postInstallSymlinkTwitterBootstrap",
         // "Mopa\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::postInstallSymlinkTwitterBootstrapSass",
-        static::executeCommand($event, $consoleDir, 'fos:js-routing:dump --target='.$root_dir . '/web/assetic/fos_js_routes.js', $options['process-timeout']);
-        static::executeCommand($event, $consoleDir, 'fos:js-routing:dump --target='.$root_dir . '/web/assetic/fos_js_routes.js', $options['process-timeout']);
+        static::executeCommand($event, $consoleDir, 'fos:js-routing:dump --target='.$root_dir . '/web/js/fos_js_routes.js', $options['process-timeout']);
+        static::executeCommand($event, $consoleDir, 'fos:js-routing:dump --target='.$root_dir . '/web/js/fos_js_routes.js', $options['process-timeout']);
 
         //static::executeCommand($event, $consoleDir, 'mopa:bootstrap:symlink:sass', $options['process-timeout']);
 

@@ -4,7 +4,7 @@ assetic:
         enabled:              false
         profiler:             false
 
-    write_to: "%kernel.root_dir%/../web/assetic"
+    write_to: "%kernel.root_dir%/../web"
     #bundles: []
     bundles:        [CompoCoreBundle]
 
