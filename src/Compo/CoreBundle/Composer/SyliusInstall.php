@@ -38,7 +38,6 @@ class SyliusInstall extends \Sensio\Bundle\DistributionBundle\Composer\ScriptHan
         copy(
             $consoleDir . '/../' . 'vendor/mopa/bootstrap-bundle/Mopa/Bundle/BootstrapBundle/Resources/public/sass/mopabootstrapbundle-3.2.scss',
             $consoleDir . '/../' . 'vendor/mopa/bootstrap-bundle/Mopa/Bundle/BootstrapBundle/Resources/public/sass/mopabootstrapbundle.scss'
-
         );
 
         static::executeCommand($event, $consoleDir, 'assetic:dump' . ' --forks=8 --env=dev', $options['process-timeout']);
