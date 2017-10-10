@@ -25,6 +25,7 @@ class MopaBootstrapFix extends \Sensio\Bundle\DistributionBundle\Composer\Script
             $consoleDir . '/../' . 'vendor/mopa/bootstrap-bundle/Mopa/Bundle/BootstrapBundle/Resources/public/sass/mopabootstrapbundle.scss'
         );
 
-        static::executeCommand($event, $consoleDir, 'mopa:bootstrap:symlink:sass', $options['process-timeout']);
+        // TODO: Хрень какая-то: internal corruption of phar "/usr/bin/composer" (__HALT_COMPILER(); not found)
+        //static::executeCommand($event, $consoleDir, 'mopa:bootstrap:symlink:sass', $options['process-timeout']);
     }
 }
