@@ -575,3 +575,13 @@ th.sonata-ba-list-field-header-datetime {
     border-right: 0px solid #DDD;
 }
 
+
+.skin-black .main-header>.logo {
+  background-color: #222d32;
+  border-right: 1px solid #222d32;
+}
+
+.skin-black .main-header>.logo:hover {
+  background-color: #374850;
+  border-right: 1px solid #374850;
+}
