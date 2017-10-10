@@ -197,7 +197,9 @@ class BaseDeployCommand extends ContainerAwareCommand
         $this->runCommand(
             'doctrine:schema:update',
             array(
-                '--force' => true
+                '--force' => true,
+                '--dump-sql' => true
+
             )
         );
     }

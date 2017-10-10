@@ -203,14 +203,15 @@ task(
 task(
     'compo:core:update',
     function () {
-        /** @noinspection PhpUndefinedFunctionInspection */
-        run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console compo:core:update --env={{env}} --no-debug');
+        //run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console compo:core:update --env={{env}} --no-debug');
         //run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console fos:elastica:populate --env=dev --no-debug');
+        run('cd {{release_path}} && {{env_vars}} composer run-script compo-update-prod');
+        run('cd {{release_path}} && {{env_vars}} composer run-script compo-update-core');
 
         run('cd {{deploy_path}} && ln -sfn current/web public_html');
-
     }
 )->desc('compo:core:update');
+
 
 /** @noinspection PhpUndefinedFunctionInspection */
 task(

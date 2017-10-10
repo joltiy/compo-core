@@ -29,28 +29,17 @@ class InstallCommand extends BaseDeployCommand
     {
         parent::execute($input, $output);
 
-        $this->runCacheClear(false);
-
-        $output->writeln('runDoctrineCreateDatabase');
-
+        //$this->runCacheClear(false);
         $this->runDoctrineCreateDatabase();
         $this->runDoctrineSchemaUpdate();
-
-        //$this->runSyliusThemeAssetsInstall();
-
         //$this->runDoctrineMigrate();
         $this->runCreateAdmin();
         $this->runCreateSite();
-
         $this->runUpdateRoutes();
         $this->runCreateSnapshots();
-
         $this->runDoctrineFixturesLoadAppend();
-
-        $this->runCommand('sonata:cache:flush-all');
-
-        $this->runCacheWarmup();
-
+        //$this->runCommand('sonata:cache:flush-all');
+        //$this->runCacheWarmup();
     }
 
 
