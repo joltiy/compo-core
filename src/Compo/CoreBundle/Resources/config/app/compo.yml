@@ -29,6 +29,10 @@ parameters:
 
     fos_elastica.property_accessor.class: Compo\CoreBundle\PropertyAccess\QuietPropertyAccessor
 
+    router.request_context.host: '%server_name%'
+    router.request_context.scheme: '%server_scheme%'
+    router.request_context.base_url: '/'
+
 compo_core:
     theme:
         name: "comporu/default"
