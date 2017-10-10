@@ -384,6 +384,9 @@ ROLE_ALL: 'Полный доступ'
 ROLE_ADMIN: 'Администратор'
 ROLE_SUPER_ADMIN: 'Администратор (супер)'
 ROLE_ALLOWED_TO_SWITCH: 'Смена пользователя'
+ROLE_USER: 'Пользователь'
+ROLE_SONATA_ADMIN: 'Администратор (админки)'
+SONATA: 'Админка'
 
 Block: 'Блок'
 'Shared Blocks': 'Блок (расширенный)'
@@ -393,11 +396,7 @@ Dashboard: 'Панель управления'
 block: 'Панель управления (блоки)'
 
 
-ROLE_ADMIN: 'Администратор'
-ROLE_USER: 'Пользователь'
-ROLE_SONATA_ADMIN: 'Администратор (админки)'
-ROLE_SUPER_ADMIN: 'Администратор (супер)'
-SONATA: 'Админка'
+
 
 title_restore: 'Восстановить'
 message_restore_confirmation: 'Восстановить элемент?'
