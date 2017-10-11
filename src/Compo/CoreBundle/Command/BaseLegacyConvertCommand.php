@@ -427,7 +427,10 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
     {
         return $this->getContainer()->get('doctrine')->getManager();
     }
-
+    public function getDoctrine()
+    {
+        return $this->getContainer()->get('doctrine');
+    }
     /**
      * {@inheritdoc}
      */
