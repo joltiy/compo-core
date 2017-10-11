@@ -80,6 +80,8 @@ class ManufactureCollectionLegacyConvert extends BaseLegacyConvert
 
                 $photo->setManufactureCollection($newItem);
                 $photo->setImage($photo_media);
+
+                $this->getEntityManager()->persist($photo);
             }
         }
 
