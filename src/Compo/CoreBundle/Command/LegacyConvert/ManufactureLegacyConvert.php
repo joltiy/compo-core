@@ -35,7 +35,13 @@ class ManufactureLegacyConvert extends BaseLegacyConvert
         $newItem->setEnabled((bool)$oldDataItem['visible']);
 
 
-        $newItem->setDescription($oldDataItem['body'] . '<!--more-->' . $oldDataItem['body2']);
+        $description = '';
+
+        if (isset($oldDataItem['mini'])) {
+            $description .= $oldDataItem['mini'];
+        }
+
+        $newItem->setDescription($description);
 
         $newItem->setSlug(str_replace('.html', '', $oldDataItem['url']));
         $newItem->setId($oldDataItem['id']);
