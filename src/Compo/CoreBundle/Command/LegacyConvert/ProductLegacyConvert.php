@@ -141,7 +141,7 @@ class ProductLegacyConvert extends BaseLegacyConvert
         if ($oldDataItem['suppliers_id']) {
             $sup = $this->getEntityManager()->getRepository('CompoSupplierBundle:Supplier')->find($oldDataItem['suppliers_id']);
 
-            $newItem->setSupplier($sup);
+            $newItem->addSupplier($sup);
         }
 
 
