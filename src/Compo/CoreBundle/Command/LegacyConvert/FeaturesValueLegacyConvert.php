@@ -38,7 +38,7 @@ class FeaturesValueLegacyConvert extends BaseLegacyConvert
         $product = $this->getEntityManager()->getRepository('CompoProductBundle:Product')->find($oldDataItem['entity_id']);
 
         if (!$product) {
-            return;
+            return false;
         }
 
         $featureValue->setId($oldProductFeaturesItem['id']);
