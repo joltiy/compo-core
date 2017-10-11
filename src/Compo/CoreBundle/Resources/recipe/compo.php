@@ -396,12 +396,9 @@ task(
         //'deploy:cache:warmup',
         'deploy:writable',
         'deploy:symlink',
-
         'compo:core:install',
-
         'php-fpm:reload',
         'nginx:reload',
-
         'deploy:unlock',
         'cleanup',
     ]
