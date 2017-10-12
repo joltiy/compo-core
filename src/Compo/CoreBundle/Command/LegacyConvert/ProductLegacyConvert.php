@@ -91,6 +91,7 @@ class ProductLegacyConvert extends BaseLegacyConvert
         $newItem->setSku($oldDataItem['articul']);
 
         $newItem->setName($oldDataItem['header']);
+        $newItem->setSlug($oldDataItem['url']);
 
         $collection = $this->getEntityManager()->getRepository('CompoManufactureBundle:ManufactureCollection')->find($oldDataItem['parent_id']);
 
