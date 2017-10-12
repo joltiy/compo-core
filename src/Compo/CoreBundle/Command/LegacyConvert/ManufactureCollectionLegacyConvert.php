@@ -5,6 +5,8 @@ namespace Compo\CoreBundle\Command\LegacyConvert;
 
 use Compo\ManufactureBundle\Entity\ManufactureCollection;
 use Compo\ManufactureBundle\Entity\ManufactureCollectionAdditionalImages;
+use Compo\ManufactureBundle\Entity\ManufactureCollectionAdditionalVideos;
+use Compo\Sonata\MediaBundle\Entity\Media;
 
 /**
  * Class ArticlesLegacyConvert
@@ -31,6 +33,8 @@ class ManufactureCollectionLegacyConvert extends BaseLegacyConvert
     {
         $manufactureRepository = $this->getEntityManager()->getRepository('CompoManufactureBundle:Manufacture');
         $manufactureCollectionAdditionalImagesRepository = $this->getEntityManager()->getRepository('CompoManufactureBundle:ManufactureCollectionAdditionalImages');
+        $manufactureCollectionAdditionalVideoRepository = $this->getEntityManager()->getRepository('CompoManufactureBundle:ManufactureCollectionAdditionalVideos');
+        $manufactureCollectionAdditionalFilesRepository = $this->getEntityManager()->getRepository('CompoManufactureBundle:ManufactureCollectionAdditionalFiles');
 
         $newItem->setId($oldDataItem['id']);
         $newItem->setName($oldDataItem['header']);
@@ -84,6 +88,73 @@ class ManufactureCollectionLegacyConvert extends BaseLegacyConvert
                 $this->getEntityManager()->persist($photo);
             }
         }
+
+        if ($oldDataItem['video']) {
+            $oldDataItem['video'] = str_replace('https://www.youtube.com/embed/', '', $oldDataItem['video']);
+
+            $oldImage = $manufactureCollectionAdditionalVideoRepository->findOneBy(array('manufactureCollection' => $oldDataItem['id']));
+
+            if (!$oldImage) {
+                $mediaManager = $this->getCommand()->getMediaManager();
+
+                $video = new Media();
+
+                $video->setName($oldDataItem['video']);
+                $video->setBinaryContent($oldDataItem['video']);
+                $video->setContext('default');
+                $video->setProviderName('sonata.media.provider.youtube');
+
+                $mediaManager->save($video);
+
+
+                $photo = new ManufactureCollectionAdditionalVideos();
+
+                //$this->getCommand()->changeIdGenerator($photo);
+
+
+                $photo->setManufactureCollection($newItem);
+                $photo->setVideo($video);
+
+                $this->getEntityManager()->persist($photo);
+            }
+        }
+
+
+/*
+        $oldPhotos = $this->getCommand()->getOldConnection()->fetchAll('SELECT * FROM `tovar_files` WHERE tovar_id = ' . $newItem->getId());
+
+        foreach ($oldPhotos as $oldDataPhotos_item) {
+
+            $oldImage = $manufactureCollectionAdditionalFilesRepository->find($oldDataPhotos_item['id']);
+
+            if (!$oldImage) {
+
+                $mediaManager = $this->getCommand()->getMediaManager();
+
+                $video = new Media();
+
+                $video->setName($oldDataPhotos_item['header']);
+
+                $video->setBinaryContent();
+                $video->setContext('default');
+                $video->setProviderName('sonata.media.provider.youtube');
+
+                $mediaManager->save($video);
+
+
+                $photo = new ManufactureCollectionAdditionalImages();
+
+                $this->getCommand()->changeIdGenerator($photo);
+
+                $photo->setId($oldDataPhotos_item['id']);
+
+                $photo->setManufactureCollection($newItem);
+                $photo->setImage($photo_media);
+
+                $this->getEntityManager()->persist($photo);
+            }
+        }
+*/
 
     }
 }

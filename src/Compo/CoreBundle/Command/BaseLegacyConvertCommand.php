@@ -117,6 +117,9 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
         $this->limit = $limit;
     }
 
+    public function getMediaManager() {
+        return $this->getContainer()->get('sonata.media.manager.media');
+    }
     /**
      * @return int
      */
