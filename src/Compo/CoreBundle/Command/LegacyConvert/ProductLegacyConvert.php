@@ -82,10 +82,10 @@ class ProductLegacyConvert extends BaseLegacyConvert
 
         $newItem->setCurrency($currency);
 
-        $newItem->setPriceOriginal((int)$oldDataItem['price']);
+        $newItem->setPriceOriginal((float)$oldDataItem['price']);
 
         if (isset($oldDataItem['price_old'])) {
-            $newItem->setPriceOldOriginal((int)$oldDataItem['price_old']);
+            $newItem->setPriceOldOriginal((float)$oldDataItem['price_old']);
         }
 
         $newItem->setSku($oldDataItem['articul']);
