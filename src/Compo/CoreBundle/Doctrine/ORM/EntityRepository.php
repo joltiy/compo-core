@@ -23,4 +23,21 @@ class EntityRepository extends \Doctrine\ORM\EntityRepository
 
         return $choices;
     }
+
+    /**
+     * @return array
+     */
+    public function getChoicesAsValues()
+    {
+        $choices = array();
+
+        $items = $this->findBy(array(), array('name' => 'ASC'));
+
+        foreach ($items as $item) {
+            /** @noinspection PhpUndefinedMethodInspection */
+            $choices[$item->getId()] = $item->getName();
+        }
+
+        return $choices;
+    }
 }
