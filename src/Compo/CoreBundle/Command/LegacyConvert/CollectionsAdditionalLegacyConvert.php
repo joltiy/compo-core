@@ -46,7 +46,7 @@ class CollectionsAdditionalLegacyConvert extends BaseLegacyConvert
                 $queryBuilder = $this->getCommand()->getDoctrine()->getConnection()->createQueryBuilder();
 
                 $queryBuilder
-                    ->insert('manufacture_collection_additional_products')
+                    ->insert('product_additional_manufacture_collections')
                     ->values(
                         array(
                             'manufacture_collection_id' => '?',
