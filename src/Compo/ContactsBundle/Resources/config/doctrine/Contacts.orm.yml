@@ -7,32 +7,26 @@ Compo\ContactsBundle\Entity\Contacts:
             generator: { strategy: AUTO }
     fields:
         address:
-            type: string
-            length: 1024
+            type: text
             nullable: true
         worktime:
-             type: string
-             length: 1024
+             type: text
              nullable: true
         phone:
-             type: string
-             length: 255
+             type: text
              nullable: true
         email:
              type: string
              length: 255
              nullable: true
         bankprops:
-             type: string
-             length: 1024
+             type: text
              nullable: true
         walk_instruction:
-             type: string
-             length: 1024
+             type: text
              nullable: true
         car_instruction:
-             type: string
-             length: 1024
+             type: text
              nullable: true
         maps_code:
               type: string
