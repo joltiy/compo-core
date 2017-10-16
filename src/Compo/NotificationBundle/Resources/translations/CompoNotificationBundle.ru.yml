@@ -38,3 +38,7 @@ form.label_settings_notification_email_recipient_default: "E-mail адреса �
 compo_notification.test: "Тестовое уведомление"
 
 notifications: 'Уведомления'
+
+notification_sms_account: 'SMS аккаунты'
+sms_sender: 'Отправитель'
+notification_sms: 'SMS уведомления'

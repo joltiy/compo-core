@@ -4,6 +4,7 @@ namespace Compo\NotificationBundle\Manager;
 
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Compo\NotificationBundle\Entity\NotificationEmail;
+use Compo\NotificationBundle\Sms\SmsRuTransport;
 
 /**
  * {@inheritDoc}
@@ -30,6 +31,16 @@ class NotificationManager
         return array(
             'smtp' => 'SMTP',
             'sendmail' => 'SendMail'
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function getSmsTransport()
+    {
+        return array(
+            'sms.ru' =>  'sms',
         );
     }
 
@@ -192,9 +203,67 @@ class NotificationManager
             }
         }
 
+        $notificationsSms = $this->getNotificationsSms($event);
+
+        foreach ($notificationsSms as $notification) {
+            $recipients = $this->prepareEmails($notification->getRecipient(), $vars);
+
+            foreach ($recipients as $email) {
+                if (!$email) {
+                    continue;
+                }
+
+                $transport = new SmsRuTransport();
+
+                $body = $this->renderTemplate($notification->getBody(), $vars);
+
+                $sender = $notification->getSender();
+
+                $transport->setUsername($sender->getUsername());
+                $transport->setPassword($sender->getPassword());
+                $transport->setSender($sender->getSender());
+
+
+                $transport->send($email, $body);
+
+                $results[] = array(
+                    'notification' => $notification,
+                    'vars' => $vars,
+                    'recipient' => $email,
+                    'subject' => '',
+                    'body' => $body,
+                );
+            }
+        }
+
+
+
         return $results;
     }
 
+    /**
+     * @param $event
+     * @return array|\Doctrine\Common\Persistence\ObjectRepository
+     */
+    public function getNotificationsSms($event)
+    {
+        /*
+        $events = array();
+
+        foreach ($this->events as $event_key => $event_val) {
+            if ($event_val['event'] == $event && $event_val['event'] == 'email') {
+                $events[$event_key] = $event_val;
+            }
+        }
+
+        return $events;
+        */
+
+        $notificationEmailRepository = $this->getContainer()->get('doctrine')->getRepository('CompoNotificationBundle:NotificationSms');
+
+        return $notificationEmailRepository->findBy(array('event' => $event));
+
+    }
     /**
      * @param $event
      * @return array|\Doctrine\Common\Persistence\ObjectRepository

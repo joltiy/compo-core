@@ -5,11 +5,23 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: notification_email }
 
+    compo_notification.admin.notification_sms:
+        class: Compo\NotificationBundle\Admin\NotificationSmsAdmin
+        arguments: [~, Compo\NotificationBundle\Entity\NotificationSms, CompoNotificationBundle:NotificationSmsAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: notification_sms }
+
     compo_notification.admin.notification_email_account:
         class: Compo\NotificationBundle\Admin\NotificationEmailAccountAdmin
         arguments: [~, Compo\NotificationBundle\Entity\NotificationEmailAccount, CompoNotificationBundle:NotificationEmailAccountAdmin]
         tags:
             - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: notification_email_account }
+
+    compo_notification.admin.notification_sms_account:
+        class: Compo\NotificationBundle\Admin\NotificationSmsAccountAdmin
+        arguments: [~, Compo\NotificationBundle\Entity\NotificationSmsAccount, CompoNotificationBundle:NotificationSmsAccountAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: notification_sms_account }
 
     compo_notification.manager.notification:
         class: Compo\NotificationBundle\Manager\NotificationManager

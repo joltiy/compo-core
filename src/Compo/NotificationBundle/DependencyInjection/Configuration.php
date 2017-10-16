@@ -27,8 +27,12 @@ class Configuration implements ConfigurationInterface
             ->scalarNode('event')->isRequired()->end()
             ->scalarNode('description')->isRequired()->defaultValue('')->end()
             ->scalarNode('recipient')->isRequired()->defaultValue('')->end()
+            ->scalarNode('recipient_sms')->defaultValue('')->end()
+
             ->scalarNode('subject')->defaultValue('')->end()
             ->scalarNode('body')->isRequired()->defaultValue('')->end()
+            ->scalarNode('body_sms')->defaultValue('')->end()
+
             ->scalarNode('help')->defaultValue('')->end()
             ->scalarNode('type')->isRequired()->defaultValue('')->end()
             ->end()
