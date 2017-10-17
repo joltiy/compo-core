@@ -104,6 +104,7 @@ class AppKernel extends Kernel
             new \Compo\BannerBundle\CompoBannerBundle(),
             new \Compo\AdvantagesBundle\CompoAdvantagesBundle(),
             new \Compo\ContactsBundle\CompoContactsBundle(),
+            new \Compo\PageCodeBundle\CompoPageCodeBundle(),
 
             new \Compo\EcommerceBundle\CompoEcommerceBundle(),
             new \Compo\CurrencyBundle\CompoCurrencyBundle(),

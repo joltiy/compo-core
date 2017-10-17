@@ -1,0 +1,3 @@
+sonata_block:
+    blocks:
+        compo_page_code.block.service.page_code:

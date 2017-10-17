@@ -1,0 +1,13 @@
+services:
+    compo_page_code.admin.page_code:
+        class: Compo\PageCodeBundle\Admin\PageCodeAdmin
+        arguments: [~, Compo\PageCodeBundle\Entity\PageCode, CompoPageCodeBundle:PageCodeAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: page_code }
+
+    compo_page_code.block.service.page_code:
+        class: Compo\PageCodeBundle\Block\PageCodeBlockService
+        arguments: ["compo_page_code.block.service.page_code", "@templating"]
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: sonata.block }
