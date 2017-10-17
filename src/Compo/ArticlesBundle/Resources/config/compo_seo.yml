@@ -7,6 +7,7 @@ compo_seo:
           header: 'Статьи'
           description: ''
           descriptionAdditional: ''
+          admin: 'compo_articles.admin.articles'
 
         - context: 'article_show'
           title: '{{ article.name }}'
@@ -15,3 +16,4 @@ compo_seo:
           header: '{{ article.header|default(article.name) }}'
           description: ''
           descriptionAdditional: ''
+          admin: 'compo_articles.admin.articles'

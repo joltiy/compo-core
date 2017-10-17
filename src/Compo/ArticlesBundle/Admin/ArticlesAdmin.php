@@ -5,6 +5,7 @@ namespace Compo\ArticlesBundle\Admin;
 use Compo\ArticlesBundle\Entity\Articles;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
+use Knp\Menu\MenuFactory;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -110,5 +111,39 @@ class ArticlesAdmin extends AbstractAdmin
             ->add('createdAt')
             ->add('updatedAt')
             ->add('publicationAt');
+    }
+
+
+    public function configureAdminNavBar($context, $vars) {
+        $factory = new MenuFactory();
+
+        $menu = $factory->createItem($context);
+
+        $tabMenuDropdown = $menu->addChild(
+            'tab_menu.list_mode.' . $this->getLabel(),
+            array(
+                'label' => $this->getContainer()->get('translator')->trans($this->getLabel(), array(), $this->getTranslationDomain()),
+                'attributes' => array('dropdown' => true),
+            )
+        );
+
+        $menu->setAttribute('icon', 'fa fa-list')->setAttribute('is_dropdown', true)->setAttribute('is_dropdown', true);
+        $tabMenuDropdown->setChildrenAttribute('class', 'dropdown-menu');
+
+        $tabMenuDropdown->addChild('list', array(
+            'uri' => $this->generateUrl('list', array()),
+            'label' => 'Список'
+        ))->setAttribute('icon', 'fa fa-list');
+
+        if ($context == 'article_list') {
+
+        } else {
+            $tabMenuDropdown->addChild('edit', array(
+                'uri' => $this->generateUrl('edit', array('id' => $vars['article']->getId())),
+                'label' => 'Редактировать'
+            ))->setAttribute('icon', 'fa fa-pencil');
+        }
+
+        return $menu;
     }
 }
