@@ -20,7 +20,8 @@ fos_elastica:
                                 alias: [search_ru]
                                 type: custom
                                 tokenizer: standard
-                                filter: [stopwords_ru, stop, custom_word_delimiter, lowercase, russian_morphology, english_morphology]
+                                # english_morphology - search_query: Neri - fail
+                                filter: [custom_word_delimiter, lowercase, russian_morphology, stopwords_ru, stop]
                                 char_filter: [ru]
 
                         char_filter:
