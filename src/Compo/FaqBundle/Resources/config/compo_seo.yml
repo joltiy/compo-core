@@ -7,6 +7,7 @@ compo_seo:
           header: 'Вопрос-ответ'
           description: ''
           descriptionAdditional: ''
+          admin: 'compo_faq.admin.faq'
 
         - context: 'faq_show'
           title: '{{ faq.name }}'
@@ -15,3 +16,4 @@ compo_seo:
           header: '{{ faq.name }}'
           description: ''
           descriptionAdditional: ''
+          admin: 'compo_faq.admin.faq'
