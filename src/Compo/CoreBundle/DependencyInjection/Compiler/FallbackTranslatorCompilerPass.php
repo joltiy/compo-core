@@ -27,5 +27,10 @@ class FallbackTranslatorCompilerPass implements CompilerPassInterface
 
         $definition = $container->getDefinition('sonata.admin.breadcrumbs_builder');
         $definition->setClass(BreadcrumbsBuilder::class);
+
+        $definition = $container->getDefinition('sonata.page.service.default');
+        $definition->addMethodCall('setContainer', array(new Reference('service_container')));
+
+
     }
 }

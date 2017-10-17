@@ -11,6 +11,7 @@
 
 namespace Compo\Sonata\PageBundle\Page\Service;
 
+use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Sonata\PageBundle\Model\PageInterface;
 
 
@@ -23,6 +24,8 @@ use Sonata\PageBundle\Model\PageInterface;
  */
 class DefaultPageService extends \Sonata\PageBundle\Page\Service\DefaultPageService
 {
+    use ContainerAwareTrait;
+
     /**
      * Updates the SEO page values for given page instance.
      *
@@ -34,6 +37,16 @@ class DefaultPageService extends \Sonata\PageBundle\Page\Service\DefaultPageServ
         $this->seoPage->addVar('page_internal', $page);
 
         $route = $page->getRouteName();
+
+        if ($route === 'page_slug') {
+            $this->seoPage->setLinkCanonical($this->getContainer()->get('router')->generate(
+                $route,
+                array(
+                    'path' => $page->getUrl()
+                ),
+                0
+            ));
+        }
 
         if ($route === 'page_slug'
 

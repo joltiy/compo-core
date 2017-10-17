@@ -53,7 +53,6 @@ class ShowMoreExtension extends Twig_Extension
         } else {
             return $text;
         }
-
     }
 
     /**
