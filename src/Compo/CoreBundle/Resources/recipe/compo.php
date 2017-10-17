@@ -431,6 +431,8 @@ task(
         'php-fpm:reload',
         'nginx:reload',
         'compo:core:update',
+        'php-fpm:reload',
+        'nginx:reload',
         'deploy:unlock',
         'cleanup',
     ]
