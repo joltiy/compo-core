@@ -7,6 +7,7 @@ compo_seo:
           header: 'Новости'
           description: ''
           descriptionAdditional: ''
+          admin: 'compo_news.admin.news'
 
         - context: 'news_show'
           title: '{{ news.name }}'
@@ -15,3 +16,4 @@ compo_seo:
           header: '{{ news.header|default(news.name) }}'
           description: ''
           descriptionAdditional: ''
+          admin: 'compo_news.admin.news'
