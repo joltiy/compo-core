@@ -63,6 +63,12 @@ services:
         tags:
             - { name: twig.extension }
 
+    compo_core.twig.url_extension:
+        class: Compo\CoreBundle\Twig\UrlExtension
+        public: false
+        tags:
+            - { name: twig.extension }
+
     compo_core.twig.media_extension:
         class: Compo\CoreBundle\Twig\MediaExtension
         arguments: ["@sonata.media.pool", "@sonata.media.manager.media", "@liip_imagine.cache.manager", "@liip_imagine.filter.manager"]
