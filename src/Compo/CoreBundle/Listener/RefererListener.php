@@ -40,9 +40,9 @@ class RefererListener
 
         $referer = $request->headers->get('referer');
 
-        $session = $this->getContainer()->get('session');
-
         if ($referer && strpos($referer, $request->getHost()) === false) {
+            $session = $this->getContainer()->get('session');
+
             $session->set('referer', $referer);
         }
     }
