@@ -161,7 +161,7 @@ task(
             . ' mysql --user=' . $parametrs['database_user'] . ' --password=' . $parametrs['database_password']
             . ' ' . $parametrs['database_name']
             . ' < '
-            . '{{release_path}}/var/database/' . $parametrs['database_name'] . '.sql'
+            . '{{release_path}}/var/database/' . $parameters['parameters']['database_name'] . '.sql'
         );
 
 
