@@ -2,7 +2,7 @@
 
 use Symfony\Component\Yaml\Yaml;
 use function Deployer\{
-    commandExist, download, get, run, runLocally, set, task, upload, writeln, after
+    commandExist, download, get, run, runLocally, set, task, upload, writeln, after, test
 };
 
 /** @noinspection PhpIncludeInspection */
@@ -370,6 +370,69 @@ task(
 
     }
 )->desc('deploy:market');
+
+
+task(
+    'deploy:vendors:update',
+    function () {
+        if (!commandExist('unzip')) {
+            writeln('<comment>To speed up composer installation setup "unzip" command with PHP zip extension https://goo.gl/sxzFcD</comment>');
+        }
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
+        run(
+            'cd {{release_path}} && {{env_vars}} {{bin/composer}} update "comporu/*" --verbose --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader',
+            [
+                'timeout' => 6800,
+            ]
+        );
+    }
+);
+
+task(
+    'git:commit:composer',
+    function () {
+        if (test('cd {{release_path}} && git status --porcelain composer.lock|grep \'composer.lock\'')) {
+            run('cd {{release_path}} && {{env_vars}} git commit composer.lock -m "Composer update"');
+            run('cd {{release_path}} && {{env_vars}} git push');
+        }
+
+    }
+)->desc('git:commit:composer');
+
+/** @noinspection PhpUndefinedFunctionInspection */
+task(
+    'deploy:dev',
+    [
+        'timezone',
+        'deploy:prepare',
+        'deploy:lock',
+        'timezone',
+        'deploy:release',
+        'deploy:update_code',
+        //'deploy:clear_paths',
+        'deploy:create_cache_dir',
+        'deploy:shared',
+        'deploy:sitemaps',
+        'deploy:market',
+        //'deploy:assets',
+        //'deploy:copy_dirs',
+        'symfony:env_vars',
+        'deploy:vendors:update',
+        //'deploy:assets:install',
+        //'deploy:assetic:dump',
+        //'deploy:cache:warmup',
+        'deploy:writable',
+        'deploy:symlink',
+        'php-fpm:reload',
+        'nginx:reload',
+        'compo:core:update',
+        'php-fpm:reload',
+        'nginx:reload',
+        'git:commit:composer',
+        'deploy:unlock',
+        'cleanup',
+    ]
+)->desc('Deploy dev your project');
 
 
 /** @noinspection PhpUndefinedFunctionInspection */
