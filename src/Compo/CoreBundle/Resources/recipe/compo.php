@@ -391,7 +391,7 @@ task(
 task(
     'git:commit:composer',
     function () {
-        if (test('cd {{release_path}} && git status --porcelain composer.lock|grep \'composer.lock\'')) {
+        if (test('cd {{release_path}} && git status --porcelain composer.lock|grep \'composer.lock\' > /dev/null 2>&1')) {
             run('cd {{release_path}} && {{env_vars}} git commit composer.lock -m "Composer update"');
             run('cd {{release_path}} && {{env_vars}} git push');
         }
