@@ -16,6 +16,7 @@ set('ssh_multiplexing', false);
 set('git_tty', false);
 set('default_stage', 'stage');
 set('writable_mode', 'chmod');
+set('php_version', (float)phpversion());
 
 // Symfony shared dirs
 
