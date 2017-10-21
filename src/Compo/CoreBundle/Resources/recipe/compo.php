@@ -271,7 +271,7 @@ task(
     function () {
         // The user must have rights for restart service
         // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart nginx.service
-        run('sudo service php7.0-fpm restart');
+        run('sudo service php{{php_version}}-fpm restart');
     }
 );
 
@@ -281,7 +281,7 @@ task(
     function () {
         // The user must have rights for restart service
         // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart nginx.service
-        run('sudo service php7.0-fpm reload');
+        run('sudo service php{{php_version}}-fpm reload');
     }
 );
 
