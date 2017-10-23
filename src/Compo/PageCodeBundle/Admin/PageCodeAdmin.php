@@ -18,7 +18,7 @@ class PageCodeAdmin extends AbstractAdmin
      */
     public function configure()
     {
-        $this->configurePosition(true);
+        $this->configurePosition(true, array('layout'));
 
     }
 
@@ -43,6 +43,7 @@ class PageCodeAdmin extends AbstractAdmin
         $listMapper
             ->add('id')
             ->addIdentifier('name')
+            ->add('layout')
             ->add('enabled')
             ->add(
                 '_action',
@@ -64,6 +65,13 @@ class PageCodeAdmin extends AbstractAdmin
             ->add('id')
             ->add('name')
             ->add('enabled')
+            ->add(
+                'layout',
+                'choice',
+                array(
+                    'choices' => $this->getRepository()->getLayoutChoices(),
+                )
+            )
             ->add('code')
             ->end()
             ->end();

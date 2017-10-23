@@ -10,4 +10,10 @@ namespace Compo\PageCodeBundle\Repository;
  */
 class PageCodeRepository extends \Compo\CoreBundle\Doctrine\ORM\EntityRepository
 {
+    public function getLayoutChoices() {
+        return array(
+            'pre_body_end' => 'До </body>',
+            'pre_head_end' => 'До </head>'
+        );
+    }
 }

@@ -31,6 +31,13 @@ class PageCode
     protected $code;
 
     /**
+     *
+     * @var string
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $layout;
+
+    /**
      * @return string
      */
     public function getCode()
@@ -46,7 +53,20 @@ class PageCode
         $this->code = $code;
     }
 
+    /**
+     * @return string
+     */
+    public function getLayout(): string
+    {
+        return $this->layout;
+    }
 
-
+    /**
+     * @param string $layout
+     */
+    public function setLayout(string $layout)
+    {
+        $this->layout = $layout;
+    }
 }
 
