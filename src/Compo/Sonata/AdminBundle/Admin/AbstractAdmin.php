@@ -328,6 +328,8 @@ class AbstractAdmin extends BaseAdmin
 
         if ($positionEnabled) {
 
+            //$postionRelatedFields = array_merge($postionRelatedFields, array('position'));
+
             $this->datagridValues = array(
                 '_page' => 1,
                 '_sort_order' => 'ASC',

@@ -18,7 +18,7 @@ class PageCodeAdmin extends AbstractAdmin
      */
     public function configure()
     {
-        $this->configurePosition(true, array('layout'));
+        $this->configurePosition(true);
 
     }
 

@@ -25,7 +25,7 @@ class PageCodeBlockService extends AbstractBlockService
         $template = $blockContext->getTemplate();
 
         $list = $this->getDoctrineManager()->getRepository(PageCode::class)->findBy(
-            array('enabled' => true),
+            array('enabled' => true, 'layout' => $settigs['layout']),
             array('position' => 'asc')
         );
 
@@ -63,6 +63,7 @@ class PageCodeBlockService extends AbstractBlockService
         $resolver->setDefaults(
             array(
                 'template' => 'CompoPageCodeBundle:Block:page_code.html.twig',
+                'layout' => ''
             )
         );
     }

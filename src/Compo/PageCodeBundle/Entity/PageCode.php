@@ -56,7 +56,7 @@ class PageCode
     /**
      * @return string
      */
-    public function getLayout(): string
+    public function getLayout()
     {
         return $this->layout;
     }
@@ -64,7 +64,7 @@ class PageCode
     /**
      * @param string $layout
      */
-    public function setLayout(string $layout)
+    public function setLayout($layout)
     {
         $this->layout = $layout;
     }
