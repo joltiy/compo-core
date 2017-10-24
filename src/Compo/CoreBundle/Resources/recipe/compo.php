@@ -29,11 +29,11 @@ set('copy_dirs', ['vendor']);
 /** @noinspection PhpUndefinedFunctionInspection */
 set('env', 'prod');
 /** @noinspection PhpUndefinedFunctionInspection */
-set('shared_dirs', array('var/logs', 'var/sessions', 'web/uploads', 'web/userfiles'));
+set('shared_dirs', array('var/logs', 'var/sessions', 'web/assetic', 'web/uploads', 'web/media', 'web/userfiles'));
 /** @noinspection PhpUndefinedFunctionInspection */
-set('shared_files', array('app/config/parameters.yml', 'web/robots.txt', ));
+set('shared_files', array('app/config/parameters.yml', 'web/robots.txt'));
 /** @noinspection PhpUndefinedFunctionInspection */
-set('writable_dirs', array('var/cache', 'var/sessions', 'var/logs', 'web/uploads'));
+set('writable_dirs', array('var/cache', 'var/logs', 'var/sessions', 'web/uploads', 'web/media'));
 
 /** @noinspection PhpUndefinedFunctionInspection */
 set('clear_paths', []);
@@ -416,7 +416,7 @@ task(
         'deploy:sitemaps',
         'deploy:market',
         //'deploy:assets',
-        //'deploy:copy_dirs',
+        'deploy:copy_dirs',
         'symfony:env_vars',
         'deploy:vendors:update',
         //'deploy:assets:install',
@@ -452,7 +452,7 @@ task(
         'deploy:sitemaps',
         'deploy:market',
         //'deploy:assets',
-        //'deploy:copy_dirs',
+        'deploy:copy_dirs',
         'symfony:env_vars',
         'deploy:vendors',
         //'deploy:assets:install',
@@ -484,7 +484,7 @@ task(
         'deploy:sitemaps',
         'deploy:market',
         //'deploy:assets',
-        //'deploy:copy_dirs',
+        'deploy:copy_dirs',
         'symfony:env_vars',
         'deploy:vendors',
         //'deploy:assets:install',
