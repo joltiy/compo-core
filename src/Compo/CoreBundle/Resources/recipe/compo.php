@@ -25,7 +25,7 @@ set('bin_dir', 'bin');
 set('var_dir', 'var');
 
 /** @noinspection PhpUndefinedFunctionInspection */
-set('copy_dirs', ['vendor']);
+set('copy_dirs', ['vendor', 'web/vendor']);
 /** @noinspection PhpUndefinedFunctionInspection */
 set('env', 'prod');
 /** @noinspection PhpUndefinedFunctionInspection */
