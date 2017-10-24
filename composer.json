@@ -1,20 +1,25 @@
 {
-  "name": "comporu/compo-core",
-  "license": "proprietary",
-  "type": "library",
-  "description": "compo-core",
-  "authors": [
-    {
-      "name": "comporu",
-      "email": "info@compo.ru"
+    "name": "comporu/compo-core",
+    "license": "proprietary",
+    "type": "library",
+    "description": "compo-core",
+    "authors": [
+        {
+            "name": "comporu",
+            "email": "info@compo.ru"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Compo\\": "src/Compo",
+            "Pix\\SortableBehaviorBundle\\": "src/Pix/PixSortableBehaviorBundle",
+            "Sylius\\Bundle\\SettingsBundle\\": "src/Sylius/SyliusSettingsBundle",
+            "Sylius\\Bundle\\ThemeBundle\\": "src/Sylius/SyliusThemeBundle"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "3.3-dev"
+        }
     }
-  ],
-  "autoload": {
-    "psr-4": {
-      "Compo\\": "src/Compo",
-      "Pix\\SortableBehaviorBundle\\": "src/Pix/PixSortableBehaviorBundle",
-      "Sylius\\Bundle\\SettingsBundle\\": "src/Sylius/SyliusSettingsBundle",
-      "Sylius\\Bundle\\ThemeBundle\\": "src/Sylius/SyliusThemeBundle"
-    }
-  }
 }
