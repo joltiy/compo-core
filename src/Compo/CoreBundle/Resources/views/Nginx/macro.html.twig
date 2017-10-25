@@ -18,7 +18,7 @@
 {% endmacro %}
 
 {% macro rewrite_to_domain(domain) %}
-    rewrite ^(.*)$ https://{{ domain }}$1 permanent;
+    rewrite ^(.*)$ {{ domain }}$1 permanent;
 {% endmacro %}
 
 {% macro ssl(ssl_certificate, ssl_certificate_key, ssl_trusted_certificate) %}
