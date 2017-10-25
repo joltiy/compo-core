@@ -29,7 +29,7 @@ set('copy_dirs', ['vendor', 'web/vendor']);
 /** @noinspection PhpUndefinedFunctionInspection */
 set('env', 'prod');
 /** @noinspection PhpUndefinedFunctionInspection */
-set('shared_dirs', array('var/logs', 'var/sessions', 'web/uploads', 'web/media', 'web/userfiles'));
+set('shared_dirs', array('var/logs', 'var/sessions', 'web/assetic', 'web/uploads', 'web/media', 'web/userfiles'));
 /** @noinspection PhpUndefinedFunctionInspection */
 set('shared_files', array('app/config/parameters.yml', 'web/robots.txt'));
 /** @noinspection PhpUndefinedFunctionInspection */
@@ -420,10 +420,8 @@ task(
         //'deploy:assetic:dump',
         //'deploy:cache:warmup',
         'deploy:writable',
-        'deploy:symlink',
-        'php-fpm:reload',
-        'nginx:reload',
         'compo:core:update',
+        'deploy:symlink',
         'php-fpm:reload',
         'nginx:reload',
         'git:commit:composer',
@@ -456,8 +454,8 @@ task(
         //'deploy:assetic:dump',
         //'deploy:cache:warmup',
         'deploy:writable',
-        'deploy:symlink',
         'compo:core:install',
+        'deploy:symlink',
         'php-fpm:reload',
         'nginx:reload',
         'deploy:unlock',
@@ -488,10 +486,8 @@ task(
         //'deploy:assetic:dump',
         //'deploy:cache:warmup',
         'deploy:writable',
-        'deploy:symlink',
-        'php-fpm:reload',
-        'nginx:reload',
         'compo:core:update',
+        'deploy:symlink',
         'php-fpm:reload',
         'nginx:reload',
         'deploy:unlock',
