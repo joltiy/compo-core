@@ -160,3 +160,14 @@
         # Remove the internal directive to allow URIs like this
     }
 {% endmacro %}
+
+
+{% macro pagespeed() %}
+    pagespeed on;
+    pagespeed Disallow "*/admin/*";
+    pagespeed FileCachePath "/var/cache/pagespeed/";
+    pagespeed FileCacheSizeKb            102400;
+    pagespeed FileCacheCleanIntervalMs   3600000;
+    pagespeed FileCacheInodeLimit        500000;
+    pagespeed EnableFilters local_storage_cache,extend_cache,prioritize_critical_css,convert_jpeg_to_progressive,recompress_jpeg,rewrite_javascript,rewrite_css,collapse_whitespace;
+{% endmacro %}
