@@ -1,6 +1,6 @@
 {# {% import _self as nginx %} #}
 {% macro location_well_known() %}
-    location /.well-known {
+    location ~ /.well-known {
         access_log off;
         expires 30d;
         add_header Pragma public;
