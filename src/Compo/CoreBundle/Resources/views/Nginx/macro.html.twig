@@ -179,7 +179,7 @@
 {% macro pagespeed() %}
     pagespeed on;
     pagespeed Disallow "*/admin/*";
-
+    pagespeed Disallow "*.svg";
     pagespeed FileCachePath "/var/cache/pagespeed/";
     pagespeed FileCacheSizeKb            102400;
     pagespeed FileCacheCleanIntervalMs   3600000;
