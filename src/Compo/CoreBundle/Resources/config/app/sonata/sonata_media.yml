@@ -84,12 +84,14 @@ sonata_media:
               - jpeg
               - jpg
               - ico
+              - pdf
             allowed_mime_types:
               - image/gif
               - image/png
               - image/jpeg
               - image/jpg
               - image/x-icon
+              - application/pdf
         image:
 #           thumbnail: sonata.media.thumbnail.liip_imagine
 #           resizer: sonata.media.resizer.square
