@@ -50,7 +50,7 @@ class CreateConfigs
                 'php-fpm.conf.twig' => file_get_contents($root_dir . '/config/php-fpm.conf.twig'),
                 'servers.yml.dist' => file_get_contents($root_dir . '/config/servers.yml.dist'),
 
-                'nginx_macro.html.twig' => file_get_contents($vendor . '/comporu/compo-core/src/Compo/CoreBundle/Resources/views/Nginx/macro.html.twig'),
+                '@CompoCore/Nginx/nginx_macro.html.twig' => file_get_contents($vendor . '/comporu/compo-core/src/Compo/CoreBundle/Resources/views/Nginx/nginx_macro.html.twig'),
 
             )
         );
