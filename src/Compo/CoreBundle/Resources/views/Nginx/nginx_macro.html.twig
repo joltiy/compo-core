@@ -176,8 +176,8 @@
 {% endmacro %}
 
 
-{% macro pagespeed() %}
-    pagespeed on;
+{% macro pagespeed(pagespeed) %}
+    pagespeed {{ pagespeed }};
     pagespeed Disallow "*/admin/*";
     pagespeed Disallow "*.svg";
     pagespeed FileCachePath "/var/cache/pagespeed/";
