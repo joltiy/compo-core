@@ -64,3 +64,6 @@ block: 'Страницы (блок)'
 snapshot: 'Страницы (снапшот)'
 
 header.switch_user_exit: 'Развоплотиться'
+
+title_page_redirected: 'Внутреннее перенаправление страницы'
+
