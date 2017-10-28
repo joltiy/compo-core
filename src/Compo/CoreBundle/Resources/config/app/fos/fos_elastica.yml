@@ -8,6 +8,7 @@ fos_elastica:
         main:
             settings:
                 number_of_shards: 5
+                number_of_replicas: 1
                 refresh_interval: "5s"
                 max_result_window: 100000
                 index:
@@ -20,8 +21,7 @@ fos_elastica:
                                 alias: [search_ru]
                                 type: custom
                                 tokenizer: standard
-                                # english_morphology - search_query: Neri - fail
-                                filter: [custom_word_delimiter, lowercase, russian_morphology, stopwords_ru, stop]
+                                filter: [custom_word_delimiter, lowercase, stopwords_ru, stop, russian_morphology, english_morphology]
                                 char_filter: [ru]
 
                         char_filter:
