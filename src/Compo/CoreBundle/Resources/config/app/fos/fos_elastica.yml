@@ -1,48 +1,78 @@
 fos_elastica:
     clients:
         default:
-            host:                               127.0.0.1
-            port:                               9200
+            host: 127.0.0.1
+            port: 9200
 
     indexes:
         main:
+            client: default
+            index_name: "%fos_elastica_index_name%"
+
             settings:
-                number_of_shards: 5
-                number_of_replicas: 1
+                number_of_shards: 1
+                number_of_replicas: 0
                 refresh_interval: "5s"
                 max_result_window: 100000
+
                 index:
                     requests:
                         cache:
                             enable: true
+
                     analysis:
                         analyzer:
-                            default_search:
-                                alias: [search_ru]
+                            default_for_analyzer:
                                 type: custom
+                                char_filter: [compo_ru]
+                                tokenizer: compo_ngram_search_ru
+                                filter:
+                                    #- compo_word_delimiter
+                                    #- lowercase
+                                    #- compo_stop_russian_custom
+                                    #- stop
+                                    - compo_phonetic_english
+                                    - compo_phonetic_cyrillic
+
+
+                            default_search:
+                                type: custom
+                                char_filter: [compo_ru]
                                 tokenizer: standard
-                                filter: [custom_word_delimiter, lowercase, stopwords_ru, stop, russian_morphology, english_morphology]
-                                char_filter: [ru]
+                                filter:
+                                    #- compo_word_delimiter
+                                    #- lowercase
+                                    #- compo_stop_russian_custom
+                                    #- stop
+                                    - compo_phonetic_english
+                                    - compo_phonetic_cyrillic
+                                    - russian_morphology
+                                    - english_morphology
+
+
 
                         char_filter:
-                            ru:
+                            compo_ru:
                                 type: mapping
-                                mappings: ['Ё=>Е', 'ё=>е']
-                            qwerty:
-                                type: mapping
-                                mappings: ['й=>q', 'ц=>w', 'у=>e', 'к=>r', 'е=>t', 'н=>y', 'г=>u', 'ш=>i', 'щ=>o', 'з=>p', 'х=>[', 'ъ=>]', 'ф=>a', 'ы=>s', 'в=>d', 'а=>f', 'п=>g', 'р=>h', 'о=>j', 'л=>k', 'д=>l', 'ж=>;', "э=>'", 'я=>z', 'ч=>x', 'с=>c', 'м=>v', 'и=>b', 'т=>n', 'ь=>m', 'б=>,', 'ю=>.', '.=>/']
+                                mappings: ['Ё=>Е', 'ё=>е', 'Й=>й', 'и=>и']
 
                         tokenizer:
-                            nGram:
+                            compo_ngram_search_ru:
                                 type: nGram
-                                min_gram: 4
+                                min_gram: 5
                                 max_gram: 20
                         filter:
-                            stopwords_ru:
+                            compo_stop_russian:
+                                type: stop
+                                ignore_case: true
+                                language: "_russian_"
+
+                            compo_stop_russian_custom:
                                 type: stop
                                 stopwords: [а,без,более,бы,был,была,были,было,быть,в,вам,вас,весь,во,вот,все,всего,всех,вы,где,да,даже,для,до,его,ее,если,есть,еще,же,за,здесь,и,из,или,им,их,к,как,ко,когда,кто,ли,либо,мне,может,мы,на,надо,наш,не,него,нее,нет,ни,них,но,ну,о,об,однако,он,она,они,оно,от,очень,по,под,при,с,со,так,также,такой,там,те,тем,то,того,тоже,той,только,том,ты,у,уже,хотя,чего,чей,чем,что,чтобы,чье,чья,эта,эти,это,я]
                                 ignore_case: true
-                            custom_word_delimiter:
+
+                            compo_word_delimiter:
                                 type: word_delimiter
                                 # "PowerShot" ⇒ "Power" "Shot", части одного слова становятся отдельными токенами
                                 generate_word_parts: true
@@ -53,12 +83,28 @@ fos_elastica:
                                 split_on_case_change: true  # "PowerShot" ⇒ "Power" "Shot"
                                 preserve_original: true  # "500-42" ⇒ "500-42" "500" "42"
                                 split_on_numerics: false  # "j2se" ⇒ "j" "2" "se"
+
                             latin_transform:
                                 type: icu_transform
                                 id: "Any-Latin; NFD; [:Nonspacing Mark:] Remove; NFC"
 
+                            compo_phonetic_cyrillic:
+                                type: "phonetic"
+                                encoder: "beidermorse"
+                                rule_type: "approx"
+                                name_type: "generic"
+                                languageset: ["cyrillic"]
+
+                            compo_phonetic_english:
+                                type: "phonetic"
+                                encoder: "beidermorse"
+                                rule_type: "approx"
+                                name_type: "generic"
+                                languageset: ["english"]
+
+                            compo_snowball_russian:
+                                type: "snowball"
+                                encoder: "Russian"
 
 
-            index_name: "%fos_elastica_index_name%"
 
-            client:                             default
