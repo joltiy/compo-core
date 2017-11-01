@@ -19,20 +19,33 @@ fos_elastica:
                     requests:
                         cache:
                             enable: true
-
+                    queries:
+                        cache:
+                            enabled: true
                     analysis:
                         analyzer:
-                            default_for_analyzer:
+                            default:
                                 type: custom
                                 char_filter: [compo_ru]
-                                tokenizer: compo_ngram_search_ru
+                                tokenizer: standard
                                 filter:
-                                    #- compo_word_delimiter
-                                    #- lowercase
-                                    #- compo_stop_russian_custom
-                                    #- stop
-                                    - compo_phonetic_english
-                                    - compo_phonetic_cyrillic
+                                    - lowercase
+                                    - compo_word_delimiter
+                                    - compo_stop_russian_custom
+                                    - stop
+                                    - russian_morphology
+                                    - english_morphology
+                                    - autocomplete_filter
+
+                            default_raw:
+                                type: custom
+                                char_filter: [compo_ru]
+                                tokenizer: standard
+                                filter:
+                                    - lowercase
+                                    - compo_word_delimiter
+                                    - compo_stop_russian_custom
+                                    - stop
 
 
                             default_search:
@@ -40,26 +53,84 @@ fos_elastica:
                                 char_filter: [compo_ru]
                                 tokenizer: standard
                                 filter:
-                                    #- compo_word_delimiter
-                                    #- lowercase
-                                    #- compo_stop_russian_custom
-                                    #- stop
-                                    - compo_phonetic_english
-                                    - compo_phonetic_cyrillic
+                                    - lowercase
+                                    - compo_word_delimiter
+                                    - compo_stop_russian_custom
+                                    - stop
                                     - russian_morphology
                                     - english_morphology
 
 
 
-                        char_filter:
-                            compo_ru:
-                                type: mapping
-                                mappings: ['Ё=>Е', 'ё=>е', 'Й=>й', 'и=>и']
+                            default_search_compo_qwerty:
+                                type: custom
+                                char_filter: [compo_qwerty, compo_ru]
+                                tokenizer: standard
+                                filter:
+                                    - lowercase
+                                    - compo_word_delimiter
+                                    - compo_stop_russian_custom
+                                    - stop
+                                    - russian_morphology
+                                    - english_morphology
 
+                            default_search_compo_qwerty_revert:
+                                type: custom
+                                char_filter: [compo_qwerty_revert, compo_ru]
+                                tokenizer: standard
+                                filter:
+                                    - lowercase
+                                    - compo_word_delimiter
+                                    - compo_stop_russian_custom
+                                    - stop
+                                    - russian_morphology
+                                    - english_morphology
+
+                            phonetic_search:
+                                type: custom
+                                char_filter: [compo_ru]
+                                tokenizer: standard
+                                filter:
+                                    - lowercase
+                                    - compo_word_delimiter
+                                    - compo_stop_russian_custom
+                                    - stop
+                                    - russian_morphology
+                                    - english_morphology
+                                    - compo_phonetic_english
+                                    - compo_phonetic_cyrillic
+
+                            phonetic_search_qwerty:
+                                type: custom
+                                char_filter: [compo_qwerty, compo_ru]
+                                tokenizer: standard
+                                filter:
+                                    - lowercase
+                                    - compo_word_delimiter
+                                    - compo_stop_russian_custom
+                                    - stop
+                                    - russian_morphology
+                                    - english_morphology
+                                    - compo_phonetic_english
+                                    - compo_phonetic_cyrillic
+
+                            phonetic_search_qwerty_revert:
+                                type: custom
+                                char_filter: [compo_qwerty_revert,compo_ru]
+                                tokenizer: standard
+                                filter:
+                                    - lowercase
+                                    - compo_word_delimiter
+                                    - compo_stop_russian_custom
+                                    - stop
+                                    - russian_morphology
+                                    - english_morphology
+                                    - compo_phonetic_english
+                                    - compo_phonetic_cyrillic
                         tokenizer:
                             compo_ngram_search_ru:
                                 type: nGram
-                                min_gram: 5
+                                min_gram: 3
                                 max_gram: 20
                         filter:
                             compo_stop_russian:
@@ -106,5 +177,83 @@ fos_elastica:
                                 type: "snowball"
                                 encoder: "Russian"
 
+                            autocomplete_filter:
+                                type: "nGram"
+                                encoder: "Russian"
+                                min_gram: 3
+                                max_gram: 20
 
-
+                        char_filter:
+                            compo_ru:
+                                type: mapping
+                                mappings: ['Ё=>Е', 'ё=>е', 'Й=>и', 'и=>и']
+                            compo_qwerty:
+                                type: mapping
+                                mappings:
+                                    - 'й=>q'
+                                    - 'ц=>w'
+                                    - 'у=>e'
+                                    - 'к=>r'
+                                    - 'е=>t'
+                                    - 'н=>y'
+                                    - 'г=>u'
+                                    - 'ш=>i'
+                                    - 'щ=>o'
+                                    - 'з=>p'
+                                    - 'х=>['
+                                    - 'ъ=>]'
+                                    - 'ф=>a'
+                                    - 'ы=>s'
+                                    - 'в=>d'
+                                    - 'а=>f'
+                                    - 'п=>g'
+                                    - 'р=>h'
+                                    - 'о=>j'
+                                    - 'л=>k'
+                                    - 'д=>l'
+                                    - 'ж=>;'
+                                    - "э=>'"
+                                    - 'я=>z'
+                                    - 'ч=>x'
+                                    - 'с=>c'
+                                    - 'м=>v'
+                                    - 'и=>b'
+                                    - 'т=>n'
+                                    - 'ь=>m'
+                                    - 'б=>,'
+                                    - 'ю=>.'
+                            compo_qwerty_revert:
+                                type: mapping
+                                mappings:
+                                    - 'q=>й'
+                                    - 'w=>ц'
+                                    - 'e=>у'
+                                    - 'r=>к'
+                                    - 't=>е'
+                                    - 'y=>н'
+                                    - 'u=>г'
+                                    - 'i=>ш'
+                                    - 'o=>щ'
+                                    - 'p=>з'
+                                    - '[=>х'
+                                    - ']=>ъ'
+                                    - 'a=>ф'
+                                    - 's=>ы'
+                                    - 'd=>в'
+                                    - 'f=>а'
+                                    - 'g=>п'
+                                    - 'h=>р'
+                                    - 'j=>о'
+                                    - 'k=>л'
+                                    - 'l=>д'
+                                    - ';=>ж'
+                                    - "'=>э"
+                                    - 'z=>я'
+                                    - 'x=>ч'
+                                    - 'c=>с'
+                                    - 'v=>м'
+                                    - 'b=>и'
+                                    - 'n=>т'
+                                    - 'm=>ь'
+                                    - ',=>б'
+                                    - '.=>ю'
