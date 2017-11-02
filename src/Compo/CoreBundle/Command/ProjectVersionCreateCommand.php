@@ -49,7 +49,7 @@ class ProjectVersionCreateCommand extends ContainerAwareCommand
 
         $helper = $this->getHelper('process');
 
-        $command = 'git -c core.quotepath=false -c log.showSignature=false commit --only -F /tmp/git-commit-msg-.txt -- VERSION';
+        $command = 'git -c core.quotepath=false -c log.showSignature=false commit --only -m "Update version: v' . $new_version . '" -- VERSION';
 
         $helper->run($output, $command, 'The process failed :(', function ($type, $data) {
             if (Process::ERR === $type) {
@@ -57,7 +57,7 @@ class ProjectVersionCreateCommand extends ContainerAwareCommand
             }
         });
 
-        $command = 'git -c core.quotepath=false -c log.showSignature=false push --progress --porcelain origin refs/heads/develop:develop --tags';
+        $command = 'git -c core.quotepath=false -c log.showSignature=false push --progress --porcelain origin refs/heads/develop:develop --tags 2>&1';
 
         $helper->run($output, $command, 'The process failed :(', function ($type, $data) {
             if (Process::ERR === $type) {
@@ -65,7 +65,7 @@ class ProjectVersionCreateCommand extends ContainerAwareCommand
             }
         });
 
-        $command = 'git -c core.quotepath=false -c log.showSignature=false flow release start -F v' . $new_version;
+        $command = 'git -c core.quotepath=false -c log.showSignature=false flow release start -F v' . $new_version . ' 2>&1';
 
         $helper->run($output, $command, 'The process failed :(', function ($type, $data) {
             if (Process::ERR === $type) {
@@ -73,15 +73,13 @@ class ProjectVersionCreateCommand extends ContainerAwareCommand
             }
         });
 
-        $command = 'git -c core.quotepath=false -c log.showSignature=false flow release finish -F -p -m "Tagging version v' . $new_version. '" v' . $new_version;
+        $command = 'git -c core.quotepath=false -c log.showSignature=false flow release finish -F -p -m "Tagging version v' . $new_version. '" v' . $new_version . ' 2>&1';
 
         $helper->run($output, $command, 'The process failed :(', function ($type, $data) {
             if (Process::ERR === $type) {
                 exit;
             }
         });
-        //
-        //
     }
 
 
