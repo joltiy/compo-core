@@ -133,6 +133,26 @@ task(
 
 /** @noinspection PhpUndefinedFunctionInspection */
 task(
+    'database:backup',
+    function () {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        $databasePath = '{{deploy_path}}/backup/database';
+        // mysqldump -u [username] -p [database name] > [database name].sql
+
+        run('mkdir -p ' . $databasePath);
+
+        $parametrs = get('parameters');
+
+        $exportDatabasePath = $databasePath . '/' . $parametrs['database_name'] . '_' . date('YmdHis'). '.sql';
+
+        run('mysqldump -u ' . $parametrs['database_user'] . ' ' . $parametrs['database_name'] . ' > ' . $exportDatabasePath);
+    }
+)->desc('database:sync-from-remote');
+
+
+
+/** @noinspection PhpUndefinedFunctionInspection */
+task(
     'database:sync-to-remote',
     function () {
 
