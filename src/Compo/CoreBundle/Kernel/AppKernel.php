@@ -177,4 +177,21 @@ class AppKernel extends Kernel
     {
         return dirname($this->getRootDir()) . '/var/logs';
     }
+
+    public function getProjectName() {
+        return 'CompoCore';
+    }
+
+    public function getProjectVersionPath() {
+        return $this->getProjectDir() . '/VERSION';
+    }
+
+    public function getProjectVersion() {
+
+        if (file_exists($this->getProjectVersionPath())) {
+            return trim(file_get_contents($this->getProjectVersionPath()));
+        } else {
+            return '0.0.0';
+        }
+    }
 }
