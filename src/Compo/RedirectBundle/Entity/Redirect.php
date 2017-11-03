@@ -8,7 +8,14 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Redirect
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
- * @ORM\Table(name="redirect")
+ * @ORM\Table(
+ *     name="redirect",
+ *     indexes={
+ *          @ORM\Index(name="idx_enabled", columns={"enabled"}),
+ *          @ORM\Index(name="idx_deleted_at", columns={"deleted_at"}),
+ *          @ORM\Index(name="idx_enabled_deleted_at", columns={"enabled", "deleted_at"})
+ *      }
+ * )
  * @ORM\Entity(repositoryClass="Compo\RedirectBundle\Repository\RedirectRepository")
  */
 class Redirect

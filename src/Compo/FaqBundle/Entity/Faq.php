@@ -7,10 +7,21 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Faq
- * 
+ *
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
 
- * @ORM\Table(name="faq")
+ * @ORM\Table(name="faq",
+ *     indexes={
+ *
+ *          @ORM\Index(name="publication_at_enabled_deleted_at", columns={"publication_at","enabled","deleted_at" }),
+ *          @ORM\Index(name="publication_at", columns={"publication_at" }),
+ *          @ORM\Index(name="enabled", columns={"enabled" }),
+ *          @ORM\Index(name="deleted_at", columns={"deleted_at" }),
+ *
+ *          @ORM\Index(name="enabled_deleted_at", columns={"enabled", "deleted_at" })
+ *     }
+ *
+ * )
  * @ORM\Entity(repositoryClass="Compo\FaqBundle\Repository\FaqRepository")
  */
 class Faq

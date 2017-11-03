@@ -11,9 +11,6 @@ doctrine:
                 password: "%database_password%"
                 charset:  UTF8
 
-                # TODO: Выяснить, нахрена указана версия
-                server_version: 5.6
-
                 # TODO: Выяснить, может уже и не нужно
                 mapping_types:
                     enum:       string

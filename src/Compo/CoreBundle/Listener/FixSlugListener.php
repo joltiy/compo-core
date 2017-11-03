@@ -3,8 +3,6 @@
 namespace Compo\CoreBundle\Listener;
 
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
-use Compo\RedirectBundle\Entity\Redirect;
-use Compo\RedirectBundle\Repository\RedirectRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
@@ -15,15 +13,6 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 class FixSlugListener
 {
     use ContainerAwareTrait;
-
-    /**
-     * @return \Symfony\Component\HttpFoundation\Request
-     * @throws \Exception
-     */
-    public function getRequest()
-    {
-        return $this->getContainer()->get('request_stack')->getCurrentRequest();
-    }
 
     /**
      * @param GetResponseEvent $event
@@ -42,7 +31,7 @@ class FixSlugListener
 
         $requestUriNew =  preg_replace('/-{2,}/','-', $requestUri);
 
-        if ($requestUri != $requestUriNew){
+        if ($requestUri !== $requestUriNew){
             $event->setResponse(new RedirectResponse($requestUriNew));
             $event->stopPropagation();
         }

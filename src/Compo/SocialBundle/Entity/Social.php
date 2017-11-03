@@ -8,7 +8,13 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Social
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
- * @ORM\Table()
+ * @ORM\Table(
+ *     indexes={
+ *          @ORM\Index(name="deleted_at", columns={"deleted_at" }),
+ *          @ORM\Index(name="position", columns={"position" }),
+ *          @ORM\Index(name="deleted_at_position", columns={ "deleted_at", "position" })
+ *     }
+ * )
  * @ORM\Entity(repositoryClass="Compo\SocialBundle\Entity\SocialRepository")
  */
 class Social

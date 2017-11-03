@@ -16,7 +16,7 @@ trait ImageEntityTrait
      *
      * @var Media
      *
-     * @ORM\ManyToOne(targetEntity="Compo\Sonata\MediaBundle\Entity\Media",  fetch="EXTRA_LAZY")
+     * @ORM\ManyToOne(targetEntity="Compo\Sonata\MediaBundle\Entity\Media",  fetch="EAGER")
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     protected $image;

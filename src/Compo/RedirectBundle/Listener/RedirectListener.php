@@ -5,6 +5,8 @@ namespace Compo\RedirectBundle\Listener;
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Compo\RedirectBundle\Entity\Redirect;
 use Compo\RedirectBundle\Repository\RedirectRepository;
+use Compo\Sonata\PageBundle\Entity\Page;
+use Sonata\PageBundle\Exception\PageNotFoundException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
@@ -16,14 +18,6 @@ class RedirectListener
 {
     use ContainerAwareTrait;
 
-    /**
-     * @return \Symfony\Component\HttpFoundation\Request
-     * @throws \Exception
-     */
-    public function getRequest()
-    {
-        return $this->getContainer()->get('request_stack')->getCurrentRequest();
-    }
 
     /**
      * @param GetResponseEvent $event
@@ -33,25 +27,51 @@ class RedirectListener
     {
         $request = $event->getRequest();
 
-        $uri = $request->getRequestUri();
+        // /app_dev.php/contacts?5454
+        $requestUri = $request->getRequestUri();
+
+        // /contacts
+        $pathInfo = $request->getPathInfo();
+
+        // /app_dev.php
+        $baseUrl = $request->getBaseUrl();
+
+        $uri = str_replace($baseUrl, '', $requestUri);
+
+
+        $em = $this->getContainer()->get('doctrine')->getManager();
 
         /** @var RedirectRepository $redirectRepository */
-        $redirectRepository = $this->getContainer()->get('doctrine')->getManager()->getRepository('CompoRedirectBundle:Redirect');
+        $redirectRepository = $em->getRepository('CompoRedirectBundle:Redirect');
 
         /** @var Redirect $redirect */
         $redirect = $redirectRepository->findOneBy(
             array(
-                'urIn' => $uri,
+                'urIn' => array($uri, $pathInfo),
                 'enabled' => true
-            ),
-            array(
-                'id' => 'ASC'
             )
         );
 
+        // TODO: Опция, не учитывать параметры в исходном/конечном URL
+
         if ($redirect) {
-            $event->setResponse(new RedirectResponse($redirect->getUrOut()));
+            $event->setResponse(new RedirectResponse($baseUrl . $redirect->getUrOut()));
             $event->stopPropagation();
         }
+
+        $pageRepository = $em->getRepository(Page::class);
+
+        $page = $pageRepository->findOneBy(
+            array(
+                'url' => array( $pathInfo . '/')
+            )
+        );
+
+        if ($page) {
+            $event->setResponse(new RedirectResponse($baseUrl . $pathInfo . '/'));
+            $event->stopPropagation();
+        }
+
+
     }
 }
