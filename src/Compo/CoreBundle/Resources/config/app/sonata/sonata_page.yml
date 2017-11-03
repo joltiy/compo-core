@@ -19,7 +19,7 @@ sonata_page:
 
     direct_publication: true
     hide_disabled_blocks: true
-    multisite:             host_with_path # host
+    multisite:             host
     use_streamed_response: true # set the value to false in debug mode or if the reverse proxy does not handle streamed response
     slugify_service: sonata.core.slugify.cocur
     is_inline_edition_on: false
@@ -139,5 +139,7 @@ doctrine:
         entity_managers:
             default:
                 mappings:
-                    SonataPageBundle: ~
+                    SonataPageBundle:
+                        type: annotation
+
                     CompoSonataPageBundle: ~
