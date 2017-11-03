@@ -381,6 +381,9 @@ task(
         try {
             run("cp -rf {{deploy_path}}/current/web/yandex.market.* $sitemapsPath/");
             run("cp -rf $sitemapsPath/yandex.market.* {{release_path}}/web/");
+
+            run("cp -rf {{deploy_path}}/current/web/google.merchant.* $sitemapsPath/");
+            run("cp -rf $sitemapsPath/google.merchant.* {{release_path}}/web/");
         } catch (\Exception $e) {
 
         }

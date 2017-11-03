@@ -60,6 +60,7 @@ class AppKernel extends Kernel
             new \Pix\SortableBehaviorBundle\PixSortableBehaviorBundle(),
             new \Presta\SitemapBundle\PrestaSitemapBundle(),
             new \KonstantinKuklin\AsseticStaticGzipBundle\AsseticStaticGzipBundle(),
+            new \Debril\RssAtomBundle\DebrilRssAtomBundle(),
 
             new \Sylius\Bundle\SettingsBundle\SyliusSettingsBundle(),
             new \Sylius\Bundle\ResourceBundle\SyliusResourceBundle(),
