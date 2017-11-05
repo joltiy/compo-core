@@ -301,7 +301,10 @@ task(
         run('cd {{release_path}} && ' . trim(get('bin_dir'), '/') . '/behat --format html --format=pretty');
 
         // TODO: Fix...
-        run('cd {{release_path}} && sed -i -- \'s/<script type=\'text/javascript\' src=\'https://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js\'></script>//g\' build/behat/index.html');
+        run('cd {{release_path}} && sed -i -- \'s/<script type=\'text\/javascript\' src=\'https:\/\/ajax.googleapis.com\/ajax\/libs\/jquery\/1.6.3\/jquery.min.js\'></script>//g\' build/behat/index.html');
+        run('cd {{release_path}} && sed -i -- \'s/http:\/\//https:\/\//g\' build/behat/index.html');
+
+
     }
 );
 
