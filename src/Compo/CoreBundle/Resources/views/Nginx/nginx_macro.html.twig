@@ -192,7 +192,7 @@
 {% endmacro %}
 
 
-{% macro location_build(auth_basic_user_file, server_fastcgi_pass) %}
+{% macro location_build(server_root, auth_basic_user_file, server_fastcgi_pass) %}
     location /build {
         auth_basic           "Auth";
         auth_basic_user_file {{ auth_basic_user_file }};
