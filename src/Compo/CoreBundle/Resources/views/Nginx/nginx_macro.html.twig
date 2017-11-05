@@ -190,3 +190,13 @@
     pagespeed FileCacheInodeLimit        500000;
     pagespeed EnableFilters local_storage_cache,extend_cache,prioritize_critical_css,convert_jpeg_to_progressive,recompress_jpeg,rewrite_javascript,rewrite_css,collapse_whitespace;
 {% endmacro %}
+
+
+{% macro location_build(auth_basic_user_file, server_fastcgi_pass) %}
+    location /build {
+        auth_basic           "Auth";
+        auth_basic_user_file {{ auth_basic_user_file }};
+
+        alias {{ server_root }}/../build/;
+    }
+{% endmacro %}
