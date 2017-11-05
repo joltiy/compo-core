@@ -25,11 +25,11 @@ set('bin_dir', 'bin');
 set('var_dir', 'var');
 
 /** @noinspection PhpUndefinedFunctionInspection */
-set('copy_dirs', ['vendor', 'web/vendor']);
+set('copy_dirs', ['vendor', 'web/vendor', 'web/assetic']);
 /** @noinspection PhpUndefinedFunctionInspection */
 set('env', 'prod');
 /** @noinspection PhpUndefinedFunctionInspection */
-set('shared_dirs', array('var/logs', 'var/sessions', 'web/assetic', 'web/uploads', 'web/media', 'web/userfiles'));
+set('shared_dirs', array('var/logs', 'var/sessions', 'web/uploads', 'web/media', 'web/userfiles'));
 /** @noinspection PhpUndefinedFunctionInspection */
 set('shared_files', array('app/config/parameters.yml', 'web/robots.txt'));
 /** @noinspection PhpUndefinedFunctionInspection */
