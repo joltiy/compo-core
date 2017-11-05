@@ -61,6 +61,19 @@ set(
 set('timezone', 'Europe/Moscow');
 date_default_timezone_set('Europe/Moscow');
 
+
+task('deploy:copy_dirs', function () {
+    if (has('previous_release')) {
+        foreach (get('copy_dirs') as $dir) {
+            if (test("[ -d {{previous_release}}/$dir ]")) {
+                run("mkdir -p {{release_path}}/$dir");
+                // COMPO: Disable verbose
+                run("rsync -a {{previous_release}}/$dir/ {{release_path}}/$dir");
+            }
+        }
+    }
+});
+
 /** @noinspection PhpUndefinedFunctionInspection */
 task(
     'timezone',
