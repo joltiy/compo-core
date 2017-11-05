@@ -136,7 +136,7 @@ task(
     'database:backup',
     function () {
         /** @noinspection PhpUndefinedFunctionInspection */
-        $databasePath = '{{deploy_path}}/backup/database';
+        $databasePath = '{{deploy_path}}/current/var/database';
         // mysqldump -u [username] -p [database name] > [database name].sql
 
         run('mkdir -p ' . $databasePath);
@@ -290,6 +290,15 @@ task(
         // The user must have rights for restart service
         // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart nginx.service
         run('sudo service php{{php_version}}-fpm restart');
+    }
+);
+
+task(
+    'behat',
+    function () {
+        // The user must have rights for restart service
+        // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart nginx.service
+        run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/behat');
     }
 );
 
@@ -493,6 +502,7 @@ task(
         'timezone',
         'deploy:prepare',
         'deploy:lock',
+        'database:backup',
         'timezone',
         'deploy:release',
         'deploy:update_code',
@@ -513,6 +523,7 @@ task(
         'deploy:symlink',
         'php-fpm:reload',
         'nginx:reload',
+        'behat',
         'deploy:unlock',
         'cleanup',
     ]
