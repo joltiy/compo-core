@@ -523,7 +523,7 @@ task(
         'deploy:symlink',
         'php-fpm:reload',
         'nginx:reload',
-        'behat',
+        //'behat',
         'deploy:unlock',
         'cleanup',
     ]
