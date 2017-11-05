@@ -193,10 +193,14 @@
 
 
 {% macro location_build(server_root, auth_basic_user_file, server_fastcgi_pass) %}
+    {% import _self as nginx %}
+
     location /build {
         auth_basic           "Auth";
         auth_basic_user_file {{ auth_basic_user_file }};
 
         alias {{ server_root }}/../build/;
+
+        {{ nginx.location_static() }}
     }
 {% endmacro %}
