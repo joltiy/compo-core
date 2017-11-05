@@ -311,7 +311,7 @@ task(
     function () {
         // The user must have rights for restart service
         // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart nginx.service
-        run('cd {{release_path}} && ' . trim(get('bin_dir'), '/') . '/behat --format html --format=pretty');
+        run('cd {{release_path}} && ' . trim(get('bin_dir'), '/') . '/behat --format html --format=pretty --colors');
     }
 );
 
