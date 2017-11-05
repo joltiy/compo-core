@@ -2,7 +2,7 @@
 
 use Symfony\Component\Yaml\Yaml;
 use function Deployer\{
-    commandExist, download, get, run, runLocally, set, task, upload, writeln, after, test
+    commandExist, download, get, run, runLocally, set, task, upload, writeln, after, test, has
 };
 
 /** @noinspection PhpIncludeInspection */
