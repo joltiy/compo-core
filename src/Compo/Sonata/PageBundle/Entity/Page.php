@@ -69,4 +69,19 @@ class Page extends BasePage
     {
         $this->header = $header;
     }
+
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setUrl($url)
+    {
+        if ($this->getRouteName() === 'page_slug') {
+            if (substr($url, -1) != '/') {
+                $url .= '/';
+            }
+        }
+
+        $this->url = $url;
+    }
 }
