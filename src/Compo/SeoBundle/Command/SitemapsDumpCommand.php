@@ -74,6 +74,9 @@ class SitemapsDumpCommand extends ContainerAwareCommand implements CronCommand
         $dumper = $container->get('presta_sitemap.dumper');
         /* @var $dumper DumperInterface */
 
+        $targetDir = $this->getApplication()->getKernel()->getProjectDir() . '/web/';
+
+
         $host = $this->getContainer()->getParameter('server_name');
 
         $container->get('router.request_context')->setHost($host);
