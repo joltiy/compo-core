@@ -18,6 +18,11 @@ fos_user:
 #    resource: "@PrestaSitemapBundle/Resources/config/routing.yml"
 #    prefix:   /
 
+_jms_job_queue:
+    resource: "@JMSJobQueueBundle/Controller/"
+    type: annotation
+    prefix: /jobs
+
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
 
