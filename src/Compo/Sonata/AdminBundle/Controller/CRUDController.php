@@ -702,7 +702,7 @@ class CRUDController extends BaseCRUDController
      *
      * @return RedirectResponse
      */
-    public function batchActionEnable(\Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery, Request $request = null)
+    public function batchActionEnable2(\Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery, Request $request = null)
     {
         if (!$this->admin->isGranted('EDIT')) {
             throw new AccessDeniedException();
@@ -768,7 +768,7 @@ class CRUDController extends BaseCRUDController
      * @throws ModelManagerException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function batchActionEnable2(\Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery, Request $request = null)
+    public function batchActionEnable(\Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery, Request $request = null)
     {
         if (!$this->admin->isGranted('EDIT')) {
             throw new AccessDeniedException();
