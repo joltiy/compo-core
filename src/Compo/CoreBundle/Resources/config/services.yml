@@ -177,3 +177,10 @@ services:
         class: Compo\CoreBundle\Listener\FixSlugListener
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 600 }
+
+
+
+    compo_core.job.listener.update:
+        class: Compo\CoreBundle\Listener\JobRepositoryClassMetadataListener
+        tags:
+            - { name: doctrine.event_listener, event: loadClassMetadata}
