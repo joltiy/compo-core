@@ -14,7 +14,6 @@ framework:
     validation:
         enabled: true
         enable_annotations: true
-        cache: validator.mapping.cache.doctrine.apcu
 
     serializer:
         enabled: true
@@ -44,6 +43,11 @@ framework:
     cache:
         app: cache.adapter.apcu
         system: cache.adapter.apcu
+
+        pools:
+            serializer:
+                adapter: cache.adapter.apcu
+
 
     php_errors:
         log: true

@@ -170,13 +170,13 @@ services:
         parent: compo_core.abstract_container_aware
         class: Compo\CoreBundle\Listener\RefererListener
         tags:
-            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 500 }
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 1000 }
 
     compo_core.listener.fix_slug:
         parent: compo_core.abstract_container_aware
         class: Compo\CoreBundle\Listener\FixSlugListener
         tags:
-            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 600 }
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 800 }
 
 
 

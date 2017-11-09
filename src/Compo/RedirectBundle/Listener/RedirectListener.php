@@ -18,6 +18,12 @@ class RedirectListener
 {
     use ContainerAwareTrait;
 
+    public $doctrine;
+
+    public function __construct($doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
 
     /**
      * @param GetResponseEvent $event
@@ -25,6 +31,10 @@ class RedirectListener
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
+        if (!$event->isMasterRequest()) {
+            return;
+        }
+
         $request = $event->getRequest();
 
         // /app_dev.php/contacts?5454
@@ -39,7 +49,7 @@ class RedirectListener
         $uri = str_replace($baseUrl, '', $requestUri);
 
 
-        $em = $this->getContainer()->get('doctrine')->getManager();
+        $em = $this->doctrine->getManager();
 
         /** @var RedirectRepository $redirectRepository */
         $redirectRepository = $em->getRepository('CompoRedirectBundle:Redirect');
