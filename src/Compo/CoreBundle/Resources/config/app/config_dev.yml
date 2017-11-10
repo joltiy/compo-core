@@ -4,6 +4,10 @@ framework:
         strict_requirements: true
     profiler: { only_exceptions: false, enabled: true  }
 
+    cache:
+        app: cache.adapter.system
+        system: cache.adapter.system
+
 web_profiler:
     toolbar: true
     intercept_redirects: false

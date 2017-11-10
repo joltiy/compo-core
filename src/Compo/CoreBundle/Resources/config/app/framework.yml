@@ -39,14 +39,17 @@ framework:
     assets:
         base_path: '/'
 
-
     cache:
         app: cache.adapter.apcu
         system: cache.adapter.apcu
 
-        pools:
-            serializer:
-                adapter: cache.system
+#    cache:
+#        app: cache.adapter.apcu
+#        system: cache.adapter.apcu
+#
+#        pools:
+#            serializer:
+#                adapter: cache.system
 
 
     php_errors:
