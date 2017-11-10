@@ -46,7 +46,7 @@ framework:
 
         pools:
             serializer:
-                adapter: cache.adapter.apcu
+                adapter: cache.system
 
 
     php_errors:
