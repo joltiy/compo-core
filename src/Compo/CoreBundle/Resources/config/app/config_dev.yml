@@ -18,7 +18,7 @@ monolog:
             type: stream
             path: "%kernel.logs_dir%/%kernel.environment%.log"
             level: debug
-            channels: ["!event"]
+            channels: ["!event", '!php']
         console:
             type:   console
             process_psr_3_messages: false
@@ -29,7 +29,11 @@ monolog:
             type: server_log
             process_psr_3_messages: false
             host: 127.0.0.1:9911
-
+        php:
+            type:  stream
+            path: "%kernel.logs_dir%/%kernel.environment%.log"
+            level: warning
+            channels: 'php'
         # uncomment to get logging in your browser
         # you may have to allow bigger header sizes in your Web server configuration
         #firephp:
