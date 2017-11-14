@@ -100,7 +100,6 @@ class AppKernel extends Kernel
             new \Compo\MenuBundle\CompoMenuBundle(),
             new \Compo\NewsBundle\CompoNewsBundle(),
             new \Compo\ArticlesBundle\CompoArticlesBundle(),
-            new \Compo\SmsProviderBundle\CompoSmsProviderBundle(),
             new \Compo\RedirectBundle\CompoRedirectBundle(),
             new \Compo\BannerBundle\CompoBannerBundle(),
             new \Compo\AdvantagesBundle\CompoAdvantagesBundle(),
