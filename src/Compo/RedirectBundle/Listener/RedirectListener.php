@@ -65,7 +65,7 @@ class RedirectListener
         // TODO: Опция, не учитывать параметры в исходном/конечном URL
 
         if ($redirect) {
-            $event->setResponse(new RedirectResponse($baseUrl . $redirect->getUrOut()));
+            $event->setResponse(new RedirectResponse($baseUrl . $redirect->getUrOut(), 301));
             $event->stopPropagation();
         }
 
@@ -78,7 +78,7 @@ class RedirectListener
         );
 
         if ($page) {
-            $event->setResponse(new RedirectResponse($baseUrl . $pathInfo . '/'));
+            $event->setResponse(new RedirectResponse($baseUrl . $pathInfo . '/', 301));
             $event->stopPropagation();
         }
 

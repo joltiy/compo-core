@@ -112,6 +112,6 @@ class NewsController extends Controller
             throw $this->createNotFoundException('compo_news.exception.not_found_news');
         }
 
-        return $this->redirectToRoute('compo_news_show_by_slug', array('slug' => $article->getSlug()));
+        return $this->redirectToRoute('compo_news_show_by_slug', array('slug' => $article->getSlug()), 301);
     }
 }

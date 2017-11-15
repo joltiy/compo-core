@@ -68,7 +68,7 @@ class ArticlesController extends Controller
             throw $this->createNotFoundException('compo_articles.exception.not_found_article');
         }
 
-        return $this->redirectToRoute('compo_articles_show_by_slug', array('slug' => $article->getSlug()));
+        return $this->redirectToRoute('compo_articles_show_by_slug', array('slug' => $article->getSlug()), 301);
     }
 
     /**

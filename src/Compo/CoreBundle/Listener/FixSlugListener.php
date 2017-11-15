@@ -32,7 +32,7 @@ class FixSlugListener
         $requestUriNew =  preg_replace('/-{2,}/','-', $requestUri);
 
         if ($requestUri !== $requestUriNew){
-            $event->setResponse(new RedirectResponse($requestUriNew));
+            $event->setResponse(new RedirectResponse($requestUriNew, 301));
             $event->stopPropagation();
         }
     }
