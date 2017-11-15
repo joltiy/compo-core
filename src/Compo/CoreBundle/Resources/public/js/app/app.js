@@ -2,7 +2,8 @@
     'use strict';
     /* @ngInject */
     angular
-        .module('app.core', ['app.seo', 'app.feedback', 'validation', 'validation.rule'])
+        .module('app.core', [ 'app.feedback', 'validation', 'validation.rule'])
+        // 'app.seo',
         .config(['$validationProvider', function (validationProvider) {
             validationProvider.setExpression({
 

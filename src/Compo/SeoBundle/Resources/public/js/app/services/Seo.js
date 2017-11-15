@@ -10,15 +10,18 @@
         .module('app.seo')
         .factory("Seo", Seo);
 
-    Seo.$inject = ['$resource'];
+    Seo.$inject = ['$resource', '$analytics', '$analyticsProvider', '$metrika'];
 
     /* @ngInject */
-    function Seo($resource) {
+    function Seo($resource, $analytics, $analyticsProvider, $metrika) {
         var seo = {
             settings: {
             }
         };
 
+        $analyticsProvider.registerPageTrack(function(path){
+            $metrika.hit();
+        });
 
         return seo;
     }
