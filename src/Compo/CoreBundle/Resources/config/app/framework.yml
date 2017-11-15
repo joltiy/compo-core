@@ -8,16 +8,18 @@ framework:
     form:                    true
     csrf_protection:         true
 
-#    annotations:
-#        cache: "doctrine_cache.providers.annotation_cache"
+    annotations:
+        cache: doctrine_cache.providers.annotation_cache
 
     validation:
         enabled: true
         enable_annotations: true
+        cache: validator.mapping.cache.doctrine.apcu
 
     serializer:
         enabled: true
         enable_annotations: true
+        cache: serializer.mapping.cache.apcu
 
     templating:
         engines: ['twig']
@@ -41,16 +43,11 @@ framework:
 
     cache:
         app: cache.adapter.apcu
-        system: cache.adapter.apcu
+        system: cache.adapter.system
 
-#    cache:
-#        app: cache.adapter.apcu
-#        system: cache.adapter.apcu
-#
 #        pools:
 #            serializer:
 #                adapter: cache.system
-
 
     php_errors:
         log: true

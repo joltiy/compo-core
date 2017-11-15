@@ -110,7 +110,7 @@ class ArticlesController extends Controller
         return $this->render(
             'CompoArticlesBundle:Articles:show.html.twig',
             array(
-                'article' => $article,
+                'article' => $article
             )
         );
     }
