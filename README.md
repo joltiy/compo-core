@@ -43,3 +43,5 @@ Compo Core
   - https://github.com/comporu/dlyavann
   - https://github.com/comporu/keram
   - https://github.com/comporu/mirplitki
+
+test
