@@ -141,33 +141,4 @@ class BannerItemAdmin extends AbstractAdmin
             ->add('deletedAt');
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    protected function configureTabMenu(MenuItemInterface $banner, $action, AdminInterface $childAdmin = null)
-    {
-        if ('edit' === $action) {
-            $this->configureTabBannerItem($banner, $action);
-
-            /** @var BannerAdmin $bannerAdmin */
-            $bannerAdmin = $this->getConfigurationPool()->getAdminByAdminCode('compo_banner.admin.banner');
-            $bannerAdmin->setSubject($this->getSubject()->getBanner());
-            $tabBanner = $banner->addChild('tab_menu.banner', array('label' => $this->trans('tab_menu.banner', array('%name%' => $this->getSubject()->getBanner()->getName())), 'attributes' => array('dropdown' => true)));
-
-            $bannerAdmin->configureTabBannerList($tabBanner, $action);
-        }
-    }
-
-    /**
-     * @param MenuItemInterface $banner
-     * @param $action
-     * @param AdminInterface|null $childAdmin
-     */
-    public function configureTabBannerItem(MenuItemInterface $banner, $action, AdminInterface $childAdmin = null)
-    {
-        $banner->addChild(
-            $this->trans('tab_menu.link_edit'),
-            array('uri' => $this->generateUrl('edit', array('id' => $this->getSubject()->getId())))
-        );
-    }
 }
