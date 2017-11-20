@@ -335,6 +335,14 @@ task(
         run('sudo service nginx restart');
     }
 );
+task(
+    'supervisor:restart',
+    function () {
+        // The user must have rights for restart service
+        // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart nginx.service
+        run('sudo service supervisor restart');
+    }
+);
 
 /** @noinspection PhpUndefinedFunctionInspection */
 task(
@@ -536,6 +544,7 @@ task(
         'deploy:symlink',
         'php-fpm:reload',
         'nginx:reload',
+        'supervisor:restart',
         //'behat',
         'deploy:unlock',
         'cleanup',
