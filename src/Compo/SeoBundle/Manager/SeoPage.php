@@ -10,9 +10,27 @@ use Compo\Sonata\CoreBundle\Model\BaseEntityManager;
 class SeoPage extends BaseEntityManager
 {
     /**
+     * @var
+     */
+    protected $settings;
+
+    /**
+     *
      * @var array
      */
     public $seoPages = array();
+
+    /**
+     * @return object|\Sylius\Bundle\SettingsBundle\Model\SettingsInterface
+     */
+    public function getSettings()
+    {
+        if (null === $this->settings) {
+            $this->settings = $this->getContainer()->get('sylius.settings_manager')->load('seo');
+        }
+
+        return $this->settings;
+    }
 
     /**
      * @return array

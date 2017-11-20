@@ -1,21 +1,28 @@
 (function () {
     'use strict';
     /* @ngInject */
-    angular.module('app.seo', ['angulartics', 'yandex-metrika', 'ngResource'])
+    angular.module('app.seo', ['yandex-metrika', 'angulartics',  'ngResource'])
         .config(['$metrikaProvider', function ($metrikaProvider) {
             $metrikaProvider.configureCounter({
                 id: window.yandexMetrikaId,
+                defer: false,
                 clickmap: true,
                 trackLinks: true,
                 accurateTrackBounce: true,
                 webvisor: true,
                 trackHash: true,
-                ecommerce: "dataLayer"
+                ecommerce: "dataLayer",
+                triggerEvent: true
             });
 
         }])
         .config(['$analyticsProvider', function ($analyticsProvider) {
             $analyticsProvider.trackExceptions(true);
+
+            $analyticsProvider.firstPageview(true);
+            $analyticsProvider.virtualPageviews(false);
+            $analyticsProvider.settings.pageTracking.trackRelativePath = false;
+            $analyticsProvider.withAutoBase(false);
 
             if (window.userId != undefined) {
                 $analyticsProvider.settings.ga = {
@@ -32,11 +39,35 @@
 
             $analyticsProvider.registerPageTrack(function(path){
 
+                if (!path) {
+                    return;
+                }
+
+                var params = {
+                    'userId': window.userId
+                };
+
+                if (window.yandexMetrikaId != undefined && window.yandexMetrikaId) {
+
+                    if (window['yaCounter' + window.yandexMetrikaId] == undefined) {
+                        angular.element(document).on('yacounter' + window.yandexMetrikaId + 'inited', function () {
+                            window['yaCounter' + window.yandexMetrikaId].hit(path, {
+                                'params': params
+                            });
+                        });
+                    } else {
+                        window['yaCounter' + window.yandexMetrikaId].hit(path, {
+                            'params': params
+                        });
+                    }
+                }
+
                 var dataLayer = window.dataLayer = window.dataLayer || [];
 
                 dataLayer.push({
                     'event': 'content-view',
-                    'content-name': path
+                    'content-name': path,
+                    'userId': window.userId
                 });
             });
 
@@ -48,19 +79,39 @@
              * @param {object} properties Comprised of the mandatory field 'category' (string) and optional  fields 'label' (string), 'value' (integer) and 'noninteraction' (boolean)
              */
 
-            $analyticsProvider.registerEventTrack(function(action, properties){
+            $analyticsProvider.registerEventTrack(function(event, properties){
                 var dataLayer = window.dataLayer = window.dataLayer || [];
+
+
                 properties = properties || {};
 
-                dataLayer.push({
-                    'event': properties.event || 'interaction',
+                var data = {
+                    'event': event,
+
                     'target': properties.category,
-                    'action': action,
+                    'action': properties.action,
                     'target-properties': properties.label,
                     'value': properties.value,
+
                     'interaction-type': properties.noninteraction,
-                    'ecommerce': properties.ecommerce
-                });
+                    'ecommerce': properties.ecommerce,
+                    'userId': window.userId
+                };
+
+                dataLayer.push(data);
+
+                if (window.yandexMetrikaId != undefined && window.yandexMetrikaId) {
+
+                    if (window['yaCounter' + window.yandexMetrikaId] == undefined) {
+                        angular.element(document).on('yacounter' + window.yandexMetrikaId + 'inited', function () {
+                            window['yaCounter' + window.yandexMetrikaId].reachGoal(event, data);
+
+                        });
+                    } else {
+                        window['yaCounter' + window.yandexMetrikaId].reachGoal(event, data);
+                    }
+                }
+
 
             });
 
@@ -81,6 +132,13 @@
                 }
             );
 
+        }])
+        .run(['$analytics', function($analytics){
+            angular.element(document).on('yacounter' + window.yandexMetrikaId + 'inited', function () {
+                if (window.userId != undefined && window.userId) {
+                    window['yaCounter' + window.yandexMetrikaId].setUserID(window.userId);
+                }
+            });
         }])
     ;
 })();

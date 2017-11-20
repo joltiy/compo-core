@@ -1,0 +1,7 @@
+{%- set seo_settings = seo_page_manager.settings -%}
+
+{% if seo_settings.yandex_metrika_id %}
+    <script>
+        window.yandexMetrikaId = {{ seo_settings.yandex_metrika_id }};
+    </script>
+{% endif %}

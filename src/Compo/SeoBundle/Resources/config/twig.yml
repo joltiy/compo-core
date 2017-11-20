@@ -3,3 +3,5 @@ twig:
         - 'CompoSeoBundle:Form:seo_vars.html.twig'
     globals:
         seo_page: "@sonata.seo.page"
+
+        seo_page_manager: "@compo_seo.page.manager"

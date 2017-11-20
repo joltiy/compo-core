@@ -19,9 +19,7 @@
             }
         };
 
-        $analyticsProvider.registerPageTrack(function(path){
-            $metrika.hit();
-        });
+
 
         return seo;
     }
