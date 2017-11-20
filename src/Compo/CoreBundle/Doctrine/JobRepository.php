@@ -212,7 +212,8 @@ class JobRepository extends EntityRepository
             $sql .= " AND j.state IN (:states)";
             $params->add(new Parameter('states', $states, Connection::PARAM_STR_ARRAY));
         }
-        $sql .= " LIMIT 0,1";
+
+        $sql .= " ORDER BY j.id DESC LIMIT 0,1";
 
         return $this->_em->createNativeQuery($sql, $rsm)
             ->setParameters($params)
