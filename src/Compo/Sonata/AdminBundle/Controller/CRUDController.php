@@ -281,6 +281,7 @@ class CRUDController extends BaseCRUDController
                 'action' => 'settings',
                 'breadcrumbs_builder' => $this->get('sonata.admin.breadcrumbs_builder'),
                 'admin' => $this->admin,
+                'base_template' => 'CompoSonataAdminBundle::standard_layout_compo.html.twig',
 
                 'settings' => $settings,
                 'form' => $form->createView(),
