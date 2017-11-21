@@ -41,3 +41,4 @@ list.label_phone: 'Телефон'
 list.label_email: 'E-mail'
 form.label_page: 'Страница'
 
+block.title_feedback_form: 'Форма обратной связи'
