@@ -55,7 +55,21 @@ class FeedbackFormBlockService extends AbstractBlockService
      */
     public function buildForm(FormMapper $formMapper, BlockInterface $block)
     {
-        $formMapper->add('settings', 'sonata_type_immutable_array');
+
+        $feedbackManager = $this->getContainer()->get('compo_feedback.manager.feedback');
+
+        $choices = $feedbackManager->getTypesChoice();
+
+
+        $formMapper->add(
+            'settings',
+            'sonata_type_immutable_array',
+            array(
+                'keys' => array(
+                    array('type', 'choice', array('choices' => $choices, 'label' => 'Тип формы')),
+                ),
+            )
+        );
     }
 
     /**
