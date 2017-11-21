@@ -1,7 +1,7 @@
 (function () {
     'use strict';
     /* @ngInject */
-    angular.module('app.seo', ['yandex-metrika', 'angulartics',  'ngResource'])
+    angular.module('app.seo', ['yandex-metrika', 'angulartics',  'ngResource', '$locationProvider'])
         .config (function($locationProvider) {
             $locationProvider.html5Mode({
                 enabled : true,
