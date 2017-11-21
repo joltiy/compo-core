@@ -1,14 +1,14 @@
 (function () {
     'use strict';
     /* @ngInject */
-    angular.module('app.seo', ['yandex-metrika', 'angulartics',  'ngResource', '$locationProvider'])
-        .config (function($locationProvider) {
+    angular.module('app.seo', ['yandex-metrika', 'angulartics',  'ngResource'])
+        .config (['$locationProvider', function($locationProvider) {
             $locationProvider.html5Mode({
                 enabled : true,
                 requireBase: false,
                 rewriteLinks : false
             });
-        })
+        }])
         .config(['$metrikaProvider', function ($metrikaProvider) {
             $metrikaProvider.configureCounter({
                 id: window.yandexMetrikaId,
