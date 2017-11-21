@@ -2,6 +2,13 @@
     'use strict';
     /* @ngInject */
     angular.module('app.seo', ['yandex-metrika', 'angulartics',  'ngResource'])
+        .config (function($locationProvider) {
+            $locationProvider.html5Mode({
+                enabled : true,
+                requireBase: false,
+                rewriteLinks : false
+            });
+        })
         .config(['$metrikaProvider', function ($metrikaProvider) {
             $metrikaProvider.configureCounter({
                 id: window.yandexMetrikaId,

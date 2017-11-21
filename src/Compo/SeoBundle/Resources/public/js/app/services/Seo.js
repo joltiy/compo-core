@@ -8,7 +8,8 @@
 
     angular
         .module('app.seo')
-        .factory("Seo", Seo);
+        .factory("Seo", Seo)
+    ;
 
     Seo.$inject = ['$resource', '$analytics', '$analyticsProvider', '$metrika'];
 
