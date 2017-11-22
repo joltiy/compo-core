@@ -183,6 +183,8 @@ form:
     label_phone: 'Телефон'
     label_message: 'Сообщение'
     label_tags: 'Метки'
+    label_is_replace: 'Заменить'
+    label_created_at_readonly: 'Дата создания'
 
 list:
     label__action: 'Действия'
