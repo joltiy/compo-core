@@ -36,6 +36,17 @@ class CRUDController extends BaseCRUDController
     protected $admin;
 
     /**
+     * Return the admin related to the given $class.
+     *
+     * @param string $class
+     *
+     * @return \Sonata\AdminBundle\Admin\AdminInterface|null
+     */
+    public function getAdminByClass($class) {
+        return $this->admin->getConfigurationPool()->getAdminByClass($class);
+    }
+
+    /**
      * @return RedirectResponse
      */
     public function cloneAction()
