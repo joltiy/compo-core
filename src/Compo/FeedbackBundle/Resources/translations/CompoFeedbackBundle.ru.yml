@@ -45,7 +45,7 @@ form.label_page: 'Страница'
 block.title_feedback_form: 'Форма обратной связи'
 compo_feedback.callback: 'Заказать звонок'
 Product: Товар
-Quantity: Колличество
+Quantity: Количество
 form.label_product: 'Товар'
 form.label_product_url: 'URL'
 
