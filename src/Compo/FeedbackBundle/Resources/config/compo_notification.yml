@@ -1,6 +1,24 @@
 compo_notification:
     events:
         -
+            event: "compo_feedback.callback_for_user"
+            description: "Feedback created. For user."
+            recipient: "{{ feedback.email}}"
+            subject: "CompoFeedbackBundle:Notification:Email/feedback_subject.html.twig"
+            body: "CompoFeedbackBundle:Notification:Email/feedback_body.html.twig"
+            help: "CompoFeedbackBundle:Notification:Email/feedback_help.html.twig"
+            type: "email"
+
+        -
+            event: "compo_feedback.callback_for_admin"
+            description: "Feedback created. For user."
+            recipient: "{{ compo_notification_email_settings.notification_email_recipient_default }}"
+            subject: "CompoFeedbackBundle:Notification:Email/feedback_subject.html.twig"
+            body: "CompoFeedbackBundle:Notification:Email/feedback_body.html.twig"
+            help: "CompoFeedbackBundle:Notification:Email/feedback_help.html.twig"
+            type: "email"
+
+        -
             event: "compo_feedback.feedback_for_user"
             description: "Feedback created. For user."
             recipient: "{{ feedback.email}}"
@@ -29,6 +47,24 @@ compo_notification:
 
         -
             event: "compo_feedback.write_to_director_for_admin"
+            description: "Feedback created. For admin."
+            recipient: "{{ compo_notification_email_settings.notification_email_recipient_default }}"
+            subject: "CompoFeedbackBundle:Notification:Email/feedback_subject.html.twig"
+            body: "CompoFeedbackBundle:Notification:Email/feedback_body.html.twig"
+            help: "CompoFeedbackBundle:Notification:Email/feedback_help.html.twig"
+            type: "email"
+
+        -
+            event: "compo_feedback.product_want_lower_cost_for_user"
+            description: "Feedback created. For user."
+            recipient: "{{ feedback.email}}"
+            subject: "CompoFeedbackBundle:Notification:Email/feedback_subject.html.twig"
+            body: "CompoFeedbackBundle:Notification:Email/feedback_body.html.twig"
+            help: "CompoFeedbackBundle:Notification:Email/feedback_help.html.twig"
+            type: "email"
+
+        -
+            event: "compo_feedback.product_want_lower_cost_for_admin"
             description: "Feedback created. For admin."
             recipient: "{{ compo_notification_email_settings.notification_email_recipient_default }}"
             subject: "CompoFeedbackBundle:Notification:Email/feedback_subject.html.twig"

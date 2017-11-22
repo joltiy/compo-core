@@ -36,6 +36,7 @@ Message: Сообщение
 Phone: Телефон
 compo_feedback.feedback: 'Форма обратной связи'
 compo_feedback.write_to_director: 'Написать директору'
+compo_feedback.product_want_lower_cost: 'Хочу дешевле'
 
 list.label_phone: 'Телефон'
 list.label_email: 'E-mail'
@@ -43,3 +44,8 @@ form.label_page: 'Страница'
 
 block.title_feedback_form: 'Форма обратной связи'
 compo_feedback.callback: 'Заказать звонок'
+Product: Товар
+Quantity: Колличество
+form.label_product: 'Товар'
+form.label_product_url: 'URL'
+

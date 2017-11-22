@@ -41,6 +41,11 @@ services:
         tags:
             - { name: form.type }
 
+    compo_feedback.form.type.product_want_lower_cost:
+        class: Compo\FeedbackBundle\Form\ProductWantLowerCostFormType
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: form.type }
 
     compo_feedback.form.type.callback:
         class: Compo\FeedbackBundle\Form\CallbackFormType

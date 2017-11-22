@@ -53,6 +53,8 @@ class FeedbackBaseFormType extends AbstractType
     {
         $resolver->setDefaults(
             array(
+                'extra_data' => array(),
+
                 'type' => '',
                 'data_class' => 'Compo\FeedbackBundle\Entity\Feedback',
                 'translation_domain' => 'CompoFeedbackBundle',
