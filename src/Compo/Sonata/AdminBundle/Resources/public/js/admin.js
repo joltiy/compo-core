@@ -534,5 +534,34 @@ $(document).ready(function () {
 
 
     //$('.select2-container').parent().find('select').attr('style','display:block; position:absolute; bottom: 0; left: 0; clip:rect(0,0,0,0);');
+
+
+
+
+
+    $('.btn_batch').click(function (e) {
+
+        var value = $('.select-batchactions option:selected').val();
+
+        if ($('#actionForm' + value).length) {
+            $('.actionFormModal-required').prop('required', true);
+
+            e.preventDefault();
+
+            $('#actionForm' + value).modal('show');
+            return false;
+        } else {
+            var requiredFields = $('.actionFormModal :required');
+            requiredFields.addClass('actionFormModal-required');
+            requiredFields.prop('required', false);
+
+            return true;
+        }
+    });
+
+
+
+
+
 });
 

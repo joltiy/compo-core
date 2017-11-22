@@ -13,6 +13,8 @@ use Sonata\AdminBundle\Exception\ModelManagerException;
 use Sonata\DoctrineORMAdminBundle\Model\ModelManager;
 use Sylius\Bundle\SettingsBundle\Form\Factory\SettingsFormFactoryInterface;
 use Sylius\Bundle\SettingsBundle\Manager\SettingsManagerInterface;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -608,6 +610,7 @@ class CRUDController extends BaseCRUDController
 
                 return $this->render($this->admin->getTemplate('list'), array(
                     'nodes' => $this->getTreeNodes($request),
+                    'batch_action_forms' => $this->getBatchActionFormViews(),
 
                     'action' => 'list',
                     'form' => $formView,
@@ -621,15 +624,102 @@ class CRUDController extends BaseCRUDController
 
 
             } else {
-                return parent::listAction($request);
+                return $this->listActionCustom($request);
             }
 
 
         } else {
-            return parent::listAction($request);
+            return $this->listActionCustom($request);
         }
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function listActionCustom(Request $request = null)
+    {
+        $this->admin->checkAccess('list');
+
+        $preResponse = $this->preList($request);
+        if ($preResponse !== null) {
+            return $preResponse;
+        }
+
+        if ($listMode = $request->get('_list_mode')) {
+            $this->admin->setListMode($listMode);
+        }
+
+        $datagrid = $this->admin->getDatagrid();
+        $formView = $datagrid->getForm()->createView();
+
+        // set the theme for the current Admin Form
+        $this->setFormThemePublic($formView, $this->admin->getFilterTheme());
+
+        return $this->render($this->admin->getTemplate('list'), [
+            'action' => 'list',
+            'form' => $formView,
+            'batch_action_forms' => $this->getBatchActionFormViews(),
+
+            'datagrid' => $datagrid,
+            'csrf_token' => $this->getCsrfToken('sonata.batch'),
+            'export_formats' => $this->has('sonata.admin.admin_exporter') ?
+                $this->get('sonata.admin.admin_exporter')->getAvailableFormats($this->admin) :
+                $this->admin->getExportFormats(),
+        ], null);
+    }
+
+    /**
+     * @param $name
+     * @return FormBuilderInterface
+     */
+    public function createBatchActionForm($name) {
+        return $this->get('form.factory')
+            ->createNamedBuilder($name, 'form', array(), array(
+                'label_format' => 'form.label_%name%',
+                'translation_domain' => $this->admin->getTranslationDomain(),
+            ));
+    }
+
+    public function configureBatchActionForms() {
+        $actionForms = array();
+
+        return $actionForms;
+    }
+
+    public function getBatchActionFormViews() {
+        $actionForms = array();
+
+        foreach ($this->configureBatchActionForms() as $formName => $form) {
+            $actionForms[$formName] = $form->getForm()->createView();
+        }
+
+        return $actionForms;
+    }
+
+    /**
+     * Sets the admin form theme to form view. Used for compatibility between Symfony versions.
+     *
+     * @param FormView $formView
+     * @param string   $theme
+     */
+    public function setFormThemePublic(FormView $formView, $theme)
+    {
+        $twig = $this->get('twig');
+
+        try {
+            $twig
+                ->getRuntime('Symfony\Bridge\Twig\Form\TwigRenderer')
+                ->setTheme($formView, $theme);
+        } catch (\Twig_Error_Runtime $e) {
+            // BC for Symfony < 3.2 where this runtime not exists
+            $twig
+                ->getExtension('Symfony\Bridge\Twig\Extension\FormExtension')
+                ->renderer
+                ->setTheme($formView, $theme);
+        }
+    }
     public function getTreeNodes($request) {
         // set the theme for the current Admin Form
         //$this->setFormTheme($formView, $this->admin->getFilterTheme());
