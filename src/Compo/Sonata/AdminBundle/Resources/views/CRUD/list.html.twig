@@ -165,39 +165,6 @@ file that was distributed with this source code.
                                                     ({{ admin.datagrid.pager.nbresults }})
                                                 </label>
 
-
-                                                {% for actionForm in batch_action_forms %}
-                                                    <div id="actionForm{{ actionForm.vars.name }}" class="modal fade actionFormModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog modal-lg">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                                                                    {% set batch_action_label = 'batch.label_' ~ actionForm.vars.name %}
-
-                                                                    <h4 class="modal-title">{{ batch_action_label|trans({}, admin.translationDomain) }}</h4>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <div class="box box-success">
-                                                                        <div class="box-body">
-                                                                            <div class="fz_reply_msg form-group col-xs-12">
-                                                                                {{ form_widget(actionForm) }}
-                                                                            </div>
-                                                                            <div class="clearfix"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button class="btn btn-primary" type="submit">OK</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                {% endfor %}
-
-
-
-
-
                                                 <select name="action" style="width: auto; height: auto" class="form-control select-batchactions">
                                                     {% for action, options in batchactions %}
                                                         {% set batch_action_label = options.label %}
@@ -249,6 +216,37 @@ file that was distributed with this source code.
                                 {% endif %}
                             {% endblock %}
                         </div>
+
+                        {% for actionForm in batch_action_forms %}
+                            <div id="actionForm{{ actionForm.vars.name }}" class="modal fade actionFormModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                                            {% set batch_action_label = 'batch.label_' ~ actionForm.vars.name %}
+
+                                            <h4 class="modal-title">{{ batch_action_label|trans({}, admin.translationDomain) }}</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="box box-success">
+                                                <div class="box-body">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            {{ form_widget(actionForm) }}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-primary" type="submit">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
                     {% endif %}
                 {% endblock %}
             </div>
