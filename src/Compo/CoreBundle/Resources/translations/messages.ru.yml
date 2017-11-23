@@ -1,22 +1,47 @@
 settings:
-  save_button:
-      label: 'Сохранить'
-  header: 'Настройки'
+    save_button:
+        label: 'Сохранить'
+    header: 'Настройки'
 
-  updated_successful: 'Настройки успешно обновлены!'
-  main_tab: 'Основные'
-
-list_mode: ''
-tree_mode: ''
-title_edit: 'Редактировать'
-title_create: 'Создать'
+    updated_successful: 'Настройки успешно обновлены!'
+    main_tab: 'Основные'
+    seo_tab: 'SEO'
+    seo_items_tab: 'SEO элементов'
+    popup_tab: 'Модальные окна'
+    notification_tab: 'Уведомления'
+    index_tab: 'Главная'
+    order_tab: 'Заказ'
 
 breadcrumb:
     link_dashboard: 'Панель управления'
+    link_list: "%name%"
+    link_create: "Создать"
+    link_trash: "Корзина"
+    link_tree: "%name%"
+    link_settings: "Настройки"
 
 tab_menu:
     link_edit: 'Редактировать'
     link_show_on_site: 'Показать на сайте'
+    link_list: 'Список'
+    link_settings: 'Настройки'
+    title_core_settings_list: 'Настройки'
+    link_create: 'Создать'
+    link_trash: 'Корзина'
+    link_history: 'Изменения'
+    title_tree: "%name%"
+    title_list: "%name%"
+    title_create: "%name%"
+    title_trash: "%name%"
+    title_edit: "%name%"
+    title_history: "%name%"
+    title_delete: "%name%"
+    title_action_delete_batch: "%name%"
+    title_batch:  "%name%"
+    title_untrash: "%name%"
+    title_revert: "%name%"
+    link_clone: 'Клонировать'
+    link_tree: 'Дерево'
 
 filter:
     label_created_at: 'Дата создания'
@@ -43,6 +68,10 @@ filter:
     label_header_menu: 'Название в меню'
     label_type: 'Тип'
     label_percent: 'Процент'
+    label_publication_at: 'Дата публикации'
+    label_without_image: 'Без изображения'
+    label_created_by: 'Создал'
+    label_updated_by: 'Обновил'
 
 form:
     label_header: 'Заголовок'
@@ -78,6 +107,84 @@ form:
     tab_seo_meta: 'Мета'
     label_type: 'Тип'
     label_publication_at: 'Дата публикации'
+    label_settings_seo_header: 'Заголовок'
+    label_settings_seo_title: 'Title'
+    label_settings_seo_meta_keyword: 'Meta Keywords'
+    label_settings_seo_meta_description: 'Meta Description'
+    label_settings_seo_items_header: 'Заголовок'
+    label_settings_seo_items_title: 'Title'
+    label_settings_seo_items_meta_keyword: 'Meta Keywords'
+    label_settings_seo_items_meta_description: 'Meta Description'
+    label_settings_seo_vars: 'Перменные'
+    label_seo_vars: 'Перменные'
+    label_limit: 'Лимит'
+    label_views: 'Кол-во просмотров'
+    label_created_by: 'Создал'
+    label_updated_by: 'Обновил'
+    tab_properties: 'Свойства'
+    label_settings_popup_payment: 'Оплата'
+    label_settings_popup_pickup: 'Самовывоз'
+    label_settings_popup_delivery: 'Доставка'
+    label_settings_popup_product_note: 'Примечание к товару'
+    label_settings_header_menu: 'Меню в шапке'
+    label_settings_footer_menu: 'Меню в подвале'
+    label_settings_logo_image: 'Логотип'
+    label_settings_footer_payment_banner: 'Способы оплаты'
+    label_settings_footer_menu_catalog_1_column: 'Меню в подвале (1 колонка)'
+    label_settings_footer_menu_catalog_2_column: 'Меню в подвале (2 колонка)'
+    label_settings_index_header: 'Заголовок основного текста'
+    label_settings_index_slider: 'Слайдер в основном тексте'
+    label_settings_index_slider_text: 'Основной текст (слайдера)'
+    label_settings_index_text: 'Основной текст'
+    label_settings_index_manufacture_collection_tag_criteria_block_1: 'Коллекции по меткам - 1'
+    label_settings_index_manufacture_collection_tag_criteria_block_2: 'Коллекции по меткам - 2'
+    label_css_class: 'CSS класс'
+    label_description_additional: 'Дополнительное описание'
+    label_settings_order_page: 'Страница выполненного заказа'
+    label_visible: 'Отображать'
+    group_media_image: 'Изображение'
+    group_media_images_additional: 'Дополнительные изображения'
+    group_media_files_additional: 'Дополнительные файлы'
+    group_main: 'Основное'
+    group_seo: 'SEO'
+    group_map: 'Карта'
+    label_settings_index_menu_mobile: 'Мобильное меню'
+    label_settings_index_menu_features: 'По текстуре и поверхности'
+    label_settings_index_menu_size: 'По размеру'
+    label_settings_index_menu_interior: 'Для интерьера'
+    label_settings_seo_index_header: 'Заголовок'
+    label_settings_seo_index_description: 'Описание'
+    label_settings_seo_index_title: 'Title'
+    label_settings_seo_index_meta_keyword: 'Meta Keywords'
+    label_settings_seo_index_meta_description: 'Meta Description'
+    label_class: 'CSS класс'
+    label_template: 'Шаблон'
+    label_login: 'Логин'
+    label_password: 'Пароль'
+    label_settings_sms_provider: 'SMS провайдер'
+    label_settings_notification_email_template: 'Базовый шаблон для e-mail уведомлений'
+    label_settings_notification_email: 'E-mail для уведомлений'
+    label_settings_notification_phone: 'Телефон для уведомлений'
+    label_settings_notification_email_from: 'E-mail отправителя'
+    label_settings_index_header_slider: 'Слайдер на главной'
+    label_settings_index_footer_advantages: 'Приемущества в подвале'
+    label_settings_index_footer_advantages_tabs: 'Приемущества во вкладках'
+    label_settings_index_menu_catalog: 'Меню каталога на главной'
+    label_settings_header_menu_catalog: 'Основное меню'
+    label_settings_header_menu_catalog_tagging: 'Меню каталога'
+    label_help: "Справка"
+    label_icon: "Иконка"
+    label_url_text: "Текст ссылки"
+    label_show_on_index: "Показывать на главной"
+    group_image: "Основное изображение"
+    group_additional_files: "Дополнительные файлы"
+    tab_media: "Медиа"
+    label_email: 'E-mail'
+    label_phone: 'Телефон'
+    label_message: 'Сообщение'
+    label_tags: 'Метки'
+    label_is_replace: 'Заменить'
+    label_created_at_readonly: 'Дата создания'
 
 list:
     label__action: 'Действия'
@@ -98,6 +205,8 @@ list:
     label_short_description: 'Описание (краткое)'
     label_header_menu: 'Название в меню'
     label_alias: 'Служебное имя'
+    label_publication_at: 'Дата публикации'
+    label_type: 'Тип'
 
 show:
     label_created_at: 'Дата создания'
@@ -133,6 +242,44 @@ show:
     label_percent: 'Процент'
     label_publication_at: 'Дата публикации'
 
+batch:
+    label_enable: 'Включить'
+    label_disable: 'Выключить'
+    label_delete: 'Удалить'
+    label_change_availability: 'Изменить наличие'
+    label_yandex_market_enabled_on: 'Включить Яндекс.Маркет'
+    label_yandex_market_enabled_off: 'Выключить Яндекс.Маркет'
+
+action:
+    link_create: 'Создать'
+    link_edit: 'Редактировать'
+    link_list: 'Список'
+    link_settings: 'Настройки'
+    link_show_on_site: 'Показать на сайте'
+    link_history: 'Изменения'
+    link_acl: 'Права доступа'
+
+flash_batch:
+    disable_success: 'Выключение выполнено успешно'
+    enable_success: 'Включение выполнено успешно'
+    delete_success: 'Удаление выполнено успешно'
+    delete_error: 'При уадалении возникла ошибка'
+    empty: 'Ничего не выбрано для пакетного действия'
+    success: 'Действие выполнено успешно'
+    error: 'При выполнении возникла ошибка'
+
+block:
+    title_news_with_articles_last: 'Последние Новости и Статьи'
+    title_text_page: 'Текстовая страница с форматированием'
+    title_error_404: '404'
+
+tab:
+    label_settings_main: 'Основные'
+    label_settings_seo_index: 'SEO'
+    label_settings_index: 'Главная'
+    label_settings_popup_tab: 'Модальные окна'
+    label_settings_order: 'Заказ'
+
 "This is the user profile template. Feel free to override it.": "This is the block"
 "This is the user authentication edition template. Feel free to override it.": "This is the block"
 "This is the user profile edition template. Feel free to override it.": "This is the block"
@@ -141,234 +288,59 @@ show:
 "This is the gallery view template. Feel free to override it.": "This is the block"
 "This is the timeline block.": "This is the block"
 
-
 Value: Да
-
 Start: От
 End: До
 
+list_mode: ''
+tree_mode: ''
 
+title_edit: 'Редактировать'
+title_create: 'Создать'
 
-list.label_publication_at: 'Дата публикации'
-
-
-settings.seo_tab: 'SEO'
-settings.seo_items_tab: 'SEO элементов'
-form.label_settings_seo_header: 'Заголовок'
-form.label_settings_seo_title: 'Title'
-form.label_settings_seo_meta_keyword: 'Meta Keywords'
-form.label_settings_seo_meta_description: 'Meta Description'
-form.label_settings_seo_items_header: 'Заголовок'
-form.label_settings_seo_items_title: 'Title'
-form.label_settings_seo_items_meta_keyword: 'Meta Keywords'
-form.label_settings_seo_items_meta_description: 'Meta Description'
-
-
-form.label_settings_seo_vars: 'Перменные'
-
-form.label_seo_vars: 'Перменные'
-
-enabledOn: 'Включить'
-enabledOff: 'Выключить'
-changeCatalog: 'Изменить категорию'
-changeState: 'Изменить наличие'
-enabledMarketOn: 'Включить Яндекс.Маркет'
-enabledMarketOff: 'Выключить Яндекс.Маркет'
-discountOff: 'Отменить скидку'
-productPriceUpdate: 'Обновить цены на товары'
-productDiscountUpdate: 'Обновить скидки на товары'
-
-tab_menu.link_list: 'Список'
-tab_menu.link_settings: 'Настройки'
-
-batch_actions.label_enable: 'Включить'
-batch_actions.label_disable: 'Выключить'
-
-filter.label_publication_at: 'Дата публикации'
-filter.label_without_image: 'Без изображения'
-
-
-action.link_create: 'Создать'
-action.link_edit: 'Редактировать'
-action.link_list: 'Список'
-action.link_settings: 'Настройки'
-action.link_show_on_site: 'Показать на сайте'
-action.link_history: 'Изменения'
-action.link_acl: 'Права доступа'
-
-
-
-flash_batch.disable_success: 'Выключение выполнено успешно'
-flash_batch.enable_success: 'Включение выполнено успешно'
-flash_batch_delete_success: 'Удаление выполнено успешно'
-flash_batch_delete_error: 'При уадалении возникла ошибка'
-flash_batch_empty: 'Ничего не выбрано для пакетного действия'
-
-tab_menu.title_core_settings_list: 'Настройки'
 sonata_page_admin_page: 'Страницы'
 
-
-form.label_limit: 'Лимит'
-
-form.label_views: 'Кол-во просмотров'
-
-form.label_created_by: 'Создал'
-form.label_updated_by: 'Обновил'
-
-form.tab_properties: 'Свойства'
-
-settings.popup_tab: 'Модальные окна'
-form.label_settings_popup_payment: 'Оплата'
-form.label_settings_popup_pickup: 'Самовывоз'
-
-
-form.label_settings_popup_delivery: 'Доставка'
-form.label_settings_popup_product_note: 'Примечание к товару'
-
-
-
-
-form.label_settings_header_menu: 'Меню в шапке'
-form.label_settings_footer_menu: 'Меню в подвале'
-form.label_settings_logo_image: 'Логотип'
-
-block.title_news_with_articles_last: 'Последние Новости и Статьи'
-block.title_text_page: 'Текстовая страница с форматированием'
 compo_core.block.service.text_page: 'Текстовая страница с форматированием'
-sonata.formatter.block.formatter: 'HTML'
-block.title_error_404: '404'
 compo_core.block.service.error_404: '404'
 
-tab.label_settings_main: 'Основные'
-
-
-tab.label_settings_seo_index: 'SEO'
-
-
-
-form.label_settings_seo_index_header: 'Заголовок'
-form.label_settings_seo_index_description: 'Описание'
-form.label_settings_seo_index_title: 'Title'
-
-form.label_settings_seo_index_meta_keyword: 'Meta Keywords'
-form.label_settings_seo_index_meta_description: 'Meta Description'
-
-form.label_class: 'CSS класс'
-form.label_template: 'Шаблон'
-form.label_login: 'Логин'
-form.label_password: 'Пароль'
-
-list.label_type: 'Тип'
-
-
-form.label_settings_sms_provider: 'SMS провайдер'
-
-form.label_settings_notification_email_template: 'Базовый шаблон для e-mail уведомлений'
-form.label_settings_notification_email: 'E-mail для уведомлений'
-form.label_settings_notification_phone: 'Телефон для уведомлений'
-settings.notification_tab: 'Уведомления'
-form.label_settings_notification_email_from: 'E-mail отправителя'
-settings.index_tab: 'Главная'
-form.label_settings_index_header_slider: 'Слайдер на главной'
-form.label_settings_index_footer_advantages: 'Приемущества в подвале'
-form.label_settings_index_footer_advantages_tabs: 'Приемущества во вкладках'
-form.label_settings_index_menu_catalog: 'Меню каталога на главной'
-form.label_settings_header_menu_catalog: 'Основное меню'
-form.label_settings_header_menu_catalog_tagging: 'Меню каталога'
-form.label_help: "Справка"
-form.label_icon: "Иконка"
-
-form.label_url_text: "Текст ссылки"
-form.label_show_on_index: "Показывать на главной"
-form.group_image: "Основное изображение"
-form.group_additional_files: "Дополнительные файлы"
-form.tab_media: "Медиа"
-form.label_email: 'E-mail'
-form.label_phone: 'Телефон'
-form.label_message: 'Сообщение'
-form.label_tags: 'Метки'
-
+sonata.formatter.block.formatter: 'HTML'
 
 media_tab: 'Медиа'
 media_image_group: 'Изображение'
 media_images_additional_group: 'Дополнительные изображения'
 media_files_additional_group: 'Дополнительные файлы'
 
-form.label_settings_footer_payment_banner: 'Способы оплаты'
-
-form.label_settings_footer_menu_catalog_1_column: 'Меню в подвале (1 колонка)'
-form.label_settings_footer_menu_catalog_2_column: 'Меню в подвале (2 колонка)'
-
-form.label_settings_index_header: 'Заголовок основного текста'
-form.label_settings_index_slider: 'Слайдер в основном тексте'
-form.label_settings_index_slider_text: 'Основной текст (слайдера)'
-form.label_settings_index_text: 'Основной текст'
-
-form.label_settings_index_manufacture_collection_tag_criteria_block_1: 'Коллекции по меткам - 1'
-form.label_settings_index_manufacture_collection_tag_criteria_block_2: 'Коллекции по меткам - 2'
-
 showOnIndexOff: 'Не показывать на главной'
 showOnIndexOn: 'Показывать на главной'
-
-form.label_css_class: 'CSS класс'
-form.label_description_additional: 'Дополнительное описание'
-
-settings.order_tab: 'Заказ'
-form.label_settings_order_page: 'Страница выполненного заказа'
-
-form.label_visible: 'Отображать'
 
 site: 'Сайт'
 
 core_settings: 'Основные'
 
-
 users: 'Пользователи'
 groups: 'Группы'
-
 
 date_range_start: 'От'
 date_range_end: 'До'
 
-filter.label_created_by: 'Создал'
-filter.label_updated_by: 'Обновил'
-tab_menu.link_create: 'Создать'
-tab_menu.link_trash: 'Корзина'
-tab_menu.link_history: 'Изменения'
+Block: 'Блок'
+'Shared Blocks': 'Блок (расширенный)'
+Publications: 'Снапшоты'
+gallery_has_media: 'Галереи (списки)'
+Dashboard: 'Панель управления'
+block: 'Панель управления (блоки)'
 
-tab_menu.title_tree: "%name%"
-
-tab_menu.title_list: "%name%"
-tab_menu.title_create: "%name%"
-tab_menu.title_trash: "%name%"
-tab_menu.title_edit: "%name%"
-tab_menu.title_history: "%name%"
-tab_menu.title_delete: "%name%"
-tab_menu.title_action_delete_batch: "%name%"
-tab_menu.title_batch:  "%name%"
-
-breadcrumb.link_list: "%name%"
-breadcrumb.link_create: "Создать"
-breadcrumb.link_trash: "Корзина"
-breadcrumb.link_tree: "%name%"
-breadcrumb.link_settings: "Настройки"
-tab_menu.title_untrash: "%name%"
-
-form.group_media_image: 'Изображение'
-form.group_media_images_additional: 'Дополнительные изображения'
-form.group_media_files_additional: 'Дополнительные файлы'
-form.group_main: 'Основное'
-form.group_seo: 'SEO'
-
-form.group_map: 'Карта'
-
-tab.label_settings_index: 'Главная'
-form.label_settings_index_menu_mobile: 'Мобильное меню'
-form.label_settings_index_menu_features: 'По текстуре и поверхности'
-form.label_settings_index_menu_size: 'По размеру'
-form.label_settings_index_menu_interior: 'Для интерьера'
-tab.label_settings_popup_tab: 'Модальные окна'
-tab.label_settings_order: 'Заказ'
+title_restore: 'Восстановить'
+message_restore_confirmation: 'Восстановить элемент?'
+btn_restore: 'Восстановить'
+restore_or: ' или '
+link_action_trash: 'Вернуться в корзину'
+flash_untrash_successfull: 'Элемент успешно восстановлен'
+title_history_revert: 'Восстановить'
+message_history_revert_confirmation: 'Восстановить ревизию?'
+history_revert_or: ' или '
+btn_history_revert: 'Востановить'
+link_action_history_list: 'В список изменений'
 
 ROLE_LIST: 'Список'
 ROLE_VIEW: 'Просмотр'
@@ -387,32 +359,3 @@ ROLE_ALLOWED_TO_SWITCH: 'Смена пользователя'
 ROLE_USER: 'Пользователь'
 ROLE_SONATA_ADMIN: 'Администратор (админки)'
 SONATA: 'Админка'
-
-Block: 'Блок'
-'Shared Blocks': 'Блок (расширенный)'
-Publications: 'Снапшоты'
-gallery_has_media: 'Галереи (списки)'
-Dashboard: 'Панель управления'
-block: 'Панель управления (блоки)'
-
-
-
-
-title_restore: 'Восстановить'
-message_restore_confirmation: 'Восстановить элемент?'
-btn_restore: 'Восстановить'
-restore_or: ' или '
-link_action_trash: 'Вернуться в корзину'
-flash_untrash_successfull: 'Элемент успешно восстановлен'
-
-tab_menu.title_revert: "%name%"
-title_history_revert: 'Восстановить'
-message_history_revert_confirmation: 'Восстановить ревизию?'
-history_revert_or: ' или '
-btn_history_revert: 'Востановить'
-
-link_action_history_list: 'В список изменений'
-tab_menu.link_clone: 'Клонировать'
-tab_menu.link_tree: 'Дерево'
-
-

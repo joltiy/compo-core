@@ -44,15 +44,9 @@ class EnabledExtension extends AbstractAdminExtension
                 $admin->hasRoute('edit') && $admin->isGranted('EDIT')
             ) {
                 $actions['enable'] = array(
-                    'label' => 'batch_actions.label_enable',
-                    'ask_confirmation' => true,
-                    'translation_domain' => $admin->getTranslationDomain()
                 );
 
                 $actions['disable'] = array(
-                    'label' => 'batch_actions.label_disable',
-                    'ask_confirmation' => true,
-                    'translation_domain' => $admin->getTranslationDomain()
                 );
             }
         }

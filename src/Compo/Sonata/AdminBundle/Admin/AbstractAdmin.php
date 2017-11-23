@@ -54,7 +54,7 @@ class AbstractAdmin extends BaseAdmin
     /**
      * @var array
      */
-    protected $perPageOptions = array(50, 100, 500, 1000, 10000);
+    protected $perPageOptions = array(10, 50, 100, 500, 1000, 10000);
     /**
      * @var array
      */
@@ -86,11 +86,42 @@ class AbstractAdmin extends BaseAdmin
     );
 
 
+    public function getBatchActions()
+    {
+        $actions = [];
+
+        if ($this->hasRoute('delete') && $this->hasAccess('delete')) {
+            $actions['delete'] = [
+                'ask_confirmation' => true, // by default always true
+            ];
+        }
+
+        $actions = $this->configureBatchActions($actions);
+
+        foreach ($this->getExtensions() as $extension) {
+            // TODO: remove method check in next major release
+            if (method_exists($extension, 'configureBatchActions')) {
+                $actions = $extension->configureBatchActions($this, $actions);
+            }
+        }
+
+        foreach ($actions  as $name => &$action) {
+            if (!array_key_exists('label', $action)) {
+                $action['label'] = $this->getTranslationLabel($name, 'batch', 'label');
+            }
+
+            if (!array_key_exists('translation_domain', $action)) {
+                $action['translation_domain'] = $this->getTranslationDomain();
+            }
+        }
+
+        return $actions;
+    }
 
     /**
      * @return bool
      */
-    public function isPropertiesEnabled(): bool
+    public function isPropertiesEnabled()
     {
         return $this->propertiesEnabled;
     }
@@ -98,7 +129,7 @@ class AbstractAdmin extends BaseAdmin
     /**
      * @param bool $propertiesEnabled
      */
-    public function setPropertiesEnabled(bool $propertiesEnabled)
+    public function setPropertiesEnabled($propertiesEnabled)
     {
         $this->propertiesEnabled = $propertiesEnabled;
     }
