@@ -217,7 +217,7 @@ file that was distributed with this source code.
                             {% endblock %}
                         </div>
 
-                        {% for actionForm in batch_action_forms %}
+                        {% for actionForm in batch_action_forms|default([]) %}
                             <div id="actionForm{{ actionForm.vars.name }}" class="modal fade actionFormModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
