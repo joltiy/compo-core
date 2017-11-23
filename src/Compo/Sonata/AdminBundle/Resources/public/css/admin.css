@@ -591,3 +591,10 @@ label {
     line-height: 30px;
     position: relative;
 }
+
+th.table-th-id {
+    min-width: 75px;
+}
+.required {
+    position: relative;
+}
