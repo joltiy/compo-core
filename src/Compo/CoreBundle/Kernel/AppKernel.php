@@ -61,6 +61,7 @@ class AppKernel extends Kernel
             new \Presta\SitemapBundle\PrestaSitemapBundle(),
             new \KonstantinKuklin\AsseticStaticGzipBundle\AsseticStaticGzipBundle(),
             new \Debril\RssAtomBundle\DebrilRssAtomBundle(),
+            new \Exporter\Bridge\Symfony\Bundle\SonataExporterBundle(),
 
             new \Sylius\Bundle\SettingsBundle\SyliusSettingsBundle(),
             new \Sylius\Bundle\ResourceBundle\SyliusResourceBundle(),

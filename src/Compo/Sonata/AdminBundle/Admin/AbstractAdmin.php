@@ -10,6 +10,7 @@ use Knp\Menu\ItemInterface as MenuItemInterface;
 use Sonata\AdminBundle\Admin\AbstractAdmin as BaseAdmin;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\DoctrineORMAdminBundle\Admin\FieldDescription;
 use Sonata\DoctrineORMAdminBundle\Model\ModelManager;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -85,6 +86,82 @@ class AbstractAdmin extends BaseAdmin
         ),
     );
 
+    public function getExportFormats()
+    {
+        return [
+            'csv', 'xls', 'xml', 'json'
+        ];
+    }
+
+    public function getExportFields()
+    {
+        $fields = array();
+
+        /** @var FieldDescription[] $elements */
+        $elements = $this->getList()->getElements();
+
+        foreach ($elements as $element) {
+            if (in_array($element->getName(), array('batch', '_action'))) {
+                continue;
+            }
+
+            if ($element->getMappingType() == ClassMetadataInfo::MANY_TO_ONE) {
+                //$fields[$element->getOption('label')] = $element->getName() . '.' . $element->getOption('associated_property', 'id');
+                $fields[$element->getName()] = $element->getName();
+            } elseif ($element->getMappingType() == ClassMetadataInfo::MANY_TO_MANY) {
+                $fields[$element->getName()] = $element->getName().'ExportAsString';
+
+            } elseif ($element->getMappingType() == null) {
+
+            } else {
+                $fields[$element->getName()] = $element->getName();
+            }
+        }
+
+
+        return $fields;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDataSourceIterator()
+    {
+        $datagrid = $this->getDatagrid();
+        $datagrid->buildPager();
+
+        $fields = [];
+
+        foreach ($this->getExportFields() as $key => $field) {
+            $label = $this->getTranslationLabel($field, 'export', 'label');
+            $transLabel = $this->trans($label);
+
+            if ($transLabel == $label) {
+                $label = $this->getTranslationLabel($field, 'list', 'label');
+                $transLabel = $this->trans($label);
+            }
+
+            if ($transLabel == $label) {
+                $label = $this->getTranslationLabel($key, 'export', 'label');
+                $transLabel = $this->trans($label);
+            }
+
+            if ($transLabel == $label) {
+                $label = $this->getTranslationLabel($key, 'list', 'label');
+                $transLabel = $this->trans($label);
+            }
+
+            // NEXT_MAJOR: Remove this hack, because all field labels will be translated with the major release
+            // No translation key exists
+            if ($transLabel == $label) {
+                $fields[$key] = $field;
+            } else {
+                $fields[$transLabel] = $field;
+            }
+        }
+
+        return $this->getModelManager()->getDataSourceIterator($datagrid, $fields);
+    }
 
     public function getBatchActions()
     {
