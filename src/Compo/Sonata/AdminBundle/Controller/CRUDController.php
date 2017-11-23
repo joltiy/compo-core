@@ -4,6 +4,7 @@ namespace Compo\Sonata\AdminBundle\Controller;
 
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Doctrine\DBAL\DBALException;
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
@@ -592,6 +593,41 @@ class CRUDController extends BaseCRUDController
         //return new RedirectResponse($this->admin->generateUrl('tree', $request->query->all()));
         //}
         //}
+
+        $filters = $request->query->get('filter', array());
+        if ($this->getAdmin()->isChild() && $this->getAdmin()->getParentAssociationMapping()) {
+            $name = str_replace('.', '__', $this->getAdmin()->getParentAssociationMapping());
+            $val = array('value' => $request->get($this->getAdmin()->getParent()->getIdParameter()));
+
+            if ($this->getAdmin()->getParentAssociationMappingType() == ClassMetadataInfo::MANY_TO_MANY) {
+                $val = array('value' => array($request->get($this->getAdmin()->getParent()->getIdParameter())));
+            } else {
+                $val = array('value' => $request->get($this->getAdmin()->getParent()->getIdParameter()));
+            }
+
+            if (isset($filters[$name]) && is_array($filters[$name]['value']) ) {
+                if (count($filters[$name]['value']) > 1) {
+
+                    return new RedirectResponse(
+                        $this->admin->getConfigurationPool()->getAdminByAdminCode($this->getAdmin()->getCode())->generateUrl('list', array('filter' => $filters))
+                    );
+                }
+
+                if ($filters[$name]['value'][0] != $request->get($this->getAdmin()->getParent()->getIdParameter())) {
+                    return new RedirectResponse(
+                        $this->admin->getConfigurationPool()->getAdminByAdminCode($this->getAdmin()->getCode())->generateUrl('list', array('filter' => $filters))
+                    );
+                }
+
+            }
+
+        }
+
+
+
+
+
+
         $listMode = $request->get('_list_mode');
         if ($listMode = $request->get('_list_mode')) {
             $this->admin->setListMode($listMode);
