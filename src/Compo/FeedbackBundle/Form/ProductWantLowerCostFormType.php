@@ -3,6 +3,7 @@
 namespace Compo\FeedbackBundle\Form;
 
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -64,7 +65,8 @@ class ProductWantLowerCostFormType extends FeedbackBaseFormType
                     'data' => $product_url
                 )
             )
-            ->add('quantity', TextType::class, array(
+
+            ->add('quantity', IntegerType::class, array(
                 'property_path' => 'data[quantity]'
             ))
 
