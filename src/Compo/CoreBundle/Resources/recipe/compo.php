@@ -138,7 +138,10 @@ task(
             . ' mysql --user=' . $parameters['parameters']['database_user'] . ' --password=' . $parameters['parameters']['database_password']
             . ' ' . $parameters['parameters']['database_name']
             . ' < '
-            . $localDatabasePath
+            . $localDatabasePath,
+            [
+                'timeout' => 6800,
+            ]
         );
     }
 )->desc('database:sync-from-remote');
