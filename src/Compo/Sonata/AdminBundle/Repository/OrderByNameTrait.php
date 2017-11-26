@@ -15,7 +15,6 @@ trait OrderByNameTrait
      */
     public function createQueryBuilderOrderByName()
     {
-        /** @noinspection PhpUndefinedMethodInspection */
         $qb = parent::createQueryBuilder('c');
         /** @var QueryBuilder $qb */
         $qb->select('c');

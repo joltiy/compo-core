@@ -18,8 +18,6 @@ use Symfony\Component\Templating\EngineInterface;
  */
 class ExceptionListener extends \Sonata\PageBundle\Listener\ExceptionListener
 {
-    /** @noinspection MagicMethodsValidityInspection */
-    /** @noinspection PhpMissingParentConstructorInspection */
     /**
      * @param SiteSelectorInterface $siteSelector Site selector
      * @param CmsManagerSelectorInterface $cmsManagerSelector CMS Manager selector
@@ -184,7 +182,6 @@ class ExceptionListener extends \Sonata\PageBundle\Listener\ExceptionListener
                 $this->logger->error($message, array('exception' => $originalException));
             }
         } else {
-            /** @noinspection ForgottenDebugOutputInspection */
             error_log($message);
         }
     }

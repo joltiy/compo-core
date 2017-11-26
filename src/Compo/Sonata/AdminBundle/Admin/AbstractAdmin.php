@@ -1,5 +1,4 @@
 <?php
-/** @noinspection ClassOverridesFieldOfSuperClassInspection */
 
 namespace Compo\Sonata\AdminBundle\Admin;
 

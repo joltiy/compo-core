@@ -17,7 +17,6 @@ class EntityRepository extends \Doctrine\ORM\EntityRepository
         $items = $this->findBy(array(), array('name' => 'ASC'));
 
         foreach ($items as $item) {
-            /** @noinspection PhpUndefinedMethodInspection */
             $choices[$item->getName()] = $item->getId();
         }
 
@@ -34,7 +33,6 @@ class EntityRepository extends \Doctrine\ORM\EntityRepository
         $items = $this->findBy(array(), array('name' => 'ASC'));
 
         foreach ($items as $item) {
-            /** @noinspection PhpUndefinedMethodInspection */
             $choices[$item->getId()] = $item->getName();
         }
 

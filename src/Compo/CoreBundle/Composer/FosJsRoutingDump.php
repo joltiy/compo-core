@@ -14,10 +14,8 @@ class FosJsRoutingDump extends \Sensio\Bundle\DistributionBundle\Composer\Script
      */
     public static function process(Event $event)
     {
-        /** @noinspection PhpUndefinedMethodInspection */
         $vendor = $event->getComposer()->getConfig()->get('vendor-dir');
 
-        /** @noinspection RealpathInSteamContextInspection */
         $root_dir = realpath($vendor . '/../app/../');
 
         $options = self::getOptions($event);

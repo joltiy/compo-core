@@ -806,12 +806,9 @@ class CRUDController extends BaseCRUDController
 
             $i = 0;
             foreach ($selectedModelQuery->getQuery()->iterate() as $pos => $object) {
-
-                /** @noinspection PhpUndefinedMethodInspection */
                 $object[0]->setEnabled(false);
                 $modelManager->update($object[0]);
 
-                /** @noinspection TypeUnsafeComparisonInspection */
                 if ((++$i % 100) == 0) {
                     $entityManager->flush();
                     $entityManager->clear();
@@ -924,11 +921,9 @@ class CRUDController extends BaseCRUDController
             $i = 0;
             foreach ($selectedModelQuery->getQuery()->iterate() as $pos => $object) {
 
-                /** @noinspection PhpUndefinedMethodInspection */
                 $object[0]->setEnabled(true);
                 $modelManager->update($object[0]);
 
-                /** @noinspection TypeUnsafeComparisonInspection */
                 if ((++$i % 100) == 0) {
                     $entityManager->flush();
                     $entityManager->clear();

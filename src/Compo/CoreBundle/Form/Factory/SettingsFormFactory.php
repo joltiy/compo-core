@@ -39,9 +39,7 @@ final class SettingsFormFactory implements SettingsFormFactoryInterface
     {
         /** @var SchemaInterface $schema */
         $schema = $this->schemaRegistry->get($schemaAlias);
-
-
-        /** @noinspection PhpUndefinedMethodInspection */
+        
         $builder = $this->formFactory->createBuilder(
             'form',
             $data,

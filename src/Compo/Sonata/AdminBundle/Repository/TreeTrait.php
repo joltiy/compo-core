@@ -148,7 +148,6 @@ trait TreeTrait
         foreach ($tree as $key => $item) {
             $ids[] = $item['id'];
 
-            /** @noinspection SlowArrayOperationsInLoopInspection */
             $ids = array_merge($ids, $this->getIdsForTree($tree[$key]['__children']));
         }
 

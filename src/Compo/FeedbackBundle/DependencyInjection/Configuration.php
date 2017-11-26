@@ -18,7 +18,6 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        /** @noinspection PhpUnusedLocalVariableInspection */
         $rootNode = $treeBuilder->root('compo_feedback');
 
         $rootNode

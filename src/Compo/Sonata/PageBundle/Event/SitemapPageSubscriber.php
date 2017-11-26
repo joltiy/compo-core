@@ -55,7 +55,6 @@ class SitemapPageSubscriber implements EventSubscriberInterface
         );
 
         foreach ($posts as $post) {
-            /** @noinspection Symfony2PhpRouteMissingInspection */
             $event->getUrlContainer()->addUrl(
                 new UrlConcrete(
                     $this->urlGenerator->generate(

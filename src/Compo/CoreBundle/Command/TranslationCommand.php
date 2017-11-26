@@ -51,13 +51,11 @@ class TranslationCommand extends ContainerAwareCommand
             if (preg_match('/Compo.*/', $key) && preg_match('/^CompoSonata.*/', $key) === 0) {
                 $resources = $kernel->locateResource('@' . $key . '/Resources');
 
-                /** @noinspection RealpathInSteamContextInspection */
                 $bundle_dir = realpath($kernel->locateResource('@' . $key . '/Resources') . '/../');
 
                 $output_dir = $resources . '/translations';
 
                 if (!file_exists($output_dir)) {
-                    /** @noinspection MkdirRaceConditionInspection */
                     mkdir($output_dir);
                 }
 
