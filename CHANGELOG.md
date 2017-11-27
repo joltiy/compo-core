@@ -7,7 +7,7 @@
 - **Fixed**: исправления ошибок и мелкие правки.
 - **Removed**: удаление устаревшей функциональности.
 
-## [v3.3.14] - 2017-11-27
+## [v3.3.15] - 2017-11-27
 
 ### Added
 - Добавлен .editorconfig (+1)
@@ -15,11 +15,13 @@
 - Добавлен UPGRADE.md (+1)
 
 ### Changed
+- Update version: v3.3.15 (+1)
+- Update LICENSE (+1)
+- Update CHANGELOG.md (+4)
 - Update version: v3.3.14 (+1)
 - Обновлён .gitignore /vendor/ (+1)
-- Update CHANGELOG.md (+3)
 - Update version: v3.3.13 (+1)
-- Обновлён composer.json (+1)
+- Обновлены внешние зависимости (+1)
 - Update version: v3.3.12 (+1)
 - Update version: v3.3.11 (+1)
 - Update version: v3.3.10 (+1)
@@ -45,6 +47,13 @@
 ### Changed
 - Update version: v3.3.6
 
+## [v3.3.14] - 2017-11-27
+
+### Changed
+- Update CHANGELOG.md
+- Update version: v3.3.14
+- Обновлён .gitignore /vendor/
+
 ## [v3.3.13] - 2017-11-27
 
 ### Added
@@ -55,7 +64,7 @@
 ### Changed
 - Update CHANGELOG.md (+2)
 - Update version: v3.3.13
-- Обновлён composer.json
+- Обновлены внешние зависимости
 
 ## [v3.3.12] - 2017-11-27
 
@@ -429,11 +438,12 @@
 
 [comporu/compo-core]: https://github.com/comporu/compo-core
 
-[v3.3.14]: https://github.com/comporu/compo-core/compare/v3.3.9...v3.3.14
+[v3.3.15]: https://github.com/comporu/compo-core/compare/v3.3.9...v3.3.15
 [v3.3.9]: https://github.com/comporu/compo-core/compare/v3.3.8...v3.3.9
 [v3.3.8]: https://github.com/comporu/compo-core/compare/v3.3.7...v3.3.8
 [v3.3.7]: https://github.com/comporu/compo-core/compare/v3.3.6...v3.3.7
 [v3.3.6]: https://github.com/comporu/compo-core/compare/v3.3.5...v3.3.6
+[v3.3.14]: https://github.com/comporu/compo-core/compare/v3.3.13...v3.3.14
 [v3.3.13]: https://github.com/comporu/compo-core/compare/v3.3.12...v3.3.13
 [v3.3.12]: https://github.com/comporu/compo-core/compare/v3.3.10...v3.3.12
 [v3.3.10]: https://github.com/comporu/compo-core/compare/v3.3.1...v3.3.10
