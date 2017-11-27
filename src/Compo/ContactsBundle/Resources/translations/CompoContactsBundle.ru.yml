@@ -20,6 +20,7 @@ list:
   label_worktime: Часы работы
   label_phone: Телефон
   label_email: E-mail
+  label_address: Адрес
 
 form:
   label_address: Адрес
