@@ -24,8 +24,8 @@ class ContactsMainBlockService extends AbstractBlockService
         $template = $blockContext->getTemplate();
         $container = $this->getContainer();
         $manager = $container->get('compo_contacts.manager.contacts');
-        $contacts = $manager->getContacts();
-      
+        $contacts = $manager->findAll();
+
         return $this->renderResponse(
             $template,
             array(

@@ -6,6 +6,9 @@ Compo\ContactsBundle\Entity\Contacts:
             type: integer
             generator: { strategy: AUTO }
     fields:
+        name:
+             type: string
+             nullable: true
         address:
             type: text
             nullable: true

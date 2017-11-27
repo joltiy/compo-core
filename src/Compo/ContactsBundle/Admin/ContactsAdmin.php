@@ -39,9 +39,10 @@ class ContactsAdmin extends AbstractAdmin
     {
         $listMapper
             ->addIdentifier('id')
-            ->addIdentifier('address', 'html')
+            ->addIdentifier('name')
+            ->add('address', 'html')
             // ->add('worktime')
-            ->addIdentifier('phone', 'html')
+            ->add('phone', 'html')
             ->add('email')
             // ->add('bankprops')
             // ->add('walk_instruction')
@@ -64,6 +65,8 @@ class ContactsAdmin extends AbstractAdmin
         $formMapper
             ->tab('main')
             ->with('major', array('class' => 'col-md-9'))
+            ->add('name')
+
             ->add('phone', CKEditorType::class)
             ->add('email')
             ->add('worktime', 'ckeditor')
