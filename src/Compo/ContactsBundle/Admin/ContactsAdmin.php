@@ -68,7 +68,7 @@ class ContactsAdmin extends AbstractAdmin
             ->add('email')
             ->add('worktime', 'ckeditor')
             ->add('address', 'ckeditor')
-            ->add('bankprops', 'ckeditor')
+            ->add('bankprops', 'ckeditor', array('required' => false))
             ->end()->end()
             ->tab('instructions')
             ->with('car', array('class' => 'col-md-6'))
