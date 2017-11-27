@@ -11,8 +11,9 @@ doctrine:
                 password: "%database_password%"
                 charset:  UTF8
 
-                # TODO: Выяснить, нахрена указана версия
-                server_version: 5.6
+                # An exception occured while establishing a connection to figure out your platform version.
+                # You can circumvent this by setting a 'server_version' configuration value
+                server_version: 5.7
 
                 # TODO: Выяснить, может уже и не нужно
                 mapping_types:

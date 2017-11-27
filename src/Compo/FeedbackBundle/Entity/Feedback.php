@@ -52,6 +52,13 @@ class Feedback
     /**
      *
      * @var string
+     * @ORM\Column(type="json", nullable=true)
+     */
+    protected $data = array();
+
+    /**
+     *
+     * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $type;
@@ -200,6 +207,22 @@ class Feedback
     public function setPage($page)
     {
         $this->page = $page;
+    }
+
+    /**
+     * @return string
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param string $data
+     */
+    public function setData( $data)
+    {
+        $this->data = $data;
     }
 
     /**

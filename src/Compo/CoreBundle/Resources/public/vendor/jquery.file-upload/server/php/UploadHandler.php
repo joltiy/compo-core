@@ -274,7 +274,7 @@ class UploadHandler
     public function get($print_response = true)
     {
         if ($print_response && $this->get_query_param('download')) {
-            /** @noinspection PhpVoidFunctionResultUsedInspection */
+
             return $this->download();
         }
         $file_name = $this->get_file_name_param();
@@ -288,7 +288,7 @@ class UploadHandler
             );
         }
 
-        /** @noinspection PhpVoidFunctionResultUsedInspection */
+
         return $this->generate_response($response, $print_response);
     }
 
@@ -297,7 +297,7 @@ class UploadHandler
         return @$_GET[$id];
     }
 
-    /** @noinspection PhpInconsistentReturnPointsInspection */
+
     protected function download()
     {
         switch ($this->options['download_via_php']) {
@@ -311,16 +311,16 @@ class UploadHandler
                 $redirect_header = 'X-Accel-Redirect';
                 break;
             default:
-                /** @noinspection PhpVoidFunctionResultUsedInspection */
+
                 return $this->header('HTTP/1.1 403 Forbidden');
         }
         $file_name = $this->get_file_name_param();
         if (!$this->is_valid_file_object($file_name)) {
-            /** @noinspection PhpVoidFunctionResultUsedInspection */
+
             return $this->header('HTTP/1.1 404 Not Found');
         }
         if ($redirect_header) {
-            /** @noinspection PhpVoidFunctionResultUsedInspection */
+
             return $this->header(
                 $redirect_header . ': ' . $this->get_download_url(
                     $file_name,
@@ -560,7 +560,7 @@ class UploadHandler
             if ($redirect && preg_match($this->options['redirect_allow_target'], $redirect)) {
                 $this->header('Location: ' . sprintf($redirect, rawurlencode($json)));
 
-                /** @noinspection PhpInconsistentReturnPointsInspection */
+
                 return;
             }
             $this->head();
@@ -594,7 +594,7 @@ class UploadHandler
     public function post($print_response = true)
     {
         if ($this->get_query_param('_method') === 'DELETE') {
-            /** @noinspection PhpVoidFunctionResultUsedInspection */
+
             return $this->delete($print_response);
         }
         $upload = $this->get_upload_data($this->options['param_name']);
@@ -649,7 +649,7 @@ class UploadHandler
         }
         $response = array($this->options['param_name'] => $files);
 
-        /** @noinspection PhpVoidFunctionResultUsedInspection */
+
         return $this->generate_response($response, $print_response);
     }
 
@@ -676,7 +676,7 @@ class UploadHandler
             $response[$file_name] = $success;
         }
 
-        /** @noinspection PhpVoidFunctionResultUsedInspection */
+
         return $this->generate_response($response, $print_response);
     }
 
@@ -986,7 +986,7 @@ class UploadHandler
 
                 return false;
             }
-            /** @noinspection PhpUndefinedVariableInspection */
+
             if ($max_height && $img_height > $max_height) {
                 $file->error = $this->get_error_message('max_height');
 
@@ -997,7 +997,7 @@ class UploadHandler
 
                 return false;
             }
-            /** @noinspection PhpUndefinedVariableInspection */
+
             if ($min_height && $img_height < $min_height) {
                 $file->error = $this->get_error_message('min_height');
 
@@ -1019,10 +1019,10 @@ class UploadHandler
         $val = trim($val);
         $last = strtolower($val[strlen($val) - 1]);
         switch ($last) {
-            /** @noinspection PhpMissingBreakStatementInspection */
+
             case 'g':
                 $val *= 1024;
-            /** @noinspection PhpMissingBreakStatementInspection */
+
             case 'm':
                 $val *= 1024;
             case 'k':
@@ -1258,8 +1258,8 @@ class UploadHandler
             $new_width && $new_height // fit image into constraints if not to be cropped
         );
         if ($success && $crop) {
-            /** @noinspection PhpUndefinedVariableInspection */
-            /** @noinspection PhpUndefinedVariableInspection */
+
+
             $success = $image->cropImage(
                 $max_width,
                 $max_height,
@@ -1319,46 +1319,46 @@ class UploadHandler
 
     protected function imagick_orient_image($image)
     {
-        /** @noinspection PhpUndefinedMethodInspection */
+
         $orientation = $image->getImageOrientation();
         $background = new \ImagickPixel('none');
         switch ($orientation) {
             case \imagick::ORIENTATION_TOPRIGHT: // 2
-                /** @noinspection PhpUndefinedMethodInspection */
+
                 $image->flopImage(); // horizontal flop around y-axis
                 break;
             case \imagick::ORIENTATION_BOTTOMRIGHT: // 3
-                /** @noinspection PhpUndefinedMethodInspection */
+
                 $image->rotateImage($background, 180);
                 break;
             case \imagick::ORIENTATION_BOTTOMLEFT: // 4
-                /** @noinspection PhpUndefinedMethodInspection */
+
                 $image->flipImage(); // vertical flip around x-axis
                 break;
             case \imagick::ORIENTATION_LEFTTOP: // 5
-                /** @noinspection PhpUndefinedMethodInspection */
+
                 $image->flopImage(); // horizontal flop around y-axis
-                /** @noinspection PhpUndefinedMethodInspection */
+
                 $image->rotateImage($background, 270);
                 break;
             case \imagick::ORIENTATION_RIGHTTOP: // 6
-                /** @noinspection PhpUndefinedMethodInspection */
+
                 $image->rotateImage($background, 90);
                 break;
             case \imagick::ORIENTATION_RIGHTBOTTOM: // 7
-                /** @noinspection PhpUndefinedMethodInspection */
+
                 $image->flipImage(); // vertical flip around x-axis
-                /** @noinspection PhpUndefinedMethodInspection */
+
                 $image->rotateImage($background, 270);
                 break;
             case \imagick::ORIENTATION_LEFTBOTTOM: // 8
-                /** @noinspection PhpUndefinedMethodInspection */
+
                 $image->rotateImage($background, 270);
                 break;
             default:
                 return false;
         }
-        /** @noinspection PhpUndefinedMethodInspection */
+
         $image->setImageOrientation(\imagick::ORIENTATION_TOPLEFT); // 1
 
         return true;
@@ -1458,10 +1458,9 @@ class UploadHandler
         // Handle transparency in GIF and PNG images:
         switch ($type) {
             case 'gif':
-                /** @noinspection PhpMissingBreakStatementInspection */
+
             case 'png':
                 imagecolortransparent($new_img, imagecolorallocate($new_img, 0, 0, 0));
-            /** @noinspection PhpDuplicateCaseInspection */
             case 'png':
                 imagealphablending($new_img, false);
                 imagesavealpha($new_img, true);
@@ -1610,7 +1609,7 @@ class UploadHandler
         $this->image_objects[$file_path] = $image;
     }
 
-    /** @noinspection PhpInconsistentReturnPointsInspection
+    /**
      * @param $file_path
      * @return bool
      */

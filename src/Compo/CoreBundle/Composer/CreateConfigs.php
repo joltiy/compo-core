@@ -14,7 +14,6 @@ use Symfony\Component\Yaml\Yaml;
  */
 class CreateConfigs
 {
-    /** @noinspection PhpUndefinedClassInspection */
     /**
      * Populate Heroku environment
      *
@@ -24,13 +23,10 @@ class CreateConfigs
      * @throws \Twig_Error_Syntax
      */
     public static function process(
-        /** @noinspection PhpUndefinedClassInspection */
         Event $event
     ) {
-        /** @noinspection PhpUndefinedMethodInspection */
         $vendor = $event->getComposer()->getConfig()->get('vendor-dir');
 
-        /** @noinspection RealpathInSteamContextInspection */
         $root_dir = realpath($vendor . '/../app/');
 
         $parameters = Yaml::parse(file_get_contents($root_dir . '/config/parameters.yml'));
@@ -38,7 +34,6 @@ class CreateConfigs
 
 
         if (!$parameters['server_root']) {
-            /** @noinspection RealpathInSteamContextInspection */
             $parameters['server_root'] = realpath($root_dir . '/../web/');
         }
 
@@ -49,6 +44,9 @@ class CreateConfigs
                 'nginx.conf.twig' => file_get_contents($root_dir . '/config/nginx.conf.twig'),
                 'php-fpm.conf.twig' => file_get_contents($root_dir . '/config/php-fpm.conf.twig'),
                 'servers.yml.dist' => file_get_contents($root_dir . '/config/servers.yml.dist'),
+
+                '@CompoCore/Nginx/nginx_macro.html.twig' => file_get_contents($vendor . '/comporu/compo-core/src/Compo/CoreBundle/Resources/views/Nginx/nginx_macro.html.twig'),
+
             )
         );
 

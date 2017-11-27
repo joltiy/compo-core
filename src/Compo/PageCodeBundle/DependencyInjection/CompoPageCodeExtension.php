@@ -35,7 +35,6 @@ class CompoPageCodeExtension extends Extension implements PrependExtensionInterf
      */
     public function prepend(ContainerBuilder $container)
     {
-        /** @noinspection PhpUnusedLocalVariableInspection */
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('sonata_block.yml');
 

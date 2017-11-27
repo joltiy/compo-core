@@ -1,9 +1,10 @@
 services:
     compo_redirect.listener.redirect:
-        parent: compo_core.abstract_container_aware
         class: Compo\RedirectBundle\Listener\RedirectListener
+        arguments: ["@doctrine"]
+
         tags:
-            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 500 }
+            - { name: kernel.event_listener, lazy:  true, event: kernel.request, method: onKernelRequest, priority: 900 }
 
     compo_redirect.admin.redirect:
         class: Compo\RedirectBundle\Admin\RedirectAdmin

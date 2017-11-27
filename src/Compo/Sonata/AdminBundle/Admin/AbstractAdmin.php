@@ -1,5 +1,4 @@
 <?php
-/** @noinspection ClassOverridesFieldOfSuperClassInspection */
 
 namespace Compo\Sonata\AdminBundle\Admin;
 
@@ -10,6 +9,7 @@ use Knp\Menu\ItemInterface as MenuItemInterface;
 use Sonata\AdminBundle\Admin\AbstractAdmin as BaseAdmin;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\DoctrineORMAdminBundle\Admin\FieldDescription;
 use Sonata\DoctrineORMAdminBundle\Model\ModelManager;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -54,7 +54,7 @@ class AbstractAdmin extends BaseAdmin
     /**
      * @var array
      */
-    protected $perPageOptions = array(50, 100, 500, 1000, 10000);
+    protected $perPageOptions = array(10, 50, 100, 500, 1000, 10000);
     /**
      * @var array
      */
@@ -85,12 +85,119 @@ class AbstractAdmin extends BaseAdmin
         ),
     );
 
+    public function getExportFormats()
+    {
+        return [
+            'csv', 'xls', 'xml', 'json'
+        ];
+    }
 
+    public function getExportFields()
+    {
+        $fields = array();
+
+        /** @var FieldDescription[] $elements */
+        $elements = $this->getList()->getElements();
+
+        foreach ($elements as $element) {
+            if (in_array($element->getName(), array('batch', '_action'))) {
+                continue;
+            }
+
+            if ($element->getMappingType() == ClassMetadataInfo::MANY_TO_ONE) {
+                //$fields[$element->getOption('label')] = $element->getName() . '.' . $element->getOption('associated_property', 'id');
+                $fields[$element->getName()] = $element->getName();
+            } elseif ($element->getMappingType() == ClassMetadataInfo::MANY_TO_MANY) {
+                $fields[$element->getName()] = $element->getName().'ExportAsString';
+
+            } elseif ($element->getMappingType() == null) {
+
+            } else {
+                $fields[$element->getName()] = $element->getName();
+            }
+        }
+
+
+        return $fields;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDataSourceIterator()
+    {
+        $datagrid = $this->getDatagrid();
+        $datagrid->buildPager();
+
+        $fields = [];
+
+        foreach ($this->getExportFields() as $key => $field) {
+            $label = $this->getTranslationLabel($field, 'export', 'label');
+            $transLabel = $this->trans($label);
+
+            if ($transLabel == $label) {
+                $label = $this->getTranslationLabel($field, 'list', 'label');
+                $transLabel = $this->trans($label);
+            }
+
+            if ($transLabel == $label) {
+                $label = $this->getTranslationLabel($key, 'export', 'label');
+                $transLabel = $this->trans($label);
+            }
+
+            if ($transLabel == $label) {
+                $label = $this->getTranslationLabel($key, 'list', 'label');
+                $transLabel = $this->trans($label);
+            }
+
+            // NEXT_MAJOR: Remove this hack, because all field labels will be translated with the major release
+            // No translation key exists
+            if ($transLabel == $label) {
+                $fields[$key] = $field;
+            } else {
+                $fields[$transLabel] = $field;
+            }
+        }
+
+        return $this->getModelManager()->getDataSourceIterator($datagrid, $fields);
+    }
+
+    public function getBatchActions()
+    {
+        $actions = [];
+
+        if ($this->hasRoute('delete') && $this->hasAccess('delete')) {
+            $actions['delete'] = [
+                'ask_confirmation' => true, // by default always true
+            ];
+        }
+
+        $actions = $this->configureBatchActions($actions);
+
+        foreach ($this->getExtensions() as $extension) {
+            // TODO: remove method check in next major release
+            if (method_exists($extension, 'configureBatchActions')) {
+                $actions = $extension->configureBatchActions($this, $actions);
+            }
+        }
+
+        foreach ($actions  as $name => &$action) {
+            if (!array_key_exists('label', $action)) {
+                $action['label'] = $this->getTranslationLabel($name, 'batch', 'label');
+            }
+
+            if (!array_key_exists('translation_domain', $action)) {
+                $action['translation_domain'] = $this->getTranslationDomain();
+            }
+        }
+
+        return $actions;
+    }
 
     /**
      * @return bool
      */
-    public function isPropertiesEnabled(): bool
+    public function isPropertiesEnabled()
     {
         return $this->propertiesEnabled;
     }
@@ -98,7 +205,7 @@ class AbstractAdmin extends BaseAdmin
     /**
      * @param bool $propertiesEnabled
      */
-    public function setPropertiesEnabled(bool $propertiesEnabled)
+    public function setPropertiesEnabled($propertiesEnabled)
     {
         $this->propertiesEnabled = $propertiesEnabled;
     }

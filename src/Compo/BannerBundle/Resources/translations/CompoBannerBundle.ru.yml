@@ -37,3 +37,5 @@ tab_menu.title_banner_create: 'Создание баннера'
 form.label_banner: 'Баннеры'
 
 banner_item: 'Баннеры'
+
+block.title_banner: 'Баннеры'

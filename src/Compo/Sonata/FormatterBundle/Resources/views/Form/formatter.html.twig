@@ -67,9 +67,7 @@
                 var parent = elms.parents('div.markItUp');
 
                 if (parent) {
-                    //noinspection JSUndeclaredVariable
                     for (name in ['textile', 'markdown', 'bbcode', 'rawhtml', 'richhtml', 'rawhtml']) {
-                        //noinspection JSUnfilteredForInLoop
                         parent.removeClass(name)
                     }
 

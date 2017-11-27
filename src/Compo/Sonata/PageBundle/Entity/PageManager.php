@@ -11,6 +11,7 @@
 
 namespace Compo\Sonata\PageBundle\Entity;
 
+use Sonata\PageBundle\Model\PageInterface;
 use Sonata\PageBundle\Model\SiteInterface;
 
 /**
@@ -53,5 +54,45 @@ class PageManager extends \Sonata\PageBundle\Entity\PageManager
         }
 
         return $pages;
+    }
+
+
+    public function fixUrl(PageInterface $page)
+    {
+        if ($page->isInternal()) {
+            $page->setUrl(null); // internal routes do not have any url ...
+
+            return;
+        }
+
+        // hybrid page cannot be altered
+        if (!$page->isHybrid()) {
+            // make sure Page has a valid url
+            if ($page->getParent()) {
+                if (!$page->getSlug()) {
+                    $page->setSlug(Page::slugify($page->getName()));
+                }
+
+                if ($page->getParent()->getUrl() == '/') {
+                    $base = '/';
+                } elseif (substr($page->getParent()->getUrl(), -1) != '/') {
+                    $base = $page->getParent()->getUrl() . '/';
+                } else {
+                    $base = $page->getParent()->getUrl();
+                }
+
+                if ($page->getRouteName() === 'page_slug') {
+                    $page->setUrl($base . $page->getSlug() . '/');
+                }
+            } else {
+                // a parent page does not have any slug - can have a custom url ...
+                $page->setSlug(null);
+                $page->setUrl('/' . $page->getSlug());
+            }
+        }
+
+        foreach ($page->getChildren() as $child) {
+            $this->fixUrl($child);
+        }
     }
 }

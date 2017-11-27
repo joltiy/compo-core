@@ -114,6 +114,6 @@ class FaqController extends Controller
             throw $this->createNotFoundException('compo_faq.exception.not_found_faq');
         }
 
-        return $this->redirectToRoute('compo_faq_show_by_slug', array('slug' => $article->getSlug()));
+        return $this->redirectToRoute('compo_faq_show_by_slug', array('slug' => $article->getSlug()), 301);
     }
 }

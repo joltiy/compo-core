@@ -27,7 +27,7 @@ security:
         #    # if you are not using acl then this line must be uncommented
         #    - ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT
         #    - ROLE_SONATA_PAGE_ADMIN_BLOCK_EDIT
-            
+
     providers:
         fos_userbundle:
             id: fos_user.user_provider.username
@@ -104,5 +104,6 @@ security:
         - { path: ^/api/notification.*, role: ROLE_SUPER_ADMIN }
         - { path: ^/api/page.*, role: ROLE_SUPER_ADMIN }
         - { path: ^/api/user.*, role: ROLE_SUPER_ADMIN }
+        - { path: ^/jobs.*, role: ROLE_SUPER_ADMIN }
 
         - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }

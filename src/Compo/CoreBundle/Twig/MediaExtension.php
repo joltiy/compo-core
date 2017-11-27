@@ -279,7 +279,6 @@ class MediaExtension extends \Twig_Extension
     public function render($template, array $parameters = array())
     {
         if (!isset($this->resources[$template])) {
-            /** @noinspection PhpInternalEntityUsedInspection */
             $this->resources[$template] = $this->environment->loadTemplate($template);
         }
 

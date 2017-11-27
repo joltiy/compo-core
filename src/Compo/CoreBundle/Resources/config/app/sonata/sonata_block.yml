@@ -1,6 +1,22 @@
 sonata_block:
     context_manager: sonata.page.block.context_manager
     default_contexts: [sonata_page_bundle]
+    exception:
+        default:
+            filter:                 debug_only
+            renderer:               throw
+
+        filters:
+            debug_only:             sonata.block.exception.filter.debug_only
+            ignore_block_exception: sonata.block.exception.filter.ignore_block_exception
+            keep_all:               sonata.block.exception.filter.keep_all
+            keep_none:              sonata.block.exception.filter.keep_none
+
+        renderers:
+            inline:                 sonata.block.exception.renderer.inline
+            inline_debug:           sonata.block.exception.renderer.inline_debug
+            throw:                  sonata.block.exception.renderer.throw
+
 
     http_cache:
         handler: sonata.block.cache.handler.default # default value

@@ -36,7 +36,8 @@ label {
     vertical-align: top;
 }
 
-/* Fix. Ð¡Ð¿Ð¸ÑÐ¾Ðº Ð¾Ð±ÑŠÐµÐºÑ‚Ð¾Ð². Ð’ÐµÑ€Ñ‚Ð¸ÐºÐ°Ð»ÑŒÐ½Ð¾Ðµ Ð²Ñ‹Ñ€Ð°Ð²Ð½Ð¸ÐºÐ²Ð°Ð½Ð¸Ðµ */
+/* Fix. Ð¡Ð¿Ð¸ÑÐ¾Ðº Ð¾Ð±
+‚Ð¾Ð². Ð’ÐµÑ€Ñ‚Ð¸ÐºÐ°Ð»ÑŒÐ½Ð¾Ðµ Ð²Ñ‹Ñ€Ð°Ð²Ð½Ð¸ÐºÐ²Ð°Ð½Ð¸Ðµ */
 .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
     line-height: 28px;
 }
@@ -584,4 +585,16 @@ th.sonata-ba-list-field-header-datetime {
 .skin-black .main-header>.logo:hover {
   background-color: #374850;
   border-right: 1px solid #374850;
+}
+
+label {
+    line-height: 30px;
+    position: relative;
+}
+
+th.table-th-id {
+    min-width: 75px;
+}
+.required {
+    position: relative;
 }

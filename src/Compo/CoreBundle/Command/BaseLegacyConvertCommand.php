@@ -300,9 +300,7 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
     public function changeIdGenerator($newItem)
     {
         $metadata = $this->getEntityManager()->getClassMetadata(get_class($newItem));
-        /** @noinspection PhpUndefinedMethodInspection */
         $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
-        /** @noinspection PhpUndefinedMethodInspection */
         $metadata->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());
     }
 

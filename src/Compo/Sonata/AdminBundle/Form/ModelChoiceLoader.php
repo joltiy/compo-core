@@ -157,18 +157,17 @@ class ModelChoiceLoader implements ChoiceLoaderInterface
             $choices = array();
 
             foreach ($tree as $item) {
-                /** @noinspection PhpUndefinedMethodInspection */
                 if ($this->options['current'] && $this->options['current']->getId() === $item->getId()) {
                     continue;
                 }
 
-                /** @noinspection PhpUndefinedMethodInspection */
+                
                 if (null !== $item->getParent()) {
                     continue;
                 }
 
-                /** @noinspection PhpUndefinedMethodInspection */
-                /** @noinspection PhpUndefinedMethodInspection */
+                
+                
                 $choices[sprintf('%s', $item->getName())] = $item->getId();
 
                 $this->childWalker($item, $this->options, $choices);
@@ -206,19 +205,19 @@ class ModelChoiceLoader implements ChoiceLoaderInterface
      */
     private function childWalker($category, Options $options, array &$choices, $level = 2)
     {
-        /** @noinspection PhpUndefinedMethodInspection */
+        
         if ($category->getChildren() === null) {
             return;
         }
 
-        /** @noinspection PhpUndefinedMethodInspection */
+        
         foreach ($category->getChildren() as $child) {
-            /** @noinspection PhpUndefinedMethodInspection */
+            
             if ($options['current'] && $options['current']->getId() === $child->getId()) {
                 continue;
             }
 
-            /** @noinspection PhpUndefinedMethodInspection */
+            
             $choices[sprintf('%s %s', str_repeat(' - - -', $level - 1), $child->getName())] = $child->getId();
 
             $this->childWalker($child, $options, $choices, $level + 1);

@@ -77,10 +77,13 @@ class FeedbackAdmin extends AbstractAdmin
             ->add('createdAt')
             ->add(
                 'type',
-                'choice',
+                'sonata_type_choice_field_mask',
                 array(
                     'choices' => $feedbackManager->getTypesChoice(),
                     'choice_translation_domain' => 'CompoFeedbackBundle',
+                    'map' => array(
+                        'compo_feedback.product_want_lower_cost' => array('product', 'product_url'),
+                    ),
                 )
             )
             ->add('name')
@@ -99,8 +102,21 @@ class FeedbackAdmin extends AbstractAdmin
                     'required' => false,
                     'query' => $tagsQb,
                 )
+            );
+
+
+        $formMapper
+            ->add('product', 'text', array(
+                'property_path' => 'data[product]'
+            ))
+            ->add('product_url', 'text', array(
+                    'property_path' => 'data[product_url]'
+                )
             )
-            ->end()
+        ;
+
+
+        $formMapper->end()
             ->end();
     }
 

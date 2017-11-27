@@ -19,7 +19,7 @@ sonata_page:
 
     direct_publication: true
     hide_disabled_blocks: true
-    multisite:             host_with_path # host
+    multisite:             host
     use_streamed_response: true # set the value to false in debug mode or if the reverse proxy does not handle streamed response
     slugify_service: sonata.core.slugify.cocur
     is_inline_edition_on: false
@@ -28,6 +28,7 @@ sonata_page:
         - ^/admin(.*)
         - ^/api/(.*)
         - ^/_(.*)
+        - ^/jobs/(.*)
 
     ignore_route_patterns:
         - (.*)admin(.*)     # ignore admin route, ie route containing 'admin'
@@ -128,8 +129,9 @@ sonata_page:
             token:    add an unique token here # default is a random value
 
     catch_exceptions:
-        not_found: [404]    # render 404 page with "not_found" key (name generated: _page_internal_error_{key})
-        fatal:     [500]    # so you can use the same page for different http errors or specify specific page for each error
+        forbidden: [403]
+        not_found: [404]
+        fatal:     [500]
 
 
 # Enable Doctrine to map the provided entities
@@ -138,5 +140,7 @@ doctrine:
         entity_managers:
             default:
                 mappings:
-                    SonataPageBundle: ~
+                    SonataPageBundle:
+                        type: annotation
+
                     CompoSonataPageBundle: ~

@@ -18,3 +18,7 @@ jms_di_extra:
     annotation_patterns:
         - JMS\DiExtraBundle\Annotation
         - Sonata\AdminBundle\Annotation
+
+jms_job_queue:
+    queue_options_defaults:
+        max_concurrent_jobs: 10

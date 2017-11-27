@@ -17,7 +17,6 @@ class AppKernel extends Kernel
      */
     public function registerBundles()
     {
-        /** @noinspection PhpMethodParametersCountMismatchInspection */
         $bundles = array(
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new \Symfony\Bundle\SecurityBundle\SecurityBundle(),
@@ -60,6 +59,8 @@ class AppKernel extends Kernel
             new \Pix\SortableBehaviorBundle\PixSortableBehaviorBundle(),
             new \Presta\SitemapBundle\PrestaSitemapBundle(),
             new \KonstantinKuklin\AsseticStaticGzipBundle\AsseticStaticGzipBundle(),
+            new \Debril\RssAtomBundle\DebrilRssAtomBundle(),
+            new \Exporter\Bridge\Symfony\Bundle\SonataExporterBundle(),
 
             new \Sylius\Bundle\SettingsBundle\SyliusSettingsBundle(),
             new \Sylius\Bundle\ResourceBundle\SyliusResourceBundle(),
@@ -99,7 +100,6 @@ class AppKernel extends Kernel
             new \Compo\MenuBundle\CompoMenuBundle(),
             new \Compo\NewsBundle\CompoNewsBundle(),
             new \Compo\ArticlesBundle\CompoArticlesBundle(),
-            new \Compo\SmsProviderBundle\CompoSmsProviderBundle(),
             new \Compo\RedirectBundle\CompoRedirectBundle(),
             new \Compo\BannerBundle\CompoBannerBundle(),
             new \Compo\AdvantagesBundle\CompoAdvantagesBundle(),
@@ -145,7 +145,6 @@ class AppKernel extends Kernel
             $bundles[] = new \Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new \Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
             $bundles[] = new \Symfony\Bundle\WebServerBundle\WebServerBundle();
-
         }
 
         return $bundles;
@@ -176,5 +175,22 @@ class AppKernel extends Kernel
     public function getLogDir()
     {
         return dirname($this->getRootDir()) . '/var/logs';
+    }
+
+    public function getProjectName() {
+        return 'CompoCore';
+    }
+
+    public function getProjectVersionPath() {
+        return $this->getProjectDir() . '/VERSION';
+    }
+
+    public function getProjectVersion() {
+
+        if (file_exists($this->getProjectVersionPath())) {
+            return trim(file_get_contents($this->getProjectVersionPath()));
+        } else {
+            return '0.0.0';
+        }
     }
 }

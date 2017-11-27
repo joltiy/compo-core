@@ -3,3 +3,5 @@ compo_feedback.feedback_for_user: 'Обратная связь. Для поль�
 compo_feedback.write_to_director_for_user: 'Написать директору. Для пользователя'
 compo_feedback.write_to_director_for_admin: 'Написать директору. Для администрации'
 
+compo_feedback.product_want_lower_cost_for_user: 'Хочу дешевле. Для пользователя'
+compo_feedback.product_want_lower_cost_for_admin: 'Хочу дешевле. Для администрации'

@@ -2,18 +2,17 @@
 
 use Symfony\Component\Yaml\Yaml;
 use function Deployer\{
-    commandExist, download, get, run, runLocally, set, task, upload, writeln, after, test
+    commandExist, download, get, run, runLocally, set, task, upload, writeln, after, test, has
 };
 
-/** @noinspection PhpIncludeInspection */
 require 'recipe/symfony.php';
 
 ini_set('date.timezone', 'Europe/Moscow');
 date_default_timezone_set('Europe/Moscow');
 
 set('ssh_type', 'native');
-set('ssh_multiplexing', false);
-set('git_tty', false);
+set('ssh_multiplexing', true);
+set('git_tty', true);
 set('default_stage', 'stage');
 set('writable_mode', 'chmod');
 set('php_version', (float)phpversion());
@@ -24,48 +23,47 @@ set('php_version', (float)phpversion());
 set('bin_dir', 'bin');
 set('var_dir', 'var');
 
-/** @noinspection PhpUndefinedFunctionInspection */
-set('copy_dirs', ['vendor']);
-/** @noinspection PhpUndefinedFunctionInspection */
+set('copy_dirs', ['vendor', 'web/vendor', 'web/assetic']);
 set('env', 'prod');
-/** @noinspection PhpUndefinedFunctionInspection */
-set('shared_dirs', array('var/logs', 'var/sessions', 'web/uploads', 'web/userfiles'));
-/** @noinspection PhpUndefinedFunctionInspection */
-set('shared_files', array('app/config/parameters.yml', 'web/robots.txt', ));
-/** @noinspection PhpUndefinedFunctionInspection */
-set('writable_dirs', array('var/cache', 'var/sessions', 'var/logs', 'web/uploads'));
+set('shared_dirs', array('var/logs', 'var/sessions', 'web/uploads', 'web/media', 'web/userfiles'));
+set('shared_files', array('app/config/parameters.yml', 'web/robots.txt'));
+set('writable_dirs', array('var/cache', 'var/logs', 'var/sessions', 'web/uploads', 'web/media'));
 
-/** @noinspection PhpUndefinedFunctionInspection */
 set('clear_paths', []);
 //set('clear_paths', ['web/app_*.php', 'web/config.php']);
 
-/** @noinspection PhpUndefinedFunctionInspection */
 set('assets', []);
 //set('assets', ['web/css', 'web/images', 'web/js']);
 
-/** @noinspection PhpUndefinedFunctionInspection */
 set('dump_assets', true);
-/** @noinspection PhpUndefinedFunctionInspection */
 set('writable_use_sudo', false);
 
-/** @noinspection PhpUndefinedFunctionInspection */
 set(
     'bin/php',
     function () {
-        /** @noinspection PhpUndefinedFunctionInspection */
         return get('bin_php');
     }
 );
 
-/** @noinspection PhpUndefinedFunctionInspection */
 set('timezone', 'Europe/Moscow');
 date_default_timezone_set('Europe/Moscow');
 
-/** @noinspection PhpUndefinedFunctionInspection */
+
+task('deploy:copy_dirs', function () {
+    if (has('previous_release')) {
+        foreach (get('copy_dirs') as $dir) {
+            if (test("[ -d {{previous_release}}/$dir ]")) {
+                run("mkdir -p {{release_path}}/$dir");
+                // COMPO: Disable verbose
+                run("rsync -a {{previous_release}}/$dir/ {{release_path}}/$dir");
+            }
+        }
+    }
+});
+
 task(
     'timezone',
     function () {
-        /** @noinspection PhpUndefinedFunctionInspection */
         set('timezone', 'Europe/Moscow');
         date_default_timezone_set('Europe/Moscow');
     }
@@ -78,7 +76,7 @@ task(
         if (!commandExist('unzip')) {
             writeln('<comment>To speed up composer installation setup "unzip" command with PHP zip extension https://goo.gl/sxzFcD</comment>');
         }
-        /** @noinspection PhpMethodParametersCountMismatchInspection */
+        
         run(
             'cd {{release_path}} && {{env_vars}} {{bin/composer}} {{composer_options}}',
             [
@@ -88,11 +86,11 @@ task(
     }
 );
 
-/** @noinspection PhpUndefinedFunctionInspection */
+
 task(
     'database:sync-from-remote',
     function () {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        
         $databasePath = '{{deploy_path}}/backup/database';
         // mysqldump -u [username] -p [database name] > [database name].sql
 
@@ -125,13 +123,36 @@ task(
             . ' mysql --user=' . $parameters['parameters']['database_user'] . ' --password=' . $parameters['parameters']['database_password']
             . ' ' . $parameters['parameters']['database_name']
             . ' < '
-            . $localDatabasePath
+            . $localDatabasePath,
+            [
+                'timeout' => 6800,
+            ]
         );
     }
 )->desc('database:sync-from-remote');
 
 
-/** @noinspection PhpUndefinedFunctionInspection */
+
+task(
+    'database:backup',
+    function () {
+        
+        $databasePath = '{{deploy_path}}/current/var/database';
+        // mysqldump -u [username] -p [database name] > [database name].sql
+
+        run('mkdir -p ' . $databasePath);
+
+        $parametrs = get('parameters');
+
+        $exportDatabasePath = $databasePath . '/' . $parametrs['database_name'] . '_' . date('YmdHis'). '.sql';
+
+        run('mysqldump -u ' . $parametrs['database_user'] . ' ' . $parametrs['database_name'] . ' > ' . $exportDatabasePath);
+    }
+)->desc('database:sync-from-remote');
+
+
+
+
 task(
     'database:sync-to-remote',
     function () {
@@ -169,8 +190,6 @@ task(
     }
 )->desc('database:sync-to-remote');
 
-
-/** @noinspection PhpUndefinedFunctionInspection */
 task(
     'uploads:sync-from-remote',
     function () {
@@ -199,8 +218,6 @@ task(
     ]
 )->desc('sync-from-remote');
 
-
-/** @noinspection PhpUndefinedFunctionInspection */
 task(
     'compo:core:update',
     function () {
@@ -208,38 +225,26 @@ task(
         //run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console fos:elastica:populate --env=dev --no-debug');
         run('cd {{release_path}} && {{env_vars}} composer run-script compo-update-prod');
         run('cd {{release_path}} && {{env_vars}} composer run-script compo-update-core');
-
-        run('cd {{deploy_path}} && ln -sfn current/web public_html');
     }
 )->desc('compo:core:update');
 
-
-/** @noinspection PhpUndefinedFunctionInspection */
 task(
     'compo:core:install',
     function () {
-        /** @noinspection PhpUndefinedFunctionInspection */
         run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console compo:core:install --env={{env}} --no-debug');
-
-        run('cd {{deploy_path}} && ln -sfn current/web public_html');
-
     }
 )->desc('compo:core:install');
 
-/** @noinspection PhpUndefinedFunctionInspection */
 task(
     'compo:create-configs',
     function () {
-        /** @noinspection PhpUndefinedFunctionInspection */
         run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console compo:create-configs --env={{env}} --no-debug');
     }
 )->desc('compo:create-configs');
 
-/** @noinspection PhpUndefinedFunctionInspection */
 task(
     'symfony:env_vars',
     function () {
-        /** @noinspection PhpUndefinedFunctionInspection */
         $parametrs = get('parameters');
 
         $parametrs_array = array();
@@ -250,7 +255,6 @@ task(
 
         $parametrs_array[] = 'SYMFONY_ENV=prod';
 
-        /** @noinspection PhpUndefinedFunctionInspection */
         set('env_vars', implode(' ', $parametrs_array));
 
     }
@@ -266,7 +270,6 @@ task('php-fpm:restart', function () {
 after('deploy:symlink', 'php-fpm:restart');
 */
 
-/** @noinspection PhpUndefinedFunctionInspection */
 task(
     'php-fpm:restart',
     function () {
@@ -276,7 +279,15 @@ task(
     }
 );
 
-/** @noinspection PhpUndefinedFunctionInspection */
+task(
+    'behat',
+    function () {
+        // The user must have rights for restart service
+        // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart nginx.service
+        run('cd {{release_path}} && ' . trim(get('bin_dir'), '/') . '/behat --format html --format=pretty --colors');
+    }
+);
+
 task(
     'php-fpm:reload',
     function () {
@@ -286,8 +297,6 @@ task(
     }
 );
 
-
-/** @noinspection PhpUndefinedFunctionInspection */
 task(
     'nginx:restart',
     function () {
@@ -296,8 +305,15 @@ task(
         run('sudo service nginx restart');
     }
 );
+task(
+    'supervisor:restart',
+    function () {
+        // The user must have rights for restart service
+        // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart nginx.service
+        run('sudo service supervisor restart');
+    }
+);
 
-/** @noinspection PhpUndefinedFunctionInspection */
 task(
     'nginx:reload',
     function () {
@@ -307,11 +323,9 @@ task(
     }
 );
 
-/** @noinspection PhpUndefinedFunctionInspection */
 task(
     'deploy:assetic:dump',
     function () {
-        /** @noinspection PhpUndefinedFunctionInspection */
         if (get('dump_assets')) {
             // php bin/console sylius:theme:assets:install --symlink --relative
 
@@ -321,17 +335,17 @@ task(
 
             set('env', 'dev');
 
-            run('{{env_vars}} cd {{release_path}} && {{bin/php}} {{bin/console}} assetic:dump --env=dev --forks=8');
+            run('{{env_vars}} cd {{release_path}} && {{bin/php}} {{bin/console}} assetic:dump --env=dev');
 
             set('env', $env);
 
-            run('{{env_vars}} cd {{release_path}} && {{bin/php}} {{bin/console}} assetic:dump --forks=8 {{console_options}}');
+            run('{{env_vars}} cd {{release_path}} && {{bin/php}} {{bin/console}} assetic:dump  {{console_options}}');
         }
     }
 )->desc('Dump assets');
 
 
-/** @noinspection PhpUndefinedFunctionInspection */
+
 task(
     'deploy:sitemaps',
     function () {
@@ -352,7 +366,7 @@ task(
 )->desc('deploy:sitemaps');
 
 
-/** @noinspection PhpUndefinedFunctionInspection */
+
 task(
     'deploy:market',
     function () {
@@ -364,6 +378,9 @@ task(
         try {
             run("cp -rf {{deploy_path}}/current/web/yandex.market.* $sitemapsPath/");
             run("cp -rf $sitemapsPath/yandex.market.* {{release_path}}/web/");
+
+            run("cp -rf {{deploy_path}}/current/web/google.merchant.* $sitemapsPath/");
+            run("cp -rf $sitemapsPath/google.merchant.* {{release_path}}/web/");
         } catch (\Exception $e) {
 
         }
@@ -379,7 +396,6 @@ task(
         if (!commandExist('unzip')) {
             writeln('<comment>To speed up composer installation setup "unzip" command with PHP zip extension https://goo.gl/sxzFcD</comment>');
         }
-        /** @noinspection PhpMethodParametersCountMismatchInspection */
         run(
             'cd {{release_path}} && {{env_vars}} {{bin/composer}} update "comporu/*" --verbose --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader',
             [
@@ -400,7 +416,7 @@ task(
     }
 )->desc('git:commit:composer');
 
-/** @noinspection PhpUndefinedFunctionInspection */
+
 task(
     'deploy:dev',
     [
@@ -416,17 +432,15 @@ task(
         'deploy:sitemaps',
         'deploy:market',
         //'deploy:assets',
-        //'deploy:copy_dirs',
+        'deploy:copy_dirs',
         'symfony:env_vars',
         'deploy:vendors:update',
         //'deploy:assets:install',
         //'deploy:assetic:dump',
         //'deploy:cache:warmup',
         'deploy:writable',
-        'deploy:symlink',
-        'php-fpm:reload',
-        'nginx:reload',
         'compo:core:update',
+        'deploy:symlink',
         'php-fpm:reload',
         'nginx:reload',
         'git:commit:composer',
@@ -436,7 +450,7 @@ task(
 )->desc('Deploy dev your project');
 
 
-/** @noinspection PhpUndefinedFunctionInspection */
+
 task(
     'install',
     [
@@ -452,15 +466,15 @@ task(
         'deploy:sitemaps',
         'deploy:market',
         //'deploy:assets',
-        //'deploy:copy_dirs',
+        'deploy:copy_dirs',
         'symfony:env_vars',
         'deploy:vendors',
         //'deploy:assets:install',
         //'deploy:assetic:dump',
         //'deploy:cache:warmup',
         'deploy:writable',
-        'deploy:symlink',
         'compo:core:install',
+        'deploy:symlink',
         'php-fpm:reload',
         'nginx:reload',
         'deploy:unlock',
@@ -468,13 +482,14 @@ task(
     ]
 )->desc('Install your project');
 
-/** @noinspection PhpUndefinedFunctionInspection */
+
 task(
     'deploy',
     [
         'timezone',
         'deploy:prepare',
         'deploy:lock',
+        'database:backup',
         'timezone',
         'deploy:release',
         'deploy:update_code',
@@ -484,19 +499,19 @@ task(
         'deploy:sitemaps',
         'deploy:market',
         //'deploy:assets',
-        //'deploy:copy_dirs',
+        'deploy:copy_dirs',
         'symfony:env_vars',
         'deploy:vendors',
         //'deploy:assets:install',
         //'deploy:assetic:dump',
         //'deploy:cache:warmup',
         'deploy:writable',
+        'compo:core:update',
         'deploy:symlink',
         'php-fpm:reload',
         'nginx:reload',
-        'compo:core:update',
-        'php-fpm:reload',
-        'nginx:reload',
+        'supervisor:restart',
+        //'behat',
         'deploy:unlock',
         'cleanup',
     ]

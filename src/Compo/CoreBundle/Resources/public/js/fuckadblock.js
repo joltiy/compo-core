@@ -54,7 +54,7 @@
 	FuckAdBlock.prototype._bait = null;
 	
 	FuckAdBlock.prototype._log = function(method, message) {
-		console.log('[FuckAdBlock]['+method+'] '+message);
+		//console.log('[FuckAdBlock]['+method+'] '+message);
 	};
 	
 	FuckAdBlock.prototype.setOption = function(options, value) {

@@ -707,7 +707,7 @@ file that was distributed with this source code.
 {% block compo_yandex_market_url_type_widget %}
 
     <div class="url-type">
-    <a href="{{ url('page_slug', {'path': '/'}, 0) }}yandex.market.{{ sonata_admin.admin.subject.id }}.xml">{{ url('page_slug', {'path': '/'}, 0) }}yandex.market.{{ sonata_admin.admin.subject.id }}.xml</a>
+    <a href="{{ url('page_slug', {'path': '/'}, 0) }}{{ form.vars.prefix }}.{{ sonata_admin.admin.subject.id }}.xml">{{ url('page_slug', {'path': '/'}, 0) }}{{ form.vars.prefix }}.{{ sonata_admin.admin.subject.id }}.xml</a>
 
     </div>
 

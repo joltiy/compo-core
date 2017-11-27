@@ -43,7 +43,7 @@ class TwigIdeGenerateCommand extends ContainerAwareCommand
 
             /** @var SplFileInfo $bundlesItem */
             foreach ($bundles as $bundlesItem) {
-                dump($bundlesItem->getRealPath());
+                //dump($bundlesItem->getRealPath());
                 $ideTwigItems[] = array(
                     'namespace' => $bundlesItem->getBasename(),
                     'path' => 'app/themes/' . $themesDirsItem->getBasename() . '/' . $bundlesItem->getBasename() . '/views',

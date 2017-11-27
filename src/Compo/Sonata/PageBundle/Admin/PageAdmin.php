@@ -52,8 +52,6 @@ class PageAdmin extends AbstractAdmin
      */
     protected $cacheManager;
 
-    /** @noinspection ClassOverridesFieldOfSuperClassInspection */
-
     /**
      * {@inheritdoc}
      */

@@ -1,0 +1,93 @@
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+
+<div class="product_want_lower_cost">
+
+
+    <a href="#" class="" data-toggle="modal" data-target="#product_want_lower_cost">
+        Хочу дешевле!
+    </a>
+
+    <div id="product_want_lower_cost" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Хочу дешевле</h3>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-lg-12" data-ng-bind-html-unsafe="formResponse" data-ng-controller="FeedbackFormController as feedback" data-ng-cloak>
+
+                            <div class="alert alert-success" role="alert" data-ng-show="feedback.showsuccess">Спасибо! Ваш запрос успешно отправлен</div>
+                            <div class="alert alert-danger" role="alert" data-ng-show="feedback.showerror">При отправке запроса возникли ошибки. Обновите страницу и попробуйте еще раз.</div>
+
+                            <form class="contacts__form" name="{{ form.vars.name }}" data-ng-if="!feedback.sent">
+
+                                <div class="row">
+                                    <div class="col-md-12">
+
+
+                                        <div class="form-horizontal">
+
+                                            <div class="form-group">
+                                                {{- form_label(form.product) -}}
+
+                                                <div class="col-lg-7">
+                                                    {{ form_widget(form.product, { "label_attr": {"class":"col-sm-2 control-label"},  'attr' : {"class" : "form-control", "validator" : "required","data-ng-model":"feedback.form.product","data-ng-init":"feedback.form.product='"~form.product.vars.value~"'"  }}  ) }}
+                                                </div>
+
+                                                <div class="col-lg-3">
+
+                                                    <div class="goods-card__quantity text-center">
+                                                        <div class="counter " style="    display: inline-block;">
+                                                            <span class="counter__btn counter__btn--minus" >
+                                                                <i class="fa fa-minus" aria-hidden="true"></i>
+                                                            </span>
+
+                                                            {{ form_widget(form.quantity, { "label_attr": {"class":"col-sm-2 control-label"},  'attr' : { 'min': "1", 'value': "1", "class" : "form-control", "validator" : "required","data-ng-model":"feedback.form.quantity","data-ng-init":"feedback.form.quantity=1"  }}  ) }}
+
+                                                            <span class="counter__btn counter__btn--plus" >
+                                                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    {{ form_row(form.name,{ "label_attr": {"class":"col-sm-2 control-label"}, 'attr' : {"class" : "form-control", "validator" : "required","data-ng-model":"feedback.form.name"  }}  ) }}
+                                                    {{ form_row(form.phone,{ "label_attr": {"class":"col-sm-2 control-label"}, 'attr' : {"class" : "form-control", "validator" : "required","data-ng-phone-mask":"", "data-ng-model":"feedback.form.phone" }}  ) }}
+                                                    {{ form_row(form.message,{ "label_attr": {"class":"col-sm-2 control-label"}, 'attr' : {"class" : "form-control", "data-ng-model":"feedback.form.message"  }}  ) }}
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                                <input type="submit" validation-submit="{{ form.vars.name }}" value="Отправить" data-ng-disabled="feedback.disablesubmit" data-ng-click="feedback.send()" class="drawing-order__input-submit pull-right">
+
+                                {{ form_row(form.product_id, { 'attr' : {"data-ng-model":"feedback.form.product_id", "data-ng-init":"feedback.form.product_id='"~form.product_id.vars.value~"'"  }}  ) }}
+                                {{ form_row(form.product_url, { 'attr' : {"data-ng-model":"feedback.form.product_url", "data-ng-init":"feedback.form.product_url='"~form.product_url.vars.value~"'"  }}  ) }}
+
+                                {{ form_row(form.type, { 'attr' : {"data-ng-model":"feedback.form.type", "data-ng-init":"feedback.form.type='"~form.type.vars.value~"'"  }}  ) }}
+                                {{ form_row(form.page, { 'attr' : {"data-ng-model":"feedback.form.page", "data-ng-init":"feedback.form.page='"~form.page.vars.value~"'"  }}  ) }}
+                                {{ form_row(form._token, { 'attr' : {"data-ng-model":"feedback.form._token", "data-ng-init":"feedback.form._token='"~form._token.vars.value~"'"  }}  ) }}
+
+                            </form>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

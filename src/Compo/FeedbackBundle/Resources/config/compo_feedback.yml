@@ -14,3 +14,8 @@ compo_feedback:
             type: 'compo_feedback.callback'
             form: 'Compo\FeedbackBundle\Form\CallbackFormType'
             template: 'CompoFeedbackBundle:Form:callback.html.twig'
+
+        -
+            type: 'compo_feedback.product_want_lower_cost'
+            form: 'Compo\FeedbackBundle\Form\ProductWantLowerCostFormType'
+            template: 'CompoFeedbackBundle:Form:product_want_lower_cost.html.twig'

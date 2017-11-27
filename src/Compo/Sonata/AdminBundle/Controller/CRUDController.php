@@ -4,6 +4,7 @@ namespace Compo\Sonata\AdminBundle\Controller;
 
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Doctrine\DBAL\DBALException;
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
@@ -13,6 +14,8 @@ use Sonata\AdminBundle\Exception\ModelManagerException;
 use Sonata\DoctrineORMAdminBundle\Model\ModelManager;
 use Sylius\Bundle\SettingsBundle\Form\Factory\SettingsFormFactoryInterface;
 use Sylius\Bundle\SettingsBundle\Manager\SettingsManagerInterface;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,6 +35,17 @@ class CRUDController extends BaseCRUDController
      * @var AbstractAdmin
      */
     protected $admin;
+
+    /**
+     * Return the admin related to the given $class.
+     *
+     * @param string $class
+     *
+     * @return \Sonata\AdminBundle\Admin\AdminInterface|null
+     */
+    public function getAdminByClass($class) {
+        return $this->admin->getConfigurationPool()->getAdminByClass($class);
+    }
 
     /**
      * @return RedirectResponse
@@ -281,6 +295,7 @@ class CRUDController extends BaseCRUDController
                 'action' => 'settings',
                 'breadcrumbs_builder' => $this->get('sonata.admin.breadcrumbs_builder'),
                 'admin' => $this->admin,
+                'base_template' => 'CompoSonataAdminBundle::standard_layout_compo.html.twig',
 
                 'settings' => $settings,
                 'form' => $form->createView(),
@@ -578,6 +593,41 @@ class CRUDController extends BaseCRUDController
         //return new RedirectResponse($this->admin->generateUrl('tree', $request->query->all()));
         //}
         //}
+
+        $filters = $request->query->get('filter', array());
+        if ($this->getAdmin()->isChild() && $this->getAdmin()->getParentAssociationMapping()) {
+            $name = str_replace('.', '__', $this->getAdmin()->getParentAssociationMapping());
+            $val = array('value' => $request->get($this->getAdmin()->getParent()->getIdParameter()));
+
+            if ($this->getAdmin()->getParentAssociationMappingType() == ClassMetadataInfo::MANY_TO_MANY) {
+                $val = array('value' => array($request->get($this->getAdmin()->getParent()->getIdParameter())));
+            } else {
+                $val = array('value' => $request->get($this->getAdmin()->getParent()->getIdParameter()));
+            }
+
+            if (isset($filters[$name]) && is_array($filters[$name]['value']) ) {
+                if (count($filters[$name]['value']) > 1) {
+
+                    return new RedirectResponse(
+                        $this->admin->getConfigurationPool()->getAdminByAdminCode($this->getAdmin()->getCode())->generateUrl('list', array('filter' => $filters))
+                    );
+                }
+
+                if ($filters[$name]['value'][0] != $request->get($this->getAdmin()->getParent()->getIdParameter())) {
+                    return new RedirectResponse(
+                        $this->admin->getConfigurationPool()->getAdminByAdminCode($this->getAdmin()->getCode())->generateUrl('list', array('filter' => $filters))
+                    );
+                }
+
+            }
+
+        }
+
+
+
+
+
+
         $listMode = $request->get('_list_mode');
         if ($listMode = $request->get('_list_mode')) {
             $this->admin->setListMode($listMode);
@@ -607,6 +657,7 @@ class CRUDController extends BaseCRUDController
 
                 return $this->render($this->admin->getTemplate('list'), array(
                     'nodes' => $this->getTreeNodes($request),
+                    'batch_action_forms' => $this->getBatchActionFormViews(),
 
                     'action' => 'list',
                     'form' => $formView,
@@ -620,15 +671,102 @@ class CRUDController extends BaseCRUDController
 
 
             } else {
-                return parent::listAction($request);
+                return $this->listActionCustom($request);
             }
 
 
         } else {
-            return parent::listAction($request);
+            return $this->listActionCustom($request);
         }
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function listActionCustom(Request $request = null)
+    {
+        $this->admin->checkAccess('list');
+
+        $preResponse = $this->preList($request);
+        if ($preResponse !== null) {
+            return $preResponse;
+        }
+
+        if ($listMode = $request->get('_list_mode')) {
+            $this->admin->setListMode($listMode);
+        }
+
+        $datagrid = $this->admin->getDatagrid();
+        $formView = $datagrid->getForm()->createView();
+
+        // set the theme for the current Admin Form
+        $this->setFormThemePublic($formView, $this->admin->getFilterTheme());
+
+        return $this->render($this->admin->getTemplate('list'), [
+            'action' => 'list',
+            'form' => $formView,
+            'batch_action_forms' => $this->getBatchActionFormViews(),
+
+            'datagrid' => $datagrid,
+            'csrf_token' => $this->getCsrfToken('sonata.batch'),
+            'export_formats' => $this->has('sonata.admin.admin_exporter') ?
+                $this->get('sonata.admin.admin_exporter')->getAvailableFormats($this->admin) :
+                $this->admin->getExportFormats(),
+        ], null);
+    }
+
+    /**
+     * @param $name
+     * @return FormBuilderInterface
+     */
+    public function createBatchActionForm($name) {
+        return $this->get('form.factory')
+            ->createNamedBuilder($name, 'form', array(), array(
+                'label_format' => 'form.label_%name%',
+                'translation_domain' => $this->admin->getTranslationDomain(),
+            ));
+    }
+
+    public function configureBatchActionForms() {
+        $actionForms = array();
+
+        return $actionForms;
+    }
+
+    public function getBatchActionFormViews() {
+        $actionForms = array();
+
+        foreach ($this->configureBatchActionForms() as $formName => $form) {
+            $actionForms[$formName] = $form->getForm()->createView();
+        }
+
+        return $actionForms;
+    }
+
+    /**
+     * Sets the admin form theme to form view. Used for compatibility between Symfony versions.
+     *
+     * @param FormView $formView
+     * @param string   $theme
+     */
+    public function setFormThemePublic(FormView $formView, $theme)
+    {
+        $twig = $this->get('twig');
+
+        try {
+            $twig
+                ->getRuntime('Symfony\Bridge\Twig\Form\TwigRenderer')
+                ->setTheme($formView, $theme);
+        } catch (\Twig_Error_Runtime $e) {
+            // BC for Symfony < 3.2 where this runtime not exists
+            $twig
+                ->getExtension('Symfony\Bridge\Twig\Extension\FormExtension')
+                ->renderer
+                ->setTheme($formView, $theme);
+        }
+    }
     public function getTreeNodes($request) {
         // set the theme for the current Admin Form
         //$this->setFormTheme($formView, $this->admin->getFilterTheme());
@@ -668,12 +806,9 @@ class CRUDController extends BaseCRUDController
 
             $i = 0;
             foreach ($selectedModelQuery->getQuery()->iterate() as $pos => $object) {
-
-                /** @noinspection PhpUndefinedMethodInspection */
                 $object[0]->setEnabled(false);
                 $modelManager->update($object[0]);
 
-                /** @noinspection TypeUnsafeComparisonInspection */
                 if ((++$i % 100) == 0) {
                     $entityManager->flush();
                     $entityManager->clear();
@@ -702,7 +837,7 @@ class CRUDController extends BaseCRUDController
      *
      * @return RedirectResponse
      */
-    public function batchActionEnable(\Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery, Request $request = null)
+    public function batchActionEnable2(\Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery, Request $request = null)
     {
         if (!$this->admin->isGranted('EDIT')) {
             throw new AccessDeniedException();
@@ -768,7 +903,7 @@ class CRUDController extends BaseCRUDController
      * @throws ModelManagerException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function batchActionEnable2(\Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery, Request $request = null)
+    public function batchActionEnable(\Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery, Request $request = null)
     {
         if (!$this->admin->isGranted('EDIT')) {
             throw new AccessDeniedException();
@@ -786,11 +921,9 @@ class CRUDController extends BaseCRUDController
             $i = 0;
             foreach ($selectedModelQuery->getQuery()->iterate() as $pos => $object) {
 
-                /** @noinspection PhpUndefinedMethodInspection */
                 $object[0]->setEnabled(true);
                 $modelManager->update($object[0]);
 
-                /** @noinspection TypeUnsafeComparisonInspection */
                 if ((++$i % 100) == 0) {
                     $entityManager->flush();
                     $entityManager->clear();

@@ -28,3 +28,9 @@ services:
         arguments: [~, Compo\SeoBundle\Entity\SeoPage, CompoSeoBundle:SeoPageAdmin]
         tags:
             - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: seo_page }
+
+    compo_seo.settings.seo:
+        class: Compo\SeoBundle\Settings\SeoSettingsSchema
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: "sylius.settings_schema", namespace: "seo", admin: compo_seo.admin.seo_page }

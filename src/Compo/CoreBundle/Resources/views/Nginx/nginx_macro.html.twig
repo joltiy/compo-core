@@ -1,0 +1,276 @@
+{# {% import _self as nginx %} #}
+{% macro location_well_known() %}
+    location ~ /.well-known {
+        access_log off;
+        expires 30d;
+        add_header Pragma public;
+        add_header Access-Control-Allow-Origin *;
+    }
+{% endmacro %}
+
+{% macro location_robots_txt() %}
+    location /robots.txt {
+        access_log off;
+        expires 30d;
+        add_header Pragma public;
+        add_header Access-Control-Allow-Origin *;
+    }
+{% endmacro %}
+
+{% macro rewrite_to_domain(domain) %}
+    rewrite ^(.*)$ {{ domain }}$1 permanent;
+{% endmacro %}
+
+{% macro ssl(ssl_certificate, ssl_certificate_key, ssl_trusted_certificate) %}
+    #add_header Strict-Transport-Security "max-age=63072000; includeSubdomains; preload";
+
+    ssl on;
+
+    ssl_certificate {{ ssl_certificate }};
+    ssl_certificate_key {{ ssl_certificate_key }};
+
+    {% if ssl_trusted_certificate %}
+        ssl_trusted_certificate {{ ssl_trusted_certificate }};
+
+        ssl_stapling on;
+        ssl_stapling_verify on;
+    {% endif %}
+
+    ssl_buffer_size 4k;
+
+    ssl_session_cache shared:SSL:20m;
+    ssl_session_timeout 4h;
+    ssl_session_tickets on;
+
+    #ssl_session_ticket_key current.key;
+    #ssl_session_ticket_key prev.key;
+    #ssl_session_ticket_key prevprev.key;
+
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+
+    ssl_ciphers 'ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES256-SHA:ECDHE-ECDSA-DES-CBC3-SHA:ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:DES-CBC3-SHA:!DSS';
+{% endmacro %}
+
+{% macro location_hidden_to_404() %}
+    location ~* /\. {
+        return 404;
+    }
+{% endmacro %}
+
+{% macro location_root() %}
+    location / {
+        {# add_header 'Access-Control-Allow-Origin' '*'; #}
+
+        try_files $uri /app.php$is_args$args;
+    }
+{% endmacro %}
+
+{% macro location_assetic_php_to_404() %}
+    location ~* ^/(assetic|bundles|js|css|img||opt|uploads|vendor)/.+\.php {
+        return 404;
+    }
+{% endmacro %}
+
+{% macro location_static() %}
+    location ~* ^.+\.(woff|css|htc|js|js2|js3|js4|ico|htc|rtf|rtx|svg|svgz|xsd|xsl|woff2|asf|asx|wax|wmv|wmx|avi|bmp|class|divx|doc|docx|eot|exe|gif|gz|gzip|ico|jpg|jpeg|jpe|json|mdb|mid|midi|mov|qt|mp3|m4a|mp4|m4v|mpeg|mpg|mpe|mpp|otf|odb|odc|odf|odg|odp|ods|odt|ogg|pdf|png|pot|pps|ppt|pptx|ra|ram|svg|svgz|swf|tar|tif|tiff|ttf|ttc|wav|wma|wri|xla|xls|xlsx|xlt|xlw|zip)$ {
+        access_log off;
+        expires 30d;
+        add_header Pragma public;
+        add_header Access-Control-Allow-Origin *;
+        #add_header Cache-Control public;
+
+        try_files $uri /app.php$is_args$args;
+    }
+{% endmacro %}
+
+
+{% macro location_phpmyadmin(auth_basic_user_file, server_fastcgi_pass) %}
+    location /phpmyadmin {
+        auth_basic           "Auth";
+        auth_basic_user_file {{ auth_basic_user_file }};
+
+        alias /usr/share/phpmyadmin/;
+
+        location ~ \.php$ {
+            fastcgi_pass unix:{{ server_fastcgi_pass }};
+
+            fastcgi_index index.php;
+            include fastcgi_params;
+            fastcgi_param SCRIPT_FILENAME $request_filename;
+            fastcgi_ignore_client_abort off;
+        }
+
+        location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
+            access_log off;
+            expires 30d;
+            add_header Pragma public;
+            add_header Access-Control-Allow-Origin *;
+
+            try_files $uri /index.php$is_args$args;
+        }
+    }
+{% endmacro %}
+
+
+{% macro location_app_dev(auth_basic_user_file, server_fastcgi_pass) %}
+    # DEV
+    # This rule should only be placed on your development environment
+    # In production, don't include this and don't deploy app_dev.php or config.php
+    location ~ ^/(app_dev|config)\.php(/|$) {
+        auth_basic           "Auth";
+        auth_basic_user_file {{ auth_basic_user_file }};
+
+        fastcgi_pass unix:{{ server_fastcgi_pass }};
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        include fastcgi_params;
+        # When you are using symlinks to link the document root to the
+        # current version of your application, you should pass the real
+        # application path instead of the path to the symlink to PHP
+        # FPM.
+        # Otherwise, PHP's OPcache may not properly detect changes to
+        # your PHP files (see https://github.com/zendtech/ZendOptimizerPlus/issues/126
+        # for more information).
+        fastcgi_param  SCRIPT_FILENAME  $realpath_root$fastcgi_script_name;
+        fastcgi_param DOCUMENT_ROOT $realpath_root;
+    }
+{% endmacro %}
+
+{% macro location_app(server_fastcgi_pass) %}
+    location ~ ^/app\.php(/|$) {
+        fastcgi_pass unix:{{ server_fastcgi_pass }};
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        include fastcgi_params;
+        # When you are using symlinks to link the document root to the
+        # current version of your application, you should pass the real
+        # application path instead of the path to the symlink to PHP
+        # FPM.
+        # Otherwise, PHP's OPcache may not properly detect changes to
+        # your PHP files (see https://github.com/zendtech/ZendOptimizerPlus/issues/126
+        # for more information).
+        fastcgi_param  SCRIPT_FILENAME  $realpath_root$fastcgi_script_name;
+        fastcgi_param DOCUMENT_ROOT $realpath_root;
+        # Prevents URIs that include the front controller. This will 404:
+        # http://domain.tld/app.php/some-path
+        # Remove the internal directive to allow URIs like this
+        internal;
+    }
+{% endmacro %}
+
+{% macro location_php(server_fastcgi_pass) %}
+    location ~ \.php$ {
+        try_files $uri /app.php$is_args$args;
+
+        fastcgi_pass unix:{{ server_fastcgi_pass }};
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        include fastcgi_params;
+        # When you are using symlinks to link the document root to the
+        # current version of your application, you should pass the real
+        # application path instead of the path to the symlink to PHP
+        # FPM.
+        # Otherwise, PHP's OPcache may not properly detect changes to
+        # your PHP files (see https://github.com/zendtech/ZendOptimizerPlus/issues/126
+        # for more information).
+        fastcgi_param  SCRIPT_FILENAME  $realpath_root$fastcgi_script_name;
+        fastcgi_param DOCUMENT_ROOT $realpath_root;
+        # Prevents URIs that include the front controller. This will 404:
+        # http://domain.tld/app.php/some-path
+        # Remove the internal directive to allow URIs like this
+    }
+{% endmacro %}
+
+
+{% macro pagespeed(pagespeed) %}
+    pagespeed {{ pagespeed }};
+    pagespeed Disallow "*/admin/*";
+    pagespeed Disallow "*.svg";
+    pagespeed FileCachePath "/var/cache/pagespeed/";
+    pagespeed FileCacheSizeKb            102400;
+    pagespeed FileCacheCleanIntervalMs   3600000;
+    pagespeed FileCacheInodeLimit        500000;
+    pagespeed EnableFilters local_storage_cache,extend_cache,prioritize_critical_css,convert_jpeg_to_progressive,recompress_jpeg,rewrite_javascript,rewrite_css,collapse_whitespace;
+{% endmacro %}
+
+
+{% macro pagespeed2(pagespeed) %}
+
+    pagespeed {{ pagespeed }};
+
+    pagespeed Disallow "*.svg";
+
+    pagespeed RewriteLevel PassThrough;
+
+
+    pagespeed HttpCacheCompressionLevel 9;
+
+    pagespeed FileCachePath "/var/cache/pagespeed/";
+    pagespeed FileCacheSizeKb            102400000;
+    pagespeed FileCacheCleanIntervalMs   3600000;
+    pagespeed FileCacheInodeLimit        5000000;
+
+    pagespeed EnableFilters responsive_images,resize_images,responsive_images_zoom;
+    pagespeed EnableFilters inline_import_to_link;
+    pagespeed EnableFilters move_css_above_scripts,move_css_to_head;
+    pagespeed EnableFilters combine_css;
+    pagespeed EnableFilters rewrite_css,fallback_rewrite_css_urls,rewrite_style_attributes_with_url;
+    pagespeed EnableFilters flatten_css_imports;
+    pagespeed EnableFilters inline_css;
+
+    pagespeed EnableFilters rewrite_javascript,rewrite_javascript_external,rewrite_javascript_inline;
+    pagespeed EnableFilters combine_javascript;
+    pagespeed EnableFilters inline_javascript;
+
+
+
+    pagespeed EnableFilters rewrite_images;
+
+    pagespeed EnableFilters convert_jpeg_to_progressive;
+    pagespeed EnableFilters convert_png_to_jpeg;
+    pagespeed EnableFilters convert_jpeg_to_webp;
+    pagespeed EnableFilters convert_to_webp_lossless;
+    pagespeed EnableFilters convert_gif_to_png;
+
+    pagespeed EnableFilters strip_image_color_profile;
+    pagespeed EnableFilters strip_image_meta_data;
+
+    pagespeed EnableFilters insert_image_dimensions;
+    pagespeed EnableFilters inline_images;
+
+    pagespeed EnableFilters recompress_images,recompress_jpeg,recompress_png,recompress_webp;
+
+    pagespeed EnableFilters resize_rendered_image_dimensions;
+
+    pagespeed EnableFilters remove_comments,collapse_whitespace;
+    pagespeed EnableFilters extend_cache,extend_cache_css,extend_cache_images,extend_cache_scripts;
+
+    pagespeed EnableFilters lazyload_images;
+
+    # pagespeed EnableFilters local_storage_cache,extend_cache,prioritize_critical_css,convert_jpeg_to_progressive,recompress_jpeg,rewrite_javascript,rewrite_css,collapse_whitespace;
+
+    location ~ "\.pagespeed\.([a-z]\.)?[a-z]{2}\.[^.]{10}\.[^.]+" {
+    add_header "" "";
+    }
+
+    location ~ "^/pagespeed_static/" {
+
+    }
+
+    location ~ "^/ngx_pagespeed_beacon$" {
+
+    }
+
+
+{% endmacro %}
+
+{% macro location_build(server_root, auth_basic_user_file, server_fastcgi_pass) %}
+    {% import _self as nginx %}
+
+    location /build {
+        auth_basic           "Auth";
+        auth_basic_user_file {{ auth_basic_user_file }};
+
+        alias {{ server_root }}/../build/;
+
+        {{ nginx.location_static() }}
+    }
+{% endmacro %}

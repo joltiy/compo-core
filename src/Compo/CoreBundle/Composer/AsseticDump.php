@@ -17,7 +17,7 @@ class AsseticDump extends \Sensio\Bundle\DistributionBundle\Composer\ScriptHandl
         $options = self::getOptions($event);
         $consoleDir = self::getConsoleDir($event, 'AsseticDump');
 
-        static::executeCommand($event, $consoleDir, 'assetic:dump' . ' --forks=8 --env=dev', $options['process-timeout']);
+        static::executeCommand($event, $consoleDir, 'assetic:dump' . ' --env=dev', $options['process-timeout']);
         //static::executeCommand($event, $consoleDir, 'assetic:dump' . ' --forks=8 --env=prod --no-debug', $options['process-timeout']);
     }
 }

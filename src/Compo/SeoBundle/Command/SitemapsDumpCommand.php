@@ -2,6 +2,8 @@
 
 namespace Compo\SeoBundle\Command;
 
+use JMS\JobQueueBundle\Console\CronCommand;
+use JMS\JobQueueBundle\Entity\Job;
 use Presta\SitemapBundle\Service\DumperInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -14,8 +16,18 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @author Konstantin Tjuterev <kostik.lv@gmail.com>
  */
-class SitemapsDumpCommand extends ContainerAwareCommand
+class SitemapsDumpCommand extends ContainerAwareCommand implements CronCommand
 {
+    public function shouldBeScheduled(\DateTime $lastRunAt)
+    {
+        return time() - $lastRunAt->getTimestamp() >= 60 * 60 * 12;
+    }
+
+    public function createCronJob(\DateTime $lastRunAt)
+    {
+        return new Job('compo:sitemaps:dump');
+    }
+
     /**
      * Configure CLI command, message, options
      *
@@ -61,6 +73,9 @@ class SitemapsDumpCommand extends ContainerAwareCommand
         $container = $this->getContainer();
         $dumper = $container->get('presta_sitemap.dumper');
         /* @var $dumper DumperInterface */
+
+        $targetDir = $this->getApplication()->getKernel()->getProjectDir() . '/web/';
+
 
         $host = $this->getContainer()->getParameter('server_name');
 

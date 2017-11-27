@@ -67,6 +67,7 @@ class BannerBlockService extends AbstractBlockService
                     array('template', 'choice', array(
                         'choices' => array(
                             'Обычный' => 'CompoBannerBundle:Block:slider.html.twig',
+                            'Zoom' => 'CompoBannerBundle:Block:zoom.html.twig',
                             'Менеджеры' => 'CompoBannerBundle:Block:managers.html.twig'
                         ),
                         'label' => 'Шаблон'

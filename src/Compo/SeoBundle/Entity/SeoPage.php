@@ -8,8 +8,17 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
 
- * @ORM\Table(name="seo_page")
+ * @ORM\Table(name="seo_page",
+ *     indexes={
+ *          @ORM\Index(name="idx_context_deleted_at", columns={"context","deleted_at"}),
+ *          @ORM\Index(name="idx_context", columns={"context"}),
+ *          @ORM\Index(name="idx_deleted_at", columns={"deleted_at"})
+ *      }
+ *
+ * )
  * @ORM\Entity(repositoryClass="Compo\SeoBundle\Repository\SeoPageRepository")
+ *
+ *
  */
 class SeoPage
 {
