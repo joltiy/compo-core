@@ -16,17 +16,6 @@ use Sonata\AdminBundle\Show\ShowMapper;
 class ContactsAdmin extends AbstractAdmin
 {
     /**
-     * {@inheritDoc}
-     */
-    protected function configureRoutes(RouteCollection $collection)
-    {
-        $collection
-            ->remove('create')
-            ->remove('list')
-            ->remove('delete');
-    }
-
-    /**
      * @param DatagridMapper $datagridMapper
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
@@ -49,10 +38,10 @@ class ContactsAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id')
-            // ->add('address')
+            ->addIdentifier('id')
+            ->addIdentifier('address', 'html')
             // ->add('worktime')
-            ->add('phone')
+            ->addIdentifier('phone', 'html')
             ->add('email')
             // ->add('bankprops')
             // ->add('walk_instruction')
@@ -62,11 +51,7 @@ class ContactsAdmin extends AbstractAdmin
                 '_action',
                 null,
                 array(
-                    'actions' => array(
-                        'show' => array(),
-                        'edit' => array(),
-                        //  'delete' => array(),
-                    )
+
                 )
             );
     }
