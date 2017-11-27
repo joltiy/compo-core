@@ -7,7 +7,7 @@
 - **Fixed**: исправления ошибок и мелкие правки.
 - **Removed**: удаление устаревшей функциональности.
 
-## [3.3.12] - 2017-11-27
+## [3.3.13] - 2017-11-27
 
 ### Added
 - Добавлен .editorconfig (+1)
@@ -15,7 +15,7 @@
 - Добавлен UPGRADE.md (+1)
 
 ### Changed
-- Update CHANGELOG.md (+1)
+- Update CHANGELOG.md (+2)
 - Обновлён composer.json (+1)
 
 ## [v3.3.10] - 2017-10-24
@@ -363,6 +363,6 @@
 
 [comporu/compo-core]: https://github.com/comporu/compo-core
 
-[3.3.12]: https://github.com/comporu/compo-core/compare/v3.3.8...3.3.12
+[3.3.13]: https://github.com/comporu/compo-core/compare/v3.3.8...3.3.13
 [v3.3.10]: https://github.com/comporu/compo-core/compare/v3.3.1...v3.3.10
 [v1.0.8]: https://github.com/comporu/compo-core/compare/...v1.0.8
