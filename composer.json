@@ -1,7 +1,7 @@
 {
-    "name": "comporu/compo-core",
+    "name": "comporu\/compo-core",
     "license": "proprietary",
-    "version": "3.3.8",
+    "version": "3.3.9",
     "type": "library",
     "description": "compo-core",
     "authors": [
@@ -12,10 +12,10 @@
     ],
     "autoload": {
         "psr-4": {
-            "Compo\\": "src/Compo",
-            "Pix\\SortableBehaviorBundle\\": "src/Pix/PixSortableBehaviorBundle",
-            "Sylius\\Bundle\\SettingsBundle\\": "src/Sylius/SyliusSettingsBundle",
-            "Sylius\\Bundle\\ThemeBundle\\": "src/Sylius/SyliusThemeBundle"
+            "Compo\\": "src\/Compo",
+            "Pix\\SortableBehaviorBundle\\": "src\/Pix\/PixSortableBehaviorBundle",
+            "Sylius\\Bundle\\SettingsBundle\\": "src\/Sylius\/SyliusSettingsBundle",
+            "Sylius\\Bundle\\ThemeBundle\\": "src\/Sylius\/SyliusThemeBundle"
         }
     },
     "extra": {
