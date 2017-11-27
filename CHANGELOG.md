@@ -15,6 +15,7 @@
 - Добавлен UPGRADE.md (+1)
 
 ### Changed
+- Update CHANGELOG.md (+1)
 - Обновлён composer.json (+1)
 
 ## [v3.3.10] - 2017-10-24
