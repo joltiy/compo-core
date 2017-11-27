@@ -167,7 +167,6 @@ trait TreeEntityTrait
      */
     public function removeChild($children)
     {
-        /** @noinspection PhpUndefinedMethodInspection */
         $this->children->removeElement($children);
     }
 

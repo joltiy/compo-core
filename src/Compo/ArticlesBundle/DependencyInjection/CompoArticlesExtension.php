@@ -21,7 +21,6 @@ class CompoArticlesExtension extends Extension implements PrependExtensionInterf
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = new Configuration();
-        /** @noinspection PhpUnusedLocalVariableInspection */
         $config = $this->processConfiguration($configuration, $configs);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
@@ -33,7 +32,6 @@ class CompoArticlesExtension extends Extension implements PrependExtensionInterf
      */
     public function prepend(ContainerBuilder $container)
     {
-        /** @noinspection PhpUnusedLocalVariableInspection */
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('sonata_block.yml');
         $loader->load('sonata_page.yml');

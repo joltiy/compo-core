@@ -95,8 +95,6 @@ class MenuBlockService extends AbstractBlockService
                 $item['url'] = $catalogManager->getCatalogShowPermalink($nodeItem->getCatalog());
 
             } elseif ($item['type'] === 'page') {
-
-                /** @noinspection Symfony2PhpRouteMissingInspection */
                 $item['url'] = $this->getContainer()->get('router')->generate('page_slug', array('path' => $nodeItem->getPage()->getUrl()));
             } elseif ($item['type'] === 'tagging') {
 

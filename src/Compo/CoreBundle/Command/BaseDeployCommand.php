@@ -177,7 +177,6 @@ class BaseDeployCommand extends ContainerAwareCommand
     {
         $cache_dir = $this->getContainer()->getParameter('kernel.cache_dir');
 
-        /** @noinspection MkdirRaceConditionInspection */
         //mkdir($cache_dir . '/jms_diextra/metadata', 0777, true);
 
         $this->runCommand(

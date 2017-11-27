@@ -50,7 +50,7 @@ class ColorExtension extends \Twig_Extension
             $color = str_replace(' ', '', $color);
             $color = explode(',', $color);
             $count = count($color);
-            /** @noinspection ForeachInvariantsInspection */
+
             for ($i = 0; $i <= $count; $i++) {
                 $color[$i] = ($i === 3) ? (float)$color[$i] : (int)$color[$i];
             }
@@ -90,7 +90,6 @@ class ColorExtension extends \Twig_Extension
 
                 $colorStr .= '' . $color[0] . ',' . $color[1] . ',' . $color[2];
 
-                /** @noinspection ArgumentEqualsDefaultValueInspection */
                 $colorStr .= (self::hasAlpha($color)) ? ',' . number_format($color[3], 2, '.', ',') . ')' : ')';
                 $color = $colorStr;
                 break;

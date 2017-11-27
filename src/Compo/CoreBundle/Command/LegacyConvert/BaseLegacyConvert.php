@@ -132,7 +132,6 @@ class BaseLegacyConvert
             if (!$this->getCommand()->isDrop()) {
                 $idsFields = array();
 
-                /** @noinspection ForeachSourceInspection */
                 foreach ($oldDataItem as $oldDataItemFieldKey => $oldDataItemFieldValue) {
                     if (isset($this->idFields[$oldDataItemFieldKey])) {
                         $idsFields[$this->idFields[$oldDataItemFieldKey]] = $oldDataItemFieldValue;
@@ -277,8 +276,6 @@ class BaseLegacyConvert
         return $this->entityClass;
     }
 
-    /** @noinspection PhpUnusedParameterInspection */
-
     /**
      * @param mixed $entityClass
      */
@@ -287,7 +284,6 @@ class BaseLegacyConvert
         $this->entityClass = $entityClass;
     }
 
-    /** @noinspection PhpUnusedParameterInspection */
     /**
      * @param $oldDataItemKey
      * @param $oldDataItem

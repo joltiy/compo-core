@@ -5,7 +5,6 @@ use function Deployer\{
     commandExist, download, get, run, runLocally, set, task, upload, writeln, after, test, has
 };
 
-/** @noinspection PhpIncludeInspection */
 require 'recipe/symfony.php';
 
 ini_set('date.timezone', 'Europe/Moscow');
@@ -24,40 +23,28 @@ set('php_version', (float)phpversion());
 set('bin_dir', 'bin');
 set('var_dir', 'var');
 
-/** @noinspection PhpUndefinedFunctionInspection */
 set('copy_dirs', ['vendor', 'web/vendor', 'web/assetic']);
-/** @noinspection PhpUndefinedFunctionInspection */
 set('env', 'prod');
-/** @noinspection PhpUndefinedFunctionInspection */
 set('shared_dirs', array('var/logs', 'var/sessions', 'web/uploads', 'web/media', 'web/userfiles'));
-/** @noinspection PhpUndefinedFunctionInspection */
 set('shared_files', array('app/config/parameters.yml', 'web/robots.txt'));
-/** @noinspection PhpUndefinedFunctionInspection */
 set('writable_dirs', array('var/cache', 'var/logs', 'var/sessions', 'web/uploads', 'web/media'));
 
-/** @noinspection PhpUndefinedFunctionInspection */
 set('clear_paths', []);
 //set('clear_paths', ['web/app_*.php', 'web/config.php']);
 
-/** @noinspection PhpUndefinedFunctionInspection */
 set('assets', []);
 //set('assets', ['web/css', 'web/images', 'web/js']);
 
-/** @noinspection PhpUndefinedFunctionInspection */
 set('dump_assets', true);
-/** @noinspection PhpUndefinedFunctionInspection */
 set('writable_use_sudo', false);
 
-/** @noinspection PhpUndefinedFunctionInspection */
 set(
     'bin/php',
     function () {
-        /** @noinspection PhpUndefinedFunctionInspection */
         return get('bin_php');
     }
 );
 
-/** @noinspection PhpUndefinedFunctionInspection */
 set('timezone', 'Europe/Moscow');
 date_default_timezone_set('Europe/Moscow');
 
@@ -74,11 +61,9 @@ task('deploy:copy_dirs', function () {
     }
 });
 
-/** @noinspection PhpUndefinedFunctionInspection */
 task(
     'timezone',
     function () {
-        /** @noinspection PhpUndefinedFunctionInspection */
         set('timezone', 'Europe/Moscow');
         date_default_timezone_set('Europe/Moscow');
     }
@@ -91,7 +76,7 @@ task(
         if (!commandExist('unzip')) {
             writeln('<comment>To speed up composer installation setup "unzip" command with PHP zip extension https://goo.gl/sxzFcD</comment>');
         }
-        /** @noinspection PhpMethodParametersCountMismatchInspection */
+        
         run(
             'cd {{release_path}} && {{env_vars}} {{bin/composer}} {{composer_options}}',
             [
@@ -101,11 +86,11 @@ task(
     }
 );
 
-/** @noinspection PhpUndefinedFunctionInspection */
+
 task(
     'database:sync-from-remote',
     function () {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        
         $databasePath = '{{deploy_path}}/backup/database';
         // mysqldump -u [username] -p [database name] > [database name].sql
 
@@ -147,11 +132,11 @@ task(
 )->desc('database:sync-from-remote');
 
 
-/** @noinspection PhpUndefinedFunctionInspection */
+
 task(
     'database:backup',
     function () {
-        /** @noinspection PhpUndefinedFunctionInspection */
+        
         $databasePath = '{{deploy_path}}/current/var/database';
         // mysqldump -u [username] -p [database name] > [database name].sql
 
@@ -167,7 +152,7 @@ task(
 
 
 
-/** @noinspection PhpUndefinedFunctionInspection */
+
 task(
     'database:sync-to-remote',
     function () {
@@ -205,8 +190,6 @@ task(
     }
 )->desc('database:sync-to-remote');
 
-
-/** @noinspection PhpUndefinedFunctionInspection */
 task(
     'uploads:sync-from-remote',
     function () {
@@ -235,8 +218,6 @@ task(
     ]
 )->desc('sync-from-remote');
 
-
-/** @noinspection PhpUndefinedFunctionInspection */
 task(
     'compo:core:update',
     function () {
@@ -247,32 +228,23 @@ task(
     }
 )->desc('compo:core:update');
 
-
-/** @noinspection PhpUndefinedFunctionInspection */
 task(
     'compo:core:install',
     function () {
-        /** @noinspection PhpUndefinedFunctionInspection */
         run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console compo:core:install --env={{env}} --no-debug');
-
-
     }
 )->desc('compo:core:install');
 
-/** @noinspection PhpUndefinedFunctionInspection */
 task(
     'compo:create-configs',
     function () {
-        /** @noinspection PhpUndefinedFunctionInspection */
         run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console compo:create-configs --env={{env}} --no-debug');
     }
 )->desc('compo:create-configs');
 
-/** @noinspection PhpUndefinedFunctionInspection */
 task(
     'symfony:env_vars',
     function () {
-        /** @noinspection PhpUndefinedFunctionInspection */
         $parametrs = get('parameters');
 
         $parametrs_array = array();
@@ -283,7 +255,6 @@ task(
 
         $parametrs_array[] = 'SYMFONY_ENV=prod';
 
-        /** @noinspection PhpUndefinedFunctionInspection */
         set('env_vars', implode(' ', $parametrs_array));
 
     }
@@ -299,7 +270,6 @@ task('php-fpm:restart', function () {
 after('deploy:symlink', 'php-fpm:restart');
 */
 
-/** @noinspection PhpUndefinedFunctionInspection */
 task(
     'php-fpm:restart',
     function () {
@@ -318,7 +288,6 @@ task(
     }
 );
 
-/** @noinspection PhpUndefinedFunctionInspection */
 task(
     'php-fpm:reload',
     function () {
@@ -328,8 +297,6 @@ task(
     }
 );
 
-
-/** @noinspection PhpUndefinedFunctionInspection */
 task(
     'nginx:restart',
     function () {
@@ -347,7 +314,6 @@ task(
     }
 );
 
-/** @noinspection PhpUndefinedFunctionInspection */
 task(
     'nginx:reload',
     function () {
@@ -357,11 +323,9 @@ task(
     }
 );
 
-/** @noinspection PhpUndefinedFunctionInspection */
 task(
     'deploy:assetic:dump',
     function () {
-        /** @noinspection PhpUndefinedFunctionInspection */
         if (get('dump_assets')) {
             // php bin/console sylius:theme:assets:install --symlink --relative
 
@@ -381,7 +345,7 @@ task(
 )->desc('Dump assets');
 
 
-/** @noinspection PhpUndefinedFunctionInspection */
+
 task(
     'deploy:sitemaps',
     function () {
@@ -402,7 +366,7 @@ task(
 )->desc('deploy:sitemaps');
 
 
-/** @noinspection PhpUndefinedFunctionInspection */
+
 task(
     'deploy:market',
     function () {
@@ -432,7 +396,6 @@ task(
         if (!commandExist('unzip')) {
             writeln('<comment>To speed up composer installation setup "unzip" command with PHP zip extension https://goo.gl/sxzFcD</comment>');
         }
-        /** @noinspection PhpMethodParametersCountMismatchInspection */
         run(
             'cd {{release_path}} && {{env_vars}} {{bin/composer}} update "comporu/*" --verbose --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader',
             [
@@ -453,7 +416,7 @@ task(
     }
 )->desc('git:commit:composer');
 
-/** @noinspection PhpUndefinedFunctionInspection */
+
 task(
     'deploy:dev',
     [
@@ -487,7 +450,7 @@ task(
 )->desc('Deploy dev your project');
 
 
-/** @noinspection PhpUndefinedFunctionInspection */
+
 task(
     'install',
     [
@@ -519,7 +482,7 @@ task(
     ]
 )->desc('Install your project');
 
-/** @noinspection PhpUndefinedFunctionInspection */
+
 task(
     'deploy',
     [

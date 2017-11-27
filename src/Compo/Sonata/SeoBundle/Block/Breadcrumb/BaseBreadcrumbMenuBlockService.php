@@ -74,7 +74,6 @@ class BaseBreadcrumbMenuBlockService extends \Sonata\SeoBundle\Block\Breadcrumb\
             $menu->addChild('sonata_seo_homepage_breadcrumb', array('uri' => '/'));
         }
 
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $menu;
     }
 }
