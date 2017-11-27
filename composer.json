@@ -1,15 +1,32 @@
 {
     "name": "comporu/compo-core",
-    "license": "proprietary",
-    "version": "3.3.12",
-    "type": "library",
+    "version": "3.3.13",
     "description": "compo-core",
+    "keywords": [
+        "compo",
+        "symfony",
+        "sonata"
+    ],
+    "license": "MIT",
+    "homepage": "https://compo.ru",
+    "support": {
+        "email": "info@compo.ru",
+        "issues": "https://trello.com/b/mT6NRAyb/composymfonycms",
+        "source": "https://github.com/comporu/compo-core",
+        "docs": "https://github.com/comporu/compo-core"
+    },
     "authors": [
         {
-            "name": "comporu",
-            "email": "info@compo.ru"
+            "name": "Compo.ru",
+            "email": "info@compo.ru",
+            "homepage": "https://compo.ru"
+        },
+        {
+            "name": "Ryabov Alexander",
+            "email": "jivoy1988@gmail.com"
         }
     ],
+    "type": "library",
     "autoload": {
         "psr-4": {
             "Compo\\": "src/Compo",
