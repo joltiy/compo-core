@@ -7,7 +7,7 @@
 - **Fixed**: исправления ошибок и мелкие правки.
 - **Removed**: удаление устаревшей функциональности.
 
-## [3.3.13] - 2017-11-27
+## [v3.3.14] - 2017-11-27
 
 ### Added
 - Добавлен .editorconfig (+1)
@@ -15,8 +15,53 @@
 - Добавлен UPGRADE.md (+1)
 
 ### Changed
-- Update CHANGELOG.md (+2)
+- Update version: v3.3.14 (+1)
+- Обновлён .gitignore /vendor/ (+1)
+- Update CHANGELOG.md (+3)
+- Update version: v3.3.13 (+1)
 - Обновлён composer.json (+1)
+- Update version: v3.3.12 (+1)
+- Update version: v3.3.11 (+1)
+- Update version: v3.3.10 (+1)
+
+## [v3.3.9] - 2017-11-27
+
+### Changed
+- Update version: v3.3.9
+- Update version: v1.0.1
+
+## [v3.3.8] - 2017-11-27
+
+### Changed
+- Update version: v3.3.8
+
+## [v3.3.7] - 2017-11-27
+
+### Changed
+- Update version: v3.3.7
+
+## [v3.3.6] - 2017-11-27
+
+### Changed
+- Update version: v3.3.6
+
+## [v3.3.13] - 2017-11-27
+
+### Added
+- Добавлен .editorconfig
+- Добавлен LICENSE
+- Добавлен UPGRADE.md
+
+### Changed
+- Update CHANGELOG.md (+2)
+- Update version: v3.3.13
+- Обновлён composer.json
+
+## [v3.3.12] - 2017-11-27
+
+### Changed
+- Update version: v3.3.12
+- Update version: v3.3.11
 
 ## [v3.3.10] - 2017-10-24
 
@@ -46,6 +91,21 @@
 - Add twig macro for nginx. (+1)
 
 ### Changed
+- Update version: v3.3.10
+- Update version: v3.3.9
+- Update version: v1.0.1
+- Update version: v3.3.8
+- Update version: v3.3.7
+- Update version: v3.3.6
+- Update version: v3.3.5
+- Update version: v3.3.4
+- Update version: v1.0.8
+- Update version: v1.0.7
+- Update version: v1.0.6
+- Update version: v1.0.5
+- Update version: v1.0.4
+- Update version: v1.0.3
+- Update version: v1.0.2
 - Update README.md (+2)
 - Update export.
 - Update translations: label_is_replace, label_created_at_readonly
@@ -153,6 +213,12 @@
 - Add assets to ignore.
 
 ### Changed
+- Update version: v1.0.7
+- Update version: v1.0.6
+- Update version: v1.0.5
+- Update version: v1.0.4
+- Update version: v1.0.3
+- Update version: v1.0.2
 - Update README.md (+2)
 - Update export.
 - Update translations: label_is_replace, label_created_at_readonly
@@ -363,6 +429,12 @@
 
 [comporu/compo-core]: https://github.com/comporu/compo-core
 
-[3.3.13]: https://github.com/comporu/compo-core/compare/v3.3.8...3.3.13
+[v3.3.14]: https://github.com/comporu/compo-core/compare/v3.3.9...v3.3.14
+[v3.3.9]: https://github.com/comporu/compo-core/compare/v3.3.8...v3.3.9
+[v3.3.8]: https://github.com/comporu/compo-core/compare/v3.3.7...v3.3.8
+[v3.3.7]: https://github.com/comporu/compo-core/compare/v3.3.6...v3.3.7
+[v3.3.6]: https://github.com/comporu/compo-core/compare/v3.3.5...v3.3.6
+[v3.3.13]: https://github.com/comporu/compo-core/compare/v3.3.12...v3.3.13
+[v3.3.12]: https://github.com/comporu/compo-core/compare/v3.3.10...v3.3.12
 [v3.3.10]: https://github.com/comporu/compo-core/compare/v3.3.1...v3.3.10
 [v1.0.8]: https://github.com/comporu/compo-core/compare/...v1.0.8
