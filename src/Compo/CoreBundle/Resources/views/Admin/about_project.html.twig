@@ -1,0 +1,58 @@
+{% extends base_template %}
+
+{% block title %}
+    {% if admin is defined %}
+        {% if object is defined and admin.id(object) is not null and admin.isChild() %}
+            {% set title_edit = "tab_menu.title_edit_" ~ admin.getParent().label ~ '_' ~ admin.label %}
+            {{ title_edit|trans({'%name%': admin.subject}, admin.translationDomain) }}
+        {% elseif object is defined and admin.id(object) is not null %}
+            {% set title_edit = "tab_menu.title_edit_" ~ admin.label %}
+            {{ title_edit|trans({'%name%': admin.subject }, admin.translationDomain) }}
+        {% elseif action == 'create' %}
+            {{ "tab_menu.title_create"|trans({}, admin.translationDomain) }}
+        {% else %}
+            {% set title_action = "tab_menu.title_" ~ admin.label ~ '_' ~ action  %}
+            {{ title_action|trans({}, admin.translationDomain) }}
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block navbar_title %}
+    {{ block('title') }}
+{% endblock %}
+
+{% block tab_menu %}
+    {% if admin is defined %}
+        {{ knp_menu_render(admin.sidemenu(action), {'currentClass' : 'active', 'template': sonata_admin.adminPool.getTemplate('tab_menu_template')}, 'twig') }}
+    {% endif %}
+{% endblock %}
+
+{%- block actions -%}
+    {% if admin is defined %}
+        {% include 'SonataAdminBundle:CRUD:action_buttons.html.twig' %}
+    {% endif %}
+{%- endblock -%}
+
+{% block content %}
+    <div class="sonata-ba-form">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+
+                    <div class="box-header">
+
+                    </div>
+
+                    <div class="box-body settings-form">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
