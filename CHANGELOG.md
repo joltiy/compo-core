@@ -7,7 +7,7 @@
 - **Fixed**: исправления ошибок и мелкие правки.
 - **Removed**: удаление устаревшей функциональности.
 
-## [v3.3.16] - 2017-11-27 06:55:05
+## [v3.3.17] - 2017-11-27 06:55:05
 
 ### Added
 - Добавлен вывод CHANGELOG и версии проекта в админке.
@@ -21,6 +21,18 @@
 - Update LICENSE
 - Обновлён .gitignore /vendor/
 - Обновлены внешние зависимости
+
+### Fixed
+- Незначительные правки
+- Исправлены контакты, адрес - не обязательное поле
+- Исправлен перевод label_address
+
+## [v3.3.16] - 2017-11-27 14:21:35
+
+### Added
+- Добавлен вывод CHANGELOG и версии проекта в админке.
+- [ContactsBundle] Добавлено поле имя. В блоке контактов, выводятся все контакты, а не только первый.
+- Добавлено создание нескольких контактов
 
 ### Fixed
 - Исправлены контакты, адрес - не обязательное поле
@@ -392,7 +404,8 @@
 
 [comporu/compo-core]: https://github.com/comporu/compo-core
 
-[v3.3.16]: https://github.com/comporu/compo-core/compare/v3.3.9...v3.3.16
+[v3.3.17]: https://github.com/comporu/compo-core/compare/v3.3.9...v3.3.17
+[v3.3.16]: https://github.com/comporu/compo-core/compare/v3.3.15...v3.3.16
 [v3.3.15]: https://github.com/comporu/compo-core/compare/v3.3.14...v3.3.15
 [v3.3.14]: https://github.com/comporu/compo-core/compare/v3.3.13...v3.3.14
 [v3.3.13]: https://github.com/comporu/compo-core/compare/v3.3.12...v3.3.13
