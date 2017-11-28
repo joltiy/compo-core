@@ -7,54 +7,36 @@
 - **Fixed**: исправления ошибок и мелкие правки.
 - **Removed**: удаление устаревшей функциональности.
 
-## [v3.3.15] - 2017-11-27
+## [v3.3.16] - 2017-11-27 06:55:05
 
 ### Added
-- Добавлен .editorconfig (+1)
-- Добавлен LICENSE (+1)
-- Добавлен UPGRADE.md (+1)
+- Добавлен вывод CHANGELOG и версии проекта в админке.
+- [ContactsBundle] Добавлено поле имя. В блоке контактов, выводятся все контакты, а не только первый.
+- Добавлено создание нескольких контактов
+- Добавлен .editorconfig
+- Добавлен LICENSE
+- Добавлен UPGRADE.md
 
 ### Changed
-- Update version: v3.3.15 (+1)
-- Update LICENSE (+1)
-- Update CHANGELOG.md (+4)
-- Update version: v3.3.14 (+1)
-- Обновлён .gitignore /vendor/ (+1)
-- Update version: v3.3.13 (+1)
-- Обновлены внешние зависимости (+1)
-- Update version: v3.3.12 (+1)
-- Update version: v3.3.11 (+1)
-- Update version: v3.3.10 (+1)
+- Update LICENSE
+- Обновлён .gitignore /vendor/
+- Обновлены внешние зависимости
 
-## [v3.3.9] - 2017-11-27
+### Fixed
+- Исправлены контакты, адрес - не обязательное поле
+- Исправлен перевод label_address
+
+## [v3.3.15] - 2017-11-27 13:33:31
 
 ### Changed
-- Update version: v3.3.9
-- Update version: v1.0.1
+- Update LICENSE
 
-## [v3.3.8] - 2017-11-27
-
-### Changed
-- Update version: v3.3.8
-
-## [v3.3.7] - 2017-11-27
+## [v3.3.14] - 2017-11-27 11:59:37
 
 ### Changed
-- Update version: v3.3.7
-
-## [v3.3.6] - 2017-11-27
-
-### Changed
-- Update version: v3.3.6
-
-## [v3.3.14] - 2017-11-27
-
-### Changed
-- Update CHANGELOG.md
-- Update version: v3.3.14
 - Обновлён .gitignore /vendor/
 
-## [v3.3.13] - 2017-11-27
+## [v3.3.13] - 2017-11-27 07:39:37
 
 ### Added
 - Добавлен .editorconfig
@@ -62,17 +44,9 @@
 - Добавлен UPGRADE.md
 
 ### Changed
-- Update CHANGELOG.md (+2)
-- Update version: v3.3.13
 - Обновлены внешние зависимости
 
-## [v3.3.12] - 2017-11-27
-
-### Changed
-- Update version: v3.3.12
-- Update version: v3.3.11
-
-## [v3.3.10] - 2017-10-24
+## [v3.3.10] - 2017-10-24 05:05:25
 
 ### Added
 - Add VERSION file
@@ -100,21 +74,6 @@
 - Add twig macro for nginx. (+1)
 
 ### Changed
-- Update version: v3.3.10
-- Update version: v3.3.9
-- Update version: v1.0.1
-- Update version: v3.3.8
-- Update version: v3.3.7
-- Update version: v3.3.6
-- Update version: v3.3.5
-- Update version: v3.3.4
-- Update version: v1.0.8
-- Update version: v1.0.7
-- Update version: v1.0.6
-- Update version: v1.0.5
-- Update version: v1.0.4
-- Update version: v1.0.3
-- Update version: v1.0.2
 - Update README.md (+2)
 - Update export.
 - Update translations: label_is_replace, label_created_at_readonly
@@ -127,7 +86,7 @@
 - Clear noinspection
 - Fix discount
 - Fix filter with childs admin
-- Fix Variable &quot;batch_action_forms&quot; does not exist.
+- Fix Variable "batch_action_forms" does not exist.
 - Fix admin css
 - Fix ProductWantLowerCostFormType.php
 - Fix batch action form layout.
@@ -141,6 +100,7 @@
 - Fix Настойки
 - Fix banner menu admin
 - Незначительные правки (+8)
+- Test (+14)
 - Analytics.
 - Fix redirects...
 - Holy shit! (+2)
@@ -152,20 +112,20 @@
 - Fix behat path
 - Revert test env
 - Google Merchant
-- Refactoring
+- Качество кода
 - Fix bin/console compo:core:project:version:create
 - Fix elasticsearch
 - Fix path @CompoCore/Nginx/nginx_macro.html.twig (+1)
 - Media, add pdf.
-- pagespeed Disallow &quot;*.svg&quot;; (+2)
+- pagespeed Disallow "*.svg"; (+2)
 - Fix nginx ssl configs.
 - Fix rewrite_to_domain(domain)
 
 ### Removed
-- Remove &quot;kriswallsmith/spork&quot;
+- Remove "kriswallsmith/spork"
 - Remove create public_html
 
-## [v1.0.8] - 2017-10-24
+## [v1.0.8] - 2017-10-24 05:05:25
 
 ### Added
 - Add VERSION file
@@ -194,7 +154,7 @@
 - Add layout for page codes. (+1)
 - Add {{php_version}} (+1)
 - Add deploy:dev deployer task (+1)
-- Add FixSlugListener.php - replace &quot;---&quot; to &quot;-&quot;
+- Add FixSlugListener.php - replace "---" to "-"
 - Add PageCodeBundle.
 - Add Id trait for entities. (+1)
 - Add router.request_context parameters.
@@ -222,12 +182,6 @@
 - Add assets to ignore.
 
 ### Changed
-- Update version: v1.0.7
-- Update version: v1.0.6
-- Update version: v1.0.5
-- Update version: v1.0.4
-- Update version: v1.0.3
-- Update version: v1.0.2
 - Update README.md (+2)
 - Update export.
 - Update translations: label_is_replace, label_created_at_readonly
@@ -245,7 +199,7 @@
 - Clear noinspection
 - Fix discount
 - Fix filter with childs admin
-- Fix Variable &quot;batch_action_forms&quot; does not exist.
+- Fix Variable "batch_action_forms" does not exist.
 - Fix admin css
 - Fix ProductWantLowerCostFormType.php
 - Fix batch action form layout.
@@ -259,6 +213,7 @@
 - Fix Настойки
 - Fix banner menu admin
 - Незначительные правки (+21)
+- Test (+13)
 - Analytics.
 - Fix redirects...
 - Holy shit! (+2)
@@ -270,15 +225,15 @@
 - Fix behat path
 - Revert test env
 - Google Merchant
-- Refactoring (+4)
+- Качество кода (+5)
 - Fix bin/console compo:core:project:version:create
 - Fix elasticsearch
 - Fix path @CompoCore/Nginx/nginx_macro.html.twig (+1)
 - Media, add pdf.
-- pagespeed Disallow &quot;*.svg&quot;; (+2)
+- pagespeed Disallow "*.svg"; (+2)
 - Fix nginx ssl configs.
 - Fix rewrite_to_domain(domain)
-- Define branch-alias &quot;dev-develop&quot;: &quot;3.3-dev&quot;
+- Define branch-alias "dev-develop": "3.3-dev"
 - Fix database:sync-to-remote sql dump filename.
 - Fix referer. (+1)
 - Order list favicon for referer.
@@ -308,7 +263,7 @@
 - Temp fix
 - Admin Navbar.
 - Fix spaces after icons.
-- Deployer speed up. Set default stage: &quot;stage&quot;.
+- Deployer speed up. Set default stage: "stage".
 - Fix bower install. https://stackoverflow.com/questions/15669091/bower-install-using-only-https
 - Fix. User impersonating (+1)
 - Fix. User list error.
@@ -322,9 +277,9 @@
 - Fix: Ckeditor.
 - Fix: Deploy shared dirs.
 - Валидация форм.
-- Fix: При загрузки блок &quot;Корзина&quot; &quot;мигает&quot;
+- Fix: При загрузки блок "Корзина" "мигает"
 - Fix: Блок телефон нужно сделать редактируемым текстом
-- Fucking drag&amp;drop
+- Fucking drag&drop
 - Fix menu...
 - Fix: Sylius Theme PathResolver.php
 - Fix: AdminLabelTranslationDomainCompilerPass.php
@@ -335,16 +290,16 @@
 - Fix: deprecated errors. (+1)
 - Fix: The Sonata\AdminBundle\Admin\Admin class is deprecated since version 3.1 and will be removed in 4.0. Use Sonata\AdminBundle\Admin\AbstractAdmin instead.
 - Fix: Not setting the default_formatter configuration node is deprecated since 3.2, and will no longer be supported in 4.0.
-- Fix: The &quot;framework.trusted_proxies&quot; configuration key has been deprecated in Symfony 3.3. Use the Request::setTrustedProxies() method in your front controller instead.
+- Fix: The "framework.trusted_proxies" configuration key has been deprecated in Symfony 3.3. Use the Request::setTrustedProxies() method in your front controller instead.
 - Fix: Automatic registration of annotations is deprecated since 3.14, to be removed in 4.0.
-- Fix: Using the unquoted scalar value &quot;!event&quot;
+- Fix: Using the unquoted scalar value "!event"
 - Fix: User Deprecated: Duplicate key (+1)
-- Fix: User Deprecated: Duplicate key &quot;label_priority&quot; detected whilst parsing YAML. Silent handling of duplicate mapping keys in YAML is deprecated since version 3.2 and will throw \Symfony\Component\Yaml\Exception\ParseException in 4.0.
-- Fix: User Deprecated: Duplicate key &quot;label_description&quot; detected whilst parsing YAML. Silent handling of duplicate mapping keys in YAML is deprecated since version 3.2 and will throw \Symfony\Component\Yaml\Exception\ParseException in 4.0.
-- Fix: User Deprecated: Duplicate key &quot;breadcrumb.link_page_tree&quot; detected whilst parsing YAML. Silent handling of duplicate mapping keys in YAML is deprecated since version 3.2 and will throw \Symfony\Component\Yaml\Exception\ParseException in 4.0.
-- Fix: User Deprecated: Duplicate key &quot;pages.list_mode&quot; detected whilst parsing YAML. Silent handling of duplicate mapping keys in YAML is deprecated since version 3.2 and will throw \Symfony\Component\Yaml\Exception\ParseException in 4.0.
-- Fix: User Deprecated: The &quot;sonata.core.slugify.cocur&quot; service is deprecated. You should stop using it, as it will soon be removed.
-- Fix: The option &quot;criteria_manufacture_collection_price&quot; with value array is expected to be of type &quot;null&quot; or &quot;integer&quot; or &quot;object&quot; or &quot;string&quot;, but is of type &quot;array&quot;.
+- Fix: User Deprecated: Duplicate key "label_priority" detected whilst parsing YAML. Silent handling of duplicate mapping keys in YAML is deprecated since version 3.2 and will throw \Symfony\Component\Yaml\Exception\ParseException in 4.0.
+- Fix: User Deprecated: Duplicate key "label_description" detected whilst parsing YAML. Silent handling of duplicate mapping keys in YAML is deprecated since version 3.2 and will throw \Symfony\Component\Yaml\Exception\ParseException in 4.0.
+- Fix: User Deprecated: Duplicate key "breadcrumb.link_page_tree" detected whilst parsing YAML. Silent handling of duplicate mapping keys in YAML is deprecated since version 3.2 and will throw \Symfony\Component\Yaml\Exception\ParseException in 4.0.
+- Fix: User Deprecated: Duplicate key "pages.list_mode" detected whilst parsing YAML. Silent handling of duplicate mapping keys in YAML is deprecated since version 3.2 and will throw \Symfony\Component\Yaml\Exception\ParseException in 4.0.
+- Fix: User Deprecated: The "sonata.core.slugify.cocur" service is deprecated. You should stop using it, as it will soon be removed.
+- Fix: The option "criteria_manufacture_collection_price" with value array is expected to be of type "null" or "integer" or "object" or "string", but is of type "array".
 - Composer (+1)
 - Merge pull request #1 from jivoy1988/master
 - Fix, contacts error.
@@ -366,7 +321,6 @@
 - Keram Import.
 - Alt for images.
 - Default seo tags.
-- Refactoring.
 - Deploy sitemaps (+1)
 - Discount
 - Sitemaps. (+2)
@@ -428,7 +382,7 @@
 - Init (+4)
 
 ### Removed
-- Remove &quot;kriswallsmith/spork&quot;
+- Remove "kriswallsmith/spork"
 - Remove create public_html
 - Remove app/config/config_test.yml
 - Remove JMSSecurityExtraBundle
@@ -438,13 +392,9 @@
 
 [comporu/compo-core]: https://github.com/comporu/compo-core
 
-[v3.3.15]: https://github.com/comporu/compo-core/compare/v3.3.9...v3.3.15
-[v3.3.9]: https://github.com/comporu/compo-core/compare/v3.3.8...v3.3.9
-[v3.3.8]: https://github.com/comporu/compo-core/compare/v3.3.7...v3.3.8
-[v3.3.7]: https://github.com/comporu/compo-core/compare/v3.3.6...v3.3.7
-[v3.3.6]: https://github.com/comporu/compo-core/compare/v3.3.5...v3.3.6
+[v3.3.16]: https://github.com/comporu/compo-core/compare/v3.3.9...v3.3.16
+[v3.3.15]: https://github.com/comporu/compo-core/compare/v3.3.14...v3.3.15
 [v3.3.14]: https://github.com/comporu/compo-core/compare/v3.3.13...v3.3.14
 [v3.3.13]: https://github.com/comporu/compo-core/compare/v3.3.12...v3.3.13
-[v3.3.12]: https://github.com/comporu/compo-core/compare/v3.3.10...v3.3.12
 [v3.3.10]: https://github.com/comporu/compo-core/compare/v3.3.1...v3.3.10
-[v1.0.8]: https://github.com/comporu/compo-core/compare/...v1.0.8
+[v1.0.8]: https://github.com/comporu/compo-core/compare/5fdb2ebdc0b2f434385dd418f014670fad8b5051...v1.0.8
