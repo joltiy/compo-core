@@ -42,6 +42,8 @@ class FeedbackAdmin extends AbstractAdmin
         $listMapper
             ->add('id')
             ->addIdentifier('createdAt')
+            ->add('type', 'trans')
+
             ->add('name')
             ->add('phone')
             ->add('email')
