@@ -214,6 +214,10 @@ class Feedback
      */
     public function getData()
     {
+        if (is_null($this->data)) {
+            $this->data = array();
+        }
+
         return $this->data;
     }
 
