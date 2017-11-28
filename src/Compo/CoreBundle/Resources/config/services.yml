@@ -187,3 +187,9 @@ services:
         class: Compo\CoreBundle\Listener\JobRepositoryClassMetadataListener
         tags:
             - { name: doctrine.event_listener, event: loadClassMetadata}
+
+    compo_core.admin.about_project:
+        class: Compo\CoreBundle\Admin\AboutProjectAdmin
+        arguments: [~, ~, CompoCoreBundle:AboutProjectAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: about_project }

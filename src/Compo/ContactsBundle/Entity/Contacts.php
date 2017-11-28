@@ -15,6 +15,11 @@ class Contacts
     /**
      * @var string
      */
+    private $name;
+
+    /**
+     * @var string
+     */
     private $address;
 
     /**
@@ -316,5 +321,21 @@ class Contacts
         $this->ciy = $ciy;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
     }
 }
