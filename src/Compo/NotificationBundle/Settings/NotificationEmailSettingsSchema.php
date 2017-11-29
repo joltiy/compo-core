@@ -3,7 +3,6 @@
 namespace Compo\NotificationBundle\Settings;
 
 use Compo\CoreBundle\Settings\BaseBundleAdminSettingsSchema;
-use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
@@ -15,14 +14,16 @@ class NotificationEmailSettingsSchema extends BaseBundleAdminSettingsSchema
     /**
      * {@inheritDoc}
      */
-    public function getDefaultSettings() {
+    public function getDefaultSettings()
+    {
         return [
             'notification_email_account_default' => $this->getNotificationEmailAccountRepository()->getDefaultId(),
             'notification_email_recipient_default' => '',
         ];
     }
-    
+
     /**
+     * @throws \Exception
      */
     public function getNotificationEmailAccountRepository()
     {
@@ -39,9 +40,9 @@ class NotificationEmailSettingsSchema extends BaseBundleAdminSettingsSchema
         $tab->add(
             'notification_email_account_default',
             ChoiceType::class,
-            array(
-                'choices' => $this->getNotificationEmailAccountRepository()->getChoices()
-            )
+            [
+                'choices' => $this->getNotificationEmailAccountRepository()->getChoices(),
+            ]
         );
 
         $tab->add('notification_email_recipient_default', TextType::class);

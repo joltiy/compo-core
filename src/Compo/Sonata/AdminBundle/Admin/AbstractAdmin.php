@@ -243,7 +243,7 @@ class AbstractAdmin extends BaseAdmin
     }
 
     /**
-     * @return null|\Symfony\Component\DependencyInjection\ContainerInterface
+     * @return \Symfony\Component\DependencyInjection\ContainerInterface
      */
     public function getContainer()
     {

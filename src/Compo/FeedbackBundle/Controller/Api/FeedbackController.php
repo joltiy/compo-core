@@ -76,8 +76,7 @@ class FeedbackController extends Controller
 
             $csrf->refreshToken('feedback_protection');
 
-            $this->get('compo_notification.manager.notification')->send($feedback->getType() . '_for_user', array('feedback' => $feedback));
-            $this->get('compo_notification.manager.notification')->send($feedback->getType() . '_for_admin', array('feedback' => $feedback));
+            $this->get('compo_notification.manager.notification')->send($feedback->getType(), array('feedback' => $feedback));
 
             return View::create(array('success' => true, 'message' => 'contacts_sent'), 200);
         } catch (\Exception $e) {

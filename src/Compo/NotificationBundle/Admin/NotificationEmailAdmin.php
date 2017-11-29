@@ -25,7 +25,7 @@ class NotificationEmailAdmin extends AbstractAdmin
     }
 
     /**
-     * @param mixed $object
+     * @param NotificationEmail $object
      */
     public function prePersist($object)
     {
@@ -37,21 +37,37 @@ class NotificationEmailAdmin extends AbstractAdmin
      */
     public function fixData($object)
     {
-        $notificationManager = $this->getContainer()->get('compo_notification.manager.notification');
+        $notificationManager = $this->getNotificationManager();
 
-        $event = $notificationManager->getEvent($object->getEvent());
+        $event = $notificationManager->getDefaultEventByName($object->getCode());
 
-        if (!$object->getSubject()) {
+        if (!$event) {
+            $events = $notificationManager->getDefaultEventsByEvent($object->getEvent());
+
+            foreach ($events as $item) {
+                $event = $item;
+            }
+        }
+
+        if ($event && !$object->getSubject()) {
             $object->setSubject($notificationManager->getTemplateSource($event['subject']));
         }
 
-        if (!$object->getRecipient()) {
+        if ($event && !$object->getRecipient()) {
             $object->setRecipient($notificationManager->getTemplateSource($event['recipient']));
         }
 
-        if (!$object->getBody()) {
+        if ($event && !$object->getBody()) {
             $object->setBody($notificationManager->getTemplateSource($event['body']));
         }
+    }
+
+    /**
+     * @return \Compo\NotificationBundle\Manager\NotificationManager
+     */
+    public function getNotificationManager()
+    {
+        return $this->getContainer()->get('compo_notification.manager.notification');
     }
 
     /**
@@ -73,7 +89,6 @@ class NotificationEmailAdmin extends AbstractAdmin
             ->add('recipient')
             ->add('subject')
             ->add('body')
-            ->add('note')
             ->add('enabled')
             ->add('createdAt')
             ->add('updatedAt')
@@ -90,22 +105,22 @@ class NotificationEmailAdmin extends AbstractAdmin
             ->addIdentifier(
                 'event',
                 'trans',
-                array(
+                [
                     'catalogue' => 'CompoNotificationBundle',
-                )
+                ]
             )
+            ->add('name')
             ->add('recipient')
-            ->add('note')
             ->add('enabled')
             ->add(
                 '_action',
                 null,
-                array(
-                    'actions' => array(
-                        'edit' => array(),
-                        'delete' => array(),
-                    ),
-                )
+                [
+                    'actions' => [
+                        'edit' => [],
+                        'delete' => [],
+                    ],
+                ]
             );
     }
 
@@ -114,46 +129,51 @@ class NotificationEmailAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $notificationManager = $this->getContainer()->get('compo_notification.manager.notification');
+        $notificationManager = $this->getNotificationManager();
 
         $subject = $this->getSubject();
 
-        if ($this->isCurrentRoute('create')) {
-            $help = '';
-        } else {
-            $event = $notificationManager->getEvent($subject->getEvent());
-            $help = $event['help'];
+        $help = '';
+
+        if (!$this->isCurrentRoute('create')) {
+            $events = $notificationManager->getDefaultEventsByEvent($subject->getEvent());
+
+            foreach ($events as $event) {
+                $help = $event['help'];
+            }
         }
 
         $formMapper
             ->tab('main')
-            ->with('main', array('name' => false, 'class' => 'col-lg-12'));
+            ->with('main', ['name' => false, 'class' => 'col-lg-12']);
 
         $formMapper->add('id')
             ->add('enabled')
+            ->add('name')
             ->add(
                 'event',
                 'choice',
-                array(
+                [
                     'choices' => $notificationManager->getEventsChoice(),
                     'choice_translation_domain' => 'CompoNotificationBundle',
-                )
+                ]
             )
-            ->add('note')
-            ->add('sender', null, array('required' => false))
-            ->add('recipient', null, array('attr' => array('class' => 'highlight-src'), 'required' => false))
-            ->add('subject', null, array('attr' => array('class' => 'highlight-src'), 'required' => false))
-            ->add('body', null, array('attr' => array('class' => 'highlight-src'), 'required' => false));
+            ->add('sender', null, ['required' => false])
+            ->add('recipient', null, ['attr' => ['class' => 'highlight-src'], 'required' => false])
+            ->add('subject', null, ['attr' => ['class' => 'highlight-src'], 'required' => false])
+            ->add('body', null, ['attr' => ['class' => 'highlight-src'], 'required' => false]);
 
         $formMapper->add(
             'help',
             HelpType::class,
-            array(
-                'template' => $help
+            [
+                'template' => $help,
 
-            )
+            ]
         );
-        $formMapper->end()
+
+        $formMapper
+            ->end()
             ->end();
     }
 

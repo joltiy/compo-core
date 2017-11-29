@@ -7,9 +7,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Notification
- * 
+ *
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
-
  * @ORM\Table(name="notification_email")
  * @ORM\Entity(repositoryClass="Compo\NotificationBundle\Repository\NotificationEmailRepository")
  */
@@ -18,6 +17,7 @@ class NotificationEmail
     use \Compo\Sonata\AdminBundle\Entity\IdEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\EnabledEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait;
+    use \Compo\Sonata\AdminBundle\Entity\NameEntityTrait;
 
     use \Gedmo\Timestampable\Traits\TimestampableEntity;
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
@@ -33,7 +33,7 @@ class NotificationEmail
      *
      * @ORM\Column(type="string", nullable=true, options={"default": ""})
      */
-    protected $note = '';
+    protected $code = '';
 
     /**
      * @var string
@@ -143,17 +143,17 @@ class NotificationEmail
     /**
      * @return string
      */
-    public function getNote()
+    public function getCode()
     {
-        return $this->note;
+        return $this->code;
     }
 
     /**
-     * @param string $note
+     * @param string $code
      */
-    public function setNote($note)
+    public function setCode($code)
     {
-        $this->note = $note;
+        $this->code = $code;
     }
 
     /**
@@ -161,8 +161,8 @@ class NotificationEmail
      */
     public function __toString()
     {
-        if ($this->note) {
-            return $this->note;
+        if ($this->name) {
+            return $this->name;
         }
 
         if ($this->id) {

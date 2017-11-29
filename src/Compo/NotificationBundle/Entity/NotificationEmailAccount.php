@@ -7,9 +7,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Notification
- * 
+ *
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
-
  * @ORM\Table(name="notification_email_account")
  * @ORM\Entity(repositoryClass="Compo\NotificationBundle\Repository\NotificationEmailAccountRepository")
  */

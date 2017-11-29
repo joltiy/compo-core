@@ -24,7 +24,7 @@ class NotificationEmailAccountAdmin extends AbstractAdmin
     }
 
     /**
-     * @param DatagridMapper $datagridMapper
+     * {@inheritDoc}
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
@@ -41,7 +41,7 @@ class NotificationEmailAccountAdmin extends AbstractAdmin
     }
 
     /**
-     * @param ListMapper $listMapper
+     * {@inheritDoc}
      */
     protected function configureListFields(ListMapper $listMapper)
     {
@@ -53,34 +53,34 @@ class NotificationEmailAccountAdmin extends AbstractAdmin
             ->add(
                 '_action',
                 null,
-                array(
-                    'actions' => array(
-                        'edit' => array(),
-                        'delete' => array(),
-                    ),
-                )
+                [
+                    'actions' => [
+                        'edit' => [],
+                        'delete' => [],
+                    ],
+                ]
             );
     }
 
     /**
-     * @param FormMapper $formMapper
+     * {@inheritDoc}
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $notificationManager = $this->getContainer()->get('compo_notification.manager.notification');
+        $notificationManager = $this->getNotificationManager();
 
         $formMapper
             ->tab('main')
-            ->with('main', array('name' => false, 'class' => 'col-lg-12'))
+            ->with('main', ['name' => false, 'class' => 'col-lg-12'])
             ->add('id')
             ->add('name')
-            ->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false))
+            ->add('description', CKEditorType::class, ['attr' => ['class' => ''], 'required' => false])
             ->add(
                 'transport',
                 'choice',
-                array(
+                [
                     'choices' => $notificationManager->getEmailTransport(),
-                )
+                ]
             )
             ->add('username')
             ->add('password')
@@ -89,23 +89,31 @@ class NotificationEmailAccountAdmin extends AbstractAdmin
             ->add(
                 'encryption',
                 'choice',
-                array(
+                [
                     'choices' => $notificationManager->getEmailEncryption(),
-                )
+                ]
             )
             ->add(
                 'authMode',
                 'choice',
-                array(
+                [
                     'choices' => $notificationManager->getEmailAuthMode(),
-                )
+                ]
             )
             ->end()
             ->end();
     }
 
     /**
-     * @param ShowMapper $showMapper
+     * @return \Compo\NotificationBundle\Manager\NotificationManager
+     */
+    public function getNotificationManager()
+    {
+        return $this->getContainer()->get('compo_notification.manager.notification');
+    }
+
+    /**
+     * {@inheritDoc}
      */
     protected function configureShowFields(ShowMapper $showMapper)
     {
