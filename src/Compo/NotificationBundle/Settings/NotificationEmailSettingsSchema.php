@@ -48,8 +48,8 @@ class NotificationEmailSettingsSchema extends BaseBundleAdminSettingsSchema
             ]
         );
 
-        $tab->add('footer_contacts', CKEditorType::class);
-
         $tab->add('notification_email_recipient_default', TextType::class);
+
+        $tab->add('footer_contacts', CKEditorType::class);
     }
 }
