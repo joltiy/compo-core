@@ -35,7 +35,7 @@
                 {{ form_row(form.message,{ "label_attr": {"class":"drawing-order__label-text"} , 'attr' : {"validator" : "required","class" : "drawing-order__textarea" ,"data-ng-model":"feedback.form.message"  }}  ) }}
             </div>
 
-            <input type="submit" validation-submit="feedbackForm" value="Отправить сообщение" data-ng-disabled="feedback.disablesubmit" data-ng-click="feedback.send()" class="drawing-order__input-submit pull-right">
+            <input type="submit" validation-submit="{{ form.vars.name }}" value="Отправить сообщение" data-ng-disabled="feedback.disablesubmit" data-ng-click="feedback.send()" class="drawing-order__input-submit pull-right">
 
 
             {{ form_row(form.type, { 'attr' : {"data-ng-model":"feedback.form.type", "data-ng-init":"feedback.form.type='"~form.type.vars.value~"'"  }}  ) }}

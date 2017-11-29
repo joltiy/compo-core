@@ -48,4 +48,4 @@ Product: Товар
 Quantity: Количество
 form.label_product: 'Товар'
 form.label_product_url: 'URL'
-
+form.label_quantity: 'Количество'

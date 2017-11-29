@@ -1,0 +1,95 @@
+{% extends 'CompoCoreBundle:Emails:base.html.twig' %}
+
+{% block hello %}
+    Здравствуйте!
+{% endblock %}
+
+{% block fabula %}
+    Получено сообщение #{{ feedback.id }}, <a target="_blank" href="{{ url('admin_compo_feedback_feedback_edit', { 'id': feedback.id }) }}">подробнее</a>.
+{% endblock %}
+
+{% block preambula %}
+    <div>
+        <b>
+            Тип сообщения:
+        </b>
+        <span>
+            {{ feedback.type|trans({}, "CompoNotificationBundle") }}
+        </span>
+    </div>
+
+    <div>
+        <b>
+            Номер сообщения:
+        </b>
+        <span>
+            {{ feedback.id }}
+        </span>
+    </div>
+
+    <div>
+        <b>
+            Дата сообщения:
+        </b>
+        <span>
+            {{ feedback.createdAt|date('d.m.Y H:i:s') }}
+        </span>
+    </div>
+
+    {% if feedback.name %}
+        <div>
+            <b>
+                Имя:
+            </b>
+            <span>
+                {{ feedback.name }}
+            </span>
+        </div>
+    {% endif %}
+
+    {% if feedback.email %}
+        <div>
+            <b>
+                E-mail:
+            </b>
+            <span>
+                {{ feedback.email }}
+            </span>
+        </div>
+    {% endif %}
+
+    {% if feedback.phone %}
+        <div>
+            <b>
+                Телефон:
+            </b>
+            <span>
+                {{ feedback.phone }}
+            </span>
+        </div>
+    {% endif %}
+
+    {% if feedback.message %}
+        <div>
+            <b>
+                Текст сообщения:
+            </b>
+            <span>
+                {{ feedback.message }}
+            </span>
+        </div>
+    {% endif %}
+
+    {% for key, val in feedback.data if val%}
+        <div>
+            <b>
+                {% set label = 'form.label_' ~ key %}
+                {{ label|trans({}, "CompoFeedbackBundle") }}:
+            </b>
+            <span>
+                {{ val }}
+            </span>
+        </div>
+    {% endfor %}
+
+{% endblock %}

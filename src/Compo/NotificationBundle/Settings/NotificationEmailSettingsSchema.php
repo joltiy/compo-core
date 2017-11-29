@@ -3,6 +3,7 @@
 namespace Compo\NotificationBundle\Settings;
 
 use Compo\CoreBundle\Settings\BaseBundleAdminSettingsSchema;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
@@ -19,6 +20,8 @@ class NotificationEmailSettingsSchema extends BaseBundleAdminSettingsSchema
         return [
             'notification_email_account_default' => $this->getNotificationEmailAccountRepository()->getDefaultId(),
             'notification_email_recipient_default' => '',
+            'footer_contacts' => '',
+
         ];
     }
 
@@ -44,6 +47,8 @@ class NotificationEmailSettingsSchema extends BaseBundleAdminSettingsSchema
                 'choices' => $this->getNotificationEmailAccountRepository()->getChoices(),
             ]
         );
+
+        $tab->add('footer_contacts', CKEditorType::class);
 
         $tab->add('notification_email_recipient_default', TextType::class);
     }

@@ -91,9 +91,22 @@ class FeedbackAdmin extends AbstractAdmin
             ->add('name')
             ->add('email')
             ->add('phone')
-            ->add('page')
-            ->add('message')
-            ->add(
+            ->add('message');
+
+        $formMapper
+            ->add('product', 'text', array(
+                'property_path' => 'data[product]'
+            ))
+            ->add('product_url', 'text', array(
+                    'property_path' => 'data[product_url]'
+                )
+            )
+        ;
+
+            $formMapper->end();
+            $formMapper->with('extra', array('name' => false, 'class' => 'col-lg-6'));
+
+            $formMapper->add(
                 'tags',
                 'sonata_type_model',
                 array(
@@ -105,17 +118,12 @@ class FeedbackAdmin extends AbstractAdmin
                     'query' => $tagsQb,
                 )
             );
+            $formMapper->add('page');
 
 
-        $formMapper
-            ->add('product', 'text', array(
-                'property_path' => 'data[product]'
-            ))
-            ->add('product_url', 'text', array(
-                    'property_path' => 'data[product_url]'
-                )
-            )
-        ;
+
+
+
 
 
         $formMapper->end()

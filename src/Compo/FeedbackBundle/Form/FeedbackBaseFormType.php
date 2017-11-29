@@ -33,7 +33,7 @@ class FeedbackBaseFormType extends AbstractType
                 'page',
                 HiddenType::class,
                 array(
-                    'data' => $this->getRequest()->getRequestUri()
+                    'data' => $this->getRequest()->getUri()
                 )
             );
     }
