@@ -5,7 +5,7 @@ namespace Pix\SortableBehaviorBundle\Twig;
 use Pix\SortableBehaviorBundle\Services\PositionHandler;
 
 /**
- * Description of ObjectPositionExtension
+ * Description of ObjectPositionExtension.
  *
  * @author Volker von Hoesslin <volker.von.hoesslin@empora.com>
  */
@@ -14,7 +14,7 @@ class ObjectPositionExtension extends \Twig_Extension
     const NAME = 'sortableObjectPosition';
 
     /**
-     * PositionHandler
+     * PositionHandler.
      */
     private $positionService;
 
@@ -34,7 +34,7 @@ class ObjectPositionExtension extends \Twig_Extension
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getFunctions()
     {
@@ -42,9 +42,10 @@ class ObjectPositionExtension extends \Twig_Extension
             new \Twig_SimpleFunction(self::NAME,
                 function ($entity) {
                     $getter = sprintf('get%s', ucfirst($this->positionService->getPositionFieldByEntity($entity)));
+
                     return $entity->{$getter}();
                 }
-            )
+            ),
         );
     }
 }

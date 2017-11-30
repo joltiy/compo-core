@@ -15,7 +15,6 @@ use Doctrine\ORM\EntityManagerInterface;
 class PositionORMHandler extends PositionHandler
 {
     /**
-     *
      * @var EntityManager
      */
     protected $em;
@@ -35,11 +34,9 @@ class PositionORMHandler extends PositionHandler
         $result = $query->getResult();
 
         if (array_key_exists(0, $result)) {
-            return (int)$result[0][1];
+            return (int) $result[0][1];
         }
 
         return 0;
     }
-
-
 }

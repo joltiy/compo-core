@@ -13,7 +13,7 @@ namespace Pix\SortableBehaviorBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class PixSortableBehaviorBundle extends Bundle
 {

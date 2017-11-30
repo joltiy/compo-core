@@ -37,7 +37,7 @@ abstract class PositionHandler
         $newPosition = 0;
 
         switch ($position) {
-            case 'up' :
+            case 'up':
                 if ($object->{$getter}() > 0) {
                     $newPosition = $object->{$getter}() - 1;
                 }
