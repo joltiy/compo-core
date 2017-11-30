@@ -27,9 +27,9 @@ class SyliusSettingsBundle extends AbstractResourceBundle
      */
     public function getSupportedDrivers()
     {
-        return [
+        return array(
             SyliusResourceBundle::DRIVER_DOCTRINE_ORM,
-        ];
+        );
     }
 
     /**

@@ -14,8 +14,8 @@ namespace Sylius\Bundle\SettingsBundle\Resolver;
 use Sylius\Component\Registry\ServiceRegistryInterface;
 
 /**
- * Cannot be final, because it is proxied 
- * 
+ * Cannot be final, because it is proxied.
+ *
  * @author Steffen Brem <steffenbrem@gmail.com>
  */
 class ResolverServiceRegistry implements ServiceRegistryInterface
@@ -31,7 +31,7 @@ class ResolverServiceRegistry implements ServiceRegistryInterface
     private $defaultResolver;
 
     /**
-     * @param ServiceRegistryInterface $decoratedRegistry
+     * @param ServiceRegistryInterface  $decoratedRegistry
      * @param SettingsResolverInterface $defaultResolver
      */
     public function __construct(ServiceRegistryInterface $decoratedRegistry, SettingsResolverInterface $defaultResolver)

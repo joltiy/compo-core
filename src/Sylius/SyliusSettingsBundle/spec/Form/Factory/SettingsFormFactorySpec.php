@@ -25,24 +25,24 @@ use Symfony\Component\Form\FormInterface;
  */
 final class SettingsFormFactorySpec extends ObjectBehavior
 {
-    function let(
+    public function let(
         ServiceRegistryInterface $schemaRegistry,
         FormFactoryInterface $formFactory
     ) {
         $this->beConstructedWith($schemaRegistry, $formFactory);
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(SettingsFormFactory::class);
     }
 
-    function it_implements_settings_form_factory_interface()
+    public function it_implements_settings_form_factory_interface()
     {
         $this->shouldImplement(SettingsFormFactoryInterface::class);
     }
 
-    function it_should_create_a_form_for_given_schema_namespace(
+    public function it_should_create_a_form_for_given_schema_namespace(
         FormInterface $form,
         FormBuilder $formBuilder,
         FormFactoryInterface $formFactory,
@@ -50,7 +50,7 @@ final class SettingsFormFactorySpec extends ObjectBehavior
         ServiceRegistryInterface $schemaRegistry
     ) {
         $schemaRegistry->get('sylius_general')->willReturn($schema);
-        $formFactory->createBuilder('form', null, ['data_class' => null])->willReturn($formBuilder);
+        $formFactory->createBuilder('form', null, array('data_class' => null))->willReturn($formBuilder);
         $schema->buildForm($formBuilder)->shouldBeCalled()->willReturn($formBuilder);
         $formBuilder->getForm()->willReturn($form);
 

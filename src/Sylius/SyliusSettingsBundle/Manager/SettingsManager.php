@@ -55,8 +55,8 @@ final class SettingsManager implements SettingsManagerInterface
     /**
      * @param ServiceRegistryInterface $schemaRegistry
      * @param ServiceRegistryInterface $resolverRegistry
-     * @param ObjectManager $manager
-     * @param FactoryInterface $settingsFactory
+     * @param ObjectManager            $manager
+     * @param FactoryInterface         $settingsFactory
      * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(

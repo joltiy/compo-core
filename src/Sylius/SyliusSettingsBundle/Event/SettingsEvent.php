@@ -13,7 +13,6 @@ namespace Sylius\Bundle\SettingsBundle\Event;
 
 use Sylius\Bundle\SettingsBundle\Model\SettingsInterface;
 use Symfony\Component\EventDispatcher\Event;
-use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
  * @author Aram Alipoor <aram.alipoor@gmail.com>

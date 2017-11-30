@@ -23,7 +23,7 @@ use Sylius\Bundle\SettingsBundle\Model\SettingsInterface;
 interface SettingsResolverInterface
 {
     /**
-     * @param string $schemaAlias
+     * @param string      $schemaAlias
      * @param string|null $namespace
      *
      * @return SettingsInterface

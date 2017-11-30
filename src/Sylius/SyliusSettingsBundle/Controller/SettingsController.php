@@ -16,7 +16,6 @@ use Sylius\Bundle\SettingsBundle\Form\Factory\SettingsFormFactoryInterface;
 use Sylius\Bundle\SettingsBundle\Manager\SettingsManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Validator\Exception\ValidatorException;
@@ -65,16 +64,16 @@ class SettingsController extends FOSRestController
 
         $form = $this
             ->getSettingsFormFactory()
-            ->create($schemaAlias, $settings, $isApiRequest ? ['csrf_protection' => false] : [])
+            ->create($schemaAlias, $settings, $isApiRequest ? array('csrf_protection' => false) : array())
         ;
 
         if ($form->handleRequest($request)->isValid()) {
             $messageType = 'success';
             try {
                 $settingsManager->save($settings);
-                $message = $this->getTranslator()->trans('sylius.settings.update', [], 'flashes');
+                $message = $this->getTranslator()->trans('sylius.settings.update', array(), 'flashes');
             } catch (ValidatorException $exception) {
-                $message = $this->getTranslator()->trans($exception->getMessage(), [], 'validators');
+                $message = $this->getTranslator()->trans($exception->getMessage(), array(), 'validators');
                 $messageType = 'error';
             }
 
@@ -89,10 +88,10 @@ class SettingsController extends FOSRestController
             }
         }
 
-        return $this->render($request->attributes->get('template', 'SyliusSettingsBundle:Settings:update.html.twig'), [
+        return $this->render($request->attributes->get('template', 'SyliusSettingsBundle:Settings:update.html.twig'), array(
             'settings' => $settings,
             'form' => $form->createView(),
-        ]);
+        ));
     }
 
     /**

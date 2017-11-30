@@ -34,7 +34,7 @@ final class CallbackSchema implements SchemaInterface
      * @see SchemaInterface
      *
      * @param callable $buildSettings Receives the same arguments as SchemaInterface::buildSettings method
-     * @param callable $buildForm Receives the same arguments as SchemaInterface::buildForm method
+     * @param callable $buildForm     Receives the same arguments as SchemaInterface::buildForm method
      */
     public function __construct(callable $buildSettings, callable $buildForm)
     {

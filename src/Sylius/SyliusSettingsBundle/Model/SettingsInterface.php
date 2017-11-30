@@ -67,7 +67,7 @@ interface SettingsInterface extends ResourceInterface, \ArrayAccess, \Countable
 
     /**
      * @param string $name
-     * @param mixed $value
+     * @param mixed  $value
      */
     public function set($name, $value);
 

@@ -19,11 +19,11 @@ use Symfony\Component\Form\FormInterface;
 interface SettingsFormFactoryInterface
 {
     /**
-     * @param string $schemaAlias
+     * @param string     $schemaAlias
      * @param mixed|null $data
-     * @param array $options
+     * @param array      $options
      *
      * @return FormInterface
      */
-    public function create($schemaAlias, $data = null, array $options = []);
+    public function create($schemaAlias, $data = null, array $options = array());
 }

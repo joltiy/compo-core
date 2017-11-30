@@ -22,7 +22,7 @@ class SettingsBuilder extends OptionsResolver implements SettingsBuilderInterfac
     /**
      * @var ParameterTransformerInterface[]
      */
-    protected $transformers = [];
+    protected $transformers = array();
 
     /**
      * {@inheritdoc}
