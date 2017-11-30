@@ -1,2 +1,68 @@
 /.idea/
 /vendor/
+
+###> compo-dev-kit ###
+# IDE
+/.idea/
+
+# Vagrant
+/.vagrant/
+
+# Parameters
+/app/config/parameters*.yml
+
+# Deployer servers
+/app/config/servers.yml
+/app/config/ansible_hosts.yml
+
+# HTTP server configs
+/app/config/apache.conf
+/app/config/nginx.conf
+/app/config/php-fpm.conf
+/app/config/htpasswd.conf
+
+# Build
+/build/
+
+# Composer vendor
+/vendor/
+
+# Var
+/var/*
+!var/SymfonyRequirements.php
+
+# Assetic
+/web/assetic
+/web/bundles
+/web/vendor
+/web/js
+
+# User data
+/web/uploads
+/web/media
+/web/userfiles
+
+# Feeds
+/web/sitemap*
+/web/yandex.market*
+/web/google.merchant*
+
+# Robots.txt
+/web/robots.txt
+
+# Other
+/ubuntu-xenial-16.04-cloudimg-console.log
+/.web-server-pid
+/composer-locaload.json
+/.php_cs.cache
+*~
+
+# CSS preprocessor cache
+.sass-cache
+
+# Desktop Service Store
+.DS_Store
+
+# .well-known
+.well-known
+###< compo-dev-kit ###
