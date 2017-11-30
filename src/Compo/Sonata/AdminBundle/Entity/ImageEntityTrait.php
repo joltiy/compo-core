@@ -6,13 +6,12 @@ use Compo\Sonata\MediaBundle\Entity\Media;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Trait ImageEntityTrait
- * @package Compo\Sonata\AdminBundle\Entity
+ * Trait ImageEntityTrait.
  */
 trait ImageEntityTrait
 {
     /**
-     * Изображение
+     * Изображение.
      *
      * @var Media
      *

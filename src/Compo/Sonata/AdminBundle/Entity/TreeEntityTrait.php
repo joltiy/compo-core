@@ -6,8 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Trait TreeEntityTrait
- * @package Compo\Sonata\AdminBundle\Entity
+ * Trait TreeEntityTrait.
  */
 trait TreeEntityTrait
 {
@@ -51,9 +50,9 @@ trait TreeEntityTrait
     protected $root;
 
     /**
-     * Get lft
+     * Get lft.
      *
-     * @return integer
+     * @return int
      */
     public function getLft()
     {
@@ -61,9 +60,9 @@ trait TreeEntityTrait
     }
 
     /**
-     * Set lft
+     * Set lft.
      *
-     * @param integer $lft
+     * @param int $lft
      *
      * @return object
      */
@@ -75,9 +74,9 @@ trait TreeEntityTrait
     }
 
     /**
-     * Get lvl
+     * Get lvl.
      *
-     * @return integer
+     * @return int
      */
     public function getLvl()
     {
@@ -85,9 +84,9 @@ trait TreeEntityTrait
     }
 
     /**
-     * Set lvl
+     * Set lvl.
      *
-     * @param integer $lvl
+     * @param int $lvl
      *
      * @return object
      */
@@ -99,9 +98,9 @@ trait TreeEntityTrait
     }
 
     /**
-     * Get rgt
+     * Get rgt.
      *
-     * @return integer
+     * @return int
      */
     public function getRgt()
     {
@@ -109,9 +108,9 @@ trait TreeEntityTrait
     }
 
     /**
-     * Set rgt
+     * Set rgt.
      *
-     * @param integer $rgt
+     * @param int $rgt
      *
      * @return object
      */
@@ -123,7 +122,7 @@ trait TreeEntityTrait
     }
 
     /**
-     * Get parent
+     * Get parent.
      *
      * @return \Compo\CatalogBundle\Entity\Catalog
      */
@@ -133,7 +132,7 @@ trait TreeEntityTrait
     }
 
     /**
-     * Set parent
+     * Set parent.
      *
      * @param \Compo\CatalogBundle\Entity\Catalog $parent
      *
@@ -147,7 +146,7 @@ trait TreeEntityTrait
     }
 
     /**
-     * Add children
+     * Add children.
      *
      * @param \Compo\CatalogBundle\Entity\Catalog $children
      *
@@ -161,7 +160,7 @@ trait TreeEntityTrait
     }
 
     /**
-     * Remove children
+     * Remove children.
      *
      * @param \Compo\CatalogBundle\Entity\Catalog $children
      */
@@ -171,7 +170,7 @@ trait TreeEntityTrait
     }
 
     /**
-     * Get children
+     * Get children.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -195,6 +194,4 @@ trait TreeEntityTrait
     {
         $this->root = $root;
     }
-
-
 }

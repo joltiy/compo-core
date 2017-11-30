@@ -5,9 +5,8 @@ namespace Compo\BannerBundle\Controller;
 use Compo\Sonata\AdminBundle\Controller\CRUDController;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class BannerAdminController extends CRUDController
 {
-
 }

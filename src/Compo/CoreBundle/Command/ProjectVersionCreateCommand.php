@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
-use Symfony\Component\Process\ProcessBuilder;
 
 class ProjectVersionCreateCommand extends ContainerAwareCommand
 {
@@ -73,7 +72,7 @@ class ProjectVersionCreateCommand extends ContainerAwareCommand
             }
         });
 
-        $command = 'git -c core.quotepath=false -c log.showSignature=false flow release finish -F -p -m "Tagging version v' . $new_version. '" v' . $new_version . ' 2>&1';
+        $command = 'git -c core.quotepath=false -c log.showSignature=false flow release finish -F -p -m "Tagging version v' . $new_version . '" v' . $new_version . ' 2>&1';
 
         $helper->run($output, $command, 'The process failed :(', function ($type, $data) {
             if (Process::ERR === $type) {
@@ -81,6 +80,4 @@ class ProjectVersionCreateCommand extends ContainerAwareCommand
             }
         });
     }
-
-
 }

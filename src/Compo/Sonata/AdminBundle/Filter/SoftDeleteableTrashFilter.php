@@ -2,9 +2,9 @@
 
 namespace Compo\Sonata\AdminBundle\Filter;
 
-use Doctrine\ORM\Mapping\ClassMetaData,
-    Doctrine\ORM\Query\Filter\SQLFilter,
-    Gedmo\SoftDeleteable\SoftDeleteableListener;
+use Doctrine\ORM\Mapping\ClassMetaData;
+use Doctrine\ORM\Query\Filter\SQLFilter;
+use Gedmo\SoftDeleteable\SoftDeleteableListener;
 
 class SoftDeleteableTrashFilter extends SQLFilter
 {
@@ -18,15 +18,14 @@ class SoftDeleteableTrashFilter extends SQLFilter
         $class = $targetEntity->getName();
 
         if (count($this->enabled)) {
-            if ((array_key_exists($class, $this->enabled) && $this->enabled[$class] === true)) {
-
+            if ((array_key_exists($class, $this->enabled) && true === $this->enabled[$class])) {
             } else {
                 return '';
             }
         }
-        if (array_key_exists($class, $this->disabled) && $this->disabled[$class] === true) {
+        if (array_key_exists($class, $this->disabled) && true === $this->disabled[$class]) {
             return '';
-        } elseif (array_key_exists($targetEntity->rootEntityName, $this->disabled) && $this->disabled[$targetEntity->rootEntityName] === true) {
+        } elseif (array_key_exists($targetEntity->rootEntityName, $this->disabled) && true === $this->disabled[$targetEntity->rootEntityName]) {
             return '';
         }
 
@@ -36,18 +35,18 @@ class SoftDeleteableTrashFilter extends SQLFilter
             return '';
         }
 
-
         $conn = $this->getEntityManager()->getConnection();
         $platform = $conn->getDatabasePlatform();
         $quoteStrategy = $this->getEntityManager()->getConfiguration()->getQuoteStrategy();
 
         $column = $quoteStrategy->getColumnName($config['fieldName'], $targetEntity, $platform);
 
-        $addCondSql = $platform->getIsNotNullExpression($targetTableAlias.'.'.$column);
+        $addCondSql = $platform->getIsNotNullExpression($targetTableAlias . '.' . $column);
         if (isset($config['timeAware']) && $config['timeAware']) {
             $now = $conn->quote(date('Y-m-d H:i:s')); // should use UTC in database and PHP
             $addCondSql = "({$addCondSql} OR {$targetTableAlias}.{$column} > {$now})";
         }
+
         return $addCondSql;
     }
 
@@ -65,7 +64,7 @@ class SoftDeleteableTrashFilter extends SQLFilter
 
     protected function getListener()
     {
-        if ($this->listener === null) {
+        if (null === $this->listener) {
             $em = $this->getEntityManager();
             $evm = $em->getEventManager();
 
@@ -79,7 +78,7 @@ class SoftDeleteableTrashFilter extends SQLFilter
                 }
             }
 
-            if ($this->listener === null) {
+            if (null === $this->listener) {
                 throw new \RuntimeException('Listener "SoftDeleteableListener" was not added to the EventManager!');
             }
         }
@@ -89,7 +88,7 @@ class SoftDeleteableTrashFilter extends SQLFilter
 
     protected function getEntityManager()
     {
-        if ($this->entityManager === null) {
+        if (null === $this->entityManager) {
             $refl = new \ReflectionProperty('Doctrine\ORM\Query\Filter\SQLFilter', 'em');
             $refl->setAccessible(true);
             $this->entityManager = $refl->getValue($this);

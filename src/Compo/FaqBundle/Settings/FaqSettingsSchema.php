@@ -3,27 +3,25 @@
 namespace Compo\FaqBundle\Settings;
 
 use Compo\CoreBundle\Settings\BaseBundleAdminSettingsSchema;
-use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class FaqSettingsSchema extends BaseBundleAdminSettingsSchema
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
-    public function getDefaultSettings() {
-        return [
+    public function getDefaultSettings()
+    {
+        return array(
             'faq_per_page' => 21,
-        ];
+        );
     }
-    
-    
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function buildFormSettings()
     {

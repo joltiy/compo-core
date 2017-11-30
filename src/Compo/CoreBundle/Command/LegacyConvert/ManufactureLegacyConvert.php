@@ -2,18 +2,13 @@
 
 namespace Compo\CoreBundle\Command\LegacyConvert;
 
-
 use Compo\ManufactureBundle\Entity\Manufacture;
 
 /**
- * Class ArticlesLegacyConvert
- * @package Compo\CoreBundle\Command\LegacyConvert
+ * Class ArticlesLegacyConvert.
  */
 class ManufactureLegacyConvert extends BaseLegacyConvert
 {
-    /**
-     *
-     */
     public function configure()
     {
         $this->setTableName('manufacture');
@@ -32,8 +27,7 @@ class ManufactureLegacyConvert extends BaseLegacyConvert
 
         $newItem->setName($oldDataItem['header']);
 
-        $newItem->setEnabled((bool)$oldDataItem['visible']);
-
+        $newItem->setEnabled((bool) $oldDataItem['visible']);
 
         $description = '';
 
@@ -46,11 +40,9 @@ class ManufactureLegacyConvert extends BaseLegacyConvert
         $newItem->setSlug(str_replace('.html', '', $oldDataItem['url']));
         $newItem->setId($oldDataItem['id']);
 
-
         if ($oldDataItem['picture'] && !$newItem->getImage()) {
             $newItem->setImage($this->downloadMedia($oldDataItem['picture']));
         }
-
 
         if ($oldDataItem['country']) {
             $country = $countryRepository->find($oldDataItem['country']);

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Создание snapshots, после редактирование
+ * Создание snapshots, после редактирование.
  */
 
 namespace Compo\Sonata\PageBundle\Admin;
@@ -9,14 +9,13 @@ namespace Compo\Sonata\PageBundle\Admin;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\PageBundle\Entity\BaseBlock;
 
-
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class BlockAdmin extends \Sonata\PageBundle\Admin\BlockAdmin
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function postPersist($object)
     {
@@ -27,13 +26,13 @@ class BlockAdmin extends \Sonata\PageBundle\Admin\BlockAdmin
         $container->get('sonata.notification.backend.runtime')->createAndPublish(
             'sonata.page.create_snapshot',
             array(
-                'pageId' => $object->getPage()->getId()
+                'pageId' => $object->getPage()->getId(),
             )
         );
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function preRemove($object)
     {
@@ -44,7 +43,7 @@ class BlockAdmin extends \Sonata\PageBundle\Admin\BlockAdmin
         $container->get('sonata.notification.backend.runtime')->createAndPublish(
             'sonata.page.create_snapshot',
             array(
-                'pageId' => $object->getPage()->getId()
+                'pageId' => $object->getPage()->getId(),
             )
         );
     }
@@ -63,13 +62,13 @@ class BlockAdmin extends \Sonata\PageBundle\Admin\BlockAdmin
         $container->get('sonata.notification.backend.runtime')->createAndPublish(
             'sonata.page.create_snapshot',
             array(
-                'pageId' => $object->getPage()->getId()
+                'pageId' => $object->getPage()->getId(),
             )
         );
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function postUpdate($object)
     {
@@ -80,7 +79,7 @@ class BlockAdmin extends \Sonata\PageBundle\Admin\BlockAdmin
         $container->get('sonata.notification.backend.runtime')->createAndPublish(
             'sonata.page.create_snapshot',
             array(
-                'pageId' => $object->getPage()->getId()
+                'pageId' => $object->getPage()->getId(),
             )
         );
     }

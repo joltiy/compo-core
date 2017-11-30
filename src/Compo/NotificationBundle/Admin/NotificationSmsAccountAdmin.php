@@ -10,12 +10,12 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class NotificationSmsAccountAdmin extends AbstractAdmin
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configure()
     {
@@ -24,7 +24,7 @@ class NotificationSmsAccountAdmin extends AbstractAdmin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
@@ -40,7 +40,7 @@ class NotificationSmsAccountAdmin extends AbstractAdmin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configureListFields(ListMapper $listMapper)
     {
@@ -52,17 +52,17 @@ class NotificationSmsAccountAdmin extends AbstractAdmin
             ->add(
                 '_action',
                 null,
-                [
-                    'actions' => [
-                        'edit' => [],
-                        'delete' => [],
-                    ],
-                ]
+                array(
+                    'actions' => array(
+                        'edit' => array(),
+                        'delete' => array(),
+                    ),
+                )
             );
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -70,32 +70,32 @@ class NotificationSmsAccountAdmin extends AbstractAdmin
 
         $formMapper
             ->tab('main')
-            ->with('main', ['name' => false, 'class' => 'col-lg-12'])
+            ->with('main', array('name' => false, 'class' => 'col-lg-12'))
             ->add('id')
             ->add('name')
-            ->add('description', CKEditorType::class, ['attr' => ['class' => ''], 'required' => false])
+            ->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false))
             ->add(
                 'transport',
                 'choice',
-                [
+                array(
                     'choices' => $notificationManager->getSmsTransport(),
-                ]
+                )
             )
             ->add('username')
             ->add('password')
             ->add(
                 'sender',
                 null,
-                [
+                array(
                     'label' => 'sms_sender',
-                ]
+                )
             )
             ->end()
             ->end();
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configureShowFields(ShowMapper $showMapper)
     {

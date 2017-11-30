@@ -3,12 +3,12 @@
 namespace Compo\ContactsBundle\Entity;
 
 /**
- * Contacts
+ * Contacts.
  */
 class Contacts
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -66,9 +66,9 @@ class Contacts
     private $ciy;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -76,7 +76,7 @@ class Contacts
     }
 
     /**
-     * Get address
+     * Get address.
      *
      * @return string
      */
@@ -86,7 +86,7 @@ class Contacts
     }
 
     /**
-     * Set address
+     * Set address.
      *
      * @param string $address
      *
@@ -100,7 +100,7 @@ class Contacts
     }
 
     /**
-     * Get worktime
+     * Get worktime.
      *
      * @return string
      */
@@ -110,7 +110,7 @@ class Contacts
     }
 
     /**
-     * Set worktime
+     * Set worktime.
      *
      * @param string $worktime
      *
@@ -124,7 +124,7 @@ class Contacts
     }
 
     /**
-     * Get phone
+     * Get phone.
      *
      * @return string
      */
@@ -134,7 +134,7 @@ class Contacts
     }
 
     /**
-     * Set phone
+     * Set phone.
      *
      * @param string $phone
      *
@@ -148,7 +148,7 @@ class Contacts
     }
 
     /**
-     * Get email
+     * Get email.
      *
      * @return string
      */
@@ -158,7 +158,7 @@ class Contacts
     }
 
     /**
-     * Set email
+     * Set email.
      *
      * @param string $email
      *
@@ -172,7 +172,7 @@ class Contacts
     }
 
     /**
-     * Get bankprops
+     * Get bankprops.
      *
      * @return string
      */
@@ -182,7 +182,7 @@ class Contacts
     }
 
     /**
-     * Set bankprops
+     * Set bankprops.
      *
      * @param string $bankprops
      *
@@ -196,7 +196,7 @@ class Contacts
     }
 
     /**
-     * Get walkInstruction
+     * Get walkInstruction.
      *
      * @return string
      */
@@ -206,7 +206,7 @@ class Contacts
     }
 
     /**
-     * Set walkInstruction
+     * Set walkInstruction.
      *
      * @param string $walkInstruction
      *
@@ -220,7 +220,7 @@ class Contacts
     }
 
     /**
-     * Get carInstruction
+     * Get carInstruction.
      *
      * @return string
      */
@@ -230,7 +230,7 @@ class Contacts
     }
 
     /**
-     * Set carInstruction
+     * Set carInstruction.
      *
      * @param string $carInstruction
      *
@@ -244,7 +244,7 @@ class Contacts
     }
 
     /**
-     * Get mapsCode
+     * Get mapsCode.
      *
      * @return string
      */
@@ -254,7 +254,7 @@ class Contacts
     }
 
     /**
-     * Set mapsCode
+     * Set mapsCode.
      *
      * @param string $mapsCode
      *
@@ -276,7 +276,7 @@ class Contacts
     }
 
     /**
-     * Get cix
+     * Get cix.
      *
      * @return string
      */
@@ -286,7 +286,7 @@ class Contacts
     }
 
     /**
-     * Set cix
+     * Set cix.
      *
      * @param string $cix
      *
@@ -300,7 +300,7 @@ class Contacts
     }
 
     /**
-     * Get ciy
+     * Get ciy.
      *
      * @return string
      */
@@ -310,7 +310,7 @@ class Contacts
     }
 
     /**
-     * Set ciy
+     * Set ciy.
      *
      * @param string $ciy
      *

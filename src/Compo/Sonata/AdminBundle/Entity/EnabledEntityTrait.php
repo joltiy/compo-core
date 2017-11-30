@@ -5,21 +5,20 @@ namespace Compo\Sonata\AdminBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Trait EnabledEntityTrait
- * @package Compo\Sonata\AdminBundle\Entity
+ * Trait EnabledEntityTrait.
  */
 trait EnabledEntityTrait
 {
     /**
-     * Включено
+     * Включено.
      *
-     * @var boolean
+     * @var bool
      * @ORM\Column(type="boolean", nullable=false, options={"default": false})
      */
     protected $enabled = false;
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isEnabled()
     {
@@ -27,9 +26,9 @@ trait EnabledEntityTrait
     }
 
     /**
-     * Get enabled
+     * Get enabled.
      *
-     * @return boolean
+     * @return bool
      */
     public function getEnabled()
     {
@@ -37,7 +36,7 @@ trait EnabledEntityTrait
     }
 
     /**
-     * @param boolean $enabled
+     * @param bool $enabled
      */
     public function setEnabled($enabled)
     {

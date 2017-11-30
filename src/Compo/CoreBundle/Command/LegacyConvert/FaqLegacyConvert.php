@@ -5,14 +5,10 @@ namespace Compo\CoreBundle\Command\LegacyConvert;
 use Compo\FaqBundle\Entity\Faq;
 
 /**
- * Class ArticlesLegacyConvert
- * @package Compo\CoreBundle\Command\LegacyConvert
+ * Class ArticlesLegacyConvert.
  */
 class FaqLegacyConvert extends BaseLegacyConvert
 {
-    /**
-     *
-     */
     public function configure()
     {
         $this->setTableName('faq');
@@ -36,7 +32,7 @@ class FaqLegacyConvert extends BaseLegacyConvert
             $newItem->setImage($this->downloadMedia($oldDataItem['bank']));
         }
 
-        $newItem->setEnabled((bool)$oldDataItem['visible']);
+        $newItem->setEnabled((bool) $oldDataItem['visible']);
 
         $newItem->setUsername($oldDataItem['fname']);
         $newItem->setEmail($oldDataItem['email']);

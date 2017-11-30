@@ -5,7 +5,7 @@ namespace Compo\BannerBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class CompoBannerBundle extends Bundle
 {

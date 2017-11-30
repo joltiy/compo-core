@@ -10,15 +10,14 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class FaqAdmin extends AbstractAdmin
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configure()
     {
@@ -27,7 +26,7 @@ class FaqAdmin extends AbstractAdmin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configureActionButtons($action, $object = null)
     {
@@ -36,12 +35,12 @@ class FaqAdmin extends AbstractAdmin
         if (in_array($action, array('history', 'acl', 'show', 'delete', 'edit'), true)) {
             $list['show_on_site'] = array(
                 'template' => $this->getTemplate('button_show_on_site'),
-                'uri' => $this->generatePermalink($this->getSubject())
+                'uri' => $this->generatePermalink($this->getSubject()),
             );
         } else {
             $list['show_on_site'] = array(
                 'template' => $this->getTemplate('button_show_on_site'),
-                'uri' => $this->generatePermalink()
+                'uri' => $this->generatePermalink(),
             );
         }
 
@@ -52,6 +51,7 @@ class FaqAdmin extends AbstractAdmin
 
     /**
      * @param $object Faq
+     *
      * @return string
      */
     public function generatePermalink($object = null)
@@ -66,7 +66,7 @@ class FaqAdmin extends AbstractAdmin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
@@ -81,7 +81,7 @@ class FaqAdmin extends AbstractAdmin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configureListFields(ListMapper $listMapper)
     {
@@ -98,13 +98,13 @@ class FaqAdmin extends AbstractAdmin
                         'edit' => array(),
                         'delete' => array(),
                         'show_on_site' => array(),
-                    )
+                    ),
                 )
             );
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -131,7 +131,7 @@ class FaqAdmin extends AbstractAdmin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configureShowFields(ShowMapper $showMapper)
     {
@@ -145,7 +145,8 @@ class FaqAdmin extends AbstractAdmin
             ->add('publicationAt');
     }
 
-    public function configureAdminNavBar($context, $vars) {
+    public function configureAdminNavBar($context, $vars)
+    {
         $factory = new MenuFactory();
 
         $menu = $factory->createItem($context);
@@ -163,15 +164,14 @@ class FaqAdmin extends AbstractAdmin
 
         $tabMenuDropdown->addChild('list', array(
             'uri' => $this->generateUrl('list', array()),
-            'label' => 'Список'
+            'label' => 'Список',
         ))->setAttribute('icon', 'fa fa-list');
 
-        if ($context == 'faq_list') {
-
+        if ('faq_list' == $context) {
         } else {
             $tabMenuDropdown->addChild('edit', array(
                 'uri' => $this->generateUrl('edit', array('id' => $vars['faq']->getId())),
-                'label' => 'Редактировать'
+                'label' => 'Редактировать',
             ))->setAttribute('icon', 'fa fa-pencil');
         }
 

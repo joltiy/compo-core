@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Menu
+ * Menu.
  *
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  *

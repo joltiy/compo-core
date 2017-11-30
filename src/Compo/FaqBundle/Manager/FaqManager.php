@@ -9,7 +9,7 @@ use Compo\Sonata\AdminBundle\Repository\ViewsTrait;
 use Sonata\CoreBundle\Model\BaseEntityManager;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class FaqManager extends BaseEntityManager
 {
@@ -19,6 +19,7 @@ class FaqManager extends BaseEntityManager
     /**
      * @param $criteria
      * @param int $page
+     *
      * @return \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination
      */
     public function getPager($criteria, $page = 1)
@@ -71,6 +72,7 @@ class FaqManager extends BaseEntityManager
 
     /**
      * @param int $limit
+     *
      * @return array
      */
     public function findLastPublications($limit = 5)
@@ -83,6 +85,7 @@ class FaqManager extends BaseEntityManager
 
     /**
      * @param $slug
+     *
      * @return Faq
      */
     public function findBySlug($slug)
@@ -96,6 +99,7 @@ class FaqManager extends BaseEntityManager
     /**
      * @param Faq $faq
      * @param int $absolute
+     *
      * @return string
      */
     public function getArticleShowPermalink(Faq $faq, $absolute = 1)
@@ -113,6 +117,7 @@ class FaqManager extends BaseEntityManager
 
     /**
      * @param Faq $faq
+     *
      * @return array
      */
     public function getArticleShowRouteParameters(Faq $faq)
@@ -122,7 +127,8 @@ class FaqManager extends BaseEntityManager
 
     /**
      * @param array $parameters
-     * @param int $absolute
+     * @param int   $absolute
+     *
      * @return string
      */
     public function getFaqIndexPermalink(array $parameters = array(), $absolute = 1)
@@ -140,6 +146,7 @@ class FaqManager extends BaseEntityManager
 
     /**
      * @param $parameters
+     *
      * @return mixed
      */
     public function getFaqIndexRouteParameters($parameters)

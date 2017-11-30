@@ -7,14 +7,14 @@ use Compo\Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class ImageExtension extends AbstractAdminExtension
 {
     use ContainerAwareTrait;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configureFormFields(FormMapper $formMapper)
     {
@@ -25,7 +25,7 @@ class ImageExtension extends AbstractAdminExtension
             array(
                 'required' => false,
                 'by_reference' => true,
-                'translation_domain' => 'SonataAdminBundle'
+                'translation_domain' => 'SonataAdminBundle',
             ),
             array(
                 'translation_domain' => 'SonataAdminBundle',

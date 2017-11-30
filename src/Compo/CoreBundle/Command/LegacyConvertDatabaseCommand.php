@@ -22,7 +22,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class LegacyConvertDatabaseCommand extends BaseLegacyConvertCommand
 {
@@ -48,7 +48,7 @@ class LegacyConvertDatabaseCommand extends BaseLegacyConvertCommand
     }
 
     /**
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
      */
     public function execute(InputInterface $input, OutputInterface $output)
@@ -58,9 +58,6 @@ class LegacyConvertDatabaseCommand extends BaseLegacyConvertCommand
         parent::execute($input, $output);
     }
 
-    /**
-     *
-     */
     protected function startProcess()
     {
         $this->processMedia();
@@ -88,11 +85,10 @@ class LegacyConvertDatabaseCommand extends BaseLegacyConvertCommand
      */
     public function processLegacyConvert($convertClass, $tables)
     {
-
         foreach ($tables as $table) {
             if (in_array($table, $this->tables, true)) {
                 /** @var BaseLegacyConvert $convert */
-                $convert = new $convertClass;
+                $convert = new $convertClass();
 
                 $convert->setCommand($this);
                 $convert->configure();

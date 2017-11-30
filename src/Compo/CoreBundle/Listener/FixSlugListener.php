@@ -7,8 +7,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 /**
- * Class RedirectListener
- * @package Compo\RedirectBundle\Listener
+ * Class RedirectListener.
  */
 class FixSlugListener
 {
@@ -16,6 +15,7 @@ class FixSlugListener
 
     /**
      * @param GetResponseEvent $event
+     *
      * @throws \Exception
      */
     public function onKernelRequest(GetResponseEvent $event)
@@ -29,9 +29,9 @@ class FixSlugListener
 
         $requestUri = $request->getRequestUri();
 
-        $requestUriNew =  preg_replace('/-{2,}/','-', $requestUri);
+        $requestUriNew = preg_replace('/-{2,}/', '-', $requestUri);
 
-        if ($requestUri !== $requestUriNew){
+        if ($requestUri !== $requestUriNew) {
             $event->setResponse(new RedirectResponse($requestUriNew, 301));
             $event->stopPropagation();
         }

@@ -1,17 +1,14 @@
 <?php
 
-
 namespace Compo\Sonata\UserBundle\Admin;
 
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
- * Class GroupAdmin
- * @package Compo\Sonata\UserBundle\Admin
+ * Class GroupAdmin.
  */
 class GroupAdmin extends \Sonata\UserBundle\Admin\Model\GroupAdmin
 {
-
     /**
      * {@inheritdoc}
      */

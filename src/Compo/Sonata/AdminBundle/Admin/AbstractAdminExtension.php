@@ -6,18 +6,18 @@ use Sonata\AdminBundle\Admin\AbstractAdminExtension as BaseAbstractAdminExtensio
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class AbstractAdminExtension extends BaseAbstractAdminExtension
 {
-
     /**
      * @param \Sonata\AdminBundle\Admin\AdminInterface $admin
-     * @param array $traits
+     * @param array                                    $traits
+     *
      * @return bool
      */
-    public function isUseEntityTraits($admin, array $traits = array()) {
-
+    public function isUseEntityTraits($admin, array $traits = array())
+    {
         $traitsAdmin = class_uses($admin->getClass());
 
         foreach ($traits as $trait) {
@@ -34,23 +34,20 @@ class AbstractAdminExtension extends BaseAbstractAdminExtension
     /**
      * @param FormMapper $formMapper
      * @param $name
-     * @param null $type
+     * @param null  $type
      * @param array $options
      * @param array $fieldDescriptionOptions
      */
     public function replaceFormField(FormMapper $formMapper, $name, $type = null, array $options = array(), array $fieldDescriptionOptions = array())
     {
-
         $admin = $formMapper->getAdmin();
 
         $fg = $admin->getFormGroups();
         $tb = $admin->getFormTabs();
 
-
         $keys = $formMapper->keys();
 
         if ($formMapper->has($name)) {
-
             $group = '';
             $tab = '';
 
@@ -81,9 +78,7 @@ class AbstractAdminExtension extends BaseAbstractAdminExtension
             }
             $formMapper->tab($tab);
 
-
             $formMapper->with($group);
-
 
             $formMapper->add($name, $type, $options, $fieldDescriptionOptions);
 
@@ -92,12 +87,8 @@ class AbstractAdminExtension extends BaseAbstractAdminExtension
 
             $formMapper->reorder($keys);
 
-
             $admin->setFormTabs($tb);
             $admin->setFormGroups($fg);
         }
-
-
     }
-
 }

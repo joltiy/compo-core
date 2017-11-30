@@ -5,7 +5,7 @@ namespace Compo\PageCodeBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class CompoPageCodeBundle extends Bundle
 {

@@ -2,24 +2,18 @@
 
 namespace Compo\CoreBundle\Command\LegacyConvert;
 
-
 use Compo\ProductBundle\Entity\Product;
 
 /**
- * Class ArticlesLegacyConvert
- * @package Compo\CoreBundle\Command\LegacyConvert
+ * Class ArticlesLegacyConvert.
  */
 class ProductLegacyConvert extends BaseLegacyConvert
 {
-
     /**
      * @var array
      */
     public $tovar = array();
 
-    /**
-     *
-     */
     public function configure()
     {
         $this->setTableName('complects');
@@ -27,9 +21,6 @@ class ProductLegacyConvert extends BaseLegacyConvert
         $this->setEntityClass(Product::class);
     }
 
-    /**
-     *
-     */
     public function process()
     {
         $tovar = $this->getCommand()->getOldConnection()->fetchAll('SELECT * FROM `tovar`');
@@ -60,7 +51,7 @@ class ProductLegacyConvert extends BaseLegacyConvert
             }
         }
 
-        $newItem->setEnabled((bool)$oldDataItem['visible']);
+        $newItem->setEnabled((bool) $oldDataItem['visible']);
 
         $currency_code = $oldDataItem['currency'];
 
@@ -82,10 +73,10 @@ class ProductLegacyConvert extends BaseLegacyConvert
 
         $newItem->setCurrency($currency);
 
-        $newItem->setPriceOriginal((float)$oldDataItem['price']);
+        $newItem->setPriceOriginal((float) $oldDataItem['price']);
 
         if (isset($oldDataItem['price_old'])) {
-            $newItem->setPriceOldOriginal((float)$oldDataItem['price_old']);
+            $newItem->setPriceOldOriginal((float) $oldDataItem['price_old']);
         }
 
         $newItem->setSku($oldDataItem['articul']);
@@ -98,7 +89,7 @@ class ProductLegacyConvert extends BaseLegacyConvert
         $newItem->setManufactureCollection($collection);
 
         if (isset($this->tovar[$oldDataItem['parent_id']])) {
-            if ((int)$this->tovar[$oldDataItem['parent_id']]['catalog_id'] === 84) {
+            if (84 === (int) $this->tovar[$oldDataItem['parent_id']]['catalog_id']) {
                 $newItem->setCatalog($catalogRepos->find(84));
             } else {
                 $newItem->setCatalog($catalogRepos->find(2));
@@ -110,7 +101,6 @@ class ProductLegacyConvert extends BaseLegacyConvert
         $oldDataItem['suppliers_id'] = null;
 
         if ($collection) {
-
             $newItem->setManufacture($collection->getManufacture());
 
             $oldDataTovar = false;
@@ -119,12 +109,10 @@ class ProductLegacyConvert extends BaseLegacyConvert
                 $oldDataTovar = $this->tovar[$oldDataItem['parent_id']];
             }
 
-
             if ($oldDataTovar && !$oldDataItem['suppliers_id']) {
                 $oldDataItem['suppliers_id'] = $oldDataTovar['suppliers_id'];
             }
         }
-
 
         if ($oldDataItem['novelty']) {
             $newItem->addTag($this->getEntityManager()->getRepository('CompoProductBundle:ProductTag')->find(2));
@@ -138,13 +126,11 @@ class ProductLegacyConvert extends BaseLegacyConvert
             $newItem->addTag($this->getEntityManager()->getRepository('CompoProductBundle:ProductTag')->find(3));
         }
 
-
         if ($oldDataItem['suppliers_id']) {
             $sup = $this->getEntityManager()->getRepository('CompoSupplierBundle:Supplier')->find($oldDataItem['suppliers_id']);
 
             $newItem->addSupplier($sup);
         }
-
 
         if ($oldDataItem['state']) {
             $state = $this->getEntityManager()->getRepository('CompoProductBundle:ProductAvailability')->find($oldDataItem['state']);

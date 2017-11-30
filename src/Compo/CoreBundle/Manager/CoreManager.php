@@ -4,10 +4,6 @@ namespace Compo\CoreBundle\Manager;
 
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 
-
-/**
- * {@inheritDoc}
- */
 class CoreManager
 {
     use ContainerAwareTrait;
@@ -16,7 +12,6 @@ class CoreManager
      * @var
      */
     protected $settings;
-
 
     /**
      * @return object|\Sylius\Bundle\SettingsBundle\Model\SettingsInterface

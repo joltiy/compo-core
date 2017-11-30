@@ -5,7 +5,7 @@ namespace Compo\FeedbackBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class CompoFeedbackBundle extends Bundle
 {

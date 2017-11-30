@@ -4,26 +4,24 @@ namespace Compo\FeedbackBundle\Form;
 
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class ProductWantLowerCostFormType extends FeedbackBaseFormType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
 
         $productManager = $this->getContainer()->get('compo_product.manager.product');
-
 
         if (isset($options['extra_data'], $options['extra_data']['product'])) {
             $product = $options['extra_data']['product'];
@@ -47,14 +45,14 @@ class ProductWantLowerCostFormType extends FeedbackBaseFormType
                 'attr' => array('readonly' => 'readonly'),
                 'required' => false,
                 'property_path' => 'data[product]',
-                'data' => $product
+                'data' => $product,
             ))
             ->add(
                 'product_id',
                 HiddenType::class,
                 array(
                     'property_path' => 'data[product_id]',
-                    'data' => $product_id
+                    'data' => $product_id,
                 )
             )
             ->add(
@@ -62,12 +60,12 @@ class ProductWantLowerCostFormType extends FeedbackBaseFormType
                 HiddenType::class,
                 array(
                     'property_path' => 'data[product_url]',
-                    'data' => $product_url
+                    'data' => $product_url,
                 )
             )
 
             ->add('quantity', IntegerType::class, array(
-                'property_path' => 'data[quantity]'
+                'property_path' => 'data[quantity]',
             ))
 
             ->add('name', TextType::class)

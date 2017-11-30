@@ -5,9 +5,8 @@ namespace Compo\MenuBundle\Controller;
 use Compo\Sonata\AdminBundle\Controller\CRUDController;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class MenuAdminController extends CRUDController
 {
-
 }

@@ -4,17 +4,14 @@ namespace Compo\Sonata\AdminBundle\Extension;
 
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdminExtension;
-use Sonata\AdminBundle\Admin\AdminInterface;
-use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class ActionsExtension extends AbstractAdminExtension
 {
     use ContainerAwareTrait;
-
 
     public function configureListFields(ListMapper $listMapper)
     {
@@ -25,11 +22,9 @@ class ActionsExtension extends AbstractAdminExtension
                 $options = $_action->getOptions();
 
                 if (!isset($options['actions'])) {
-
-
                     if (isset($listMapper->getAdmin()->treeEnabled) && $listMapper->getAdmin()->treeEnabled) {
                         $options['actions']['create_parent'] = array(
-                            'template' => 'SonataAdminBundle:CRUD:list__action_create_parent.html.twig'
+                            'template' => 'SonataAdminBundle:CRUD:list__action_create_parent.html.twig',
                         );
                     }
                     /*
@@ -39,11 +34,11 @@ class ActionsExtension extends AbstractAdminExtension
                     */
 
                     $options['actions']['delete'] = array(
-                        'template' => 'SonataAdminBundle:CRUD:list__action_delete.html.twig'
+                        'template' => 'SonataAdminBundle:CRUD:list__action_delete.html.twig',
                     );
 
                     $options['actions']['clone'] = array(
-                        'template' => 'SonataAdminBundle:CRUD:list__action_clone.html.twig'
+                        'template' => 'SonataAdminBundle:CRUD:list__action_clone.html.twig',
                     );
 
                     /*
@@ -54,7 +49,7 @@ class ActionsExtension extends AbstractAdminExtension
 
                     if (method_exists($listMapper->getAdmin(), 'generatePermalink')) {
                         $options['actions']['show_on_site'] = array(
-                            'template' => 'SonataAdminBundle:CRUD:list__action_show_on_site.html.twig'
+                            'template' => 'SonataAdminBundle:CRUD:list__action_show_on_site.html.twig',
                         );
                     }
                 }
@@ -62,7 +57,5 @@ class ActionsExtension extends AbstractAdminExtension
                 $_action->setOptions($options);
             }
         }
-
-
     }
 }

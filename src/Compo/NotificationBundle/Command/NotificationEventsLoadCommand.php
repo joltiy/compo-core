@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class NotificationEventsLoadCommand extends ContainerAwareCommand
 {
@@ -42,10 +42,10 @@ class NotificationEventsLoadCommand extends ContainerAwareCommand
         $translator = $this->getContainer()->get('translator');
 
         foreach ($events as $event_key => $event) {
-            if ($event['type'] === 'email') {
-                if (!$notificationEmailRepository->findBy(['code' => $event['name']])) {
+            if ('email' === $event['type']) {
+                if (!$notificationEmailRepository->findBy(array('code' => $event['name']))) {
                     $emailEvent = new NotificationEmail();
-                    $emailEvent->setName($translator->trans($event['name'], [], 'CompoNotificationBundle'));
+                    $emailEvent->setName($translator->trans($event['name'], array(), 'CompoNotificationBundle'));
                     $emailEvent->setCode($event['name']);
                     $emailEvent->setEvent($event['event']);
                     $emailEvent->setBody($notificationManager->getTemplateSource($event['body']));

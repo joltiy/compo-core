@@ -10,15 +10,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class FeedbackController extends Controller
 {
     use \Compo\CoreBundle\Traits\JsonTrait;
 
     /**
-     *
-     * Works with contact form data
+     * Works with contact form data.
      *
      * Validates contact form,
      * Saves contact entity,
@@ -36,7 +35,7 @@ class FeedbackController extends Controller
      *  }
      * )
      *
-     * @param Request $request Request represents an HTTP request.
+     * @param Request $request request represents an HTTP request
      *
      * @return View
      *

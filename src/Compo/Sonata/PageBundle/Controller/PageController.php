@@ -11,9 +11,7 @@
 
 namespace Compo\Sonata\PageBundle\Controller;
 
-
 use Symfony\Component\HttpFoundation\Request;
-
 
 /**
  * Page Admin Controller.
@@ -22,8 +20,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class PageController extends \Sonata\PageBundle\Controller\PageController
 {
-
-
     /**
      * @return null|Request
      */
@@ -41,5 +37,4 @@ class PageController extends \Sonata\PageBundle\Controller\PageController
 
         return new Request();
     }
-
 }

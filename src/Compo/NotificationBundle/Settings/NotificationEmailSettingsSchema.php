@@ -8,21 +8,20 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class NotificationEmailSettingsSchema extends BaseBundleAdminSettingsSchema
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getDefaultSettings()
     {
-        return [
+        return array(
             'notification_email_account_default' => $this->getNotificationEmailAccountRepository()->getDefaultId(),
             'notification_email_recipient_default' => '',
             'footer_contacts' => '',
-
-        ];
+        );
     }
 
     /**
@@ -34,7 +33,7 @@ class NotificationEmailSettingsSchema extends BaseBundleAdminSettingsSchema
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildFormSettings()
     {
@@ -43,9 +42,9 @@ class NotificationEmailSettingsSchema extends BaseBundleAdminSettingsSchema
         $tab->add(
             'notification_email_account_default',
             ChoiceType::class,
-            [
+            array(
                 'choices' => $this->getNotificationEmailAccountRepository()->getChoices(),
-            ]
+            )
         );
 
         $tab->add('notification_email_recipient_default', TextType::class);

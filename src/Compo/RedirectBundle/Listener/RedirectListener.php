@@ -6,13 +6,11 @@ use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Compo\RedirectBundle\Entity\Redirect;
 use Compo\RedirectBundle\Repository\RedirectRepository;
 use Compo\Sonata\PageBundle\Entity\Page;
-use Sonata\PageBundle\Exception\PageNotFoundException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 /**
- * Class RedirectListener
- * @package Compo\RedirectBundle\Listener
+ * Class RedirectListener.
  */
 class RedirectListener
 {
@@ -27,6 +25,7 @@ class RedirectListener
 
     /**
      * @param GetResponseEvent $event
+     *
      * @throws \Exception
      */
     public function onKernelRequest(GetResponseEvent $event)
@@ -48,7 +47,6 @@ class RedirectListener
 
         $uri = str_replace($baseUrl, '', $requestUri);
 
-
         $em = $this->doctrine->getManager();
 
         /** @var RedirectRepository $redirectRepository */
@@ -58,7 +56,7 @@ class RedirectListener
         $redirect = $redirectRepository->findOneBy(
             array(
                 'urIn' => array($uri, $pathInfo),
-                'enabled' => true
+                'enabled' => true,
             )
         );
 
@@ -73,7 +71,7 @@ class RedirectListener
 
         $page = $pageRepository->findOneBy(
             array(
-                'url' => array( $pathInfo . '/')
+                'url' => array($pathInfo . '/'),
             )
         );
 
@@ -81,7 +79,5 @@ class RedirectListener
             $event->setResponse(new RedirectResponse($baseUrl . $pathInfo . '/', 301));
             $event->stopPropagation();
         }
-
-
     }
 }

@@ -3,8 +3,7 @@
 namespace Compo\Sonata\UserBundle\Security;
 
 /**
- * Class EditableRolesBuilder
- * @package Compo\Sonata\UserBundle\Security
+ * Class EditableRolesBuilder.
  */
 class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuilder
 {
@@ -22,8 +21,6 @@ class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuil
 
         $translator = $this->pool->getContainer()->get('translator');
 
-
-
         $isMaster = $this->authorizationChecker->isGranted('ROLE_SUPER_ADMIN');
 
         // get roles from the service container
@@ -31,21 +28,17 @@ class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuil
             if ($isMaster || $this->authorizationChecker->isGranted($name)) {
                 $roles[$name] = $translator->trans($name, array(), 'messages');
 
-
                 foreach ($rolesHierarchy as $role) {
                     if (!isset($roles[$role])) {
-
                         if (!in_array($role, array(
                             'ROLE_SONATA_ADMIN',
                             'ROLE_USER',
                             'ROLE_SONATA_MEDIA_ADMIN_MEDIA_LIST',
                             'ROLE_SONATA_MEDIA_ADMIN_MEDIA_CREATE',
                             'ROLE_SONATA_MEDIA_ADMIN_MEDIA_VIEW',
-                            'ROLE_SONATA_MEDIA_ADMIN_MEDIA_EDIT'
+                            'ROLE_SONATA_MEDIA_ADMIN_MEDIA_EDIT',
                         ))) {
-
                             $roles[$role] = $translator->trans($role, array(), 'messages');
-
                         }
                     }
                 }
@@ -60,7 +53,6 @@ class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuil
                 continue;
             }
 
-
             $isMaster = $admin->isGranted('MASTER');
             $securityHandler = $admin->getSecurityHandler();
             // TODO get the base role from the admin or security handler
@@ -70,19 +62,18 @@ class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuil
                 continue;
             }
 
-
             //dump($admin); exit;
 
             $items = array(
-                "LIST",
-                "VIEW",
-                "EDIT",
-                "CREATE",
-                "DELETE",
-                "UNDELETE",
-                "EXPORT",
-                "IMPORT",
-                "SETTINGS"
+                'LIST',
+                'VIEW',
+                'EDIT',
+                'CREATE',
+                'DELETE',
+                'UNDELETE',
+                'EXPORT',
+                'IMPORT',
+                'SETTINGS',
             );
 
             if (in_array($id, array(
@@ -92,14 +83,12 @@ class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuil
                 'sonata.page.admin.snapshot',
                 'sonata.page.admin.shared_block',
                 'sonata.dashboard.admin.dashboard',
-                'sonata.dashboard.admin.block'
-
+                'sonata.dashboard.admin.block',
             ), true)) {
                 continue;
             }
 
             foreach ($items as $role_item) {
-
                 $role = sprintf($baseRole, $role_item);
 
                 //dump($role);
@@ -116,12 +105,7 @@ class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuil
                     $rolesReadOnly[$role] = $role_label;
                 }
             }
-
-
         }
-
-
-
 
         return array($roles, $rolesReadOnly);
     }

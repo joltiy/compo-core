@@ -5,7 +5,7 @@ namespace Compo\CoreBundle\Composer;
 use Composer\Script\Event;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class AsseticDump extends \Sensio\Bundle\DistributionBundle\Composer\ScriptHandler
 {

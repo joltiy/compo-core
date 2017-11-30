@@ -9,15 +9,14 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class TimestampableExtension extends AbstractAdminExtension
 {
     use ContainerAwareTrait;
 
-
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
@@ -29,11 +28,11 @@ class TimestampableExtension extends AbstractAdminExtension
                 'doctrine_orm_date_range',
                 array(
                     'field_type' => 'sonata_type_date_range_picker',
-                    'field_options' => [
-                        'field_options' => [
-                            'format' => 'dd.MM.yyyy'
-                        ]
-                    ]
+                    'field_options' => array(
+                        'field_options' => array(
+                            'format' => 'dd.MM.yyyy',
+                        ),
+                    ),
                 )
             );
         }
@@ -48,9 +47,9 @@ class TimestampableExtension extends AbstractAdminExtension
                     'field_type' => 'sonata_type_date_range_picker',
                     'field_options' => array(
                         'field_options' => array(
-                            'format' => 'dd.MM.yyyy'
-                        )
-                    )
+                            'format' => 'dd.MM.yyyy',
+                        ),
+                    ),
                 )
             );
         }
@@ -63,18 +62,18 @@ class TimestampableExtension extends AbstractAdminExtension
                 'doctrine_orm_date_range',
                 array(
                     'field_type' => 'sonata_type_date_range_picker',
-                    'field_options' => [
-                        'field_options' => [
-                            'format' => 'dd.MM.yyyy'
-                        ]
-                    ]
+                    'field_options' => array(
+                        'field_options' => array(
+                            'format' => 'dd.MM.yyyy',
+                        ),
+                    ),
                 )
             );
         }
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configureFormFields(FormMapper $formMapper)
     {
@@ -87,7 +86,7 @@ class TimestampableExtension extends AbstractAdminExtension
                 'required' => true,
             ),
             array(
-                'translation_domain' => 'SonataAdminBundle'
+                'translation_domain' => 'SonataAdminBundle',
             )
         );
 
@@ -100,7 +99,7 @@ class TimestampableExtension extends AbstractAdminExtension
                 'required' => true,
             ),
             array(
-                'translation_domain' => 'SonataAdminBundle'
+                'translation_domain' => 'SonataAdminBundle',
             )
         );
 
@@ -113,13 +112,13 @@ class TimestampableExtension extends AbstractAdminExtension
                 'required' => true,
             ),
             array(
-                'translation_domain' => 'SonataAdminBundle'
+                'translation_domain' => 'SonataAdminBundle',
             )
         );
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configureListFields(ListMapper $listMapper)
     {

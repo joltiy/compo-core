@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * PageCodeBundle
+ * PageCodeBundle.
  *
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ORM\Entity(repositoryClass="Compo\PageCodeBundle\Repository\PageCodeRepository")
@@ -24,14 +24,12 @@ class PageCode
     use \Compo\Sonata\AdminBundle\Entity\PositionEntityTrait;
 
     /**
-     *
      * @var string
      * @ORM\Column(type="text", nullable=true)
      */
     protected $code;
 
     /**
-     *
      * @var string
      * @ORM\Column(type="string", nullable=true)
      */
@@ -69,4 +67,3 @@ class PageCode
         $this->layout = $layout;
     }
 }
-

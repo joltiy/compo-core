@@ -32,8 +32,6 @@ class TreeSelectorType extends ModelType
         $propertyAccessor = $this->propertyAccessor;
         if (interface_exists('Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface')) { // SF2.7+
             $options['choice_loader'] = function (Options $options, $previousValue) use ($propertyAccessor) {
-
-
                 return new \Compo\Sonata\AdminBundle\Form\ModelChoiceLoader(
                     $options['model_manager'],
                     $options['class'],
@@ -50,7 +48,6 @@ class TreeSelectorType extends ModelType
             }
         } else {
             $options['choice_list'] = function (Options $options, $previousValue) use ($propertyAccessor) {
-                
                 if ($previousValue && count($choices = $previousValue->getChoices())) {
                     return $choices;
                 }
@@ -113,10 +110,7 @@ class TreeSelectorType extends ModelType
                 )
             )
         );
-
-
     }
-
 
     /**
      * @param Options $options
@@ -125,29 +119,23 @@ class TreeSelectorType extends ModelType
      */
     public function getChoices(Options $options)
     {
-
         $tree = $options['tree'];
 
         $choices = array();
 
         foreach ($tree as $item) {
-            
             if ($options['current'] && $options['current']->getId() === $item->getId()) {
                 continue;
             }
 
-            
             if (null !== $item->getParent()) {
                 continue;
             }
 
-            
-            
             $choices[sprintf('%s', $item->getName())] = $item->getId();
 
             $this->childWalker($item, $options, $choices);
         }
-
 
         return $choices;
     }
@@ -155,31 +143,25 @@ class TreeSelectorType extends ModelType
     /**
      * @param         $category
      * @param Options $options
-     * @param array $choices
-     * @param int $level
+     * @param array   $choices
+     * @param int     $level
      */
     private function childWalker($category, Options $options, array &$choices, $level = 2)
     {
-        
-        if ($category->getChildren() === null) {
+        if (null === $category->getChildren()) {
             return;
         }
 
-        
         foreach ($category->getChildren() as $child) {
-            
             if ($options['current'] && $options['current']->getId() === $child->getId()) {
                 continue;
             }
 
-            
             $choices[sprintf('%s %s', str_repeat(' - - -', $level - 1), $child->getName())] = $child->getId();
 
             $this->childWalker($child, $options, $choices, $level + 1);
         }
-
     }
-
 
     /**
      * {@inheritdoc}

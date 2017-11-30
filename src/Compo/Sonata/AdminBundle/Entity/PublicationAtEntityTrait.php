@@ -6,8 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Trait PublicationAtEntityTrait
- * @package Compo\Sonata\AdminBundle\Entity
+ * Trait PublicationAtEntityTrait.
  */
 trait PublicationAtEntityTrait
 {
@@ -32,7 +31,8 @@ trait PublicationAtEntityTrait
     /**
      * Sets createdAt.
      *
-     * @param  \DateTime $createdAt
+     * @param \DateTime $createdAt
+     *
      * @return $this
      */
     public function setPublicationAt(\DateTime $createdAt)

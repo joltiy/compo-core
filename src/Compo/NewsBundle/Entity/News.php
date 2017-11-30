@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * News
+ * News.
  *
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  *
@@ -58,7 +58,7 @@ class News
     }
 
     /**
-     * Add tag
+     * Add tag.
      *
      * @param \Compo\NewsBundle\Entity\NewsTag $tag
      *
@@ -72,7 +72,7 @@ class News
     }
 
     /**
-     * Remove tag
+     * Remove tag.
      *
      * @param \Compo\NewsBundle\Entity\NewsTag $tag
      */
@@ -82,7 +82,7 @@ class News
     }
 
     /**
-     * Get tags
+     * Get tags.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -91,4 +91,3 @@ class News
         return $this->tags;
     }
 }
-

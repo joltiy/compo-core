@@ -35,15 +35,15 @@ class ArticlesBreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
                     'uri' => $router->generate('compo_articles_index'),
                     'label' => 'breadcrumb.articles',
                     'extras' => array(
-                        'translation_domain' => 'CompoArticlesBundle'
-                    )
+                        'translation_domain' => 'CompoArticlesBundle',
+                    ),
                 )
             );
 
             $menu->addChild(
                 $article->getSlug(),
                 array(
-                    'label' => $article->getName()
+                    'label' => $article->getName(),
                 )
             );
         } else {
@@ -52,8 +52,8 @@ class ArticlesBreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
                 array(
                     'label' => 'breadcrumb.articles',
                     'extras' => array(
-                        'translation_domain' => 'CompoArticlesBundle'
-                    )
+                        'translation_domain' => 'CompoArticlesBundle',
+                    ),
                 )
             );
         }

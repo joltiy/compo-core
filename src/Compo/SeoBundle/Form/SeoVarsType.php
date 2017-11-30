@@ -5,7 +5,7 @@ namespace Compo\SeoBundle\Form;
 use Symfony\Component\Form\AbstractType;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class SeoVarsType extends AbstractType
 {

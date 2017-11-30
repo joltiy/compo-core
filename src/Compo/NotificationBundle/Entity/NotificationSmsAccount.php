@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Notification
+ * Notification.
  *
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ORM\Entity(repositoryClass="Compo\NotificationBundle\Repository\NotificationSmsAccountRepository")
@@ -112,6 +112,4 @@ class NotificationSmsAccount
     {
         $this->transport = $transport;
     }
-
-
 }

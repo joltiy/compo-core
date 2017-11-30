@@ -5,7 +5,7 @@ namespace Compo\SeoBundle\Manager;
 use Compo\Sonata\CoreBundle\Model\BaseEntityManager;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class SeoPage extends BaseEntityManager
 {
@@ -15,7 +15,6 @@ class SeoPage extends BaseEntityManager
     protected $settings;
 
     /**
-     *
      * @var array
      */
     public $seoPages = array();
@@ -52,6 +51,7 @@ class SeoPage extends BaseEntityManager
 
     /**
      * @param $context
+     *
      * @return mixed
      */
     public function getSeoPageItem($context)

@@ -2,14 +2,11 @@
 
 namespace Compo\Sonata\AdminBundle\Model;
 
-use Doctrine\ORM\EntityManager;
-use Gedmo\Loggable\LoggableListener;
-use Sonata\AdminBundle\Model\AuditReaderInterface;
 use Symfony\Component\DependencyInjection\Container;
 
 class AuditReader extends \Sonata\DoctrineORMAdminBundle\Model\AuditReader
 {
-    /** @var  Container */
+    /** @var Container */
     public $container;
 
     /**
@@ -28,17 +25,13 @@ class AuditReader extends \Sonata\DoctrineORMAdminBundle\Model\AuditReader
         $this->container = $container;
     }
 
-
-
     public function revert($object, $revision)
     {
         $revision = $this->auditReader->find(get_class($object), $object->getId(), $revision);
         $newValues = $this->auditReader->getEntityValues(get_class($object), $revision);
 
-
-
         foreach ($newValues as $key => $value) {
-            $key = preg_replace_callback("/(?:^|_)([a-z])/", function($matches) {
+            $key = preg_replace_callback('/(?:^|_)([a-z])/', function ($matches) {
 //       Start or underscore    ^      ^ lowercase character
                 return strtoupper($matches[1]);
             }, $key);
@@ -51,7 +44,4 @@ class AuditReader extends \Sonata\DoctrineORMAdminBundle\Model\AuditReader
         $this->getContainer()->get('doctrine')->getManager()->persist($object);
         $this->getContainer()->get('doctrine')->getManager()->flush();
     }
-
-
-
 }

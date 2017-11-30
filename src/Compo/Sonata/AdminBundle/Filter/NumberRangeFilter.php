@@ -11,14 +11,12 @@
 
 namespace Compo\Sonata\AdminBundle\Filter;
 
-
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\DoctrineORMAdminBundle\Filter\Filter;
 
 /**
- * Class NumberRangeFilter
- * @package Compo\Sonata\AdminBundle\Filter
+ * Class NumberRangeFilter.
  */
 class NumberRangeFilter extends Filter
 {
@@ -32,7 +30,7 @@ class NumberRangeFilter extends Filter
      */
     public function filter(ProxyQueryInterface $queryBuilder, $alias, $field, $data)
     {
-        /** @var QueryBuilder $queryBuilder */
+        /* @var QueryBuilder $queryBuilder */
         // check data sanity
 
         if (!$data || !is_array($data) || !array_key_exists('value', $data)) {
@@ -40,7 +38,6 @@ class NumberRangeFilter extends Filter
         }
 
         if ($this->range && is_array($data['value'])) {
-
             // additional data check for ranged items
             //if (!array_key_exists('start', $data['value']) || !array_key_exists('end', $data['value'])) {
             //$data['value']['start'] = 0;
@@ -50,7 +47,6 @@ class NumberRangeFilter extends Filter
             //if (!$data['value']['start'] || !$data['value']['end']) {
             //return;
             //}
-
 
             if (array_key_exists('start', $data['value']) && $data['value']['start']) {
                 $startQuantity = $this->getNewParameterName($queryBuilder);
@@ -63,11 +59,8 @@ class NumberRangeFilter extends Filter
                 $this->applyWhere($queryBuilder, sprintf('%s.%s %s :%s', $alias, $field, '<=', $endQuantity));
                 $queryBuilder->setParameter($endQuantity, $data['value']['end']);
             }
-
-
         }
     }
-
 
     /**
      * {@inheritdoc}
@@ -82,7 +75,6 @@ class NumberRangeFilter extends Filter
      */
     public function getRenderSettings()
     {
-
         return array(
             'sonata_type_filter_default',
             array(
@@ -90,10 +82,8 @@ class NumberRangeFilter extends Filter
                 'field_options' => $this->getFieldOptions(),
                 'operator_type' => 'hidden',
                 'operator_options' => array(),
-                'label' => $this->getLabel()
-            )
+                'label' => $this->getLabel(),
+            ),
         );
     }
-
-
 }

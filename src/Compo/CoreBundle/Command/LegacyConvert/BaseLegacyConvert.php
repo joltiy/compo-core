@@ -5,14 +5,12 @@ namespace Compo\CoreBundle\Command\LegacyConvert;
 use Compo\CoreBundle\Command\BaseLegacyConvertCommand;
 use SimpleThings\EntityAudit\EventListener\LogRevisionsListener;
 
-
 /**
- * Class BaseLegacyConvert
- * @package Compo\CoreBundle\Command\LegacyConvert
+ * Class BaseLegacyConvert.
  */
 class BaseLegacyConvert
 {
-    /** @var  BaseLegacyConvertCommand */
+    /** @var BaseLegacyConvertCommand */
     public $command;
 
     /**
@@ -24,7 +22,7 @@ class BaseLegacyConvert
      * @var
      */
     public $idFields = array(
-        'id' => 'id'
+        'id' => 'id',
     );
 
     /**
@@ -62,12 +60,8 @@ class BaseLegacyConvert
         $this->idFields = $idFields;
     }
 
-    /**
-     *
-     */
     public function configure()
     {
-
     }
 
     /**
@@ -86,12 +80,8 @@ class BaseLegacyConvert
         $this->batchSize = $batchSize;
     }
 
-    /**
-     *
-     */
     public function process()
     {
-
         $searchedListener = null;
         $em = $this->getEntityManager();
 
@@ -109,7 +99,6 @@ class BaseLegacyConvert
             $evm->removeEventListener(array('onFlush', 'postPersist', 'postUpdate', 'postFlush'), $searchedListener);
         }
 
-
         $this->getCommand()->getIo()->section('Load: ' . $this->getRepositoryName());
 
         $currentRepository = $this->getCommand()->getCurrentRepository($this->getRepositoryName());
@@ -125,7 +114,7 @@ class BaseLegacyConvert
         $i = 0;
 
         foreach ($oldData as $oldDataItemKey => $oldDataItem) {
-            $i++;
+            ++$i;
 
             $newItem = null;
 
@@ -150,19 +139,19 @@ class BaseLegacyConvert
 
                 $class = $this->getEntityClass();
 
-                $newItem = new $class;
+                $newItem = new $class();
             }
 
             $this->getCommand()->changeIdGenerator($newItem);
 
             $result = $this->iterateItem($oldDataItemKey, $oldDataItem, $newItem);
 
-            if ($result !== false) {
+            if (false !== $result) {
                 $this->getCommand()->getEntityManager()->persist($newItem);
             }
 
             if ($batchSize) {
-                if (($i % $batchSize) === 0) {
+                if (0 === ($i % $batchSize)) {
                     $this->getCommand()->getEntityManager()->flush();
                     $this->getCommand()->getEntityManager()->clear();
                     gc_collect_cycles();
@@ -172,7 +161,6 @@ class BaseLegacyConvert
                 $this->getCommand()->getEntityManager()->clear();
                 gc_collect_cycles();
             }
-
 
             unset($oldData[$oldDataItemKey]);
 
@@ -288,6 +276,7 @@ class BaseLegacyConvert
      * @param $oldDataItemKey
      * @param $oldDataItem
      * @param $newItem
+     *
      * @return bool
      */
     public function iterateItem($oldDataItemKey, $oldDataItem, $newItem)
@@ -297,6 +286,7 @@ class BaseLegacyConvert
 
     /**
      * @param $id
+     *
      * @return \Compo\Sonata\MediaBundle\Entity\Media|null
      */
     public function downloadMedia($id)

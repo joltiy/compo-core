@@ -9,7 +9,7 @@ use Compo\Sonata\AdminBundle\Repository\ViewsTrait;
 use Sonata\CoreBundle\Model\BaseEntityManager;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class NewsManager extends BaseEntityManager
 {
@@ -19,6 +19,7 @@ class NewsManager extends BaseEntityManager
     /**
      * @param $criteria
      * @param int $page
+     *
      * @return \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination
      */
     public function getPager($criteria, $page = 1)
@@ -71,6 +72,7 @@ class NewsManager extends BaseEntityManager
 
     /**
      * @param int $limit
+     *
      * @return array
      */
     public function findLastPublications($limit = 5)
@@ -83,7 +85,9 @@ class NewsManager extends BaseEntityManager
 
     /**
      * @param $slug
+     *
      * @return News
+     *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function findBySlug($slug)
@@ -96,7 +100,8 @@ class NewsManager extends BaseEntityManager
 
     /**
      * @param News $articles
-     * @param int $absolute
+     * @param int  $absolute
+     *
      * @return string
      */
     public function getNewsShowPermalink(News $articles, $absolute = 1)
@@ -114,6 +119,7 @@ class NewsManager extends BaseEntityManager
 
     /**
      * @param News $articles
+     *
      * @return array
      */
     public function getNewsShowRouteParameters(News $articles)
@@ -123,7 +129,8 @@ class NewsManager extends BaseEntityManager
 
     /**
      * @param array $parameters
-     * @param int $absolute
+     * @param int   $absolute
+     *
      * @return string
      */
     public function getNewsIndexPermalink(array $parameters = array(), $absolute = 1)
@@ -141,6 +148,7 @@ class NewsManager extends BaseEntityManager
 
     /**
      * @param $parameters
+     *
      * @return mixed
      */
     public function getNewsIndexRouteParameters($parameters)

@@ -11,7 +11,7 @@ use Sonata\CoreBundle\Validator\ErrorElement;
 use Sonata\PageBundle\Model\Block;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class AbstractBlockService extends BaseAbstractBlockService
 {
@@ -26,12 +26,11 @@ class AbstractBlockService extends BaseAbstractBlockService
     }
 
     /**
-     * @param ErrorElement $errorElement
+     * @param ErrorElement   $errorElement
      * @param BlockInterface $block
      */
     public function validateBlock(ErrorElement $errorElement, BlockInterface $block)
     {
-
     }
 
     /**
@@ -96,7 +95,6 @@ class AbstractBlockService extends BaseAbstractBlockService
      */
     public function preRemove($object)
     {
-
     }
 
     /**
@@ -104,7 +102,6 @@ class AbstractBlockService extends BaseAbstractBlockService
      */
     public function postRemove($object)
     {
-
     }
 
     /**
@@ -113,7 +110,6 @@ class AbstractBlockService extends BaseAbstractBlockService
     public function preUpdate($object)
     {
         $this->updateName($object);
-
     }
 
     /**
@@ -121,7 +117,6 @@ class AbstractBlockService extends BaseAbstractBlockService
      */
     public function postUpdate($object)
     {
-
     }
 
     /**
@@ -135,12 +130,11 @@ class AbstractBlockService extends BaseAbstractBlockService
     }
 
     /**
-     * @param FormMapper $formMapper
+     * @param FormMapper     $formMapper
      * @param BlockInterface $block
      */
     public function buildForm(FormMapper $formMapper, BlockInterface $block)
     {
-
     }
 
     /**
@@ -148,7 +142,6 @@ class AbstractBlockService extends BaseAbstractBlockService
      */
     public function updateLabel(FormMapper $formMapper)
     {
-
         $settings = $formMapper->get('settings');
 
         $settingsKeys = $settings->getOption('keys');
@@ -178,7 +171,6 @@ class AbstractBlockService extends BaseAbstractBlockService
         $formMapper->add('settings', 'sonata_type_immutable_array', array('keys' => $settingsKeys), array('translation_domain' => $translation_domain));
 
         $formMapper->remove('temp');
-
     }
 
     /**
@@ -194,7 +186,8 @@ class AbstractBlockService extends BaseAbstractBlockService
     /**
      * @return \Doctrine\Common\Persistence\ObjectManager|object
      */
-    public function getDoctrineManager() {
+    public function getDoctrineManager()
+    {
         return $this->getContainer()->get('doctrine')->getManager();
     }
 }

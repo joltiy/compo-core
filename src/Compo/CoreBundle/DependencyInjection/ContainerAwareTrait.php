@@ -5,9 +5,7 @@ namespace Compo\CoreBundle\DependencyInjection;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class ContainerAwareTrait
- *
- * @package Compo\CoreBundle\DependencyInjection
+ * Class ContainerAwareTrait.
  */
 trait ContainerAwareTrait
 {

@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Advantages
+ * Advantages.
  *
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  *
@@ -35,7 +35,7 @@ class Advantages
     protected $items;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -43,7 +43,7 @@ class Advantages
     }
 
     /**
-     * Add item
+     * Add item.
      *
      * @param \Compo\AdvantagesBundle\Entity\AdvantagesItem $item
      *
@@ -57,7 +57,7 @@ class Advantages
     }
 
     /**
-     * Remove item
+     * Remove item.
      *
      * @param \Compo\AdvantagesBundle\Entity\AdvantagesItem $item
      */
@@ -67,7 +67,7 @@ class Advantages
     }
 
     /**
-     * Get items
+     * Get items.
      *
      * @return \Doctrine\Common\Collections\Collection
      */

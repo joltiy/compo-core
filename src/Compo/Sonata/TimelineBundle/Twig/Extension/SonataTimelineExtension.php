@@ -6,15 +6,14 @@ use Spy\Timeline\Model\ActionInterface;
 use Spy\Timeline\Model\ComponentInterface;
 
 /**
- * Class SonataTimelineExtension
- * @package Compo\Sonata\TimelineBundle\Twig\Extension
+ * Class SonataTimelineExtension.
  */
 class SonataTimelineExtension extends \Sonata\TimelineBundle\Twig\Extension\SonataTimelineExtension
 {
     /**
-     * COMPO Перехват исключения, когда объект удалён окончательно, при генерации ссылки на редактирование объекта
+     * COMPO Перехват исключения, когда объект удалён окончательно, при генерации ссылки на редактирование объекта.
      *
-     * @param ComponentInterface $component
+     * @param ComponentInterface   $component
      * @param ActionInterface|null $action
      *
      * @return string

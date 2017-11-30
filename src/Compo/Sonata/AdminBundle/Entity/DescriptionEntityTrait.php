@@ -5,13 +5,12 @@ namespace Compo\Sonata\AdminBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Trait DescriptionEntityTrait
- * @package Compo\Sonata\AdminBundle\Entity
+ * Trait DescriptionEntityTrait.
  */
 trait DescriptionEntityTrait
 {
     /**
-     * Описание
+     * Описание.
      *
      * @var string
      * @ORM\Column(type="text", nullable=true)

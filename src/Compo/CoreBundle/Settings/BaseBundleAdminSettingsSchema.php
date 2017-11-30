@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class BaseBundleAdminSettingsSchema implements SchemaInterface
 {
@@ -62,7 +62,9 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
 
     /**
      * @param $formMapper
+     *
      * @return mixed
+     *
      * @throws \Exception
      */
     public function getMediaBuilder($formMapper)
@@ -97,7 +99,6 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
                 'model_manager' => $this->getMediaAdmin()->getModelManager(),
                 'label' => 'form.label_media',
                 'required' => false,
-
             )
         );
     }
@@ -120,6 +121,7 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
 
     /**
      * @return \Compo\Sonata\MediaBundle\Admin\MediaAdmin|object
+     *
      * @throws \Exception
      */
     public function getMediaAdmin()
@@ -133,6 +135,7 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
 
     /**
      * @return \Doctrine\Bundle\DoctrineBundle\Registry|object
+     *
      * @throws \Exception
      */
     public function getDoctrine()
@@ -147,11 +150,7 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
     {
         $this->setFormBuilder($builder);
 
-
-
-
         $this->buildFormSettings();
-
     }
 
     /**
@@ -163,17 +162,17 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
     }
 
     /**
-     * Создание формы настроек
+     * Создание формы настроек.
      */
     public function buildFormSettings()
     {
-
     }
 
     /**
-     * Добавление вкладки
+     * Добавление вкладки.
      *
      * @param $name
+     *
      * @return FormBuilderInterface
      */
     public function addTab($name)
@@ -186,9 +185,10 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
     }
 
     /**
-     * Создание вкладки
+     * Создание вкладки.
      *
      * @param $name
+     *
      * @return FormBuilderInterface
      */
     public function createTab($name)
@@ -237,6 +237,7 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
 
     /**
      * @return array
+     *
      * @throws \Exception
      */
     public function getDefaultOptions()

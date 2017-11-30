@@ -5,7 +5,7 @@ namespace Compo\NotificationBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class CompoNotificationBundle extends Bundle
 {

@@ -6,9 +6,7 @@ use Sylius\Bundle\SettingsBundle\Controller\SettingsController;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class SettingsAdminController
- *
- * @package Compo\CoreBundle\Controller
+ * Class SettingsAdminController.
  */
 class BaseSettingsAdminController extends SettingsController
 {
@@ -23,13 +21,12 @@ class BaseSettingsAdminController extends SettingsController
 
     /**
      * @param Request $request
-     * @param string $namespace
+     * @param string  $namespace
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function updateAction(Request $request, $namespace = null)
     {
-
         if (null === $namespace) {
             $namespace = $this->getNamespase();
         }
@@ -72,7 +69,7 @@ class BaseSettingsAdminController extends SettingsController
                 'settings' => $settings,
                 'form' => $form->createView(),
                 'admin_pool' => $admin_pool,
-                'translation_domain' => $this->getTranslationDomain()
+                'translation_domain' => $this->getTranslationDomain(),
             )
         );
     }

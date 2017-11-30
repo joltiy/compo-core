@@ -14,9 +14,7 @@ use Sonata\AdminBundle\Translator\LabelTranslatorStrategyInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
- * Class AdminExtractor
- *
- * @package Compo\CoreBundle\Translation
+ * Class AdminExtractor.
  */
 class AdminExtractor implements ExtractorInterface, TranslatorInterface, SecurityHandlerInterface, LabelTranslatorStrategyInterface
 {
@@ -51,7 +49,7 @@ class AdminExtractor implements ExtractorInterface, TranslatorInterface, Securit
     private $domain;
 
     /**
-     * @param Pool $adminPool
+     * @param Pool            $adminPool
      * @param LoggerInterface $logger
      */
     public function __construct(Pool $adminPool, LoggerInterface $logger = null)
@@ -180,13 +178,11 @@ class AdminExtractor implements ExtractorInterface, TranslatorInterface, Securit
             $message->addSource(new FileSource($trace[1]['file']));
         }
 
-
         $result = $this->adminPool->getContainer()->get('translator')->getCatalogue()->has($id);
 
         if ($result) {
             return;
         }
-
 
         $this->catalogue->add($message);
     }

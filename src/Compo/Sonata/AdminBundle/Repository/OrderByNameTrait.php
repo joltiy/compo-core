@@ -5,8 +5,7 @@ namespace Compo\Sonata\AdminBundle\Repository;
 use Doctrine\DBAL\Query\QueryBuilder;
 
 /**
- * Trait OrderByNameTrait
- * @package Compo\Sonata\AdminBundle\Entity
+ * Trait OrderByNameTrait.
  */
 trait OrderByNameTrait
 {
@@ -16,7 +15,7 @@ trait OrderByNameTrait
     public function createQueryBuilderOrderByName()
     {
         $qb = parent::createQueryBuilder('c');
-        /** @var QueryBuilder $qb */
+        /* @var QueryBuilder $qb */
         $qb->select('c');
         $qb->orderBy('c.name', 'ASC');
 

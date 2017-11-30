@@ -6,18 +6,18 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class JsonTrait
- * @package Compo\CoreBundle\Traits
+ * Class JsonTrait.
  */
 trait JsonTrait
 {
     /**
      * @param Request $request
+     *
      * @return array|mixed
      */
     public function getJsonParams(Request $request)
     {
-        $request_params = [];
+        $request_params = array();
 
         if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
             $request_params = json_decode($request->getContent(), true);
@@ -28,6 +28,7 @@ trait JsonTrait
 
     /**
      * @param array $data
+     *
      * @return JsonResponse
      */
     public function buildJsonResponse(array $data)
@@ -37,5 +38,4 @@ trait JsonTrait
 
         return $jsonResponse;
     }
-
 }

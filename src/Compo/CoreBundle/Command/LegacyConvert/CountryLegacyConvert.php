@@ -2,18 +2,13 @@
 
 namespace Compo\CoreBundle\Command\LegacyConvert;
 
-
 use Compo\CountryBundle\Entity\Country;
 
 /**
- * Class ArticlesLegacyConvert
- * @package Compo\CoreBundle\Command\LegacyConvert
+ * Class ArticlesLegacyConvert.
  */
 class CountryLegacyConvert extends BaseLegacyConvert
 {
-    /**
-     *
-     */
     public function configure()
     {
         $this->setTableName('countrys');
@@ -29,7 +24,7 @@ class CountryLegacyConvert extends BaseLegacyConvert
     public function iterateItem($oldDataItemKey, $oldDataItem, $newItem)
     {
         $newItem->setName($oldDataItem['header']);
-        $newItem->setEnabled((bool)$oldDataItem['visible']);
+        $newItem->setEnabled((bool) $oldDataItem['visible']);
         $newItem->setSlug(str_replace('.html', '', $oldDataItem['alt_name']));
         $newItem->setId($oldDataItem['id']);
         $newItem->setCode(substr($oldDataItem['alt_name'], 0, 2));

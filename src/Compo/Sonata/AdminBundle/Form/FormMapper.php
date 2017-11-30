@@ -2,9 +2,6 @@
 
 namespace Compo\Sonata\AdminBundle\Form;
 
-
-use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
-
 class FormMapper extends \Sonata\AdminBundle\Form\FormMapper
 {
     /**
@@ -23,7 +20,6 @@ class FormMapper extends \Sonata\AdminBundle\Form\FormMapper
 
         return parent::tab($name, $options);
     }
-
 
     /**
      * Add new group or tab (if parameter "tab=true" is available in options).
@@ -68,8 +64,6 @@ class FormMapper extends \Sonata\AdminBundle\Form\FormMapper
             'box_class' => 'box box-primary',
         );
 
-
-
         $code = $name;
 
         // Open
@@ -111,8 +105,8 @@ class FormMapper extends \Sonata\AdminBundle\Form\FormMapper
             }
 
             // if no tab is selected, we go the the main one named '_' ..
-            if ($this->currentTab !== 'default') {
-                $code = $this->currentTab.'.'.$name; // groups with the same name can be on different tabs, so we prefix them in order to make unique group name
+            if ('default' !== $this->currentTab) {
+                $code = $this->currentTab . '.' . $name; // groups with the same name can be on different tabs, so we prefix them in order to make unique group name
             }
 
             $groups = $this->getGroups();

@@ -6,13 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Trait AliasEntityTrait
- * @package Compo\Sonata\AdminBundle\Entity
+ * Trait AliasEntityTrait.
  */
 trait AliasEntityTrait
 {
     /**
-     * URL
+     * URL.
      *
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(type="string", nullable=false, unique=true)
@@ -20,7 +19,7 @@ trait AliasEntityTrait
     protected $alias;
 
     /**
-     * Get alias
+     * Get alias.
      *
      * @return string
      */
@@ -30,7 +29,7 @@ trait AliasEntityTrait
     }
 
     /**
-     * Set alias
+     * Set alias.
      *
      * @param string $alias
      *

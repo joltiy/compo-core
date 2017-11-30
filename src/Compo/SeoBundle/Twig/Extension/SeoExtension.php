@@ -2,13 +2,10 @@
 
 namespace Compo\SeoBundle\Twig\Extension;
 
-use Knp\Menu\MenuFactory;
-use Knp\Menu\Renderer\ListRenderer;
-
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class SeoExtension extends \Twig_Extension
 {
@@ -27,8 +24,6 @@ class SeoExtension extends \Twig_Extension
             new \Twig_SimpleFunction('sonata_seo_link_prev', array($this, 'getLinkPrev'), array('is_safe' => array('html'))),
 
             new \Twig_SimpleFunction('compo_core_admin_navbar', array($this, 'getAdminNavBar'), array('is_safe' => array('html'))),
-
-
         );
     }
 
@@ -98,8 +93,8 @@ class SeoExtension extends \Twig_Extension
         return $seo_page->getDescriptionAdditional();
     }
 
-
-    public function getAdminNavBar() {
+    public function getAdminNavBar()
+    {
         $seo_page = $this->getContainer()->get('sonata.seo.page');
 
         $context = $seo_page->getContext();
@@ -120,23 +115,16 @@ class SeoExtension extends \Twig_Extension
             return;
         }
 
-
-
         $admin = $this->getContainer()->get($item['admin']);
 
         $menu = $admin->configureAdminNavBar($context, $seo_page->getVars());
 
         if ($menu) {
-
             $menuRenderer = new \Knp\Menu\Renderer\TwigRenderer($this->getContainer()->get('twig'), 'knp_menu.html.twig', new \Knp\Menu\Matcher\Matcher());
+
             return $menuRenderer->render($menu, array(
-                'template' => 'CompoCoreBundle:Menu:knp_menu_admin.html.twig'
+                'template' => 'CompoCoreBundle:Menu:knp_menu_admin.html.twig',
             ));
         }
-
-
-
-
-
     }
 }

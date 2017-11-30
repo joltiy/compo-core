@@ -5,7 +5,7 @@ namespace Compo\RedirectBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class CompoRedirectBundle extends Bundle
 {

@@ -6,14 +6,12 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class InstallCommand
- *
- * @package Compo\CoreBundle\Command
+ * Class InstallCommand.
  */
 class InstallCommand extends BaseDeployCommand
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function configure()
     {
@@ -23,7 +21,7 @@ class InstallCommand extends BaseDeployCommand
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -42,10 +40,9 @@ class InstallCommand extends BaseDeployCommand
         //$this->runCacheWarmup();
     }
 
-
     /**
      * bin/console doctrine:schema:update --force
-     * Выполняет создание БД
+     * Выполняет создание БД.
      *
      * @throws \Exception
      */
@@ -54,19 +51,19 @@ class InstallCommand extends BaseDeployCommand
         $this->runCommand(
             'doctrine:database:create',
             array(
-                '--if-not-exists' => true
+                '--if-not-exists' => true,
             )
         );
     }
 
     /**
-     * Создание админа
+     * Создание админа.
      */
     public function runCreateAdmin()
     {
         $admin = $this->getContainer()->get('fos_user.user_manager')->findOneBy(
             array(
-                'username' => 'admin'
+                'username' => 'admin',
             )
         );
 
@@ -77,14 +74,14 @@ class InstallCommand extends BaseDeployCommand
                     '--super-admin' => true,
                     'username' => 'admin',
                     'email' => 'admin@admin.com',
-                    'password' => 'admin'
+                    'password' => 'admin',
                 )
             );
         }
     }
 
     /**
-     * Создание сайта
+     * Создание сайта.
      */
     public function runCreateSite()
     {

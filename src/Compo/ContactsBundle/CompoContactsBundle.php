@@ -5,7 +5,7 @@ namespace Compo\ContactsBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class CompoContactsBundle extends Bundle
 {

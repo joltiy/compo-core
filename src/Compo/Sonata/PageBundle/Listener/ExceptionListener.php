@@ -14,19 +14,19 @@ use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\Templating\EngineInterface;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class ExceptionListener extends \Sonata\PageBundle\Listener\ExceptionListener
 {
     /**
-     * @param SiteSelectorInterface $siteSelector Site selector
+     * @param SiteSelectorInterface       $siteSelector       Site selector
      * @param CmsManagerSelectorInterface $cmsManagerSelector CMS Manager selector
-     * @param bool $debug Debug mode
-     * @param EngineInterface $templating Templating engine
+     * @param bool                        $debug              Debug mode
+     * @param EngineInterface             $templating         Templating engine
      * @param PageServiceManagerInterface $pageServiceManager Page service manager
-     * @param DecoratorStrategyInterface $decoratorStrategy Decorator strategy
-     * @param array $httpErrorCodes An array of http error codes' routes
-     * @param LoggerInterface|null $logger Logger instance
+     * @param DecoratorStrategyInterface  $decoratorStrategy  Decorator strategy
+     * @param array                       $httpErrorCodes     An array of http error codes' routes
+     * @param LoggerInterface|null        $logger             Logger instance
      */
     public function __construct(SiteSelectorInterface $siteSelector, CmsManagerSelectorInterface $cmsManagerSelector, $debug, EngineInterface $templating, PageServiceManagerInterface $pageServiceManager, DecoratorStrategyInterface $decoratorStrategy, array $httpErrorCodes, LoggerInterface $logger = null)
     {
@@ -165,9 +165,9 @@ class ExceptionListener extends \Sonata\PageBundle\Listener\ExceptionListener
     /**
      * Logs exceptions.
      *
-     * @param \Exception $originalException Original exception that called the listener
-     * @param \Exception $generatedException Generated exception
-     * @param string|null $message Message to log
+     * @param \Exception  $originalException  Original exception that called the listener
+     * @param \Exception  $generatedException Generated exception
+     * @param string|null $message            Message to log
      */
     private function logException(\Exception $originalException, \Exception $generatedException, $message = null)
     {

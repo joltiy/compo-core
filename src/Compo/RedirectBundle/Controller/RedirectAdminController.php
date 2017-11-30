@@ -5,9 +5,8 @@ namespace Compo\RedirectBundle\Controller;
 use Compo\Sonata\AdminBundle\Controller\CRUDController;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class RedirectAdminController extends CRUDController
 {
-
 }

@@ -9,12 +9,12 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class RedirectAdmin extends AbstractAdmin
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configure()
     {
@@ -53,7 +53,7 @@ class RedirectAdmin extends AbstractAdmin
                     'actions' => array(
                         'edit' => array(),
                         'delete' => array(),
-                    )
+                    ),
                 )
             );
     }

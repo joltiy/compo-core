@@ -11,7 +11,6 @@
 
 namespace Compo\Sonata\PageBundle\Admin;
 
-
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Compo\Sonata\PageBundle\Form\Type\TemplateChoiceType;
 use Knp\Menu\ItemInterface as MenuItemInterface;
@@ -30,13 +29,11 @@ use Sonata\PageBundle\Model\SiteInterface;
 use Sonata\PageBundle\Model\SiteManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class PageAdmin extends AbstractAdmin
 {
-
     /**
      * @var PageManagerInterface
      */
@@ -82,7 +79,6 @@ class PageAdmin extends AbstractAdmin
 
         $collection->add('tree', 'tree');
 
-
         $this->setTemplate('tree', 'CompoSonataPageBundle:CRUD:tree_page.html.twig');
     }
 
@@ -112,7 +108,7 @@ class PageAdmin extends AbstractAdmin
         $container->get('sonata.notification.backend.runtime')->createAndPublish(
             'sonata.page.create_snapshot',
             array(
-                'pageId' => $object->getId()
+                'pageId' => $object->getId(),
             )
         );
     }
@@ -171,7 +167,6 @@ class PageAdmin extends AbstractAdmin
             $instance->setName(urldecode($slug));
         }
 
-
         $site = $this->getSites();
 
         $parent = $this->pageManager->getPageByUrl($site[0], '/');
@@ -196,7 +191,7 @@ class PageAdmin extends AbstractAdmin
 
         $siteId = null;
 
-        if ($this->getRequest()->getMethod() === 'POST') {
+        if ('POST' === $this->getRequest()->getMethod()) {
             $values = $this->getRequest()->get($this->getUniqid());
             $siteId = isset($values['site']) ? $values['site'] : null;
         }
@@ -241,14 +236,14 @@ class PageAdmin extends AbstractAdmin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function createQuery($context = 'list')
     {
         /** @var \Doctrine\ORM\QueryBuilder $query */
         $query = parent::createQuery($context);
 
-        if ($context !== 'list') {
+        if ('list' !== $context) {
             $query->andWhere(
                 $query->expr()->eq($query->getRootAliases()[0] . '.routeName', ':routeName')
             );
@@ -261,12 +256,10 @@ class PageAdmin extends AbstractAdmin
         );
         $query->setParameter('routeNameNotLikeFosUser', 'fos\_user\_%');
 
-
         $query->andWhere(
             $query->expr()->notLike($query->getRootAliases()[0] . '.routeName', ':routeNameNotLikeFosJs')
         );
         $query->setParameter('routeNameNotLikeFosJs', 'fos\_js\_%');
-
 
         $query->andWhere(
             $query->expr()->notLike($query->getRootAliases()[0] . '.routeName', ':routeNameNotLikeSonataMedia')
@@ -283,7 +276,6 @@ class PageAdmin extends AbstractAdmin
         );
         $query->setParameter('routeNameNotLikeSonataCache', 'sonata\_cache\_%');
 
-
         return $query;
     }
 
@@ -299,7 +291,7 @@ class PageAdmin extends AbstractAdmin
         $container->get('sonata.notification.backend.runtime')->createAndPublish(
             'sonata.page.create_snapshot',
             array(
-                'pageId' => $object->getId()
+                'pageId' => $object->getId(),
             )
         );
     }
@@ -327,12 +319,10 @@ class PageAdmin extends AbstractAdmin
      */
     protected function configureListFields(ListMapper $listMapper)
     {
-
         $listMapper
             ->addIdentifier('name')
             ->add('url')
             ->add('enabled', null, array('editable' => true));
-
     }
 
     /**
@@ -373,7 +363,6 @@ class PageAdmin extends AbstractAdmin
             $admin->generateMenuUrl('sonata.page.admin.block.list', array('id' => $id))
         );
 
-
         $page = $this->getSubject();
         if (!$page->isHybrid() && !$page->isInternal()) {
             try {
@@ -400,14 +389,12 @@ class PageAdmin extends AbstractAdmin
         }
     }
 
-
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
         $site = $this->getSites();
-
 
         if ($this->getSubject()) {
             $this->getSubject()->setSite($site[0]);
@@ -508,13 +495,10 @@ class PageAdmin extends AbstractAdmin
                 ->end();
         }
 
-
         $formMapper->setHelps(
             array(
                 'name' => $this->trans('help_page_name'),
             )
         );
     }
-
-
 }

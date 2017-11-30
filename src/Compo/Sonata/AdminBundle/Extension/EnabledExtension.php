@@ -9,7 +9,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class EnabledExtension extends AbstractAdminExtension
 {
@@ -25,7 +25,7 @@ class EnabledExtension extends AbstractAdminExtension
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configureFormFields(FormMapper $formMapper)
     {
@@ -35,7 +35,7 @@ class EnabledExtension extends AbstractAdminExtension
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configureBatchActions(AdminInterface $admin, array $actions)
     {
@@ -55,13 +55,13 @@ class EnabledExtension extends AbstractAdminExtension
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         if (!$this->isUseEntityTraits($datagridMapper->getAdmin(), array(
             'Compo\Sonata\AdminBundle\Entity\EnabledEntityTrait',
-        ) )) {
+        ))) {
             return;
         }
 

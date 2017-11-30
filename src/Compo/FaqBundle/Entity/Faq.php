@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Faq
+ * Faq.
  *
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
 
@@ -40,19 +40,17 @@ class Faq
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
     /**
-     *
      * @ORM\Column(type="string", nullable=true)
      */
     protected $username;
 
     /**
-     *
      * @ORM\Column(type="string", nullable=true)
      */
     protected $email;
 
     /**
-     * Описание
+     * Описание.
      *
      * @var string
      * @ORM\Column(type="text", nullable=true)
@@ -107,4 +105,3 @@ class Faq
         $this->email = $email;
     }
 }
-

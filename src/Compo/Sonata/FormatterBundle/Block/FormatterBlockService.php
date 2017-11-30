@@ -2,7 +2,6 @@
 
 namespace Compo\Sonata\FormatterBundle\Block;
 
-
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\BlockBundle\Block\Service\AbstractAdminBlockService;
@@ -13,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class FormatterBlockService extends AbstractAdminBlockService
 {
@@ -31,7 +30,6 @@ class FormatterBlockService extends AbstractAdminBlockService
             )
         );
     }
-
 
     /**
      * {@inheritdoc}
@@ -69,7 +67,7 @@ class FormatterBlockService extends AbstractAdminBlockService
                                 'target_field' => '[content]',
                                 'label' => 'form.label_content',
                             );
-                        }
+                        },
                     ),
                 ),
                 'translation_domain' => 'SonataFormatterBundle',

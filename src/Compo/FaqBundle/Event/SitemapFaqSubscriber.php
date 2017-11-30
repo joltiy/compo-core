@@ -9,7 +9,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class SitemapFaqSubscriber implements EventSubscriberInterface
 {
@@ -25,7 +25,7 @@ class SitemapFaqSubscriber implements EventSubscriberInterface
 
     /**
      * @param UrlGeneratorInterface $urlGenerator
-     * @param ObjectManager $manager
+     * @param ObjectManager         $manager
      */
     public function __construct(UrlGeneratorInterface $urlGenerator, ObjectManager $manager)
     {
@@ -34,13 +34,13 @@ class SitemapFaqSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function getSubscribedEvents()
     {
-        return [
+        return array(
             SitemapPopulateEvent::ON_SITEMAP_POPULATE => 'registerItems',
-        ];
+        );
     }
 
     /**
@@ -55,7 +55,7 @@ class SitemapFaqSubscriber implements EventSubscriberInterface
                 new UrlConcrete(
                     $this->urlGenerator->generate(
                         'compo_faq_show_by_slug',
-                        ['slug' => $post->getSlug()],
+                        array('slug' => $post->getSlug()),
                         UrlGeneratorInterface::ABSOLUTE_URL
                     ),
                     $post->getUpdatedAt()

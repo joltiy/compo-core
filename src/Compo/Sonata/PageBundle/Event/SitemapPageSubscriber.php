@@ -9,7 +9,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class SitemapPageSubscriber implements EventSubscriberInterface
 {
@@ -25,7 +25,7 @@ class SitemapPageSubscriber implements EventSubscriberInterface
 
     /**
      * @param UrlGeneratorInterface $urlGenerator
-     * @param ObjectManager $manager
+     * @param ObjectManager         $manager
      */
     public function __construct(UrlGeneratorInterface $urlGenerator, ObjectManager $manager)
     {
@@ -34,13 +34,13 @@ class SitemapPageSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function getSubscribedEvents()
     {
-        return [
+        return array(
             SitemapPopulateEvent::ON_SITEMAP_POPULATE => 'registerItems',
-        ];
+        );
     }
 
     /**
@@ -50,7 +50,7 @@ class SitemapPageSubscriber implements EventSubscriberInterface
     {
         $posts = $this->manager->getRepository('CompoSonataPageBundle:Page')->findBy(
             array(
-                'routeName' => 'page_slug'
+                'routeName' => 'page_slug',
             )
         );
 
@@ -59,7 +59,7 @@ class SitemapPageSubscriber implements EventSubscriberInterface
                 new UrlConcrete(
                     $this->urlGenerator->generate(
                         'page_slug',
-                        ['path' => $post->getUrl()],
+                        array('path' => $post->getUrl()),
                         UrlGeneratorInterface::ABSOLUTE_URL
                     ),
                     $post->getUpdatedAt()

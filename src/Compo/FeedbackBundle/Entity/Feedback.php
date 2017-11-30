@@ -6,7 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Feedback
+ * Feedback.
+ *
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
 
  * @ORM\Table(name="feedback_messages")
@@ -21,7 +22,7 @@ class Feedback
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
     /**
-     * Описание
+     * Описание.
      *
      * @var string
      * @ORM\Column(type="text", nullable=true)
@@ -29,35 +30,30 @@ class Feedback
     protected $message;
 
     /**
-     *
      * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $name;
 
     /**
-     *
      * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $phone;
 
     /**
-     *
      * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $email;
 
     /**
-     *
      * @var string
      * @ORM\Column(type="json", nullable=true)
      */
     protected $data = array();
 
     /**
-     *
      * @var string
      * @ORM\Column(type="string", nullable=true)
      */
@@ -103,7 +99,7 @@ class Feedback
     }
 
     /**
-     * Add tag
+     * Add tag.
      *
      * @param \Compo\FeedbackBundle\Entity\FeedbackTag $tag
      *
@@ -117,7 +113,7 @@ class Feedback
     }
 
     /**
-     * Remove tag
+     * Remove tag.
      *
      * @param \Compo\FeedbackBundle\Entity\FeedbackTag $tag
      */
@@ -127,7 +123,7 @@ class Feedback
     }
 
     /**
-     * Get tags
+     * Get tags.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -184,7 +180,6 @@ class Feedback
         $this->email = $email;
     }
 
-
     /**
      * @return string
      */
@@ -214,7 +209,7 @@ class Feedback
      */
     public function getData()
     {
-        if (is_null($this->data)) {
+        if (null === $this->data) {
             $this->data = array();
         }
 
@@ -224,7 +219,7 @@ class Feedback
     /**
      * @param string $data
      */
-    public function setData( $data)
+    public function setData($data)
     {
         $this->data = $data;
     }

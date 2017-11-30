@@ -5,9 +5,8 @@ namespace Compo\FeedbackBundle\Controller;
 use Compo\Sonata\AdminBundle\Controller\CRUDController;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class FeedbackAdminController extends CRUDController
 {
-
 }

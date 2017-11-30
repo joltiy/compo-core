@@ -10,12 +10,12 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class FeedbackAdmin extends AbstractAdmin
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configure()
     {
@@ -24,7 +24,7 @@ class FeedbackAdmin extends AbstractAdmin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
@@ -35,7 +35,7 @@ class FeedbackAdmin extends AbstractAdmin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configureListFields(ListMapper $listMapper)
     {
@@ -54,13 +54,13 @@ class FeedbackAdmin extends AbstractAdmin
                     'actions' => array(
                         'edit' => array(),
                         'delete' => array(),
-                    )
+                    ),
                 )
             );
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -95,18 +95,18 @@ class FeedbackAdmin extends AbstractAdmin
 
         $formMapper
             ->add('product', 'text', array(
-                'property_path' => 'data[product]'
+                'property_path' => 'data[product]',
             ))
             ->add('product_url', 'text', array(
-                    'property_path' => 'data[product_url]'
+                    'property_path' => 'data[product_url]',
                 )
             )
         ;
 
-            $formMapper->end();
-            $formMapper->with('extra', array('name' => false, 'class' => 'col-lg-6'));
+        $formMapper->end();
+        $formMapper->with('extra', array('name' => false, 'class' => 'col-lg-6'));
 
-            $formMapper->add(
+        $formMapper->add(
                 'tags',
                 'sonata_type_model',
                 array(
@@ -118,20 +118,14 @@ class FeedbackAdmin extends AbstractAdmin
                     'query' => $tagsQb,
                 )
             );
-            $formMapper->add('page');
-
-
-
-
-
-
+        $formMapper->add('page');
 
         $formMapper->end()
             ->end();
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configureShowFields(ShowMapper $showMapper)
     {

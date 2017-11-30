@@ -8,20 +8,20 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class DescriptionExtension extends AbstractAdminExtension
 {
     use ContainerAwareTrait;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         if (!$this->isUseEntityTraits($datagridMapper->getAdmin(), array(
             'Compo\Sonata\AdminBundle\Entity\DescriptionEntityTrait',
-        ) )) {
+        ))) {
             return;
         }
 

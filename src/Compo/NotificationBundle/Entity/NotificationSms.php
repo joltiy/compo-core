@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Notification
+ * Notification.
  *
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ORM\Entity(repositoryClass="Compo\NotificationBundle\Repository\NotificationSmsRepository")
@@ -46,7 +46,6 @@ class NotificationSms
      * @ORM\JoinColumn(name="sender_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     protected $sender;
-
 
     /**
      * @var string
@@ -102,7 +101,6 @@ class NotificationSms
         $this->sender = $sender;
     }
 
-
     /**
      * @return string
      */
@@ -145,7 +143,7 @@ class NotificationSms
         }
 
         if ($this->id) {
-            return (string)$this->id;
+            return (string) $this->id;
         }
 
         return '';

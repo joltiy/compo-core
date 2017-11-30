@@ -2,18 +2,13 @@
 
 namespace Compo\CoreBundle\Command\LegacyConvert;
 
-
 use Compo\SupplierBundle\Entity\Supplier;
 
 /**
- * Class ArticlesLegacyConvert
- * @package Compo\CoreBundle\Command\LegacyConvert
+ * Class ArticlesLegacyConvert.
  */
 class SupplierLegacyConvert extends BaseLegacyConvert
 {
-    /**
-     *
-     */
     public function configure()
     {
         $this->setTableName('suppliers');

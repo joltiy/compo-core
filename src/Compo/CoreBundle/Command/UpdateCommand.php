@@ -6,9 +6,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class UpdateCommand
- *
- * @package Compo\CoreBundle\Command
+ * Class UpdateCommand.
  */
 class UpdateCommand extends BaseDeployCommand
 {
@@ -23,10 +21,11 @@ class UpdateCommand extends BaseDeployCommand
     }
 
     /**
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
      *
      * @return null|int null or 0 if everything went fine, or an error code
+     *
      * @throws \Exception
      * @throws \Symfony\Component\Console\Exception\ExceptionInterface
      */

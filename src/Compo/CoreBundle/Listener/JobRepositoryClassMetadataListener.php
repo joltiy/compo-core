@@ -9,13 +9,13 @@ use Doctrine\ORM\Events;
 class JobRepositoryClassMetadataListener implements EventSubscriber
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getSubscribedEvents()
     {
-        return [
-            Events::loadClassMetadata
-        ];
+        return array(
+            Events::loadClassMetadata,
+        );
     }
 
     /**
@@ -24,11 +24,11 @@ class JobRepositoryClassMetadataListener implements EventSubscriber
     public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
     {
         /**
-         * @var \Doctrine\ORM\Mapping\ClassMetadata $classMetadata
+         * @var \Doctrine\ORM\Mapping\ClassMetadata
          */
         $classMetadata = $eventArgs->getClassMetadata();
 
-        if ($classMetadata->getName() !== 'JMS\JobQueueBundle\Entity\Job') {
+        if ('JMS\JobQueueBundle\Entity\Job' !== $classMetadata->getName()) {
             return;
         }
 

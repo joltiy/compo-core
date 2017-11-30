@@ -3,7 +3,7 @@
 namespace Compo\CoreBundle\Doctrine\ORM;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class EntityRepository extends \Doctrine\ORM\EntityRepository
 {

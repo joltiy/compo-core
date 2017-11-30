@@ -77,11 +77,11 @@ class ModelChoiceLoader implements ChoiceLoaderInterface
     private $choiceList;
 
     /**
-     * @param ModelManagerInterface $modelManager
-     * @param string $class
-     * @param null $property
-     * @param null $query
-     * @param array $choices
+     * @param ModelManagerInterface          $modelManager
+     * @param string                         $class
+     * @param null                           $property
+     * @param null                           $query
+     * @param array                          $choices
      * @param PropertyAccessorInterface|null $propertyAccessor
      * @param $options
      */
@@ -134,7 +134,7 @@ class ModelChoiceLoader implements ChoiceLoaderInterface
                 } else {
                     // Otherwise expect a __toString() method in the entity
                     try {
-                        $valueObject = (string)$entity;
+                        $valueObject = (string) $entity;
                     } catch (\Exception $e) {
                         throw new RuntimeException(sprintf('Unable to convert the entity "%s" to string, provide "property" option or implement "__toString()" method in your entity.', ClassUtils::getClass($entity)), 0, $e);
                     }
@@ -151,7 +151,6 @@ class ModelChoiceLoader implements ChoiceLoaderInterface
 
             //$finalChoices = array();
 
-
             $tree = $this->options['tree'];
 
             $choices = array();
@@ -161,21 +160,16 @@ class ModelChoiceLoader implements ChoiceLoaderInterface
                     continue;
                 }
 
-                
                 if (null !== $item->getParent()) {
                     continue;
                 }
 
-                
-                
                 $choices[sprintf('%s', $item->getName())] = $item->getId();
 
                 $this->childWalker($item, $this->options, $choices);
             }
 
-
             $finalChoices = $choices;
-
 
             $this->choiceList = new ArrayChoiceList($finalChoices, $value);
         }
@@ -200,29 +194,24 @@ class ModelChoiceLoader implements ChoiceLoaderInterface
     /**
      * @param         $category
      * @param Options $options
-     * @param array $choices
-     * @param int $level
+     * @param array   $choices
+     * @param int     $level
      */
     private function childWalker($category, Options $options, array &$choices, $level = 2)
     {
-        
-        if ($category->getChildren() === null) {
+        if (null === $category->getChildren()) {
             return;
         }
 
-        
         foreach ($category->getChildren() as $child) {
-            
             if ($options['current'] && $options['current']->getId() === $child->getId()) {
                 continue;
             }
 
-            
             $choices[sprintf('%s %s', str_repeat(' - - -', $level - 1), $child->getName())] = $child->getId();
 
             $this->childWalker($child, $options, $choices, $level + 1);
         }
-
     }
 
     /**

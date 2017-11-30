@@ -5,7 +5,7 @@ namespace Compo\SeoBundle\Seo;
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
 {
@@ -31,7 +31,7 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
             'title' => '{{ page_internal.title|default(page_internal.header)|default(page_internal.name) }}',
             'metaDescription' => '{{ page_internal.metaDescription|default(page_internal.header)|default(page_internal.name) }}',
             'metaKeyword' => '{{ page_internal.metaKeyword|default(page_internal.header)|default(page_internal.name) }}',
-        )
+        ),
     );
 
     /**
@@ -198,9 +198,9 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         $route = $this->getRequest()->get('_route');
 
         if (
-            $route === 'page_slug'
+            'page_slug' === $route
             ||
-            $route === '_page_internal_error_not_found'
+            '_page_internal_error_not_found' === $route
         ) {
             $this->setContext('page');
         }
@@ -248,6 +248,7 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
     /**
      * @param $name
      * @param null $default
+     *
      * @return mixed|null
      */
     public function getVar($name, $default = null)
@@ -270,6 +271,7 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
 
     /**
      * @param $name
+     *
      * @return mixed|null
      */
     public function getTemplate($name)
@@ -343,30 +345,30 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         $meta_description = '';
 
         foreach ($templates as $template) {
-            if ($name === '' && isset($template['name'])) {
+            if ('' === $name && isset($template['name'])) {
                 $name = $this->buildTemplate($template['name']);
             }
 
-            if ($header === '' && isset($template['header'])) {
+            if ('' === $header && isset($template['header'])) {
                 $header = $this->buildTemplate($template['header']);
             }
 
-            if ($description === '' && isset($template['description'])) {
+            if ('' === $description && isset($template['description'])) {
                 $description = $this->buildTemplate($template['description']);
             }
 
-            if ($descriptionAdditional === '' && isset($template['descriptionAdditional'])) {
+            if ('' === $descriptionAdditional && isset($template['descriptionAdditional'])) {
                 $descriptionAdditional = $this->buildTemplate($template['descriptionAdditional']);
             }
 
-            if ($title === '' && isset($template['title'])) {
+            if ('' === $title && isset($template['title'])) {
                 $title = $this->buildTemplate($template['title']);
             }
 
-            if ($meta_keyword === '' && isset($template['metaKeyword'])) {
+            if ('' === $meta_keyword && isset($template['metaKeyword'])) {
                 $meta_keyword = $this->buildTemplate($template['metaKeyword']);
             }
-            if ($meta_description === '' && isset($template['metaDescription'])) {
+            if ('' === $meta_description && isset($template['metaDescription'])) {
                 $meta_description = $this->buildTemplate($template['metaDescription']);
             }
         }
@@ -379,7 +381,7 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         foreach ($keywords_tmp as $key => $item) {
             $item = trim($item);
             $keywords_tmp[$key] = $item;
-            if ($item === '') {
+            if ('' === $item) {
                 unset($keywords_tmp[$key]);
             }
         }
@@ -422,7 +424,6 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         }
     }
 
-
     /**
      * @param $name
      * @param $value
@@ -435,7 +436,9 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
     /**
      * @param $template
      * @param array $vars
+     *
      * @return mixed|string
+     *
      * @throws \Throwable
      */
     public function buildTemplate($template, array $vars = array())
@@ -450,10 +453,8 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
 
             if ($vars) {
                 $result = $tmp->render($vars);
-
             } else {
                 $result = $tmp->render($this->vars);
-
             }
 
             /*
@@ -468,14 +469,12 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
 
             $result = $twig->render('index.html', $this->vars);
             */
-
         } catch (\Exception $e) {
             $result = '';
         }
 
         $result = str_replace(' x ', ' ', $result);
         $result = str_replace(' х ', ' ', $result);
-
 
         // Вырезаем незамененые переменные
         //$result = trim(preg_replace('/\{\{.*\}\}/im', ' ', $result));

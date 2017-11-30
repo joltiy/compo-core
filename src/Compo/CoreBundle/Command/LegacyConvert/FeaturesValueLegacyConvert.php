@@ -7,14 +7,10 @@ use Compo\FeaturesBundle\Entity\FeatureValue;
 use Compo\FeaturesBundle\Entity\FeatureVariant;
 
 /**
- * Class ArticlesLegacyConvert
- * @package Compo\CoreBundle\Command\LegacyConvert
+ * Class ArticlesLegacyConvert.
  */
 class FeaturesValueLegacyConvert extends BaseLegacyConvert
 {
-    /**
-     *
-     */
     public function configure()
     {
         $this->setTableName('feature_value_complects');
@@ -28,6 +24,7 @@ class FeaturesValueLegacyConvert extends BaseLegacyConvert
      * @param $oldDataItemKey
      * @param $oldDataItem
      * @param $newItem FeatureValue
+     *
      * @return bool
      */
     public function iterateItem($oldDataItemKey, $oldDataItem, $newItem)
@@ -46,8 +43,7 @@ class FeaturesValueLegacyConvert extends BaseLegacyConvert
         /** @var FeatureAttribute $featureAttribute */
         $featureAttribute = $this->getEntityManager()->getRepository('CompoFeaturesBundle:FeatureAttribute')->find($oldProductFeaturesItem['feature_attribute_id']);
 
-        if ($featureAttribute->getType() === 'variant') {
-
+        if ('variant' === $featureAttribute->getType()) {
             if ($oldProductFeaturesItem['value_variant_id']) {
                 /** @var FeatureVariant $featureVariant */
                 $featureVariant = $this->getEntityManager()->getRepository('CompoFeaturesBundle:FeatureVariant')->find($oldProductFeaturesItem['value_variant_id']);
@@ -62,18 +58,17 @@ class FeaturesValueLegacyConvert extends BaseLegacyConvert
             } else {
                 return false;
             }
-
-        } elseif ($featureAttribute->getType() === 'integer') {
+        } elseif ('integer' === $featureAttribute->getType()) {
             $featureValue->setValueInteger($oldProductFeaturesItem['value_integer']);
 
             $featureValue->setFeature($featureAttribute);
             $featureValue->setProduct($product);
-        } elseif ($featureAttribute->getType() === 'decimal') {
+        } elseif ('decimal' === $featureAttribute->getType()) {
             $featureValue->setValueDecimal($oldProductFeaturesItem['value_decimal']);
 
             $featureValue->setFeature($featureAttribute);
             $featureValue->setProduct($product);
-        } elseif ($featureAttribute->getType() === 'string') {
+        } elseif ('string' === $featureAttribute->getType()) {
             $featureValue->setValueDecimal($oldProductFeaturesItem['value_string']);
 
             $featureValue->setFeature($featureAttribute);
@@ -81,8 +76,5 @@ class FeaturesValueLegacyConvert extends BaseLegacyConvert
         } else {
             return false;
         }
-
     }
-
-
 }

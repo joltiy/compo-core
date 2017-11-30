@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * AdvantagesItem
+ * AdvantagesItem.
  *
  * @Gedmo\Loggable
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
@@ -55,7 +55,7 @@ class AdvantagesItem
     protected $advantages;
 
     /**
-     * Get title
+     * Get title.
      *
      * @return string
      */
@@ -65,7 +65,7 @@ class AdvantagesItem
     }
 
     /**
-     * Set title
+     * Set title.
      *
      * @param string $title
      *
@@ -79,7 +79,7 @@ class AdvantagesItem
     }
 
     /**
-     * Get url
+     * Get url.
      *
      * @return string
      */
@@ -89,7 +89,7 @@ class AdvantagesItem
     }
 
     /**
-     * Set url
+     * Set url.
      *
      * @param string $url
      *

@@ -47,7 +47,7 @@ class BannerBlockService extends AbstractBlockService
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function buildForm(FormMapper $formMapper, BlockInterface $block)
     {
@@ -68,9 +68,9 @@ class BannerBlockService extends AbstractBlockService
                         'choices' => array(
                             'Обычный' => 'CompoBannerBundle:Block:slider.html.twig',
                             'Zoom' => 'CompoBannerBundle:Block:zoom.html.twig',
-                            'Менеджеры' => 'CompoBannerBundle:Block:managers.html.twig'
+                            'Менеджеры' => 'CompoBannerBundle:Block:managers.html.twig',
                         ),
-                        'label' => 'Шаблон'
+                        'label' => 'Шаблон',
                     )),
                 ),
             )
@@ -91,7 +91,7 @@ class BannerBlockService extends AbstractBlockService
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getCacheKeys(BlockInterface $block)
     {
@@ -118,8 +118,6 @@ class BannerBlockService extends AbstractBlockService
                 $keys['block_id'] = $key;
                 $keys['updated_at'] = $item->getUpdatedAt()->format('U');
             }
-
-
         }
 
         return $keys;

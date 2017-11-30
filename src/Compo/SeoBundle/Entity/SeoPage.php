@@ -17,8 +17,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * )
  * @ORM\Entity(repositoryClass="Compo\SeoBundle\Repository\SeoPageRepository")
- *
- *
  */
 class SeoPage
 {
@@ -187,6 +185,6 @@ class SeoPage
      */
     public function __toString()
     {
-        return (string)$this->context;
+        return (string) $this->context;
     }
 }

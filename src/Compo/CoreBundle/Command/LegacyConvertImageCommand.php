@@ -9,11 +9,10 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class LegacyConvertImageCommand extends ContainerAwareCommand
 {
-
     /**
      * {@inheritdoc}
      */
@@ -47,7 +46,6 @@ class LegacyConvertImageCommand extends ContainerAwareCommand
                 'Dry-run',
                 false
             );
-
     }
 
     /**
@@ -67,7 +65,7 @@ class LegacyConvertImageCommand extends ContainerAwareCommand
 
         $cache_dir = $kernel->getCacheDir();
 
-        if (strpos($path, 'http') === false) {
+        if (false === strpos($path, 'http')) {
             $file_path = $path;
 
             if (!file_exists($file_path)) {
@@ -78,7 +76,7 @@ class LegacyConvertImageCommand extends ContainerAwareCommand
 
             copy($path, $file_path);
 
-            if ($http_response_header[0] !== 'HTTP/1.1 200 OK') {
+            if ('HTTP/1.1 200 OK' !== $http_response_header[0]) {
                 throw new \Exception('Path not found: ' . $path);
             }
         }

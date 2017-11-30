@@ -5,9 +5,8 @@ namespace Compo\ContactsBundle\Controller;
 use Sonata\AdminBundle\Controller\CRUDController;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class ContactsAdminController extends CRUDController
 {
-
 }

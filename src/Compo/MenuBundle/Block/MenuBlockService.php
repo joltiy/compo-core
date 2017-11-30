@@ -71,13 +71,13 @@ class MenuBlockService extends AbstractBlockService
     /**
      * @param $menu MenuItem
      * @param $nodesList
+     *
      * @return array
      */
     public function renderMenu($menu, $nodesList)
     {
         foreach ($nodesList as $key => $item) {
             /** @var \Compo\MenuBundle\Entity\MenuItem $nodeItem */
-
             $nodeItem = $item['node'];
 
             if (!$nodeItem->getEnabled()) {
@@ -85,7 +85,7 @@ class MenuBlockService extends AbstractBlockService
                 continue;
             }
 
-            if ($item['type'] === 'catalog') {
+            if ('catalog' === $item['type']) {
                 if (!$nodeItem->getCatalog()) {
                     continue;
                 }
@@ -93,11 +93,9 @@ class MenuBlockService extends AbstractBlockService
                 $catalogManager = $this->getContainer()->get('compo_catalog.manager.catalog');
 
                 $item['url'] = $catalogManager->getCatalogShowPermalink($nodeItem->getCatalog());
-
-            } elseif ($item['type'] === 'page') {
+            } elseif ('page' === $item['type']) {
                 $item['url'] = $this->getContainer()->get('router')->generate('page_slug', array('path' => $nodeItem->getPage()->getUrl()));
-            } elseif ($item['type'] === 'tagging') {
-
+            } elseif ('tagging' === $item['type']) {
                 if ($nodeItem->getTagging()) {
                     $catalogManager = $this->getContainer()->get('compo_catalog.manager.catalog');
 
@@ -113,9 +111,7 @@ class MenuBlockService extends AbstractBlockService
 
                     $item['products_count'] = $filter['products_count'];
                 }
-
-            } elseif ($item['type'] === 'manufacture') {
-
+            } elseif ('manufacture' === $item['type']) {
                 if ($nodeItem->getManufacture()) {
                     $manufactureManager = $this->getContainer()->get('compo_manufacture.manager.manufacture');
 
@@ -123,12 +119,8 @@ class MenuBlockService extends AbstractBlockService
 
                     $item['manufacture'] = $nodeItem->getManufacture();
                 }
-
-
-            } elseif ($item['type'] === 'country') {
-
+            } elseif ('country' === $item['type']) {
                 if ($nodeItem->getCountry()) {
-
                     $router = $this->getContainer()->get('router');
 
                     $item['url'] = $router->generate(
@@ -136,9 +128,9 @@ class MenuBlockService extends AbstractBlockService
                         array(
                             'country' => array(
                                 'items' => array(
-                                    $nodeItem->getCountry()->getId() => $nodeItem->getCountry()->getId()
-                                )
-                            )
+                                    $nodeItem->getCountry()->getId() => $nodeItem->getCountry()->getId(),
+                                ),
+                            ),
                         )
                     );
 
@@ -165,8 +157,7 @@ class MenuBlockService extends AbstractBlockService
                 // URL's completely match
                 $node->setCurrent(true);
             } else {
-
-                if ($item['url']&& $item['url'] !== $this->getRequest()->getBaseUrl() . '/' && (0 === strpos($this->getRequest()->getRequestUri(), $item['url']))) {
+                if ($item['url'] && $item['url'] !== $this->getRequest()->getBaseUrl() . '/' && (0 === strpos($this->getRequest()->getRequestUri(), $item['url']))) {
                     // URL isn't just "/" and the first container of the URL match
                     $node->setCurrent(true);
                 }
@@ -231,7 +222,7 @@ class MenuBlockService extends AbstractBlockService
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getCacheKeys(BlockInterface $block)
     {
@@ -259,8 +250,6 @@ class MenuBlockService extends AbstractBlockService
                 $keys['block_id'] = $key;
                 $keys['updated_at'] = $item->getUpdatedAt()->format('U');
             }
-
-
         }
 
         return $keys;

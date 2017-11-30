@@ -35,15 +35,15 @@ class FaqBreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
                     'uri' => $router->generate('compo_faq_index'),
                     'label' => 'breadcrumb.faq',
                     'extras' => array(
-                        'translation_domain' => 'CompoFaqBundle'
-                    )
+                        'translation_domain' => 'CompoFaqBundle',
+                    ),
                 )
             );
 
             $menu->addChild(
                 $article->getSlug(),
                 array(
-                    'label' => $article->getName()
+                    'label' => $article->getName(),
                 )
             );
         } else {
@@ -52,8 +52,8 @@ class FaqBreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
                 array(
                     'label' => 'breadcrumb.faq',
                     'extras' => array(
-                        'translation_domain' => 'CompoFaqBundle'
-                    )
+                        'translation_domain' => 'CompoFaqBundle',
+                    ),
                 )
             );
         }

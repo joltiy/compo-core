@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: jivoy1988
  * Date: 17.11.16
- * Time: 5:49
+ * Time: 5:49.
  */
 
 namespace Compo\Sonata\MediaBundle\Admin;
-
 
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -15,8 +14,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\MediaBundle\Form\DataTransformer\ProviderDataTransformer;
 
 /**
- * Class MediaAdmin
- * @package Compo\Sonata\MediaBundle\Admin
+ * Class MediaAdmin.
  */
 class MediaAdmin extends \Sonata\MediaBundle\Admin\ORM\MediaAdmin
 {
@@ -43,7 +41,7 @@ class MediaAdmin extends \Sonata\MediaBundle\Admin\ORM\MediaAdmin
 
         $providers = array();
 
-        $providerNames = (array)$this->pool->getProviderNamesByContext($this->getPersistentParameter('context', $this->pool->getDefaultContext()));
+        $providerNames = (array) $this->pool->getProviderNamesByContext($this->getPersistentParameter('context', $this->pool->getDefaultContext()));
         foreach ($providerNames as $name) {
             $providers[$name] = $name;
         }
@@ -102,7 +100,5 @@ class MediaAdmin extends \Sonata\MediaBundle\Admin\ORM\MediaAdmin
         } else {
             $provider->buildCreateForm($formMapper);
         }
-
-
     }
 }

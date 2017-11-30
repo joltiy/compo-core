@@ -11,11 +11,10 @@ use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class AdminSettingsSchema extends BaseBundleAdminSettingsSchema
 {
@@ -29,18 +28,21 @@ class AdminSettingsSchema extends BaseBundleAdminSettingsSchema
             )
         );
     }
+
     /**
      * @return array
+     *
      * @throws \Exception
      */
     public function getDefaultOptions()
     {
         return array(
-            'action' => $this->getContainer()->get('router')->generate(  'compo_core_update') . '?',
+            'action' => $this->getContainer()->get('router')->generate('compo_core_update') . '?',
             'label_format' => 'form.label_settings_%name%',
             'translation_domain' => $this->getTranslationDomain(),
         );
     }
+
     /**
      * @param SettingsBuilderInterface $builder
      */
@@ -57,7 +59,7 @@ class AdminSettingsSchema extends BaseBundleAdminSettingsSchema
      */
     public function getDefaultSettings()
     {
-        $options = [
+        $options = array(
             'email' => 'info@example.com',
             'header_menu' => null,
 
@@ -86,7 +88,7 @@ class AdminSettingsSchema extends BaseBundleAdminSettingsSchema
 </div>',
 
             'logo_image' => null,
-        ];
+        );
 
         return $options;
     }
@@ -121,14 +123,13 @@ class AdminSettingsSchema extends BaseBundleAdminSettingsSchema
             'header_menu',
             ChoiceType::class,
             array(
-                'choices' => $this->getMenuRepository()->getChoices()
+                'choices' => $this->getMenuRepository()->getChoices(),
             )
         );
 
         $header_tab->add('header_phones', CKEditorType::class);
         $header_tab->add('header_timework', CKEditorType::class);
         $header_tab->add('header_timework_description', CKEditorType::class);
-
 
         $footer_tab = $builder->create(
             'footer_tab',
@@ -143,14 +144,13 @@ class AdminSettingsSchema extends BaseBundleAdminSettingsSchema
             'footer_menu',
             ChoiceType::class,
             array(
-                'choices' => $this->getMenuRepository()->getChoices()
+                'choices' => $this->getMenuRepository()->getChoices(),
             )
         );
 
         $footer_tab->add('footer_copyright', CKEditorType::class);
         $footer_tab->add('footer_address', CKEditorType::class);
         $footer_tab->add('footer_phones', CKEditorType::class);
-
 
         $logo_tab = $builder->create(
             'logo_tab',
@@ -200,16 +200,15 @@ class AdminSettingsSchema extends BaseBundleAdminSettingsSchema
                 } else {
                     return null;
                 }
-
             }
         );
-
 
         $logo_tab->get('logo_image')->addModelTransformer($media_transformer);
     }
 
     /**
      * @return MenuRepository
+     *
      * @throws \Exception
      */
     public function getMenuRepository()
@@ -219,6 +218,7 @@ class AdminSettingsSchema extends BaseBundleAdminSettingsSchema
 
     /**
      * @return \Doctrine\Bundle\DoctrineBundle\Registry|object
+     *
      * @throws \Exception
      */
     public function getDoctrine()

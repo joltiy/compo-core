@@ -6,26 +6,26 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Process\Process;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class LegacyConvertAllImagesCommand extends BaseLegacyConvertCommand
 {
     /**
-     * Путь к файлам старой БД
+     * Путь к файлам старой БД.
      *
      * @var string
      */
     public $oldMediaPath = '/home/compodev24/www/keram/old/dbpics/';
 
     /**
-     * Изображения из старой БД
+     * Изображения из старой БД.
      *
      * @var array
      */
     public $dbpics = array();
 
     /**
-     * Изображения из текущей БД
+     * Изображения из текущей БД.
      *
      * @var array
      */
@@ -48,7 +48,7 @@ class LegacyConvertAllImagesCommand extends BaseLegacyConvertCommand
     }
 
     /**
-     * Процесс конвертации изображений
+     * Процесс конвертации изображений.
      */
     public function startProcess()
     {
@@ -65,7 +65,7 @@ class LegacyConvertAllImagesCommand extends BaseLegacyConvertCommand
     }
 
     /**
-     * Загрузка старых изображений
+     * Загрузка старых изображений.
      */
     public function loadDbPics()
     {
@@ -81,7 +81,7 @@ class LegacyConvertAllImagesCommand extends BaseLegacyConvertCommand
     }
 
     /**
-     * Загрузить текущие изображения
+     * Загрузить текущие изображения.
      */
     public function loadMediaIsset()
     {
@@ -99,7 +99,7 @@ class LegacyConvertAllImagesCommand extends BaseLegacyConvertCommand
     }
 
     /**
-     * Загрузка и конвертация изображений
+     * Загрузка и конвертация изображений.
      */
     public function processMediaLoad()
     {
@@ -114,7 +114,6 @@ class LegacyConvertAllImagesCommand extends BaseLegacyConvertCommand
         foreach ($this->dbpics as $id => $item_data) {
             $media_key = $item_data['id'] . '.' . $item_data['type'];
 
-
             $mediaIsset = isset($this->mediaIsset[$media_key]);
 
             if ($mediaIsset && !$this->isDrop()) {
@@ -122,15 +121,13 @@ class LegacyConvertAllImagesCommand extends BaseLegacyConvertCommand
 
                 $this->getIo()->progressAdvance();
             } else {
-
                 if ($mediaIsset) {
                     $this->dbpics[$id]['media_id'] = $this->mediaIsset[$media_key];
 
-                    $command = $console . ' compo:legacy:convert:image --dry-run=' . (int)$this->isDryRun() . ' --name=' . $media_key . ' --path=' . $this->getOldMediaPath() . $media_key . ' --id=' . $this->dbpics[$id]['media_id'];
+                    $command = $console . ' compo:legacy:convert:image --dry-run=' . (int) $this->isDryRun() . ' --name=' . $media_key . ' --path=' . $this->getOldMediaPath() . $media_key . ' --id=' . $this->dbpics[$id]['media_id'];
                 } else {
-                    $command = $console . ' compo:legacy:convert:image --dry-run=' . (int)$this->isDryRun() . ' --name=' . $media_key . ' --path=' . $this->getOldMediaPath() . $media_key;
+                    $command = $console . ' compo:legacy:convert:image --dry-run=' . (int) $this->isDryRun() . ' --name=' . $media_key . ' --path=' . $this->getOldMediaPath() . $media_key;
                 }
-
 
                 $process = new Process($command);
 
@@ -143,7 +140,6 @@ class LegacyConvertAllImagesCommand extends BaseLegacyConvertCommand
         $queue_running = array();
 
         while (count($queue) > 0) {
-
             while (count($queue_running) < $this->getThread()) {
                 /** @var Process $queue_item */
                 $queue_item = array_shift($queue);
@@ -195,7 +191,7 @@ class LegacyConvertAllImagesCommand extends BaseLegacyConvertCommand
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configure()
     {

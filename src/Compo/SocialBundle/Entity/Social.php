@@ -6,7 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Social
+ * Social.
+ *
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ORM\Table(
  *     indexes={
@@ -29,7 +30,7 @@ class Social
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
     /**
-     * Описание
+     * Описание.
      *
      * @var string
      * @ORM\Column(type="text", nullable=true)
@@ -37,7 +38,7 @@ class Social
     protected $url;
 
     /**
-     * Описание
+     * Описание.
      *
      * @var string
      * @ORM\Column(type="text", nullable=true)

@@ -7,9 +7,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 /**
- * Class SettingsAdmin
- *
- * @package Compo\CoreBundle\Admin
+ * Class SettingsAdmin.
  */
 class BaseSettingsAdmin extends AbstractAdmin
 {
@@ -76,10 +74,10 @@ class BaseSettingsAdmin extends AbstractAdmin
         $collection->add(
             'list',
             'settings',
-            [
+            array(
                 '_controller' => 'Sylius\Bundle\SettingsBundle\Controller\SettingsController::updateAction',
-                'namespace' => $this->getNamespase()
-            ]
+                'namespace' => $this->getNamespase(),
+            )
         );
     }
 

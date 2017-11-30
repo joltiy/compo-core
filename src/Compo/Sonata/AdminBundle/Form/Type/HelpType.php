@@ -9,15 +9,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class HelpType extends AbstractType
 {
     use ContainerAwareTrait;
 
-
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
@@ -25,27 +24,24 @@ class HelpType extends AbstractType
             array(
                 'mapped' => false,
                 'template' => '',
-                'required' => false
+                'required' => false,
             )
         );
     }
 
-
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
         $builder->addModelTransformer(
             new CallbackTransformer(
                 function ($value) use ($options) {
-
                     if (isset($options['template']) && $options['template']) {
                         $value = $options['template'];
                     }
 
-                    if (strpos($value, 'Compo') === 0) {
+                    if (0 === strpos($value, 'Compo')) {
                         return $this->getContainer()->get('twig')->render($options['template']);
                     }
 

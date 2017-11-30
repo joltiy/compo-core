@@ -7,13 +7,12 @@ use JMS\Serializer\Annotation as JMS;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Trait NameEntityTrait
- * @package Compo\Sonata\AdminBundle\Entity
+ * Trait NameEntityTrait.
  */
 trait NameEntityTrait
 {
     /**
-     * Название
+     * Название.
      *
      * @var string
      *

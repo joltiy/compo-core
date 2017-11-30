@@ -56,7 +56,7 @@ class JobRepository extends EntityRepository
 
     public function findJob($command, array $args = array())
     {
-        return $this->_em->createQuery("SELECT j FROM JMSJobQueueBundle:Job j WHERE j.command = :command AND j.args = :args")
+        return $this->_em->createQuery('SELECT j FROM JMSJobQueueBundle:Job j WHERE j.command = :command AND j.args = :args')
             ->setParameter('command', $command)
             ->setParameter('args', $args, Type::JSON_ARRAY)
             ->setMaxResults(1)
@@ -82,7 +82,7 @@ class JobRepository extends EntityRepository
         $this->_em->persist($job);
         $this->_em->flush($job);
 
-        $firstJob = $this->_em->createQuery("SELECT j FROM JMSJobQueueBundle:Job j WHERE j.command = :command AND j.args = :args ORDER BY j.id ASC")
+        $firstJob = $this->_em->createQuery('SELECT j FROM JMSJobQueueBundle:Job j WHERE j.command = :command AND j.args = :args ORDER BY j.id ASC')
             ->setParameter('command', $command)
             ->setParameter('args', $args, 'json_array')
             ->setMaxResults(1)
@@ -123,7 +123,7 @@ class JobRepository extends EntityRepository
     private function acquireLock($workerName, Job $job)
     {
         $affectedRows = $this->_em->getConnection()->executeUpdate(
-            "UPDATE jms_jobs SET workerName = :worker WHERE id = :id AND workerName IS NULL",
+            'UPDATE jms_jobs SET workerName = :worker WHERE id = :id AND workerName IS NULL',
             array(
                 'worker' => $workerName,
                 'id' => $job->getId(),
@@ -146,7 +146,7 @@ class JobRepository extends EntityRepository
         $rsm = new ResultSetMappingBuilder($this->_em);
         $rsm->addRootEntityFromClassMetadata('JMSJobQueueBundle:Job', 'j');
 
-        return $this->_em->createNativeQuery("SELECT j.* FROM jms_jobs j INNER JOIN jms_job_related_entities r ON r.job_id = j.id WHERE r.related_class = :relClass AND r.related_id = :relId", $rsm)
+        return $this->_em->createNativeQuery('SELECT j.* FROM jms_jobs j INNER JOIN jms_job_related_entities r ON r.job_id = j.id WHERE r.related_class = :relClass AND r.related_id = :relId', $rsm)
             ->setParameter('relClass', $relClass)
             ->setParameter('relId', $relId)
             ->getResult();
@@ -159,7 +159,7 @@ class JobRepository extends EntityRepository
         $rsm = new ResultSetMappingBuilder($this->_em);
         $rsm->addRootEntityFromClassMetadata('JMSJobQueueBundle:Job', 'j');
 
-        return $this->_em->createNativeQuery("SELECT j.* FROM jms_jobs j INNER JOIN jms_job_related_entities r ON r.job_id = j.id WHERE r.related_class = :relClass AND r.related_id = :relId", $rsm)
+        return $this->_em->createNativeQuery('SELECT j.* FROM jms_jobs j INNER JOIN jms_job_related_entities r ON r.job_id = j.id WHERE r.related_class = :relClass AND r.related_id = :relId', $rsm)
             ->setParameter('relClass', $relClass)
             ->setParameter('relId', $relId)
             ->getResult();
@@ -177,18 +177,18 @@ class JobRepository extends EntityRepository
         $rsm = new ResultSetMappingBuilder($this->_em);
         $rsm->addRootEntityFromClassMetadata('JMSJobQueueBundle:Job', 'j');
 
-        $sql = "SELECT j.* FROM jms_jobs j INNER JOIN jms_job_related_entities r ON r.job_id = j.id WHERE r.related_class = :relClass AND r.related_id = :relId AND j.command = :command";
+        $sql = 'SELECT j.* FROM jms_jobs j INNER JOIN jms_job_related_entities r ON r.job_id = j.id WHERE r.related_class = :relClass AND r.related_id = :relId AND j.command = :command';
         $params = new ArrayCollection();
         $params->add(new Parameter('command', $command));
         $params->add(new Parameter('relClass', $relClass));
         $params->add(new Parameter('relId', $relId));
 
-        if ( ! empty($states)) {
-            $sql .= " AND j.state IN (:states)";
+        if (!empty($states)) {
+            $sql .= ' AND j.state IN (:states)';
             $params->add(new Parameter('states', $states, Connection::PARAM_STR_ARRAY));
         }
 
-        $sql .= " LIMIT 0,1";
+        $sql .= ' LIMIT 0,1';
 
         return $this->_em->createNativeQuery($sql, $rsm)
             ->setParameters($params)
@@ -202,18 +202,18 @@ class JobRepository extends EntityRepository
         $rsm = new ResultSetMappingBuilder($this->_em);
         $rsm->addRootEntityFromClassMetadata('JMSJobQueueBundle:Job', 'j');
 
-        $sql = "SELECT j.* FROM jms_jobs j INNER JOIN jms_job_related_entities r ON r.job_id = j.id WHERE r.related_class = :relClass AND r.related_id = :relId AND j.command = :command";
+        $sql = 'SELECT j.* FROM jms_jobs j INNER JOIN jms_job_related_entities r ON r.job_id = j.id WHERE r.related_class = :relClass AND r.related_id = :relId AND j.command = :command';
         $params = new ArrayCollection();
         $params->add(new Parameter('command', $command));
         $params->add(new Parameter('relClass', $relClass));
         $params->add(new Parameter('relId', $relId));
 
-        if ( ! empty($states)) {
-            $sql .= " AND j.state IN (:states)";
+        if (!empty($states)) {
+            $sql .= ' AND j.state IN (:states)';
             $params->add(new Parameter('states', $states, Connection::PARAM_STR_ARRAY));
         }
 
-        $sql .= " ORDER BY j.id DESC LIMIT 0,1";
+        $sql .= ' ORDER BY j.id DESC LIMIT 0,1';
 
         return $this->_em->createNativeQuery($sql, $rsm)
             ->setParameters($params)
@@ -233,7 +233,7 @@ class JobRepository extends EntityRepository
             ->getMetadataFor($relClass)->getIdentifierValues($entity);
         asort($relId);
 
-        if ( ! $relId) {
+        if (!$relId) {
             throw new \InvalidArgumentException(sprintf('The identifier for entity of class "%s" was empty.', $relClass));
         }
 
@@ -257,17 +257,17 @@ class JobRepository extends EntityRepository
         $conditions[] = $qb->expr()->eq('j.state', ':state');
         $qb->setParameter('state', Job::STATE_PENDING);
 
-        if ( ! empty($excludedIds)) {
+        if (!empty($excludedIds)) {
             $conditions[] = $qb->expr()->notIn('j.id', ':excludedIds');
             $qb->setParameter('excludedIds', $excludedIds, Connection::PARAM_INT_ARRAY);
         }
 
-        if ( ! empty($excludedQueues)) {
+        if (!empty($excludedQueues)) {
             $conditions[] = $qb->expr()->notIn('j.queue', ':excludedQueues');
             $qb->setParameter('excludedQueues', $excludedQueues, Connection::PARAM_STR_ARRAY);
         }
 
-        if ( ! empty($restrictedQueues)) {
+        if (!empty($restrictedQueues)) {
             $conditions[] = $qb->expr()->in('j.queue', ':restrictedQueues');
             $qb->setParameter('restrictedQueues', $restrictedQueues, Connection::PARAM_STR_ARRAY);
         }
@@ -290,7 +290,7 @@ class JobRepository extends EntityRepository
             foreach ($visited as $job) {
                 // If the job is an original job which is now being retried, let's
                 // not remove it just yet.
-                if ( ! $job->isClosedNonSuccessful() || $job->isRetryJob()) {
+                if (!$job->isClosedNonSuccessful() || $job->isRetryJob()) {
                     continue;
                 }
 
@@ -354,7 +354,7 @@ class JobRepository extends EntityRepository
                     $retryJob = new Job($job->getCommand(), $job->getArgs(), true, $job->getQueue(), $job->getPriority());
                     $retryJob->setMaxRuntime($job->getMaxRuntime());
 
-                    if ($this->retryScheduler === null) {
+                    if (null === $this->retryScheduler) {
                         $this->retryScheduler = new ExponentialRetryScheduler(5);
                     }
 
@@ -373,7 +373,7 @@ class JobRepository extends EntityRepository
                 // The original job has failed, and no retries are allowed.
                 foreach ($this->findIncomingDependencies($job) as $dep) {
                     // This is a safe-guard to avoid blowing up if there is a database inconsistency.
-                    if ( ! $dep->isPending() && ! $dep->isNew()) {
+                    if (!$dep->isPending() && !$dep->isNew()) {
                         continue;
                     }
 
@@ -407,7 +407,7 @@ class JobRepository extends EntityRepository
             return array();
         }
 
-        return $this->_em->createQuery("SELECT j, d FROM JMSJobQueueBundle:Job j LEFT JOIN j.dependencies d WHERE j.id IN (:ids)")
+        return $this->_em->createQuery('SELECT j, d FROM JMSJobQueueBundle:Job j LEFT JOIN j.dependencies d WHERE j.id IN (:ids)')
             ->setParameter('ids', $jobIds)
             ->getResult();
     }
@@ -422,7 +422,7 @@ class JobRepository extends EntityRepository
             return array();
         }
 
-        return $this->_em->createQuery("SELECT j FROM JMSJobQueueBundle:Job j WHERE j.id IN (:ids)")
+        return $this->_em->createQuery('SELECT j FROM JMSJobQueueBundle:Job j WHERE j.id IN (:ids)')
             ->setParameter('ids', $jobIds)
             ->getResult();
     }
@@ -430,7 +430,7 @@ class JobRepository extends EntityRepository
     private function getJobIdsOfIncomingDependencies(Job $job)
     {
         $jobIds = $this->_em->getConnection()
-            ->executeQuery("SELECT source_job_id FROM jms_job_dependencies WHERE dest_job_id = :id", array('id' => $job->getId()))
+            ->executeQuery('SELECT source_job_id FROM jms_job_dependencies WHERE dest_job_id = :id', array('id' => $job->getId()))
             ->fetchAll(\PDO::FETCH_COLUMN);
 
         return $jobIds;
@@ -438,7 +438,7 @@ class JobRepository extends EntityRepository
 
     public function findLastJobsWithError($nbJobs = 10)
     {
-        return $this->_em->createQuery("SELECT j FROM JMSJobQueueBundle:Job j WHERE j.state IN (:errorStates) AND j.originalJob IS NULL ORDER BY j.closedAt DESC")
+        return $this->_em->createQuery('SELECT j FROM JMSJobQueueBundle:Job j WHERE j.state IN (:errorStates) AND j.originalJob IS NULL ORDER BY j.closedAt DESC')
             ->setParameter('errorStates', array(Job::STATE_TERMINATED, Job::STATE_FAILED))
             ->setMaxResults($nbJobs)
             ->getResult();
@@ -446,13 +446,13 @@ class JobRepository extends EntityRepository
 
     public function getAvailableQueueList()
     {
-        $queues =  $this->_em->createQuery("SELECT DISTINCT j.queue FROM JMSJobQueueBundle:Job j WHERE j.state IN (:availableStates)  GROUP BY j.queue")
+        $queues = $this->_em->createQuery('SELECT DISTINCT j.queue FROM JMSJobQueueBundle:Job j WHERE j.state IN (:availableStates)  GROUP BY j.queue')
             ->setParameter('availableStates', array(Job::STATE_RUNNING, Job::STATE_NEW, Job::STATE_PENDING))
             ->getResult();
 
         $newQueueArray = array();
 
-        foreach($queues as $queue) {
+        foreach ($queues as $queue) {
             $newQueue = $queue['queue'];
             $newQueueArray[] = $newQueue;
         }
@@ -460,10 +460,9 @@ class JobRepository extends EntityRepository
         return $newQueueArray;
     }
 
-
     public function getAvailableJobsForQueueCount($jobQueue)
     {
-        $result = $this->_em->createQuery("SELECT j.queue FROM JMSJobQueueBundle:Job j WHERE j.state IN (:availableStates) AND j.queue = :queue")
+        $result = $this->_em->createQuery('SELECT j.queue FROM JMSJobQueueBundle:Job j WHERE j.state IN (:availableStates) AND j.queue = :queue')
             ->setParameter('availableStates', array(Job::STATE_RUNNING, Job::STATE_NEW, Job::STATE_PENDING))
             ->setParameter('queue', $jobQueue)
             ->setMaxResults(1)

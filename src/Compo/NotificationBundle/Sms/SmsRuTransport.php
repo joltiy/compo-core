@@ -3,8 +3,7 @@
 namespace Compo\NotificationBundle\Sms;
 
 /**
- * Class SmsRuTransport
- * @package Compo\NotificationBundle\Sms
+ * Class SmsRuTransport.
  */
 class SmsRuTransport
 {
@@ -34,9 +33,9 @@ class SmsRuTransport
             $to[0] = 7;
 
             file_get_contents(
-                'http://sms.ru/sms/send?from='.urlencode(
+                'http://sms.ru/sms/send?from=' . urlencode(
                     $this->sender
-                ).'&login='.$this->username.'&password='.$this->password.'&to='.$to.'&text='.urlencode($body)
+                ) . '&login=' . $this->username . '&password=' . $this->password . '&to=' . $to . '&text=' . urlencode($body)
             );
             ///$response = file_get_contents("http://sms.ru/sms/send?login=".$this->user."&password=".$this->pass."&to=".$to."&text=".urlencode($text));
             //var_dump($response);
@@ -90,6 +89,4 @@ class SmsRuTransport
     {
         $this->sender = $sender;
     }
-
 }
-

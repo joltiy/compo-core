@@ -7,12 +7,12 @@ use Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use Sonata\AdminBundle\Admin\AdminInterface;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class TabMenuExtension extends AbstractAdminExtension
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configureTabMenu(AdminInterface $admin, MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
     {

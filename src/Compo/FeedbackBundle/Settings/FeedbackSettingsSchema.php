@@ -3,24 +3,23 @@
 namespace Compo\FeedbackBundle\Settings;
 
 use Compo\CoreBundle\Settings\BaseBundleAdminSettingsSchema;
-use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class FeedbackSettingsSchema extends BaseBundleAdminSettingsSchema
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
-    public function getDefaultSettings() {
-        return [
-        ];
+    public function getDefaultSettings()
+    {
+        return array(
+        );
     }
-    
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function buildFormSettings()
     {

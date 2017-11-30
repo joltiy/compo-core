@@ -11,12 +11,12 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\CoreBundle\Form\Type\ColorType;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class FeedbackTagAdmin extends AbstractAdmin
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configure()
     {
@@ -47,7 +47,7 @@ class FeedbackTagAdmin extends AbstractAdmin
                 null,
                 array(
                     'editable' => true,
-                    'required' => true
+                    'required' => true,
                 )
             )
             ->add(
@@ -57,7 +57,7 @@ class FeedbackTagAdmin extends AbstractAdmin
                     'actions' => array(
                         'edit' => array(),
                         'delete' => array(),
-                    )
+                    ),
                 )
             );
     }
@@ -69,7 +69,7 @@ class FeedbackTagAdmin extends AbstractAdmin
     {
         $formMapper->tab('main');
         $formMapper->with('main', array('name' => false, 'class' => ''));
-        
+
         $formMapper
             ->add('enabled')
             ->add('name')

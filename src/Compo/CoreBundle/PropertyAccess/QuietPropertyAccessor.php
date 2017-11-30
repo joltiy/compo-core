@@ -5,12 +5,12 @@ namespace Compo\CoreBundle\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class QuietPropertyAccessor extends PropertyAccessor
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getValue($objectOrArray, $propertyPath)
     {

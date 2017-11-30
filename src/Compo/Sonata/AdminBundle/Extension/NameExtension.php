@@ -6,23 +6,22 @@ use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
-use Sonata\AdminBundle\Datagrid\ListMapper;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class NameExtension extends AbstractAdminExtension
 {
     use ContainerAwareTrait;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         if (!$this->isUseEntityTraits($datagridMapper->getAdmin(), array(
             'Compo\Sonata\AdminBundle\Entity\NameEntityTrait',
-        ) )) {
+        ))) {
             return;
         }
 
@@ -33,8 +32,7 @@ class NameExtension extends AbstractAdminExtension
 
     public function prePersist(AdminInterface $admin, $object)
     {
-        $admin->getModelManager()->getEntityManager($object)->getFilters()->disable("softdeleteable");
-
+        $admin->getModelManager()->getEntityManager($object)->getFilters()->disable('softdeleteable');
     }
 
     /**
@@ -42,7 +40,6 @@ class NameExtension extends AbstractAdminExtension
      */
     public function postPersist(AdminInterface $admin, $object)
     {
-        $admin->getModelManager()->getEntityManager($object)->getFilters()->enable("softdeleteable");
-
+        $admin->getModelManager()->getEntityManager($object)->getFilters()->enable('softdeleteable');
     }
 }

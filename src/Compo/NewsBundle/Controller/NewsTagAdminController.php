@@ -5,9 +5,8 @@ namespace Compo\NewsBundle\Controller;
 use Compo\Sonata\AdminBundle\Controller\CRUDController;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class NewsTagAdminController extends CRUDController
 {
-
 }

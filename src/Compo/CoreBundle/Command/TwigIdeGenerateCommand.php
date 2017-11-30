@@ -53,7 +53,7 @@ class TwigIdeGenerateCommand extends ContainerAwareCommand
         }
 
         $ideTwig = array(
-            'namespaces' => $ideTwigItems
+            'namespaces' => $ideTwigItems,
         );
 
         $fs = new Filesystem();

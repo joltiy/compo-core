@@ -10,12 +10,12 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class NotificationEmailAccountAdmin extends AbstractAdmin
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configure()
     {
@@ -24,7 +24,7 @@ class NotificationEmailAccountAdmin extends AbstractAdmin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
@@ -41,7 +41,7 @@ class NotificationEmailAccountAdmin extends AbstractAdmin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configureListFields(ListMapper $listMapper)
     {
@@ -53,17 +53,17 @@ class NotificationEmailAccountAdmin extends AbstractAdmin
             ->add(
                 '_action',
                 null,
-                [
-                    'actions' => [
-                        'edit' => [],
-                        'delete' => [],
-                    ],
-                ]
+                array(
+                    'actions' => array(
+                        'edit' => array(),
+                        'delete' => array(),
+                    ),
+                )
             );
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -71,16 +71,16 @@ class NotificationEmailAccountAdmin extends AbstractAdmin
 
         $formMapper
             ->tab('main')
-            ->with('main', ['name' => false, 'class' => 'col-lg-12'])
+            ->with('main', array('name' => false, 'class' => 'col-lg-12'))
             ->add('id')
             ->add('name')
-            ->add('description', CKEditorType::class, ['attr' => ['class' => ''], 'required' => false])
+            ->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false))
             ->add(
                 'transport',
                 'choice',
-                [
+                array(
                     'choices' => $notificationManager->getEmailTransport(),
-                ]
+                )
             )
             ->add('username')
             ->add('password')
@@ -89,16 +89,16 @@ class NotificationEmailAccountAdmin extends AbstractAdmin
             ->add(
                 'encryption',
                 'choice',
-                [
+                array(
                     'choices' => $notificationManager->getEmailEncryption(),
-                ]
+                )
             )
             ->add(
                 'authMode',
                 'choice',
-                [
+                array(
                     'choices' => $notificationManager->getEmailAuthMode(),
-                ]
+                )
             )
             ->end()
             ->end();
@@ -113,7 +113,7 @@ class NotificationEmailAccountAdmin extends AbstractAdmin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configureShowFields(ShowMapper $showMapper)
     {

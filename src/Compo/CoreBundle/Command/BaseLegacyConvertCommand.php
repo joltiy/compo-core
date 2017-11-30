@@ -12,14 +12,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class BaseLegacyConvertCommand extends ContainerAwareCommand
 {
     use LockableTrait;
 
     /**
-     * @var  SymfonyStyle
+     * @var SymfonyStyle
      */
     public $io;
 
@@ -34,48 +34,47 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
     public $input;
 
     /**
-     * Подключение к старой БД
+     * Подключение к старой БД.
      *
      * @var \Doctrine\DBAL\Connection
      */
     public $oldConnection;
 
     /**
-     * Изображения
+     * Изображения.
      *
      * @var array
      */
     protected $media = array();
 
     /**
-     * Лимит для импорта
+     * Лимит для импорта.
      *
-     * @var integer
+     * @var int
      */
     protected $limit = 0;
 
     /**
-     * Выборка от строки
+     * Выборка от строки.
      *
-     * @var integer
+     * @var int
      */
     protected $from = 0;
 
     /**
-     * Потоки
+     * Потоки.
      *
-     * @var integer
+     * @var int
      */
     protected $thread = 10;
 
     /**
-     *
      * @var bool
      */
     protected $dryRun = false;
 
     /**
-     * Удалить старые данные
+     * Удалить старые данные.
      *
      * @var bool
      */
@@ -92,7 +91,7 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
     }
 
     /**
-     * Путь к директории проекта
+     * Путь к директории проекта.
      *
      * @return string
      */
@@ -117,9 +116,11 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
         $this->limit = $limit;
     }
 
-    public function getMediaManager() {
+    public function getMediaManager()
+    {
         return $this->getContainer()->get('sonata.media.manager.media');
     }
+
     /**
      * @return int
      */
@@ -218,6 +219,7 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
 
     /**
      * @param $id
+     *
      * @return null|Media
      */
     public function downloadMedia($id)
@@ -237,6 +239,7 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
 
     /**
      * @param $name
+     *
      * @return \Doctrine\Common\Persistence\ObjectRepository
      */
     public function getCurrentRepository($name)
@@ -246,6 +249,7 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
 
     /**
      * @param $currentRepository \Doctrine\Common\Persistence\ObjectRepository
+     *
      * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function clearCurrent($currentRepository)
@@ -257,7 +261,6 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
             $em = $this->getEntityManager();
 
             $em->getFilters()->disable('softdeleteable');
-
 
             $q = $em->createQuery('delete from ' . $currentRepository->getClassName() . ' m');
             $numDeleted = $q->execute();
@@ -304,18 +307,13 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
         $metadata->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());
     }
 
-    /**
-     *
-     */
     protected function processMedia()
     {
         $this->getIo()->section('Process Media. Load old');
 
         $db_pics = $this->getOldData('db_pics');
 
-
         foreach ($db_pics as $db_pic) {
-
             $this->media[$db_pic['id']] = $db_pic;
         }
 
@@ -330,7 +328,6 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
         $media = $this->getEntityManager()->getConnection()->fetchAll('SELECT * FROM `media__media` ORDER BY id ASC ');
         $this->getIo()->note('Count: ' . count($media));
 
-
         foreach ($media as $item) {
             $media_isset[$item['name']] = $item['id'];
         }
@@ -342,7 +339,6 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
         $this->getIo()->note('Process Media. Compare');
 
         foreach ($this->media as $id => $item_data) {
-
             $media_key = $item_data['id'] . '.' . $item_data['type'];
 
             $item = null;
@@ -353,7 +349,6 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
                 $this->media[$id]['media_id'] = false;
             }
         }
-
 
         $this->writelnMemory();
 
@@ -378,6 +373,7 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
 
     /**
      * @param $table
+     *
      * @return array
      */
     public function getOldData($table)
@@ -413,8 +409,6 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
         $this->oldConnection = $oldConnection;
     }
 
-    /**
-     */
     protected function writelnMemory()
     {
         $this->getIo()->writeln('');
@@ -428,10 +422,12 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
     {
         return $this->getContainer()->get('doctrine')->getManager();
     }
+
     public function getDoctrine()
     {
         return $this->getContainer()->get('doctrine');
     }
+
     /**
      * {@inheritdoc}
      */
@@ -507,7 +503,6 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
                 'Tables',
                 false
             );
-
     }
 
     /**
@@ -520,7 +515,6 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
         $this->setOutput($output);
 
         $io = $this->getIo();
-
 
         if (!$this->lock()) {
             $io->error('The command is already running in another process.');
@@ -543,28 +537,24 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
                 'host' => $input->getOption('host'),
                 'login' => $input->getOption('login'),
                 'password' => $input->getOption('password'),
-                'database' => $input->getOption('database')
+                'database' => $input->getOption('database'),
             )
         );
-
 
         $this->startProcess();
 
         $this->release();
     }
 
-    /**
-     *
-     */
     protected function startProcess()
     {
-
     }
 
     /**
-     * Создать подключение к старой БД
+     * Создать подключение к старой БД.
      *
      * @param array $config
+     *
      * @throws \Doctrine\DBAL\DBALException
      */
     public function createOldConnection(array $config = array())
@@ -587,6 +577,4 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
 
         $this->getIo()->success('Create old connection');
     }
-
-
 }
