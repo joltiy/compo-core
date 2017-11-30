@@ -33,11 +33,11 @@ class PathPackage extends BasePathPackage
     protected $pathResolver;
 
     /**
-     * @param string $basePath
+     * @param string                   $basePath
      * @param VersionStrategyInterface $versionStrategy
-     * @param ThemeContextInterface $themeContext
-     * @param PathResolverInterface $pathResolver
-     * @param ContextInterface|null $context
+     * @param ThemeContextInterface    $themeContext
+     * @param PathResolverInterface    $pathResolver
+     * @param ContextInterface|null    $context
      */
     public function __construct(
         $basePath,
@@ -66,6 +66,6 @@ class PathPackage extends BasePathPackage
             $path = $this->pathResolver->resolve($path, $theme);
         }
 
-        return $this->getBasePath().ltrim($this->getVersionStrategy()->applyVersion($path), '/');
+        return $this->getBasePath() . ltrim($this->getVersionStrategy()->applyVersion($path), '/');
     }
 }

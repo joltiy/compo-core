@@ -22,7 +22,7 @@ interface TemplateLocatorInterface
 {
     /**
      * @param TemplateReferenceInterface $template
-     * @param ThemeInterface $theme
+     * @param ThemeInterface             $theme
      *
      * @return string
      *

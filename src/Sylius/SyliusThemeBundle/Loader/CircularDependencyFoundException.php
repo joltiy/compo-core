@@ -20,7 +20,7 @@ final class CircularDependencyFoundException extends \DomainException
 {
     /**
      * @param ThemeInterface[] $themes
-     * @param \Exception $previous
+     * @param \Exception       $previous
      */
     public function __construct(array $themes, \Exception $previous = null)
     {

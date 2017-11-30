@@ -23,22 +23,22 @@ use Symfony\Component\Filesystem\Filesystem;
  */
 final class ApplicationResourceLocatorSpec extends ObjectBehavior
 {
-    function let(Filesystem $filesystem)
+    public function let(Filesystem $filesystem)
     {
         $this->beConstructedWith($filesystem);
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(ApplicationResourceLocator::class);
     }
 
-    function it_implements_resource_locator_interface()
+    public function it_implements_resource_locator_interface()
     {
         $this->shouldImplement(ResourceLocatorInterface::class);
     }
 
-    function it_locates_application_resource(Filesystem $filesystem, ThemeInterface $theme)
+    public function it_locates_application_resource(Filesystem $filesystem, ThemeInterface $theme)
     {
         $theme->getPath()->willReturn('/theme/path');
 
@@ -47,13 +47,13 @@ final class ApplicationResourceLocatorSpec extends ObjectBehavior
         $this->locateResource('resource', $theme)->shouldReturn('/theme/path/resource');
     }
 
-    function it_throws_an_exception_if_resource_can_not_be_located(Filesystem $filesystem, ThemeInterface $theme)
+    public function it_throws_an_exception_if_resource_can_not_be_located(Filesystem $filesystem, ThemeInterface $theme)
     {
         $theme->getName()->willReturn('theme/name');
         $theme->getPath()->willReturn('/theme/path');
 
         $filesystem->exists('/theme/path/resource')->willReturn(false);
 
-        $this->shouldThrow(ResourceNotFoundException::class)->during('locateResource', ['resource', $theme]);
+        $this->shouldThrow(ResourceNotFoundException::class)->during('locateResource', array('resource', $theme));
     }
 }

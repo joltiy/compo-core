@@ -22,12 +22,12 @@ final class TranslatorResourceProvider implements TranslatorResourceProviderInte
     /**
      * @var TranslationResourceInterface[]
      */
-    private $resources = [];
+    private $resources = array();
 
     /**
      * @var array
      */
-    private $resourcesLocales = [];
+    private $resourcesLocales = array();
 
     /**
      * @var array
@@ -37,7 +37,7 @@ final class TranslatorResourceProvider implements TranslatorResourceProviderInte
     /**
      * @param array $filepaths
      */
-    public function __construct(array $filepaths = [])
+    public function __construct(array $filepaths = array())
     {
         $this->filepaths = $filepaths;
     }
@@ -72,6 +72,6 @@ final class TranslatorResourceProvider implements TranslatorResourceProviderInte
         }
 
         $this->resourcesLocales = array_unique($this->resourcesLocales);
-        $this->filepaths = [];
+        $this->filepaths = array();
     }
 }

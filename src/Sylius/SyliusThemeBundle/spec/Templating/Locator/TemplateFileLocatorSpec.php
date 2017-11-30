@@ -27,7 +27,7 @@ use Symfony\Component\Templating\TemplateReferenceInterface;
  */
 final class TemplateFileLocatorSpec extends ObjectBehavior
 {
-    function let(
+    public function let(
         FileLocatorInterface $decoratedFileLocator,
         ThemeContextInterface $themeContext,
         ThemeHierarchyProviderInterface $themeHierarchyProvider,
@@ -36,22 +36,22 @@ final class TemplateFileLocatorSpec extends ObjectBehavior
         $this->beConstructedWith($decoratedFileLocator, $themeContext, $themeHierarchyProvider, $templateLocator);
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(TemplateFileLocator::class);
     }
 
-    function it_implements_file_locator_interface()
+    public function it_implements_file_locator_interface()
     {
         $this->shouldImplement(FileLocatorInterface::class);
     }
 
-    function it_throws_an_exception_if_located_thing_is_not_an_instance_of_template_reference_interface()
+    public function it_throws_an_exception_if_located_thing_is_not_an_instance_of_template_reference_interface()
     {
-        $this->shouldThrow(\InvalidArgumentException::class)->during('locate', ['not an instance']);
+        $this->shouldThrow(\InvalidArgumentException::class)->during('locate', array('not an instance'));
     }
 
-    function it_returns_first_possible_theme_resource(
+    public function it_returns_first_possible_theme_resource(
         ThemeContextInterface $themeContext,
         ThemeHierarchyProviderInterface $themeHierarchyProvider,
         TemplateLocatorInterface $templateLocator,
@@ -60,7 +60,7 @@ final class TemplateFileLocatorSpec extends ObjectBehavior
         ThemeInterface $secondTheme
     ) {
         $themeContext->getTheme()->willReturn($firstTheme);
-        $themeHierarchyProvider->getThemeHierarchy($firstTheme)->willReturn([$firstTheme, $secondTheme]);
+        $themeHierarchyProvider->getThemeHierarchy($firstTheme)->willReturn(array($firstTheme, $secondTheme));
 
         $templateLocator->locateTemplate($template, $firstTheme)->willThrow(ResourceNotFoundException::class);
         $templateLocator->locateTemplate($template, $secondTheme)->willReturn('/second/theme/template/path');
@@ -68,7 +68,7 @@ final class TemplateFileLocatorSpec extends ObjectBehavior
         $this->locate($template)->shouldReturn('/second/theme/template/path');
     }
 
-    function it_falls_back_to_decorated_template_locator_if_themed_tempaltes_can_not_be_found(
+    public function it_falls_back_to_decorated_template_locator_if_themed_tempaltes_can_not_be_found(
         FileLocatorInterface $decoratedFileLocator,
         ThemeContextInterface $themeContext,
         ThemeHierarchyProviderInterface $themeHierarchyProvider,
@@ -77,7 +77,7 @@ final class TemplateFileLocatorSpec extends ObjectBehavior
         ThemeInterface $theme
     ) {
         $themeContext->getTheme()->willReturn($theme);
-        $themeHierarchyProvider->getThemeHierarchy($theme)->willReturn([$theme]);
+        $themeHierarchyProvider->getThemeHierarchy($theme)->willReturn(array($theme));
 
         $templateLocator->locateTemplate($template, $theme)->willThrow(ResourceNotFoundException::class);
 
@@ -86,14 +86,14 @@ final class TemplateFileLocatorSpec extends ObjectBehavior
         $this->locate($template)->shouldReturn('/app/template/path');
     }
 
-    function it_falls_back_to_decorated_template_locator_if_there_are_no_themes_active(
+    public function it_falls_back_to_decorated_template_locator_if_there_are_no_themes_active(
         FileLocatorInterface $decoratedFileLocator,
         ThemeContextInterface $themeContext,
         ThemeHierarchyProviderInterface $themeHierarchyProvider,
         TemplateReferenceInterface $template
     ) {
         $themeContext->getTheme()->willReturn(null);
-        $themeHierarchyProvider->getThemeHierarchy(null)->willReturn([]);
+        $themeHierarchyProvider->getThemeHierarchy(null)->willReturn(array());
 
         $decoratedFileLocator->locate($template, Argument::cetera())->willReturn('/app/template/path');
 

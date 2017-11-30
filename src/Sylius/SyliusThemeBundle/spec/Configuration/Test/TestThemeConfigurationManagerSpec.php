@@ -23,7 +23,7 @@ use Sylius\Bundle\ThemeBundle\Configuration\Test\TestThemeConfigurationManagerIn
  */
 final class TestThemeConfigurationManagerSpec extends ObjectBehavior
 {
-    function let(ConfigurationProcessorInterface $configurationProcessor)
+    public function let(ConfigurationProcessorInterface $configurationProcessor)
     {
         VfsStreamWrapper::register();
         VfsStreamWrapper::setRoot(new VfsStreamDirectory(''));
@@ -31,59 +31,59 @@ final class TestThemeConfigurationManagerSpec extends ObjectBehavior
         $this->beConstructedWith($configurationProcessor, 'vfs://cache/');
     }
 
-    function letGo()
+    public function letGo()
     {
         VfsStreamWrapper::unregister();
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(TestThemeConfigurationManager::class);
     }
 
-    function it_implements_test_configuration_manager_interface()
+    public function it_implements_test_configuration_manager_interface()
     {
         $this->shouldImplement(TestThemeConfigurationManagerInterface::class);
     }
 
-    function it_finds_all_saved_configurations()
+    public function it_finds_all_saved_configurations()
     {
-        $this->findAll()->shouldReturn([]);
+        $this->findAll()->shouldReturn(array());
     }
 
-    function it_stores_theme_configuration(ConfigurationProcessorInterface $configurationProcessor)
+    public function it_stores_theme_configuration(ConfigurationProcessorInterface $configurationProcessor)
     {
-        $configurationProcessor->process([['name' => 'theme/name']])->willReturn(['name' => 'theme/name']);
+        $configurationProcessor->process(array(array('name' => 'theme/name')))->willReturn(array('name' => 'theme/name'));
 
-        $this->add(['name' => 'theme/name']);
+        $this->add(array('name' => 'theme/name'));
 
         $this->findAll()->shouldHaveCount(1);
     }
 
-    function its_theme_configurations_can_be_removed(ConfigurationProcessorInterface $configurationProcessor)
+    public function its_theme_configurations_can_be_removed(ConfigurationProcessorInterface $configurationProcessor)
     {
-        $configurationProcessor->process([['name' => 'theme/name']])->willReturn(['name' => 'theme/name']);
+        $configurationProcessor->process(array(array('name' => 'theme/name')))->willReturn(array('name' => 'theme/name'));
 
-        $this->add(['name' => 'theme/name']);
+        $this->add(array('name' => 'theme/name'));
         $this->remove('theme/name');
 
-        $this->findAll()->shouldReturn([]);
+        $this->findAll()->shouldReturn(array());
     }
 
-    function it_clears_all_theme_configurations(ConfigurationProcessorInterface $configurationProcessor)
+    public function it_clears_all_theme_configurations(ConfigurationProcessorInterface $configurationProcessor)
     {
-        $configurationProcessor->process([['name' => 'theme/name1']])->willReturn(['name' => 'theme/name1']);
-        $configurationProcessor->process([['name' => 'theme/name2']])->willReturn(['name' => 'theme/name2']);
+        $configurationProcessor->process(array(array('name' => 'theme/name1')))->willReturn(array('name' => 'theme/name1'));
+        $configurationProcessor->process(array(array('name' => 'theme/name2')))->willReturn(array('name' => 'theme/name2'));
 
-        $this->add(['name' => 'theme/name1']);
-        $this->add(['name' => 'theme/name2']);
+        $this->add(array('name' => 'theme/name1'));
+        $this->add(array('name' => 'theme/name2'));
 
         $this->clear();
 
-        $this->findAll()->shouldReturn([]);
+        $this->findAll()->shouldReturn(array());
     }
 
-    function it_does_not_throw_any_exception_if_clearing_unexisting_storage()
+    public function it_does_not_throw_any_exception_if_clearing_unexisting_storage()
     {
         $this->clear();
     }

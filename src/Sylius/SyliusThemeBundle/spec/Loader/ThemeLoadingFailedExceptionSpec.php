@@ -19,17 +19,17 @@ use Sylius\Bundle\ThemeBundle\Loader\ThemeLoadingFailedException;
  */
 final class ThemeLoadingFailedExceptionSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(ThemeLoadingFailedException::class);
     }
 
-    function it_is_a_domain_exception()
+    public function it_is_a_domain_exception()
     {
         $this->shouldHaveType(\DomainException::class);
     }
 
-    function it_is_a_logic_exception()
+    public function it_is_a_logic_exception()
     {
         $this->shouldHaveType(\LogicException::class);
     }

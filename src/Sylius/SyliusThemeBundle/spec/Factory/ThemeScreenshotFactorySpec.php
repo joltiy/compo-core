@@ -21,21 +21,21 @@ use Sylius\Bundle\ThemeBundle\Model\ThemeScreenshot;
  */
 final class ThemeScreenshotFactorySpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(ThemeScreenshotFactory::class);
     }
 
-    function it_implements_theme_screenshot_factory_interface()
+    public function it_implements_theme_screenshot_factory_interface()
     {
         $this->shouldImplement(ThemeScreenshotFactoryInterface::class);
     }
 
-    function it_creates_a_screenshot_from_an_array()
+    public function it_creates_a_screenshot_from_an_array()
     {
         $this
-            ->createFromArray(['path' => '/screenshot/path.jpg', 'title' => 'Steamboat', 'description' => 'With steamboat into a wonderful cruise'])
-            ->shouldBeScreenshotWithTheFollowingProperties(['path' => '/screenshot/path.jpg', 'title' => 'Steamboat', 'description' => 'With steamboat into a wonderful cruise'])
+            ->createFromArray(array('path' => '/screenshot/path.jpg', 'title' => 'Steamboat', 'description' => 'With steamboat into a wonderful cruise'))
+            ->shouldBeScreenshotWithTheFollowingProperties(array('path' => '/screenshot/path.jpg', 'title' => 'Steamboat', 'description' => 'With steamboat into a wonderful cruise'))
         ;
     }
 
@@ -44,7 +44,7 @@ final class ThemeScreenshotFactorySpec extends ObjectBehavior
      */
     public function getMatchers()
     {
-        return [
+        return array(
             'beScreenshotWithTheFollowingProperties' => function (ThemeScreenshot $subject, array $properties) {
                 if (isset($properties['path']) && $subject->getPath() !== $properties['path']) {
                     return false;
@@ -60,6 +60,6 @@ final class ThemeScreenshotFactorySpec extends ObjectBehavior
 
                 return true;
             },
-        ];
+        );
     }
 }

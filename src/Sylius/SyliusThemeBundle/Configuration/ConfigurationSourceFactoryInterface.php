@@ -30,7 +30,7 @@ interface ConfigurationSourceFactoryInterface
      * @see ConfigurationProviderInterface
      *
      * @param ContainerBuilder $container
-     * @param array $config
+     * @param array            $config
      *
      * @return Reference|Definition Configuration provider service
      */

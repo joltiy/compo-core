@@ -36,65 +36,41 @@ final class ThemeAuthor
      */
     private $role;
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName()
     {
         return $this->name;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setName($name)
     {
         $this->name = $name;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getEmail()
     {
         return $this->email;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setEmail($email)
     {
         $this->email = $email;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getHomepage()
     {
         return $this->homepage;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setHomepage($homepage)
     {
         $this->homepage = $homepage;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getRole()
     {
         return $this->role;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setRole($role)
     {
         $this->role = $role;

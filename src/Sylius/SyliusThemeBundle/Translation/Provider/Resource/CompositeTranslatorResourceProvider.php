@@ -24,7 +24,7 @@ final class CompositeTranslatorResourceProvider implements TranslatorResourcePro
     /**
      * @param TranslatorResourceProviderInterface[] $resourceProviders
      */
-    public function __construct(array $resourceProviders = [])
+    public function __construct(array $resourceProviders = array())
     {
         $this->resourceProviders = $resourceProviders;
     }
@@ -34,7 +34,7 @@ final class CompositeTranslatorResourceProvider implements TranslatorResourcePro
      */
     public function getResources()
     {
-        $resources = [];
+        $resources = array();
 
         foreach ($this->resourceProviders as $resourceProvider) {
             $resources = array_merge($resources, $resourceProvider->getResources());
@@ -48,7 +48,7 @@ final class CompositeTranslatorResourceProvider implements TranslatorResourcePro
      */
     public function getResourcesLocales()
     {
-        $resourcesLocales = [];
+        $resourcesLocales = array();
 
         foreach ($this->resourceProviders as $resourceProvider) {
             $resourcesLocales = array_merge($resourcesLocales, $resourceProvider->getResourcesLocales());

@@ -21,29 +21,29 @@ use Sylius\Bundle\ThemeBundle\Configuration\Test\TestThemeConfigurationManagerIn
  */
 final class TestConfigurationProviderSpec extends ObjectBehavior
 {
-    function let(TestThemeConfigurationManagerInterface $testThemeConfigurationManager)
+    public function let(TestThemeConfigurationManagerInterface $testThemeConfigurationManager)
     {
         $this->beConstructedWith($testThemeConfigurationManager);
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(TestConfigurationProvider::class);
     }
 
-    function it_implements_configuration_provider_interface()
+    public function it_implements_configuration_provider_interface()
     {
         $this->shouldImplement(ConfigurationProviderInterface::class);
     }
 
-    function it_provides_configuration_based_on_test_configuration_manager(TestThemeConfigurationManagerInterface $testThemeConfigurationManager)
+    public function it_provides_configuration_based_on_test_configuration_manager(TestThemeConfigurationManagerInterface $testThemeConfigurationManager)
     {
-        $testThemeConfigurationManager->findAll()->willReturn([
-            ['name' => 'theme/name'],
-        ]);
+        $testThemeConfigurationManager->findAll()->willReturn(array(
+            array('name' => 'theme/name'),
+        ));
 
-        $this->getConfigurations()->shouldReturn([
-            ['name' => 'theme/name'],
-        ]);
+        $this->getConfigurations()->shouldReturn(array(
+            array('name' => 'theme/name'),
+        ));
     }
 }

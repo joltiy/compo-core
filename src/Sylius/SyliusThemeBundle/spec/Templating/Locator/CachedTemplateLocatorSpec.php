@@ -25,22 +25,22 @@ use Symfony\Component\Templating\TemplateReferenceInterface;
  */
 final class CachedTemplateLocatorSpec extends ObjectBehavior
 {
-    function let(TemplateLocatorInterface $decoratedTemplateLocator, Cache $cache)
+    public function let(TemplateLocatorInterface $decoratedTemplateLocator, Cache $cache)
     {
         $this->beConstructedWith($decoratedTemplateLocator, $cache);
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(CachedTemplateLocator::class);
     }
 
-    function it_implements_template_locator_interface()
+    public function it_implements_template_locator_interface()
     {
         $this->shouldImplement(TemplateLocatorInterface::class);
     }
 
-    function it_returns_the_location_found_in_cache(
+    public function it_returns_the_location_found_in_cache(
         TemplateLocatorInterface $decoratedTemplateLocator,
         Cache $cache,
         TemplateReferenceInterface $template,
@@ -57,7 +57,7 @@ final class CachedTemplateLocatorSpec extends ObjectBehavior
         $this->locateTemplate($template, $theme)->shouldReturn('/template.html.twig');
     }
 
-    function it_uses_decorated_template_locator_if_location_can_not_be_found_in_cache(
+    public function it_uses_decorated_template_locator_if_location_can_not_be_found_in_cache(
         TemplateLocatorInterface $decoratedTemplateLocator,
         Cache $cache,
         TemplateReferenceInterface $template,
@@ -74,7 +74,7 @@ final class CachedTemplateLocatorSpec extends ObjectBehavior
         $this->locateTemplate($template, $theme)->shouldReturn('/template.html.twig');
     }
 
-    function it_throws_resource_not_found_exception_if_the_location_found_in_cache_is_null(
+    public function it_throws_resource_not_found_exception_if_the_location_found_in_cache_is_null(
         TemplateLocatorInterface $decoratedTemplateLocator,
         Cache $cache,
         TemplateReferenceInterface $template,
@@ -89,6 +89,6 @@ final class CachedTemplateLocatorSpec extends ObjectBehavior
 
         $decoratedTemplateLocator->locateTemplate(Argument::cetera())->shouldNotBeCalled();
 
-        $this->shouldThrow(ResourceNotFoundException::class)->during('locateTemplate', [$template, $theme]);
+        $this->shouldThrow(ResourceNotFoundException::class)->during('locateTemplate', array($template, $theme));
     }
 }

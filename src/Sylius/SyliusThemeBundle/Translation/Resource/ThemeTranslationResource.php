@@ -40,7 +40,7 @@ final class ThemeTranslationResource implements TranslationResourceInterface
 
     /**
      * @param ThemeInterface $theme
-     * @param string $filepath
+     * @param string         $filepath
      */
     public function __construct(ThemeInterface $theme, $filepath)
     {

@@ -23,7 +23,7 @@ final class PathResolver implements PathResolverInterface
      */
     public function resolve($path, ThemeInterface $theme)
     {
-        if (strpos($path, 'bundles/_themes/') === false) {
+        if (false === strpos($path, 'bundles/_themes/')) {
             return str_replace('bundles/', 'bundles/_themes/' . $theme->getName() . '/', $path);
         }
 

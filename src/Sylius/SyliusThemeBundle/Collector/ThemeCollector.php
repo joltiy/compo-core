@@ -40,8 +40,8 @@ final class ThemeCollector extends DataCollector
     private $themeHierarchyProvider;
 
     /**
-     * @param ThemeRepositoryInterface $themeRepository
-     * @param ThemeContextInterface $themeContext
+     * @param ThemeRepositoryInterface        $themeRepository
+     * @param ThemeContextInterface           $themeContext
      * @param ThemeHierarchyProviderInterface $themeHierarchyProvider
      */
     public function __construct(

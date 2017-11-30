@@ -20,17 +20,17 @@ use Sylius\Bundle\ThemeBundle\Context\ThemeContextInterface;
  */
 final class EmptyThemeContextSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(EmptyThemeContext::class);
     }
 
-    function it_implements_theme_context_interface()
+    public function it_implements_theme_context_interface()
     {
         $this->shouldImplement(ThemeContextInterface::class);
     }
 
-    function it_always_returns_null()
+    public function it_always_returns_null()
     {
         $this->getTheme()->shouldReturn(null);
     }

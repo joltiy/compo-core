@@ -51,7 +51,7 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
      * Passes through all unknown calls onto the translator object.
      *
      * @param string $method
-     * @param array $arguments
+     * @param array  $arguments
      *
      * @return mixed
      */
@@ -66,7 +66,7 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
     /**
      * {@inheritdoc}
      */
-    public function trans($id, array $parameters = [], $domain = null, $locale = null)
+    public function trans($id, array $parameters = array(), $domain = null, $locale = null)
     {
         return $this->translator->trans($id, $parameters, $domain, $this->transformLocale($locale));
     }
@@ -74,7 +74,7 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
     /**
      * {@inheritdoc}
      */
-    public function transChoice($id, $number, array $parameters = [], $domain = null, $locale = null)
+    public function transChoice($id, $number, array $parameters = array(), $domain = null, $locale = null)
     {
         return $this->translator->transChoice($id, $number, $parameters, $domain, $this->transformLocale($locale));
     }

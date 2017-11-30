@@ -56,11 +56,11 @@ final class ThemeLoader implements ThemeLoaderInterface
     private $circularDependencyChecker;
 
     /**
-     * @param ConfigurationProviderInterface $configurationProvider
-     * @param ThemeFactoryInterface $themeFactory
-     * @param ThemeAuthorFactoryInterface $themeAuthorFactory
-     * @param ThemeScreenshotFactoryInterface $themeScreenshotFactory
-     * @param HydrationInterface $themeHydrator
+     * @param ConfigurationProviderInterface     $configurationProvider
+     * @param ThemeFactoryInterface              $themeFactory
+     * @param ThemeAuthorFactoryInterface        $themeAuthorFactory
+     * @param ThemeScreenshotFactoryInterface    $themeScreenshotFactory
+     * @param HydrationInterface                 $themeHydrator
      * @param CircularDependencyCheckerInterface $circularDependencyChecker
      */
     public function __construct(
@@ -101,9 +101,9 @@ final class ThemeLoader implements ThemeLoaderInterface
      */
     private function initializeThemes(array $configurations)
     {
-        $themes = [];
+        $themes = array();
         foreach ($configurations as $configuration) {
-            /** @var ThemeInterface $theme */
+            /* @var ThemeInterface $theme */
             $themes[$configuration['name']] = $this->themeFactory->create($configuration['name'], $configuration['path']);
         }
 
@@ -111,7 +111,7 @@ final class ThemeLoader implements ThemeLoaderInterface
     }
 
     /**
-     * @param array $configurations
+     * @param array            $configurations
      * @param ThemeInterface[] $themes
      *
      * @return ThemeInterface[]
@@ -147,8 +147,8 @@ final class ThemeLoader implements ThemeLoaderInterface
 
     /**
      * @param string $themeName
-     * @param array $parentsNames
-     * @param array $existingThemes
+     * @param array  $parentsNames
+     * @param array  $existingThemes
      *
      * @return ThemeInterface[]
      */

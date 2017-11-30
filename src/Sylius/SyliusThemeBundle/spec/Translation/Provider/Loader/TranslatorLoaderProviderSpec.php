@@ -21,22 +21,22 @@ use Symfony\Component\Translation\Loader\LoaderInterface;
  */
 final class TranslatorLoaderProviderSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(TranslatorLoaderProvider::class);
     }
 
-    function it_implements_translation_loader_provider_interface()
+    public function it_implements_translation_loader_provider_interface()
     {
         $this->shouldImplement(TranslatorLoaderProviderInterface::class);
     }
 
-    function it_returns_previously_received_loaders(
+    public function it_returns_previously_received_loaders(
         LoaderInterface $firstLoader,
         LoaderInterface $secondLoader
     ) {
-        $this->beConstructedWith(['first' => $firstLoader, 'second' => $secondLoader]);
+        $this->beConstructedWith(array('first' => $firstLoader, 'second' => $secondLoader));
 
-        $this->getLoaders()->shouldReturn(['first' => $firstLoader, 'second' => $secondLoader]);
+        $this->getLoaders()->shouldReturn(array('first' => $firstLoader, 'second' => $secondLoader));
     }
 }

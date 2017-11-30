@@ -22,42 +22,42 @@ use Symfony\Component\Config\Definition\Processor;
  */
 final class SymfonyConfigurationProcessorSpec extends ObjectBehavior
 {
-    function let(ConfigurationInterface $configuration, Processor $processor)
+    public function let(ConfigurationInterface $configuration, Processor $processor)
     {
         $this->beConstructedWith($configuration, $processor);
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(SymfonyConfigurationProcessor::class);
     }
 
-    function it_implements_configuration_processor_interface()
+    public function it_implements_configuration_processor_interface()
     {
         $this->shouldImplement(ConfigurationProcessorInterface::class);
     }
 
-    function it_proxies_configuration_processing_to_symfony_configuration_processor(
+    public function it_proxies_configuration_processing_to_symfony_configuration_processor(
         ConfigurationInterface $configuration,
         Processor $processor
     ) {
         $processor
-            ->processConfiguration($configuration, [['name' => 'example/theme']])
-            ->willReturn(['name' => 'example/theme'])
+            ->processConfiguration($configuration, array(array('name' => 'example/theme')))
+            ->willReturn(array('name' => 'example/theme'))
         ;
 
-        $this->process([['name' => 'example/theme']])->shouldReturn(['name' => 'example/theme']);
+        $this->process(array(array('name' => 'example/theme')))->shouldReturn(array('name' => 'example/theme'));
     }
 
-    function it_does_not_catch_any_exception_thrown_by_symfony_configuration_processor(
+    public function it_does_not_catch_any_exception_thrown_by_symfony_configuration_processor(
         ConfigurationInterface $configuration,
         Processor $processor
     ) {
         $processor
-            ->processConfiguration($configuration, [])
+            ->processConfiguration($configuration, array())
             ->willThrow(\Exception::class)
         ;
 
-        $this->shouldThrow(\Exception::class)->duringProcess([]);
+        $this->shouldThrow(\Exception::class)->duringProcess(array());
     }
 }

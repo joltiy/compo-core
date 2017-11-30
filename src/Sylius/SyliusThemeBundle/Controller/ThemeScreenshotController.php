@@ -37,7 +37,7 @@ final class ThemeScreenshotController
 
     /**
      * @param string $themeName
-     * @param int $screenshotNumber
+     * @param int    $screenshotNumber
      *
      * @return BinaryFileResponse
      */
@@ -54,7 +54,7 @@ final class ThemeScreenshotController
 
     /**
      * @param ThemeInterface $theme
-     * @param int $screenshotNumber
+     * @param int            $screenshotNumber
      *
      * @return string
      */

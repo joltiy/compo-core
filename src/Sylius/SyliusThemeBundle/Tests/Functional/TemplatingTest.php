@@ -29,7 +29,7 @@ final class TemplatingTest extends WebTestCase
     {
         $client = self::createClient();
 
-        $crawler = $client->request('GET', '/template/'.$templateName);
+        $crawler = $client->request('GET', '/template/' . $templateName);
         $this->assertEquals($contents, trim($crawler->text()));
     }
 
@@ -38,13 +38,13 @@ final class TemplatingTest extends WebTestCase
      */
     public function getBundleTemplates()
     {
-        return [
-            ['TestBundle:Templating:vanillaTemplate.txt.twig', 'TestBundle:Templating:vanillaTemplate.txt.twig'],
-            ['TestBundle:Templating:vanillaOverriddenTemplate.txt.twig', 'TestBundle:Templating:vanillaOverriddenTemplate.txt.twig (app overridden)'],
-            ['TestBundle:Templating:vanillaOverriddenThemeTemplate.txt.twig', 'TestBundle:Templating:vanillaOverriddenThemeTemplate.txt.twig|sylius/first-test-theme'],
-            ['TestBundle:Templating:bothThemesTemplate.txt.twig', 'TestBundle:Templating:bothThemesTemplate.txt.twig|sylius/first-test-theme'],
-            ['TestBundle:Templating:lastThemeTemplate.txt.twig', 'TestBundle:Templating:lastThemeTemplate.txt.twig|sylius/second-test-theme'],
-        ];
+        return array(
+            array('TestBundle:Templating:vanillaTemplate.txt.twig', 'TestBundle:Templating:vanillaTemplate.txt.twig'),
+            array('TestBundle:Templating:vanillaOverriddenTemplate.txt.twig', 'TestBundle:Templating:vanillaOverriddenTemplate.txt.twig (app overridden)'),
+            array('TestBundle:Templating:vanillaOverriddenThemeTemplate.txt.twig', 'TestBundle:Templating:vanillaOverriddenThemeTemplate.txt.twig|sylius/first-test-theme'),
+            array('TestBundle:Templating:bothThemesTemplate.txt.twig', 'TestBundle:Templating:bothThemesTemplate.txt.twig|sylius/first-test-theme'),
+            array('TestBundle:Templating:lastThemeTemplate.txt.twig', 'TestBundle:Templating:lastThemeTemplate.txt.twig|sylius/second-test-theme'),
+        );
     }
 
     /**
@@ -58,7 +58,7 @@ final class TemplatingTest extends WebTestCase
     {
         $client = self::createClient();
 
-        $crawler = $client->request('GET', '/template/'.$templateName);
+        $crawler = $client->request('GET', '/template/' . $templateName);
         $this->assertEquals($contents, trim($crawler->text()));
     }
 
@@ -67,13 +67,13 @@ final class TemplatingTest extends WebTestCase
      */
     public function getBundleTemplatesUsingNamespacedPaths()
     {
-        return [
-            ['@Test/Templating/vanillaTemplate.txt.twig', 'TestBundle:Templating:vanillaTemplate.txt.twig'],
-            ['@Test/Templating/vanillaOverriddenTemplate.txt.twig', 'TestBundle:Templating:vanillaOverriddenTemplate.txt.twig (app overridden)'],
-            ['@Test/Templating/vanillaOverriddenThemeTemplate.txt.twig', 'TestBundle:Templating:vanillaOverriddenThemeTemplate.txt.twig|sylius/first-test-theme'],
-            ['@Test/Templating/bothThemesTemplate.txt.twig', 'TestBundle:Templating:bothThemesTemplate.txt.twig|sylius/first-test-theme'],
-            ['@Test/Templating/lastThemeTemplate.txt.twig', 'TestBundle:Templating:lastThemeTemplate.txt.twig|sylius/second-test-theme'],
-        ];
+        return array(
+            array('@Test/Templating/vanillaTemplate.txt.twig', 'TestBundle:Templating:vanillaTemplate.txt.twig'),
+            array('@Test/Templating/vanillaOverriddenTemplate.txt.twig', 'TestBundle:Templating:vanillaOverriddenTemplate.txt.twig (app overridden)'),
+            array('@Test/Templating/vanillaOverriddenThemeTemplate.txt.twig', 'TestBundle:Templating:vanillaOverriddenThemeTemplate.txt.twig|sylius/first-test-theme'),
+            array('@Test/Templating/bothThemesTemplate.txt.twig', 'TestBundle:Templating:bothThemesTemplate.txt.twig|sylius/first-test-theme'),
+            array('@Test/Templating/lastThemeTemplate.txt.twig', 'TestBundle:Templating:lastThemeTemplate.txt.twig|sylius/second-test-theme'),
+        );
     }
 
     /**
@@ -87,7 +87,7 @@ final class TemplatingTest extends WebTestCase
     {
         $client = self::createClient();
 
-        $crawler = $client->request('GET', '/template/'.$templateName);
+        $crawler = $client->request('GET', '/template/' . $templateName);
         $this->assertEquals($contents, trim($crawler->text()));
     }
 
@@ -96,11 +96,11 @@ final class TemplatingTest extends WebTestCase
      */
     public function getAppTemplates()
     {
-        return [
-            [':Templating:vanillaTemplate.txt.twig', ':Templating:vanillaTemplate.txt.twig'],
-            [':Templating:bothThemesTemplate.txt.twig', ':Templating:bothThemesTemplate.txt.twig|sylius/first-test-theme'],
-            [':Templating:lastThemeTemplate.txt.twig', ':Templating:lastThemeTemplate.txt.twig|sylius/second-test-theme'],
-        ];
+        return array(
+            array(':Templating:vanillaTemplate.txt.twig', ':Templating:vanillaTemplate.txt.twig'),
+            array(':Templating:bothThemesTemplate.txt.twig', ':Templating:bothThemesTemplate.txt.twig|sylius/first-test-theme'),
+            array(':Templating:lastThemeTemplate.txt.twig', ':Templating:lastThemeTemplate.txt.twig|sylius/second-test-theme'),
+        );
     }
 
     /**
@@ -114,7 +114,7 @@ final class TemplatingTest extends WebTestCase
     {
         $client = self::createClient();
 
-        $crawler = $client->request('GET', '/template/'.$templateName);
+        $crawler = $client->request('GET', '/template/' . $templateName);
         $this->assertEquals($contents, trim($crawler->text()));
     }
 
@@ -123,10 +123,10 @@ final class TemplatingTest extends WebTestCase
      */
     public function getAppTemplatesUsingNamespacedPaths()
     {
-        return [
-            ['/Templating/vanillaTemplate.txt.twig', ':Templating:vanillaTemplate.txt.twig'],
-            ['/Templating/bothThemesTemplate.txt.twig', ':Templating:bothThemesTemplate.txt.twig|sylius/first-test-theme'],
-            ['/Templating/lastThemeTemplate.txt.twig', ':Templating:lastThemeTemplate.txt.twig|sylius/second-test-theme'],
-        ];
+        return array(
+            array('/Templating/vanillaTemplate.txt.twig', ':Templating:vanillaTemplate.txt.twig'),
+            array('/Templating/bothThemesTemplate.txt.twig', ':Templating:bothThemesTemplate.txt.twig|sylius/first-test-theme'),
+            array('/Templating/lastThemeTemplate.txt.twig', ':Templating:lastThemeTemplate.txt.twig|sylius/second-test-theme'),
+        );
     }
 }

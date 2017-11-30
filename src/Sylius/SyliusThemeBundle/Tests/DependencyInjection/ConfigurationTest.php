@@ -27,10 +27,10 @@ final class ConfigurationTest extends \PHPUnit_Framework_TestCase
     public function it_has_default_context_service_set()
     {
         $this->assertProcessedConfigurationEquals(
-            [
-                [],
-            ],
-            ['context' => 'sylius.theme.context.settable'],
+            array(
+                array(),
+            ),
+            array('context' => 'sylius.theme.context.settable'),
             'context'
         );
     }
@@ -41,9 +41,9 @@ final class ConfigurationTest extends \PHPUnit_Framework_TestCase
     public function its_context_cannot_be_empty()
     {
         $this->assertPartialConfigurationIsInvalid(
-            [
-                ['']
-            ],
+            array(
+                array(''),
+            ),
             'context'
         );
     }
@@ -54,10 +54,10 @@ final class ConfigurationTest extends \PHPUnit_Framework_TestCase
     public function its_context_can_be_overridden()
     {
         $this->assertProcessedConfigurationEquals(
-            [
-                ['context' => 'sylius.theme.context.custom'],
-            ],
-            ['context' => 'sylius.theme.context.custom'],
+            array(
+                array('context' => 'sylius.theme.context.custom'),
+            ),
+            array('context' => 'sylius.theme.context.custom'),
             'context'
         );
     }
@@ -67,7 +67,7 @@ final class ConfigurationTest extends \PHPUnit_Framework_TestCase
      */
     public function assets_support_is_enabled_by_default()
     {
-        $this->assertProcessedConfigurationEquals([[]], ['assets' => ['enabled' => true]], 'assets');
+        $this->assertProcessedConfigurationEquals(array(array()), array('assets' => array('enabled' => true)), 'assets');
     }
 
     /**
@@ -75,12 +75,12 @@ final class ConfigurationTest extends \PHPUnit_Framework_TestCase
      */
     public function assets_support_may_be_toggled()
     {
-        $this->assertProcessedConfigurationEquals([['assets' => ['enabled' => true]]], ['assets' => ['enabled' => true]], 'assets');
-        $this->assertProcessedConfigurationEquals([['assets' => []]], ['assets' => ['enabled' => true]], 'assets');
-        $this->assertProcessedConfigurationEquals([['assets' => null]], ['assets' => ['enabled' => true]], 'assets');
+        $this->assertProcessedConfigurationEquals(array(array('assets' => array('enabled' => true))), array('assets' => array('enabled' => true)), 'assets');
+        $this->assertProcessedConfigurationEquals(array(array('assets' => array())), array('assets' => array('enabled' => true)), 'assets');
+        $this->assertProcessedConfigurationEquals(array(array('assets' => null)), array('assets' => array('enabled' => true)), 'assets');
 
-        $this->assertProcessedConfigurationEquals([['assets' => ['enabled' => false]]], ['assets' => ['enabled' => false]], 'assets');
-        $this->assertProcessedConfigurationEquals([['assets' => false]], ['assets' => ['enabled' => false]], 'assets');
+        $this->assertProcessedConfigurationEquals(array(array('assets' => array('enabled' => false))), array('assets' => array('enabled' => false)), 'assets');
+        $this->assertProcessedConfigurationEquals(array(array('assets' => false)), array('assets' => array('enabled' => false)), 'assets');
     }
 
     /**
@@ -88,7 +88,7 @@ final class ConfigurationTest extends \PHPUnit_Framework_TestCase
      */
     public function templating_support_is_enabled_by_default()
     {
-        $this->assertProcessedConfigurationEquals([[]], ['templating' => ['enabled' => true]], 'templating');
+        $this->assertProcessedConfigurationEquals(array(array()), array('templating' => array('enabled' => true)), 'templating');
     }
 
     /**
@@ -96,12 +96,12 @@ final class ConfigurationTest extends \PHPUnit_Framework_TestCase
      */
     public function templating_support_may_be_toggled()
     {
-        $this->assertProcessedConfigurationEquals([['templating' => ['enabled' => true]]], ['templating' => ['enabled' => true]], 'templating');
-        $this->assertProcessedConfigurationEquals([['templating' => []]], ['templating' => ['enabled' => true]], 'templating');
-        $this->assertProcessedConfigurationEquals([['templating' => null]], ['templating' => ['enabled' => true]], 'templating');
+        $this->assertProcessedConfigurationEquals(array(array('templating' => array('enabled' => true))), array('templating' => array('enabled' => true)), 'templating');
+        $this->assertProcessedConfigurationEquals(array(array('templating' => array())), array('templating' => array('enabled' => true)), 'templating');
+        $this->assertProcessedConfigurationEquals(array(array('templating' => null)), array('templating' => array('enabled' => true)), 'templating');
 
-        $this->assertProcessedConfigurationEquals([['templating' => ['enabled' => false]]], ['templating' => ['enabled' => false]], 'templating');
-        $this->assertProcessedConfigurationEquals([['templating' => false]], ['templating' => ['enabled' => false]], 'templating');
+        $this->assertProcessedConfigurationEquals(array(array('templating' => array('enabled' => false))), array('templating' => array('enabled' => false)), 'templating');
+        $this->assertProcessedConfigurationEquals(array(array('templating' => false)), array('templating' => array('enabled' => false)), 'templating');
     }
 
     /**
@@ -109,7 +109,7 @@ final class ConfigurationTest extends \PHPUnit_Framework_TestCase
      */
     public function translations_support_is_enabled_by_default()
     {
-        $this->assertProcessedConfigurationEquals([[]], ['translations' => ['enabled' => true]], 'translations');
+        $this->assertProcessedConfigurationEquals(array(array()), array('translations' => array('enabled' => true)), 'translations');
     }
 
     /**
@@ -117,12 +117,12 @@ final class ConfigurationTest extends \PHPUnit_Framework_TestCase
      */
     public function translations_support_may_be_toggled()
     {
-        $this->assertProcessedConfigurationEquals([['translations' => ['enabled' => true]]], ['translations' => ['enabled' => true]], 'translations');
-        $this->assertProcessedConfigurationEquals([['translations' => []]], ['translations' => ['enabled' => true]], 'translations');
-        $this->assertProcessedConfigurationEquals([['translations' => null]], ['translations' => ['enabled' => true]], 'translations');
+        $this->assertProcessedConfigurationEquals(array(array('translations' => array('enabled' => true))), array('translations' => array('enabled' => true)), 'translations');
+        $this->assertProcessedConfigurationEquals(array(array('translations' => array())), array('translations' => array('enabled' => true)), 'translations');
+        $this->assertProcessedConfigurationEquals(array(array('translations' => null)), array('translations' => array('enabled' => true)), 'translations');
 
-        $this->assertProcessedConfigurationEquals([['translations' => ['enabled' => false]]], ['translations' => ['enabled' => false]], 'translations');
-        $this->assertProcessedConfigurationEquals([['translations' => false]], ['translations' => ['enabled' => false]], 'translations');
+        $this->assertProcessedConfigurationEquals(array(array('translations' => array('enabled' => false))), array('translations' => array('enabled' => false)), 'translations');
+        $this->assertProcessedConfigurationEquals(array(array('translations' => false)), array('translations' => array('enabled' => false)), 'translations');
     }
 
     /**

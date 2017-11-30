@@ -29,7 +29,7 @@ final class ProcessingConfigurationLoader implements ConfigurationLoaderInterfac
     private $configurationProcessor;
 
     /**
-     * @param ConfigurationLoaderInterface $decoratedLoader
+     * @param ConfigurationLoaderInterface    $decoratedLoader
      * @param ConfigurationProcessorInterface $configurationProcessor
      */
     public function __construct(ConfigurationLoaderInterface $decoratedLoader, ConfigurationProcessorInterface $configurationProcessor)
@@ -45,7 +45,7 @@ final class ProcessingConfigurationLoader implements ConfigurationLoaderInterfac
     {
         $rawConfiguration = $this->decoratedLoader->load($identifier);
 
-        $configurations = [$rawConfiguration];
+        $configurations = array($rawConfiguration);
         if (isset($rawConfiguration['extra']['sylius-theme'])) {
             $configurations[] = $rawConfiguration['extra']['sylius-theme'];
         }

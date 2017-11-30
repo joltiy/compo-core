@@ -24,10 +24,10 @@ final class ThemeHierarchyProvider implements ThemeHierarchyProviderInterface
     public function getThemeHierarchy(ThemeInterface $theme = null)
     {
         if (null === $theme) {
-            return [];
+            return array();
         }
 
-        $parents = [];
+        $parents = array();
         foreach ($theme->getParents() as $parent) {
             $parents = array_merge(
                 $parents,
@@ -35,6 +35,6 @@ final class ThemeHierarchyProvider implements ThemeHierarchyProviderInterface
             );
         }
 
-        return array_merge([$theme], $parents);
+        return array_merge(array($theme), $parents);
     }
 }

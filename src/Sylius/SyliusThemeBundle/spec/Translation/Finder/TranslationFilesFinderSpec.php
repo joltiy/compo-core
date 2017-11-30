@@ -22,22 +22,22 @@ use Symfony\Component\Finder\Finder;
  */
 final class TranslationFilesFinderSpec extends ObjectBehavior
 {
-    function let(FinderFactoryInterface $finderFactory)
+    public function let(FinderFactoryInterface $finderFactory)
     {
         $this->beConstructedWith($finderFactory);
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(TranslationFilesFinder::class);
     }
 
-    function it_implements_translation_resource_finder_interface()
+    public function it_implements_translation_resource_finder_interface()
     {
         $this->shouldImplement(TranslationFilesFinderInterface::class);
     }
 
-    function it_returns_an_array_of_translation_resources_paths(
+    public function it_returns_an_array_of_translation_resources_paths(
         FinderFactoryInterface $finderFactory,
         Finder $finder
     ) {
@@ -46,17 +46,17 @@ final class TranslationFilesFinderSpec extends ObjectBehavior
         $finder->in('/theme')->shouldBeCalled()->willReturn($finder);
         $finder->ignoreUnreadableDirs()->shouldBeCalled()->willReturn($finder);
 
-        $finder->getIterator()->willReturn(new \ArrayIterator([
+        $finder->getIterator()->willReturn(new \ArrayIterator(array(
             '/theme/messages.en.yml',
             '/theme/translations/messages.en.yml',
             '/theme/translations/messages.en.yml.jpg',
             '/theme/translations/messages.yml',
             '/theme/AcmeBundle/translations/messages.pl_PL.yml',
-        ]));
+        )));
 
-        $this->findTranslationFiles('/theme')->shouldReturn([
+        $this->findTranslationFiles('/theme')->shouldReturn(array(
             '/theme/translations/messages.en.yml',
             '/theme/AcmeBundle/translations/messages.pl_PL.yml',
-        ]);
+        ));
     }
 }

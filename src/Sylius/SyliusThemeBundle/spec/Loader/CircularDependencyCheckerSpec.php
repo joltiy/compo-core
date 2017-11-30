@@ -22,48 +22,48 @@ use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
  */
 final class CircularDependencyCheckerSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(CircularDependencyChecker::class);
     }
 
-    function it_implements_circular_dependency_checker_interface()
+    public function it_implements_circular_dependency_checker_interface()
     {
         $this->shouldImplement(CircularDependencyCheckerInterface::class);
     }
 
-    function it_does_not_find_circular_dependency_if_checking_a_theme_without_any_parents(
+    public function it_does_not_find_circular_dependency_if_checking_a_theme_without_any_parents(
         ThemeInterface $theme
     ) {
-        $theme->getParents()->willReturn([]);
+        $theme->getParents()->willReturn(array());
 
         $this->check($theme);
     }
 
-    function it_does_not_find_circular_dependency_if_theme_parents_are_not_cycled(
+    public function it_does_not_find_circular_dependency_if_theme_parents_are_not_cycled(
         ThemeInterface $firstTheme,
         ThemeInterface $secondTheme,
         ThemeInterface $thirdTheme,
         ThemeInterface $fourthTheme
     ) {
-        $firstTheme->getParents()->willReturn([$secondTheme, $thirdTheme]);
-        $secondTheme->getParents()->willReturn([$thirdTheme, $fourthTheme]);
-        $thirdTheme->getParents()->willReturn([$fourthTheme]);
-        $fourthTheme->getParents()->willReturn([]);
+        $firstTheme->getParents()->willReturn(array($secondTheme, $thirdTheme));
+        $secondTheme->getParents()->willReturn(array($thirdTheme, $fourthTheme));
+        $thirdTheme->getParents()->willReturn(array($fourthTheme));
+        $fourthTheme->getParents()->willReturn(array());
 
         $this->check($firstTheme);
     }
 
-    function it_finds_circular_dependency_if_theme_parents_are_cycled(
+    public function it_finds_circular_dependency_if_theme_parents_are_cycled(
         ThemeInterface $firstTheme,
         ThemeInterface $secondTheme,
         ThemeInterface $thirdTheme,
         ThemeInterface $fourthTheme
     ) {
-        $firstTheme->getParents()->willReturn([$secondTheme, $thirdTheme]);
-        $secondTheme->getParents()->willReturn([$thirdTheme]);
-        $thirdTheme->getParents()->willReturn([$fourthTheme]);
-        $fourthTheme->getParents()->willReturn([$secondTheme]);
+        $firstTheme->getParents()->willReturn(array($secondTheme, $thirdTheme));
+        $secondTheme->getParents()->willReturn(array($thirdTheme));
+        $thirdTheme->getParents()->willReturn(array($fourthTheme));
+        $fourthTheme->getParents()->willReturn(array($secondTheme));
 
         $firstTheme->getName()->willReturn('first/theme');
         $secondTheme->getName()->willReturn('second/theme');
@@ -72,7 +72,7 @@ final class CircularDependencyCheckerSpec extends ObjectBehavior
 
         $this
             ->shouldThrow(CircularDependencyFoundException::class)
-            ->during('check', [$firstTheme])
+            ->during('check', array($firstTheme))
         ;
     }
 }

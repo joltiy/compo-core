@@ -11,7 +11,6 @@
 
 namespace Sylius\Bundle\ThemeBundle\Translation\DependencyInjection\Compiler;
 
-use Sylius\Bundle\ThemeBundle\Translation\Loader\ThemeAwareLoader;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -33,7 +32,7 @@ final class TranslatorLoaderProviderPass implements CompilerPassInterface
         }
 
         $taggedServices = $container->findTaggedServiceIds('translation.loader');
-        $loaders = [];
+        $loaders = array();
         foreach ($taggedServices as $id => $attributes) {
             $loader = $container->findDefinition($id);
             $loader->setLazy(true);

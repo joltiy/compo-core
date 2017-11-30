@@ -22,7 +22,7 @@ final class InMemoryThemeRepository implements ThemeRepositoryInterface
     /**
      * @var ThemeInterface[]
      */
-    private $themes = [];
+    private $themes = array();
 
     /**
      * @var ThemeLoaderInterface

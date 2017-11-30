@@ -38,7 +38,7 @@ final class TranslationFilesFinder implements TranslationFilesFinderInterface
     {
         $themeFiles = $this->getFiles($path);
 
-        $translationsFiles = [];
+        $translationsFiles = array();
         foreach ($themeFiles as $themeFile) {
             if (!$this->isTranslationFile($themeFile)) {
                 continue;

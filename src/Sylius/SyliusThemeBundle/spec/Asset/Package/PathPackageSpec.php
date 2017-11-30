@@ -24,7 +24,7 @@ use Symfony\Component\Asset\VersionStrategy\VersionStrategyInterface;
  */
 final class PathPackageSpec extends ObjectBehavior
 {
-    function let(
+    public function let(
         VersionStrategyInterface $versionStrategy,
         ThemeContextInterface $themeContext,
         PathResolverInterface $pathResolver
@@ -32,27 +32,27 @@ final class PathPackageSpec extends ObjectBehavior
         $this->beConstructedWith('/', $versionStrategy, $themeContext, $pathResolver);
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(PathPackage::class);
     }
 
-    function it_implements_package_interface_interface()
+    public function it_implements_package_interface_interface()
     {
         $this->shouldImplement(PackageInterface::class);
     }
 
-    function it_returns_vanilla_url_if_there_are_no_active_themes(ThemeContextInterface $themeContext, VersionStrategyInterface $versionStrategy)
+    public function it_returns_vanilla_url_if_there_are_no_active_themes(ThemeContextInterface $themeContext, VersionStrategyInterface $versionStrategy)
     {
         $path = 'bundles/sample/asset.js';
 
         $themeContext->getTheme()->shouldBeCalled()->willReturn(null);
         $versionStrategy->applyVersion($path)->shouldBeCalled()->willReturn($path);
 
-        $this->getUrl($path)->shouldReturn('/'.$path);
+        $this->getUrl($path)->shouldReturn('/' . $path);
     }
 
-    function it_returns_modified_url_if_there_is_active_theme(
+    public function it_returns_modified_url_if_there_is_active_theme(
         ThemeContextInterface $themeContext,
         VersionStrategyInterface $versionStrategy,
         PathResolverInterface $pathResolver,
@@ -66,6 +66,6 @@ final class PathPackageSpec extends ObjectBehavior
         $pathResolver->resolve($path, $theme)->shouldBeCalled()->willReturn($themeAssetPath);
         $versionStrategy->applyVersion($themeAssetPath)->shouldBeCalled()->willReturn($themeAssetPath);
 
-        $this->getUrl($path)->shouldReturn('/'.$themeAssetPath);
+        $this->getUrl($path)->shouldReturn('/' . $themeAssetPath);
     }
 }

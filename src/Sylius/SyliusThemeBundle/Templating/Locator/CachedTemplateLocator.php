@@ -33,7 +33,7 @@ final class CachedTemplateLocator implements TemplateLocatorInterface
 
     /**
      * @param TemplateLocatorInterface $decoratedTemplateLocator
-     * @param Cache $cache
+     * @param Cache                    $cache
      */
     public function __construct(TemplateLocatorInterface $decoratedTemplateLocator, Cache $cache)
     {
@@ -62,12 +62,12 @@ final class CachedTemplateLocator implements TemplateLocatorInterface
 
     /**
      * @param TemplateReferenceInterface $template
-     * @param ThemeInterface $theme
+     * @param ThemeInterface             $theme
      *
      * @return string
      */
     private function getCacheKey(TemplateReferenceInterface $template, ThemeInterface $theme)
     {
-        return $template->getLogicalName().'|'.$theme->getName();
+        return $template->getLogicalName() . '|' . $theme->getName();
     }
 }

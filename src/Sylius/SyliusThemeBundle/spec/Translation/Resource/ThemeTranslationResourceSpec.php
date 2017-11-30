@@ -21,24 +21,24 @@ use Sylius\Bundle\ThemeBundle\Translation\Resource\TranslationResourceInterface;
  */
 final class ThemeTranslationResourceSpec extends ObjectBehavior
 {
-    function let(ThemeInterface $theme)
+    public function let(ThemeInterface $theme)
     {
         $theme->getName()->willReturn('theme/name');
 
         $this->beConstructedWith($theme, 'my-domain.my-locale.my-format');
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(ThemeTranslationResource::class);
     }
 
-    function it_implements_translation_resource_interface()
+    public function it_implements_translation_resource_interface()
     {
         $this->shouldImplement(TranslationResourceInterface::class);
     }
 
-    function it_is_a_translation_resource_value_object()
+    public function it_is_a_translation_resource_value_object()
     {
         $this->getName()->shouldReturn('my-domain.my-locale.my-format');
         $this->getDomain()->shouldReturn('my-domain');
@@ -46,7 +46,7 @@ final class ThemeTranslationResourceSpec extends ObjectBehavior
         $this->getFormat()->shouldReturn('my-format');
     }
 
-    function it_throws_an_invalid_argument_exception_if_failed_to_instantiate_with_given_filepath(ThemeInterface $theme)
+    public function it_throws_an_invalid_argument_exception_if_failed_to_instantiate_with_given_filepath(ThemeInterface $theme)
     {
         $theme->getName()->willReturn('theme/name');
 

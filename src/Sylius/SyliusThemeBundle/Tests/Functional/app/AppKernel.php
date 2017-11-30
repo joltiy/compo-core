@@ -22,12 +22,12 @@ class AppKernel extends Kernel
      */
     public function registerBundles()
     {
-        return [
+        return array(
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             new Sylius\Bundle\ThemeBundle\Tests\Functional\TestBundle\TestBundle(),
             new Sylius\Bundle\ThemeBundle\SyliusThemeBundle(),
-        ];
+        );
     }
 
     /**

@@ -41,7 +41,7 @@ final class JsonFileConfigurationLoader implements ConfigurationLoaderInterface
         $contents = $this->filesystem->getFileContents($path);
 
         return array_merge(
-            ['path' => dirname($path)],
+            array('path' => dirname($path)),
             json_decode($contents, true)
         );
     }

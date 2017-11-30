@@ -36,7 +36,7 @@ final class TestThemeConfigurationManager implements TestThemeConfigurationManag
 
     /**
      * @param ConfigurationProcessorInterface $configurationProcessor
-     * @param string $cacheDir
+     * @param string                          $cacheDir
      */
     public function __construct(ConfigurationProcessorInterface $configurationProcessor, $cacheDir)
     {
@@ -62,7 +62,7 @@ final class TestThemeConfigurationManager implements TestThemeConfigurationManag
     {
         $this->initializeIfNeeded();
 
-        $configuration = $this->configurationProcessor->process([$configuration]);
+        $configuration = $this->configurationProcessor->process(array($configuration));
         $configuration['path'] = $this->getThemeDirectory($configuration['name']);
 
         $this->initializeTheme($configuration['name']);
@@ -131,7 +131,7 @@ final class TestThemeConfigurationManager implements TestThemeConfigurationManag
 
         $this->filesystem->mkdir($configurationsDirectory);
 
-        $this->save([]);
+        $this->save(array());
     }
 
     /**
