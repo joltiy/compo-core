@@ -598,3 +598,8 @@ th.table-th-id {
 .required {
     position: relative;
 }
+
+
+.order-product-name-field {
+    margin-bottom: 10px;
+}
