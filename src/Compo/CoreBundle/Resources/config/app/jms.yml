@@ -1,8 +1,8 @@
 jms_serializer:
     metadata:
         directories:
-            - { path: "%kernel.root_dir%/../vendor/sonata-project/user-bundle/Resources/config/serializer/FOSUserBundle", namespace_prefix: 'FOS\UserBundle' }
-            - { path: "%kernel.root_dir%/../vendor/sonata-project/datagrid-bundle/Resources/config/serializer", namespace_prefix: 'Sonata\DatagridBundle' }
+            - { path: "%kernel.root_dir%/../vendor/sonata-project/user-bundle/src/Resources/config/serializer/FOSUserBundle", namespace_prefix: 'FOS\UserBundle', name: 'FOS\UserBundle' }
+            - { path: "%kernel.root_dir%/../vendor/sonata-project/datagrid-bundle/src/Resources/config/serializer", namespace_prefix: 'Sonata\DatagridBundle', name: 'Sonata\DatagridBundle' }
 
 jms_translation:
     configs:
