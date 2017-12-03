@@ -38,7 +38,7 @@ class UpdateCommand extends BaseDeployCommand
         $this->runDoctrineSchemaUpdate();
         $this->runUpdateRoutes();
         $this->runCreateSnapshots();
-        $this->runDoctrineFixturesLoadAppend();
+        //$this->runDoctrineFixturesLoadAppend();
         $this->runCommand('compo:notification:load');
         //$this->runCacheWarmup();
     }

@@ -35,7 +35,7 @@ class InstallCommand extends BaseDeployCommand
         $this->runCreateSite();
         $this->runUpdateRoutes();
         $this->runCreateSnapshots();
-        $this->runDoctrineFixturesLoadAppend();
+        //$this->runDoctrineFixturesLoadAppend();
         //$this->runCommand('sonata:cache:flush-all');
         //$this->runCacheWarmup();
     }
