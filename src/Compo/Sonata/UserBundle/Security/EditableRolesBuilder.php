@@ -107,6 +107,6 @@ class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuil
             }
         }
 
-        return array($roles, $rolesReadOnly);
+        return $roles;
     }
 }
