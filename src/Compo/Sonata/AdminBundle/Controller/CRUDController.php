@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
+use Metadata\ClassMetadata;
 use Pix\SortableBehaviorBundle\Services\PositionHandler;
 use Sonata\AdminBundle\Controller\CRUDController as BaseCRUDController;
 use Sonata\AdminBundle\Exception\ModelManagerException;
@@ -16,6 +17,7 @@ use Sylius\Bundle\SettingsBundle\Form\Factory\SettingsFormFactoryInterface;
 use Sylius\Bundle\SettingsBundle\Manager\SettingsManagerInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,6 +47,59 @@ class CRUDController extends BaseCRUDController
     public function getAdminByClass($class)
     {
         return $this->admin->getConfigurationPool()->getAdminByClass($class);
+    }
+
+    public function updateManyToManyAction(Request $request)
+    {
+        if (!$this->admin->isGranted('EDIT')) {
+            throw new AccessDeniedException('EDIT');
+        }
+
+        $em = $this->getAdmin()->getDoctrine()->getManager();
+        $ids = $request->request->get('value');
+        $id = $request->request->get('pk');
+
+        $object = $this->getAdmin()->getObject($id);
+
+        $field = $request->request->get('field');
+
+        $mm = $this->getAdmin()->getModelManager();
+
+        /** @var  \Doctrine\ORM\Mapping\ClassMetadata $ClassMetadata */
+        $ClassMetadata = $mm->getMetadata($this->getAdmin()->getClass());
+
+        $associationMapping = $ClassMetadata->getAssociationMapping($field);
+
+
+        $items = $em->getRepository($associationMapping['targetEntity'])->findBy(array(
+            'id' => $ids
+        ));
+
+        call_user_func_array(array($object, 'set' . ucfirst($field)), array(
+            $items
+        ));
+
+        $this->getAdmin()->update($object);
+
+        $result = array(
+
+        );
+
+        $associationAdmin = $this->getAdmin()->getConfigurationPool()->getAdminByClass($associationMapping['targetEntity']);
+
+        foreach ($items as $item) {
+
+            $result[] = array(
+                'id' => $item->getId(),
+                'label' => $item->getName(),
+                'edit_url' => $associationAdmin->generateObjectUrl('edit', $item),
+
+            );
+        }
+
+        return new JsonResponse(array(
+            'items' => $result
+        ));
     }
 
     /**

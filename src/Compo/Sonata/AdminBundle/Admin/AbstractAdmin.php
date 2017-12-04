@@ -8,6 +8,7 @@ use Doctrine\ORM\QueryBuilder;
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use Sonata\AdminBundle\Admin\AbstractAdmin as BaseAdmin;
 use Sonata\AdminBundle\Admin\AdminInterface;
+use Sonata\AdminBundle\Admin\FieldDescriptionInterface;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\DoctrineORMAdminBundle\Admin\FieldDescription;
 use Sonata\DoctrineORMAdminBundle\Model\ModelManager;
@@ -84,6 +85,24 @@ class AbstractAdmin extends BaseAdmin
             'class' => self::MOSAIC_ICON_CLASS,
         ),
     );
+
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addListFieldDescription($name, FieldDescriptionInterface $fieldDescription)
+    {
+        if (
+            $fieldDescription->getType() === 'orm_many_to_many'
+            &&
+            $fieldDescription->getOption('editable', false)
+        ) {
+            $fieldDescription->setTemplate('@CompoSonataAdmin/SonataDoctrineORMAdminBundle/CRUD/list_orm_many_to_many.html.twig');
+        }
+
+        parent::addListFieldDescription($name, $fieldDescription);
+
+    }
 
     public function getExportFormats()
     {
@@ -1209,6 +1228,7 @@ class AbstractAdmin extends BaseAdmin
         parent::configureRoutes($collection);
 
         $collection->add('clone', $this->getRouterIdParameter() . '/clone');
+        $collection->add('update_many_to_many', $this->getRouterIdParameter() . '/update_many_to_many');
 
         //if ($this->manager->hasReader($this->getClass())) {
         $collection->add('history_revert', $this->getRouterIdParameter() . '/history/{revision}/revert');

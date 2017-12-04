@@ -603,3 +603,17 @@ th.table-th-id {
 .order-product-name-field {
     margin-bottom: 10px;
 }
+
+
+.editable-many-to-many {
+    visibility: hidden;
+}
+
+.sonata-ba-list tr:hover .editable-many-to-many {
+    visibility: visible;
+}
+
+
+.select2-container {
+    min-width: 120px;
+}
