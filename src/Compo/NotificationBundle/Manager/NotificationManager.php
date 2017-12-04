@@ -231,6 +231,7 @@ class NotificationManager
 
         $notificationsSms = $this->getNotificationsSms($event);
 
+
         foreach ($notificationsSms as $notification) {
             $recipients = $this->prepareEmails($notification->getRecipient(), $vars);
 

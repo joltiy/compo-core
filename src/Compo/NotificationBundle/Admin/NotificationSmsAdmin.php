@@ -107,7 +107,6 @@ class NotificationSmsAdmin extends AbstractAdmin
             )
             ->add('name')
             ->add('recipient')
-            ->add('note')
             ->add('enabled')
             ->add(
                 '_action',
@@ -155,7 +154,6 @@ class NotificationSmsAdmin extends AbstractAdmin
                     'choice_translation_domain' => 'CompoNotificationBundle',
                 )
             )
-            ->add('note')
             ->add('sender', null, array('required' => true, 'label' => 'sms_sender'))
             ->add('recipient', null, array('attr' => array('class' => 'highlight-src'), 'required' => false))
             ->add('body', null, array('attr' => array('class' => 'highlight-src'), 'required' => false));

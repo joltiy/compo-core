@@ -29,7 +29,7 @@ class SmsRuTransport
     public function send($recipient = '', $body)
     {
         if ($recipient) {
-            $to = preg_replace('/[^\D]/', '', $recipient);
+            $to = preg_replace('/[^[0-9]/', '', $recipient);
             $to[0] = 7;
 
             file_get_contents(
