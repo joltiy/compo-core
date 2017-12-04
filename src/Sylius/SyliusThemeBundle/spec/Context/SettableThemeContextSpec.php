@@ -21,17 +21,17 @@ use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
  */
 final class SettableThemeContextSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(SettableThemeContext::class);
     }
 
-    function it_implements_theme_context_interface()
+    public function it_implements_theme_context_interface()
     {
         $this->shouldImplement(ThemeContextInterface::class);
     }
 
-    function it_has_theme(ThemeInterface $theme)
+    public function it_has_theme(ThemeInterface $theme)
     {
         $this->getTheme()->shouldReturn(null);
 

@@ -40,8 +40,7 @@ final class RegisterResolversPass implements CompilerPassInterface
                 }
 
                 $schemaAlias = $attributes['schema'];
-                $resolverRegistry->addMethodCall('register', [$schemaAlias, new Reference($id)]);
-
+                $resolverRegistry->addMethodCall('register', array($schemaAlias, new Reference($id)));
             }
         }
     }

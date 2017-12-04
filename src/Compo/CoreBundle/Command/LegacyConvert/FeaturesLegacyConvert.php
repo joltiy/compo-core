@@ -6,20 +6,15 @@ use Compo\FeaturesBundle\Entity\FeatureAttribute;
 use Compo\FeaturesBundle\Entity\FeatureVariant;
 
 /**
- * Class ArticlesLegacyConvert
- * @package Compo\CoreBundle\Command\LegacyConvert
+ * Class ArticlesLegacyConvert.
  */
 class FeaturesLegacyConvert extends BaseLegacyConvert
 {
-
     /**
      * @var array
      */
     public $feature_catalog = array();
 
-    /**
-     *
-     */
     public function configure()
     {
         $this->setTableName('feature_attribute');
@@ -27,9 +22,6 @@ class FeaturesLegacyConvert extends BaseLegacyConvert
         $this->setEntityClass(FeatureAttribute::class);
     }
 
-    /**
-     *
-     */
     public function process()
     {
         $featureAttributeRepositoru = $this->getEntityManager()->getRepository('CompoFeaturesBundle:FeatureAttribute');
@@ -55,17 +47,17 @@ class FeaturesLegacyConvert extends BaseLegacyConvert
 
         $newItem->setId($oldDataItem['id']);
 
-        if ($oldDataItem['value_type'] === 'decimal') {
+        if ('decimal' === $oldDataItem['value_type']) {
             $newItem->setType('decimal');
-        } elseif ($oldDataItem['value_type'] === 'integer') {
+        } elseif ('integer' === $oldDataItem['value_type']) {
             $newItem->setType('integer');
-        } elseif ($oldDataItem['value_type'] === 'variant') {
+        } elseif ('variant' === $oldDataItem['value_type']) {
             $newItem->setType('variant');
-        } elseif ($oldDataItem['value_type'] === 'string') {
+        } elseif ('string' === $oldDataItem['value_type']) {
             $newItem->setType('string');
         }
 
-        if (strpos($oldDataItem['header'], 'Размер дверцы') !== false) {
+        if (false !== strpos($oldDataItem['header'], 'Размер дверцы')) {
             $newItem->setType('decimal');
         }
 
@@ -74,60 +66,57 @@ class FeaturesLegacyConvert extends BaseLegacyConvert
         $newItem->setVisibleCollection(1);
         $newItem->setEnabled(1);
 
-
         $name = $oldDataItem['header'];
 
-        $name = str_replace(array('(см)', '(кг)', '(мм)',), '', $name);
+        $name = str_replace(array('(см)', '(кг)', '(мм)'), '', $name);
 
         $newItem->setName(trim($name));
 
         foreach ($this->feature_catalog as $feature_catalog_item) {
-            if ((int)$feature_catalog_item['feature_attribute_id'] === (int)$oldDataItem['id']) {
-                if ((int)$feature_catalog_item['catalog_id'] === 84) {
+            if ((int) $feature_catalog_item['feature_attribute_id'] === (int) $oldDataItem['id']) {
+                if (84 === (int) $feature_catalog_item['catalog_id']) {
                     $newItem->setCatalog($catalogRepos->find(84));
                 } else {
                     $newItem->setCatalog($catalogRepos->find(2));
                 }
             } else {
-                if ((int)$feature_catalog_item['catalog_id'] !== 84) {
+                if (84 !== (int) $feature_catalog_item['catalog_id']) {
                     $newItem->setCatalog($catalogRepos->find(2));
                 }
             }
         }
 
-
-        if (strpos($oldDataItem['header'], '(см)') !== false) {
+        if (false !== strpos($oldDataItem['header'], '(см)')) {
             $newItem->setUnit($unitRepos->findOneBy(array('name' => 'Сантиметр')));
         }
 
-        if (strpos($oldDataItem['header'], '(кг)') !== false) {
+        if (false !== strpos($oldDataItem['header'], '(кг)')) {
             $newItem->setUnit($unitRepos->findOneBy(array('name' => 'Килограмм')));
         }
 
-        if (strpos($oldDataItem['header'], '(мм)') !== false) {
+        if (false !== strpos($oldDataItem['header'], '(мм)')) {
             $newItem->setUnit($unitRepos->findOneBy(array('name' => 'Миллиметр')));
         }
 
-        if (strpos($oldDataItem['header'], 'Размер чипа') !== false) {
+        if (false !== strpos($oldDataItem['header'], 'Размер чипа')) {
             $newItem->setUnit($unitRepos->findOneBy(array('name' => 'Миллиметр')));
         }
 
-        if (strpos($oldDataItem['header'], 'Штук в упаковке') !== false) {
+        if (false !== strpos($oldDataItem['header'], 'Штук в упаковке')) {
             $newItem->setUnit($unitRepos->findOneBy(array('name' => 'Штука')));
         }
 
-        if ($oldDataItem['value_type'] === 'variant') {
+        if ('variant' === $oldDataItem['value_type']) {
             $feature_values = $this->getCommand()->getOldConnection()->fetchAll('SELECT * FROM `feature_variant` WHERE feature_attribute_id=' . $oldDataItem['id']);
 
             foreach ($feature_values as $feature_values_item) {
-
                 $fv = $featureVariantRepositoru->find($feature_values_item['id']);
 
                 if (!$fv) {
                     $fv = new FeatureVariant();
                 }
 
-                if (trim($fv->getDescription()) === '' && trim(strip_tags($feature_values_item['description'])) !== '') {
+                if ('' === trim($fv->getDescription()) && '' !== trim(strip_tags($feature_values_item['description']))) {
                     $fv->setDescription($feature_values_item['description']);
                 }
 
@@ -146,6 +135,4 @@ class FeaturesLegacyConvert extends BaseLegacyConvert
             }
         }
     }
-
-
 }

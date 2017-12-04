@@ -31,7 +31,7 @@ final class SymfonyConfigurationProcessor implements ConfigurationProcessorInter
 
     /**
      * @param ConfigurationInterface $configuration
-     * @param Processor $processor
+     * @param Processor              $processor
      */
     public function __construct(ConfigurationInterface $configuration, Processor $processor)
     {

@@ -19,7 +19,6 @@ framework:
     serializer:
         enabled: true
         enable_annotations: true
-        cache: serializer.mapping.cache.apcu
 
     templating:
         engines: ['twig']

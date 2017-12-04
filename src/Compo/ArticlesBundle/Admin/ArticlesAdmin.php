@@ -6,21 +6,18 @@ use Compo\ArticlesBundle\Entity\Articles;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Knp\Menu\MenuFactory;
-use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
-use Knp\Menu\ItemInterface as MenuItemInterface;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class ArticlesAdmin extends AbstractAdmin
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configure()
     {
@@ -30,6 +27,7 @@ class ArticlesAdmin extends AbstractAdmin
 
     /**
      * @param $object Articles
+     *
      * @return string
      */
     public function generatePermalink($object = null)
@@ -44,7 +42,7 @@ class ArticlesAdmin extends AbstractAdmin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
@@ -59,7 +57,7 @@ class ArticlesAdmin extends AbstractAdmin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configureListFields(ListMapper $listMapper)
     {
@@ -72,7 +70,7 @@ class ArticlesAdmin extends AbstractAdmin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -89,17 +87,15 @@ class ArticlesAdmin extends AbstractAdmin
             ->end()
             ->end();
 
-
         $formMapper->tab('media');
         $formMapper->with('media_image');
         $formMapper->add('image');
         $formMapper->end();
         $formMapper->end();
-
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configureShowFields(ShowMapper $showMapper)
     {
@@ -113,8 +109,8 @@ class ArticlesAdmin extends AbstractAdmin
             ->add('publicationAt');
     }
 
-
-    public function configureAdminNavBar($context, $vars) {
+    public function configureAdminNavBar($context, $vars)
+    {
         $factory = new MenuFactory();
 
         $menu = $factory->createItem($context);
@@ -132,15 +128,14 @@ class ArticlesAdmin extends AbstractAdmin
 
         $tabMenuDropdown->addChild('list', array(
             'uri' => $this->generateUrl('list', array()),
-            'label' => 'Список'
+            'label' => 'Список',
         ))->setAttribute('icon', 'fa fa-list');
 
-        if ($context == 'article_list') {
-
+        if ('article_list' == $context) {
         } else {
             $tabMenuDropdown->addChild('edit', array(
                 'uri' => $this->generateUrl('edit', array('id' => $vars['article']->getId())),
-                'label' => 'Редактировать'
+                'label' => 'Редактировать',
             ))->setAttribute('icon', 'fa fa-pencil');
         }
 

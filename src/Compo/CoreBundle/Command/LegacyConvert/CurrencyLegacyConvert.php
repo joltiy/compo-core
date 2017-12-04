@@ -5,14 +5,10 @@ namespace Compo\CoreBundle\Command\LegacyConvert;
 use Compo\CurrencyBundle\Entity\Currency;
 
 /**
- * Class ArticlesLegacyConvert
- * @package Compo\CoreBundle\Command\LegacyConvert
+ * Class ArticlesLegacyConvert.
  */
 class CurrencyLegacyConvert extends BaseLegacyConvert
 {
-    /**
-     *
-     */
     public function configure()
     {
         $this->setTableName('currency');

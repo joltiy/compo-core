@@ -22,30 +22,30 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class SettingsBuilderSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(SettingsBuilder::class);
     }
 
-    function it_implements_settings_builder_interface()
+    public function it_implements_settings_builder_interface()
     {
         $this->shouldImplement(SettingsBuilderInterface::class);
     }
 
-    function it_is_a_options_resolver()
+    public function it_is_a_options_resolver()
     {
         $this->shouldHaveType(OptionsResolver::class);
     }
 
-    function it_initializes_transformers_array_by_default()
+    public function it_initializes_transformers_array_by_default()
     {
-        $this->getTransformers()->shouldReturn([]);
+        $this->getTransformers()->shouldReturn(array());
     }
 
-    function it_sets_transformer_for_parameter_by_name(ParameterTransformerInterface $transformer)
+    public function it_sets_transformer_for_parameter_by_name(ParameterTransformerInterface $transformer)
     {
         $this->setTransformer('test', $transformer);
 
-        $this->getTransformers()->shouldReturn(['test' => $transformer]);
+        $this->getTransformers()->shouldReturn(array('test' => $transformer));
     }
 }

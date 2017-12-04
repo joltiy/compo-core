@@ -6,7 +6,7 @@ use Composer\Script\Event;
 use Symfony\Component\Process\Process;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class BowerInstall extends \Sensio\Bundle\DistributionBundle\Composer\ScriptHandler
 {
@@ -38,7 +38,6 @@ class BowerInstall extends \Sensio\Bundle\DistributionBundle\Composer\ScriptHand
         foreach ($paths as $path) {
             $pathsArray[] = $root_dir . '/' . $path;
             $io->write(sprintf('<info>bower: %s</info>', $path));
-
         }
 
         $process = new Process('git config --global url."https://".insteadOf git://', $root_dir, null, null, 300);
@@ -49,7 +48,7 @@ class BowerInstall extends \Sensio\Bundle\DistributionBundle\Composer\ScriptHand
             }
         );
 
-        $process = new Process('bower install ' . implode(" ", $pathsArray), $root_dir, null, null, 300);
+        $process = new Process('bower install ' . implode(' ', $pathsArray), $root_dir, null, null, 300);
 
         $process->run(
             function ($type, $buffer) use ($event) {

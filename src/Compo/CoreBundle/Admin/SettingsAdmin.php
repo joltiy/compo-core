@@ -5,14 +5,12 @@ namespace Compo\CoreBundle\Admin;
 use Sonata\AdminBundle\Route\RouteCollection;
 
 /**
- * Class SettingsAdmin
- *
- * @package Compo\CoreBundle\Admin
+ * Class SettingsAdmin.
  */
 class SettingsAdmin extends BaseSettingsAdmin
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function configure()
     {

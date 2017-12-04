@@ -2,21 +2,41 @@
 
 namespace Compo\NotificationBundle\Sms;
 
+/**
+ * Class SmsRuTransport.
+ */
 class SmsRuTransport
 {
-
+    /**
+     * @var
+     */
     public $username;
+
+    /**
+     * @var
+     */
     public $password;
+
+    /**
+     * @var
+     */
     public $sender;
 
-
+    /**
+     * @param string $recipient
+     * @param $body
+     */
     public function send($recipient = '', $body)
     {
         if ($recipient) {
-            $to = preg_replace("/[^0-9]/", '', $recipient);
+            $to = preg_replace('/[^[0-9]/', '', $recipient);
             $to[0] = 7;
 
-            $response = file_get_contents("http://sms.ru/sms/send?from=" . urlencode($this->sender) . "&login=" . $this->username . "&password=" . $this->password . "&to=" . $to . "&text=" . urlencode($body));
+            file_get_contents(
+                'http://sms.ru/sms/send?from=' . urlencode(
+                    $this->sender
+                ) . '&login=' . $this->username . '&password=' . $this->password . '&to=' . $to . '&text=' . urlencode($body)
+            );
             ///$response = file_get_contents("http://sms.ru/sms/send?login=".$this->user."&password=".$this->pass."&to=".$to."&text=".urlencode($text));
             //var_dump($response);
         }
@@ -69,7 +89,4 @@ class SmsRuTransport
     {
         $this->sender = $sender;
     }
-
-
 }
-

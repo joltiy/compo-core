@@ -38,11 +38,11 @@ final class ThemeFilesystemLoader implements \Twig_LoaderInterface, \Twig_Exists
     /**
      * @var array
      */
-    private $cache = [];
+    private $cache = array();
 
     /**
-     * @param \Twig_LoaderInterface $decoratedLoader
-     * @param FileLocatorInterface $templateLocator
+     * @param \Twig_LoaderInterface       $decoratedLoader
+     * @param FileLocatorInterface        $templateLocator
      * @param TemplateNameParserInterface $templateNameParser
      */
     public function __construct(
@@ -118,7 +118,7 @@ final class ThemeFilesystemLoader implements \Twig_LoaderInterface, \Twig_Exists
     public function exists($name)
     {
         try {
-            return stat($this->findTemplate($name)) !== false;
+            return false !== stat($this->findTemplate($name));
         } catch (\Exception $exception) {
             // In Twig 2.0, exists is part of \Twig_LoaderInterface
             if ($this->decoratedLoader instanceof \Twig_ExistsLoaderInterface || method_exists('\\Twig_LoaderInterface', 'exists')) {

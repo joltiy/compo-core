@@ -10,7 +10,7 @@ use Sonata\MediaBundle\Model\MediaInterface;
 use Sonata\MediaBundle\Provider\Pool;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class MediaExtension extends \Twig_Extension
 {
@@ -47,10 +47,10 @@ class MediaExtension extends \Twig_Extension
     private $cacheManager;
 
     /**
-     * @param Pool $mediaService
+     * @param Pool             $mediaService
      * @param ManagerInterface $mediaManager
-     * @param CacheManager $cacheManager
-     * @param FilterManager $filterManager
+     * @param CacheManager     $cacheManager
+     * @param FilterManager    $filterManager
      */
     public function __construct(Pool $mediaService, ManagerInterface $mediaManager, CacheManager $cacheManager, FilterManager $filterManager)
     {
@@ -64,7 +64,7 @@ class MediaExtension extends \Twig_Extension
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function initRuntime(\Twig_Environment $environment)
     {
@@ -83,7 +83,6 @@ class MediaExtension extends \Twig_Extension
 
             new \Twig_SimpleFunction('media_path', array($this, 'getPath'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('media_thumbnail', array($this, 'getThumbnail'), array('is_safe' => array('html'))),
-
         );
     }
 
@@ -99,7 +98,9 @@ class MediaExtension extends \Twig_Extension
      * @param $media
      * @param array $options_filter
      * @param array $attr
+     *
      * @return mixed|string
+     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
@@ -150,7 +151,6 @@ class MediaExtension extends \Twig_Extension
                 $runtimeConfig
             );
 
-
             if (isset($config['filters'])) {
                 foreach ($config['filters'] as $config_item) {
                     if (isset($config_item['size'])) {
@@ -173,7 +173,6 @@ class MediaExtension extends \Twig_Extension
                 }
             }
         }
-
 
         $attr = array_merge($defaultOptions, $attr);
 
@@ -215,7 +214,7 @@ class MediaExtension extends \Twig_Extension
             return false;
         }
 
-        if ($media->getProviderStatus() !== MediaInterface::STATUS_OK) {
+        if (MediaInterface::STATUS_OK !== $media->getProviderStatus()) {
             return false;
         }
 
@@ -233,6 +232,7 @@ class MediaExtension extends \Twig_Extension
     /**
      * @param $media
      * @param array $options
+     *
      * @return string
      */
     public function getPath($media, array $options = array())
@@ -269,9 +269,10 @@ class MediaExtension extends \Twig_Extension
 
     /**
      * @param string $template
-     * @param array $parameters
+     * @param array  $parameters
      *
      * @return mixed
+     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
@@ -287,6 +288,7 @@ class MediaExtension extends \Twig_Extension
 
     /**
      * @param $media
+     *
      * @return int|null
      */
     public function getWidth($media)
@@ -302,6 +304,7 @@ class MediaExtension extends \Twig_Extension
 
     /**
      * @param $media
+     *
      * @return int|null
      */
     public function getHeight($media)

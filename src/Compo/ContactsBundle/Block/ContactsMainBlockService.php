@@ -31,7 +31,7 @@ class ContactsMainBlockService extends AbstractBlockService
             array(
                 'block' => $block,
                 'settings' => $settings,
-                'contacts' => $contacts
+                'contacts' => $contacts,
             ),
             $response
         );

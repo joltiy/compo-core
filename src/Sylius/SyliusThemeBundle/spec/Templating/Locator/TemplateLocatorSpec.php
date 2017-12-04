@@ -24,22 +24,22 @@ use Symfony\Component\Templating\TemplateReferenceInterface;
  */
 final class TemplateLocatorSpec extends ObjectBehavior
 {
-    function let(ResourceLocatorInterface $resourceLocator)
+    public function let(ResourceLocatorInterface $resourceLocator)
     {
         $this->beConstructedWith($resourceLocator);
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(TemplateLocator::class);
     }
 
-    function it_implements_template_locator_interface()
+    public function it_implements_template_locator_interface()
     {
         $this->shouldImplement(TemplateLocatorInterface::class);
     }
 
-    function it_proxies_locating_template_to_resource_locator(
+    public function it_proxies_locating_template_to_resource_locator(
         ResourceLocatorInterface $resourceLocator,
         TemplateReferenceInterface $template,
         ThemeInterface $theme
@@ -51,7 +51,7 @@ final class TemplateLocatorSpec extends ObjectBehavior
         $this->locateTemplate($template, $theme)->shouldReturn('/acme/index.html.twig');
     }
 
-    function it_does_not_catch_exceptions_thrown_while_locating_template_to_resource_locator_even(
+    public function it_does_not_catch_exceptions_thrown_while_locating_template_to_resource_locator_even(
         ResourceLocatorInterface $resourceLocator,
         TemplateReferenceInterface $template,
         ThemeInterface $theme
@@ -60,6 +60,6 @@ final class TemplateLocatorSpec extends ObjectBehavior
 
         $resourceLocator->locateResource('@AcmeBundle/Resources/views/index.html.twig', $theme)->willThrow(ResourceNotFoundException::class);
 
-        $this->shouldThrow(ResourceNotFoundException::class)->during('locateTemplate', [$template, $theme]);
+        $this->shouldThrow(ResourceNotFoundException::class)->during('locateTemplate', array($template, $theme));
     }
 }

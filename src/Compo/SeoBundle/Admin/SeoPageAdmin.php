@@ -12,12 +12,12 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class SeoPageAdmin extends AbstractAdmin
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configure()
     {
@@ -88,7 +88,7 @@ class SeoPageAdmin extends AbstractAdmin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configureListFields(ListMapper $listMapper)
     {
@@ -118,7 +118,7 @@ class SeoPageAdmin extends AbstractAdmin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -162,8 +162,7 @@ class SeoPageAdmin extends AbstractAdmin
             'help',
             HelpType::class,
             array(
-                'template' => $help
-
+                'template' => $help,
             )
         );
 

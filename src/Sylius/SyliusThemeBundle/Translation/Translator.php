@@ -25,10 +25,10 @@ final class Translator extends BaseTranslator implements WarmableInterface
     /**
      * @var array
      */
-    protected $options = [
+    protected $options = array(
         'cache_dir' => null,
         'debug' => false,
-    ];
+    );
 
     /**
      * @var TranslatorLoaderProviderInterface
@@ -46,18 +46,18 @@ final class Translator extends BaseTranslator implements WarmableInterface
     private $resourcesLoaded = false;
 
     /**
-     * @param TranslatorLoaderProviderInterface $loaderProvider
+     * @param TranslatorLoaderProviderInterface   $loaderProvider
      * @param TranslatorResourceProviderInterface $resourceProvider
-     * @param MessageSelector $messageSelector
-     * @param string $locale
-     * @param array $options
+     * @param MessageSelector                     $messageSelector
+     * @param string                              $locale
+     * @param array                               $options
      */
     public function __construct(
         TranslatorLoaderProviderInterface $loaderProvider,
         TranslatorResourceProviderInterface $resourceProvider,
         MessageSelector $messageSelector,
         $locale,
-        array $options = []
+        array $options = array()
     ) {
         $this->assertOptionsAreKnown($options);
 
@@ -84,7 +84,7 @@ final class Translator extends BaseTranslator implements WarmableInterface
 
         $locales = array_merge(
             $this->getFallbackLocales(),
-            [$this->getLocale()],
+            array($this->getLocale()),
             $this->resourceProvider->getResourcesLocales()
         );
         foreach (array_unique($locales) as $locale) {
@@ -118,8 +118,8 @@ final class Translator extends BaseTranslator implements WarmableInterface
         $computedFallbackLocales = parent::computeFallbackLocales($locale);
         array_unshift($computedFallbackLocales, $localeWithoutModifier);
 
-        $fallbackLocales = [];
-        foreach (array_diff($computedFallbackLocales, [$locale]) as $computedFallback) {
+        $fallbackLocales = array();
+        foreach (array_diff($computedFallbackLocales, array($locale)) as $computedFallback) {
             $fallback = $computedFallback . $themeModifier;
             if (null !== $themeModifier && $locale !== $fallback) {
                 $fallbackLocales[] = $fallback;

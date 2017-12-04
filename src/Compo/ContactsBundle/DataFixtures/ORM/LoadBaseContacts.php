@@ -8,19 +8,19 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class LoadBaseContacts implements FixtureInterface
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(ObjectManager $manager)
     {
         /** @var ContactsRepository $contactsRepository */
         $contactsRepository = $manager->getRepository('CompoContactsBundle:Contacts');
 
-        if (count($contactsRepository->findAll()) === 0) {
+        if (0 === count($contactsRepository->findAll())) {
             $contacts = new Contacts();
             $contacts->setEmail('test@test.com');
             $contacts->setAddress('test address');

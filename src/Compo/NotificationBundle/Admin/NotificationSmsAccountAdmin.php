@@ -10,12 +10,12 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class NotificationSmsAccountAdmin extends AbstractAdmin
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configure()
     {
@@ -24,7 +24,7 @@ class NotificationSmsAccountAdmin extends AbstractAdmin
     }
 
     /**
-     * @param DatagridMapper $datagridMapper
+     * {@inheritdoc}
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
@@ -40,7 +40,7 @@ class NotificationSmsAccountAdmin extends AbstractAdmin
     }
 
     /**
-     * @param ListMapper $listMapper
+     * {@inheritdoc}
      */
     protected function configureListFields(ListMapper $listMapper)
     {
@@ -62,7 +62,7 @@ class NotificationSmsAccountAdmin extends AbstractAdmin
     }
 
     /**
-     * @param FormMapper $formMapper
+     * {@inheritdoc}
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -83,15 +83,19 @@ class NotificationSmsAccountAdmin extends AbstractAdmin
             )
             ->add('username')
             ->add('password')
-            ->add('sender', null, array(
-                'label' => 'sms_sender'
-            ))
+            ->add(
+                'sender',
+                null,
+                array(
+                    'label' => 'sms_sender',
+                )
+            )
             ->end()
             ->end();
     }
 
     /**
-     * @param ShowMapper $showMapper
+     * {@inheritdoc}
      */
     protected function configureShowFields(ShowMapper $showMapper)
     {

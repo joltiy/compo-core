@@ -6,7 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Redirect
+ * Redirect.
+ *
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @ORM\Table(
  *     name="redirect",
@@ -28,7 +29,7 @@ class Redirect
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
     /**
-     * URL
+     * URL.
      *
      * @var string
      * @ORM\Column(type="string", nullable=false, unique=true)
@@ -36,7 +37,7 @@ class Redirect
     protected $urIn;
 
     /**
-     * URL
+     * URL.
      *
      * @var string
      * @ORM\Column(type="string", nullable=false)
@@ -80,7 +81,6 @@ class Redirect
      */
     public function __toString()
     {
-        return (string)$this->urIn;
+        return (string) $this->urIn;
     }
 }
-

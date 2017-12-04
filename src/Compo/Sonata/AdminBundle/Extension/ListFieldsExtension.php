@@ -4,33 +4,26 @@ namespace Compo\Sonata\AdminBundle\Extension;
 
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdminExtension;
-use Sonata\AdminBundle\Admin\AdminInterface;
-use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class ListFieldsExtension extends AbstractAdminExtension
 {
     use ContainerAwareTrait;
 
-
     public function configureListFields(ListMapper $listMapper)
     {
-
-
         $user = $listMapper->getAdmin()->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
-
 
         $userSettings = $user->getSettings();
 
-        if (isset($userSettings[$listMapper->getAdmin()->getCode().'.list.fields'])) {
-            $fields = $userSettings[$listMapper->getAdmin()->getCode().'.list.fields'];
+        if (isset($userSettings[$listMapper->getAdmin()->getCode() . '.list.fields'])) {
+            $fields = $userSettings[$listMapper->getAdmin()->getCode() . '.list.fields'];
         } else {
             $fields = array();
         }
-
 
         if (count($fields)) {
             $keys = $listMapper->keys();
@@ -50,10 +43,7 @@ class ListFieldsExtension extends AbstractAdminExtension
                 }
 
                 $_action->setOptions($_action_options);
-
-
             }
-
         } else {
             $elements = $listMapper->getAdmin()->getList()->getElements();
 
@@ -74,11 +64,10 @@ class ListFieldsExtension extends AbstractAdminExtension
                     $options['active'] = $options['default'];
                 }
 
-
                 $item->setOptions($options);
             }
 
-            $userSettings[$listMapper->getAdmin()->getCode().'.list.fields'] = $fields;
+            $userSettings[$listMapper->getAdmin()->getCode() . '.list.fields'] = $fields;
 
             $user->setSettings($userSettings);
 

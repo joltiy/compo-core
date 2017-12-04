@@ -46,7 +46,6 @@ final class RegisterSchemasPass implements CompilerPassInterface
             $schema = $container->getDefinition($id);
 
             foreach ($tags as $tagKey => $attributes) {
-
                 if (!isset($attributes['alias'])) {
                     /*
                     throw new \InvalidArgumentException(
@@ -58,11 +57,9 @@ final class RegisterSchemasPass implements CompilerPassInterface
 
                 $tags[$tagKey] = $attributes;
 
-
                 if (isset($attributes['admin'])) {
                     $admin = $container->getDefinition($attributes['admin']);
                     $arguments = $admin->getArguments();
-
 
                     if (isset($arguments[2])) {
                         $baseControllerNameArray = explode(':', $arguments[2]);
@@ -72,7 +69,7 @@ final class RegisterSchemasPass implements CompilerPassInterface
                         preg_match(self::CLASS_REGEX, $arguments[1], $matches);
 
                         $schema->addMethodCall('setBaseRouteName', array(sprintf('admin_%s%s_%s',
-                            empty($matches[1]) ? '' : $this->urlize($matches[1]).'_',
+                            empty($matches[1]) ? '' : $this->urlize($matches[1]) . '_',
                             $this->urlize($matches[3]),
                             $this->urlize($matches[5])
                         )));
@@ -82,15 +79,14 @@ final class RegisterSchemasPass implements CompilerPassInterface
                     }
                 }
 
-                $schemaRegistry->addMethodCall('register', [$attributes['alias'], new Reference($id)]);
+                $schemaRegistry->addMethodCall('register', array($attributes['alias'], new Reference($id)));
             }
 
             $tags = array(
-                'sylius.settings_schema' => $tags
+                'sylius.settings_schema' => $tags,
             );
 
             $schema->setTags($tags);
-
         }
     }
 
@@ -104,6 +100,6 @@ final class RegisterSchemasPass implements CompilerPassInterface
      */
     public function urlize($word, $sep = '_')
     {
-        return strtolower(preg_replace('/[^a-z0-9_]/i', $sep.'$1', $word));
+        return strtolower(preg_replace('/[^a-z0-9_]/i', $sep . '$1', $word));
     }
 }

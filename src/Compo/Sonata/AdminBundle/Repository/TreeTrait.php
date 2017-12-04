@@ -5,8 +5,7 @@ namespace Compo\Sonata\AdminBundle\Repository;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * Trait TreeRepositoryTrait
- * @package Compo\Sonata\AdminBundle\Entity
+ * Trait TreeRepositoryTrait.
  */
 trait TreeTrait
 {
@@ -18,10 +17,10 @@ trait TreeTrait
         return $this->findBy(array(), array('lft' => 'ASC'));
     }
 
-
     /**
      * @param bool $exclude_id
      * @param null $qb_callback
+     *
      * @return array
      */
     public function getForTreeSelector($exclude_id = false, $qb_callback = null)
@@ -44,8 +43,9 @@ trait TreeTrait
     }
 
     /**
-     * @param null $startNode
+     * @param null       $startNode
      * @param null|array $options
+     *
      * @return array
      */
     public function getFlatNodes($startNode = null, $options = null)
@@ -59,7 +59,7 @@ trait TreeTrait
                 'childClose' => '',
                 'nodeDecorator' => function ($node) {
                     return '' . $node['name'] . '';
-                }
+                },
             );
         }
         $htmlTree = $this->childrenHierarchy(
@@ -75,6 +75,7 @@ trait TreeTrait
      * @param $node
      * @param string $sep
      * @param string $path
+     *
      * @return array
      */
     public function toFlat($node, $sep = ' > ', $path = '')
@@ -93,12 +94,12 @@ trait TreeTrait
         return $els;
     }
 
-
     /**
-     * @param null $node
-     * @param bool $direct
+     * @param null  $node
+     * @param bool  $direct
      * @param array $options
-     * @param bool $includeNode
+     * @param bool  $includeNode
+     *
      * @return mixed
      */
     public function childrenHierarchyWithNodes($node = null, $direct = false, array $options = array(), $includeNode = false)
@@ -108,9 +109,8 @@ trait TreeTrait
         return $this->fillTreeNodes($tree);
     }
 
-
     /**
-     * Заполнить дерево объектов сущностями
+     * Заполнить дерево объектов сущностями.
      *
      * @param $tree
      *
@@ -125,7 +125,7 @@ trait TreeTrait
         $nodes = array();
 
         foreach ($nodes_array as $nodes_array_item) {
-            /** @var $nodes_array_item \Compo\Sonata\AdminBundle\Entity\IdEntityTrait */
+            /* @var $nodes_array_item \Compo\Sonata\AdminBundle\Entity\IdEntityTrait */
             $nodes[$nodes_array_item->getId()] = $nodes_array_item;
         }
 
@@ -135,7 +135,7 @@ trait TreeTrait
     }
 
     /**
-     * Вернуть ids каталогов, для дерева
+     * Вернуть ids каталогов, для дерева.
      *
      * @param $tree
      *
@@ -155,7 +155,7 @@ trait TreeTrait
     }
 
     /**
-     * Заполнить дерево объектов сущностями
+     * Заполнить дерево объектов сущностями.
      *
      * @param $tree
      * @param $nodes

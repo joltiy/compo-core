@@ -5,9 +5,8 @@ namespace Compo\FaqBundle\Controller;
 use Compo\Sonata\AdminBundle\Controller\CRUDController;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class FaqAdminController extends CRUDController
 {
-
 }

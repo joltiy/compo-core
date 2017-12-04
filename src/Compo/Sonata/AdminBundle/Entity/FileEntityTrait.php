@@ -5,13 +5,12 @@ namespace Compo\Sonata\AdminBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Trait FileEntityTrait
- * @package Compo\Sonata\AdminBundle\Entity
+ * Trait FileEntityTrait.
  */
 trait FileEntityTrait
 {
     /**
-     * Изображение
+     * Изображение.
      *
      * @ORM\ManyToOne(targetEntity="Compo\Sonata\MediaBundle\Entity\Media", cascade={"persist"})
      * @ORM\JoinColumn(name="file_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")

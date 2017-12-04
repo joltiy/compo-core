@@ -5,7 +5,7 @@ namespace Compo\SeoBundle\Manager;
 use Compo\Sonata\CoreBundle\Model\BaseEntityManager;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class SeoPage extends BaseEntityManager
 {
@@ -15,10 +15,14 @@ class SeoPage extends BaseEntityManager
     protected $settings;
 
     /**
-     *
      * @var array
      */
     public $seoPages = array();
+
+    /**
+     * @var array
+     */
+    public $seoPagesContext = array();
 
     /**
      * @return object|\Sylius\Bundle\SettingsBundle\Model\SettingsInterface
@@ -52,6 +56,28 @@ class SeoPage extends BaseEntityManager
 
     /**
      * @param $context
+     *
+     * @return \Compo\SeoBundle\Entity\SeoPage
+     */
+    public function getSeoPageContext($context)
+    {
+        if (isset($this->seoPagesContext[$context])) {
+            return $this->seoPagesContext[$context];
+        } else {
+            $contextTemplate = $this->findOneBy(array('context' => $context));
+
+            if ($contextTemplate) {
+                $this->seoPagesContext[$context] = $contextTemplate;
+                return $this->seoPagesContext[$context];
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param $context
+     *
      * @return mixed
      */
     public function getSeoPageItem($context)

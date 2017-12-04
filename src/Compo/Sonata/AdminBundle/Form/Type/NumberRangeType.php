@@ -17,15 +17,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * form Type
+ * form Type.
  */
 class NumberRangeType extends AbstractType
 {
-
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('start', $options['field_type'], array_merge(array('required' => false), $options['field_options']));
@@ -33,11 +31,11 @@ class NumberRangeType extends AbstractType
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        /** @var $resolver OptionsResolver */
+        /* @var $resolver OptionsResolver */
         $resolver->setDefaults(
             array(
                 'field_options' => array(),
@@ -46,9 +44,8 @@ class NumberRangeType extends AbstractType
         );
     }
 
-
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getName()
     {

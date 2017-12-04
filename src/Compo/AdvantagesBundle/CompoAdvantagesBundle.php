@@ -5,7 +5,7 @@ namespace Compo\AdvantagesBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class CompoAdvantagesBundle extends Bundle
 {

@@ -6,8 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * Trait IdEntityTrait
- * @package Compo\Sonata\AdminBundle\Entity
+ * Trait IdEntityTrait.
  */
 trait IdEntityTrait
 {
@@ -24,7 +23,7 @@ trait IdEntityTrait
     protected $id;
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */

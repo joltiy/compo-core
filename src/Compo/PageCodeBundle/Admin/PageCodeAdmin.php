@@ -9,17 +9,16 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class PageCodeAdmin extends AbstractAdmin
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configure()
     {
         $this->configurePosition(true);
-
     }
 
     /**
@@ -49,7 +48,6 @@ class PageCodeAdmin extends AbstractAdmin
                 '_action',
                 null,
                 array(
-
                 )
             );
     }

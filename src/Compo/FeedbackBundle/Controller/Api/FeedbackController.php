@@ -10,15 +10,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class FeedbackController extends Controller
 {
     use \Compo\CoreBundle\Traits\JsonTrait;
 
     /**
-     *
-     * Works with contact form data
+     * Works with contact form data.
      *
      * Validates contact form,
      * Saves contact entity,
@@ -36,7 +35,7 @@ class FeedbackController extends Controller
      *  }
      * )
      *
-     * @param Request $request Request represents an HTTP request.
+     * @param Request $request request represents an HTTP request
      *
      * @return View
      *
@@ -76,8 +75,7 @@ class FeedbackController extends Controller
 
             $csrf->refreshToken('feedback_protection');
 
-            $this->get('compo_notification.manager.notification')->send($feedback->getType() . '_for_user', array('feedback' => $feedback));
-            $this->get('compo_notification.manager.notification')->send($feedback->getType() . '_for_admin', array('feedback' => $feedback));
+            $this->get('compo_notification.manager.notification')->send($feedback->getType(), array('feedback' => $feedback));
 
             return View::create(array('success' => true, 'message' => 'contacts_sent'), 200);
         } catch (\Exception $e) {

@@ -8,18 +8,18 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class IdExtension extends AbstractAdminExtension
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         if (!$this->isUseEntityTraits($datagridMapper->getAdmin(), array(
             'Compo\Sonata\AdminBundle\Entity\IdEntityTrait',
-        ) )) {
+        ))) {
             return;
         }
 
@@ -39,13 +39,13 @@ class IdExtension extends AbstractAdminExtension
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configureFormFields(FormMapper $formMapper)
     {
         if (!$this->isUseEntityTraits($formMapper->getAdmin(), array(
             'Compo\Sonata\AdminBundle\Entity\IdEntityTrait',
-        ) )) {
+        ))) {
             return;
         }
 

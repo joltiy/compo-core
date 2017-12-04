@@ -5,9 +5,7 @@ namespace Compo\CoreBundle\Translation;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 
 /**
- * Class FallbackTranslator
- *
- * @package Compo\CoreBundle\Translation
+ * Class FallbackTranslator.
  */
 class FallbackTranslator extends Translator
 {
@@ -32,10 +30,10 @@ class FallbackTranslator extends Translator
 
         // Change translation domain to 'messages' if a translation can't be found in the
         // current domain
-        if ('messages' !== $domain && false === $this->catalogues[$locale]->has((string)$id, $domain)) {
+        if ('messages' !== $domain && false === $this->catalogues[$locale]->has((string) $id, $domain)) {
             $domain = 'messages';
         }
 
-        return strtr($this->catalogues[$locale]->get((string)$id, $domain), $parameters);
+        return strtr($this->catalogues[$locale]->get((string) $id, $domain), $parameters);
     }
 }

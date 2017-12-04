@@ -101,16 +101,14 @@ final class BreadcrumbsBuilder implements BreadcrumbsBuilderInterface
                     $admin->generateUrl('list') :
                     null,
                 'translation_parameters' => array(
-                    '%name%' => $admin->getLabel()
-                )
+                    '%name%' => $admin->getLabel(),
+                ),
             )
         );
 
         $menu->setExtra('translation_params', array(
-            '%name%' => $admin->getLabel()
+            '%name%' => $admin->getLabel(),
         ));
-
-
 
         if ($childAdmin) {
             $id = $admin->getRequest()->get($admin->getIdParameter());

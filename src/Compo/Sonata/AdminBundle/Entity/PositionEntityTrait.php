@@ -6,8 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Trait PositionEntityTrait
- * @package Compo\Sonata\AdminBundle\Entity
+ * Trait PositionEntityTrait.
  */
 trait PositionEntityTrait
 {
@@ -18,7 +17,7 @@ trait PositionEntityTrait
     protected $position = -1;
 
     /**
-     * @return integer
+     * @return int
      */
     public function getPosition()
     {
@@ -26,7 +25,7 @@ trait PositionEntityTrait
     }
 
     /**
-     * @param integer $position
+     * @param int $position
      */
     public function setPosition($position)
     {

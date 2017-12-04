@@ -25,11 +25,11 @@ class SyliusSettingsBundle extends AbstractResourceBundle
     /**
      * {@inheritdoc}
      */
-    public function getSupportedDrivers()
+    public function getSupportedDrivers():array
     {
-        return [
+        return array(
             SyliusResourceBundle::DRIVER_DOCTRINE_ORM,
-        ];
+        );
     }
 
     /**
@@ -46,7 +46,7 @@ class SyliusSettingsBundle extends AbstractResourceBundle
     /**
      * {@inheritdoc}
      */
-    protected function getModelNamespace()
+    protected function getModelNamespace():string
     {
         return 'Sylius\Bundle\SettingsBundle\Model';
     }

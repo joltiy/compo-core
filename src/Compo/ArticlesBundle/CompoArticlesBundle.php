@@ -5,7 +5,7 @@ namespace Compo\ArticlesBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class CompoArticlesBundle extends Bundle
 {

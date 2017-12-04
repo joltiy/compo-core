@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class BaseAdminSettingsSchema implements SchemaInterface
 {
@@ -40,12 +40,11 @@ class BaseAdminSettingsSchema implements SchemaInterface
      */
     public function buildForm(FormBuilderInterface $builder)
     {
-
-
     }
 
     /**
      * @param OptionsResolver $resolver
+     *
      * @throws \Exception
      */
     public function configureOptions(OptionsResolver $resolver)
@@ -109,6 +108,7 @@ class BaseAdminSettingsSchema implements SchemaInterface
 
     /**
      * @return array
+     *
      * @throws \Exception
      */
     public function getDefaultOptions()

@@ -6,25 +6,22 @@ use Compo\MenuBundle\Entity\Menu;
 use Compo\MenuBundle\Entity\MenuItem;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
-use Knp\Menu\ItemInterface as MenuItemInterface;
-use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class MenuAdmin extends AbstractAdmin
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function postPersist($menu)
     {
         /** @var Menu $menu */
-
         $menuItem = new MenuItem();
 
         $menuItem->setName($menu->getName());
@@ -37,7 +34,7 @@ class MenuAdmin extends AbstractAdmin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function postRemove($object)
     {
@@ -85,7 +82,6 @@ class MenuAdmin extends AbstractAdmin
                 '_action',
                 'actions',
                 array(
-
                 )
             );
     }
@@ -116,6 +112,4 @@ class MenuAdmin extends AbstractAdmin
             ->add('id')
             ->add('name');
     }
-
-
 }

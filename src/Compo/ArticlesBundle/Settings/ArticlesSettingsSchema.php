@@ -6,21 +6,22 @@ use Compo\CoreBundle\Settings\BaseBundleAdminSettingsSchema;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class ArticlesSettingsSchema extends BaseBundleAdminSettingsSchema
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
-    public function getDefaultSettings() {
-        return [
+    public function getDefaultSettings()
+    {
+        return array(
             'articles_per_page' => 21,
-        ];
+        );
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function buildFormSettings()
     {

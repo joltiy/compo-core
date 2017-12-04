@@ -2,18 +2,13 @@
 
 namespace Compo\CoreBundle\Command\LegacyConvert;
 
-
 use Compo\ArticlesBundle\Entity\Articles;
 
 /**
- * Class ArticlesLegacyConvert
- * @package Compo\CoreBundle\Command\LegacyConvert
+ * Class ArticlesLegacyConvert.
  */
 class ArticlesLegacyConvert extends BaseLegacyConvert
 {
-    /**
-     *
-     */
     public function configure()
     {
         $this->setTableName('articles');
@@ -37,7 +32,7 @@ class ArticlesLegacyConvert extends BaseLegacyConvert
             $newItem->setImage($this->getCommand()->downloadMedia($oldDataItem['bank']));
         }
 
-        $newItem->setEnabled((bool)$oldDataItem['visible']);
+        $newItem->setEnabled((bool) $oldDataItem['visible']);
 
         $newItem->setPublicationAt(new \DateTime($oldDataItem['pdate']));
         $newItem->setCreatedAt(new \DateTime($oldDataItem['pdate']));

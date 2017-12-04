@@ -20,17 +20,17 @@ use Sylius\Bundle\SettingsBundle\Twig\SettingsExtension;
  */
 final class SettingsExtensionSpec extends ObjectBehavior
 {
-    function let(SettingsHelperInterface $helper)
+    public function let(SettingsHelperInterface $helper)
     {
         $this->beConstructedWith($helper);
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(SettingsExtension::class);
     }
 
-    function it_should_be_a_twig_extension()
+    public function it_should_be_a_twig_extension()
     {
         $this->shouldHaveType(\Twig_Extension::class);
     }

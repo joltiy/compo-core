@@ -4,20 +4,18 @@ namespace Compo\BannerBundle\Admin;
 
 use Compo\BannerBundle\Entity\BannerItem;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
-use Knp\Menu\ItemInterface as MenuItemInterface;
-use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class BannerItemAdmin extends AbstractAdmin
 {
     /**
-     * Конфигурация админки
+     * Конфигурация админки.
      */
     public function configure()
     {
@@ -26,7 +24,7 @@ class BannerItemAdmin extends AbstractAdmin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function preUpdate($object)
     {
@@ -44,7 +42,7 @@ class BannerItemAdmin extends AbstractAdmin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function prePersist($object)
     {
@@ -52,7 +50,7 @@ class BannerItemAdmin extends AbstractAdmin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function preRemove($object)
     {
@@ -64,7 +62,6 @@ class BannerItemAdmin extends AbstractAdmin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-
     }
 
     /**
@@ -84,7 +81,7 @@ class BannerItemAdmin extends AbstractAdmin
                     'actions' => array(
                         'edit' => array(),
                         'delete' => array(),
-                    )
+                    ),
                 )
             );
     }
@@ -97,14 +94,14 @@ class BannerItemAdmin extends AbstractAdmin
         $formMapper->tab(
             'main_banner',
             array(
-                'translation_domain' => $this->getTranslationDomain()
+                'translation_domain' => $this->getTranslationDomain(),
             )
         );
 
         $formMapper->with(
             'main',
             array(
-                'name' => false
+                'name' => false,
             )
         )
             ->add('id')
@@ -115,7 +112,6 @@ class BannerItemAdmin extends AbstractAdmin
             ->add('description')
 
         ;
-
 
         $formMapper->add('url');
 
@@ -140,5 +136,4 @@ class BannerItemAdmin extends AbstractAdmin
             ->add('updatedAt')
             ->add('deletedAt');
     }
-
 }

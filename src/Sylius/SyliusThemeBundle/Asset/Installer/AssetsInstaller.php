@@ -53,11 +53,11 @@ final class AssetsInstaller implements AssetsInstallerInterface
     private $pathResolver;
 
     /**
-     * @param Filesystem $filesystem
-     * @param KernelInterface $kernel
-     * @param ThemeRepositoryInterface $themeRepository
+     * @param Filesystem                      $filesystem
+     * @param KernelInterface                 $kernel
+     * @param ThemeRepositoryInterface        $themeRepository
      * @param ThemeHierarchyProviderInterface $themeHierarchyProvider
-     * @param PathResolverInterface $pathResolver
+     * @param PathResolverInterface           $pathResolver
      */
     public function __construct(
         Filesystem $filesystem,
@@ -79,7 +79,7 @@ final class AssetsInstaller implements AssetsInstallerInterface
     public function installAssets($targetDir, $symlinkMask)
     {
         // Create the bundles directory otherwise symlink will fail.
-        $targetDir = rtrim($targetDir, '/').'/bundles/';
+        $targetDir = rtrim($targetDir, '/') . '/bundles/';
         $this->filesystem->mkdir($targetDir);
 
         $effectiveSymlinkMask = $symlinkMask;
@@ -123,9 +123,9 @@ final class AssetsInstaller implements AssetsInstallerInterface
 
     /**
      * @param ThemeInterface $theme
-     * @param string $originDir
-     * @param string $targetDir
-     * @param int $symlinkMask
+     * @param string         $originDir
+     * @param string         $targetDir
+     * @param int            $symlinkMask
      *
      * @return int
      */
@@ -138,7 +138,7 @@ final class AssetsInstaller implements AssetsInstallerInterface
 
         /** @var SplFileInfo[] $finder */
         foreach ($finder as $originFile) {
-            $targetFile = $targetDir.'/'.$originFile->getRelativePathname();
+            $targetFile = $targetDir . '/' . $originFile->getRelativePathname();
             $targetFile = $this->pathResolver->resolve($targetFile, $theme);
 
             if (file_exists($targetFile) && AssetsInstallerInterface::HARD_COPY !== $symlinkMask) {
@@ -159,7 +159,7 @@ final class AssetsInstaller implements AssetsInstallerInterface
     /**
      * @param string $originDir
      * @param string $targetDir
-     * @param int $symlinkMask
+     * @param int    $symlinkMask
      *
      * @return int
      */
@@ -171,7 +171,7 @@ final class AssetsInstaller implements AssetsInstallerInterface
     /**
      * @param string $origin
      * @param string $target
-     * @param int $symlinkMask
+     * @param int    $symlinkMask
      *
      * @return int
      */
@@ -208,9 +208,9 @@ final class AssetsInstaller implements AssetsInstallerInterface
     /**
      * @param string $origin
      * @param string $target
-     * @param bool $symlink
+     * @param bool   $symlink
      *
-     * @throws IOException When failed to make symbolic link, if requested.
+     * @throws IOException when failed to make symbolic link, if requested
      */
     private function doInstallAsset($origin, $target, $symlink)
     {
@@ -224,23 +224,23 @@ final class AssetsInstaller implements AssetsInstallerInterface
     }
 
     /**
-     * @param BundleInterface $bundle
+     * @param BundleInterface  $bundle
      * @param ThemeInterface[] $themes
      *
      * @return array
      */
-    private function findAssetsPaths(BundleInterface $bundle, array $themes = [])
+    private function findAssetsPaths(BundleInterface $bundle, array $themes = array())
     {
-        $sources = [];
+        $sources = array();
 
         foreach ($themes as $theme) {
-            $sourceDir = $theme->getPath().'/'.$bundle->getName().'/public';
+            $sourceDir = $theme->getPath() . '/' . $bundle->getName() . '/public';
             if (is_dir($sourceDir)) {
                 $sources[] = $sourceDir;
             }
         }
 
-        $sourceDir = $bundle->getPath().'/Resources/public';
+        $sourceDir = $bundle->getPath() . '/Resources/public';
         if (is_dir($sourceDir)) {
             $sources[] = $sourceDir;
         }

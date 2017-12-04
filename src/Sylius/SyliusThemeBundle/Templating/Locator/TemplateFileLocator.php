@@ -47,10 +47,10 @@ final class TemplateFileLocator implements FileLocatorInterface, \Serializable
     private $templateLocator;
 
     /**
-     * @param FileLocatorInterface $decoratedFileLocator
-     * @param ThemeContextInterface $themeContext
+     * @param FileLocatorInterface            $decoratedFileLocator
+     * @param ThemeContextInterface           $themeContext
      * @param ThemeHierarchyProviderInterface $themeHierarchyProvider
-     * @param TemplateLocatorInterface $templateLocator
+     * @param TemplateLocatorInterface        $templateLocator
      */
     public function __construct(
         FileLocatorInterface $decoratedFileLocator,

@@ -8,7 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class NotificationEventsListCommand extends ContainerAwareCommand
 {
@@ -29,21 +29,21 @@ class NotificationEventsListCommand extends ContainerAwareCommand
     {
         $container = $this->getContainer();
         $notificationManager = $container->get('compo_notification.manager.notification');
-        $events = $notificationManager->getEvents();
+        $events = $notificationManager->getDefaultEvents();
 
         $table = new Table($output);
-        $table->setHeaders(array('event', 'description', 'recipient', 'subject', 'body', 'help', 'type'));
+        $table->setHeaders(array('name', 'event', 'recipient', 'subject', 'body', 'help', 'type'));
 
         foreach ($events as $event_key => $event) {
             $table->addRow(
                 array(
+                    $event['name'],
                     $event['event'],
-                    $event['description'],
                     $event['recipient'],
                     $event['subject'],
                     $event['body'],
                     $event['help'],
-                    $event['type']
+                    $event['type'],
                 )
             );
         }

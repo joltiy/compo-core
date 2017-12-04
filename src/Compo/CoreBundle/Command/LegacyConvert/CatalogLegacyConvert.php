@@ -5,14 +5,10 @@ namespace Compo\CoreBundle\Command\LegacyConvert;
 use Compo\CatalogBundle\Entity\Catalog;
 
 /**
- * Class ArticlesLegacyConvert
- * @package Compo\CoreBundle\Command\LegacyConvert
+ * Class ArticlesLegacyConvert.
  */
 class CatalogLegacyConvert extends BaseLegacyConvert
 {
-    /**
-     *
-     */
     public function configure()
     {
         $this->setTableName('catalog');
@@ -62,9 +58,6 @@ class CatalogLegacyConvert extends BaseLegacyConvert
         }
     }
 
-    /**
-     *
-     */
     protected function processRootCatalog()
     {
         $catalogRepository = $this->getCommand()->getEntityManager()->getRepository('CompoCatalogBundle:Catalog');

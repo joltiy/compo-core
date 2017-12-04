@@ -23,7 +23,6 @@ use Sonata\AdminBundle\Route\RouteCollection;
  */
 class SiteAdmin extends \Sonata\PageBundle\Admin\SiteAdmin
 {
-
     /**
      * {@inheritdoc}
      */
@@ -48,7 +47,6 @@ class SiteAdmin extends \Sonata\PageBundle\Admin\SiteAdmin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-
     }
 
     /**

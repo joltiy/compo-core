@@ -11,12 +11,12 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\CoreBundle\Form\Type\ColorType;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class NewsTagAdmin extends AbstractAdmin
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configure()
     {
@@ -53,7 +53,7 @@ class NewsTagAdmin extends AbstractAdmin
                     'actions' => array(
                         'edit' => array(),
                         'delete' => array(),
-                    )
+                    ),
                 )
             );
     }

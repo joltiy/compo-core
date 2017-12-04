@@ -5,7 +5,7 @@ namespace Compo\Sonata\BlockBundle\Block\Service;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class TextBlockService extends \Sonata\BlockBundle\Block\Service\TextBlockService
 {

@@ -26,7 +26,6 @@ class PageManager extends \Sonata\PageBundle\Entity\PageManager
      */
     public function loadPages(SiteInterface $site, $route_name = 'page_slug')
     {
-
         if (null === $route_name) {
             $query = $this->getEntityManager()
                 ->createQuery(sprintf('SELECT p FROM %s p INDEX BY p.id WHERE p.site = %d ORDER BY p.position ASC', $this->class, $site->getId()));
@@ -34,7 +33,6 @@ class PageManager extends \Sonata\PageBundle\Entity\PageManager
             $query = $this->getEntityManager()
                 ->createQuery(sprintf('SELECT p FROM %s p INDEX BY p.id WHERE p.site = %d AND p.routeName = \'%s\' ORDER BY p.position ASC', $this->class, $site->getId(), $route_name));
         }
-
 
         $pages = $query->execute();
 
@@ -56,7 +54,6 @@ class PageManager extends \Sonata\PageBundle\Entity\PageManager
         return $pages;
     }
 
-
     public function fixUrl(PageInterface $page)
     {
         if ($page->isInternal()) {
@@ -73,15 +70,15 @@ class PageManager extends \Sonata\PageBundle\Entity\PageManager
                     $page->setSlug(Page::slugify($page->getName()));
                 }
 
-                if ($page->getParent()->getUrl() == '/') {
+                if ('/' == $page->getParent()->getUrl()) {
                     $base = '/';
-                } elseif (substr($page->getParent()->getUrl(), -1) != '/') {
+                } elseif ('/' != substr($page->getParent()->getUrl(), -1)) {
                     $base = $page->getParent()->getUrl() . '/';
                 } else {
                     $base = $page->getParent()->getUrl();
                 }
 
-                if ($page->getRouteName() === 'page_slug') {
+                if ('page_slug' === $page->getRouteName()) {
                     $page->setUrl($base . $page->getSlug() . '/');
                 }
             } else {

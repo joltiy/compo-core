@@ -7,13 +7,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Trait BlameableEntityTrait
- * @package Compo\Sonata\AdminBundle\Entity
+ * Trait BlameableEntityTrait.
  */
 trait BlameableEntityTrait
 {
     /**
-     * @var User $createdBy
+     * @var User
      *
      * @Gedmo\Blameable(on="create")
      * @ORM\ManyToOne(targetEntity="Compo\Sonata\UserBundle\Entity\User")
@@ -22,7 +21,7 @@ trait BlameableEntityTrait
     protected $createdBy;
 
     /**
-     * @var User $updatedBy
+     * @var User
      *
      * @Gedmo\Blameable(on="update")
      * @ORM\ManyToOne(targetEntity="Compo\Sonata\UserBundle\Entity\User")
@@ -43,7 +42,8 @@ trait BlameableEntityTrait
     /**
      * Sets createdBy.
      *
-     * @param  string $createdBy
+     * @param string $createdBy
+     *
      * @return $this
      */
     public function setCreatedBy($createdBy)
@@ -66,7 +66,8 @@ trait BlameableEntityTrait
     /**
      * Sets updatedBy.
      *
-     * @param  string $updatedBy
+     * @param string $updatedBy
+     *
      * @return $this
      */
     public function setUpdatedBy($updatedBy)

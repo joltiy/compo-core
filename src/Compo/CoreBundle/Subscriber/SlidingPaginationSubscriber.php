@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: jivoy1988
  * Date: 25.11.16
- * Time: 14:57
+ * Time: 14:57.
  */
 
 namespace Compo\CoreBundle\Subscriber;
-
 
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Knp\Component\Pager\Event\PaginationEvent;
@@ -16,7 +15,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class SlidingPaginationSubscriber implements EventSubscriberInterface
 {
@@ -35,6 +34,7 @@ class SlidingPaginationSubscriber implements EventSubscriberInterface
 
     /**
      * SlidingPaginationSubscriber constructor.
+     *
      * @param array $options
      */
     public function __construct(array $options)
@@ -43,12 +43,12 @@ class SlidingPaginationSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public static function getSubscribedEvents()
     {
         return array(
-            'knp_pager.pagination' => array('pagination', 1)
+            'knp_pager.pagination' => array('pagination', 1),
         );
     }
 

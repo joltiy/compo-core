@@ -31,7 +31,7 @@ final class BundleResourceLocator implements ResourceLocatorInterface
     private $kernel;
 
     /**
-     * @param Filesystem $filesystem
+     * @param Filesystem      $filesystem
      * @param KernelInterface $kernel
      */
     public function __construct(Filesystem $filesystem, KernelInterface $kernel)

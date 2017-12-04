@@ -9,15 +9,10 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 /**
- * Class SocialAdmin
- *
- * @package Compo\SocialBundle\Admin
+ * Class SocialAdmin.
  */
 class SocialAdmin extends AbstractAdmin
 {
-    /**
-     *
-     */
     public function configure()
     {
         $this->configurePosition(true);
@@ -50,10 +45,9 @@ class SocialAdmin extends AbstractAdmin
                     'actions' => array(
                         'edit' => array(),
                         'delete' => array(),
-                    )
+                    ),
                 )
             );
-
     }
 
     /**

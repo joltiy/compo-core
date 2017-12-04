@@ -31,7 +31,7 @@ final class ResourceToIdentifierTransformer implements ParameterTransformerInter
 
     /**
      * @param RepositoryInterface $repository
-     * @param string $identifier
+     * @param string              $identifier
      */
     public function __construct(RepositoryInterface $repository, $identifier = 'id')
     {
@@ -66,6 +66,6 @@ final class ResourceToIdentifierTransformer implements ParameterTransformerInter
             return $this->repository->find($value);
         }
 
-        return $this->repository->findOneBy([$this->identifier => $value]);
+        return $this->repository->findOneBy(array($this->identifier => $value));
     }
 }

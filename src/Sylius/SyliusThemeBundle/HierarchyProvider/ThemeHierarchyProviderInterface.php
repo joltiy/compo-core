@@ -23,7 +23,7 @@ interface ThemeHierarchyProviderInterface
      *
      * @return ThemeInterface[]
      *
-     * @throws \InvalidArgumentException If dependencies could not be resolved.
+     * @throws \InvalidArgumentException if dependencies could not be resolved
      */
     public function getThemeHierarchy(ThemeInterface $theme = null);
 }

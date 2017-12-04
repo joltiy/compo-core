@@ -5,9 +5,7 @@ namespace Compo\CoreBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class SettingsAdminController
- *
- * @package Compo\CoreBundle\Controller
+ * Class SettingsAdminController.
  */
 class SettingsAdminController extends BaseSettingsAdminController
 {
@@ -29,12 +27,11 @@ class SettingsAdminController extends BaseSettingsAdminController
 
         $userSettings = $user->getSettings();
 
-        $userSettings[$code.'.list.fields'] = $fileds;
+        $userSettings[$code . '.list.fields'] = $fileds;
 
         $user->setSettings($userSettings);
 
         $this->get('doctrine')->getManager()->persist($user);
         $this->get('doctrine')->getManager()->flush();
     }
-
 }

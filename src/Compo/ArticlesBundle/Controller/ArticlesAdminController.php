@@ -5,9 +5,8 @@ namespace Compo\ArticlesBundle\Controller;
 use Compo\Sonata\AdminBundle\Controller\CRUDController;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class ArticlesAdminController extends CRUDController
 {
-
 }

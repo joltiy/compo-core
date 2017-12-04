@@ -50,10 +50,10 @@ final class ListCommand extends ContainerAwareCommand
         $output->writeln('<question>Successfully loaded themes:</question>');
 
         $table = new Table($output);
-        $table->setHeaders(['Title', 'Name', 'Path']);
+        $table->setHeaders(array('Title', 'Name', 'Path'));
 
         foreach ($themes as $theme) {
-            $table->addRow([$theme->getTitle(), $theme->getName(), $theme->getPath()]);
+            $table->addRow(array($theme->getTitle(), $theme->getName(), $theme->getPath()));
         }
 
         $table->setStyle('borderless');

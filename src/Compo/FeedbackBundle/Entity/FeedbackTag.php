@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Tag
+ * Tag.
  *
  * @Gedmo\Loggable
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
@@ -43,7 +43,7 @@ class FeedbackTag
     protected $feedbacksCount = 0;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -67,7 +67,7 @@ class FeedbackTag
     }
 
     /**
-     * Add feedbacks
+     * Add feedbacks.
      *
      * @param \Compo\FeedbackBundle\Entity\Feedback $feedbacks
      *
@@ -81,7 +81,7 @@ class FeedbackTag
     }
 
     /**
-     * Remove feedbacks
+     * Remove feedbacks.
      *
      * @param \Compo\FeedbackBundle\Entity\Feedback $feedbacks
      */
@@ -91,7 +91,7 @@ class FeedbackTag
     }
 
     /**
-     * Get feedbacks
+     * Get feedbacks.
      *
      * @return \Doctrine\Common\Collections\Collection
      */

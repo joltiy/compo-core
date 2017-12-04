@@ -29,7 +29,7 @@ final class Configuration implements ConfigurationInterface
     /**
      * @param ConfigurationSourceFactoryInterface[] $configurationSourceFactories
      */
-    public function __construct(array $configurationSourceFactories = [])
+    public function __construct(array $configurationSourceFactories = array())
     {
         $this->configurationSourceFactories = $configurationSourceFactories;
     }

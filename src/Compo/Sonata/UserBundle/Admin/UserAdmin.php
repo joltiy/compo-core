@@ -8,16 +8,13 @@ namespace Compo\Sonata\UserBundle\Admin;
 
 use Sonata\AdminBundle\Form\FormMapper;
 
-
 /**
- * Class UserAdmin
- * @package Compo\Sonata\UserBundle\Admin
+ * Class UserAdmin.
  */
 class UserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
 {
-
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -104,7 +101,5 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
 
                 ->end();
         }
-
-
     }
 }

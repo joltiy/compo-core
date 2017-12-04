@@ -1,0 +1,22 @@
+<?php
+
+if (!file_exists(__DIR__ . '/src')) {
+    exit(0);
+}
+
+return PhpCsFixer\Config::create()
+    ->setRules(array(
+        '@PSR2' => true,
+        '@Symfony' => true,
+        '@Symfony:risky' => true,
+        'array_syntax' => array('syntax' => 'long'),
+        'protected_to_private' => false,
+        'concat_space' => array('spacing' => 'one'),
+    ))
+    ->setRiskyAllowed(true)
+    ->setFinder(
+        PhpCsFixer\Finder::create()
+            ->in(__DIR__ . '/src')
+            ->append(array(__FILE__))
+            ->exclude(array())
+    );

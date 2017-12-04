@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * BannerItem
+ * BannerItem.
  *
  * @Gedmo\Loggable
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
@@ -67,7 +67,7 @@ class BannerItem
     protected $page;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="page_id", type="integer", nullable=true)
      */
@@ -106,7 +106,7 @@ class BannerItem
     }
 
     /**
-     * Get title
+     * Get title.
      *
      * @return string
      */
@@ -116,7 +116,7 @@ class BannerItem
     }
 
     /**
-     * Set title
+     * Set title.
      *
      * @param string $title
      *
@@ -130,7 +130,7 @@ class BannerItem
     }
 
     /**
-     * Get url
+     * Get url.
      *
      * @return string
      */
@@ -140,7 +140,7 @@ class BannerItem
     }
 
     /**
-     * Set url
+     * Set url.
      *
      * @param string $url
      *

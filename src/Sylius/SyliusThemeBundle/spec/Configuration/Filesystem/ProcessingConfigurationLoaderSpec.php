@@ -21,62 +21,62 @@ use Sylius\Bundle\ThemeBundle\Configuration\Filesystem\ProcessingConfigurationLo
  */
 final class ProcessingConfigurationLoaderSpec extends ObjectBehavior
 {
-    function let(ConfigurationLoaderInterface $decoratedLoader, ConfigurationProcessorInterface $configurationProcessor)
+    public function let(ConfigurationLoaderInterface $decoratedLoader, ConfigurationProcessorInterface $configurationProcessor)
     {
         $this->beConstructedWith($decoratedLoader, $configurationProcessor);
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(ProcessingConfigurationLoader::class);
     }
 
-    function it_implements_loader_interface()
+    public function it_implements_loader_interface()
     {
         $this->shouldImplement(ConfigurationLoaderInterface::class);
     }
 
-    function it_processes_the_configuration(
+    public function it_processes_the_configuration(
         ConfigurationLoaderInterface $decoratedLoader,
         ConfigurationProcessorInterface $configurationProcessor
     ) {
-        $basicConfiguration = ['name' => 'example/sylius-theme'];
+        $basicConfiguration = array('name' => 'example/sylius-theme');
 
         $decoratedLoader->load('theme-configuration-resource')->willReturn($basicConfiguration);
 
-        $configurationProcessor->process([$basicConfiguration])->willReturn([
+        $configurationProcessor->process(array($basicConfiguration))->willReturn(array(
             'name' => 'example/sylius-theme',
-        ]);
+        ));
 
-        $this->load('theme-configuration-resource')->shouldReturn([
+        $this->load('theme-configuration-resource')->shouldReturn(array(
             'name' => 'example/sylius-theme',
-        ]);
+        ));
     }
 
-    function it_processes_the_configuration_and_extracts_extra_sylius_theme_key_as_another_configuration(
+    public function it_processes_the_configuration_and_extracts_extra_sylius_theme_key_as_another_configuration(
         ConfigurationLoaderInterface $decoratedLoader,
         ConfigurationProcessorInterface $configurationProcessor
     ) {
-        $basicConfiguration = [
+        $basicConfiguration = array(
             'name' => 'example/sylius-theme',
-            'extra' => [
-                'sylius-theme' => [
+            'extra' => array(
+                'sylius-theme' => array(
                     'name' => 'example/brand-new-sylius-theme',
-                ],
-            ],
-        ];
+                ),
+            ),
+        );
 
         $decoratedLoader->load('theme-configuration-resource')->willReturn($basicConfiguration);
 
-        $configurationProcessor->process([
+        $configurationProcessor->process(array(
             $basicConfiguration,
-            ['name' => 'example/brand-new-sylius-theme'],
-        ])->willReturn([
+            array('name' => 'example/brand-new-sylius-theme'),
+        ))->willReturn(array(
             'name' => 'example/brand-new-sylius-theme',
-        ]);
+        ));
 
-        $this->load('theme-configuration-resource')->shouldReturn([
+        $this->load('theme-configuration-resource')->shouldReturn(array(
             'name' => 'example/brand-new-sylius-theme',
-        ]);
+        ));
     }
 }

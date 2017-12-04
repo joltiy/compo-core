@@ -5,14 +5,10 @@ namespace Compo\CoreBundle\Command\LegacyConvert;
 use Compo\NewsBundle\Entity\News;
 
 /**
- * Class ArticlesLegacyConvert
- * @package Compo\CoreBundle\Command\LegacyConvert
+ * Class ArticlesLegacyConvert.
  */
 class NewsLegacyConvert extends BaseLegacyConvert
 {
-    /**
-     *
-     */
     public function configure()
     {
         $this->setTableName('news');
@@ -36,7 +32,7 @@ class NewsLegacyConvert extends BaseLegacyConvert
             $newItem->setImage($this->downloadMedia($oldDataItem['bank']));
         }
 
-        $newItem->setEnabled((bool)1);
+        $newItem->setEnabled((bool) 1);
         $newItem->setDescription($oldDataItem['daily_block']);
 
         $newItem->setCreatedAt(new \DateTime($oldDataItem['pdate']));

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * MenuItem
+ * MenuItem.
  *
  * @Gedmo\Tree(type="nested")
  * @Gedmo\Loggable
@@ -100,7 +100,7 @@ class MenuItem
      */
     protected $country;
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="country_id", type="integer", nullable=true)
      */
@@ -111,7 +111,7 @@ class MenuItem
      */
     protected $manufacture;
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="manufacture_id", type="integer", nullable=true)
      */
@@ -130,28 +130,27 @@ class MenuItem
     protected $catalog;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="tagging_id", type="integer", nullable=true)
      */
     protected $tagging_id;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="page_id", type="integer", nullable=true)
      */
     protected $page_id;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="catalog_id", type="integer", nullable=true)
      */
     protected $catalog_id;
 
     /**
-     *
      * @var string
      * @ORM\Column(type="string", nullable=true)
      */
@@ -172,7 +171,6 @@ class MenuItem
     {
         $this->target = $target;
     }
-
 
     /**
      * @return mixed
@@ -270,7 +268,6 @@ class MenuItem
         $this->tagging = $tagging;
     }
 
-
     /**
      * @return mixed
      */
@@ -320,7 +317,7 @@ class MenuItem
     }
 
     /**
-     * Get title
+     * Get title.
      *
      * @return string
      */
@@ -330,7 +327,7 @@ class MenuItem
     }
 
     /**
-     * Set title
+     * Set title.
      *
      * @param string $title
      *
@@ -344,7 +341,7 @@ class MenuItem
     }
 
     /**
-     * Get url
+     * Get url.
      *
      * @return string
      */
@@ -354,7 +351,7 @@ class MenuItem
     }
 
     /**
-     * Set url
+     * Set url.
      *
      * @param string $url
      *

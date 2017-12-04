@@ -40,7 +40,7 @@ final class ThemeTranslatorResourceProvider implements TranslatorResourceProvide
 
     /**
      * @param TranslationFilesFinderInterface $translationFilesFinder
-     * @param ThemeRepositoryInterface $themeRepository
+     * @param ThemeRepositoryInterface        $themeRepository
      * @param ThemeHierarchyProviderInterface $themeHierarchyProvider
      */
     public function __construct(
@@ -61,7 +61,7 @@ final class ThemeTranslatorResourceProvider implements TranslatorResourceProvide
         /** @var ThemeInterface[] $themes */
         $themes = $this->themeRepository->findAll();
 
-        $resources = [];
+        $resources = array();
         foreach ($themes as $theme) {
             $resources = array_merge($resources, $this->extractResourcesFromTheme($theme));
         }
@@ -89,7 +89,7 @@ final class ThemeTranslatorResourceProvider implements TranslatorResourceProvide
         /** @var ThemeInterface[] $themes */
         $themes = array_reverse($this->themeHierarchyProvider->getThemeHierarchy($mainTheme));
 
-        $resources = [];
+        $resources = array();
         foreach ($themes as $theme) {
             $paths = $this->translationFilesFinder->findTranslationFiles($theme->getPath());
 

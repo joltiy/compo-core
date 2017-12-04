@@ -20,33 +20,33 @@ use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
  */
 final class CircularDependencyFoundExceptionSpec extends ObjectBehavior
 {
-    function let()
+    public function let()
     {
-        $this->beConstructedWith([]);
+        $this->beConstructedWith(array());
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(CircularDependencyFoundException::class);
     }
 
-    function it_is_a_domain_exception()
+    public function it_is_a_domain_exception()
     {
         $this->shouldHaveType(\DomainException::class);
     }
 
-    function it_is_a_logic_exception()
+    public function it_is_a_logic_exception()
     {
         $this->shouldHaveType(\LogicException::class);
     }
 
-    function it_transforms_a_cycle_to_user_friendly_message(
+    public function it_transforms_a_cycle_to_user_friendly_message(
         ThemeInterface $firstTheme,
         ThemeInterface $secondTheme,
         ThemeInterface $thirdTheme,
         ThemeInterface $fourthTheme
     ) {
-        $this->beConstructedWith([$firstTheme, $secondTheme, $thirdTheme, $fourthTheme, $thirdTheme]);
+        $this->beConstructedWith(array($firstTheme, $secondTheme, $thirdTheme, $fourthTheme, $thirdTheme));
 
         $firstTheme->getName()->willReturn('first/theme');
         $secondTheme->getName()->willReturn('second/theme');
@@ -56,13 +56,13 @@ final class CircularDependencyFoundExceptionSpec extends ObjectBehavior
         $this->getMessage()->shouldReturn('Circular dependency was found while resolving theme "first/theme", caused by cycle "third/theme -> fourth/theme -> third/theme".');
     }
 
-    function it_throws_another_exception_if_there_is_no_cycle_in_given_elements(
+    public function it_throws_another_exception_if_there_is_no_cycle_in_given_elements(
         ThemeInterface $firstTheme,
         ThemeInterface $secondTheme,
         ThemeInterface $thirdTheme,
         ThemeInterface $fourthTheme
     ) {
-        $this->beConstructedWith([$firstTheme, $secondTheme, $thirdTheme, $fourthTheme]);
+        $this->beConstructedWith(array($firstTheme, $secondTheme, $thirdTheme, $fourthTheme));
 
         $this->shouldThrow(new \InvalidArgumentException('There is no cycle within given themes.'))->duringInstantiation();
     }

@@ -5,7 +5,7 @@ namespace Compo\NewsBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class CompoNewsBundle extends Bundle
 {

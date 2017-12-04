@@ -12,8 +12,11 @@ class NewsController extends Controller
 {
     /**
      * Lists all news entities.
+     *
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Throwable
      */
     public function indexAction(Request $request)
@@ -31,7 +34,7 @@ class NewsController extends Controller
         $seoPage->addVar('page', $page);
         $seoPage->addVar('total_pages', $totalPages);
 
-        if ($page !== 1) {
+        if (1 !== $page) {
             $seoPage->setLinkCanonical($manager->getNewsIndexPermalink(array('page' => $page), 0));
         } else {
             $seoPage->setLinkCanonical($manager->getNewsIndexPermalink(array(), 0));
@@ -57,7 +60,9 @@ class NewsController extends Controller
 
     /**
      * @param $slug
+     *
      * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Throwable
      */
     public function showBySlugAction($slug)
@@ -100,6 +105,7 @@ class NewsController extends Controller
 
     /**
      * @param $id
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showByIdAction($id)

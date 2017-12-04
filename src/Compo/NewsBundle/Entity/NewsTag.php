@@ -6,8 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * NewsTag
- * 
+ * NewsTag.
+ *
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
 
  * @ORM\Table(name="news_tag")

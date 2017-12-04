@@ -29,7 +29,7 @@ final class SyliusThemeExtension extends Extension implements PrependExtensionIn
     /**
      * @var ConfigurationSourceFactoryInterface[]
      */
-    private $configurationSourceFactories = [];
+    private $configurationSourceFactories = array();
 
     /**
      * @internal
@@ -38,8 +38,8 @@ final class SyliusThemeExtension extends Extension implements PrependExtensionIn
      */
     public function load(array $config, ContainerBuilder $container)
     {
-        $config = $this->processConfiguration($this->getConfiguration([], $container), $config);
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $config = $this->processConfiguration($this->getConfiguration(array(), $container), $config);
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
 
         if ($config['assets']['enabled']) {
@@ -66,7 +66,7 @@ final class SyliusThemeExtension extends Extension implements PrependExtensionIn
      */
     public function prepend(ContainerBuilder $container)
     {
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
 
         $this->prependTwig($container, $loader);
     }
@@ -95,7 +95,7 @@ final class SyliusThemeExtension extends Extension implements PrependExtensionIn
 
     /**
      * @param ContainerBuilder $container
-     * @param LoaderInterface $loader
+     * @param LoaderInterface  $loader
      */
     private function prependTwig(ContainerBuilder $container, LoaderInterface $loader)
     {
@@ -108,13 +108,13 @@ final class SyliusThemeExtension extends Extension implements PrependExtensionIn
 
     /**
      * @param ContainerBuilder $container
-     * @param array $config
+     * @param array            $config
      *
      * @return mixed
      */
     private function resolveConfigurationSources(ContainerBuilder $container, array $config)
     {
-        $configurationProviders = [];
+        $configurationProviders = array();
         foreach ($this->configurationSourceFactories as $configurationSourceFactory) {
             $sourceName = $configurationSourceFactory->getName();
             if (isset($config['sources'][$sourceName]) && $config['sources'][$sourceName]['enabled']) {

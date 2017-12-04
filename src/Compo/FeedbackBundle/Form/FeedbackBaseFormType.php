@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class FeedbackBaseFormType extends AbstractType
 {
@@ -17,7 +17,7 @@ class FeedbackBaseFormType extends AbstractType
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -26,14 +26,14 @@ class FeedbackBaseFormType extends AbstractType
                 'type',
                 HiddenType::class,
                 array(
-                    'data' => $options['type']
+                    'data' => $options['type'],
                 )
             )
             ->add(
                 'page',
                 HiddenType::class,
                 array(
-                    'data' => $this->getRequest()->getRequestUri()
+                    'data' => $this->getRequest()->getUri(),
                 )
             );
     }

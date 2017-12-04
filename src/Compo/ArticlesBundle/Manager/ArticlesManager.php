@@ -9,7 +9,7 @@ use Compo\Sonata\AdminBundle\Repository\ViewsTrait;
 use Sonata\CoreBundle\Model\BaseEntityManager;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class ArticlesManager extends BaseEntityManager
 {
@@ -19,6 +19,7 @@ class ArticlesManager extends BaseEntityManager
     /**
      * @param $criteria
      * @param int $page
+     *
      * @return \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination
      */
     public function getPager($criteria, $page = 1)
@@ -71,6 +72,7 @@ class ArticlesManager extends BaseEntityManager
 
     /**
      * @param int $limit
+     *
      * @return array
      */
     public function findLastPublications($limit = 5)
@@ -83,7 +85,9 @@ class ArticlesManager extends BaseEntityManager
 
     /**
      * @param $slug
+     *
      * @return Articles
+     *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function findBySlug($slug)
@@ -96,7 +100,8 @@ class ArticlesManager extends BaseEntityManager
 
     /**
      * @param Articles $articles
-     * @param int $absolute
+     * @param int      $absolute
+     *
      * @return string
      */
     public function getArticleShowPermalink(Articles $articles, $absolute = 1)
@@ -114,6 +119,7 @@ class ArticlesManager extends BaseEntityManager
 
     /**
      * @param Articles $articles
+     *
      * @return array
      */
     public function getArticleShowRouteParameters(Articles $articles)
@@ -123,7 +129,8 @@ class ArticlesManager extends BaseEntityManager
 
     /**
      * @param array $parameters
-     * @param int $absolute
+     * @param int   $absolute
+     *
      * @return string
      */
     public function getArticlesIndexPermalink(array $parameters = array(), $absolute = 1)
@@ -141,6 +148,7 @@ class ArticlesManager extends BaseEntityManager
 
     /**
      * @param $parameters
+     *
      * @return mixed
      */
     public function getArticlesIndexRouteParameters($parameters)

@@ -9,12 +9,12 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class PositionExtension extends AbstractAdminExtension
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function alterNewInstance(AdminInterface $admin, $object)
     {
@@ -24,16 +24,14 @@ class PositionExtension extends AbstractAdminExtension
 
             $object->setPosition($last_position);
         }
-
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configureRoutes(AdminInterface $admin, RouteCollection $collection)
     {
         if (isset($admin->positionEnabled) && $admin->positionEnabled) {
-
             //$collection->add('move', $admin->getRouterIdParameter() . '/move/{position}');
 
             $collection->add('sortable', 'sortable', array('_controller' => $admin->getBaseControllerName() . ':sortable'));
@@ -46,7 +44,6 @@ class PositionExtension extends AbstractAdminExtension
     public function configureListFields(ListMapper $listMapper)
     {
         if (isset($listMapper->getAdmin()->positionEnabled) && $listMapper->getAdmin()->positionEnabled) {
-
             $_action = $listMapper->get('_action');
 
             if (null !== $_action) {

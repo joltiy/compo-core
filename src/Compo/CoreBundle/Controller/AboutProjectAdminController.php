@@ -6,19 +6,15 @@ use Compo\Sonata\AdminBundle\Controller\CRUDController;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class SettingsAdminController
- *
- * @package Compo\CoreBundle\Controller
+ * Class SettingsAdminController.
  */
 class AboutProjectAdminController extends CRUDController
 {
-
     public function listAction(Request $request = null)
     {
         $admin_pool = $this->get('sonata.admin.pool');
 
         $admin = $this->getAdmin();
-
 
         return $this->render(
             'CompoCoreBundle:Admin:about_project.html.twig',
@@ -28,9 +24,8 @@ class AboutProjectAdminController extends CRUDController
                 'base_template' => 'CompoSonataAdminBundle::standard_layout_compo.html.twig',
                 'admin' => $admin,
                 'admin_pool' => $admin_pool,
-                'translation_domain' => $this->getAdmin()->getTranslationDomain()
+                'translation_domain' => $this->getAdmin()->getTranslationDomain(),
             )
         );
     }
-
 }

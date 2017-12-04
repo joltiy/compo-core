@@ -19,24 +19,24 @@ use Sylius\Bundle\ThemeBundle\Model\ThemeScreenshot;
  */
 final class ThemeScreenshotSpec extends ObjectBehavior
 {
-    function let()
+    public function let()
     {
         $this->beConstructedWith('/screenshot/path.jpg');
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(ThemeScreenshot::class);
     }
 
-    function it_has_path()
+    public function it_has_path()
     {
         $this->beConstructedWith('/my/screenshot.jpg');
 
         $this->getPath()->shouldReturn('/my/screenshot.jpg');
     }
 
-    function it_has_title()
+    public function it_has_title()
     {
         $this->getTitle()->shouldReturn(null);
 
@@ -44,7 +44,7 @@ final class ThemeScreenshotSpec extends ObjectBehavior
         $this->getTitle()->shouldReturn('Candy shop');
     }
 
-    function it_has_description()
+    public function it_has_description()
     {
         $this->getDescription()->shouldReturn(null);
 

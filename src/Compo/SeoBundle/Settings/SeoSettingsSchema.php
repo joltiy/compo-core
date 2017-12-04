@@ -7,23 +7,24 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class SeoSettingsSchema extends BaseBundleAdminSettingsSchema
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
-    public function getDefaultSettings() {
-        return [
+    public function getDefaultSettings()
+    {
+        return array(
             'yandex_metrika_id' => null,
             'google_analytics_id' => '',
             'google_tag_manager_id' => '',
-        ];
+        );
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function buildFormSettings()
     {
@@ -35,6 +36,5 @@ class SeoSettingsSchema extends BaseBundleAdminSettingsSchema
 
         $googleTab->add('google_analytics_id', TextType::class);
         $googleTab->add('google_tag_manager_id', TextType::class);
-
     }
 }

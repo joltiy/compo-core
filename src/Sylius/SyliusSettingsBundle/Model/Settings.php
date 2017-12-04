@@ -36,7 +36,7 @@ class Settings implements SettingsInterface
     /**
      * @var array
      */
-    protected $parameters = [];
+    protected $parameters = array();
 
     /**
      * {@inheritdoc}

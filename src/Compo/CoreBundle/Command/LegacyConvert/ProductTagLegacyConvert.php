@@ -5,14 +5,10 @@ namespace Compo\CoreBundle\Command\LegacyConvert;
 use Compo\ProductBundle\Entity\ProductTag;
 
 /**
- * Class ArticlesLegacyConvert
- * @package Compo\CoreBundle\Command\LegacyConvert
+ * Class ArticlesLegacyConvert.
  */
 class ProductTagLegacyConvert extends BaseLegacyConvert
 {
-    /**
-     *
-     */
     public function configure()
     {
         $this->setTableName('tags');

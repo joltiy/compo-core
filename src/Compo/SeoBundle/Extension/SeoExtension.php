@@ -12,26 +12,26 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class SeoExtension extends AbstractAdminExtension
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function alterNewInstance(AdminInterface $admin, $object)
     {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configureRoutes(AdminInterface $admin, RouteCollection $collection)
     {
@@ -42,7 +42,6 @@ class SeoExtension extends AbstractAdminExtension
      */
     public function configureListFields(ListMapper $listMapper)
     {
-
     }
 
     /**
@@ -53,13 +52,13 @@ class SeoExtension extends AbstractAdminExtension
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configureFormFields(FormMapper $formMapper)
     {
         if (!$this->isUseEntityTraits($formMapper->getAdmin(), array(
-            'Compo\SeoBundle\Entity\Traits\SeoEntity'
-        ) )) {
+            'Compo\SeoBundle\Entity\Traits\SeoEntity',
+        ))) {
             return;
         }
 

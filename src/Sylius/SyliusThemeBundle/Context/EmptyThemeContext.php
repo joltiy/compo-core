@@ -18,8 +18,6 @@ final class EmptyThemeContext implements ThemeContextInterface
 {
     /**
      * {@inheritdoc}
-     *
-     * @return null
      */
     public function getTheme()
     {

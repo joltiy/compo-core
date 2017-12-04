@@ -34,6 +34,7 @@ tab_menu.title_notification_email_settings: "E-mail настройки увед�
 
 form.label_settings_notification_email_account_default: "E-mail аккаунт для отправки уведомлений по умолчанию"
 form.label_settings_notification_email_recipient_default: "E-mail адреса получателей уведомлений по умолчанию"
+form.label_settings_footer_contacts: 'Контакты'
 
 compo_notification.test: "Тестовое уведомление"
 

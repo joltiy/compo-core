@@ -3,14 +3,10 @@
 namespace Compo\CoreBundle\Listener;
 
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
-use Compo\RedirectBundle\Entity\Redirect;
-use Compo\RedirectBundle\Repository\RedirectRepository;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 /**
- * Class RedirectListener
- * @package Compo\RedirectBundle\Listener
+ * Class RedirectListener.
  */
 class RefererListener
 {
@@ -18,6 +14,7 @@ class RefererListener
 
     /**
      * @return \Symfony\Component\HttpFoundation\Request
+     *
      * @throws \Exception
      */
     public function getRequest()
@@ -27,6 +24,7 @@ class RefererListener
 
     /**
      * @param GetResponseEvent $event
+     *
      * @throws \Exception
      */
     public function onKernelRequest(GetResponseEvent $event)
@@ -40,7 +38,7 @@ class RefererListener
 
         $referer = $request->headers->get('referer');
 
-        if ($referer && strpos($referer, $request->getHost()) === false) {
+        if ($referer && false === strpos($referer, $request->getHost())) {
             $session = $this->getContainer()->get('session');
 
             $session->set('referer', $referer);

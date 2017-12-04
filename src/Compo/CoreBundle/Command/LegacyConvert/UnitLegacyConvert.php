@@ -5,14 +5,10 @@ namespace Compo\CoreBundle\Command\LegacyConvert;
 use Compo\UnitBundle\Entity\Unit;
 
 /**
- * Class ArticlesLegacyConvert
- * @package Compo\CoreBundle\Command\LegacyConvert
+ * Class ArticlesLegacyConvert.
  */
 class UnitLegacyConvert extends BaseLegacyConvert
 {
-    /**
-     *
-     */
     public function configure()
     {
         $this->setTableName('unit');
@@ -82,7 +78,7 @@ class UnitLegacyConvert extends BaseLegacyConvert
                 'literalNameNational' => 'КГ',
                 'shortNameInternational' => 'kg',
                 'literalNameInternational' => 'KGM',
-            )
+            ),
         );
     }
 

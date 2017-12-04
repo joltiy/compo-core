@@ -2,13 +2,8 @@
 
 namespace Compo\CoreBundle\Command\LegacyConvert;
 
-use Compo\FeaturesBundle\Entity\FeatureAttribute;
-use Compo\FeaturesBundle\Entity\FeatureValue;
-use Compo\FeaturesBundle\Entity\FeatureVariant;
-
 /**
- * Class ArticlesLegacyConvert
- * @package Compo\CoreBundle\Command\LegacyConvert
+ * Class ArticlesLegacyConvert.
  */
 class CollectionsAdditionalLegacyConvert extends BaseLegacyConvert
 {
@@ -20,7 +15,6 @@ class CollectionsAdditionalLegacyConvert extends BaseLegacyConvert
 
         $query = 'SELECT * FROM `' . $table . '` ORDER BY id ASC';
 
-
         $oldData = $this->getCommand()->getOldConnection()->fetchAll($query);
 
         $this->getCommand()->getIo()->note('Count: ' . count($oldData));
@@ -30,7 +24,6 @@ class CollectionsAdditionalLegacyConvert extends BaseLegacyConvert
 
     public function process()
     {
-
         $oldData = $this->getOldData();
 
         $this->getCommand()->getIo()->progressStart(count($oldData));
@@ -40,7 +33,7 @@ class CollectionsAdditionalLegacyConvert extends BaseLegacyConvert
         $i = 0;
 
         foreach ($oldData as $oldDataItemKey => $oldDataItem) {
-            $i++;
+            ++$i;
 
             try {
                 $queryBuilder = $this->getCommand()->getDoctrine()->getConnection()->createQueryBuilder();
@@ -50,7 +43,7 @@ class CollectionsAdditionalLegacyConvert extends BaseLegacyConvert
                     ->values(
                         array(
                             'manufacture_collection_id' => '?',
-                            'product_id' => '?'
+                            'product_id' => '?',
                         )
                     )
                     ->setParameter(0, $oldDataItem['tovar_id'])
@@ -58,7 +51,6 @@ class CollectionsAdditionalLegacyConvert extends BaseLegacyConvert
                     ->execute()
                 ;
             } catch (\Exception $e) {
-
             }
 
             $this->getCommand()->getIo()->progressAdvance();
@@ -71,8 +63,5 @@ class CollectionsAdditionalLegacyConvert extends BaseLegacyConvert
         $this->getCommand()->getIo()->progressFinish();
 
         $this->getCommand()->getIo()->success('Load: ');
-
     }
-
-
 }

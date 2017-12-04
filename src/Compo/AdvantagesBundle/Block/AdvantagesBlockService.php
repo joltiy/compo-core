@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class AdvantagesBlockService extends AbstractBlockService
 {
@@ -76,7 +76,7 @@ class AdvantagesBlockService extends AbstractBlockService
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getCacheKeys(BlockInterface $block)
     {
@@ -101,8 +101,6 @@ class AdvantagesBlockService extends AbstractBlockService
                 $keys['block_id'] = $key;
                 $keys['updated_at'] = $item->getUpdatedAt()->format('U');
             }
-
-
         }
 
         return $keys;

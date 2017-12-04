@@ -37,11 +37,11 @@ final class TemplateNameParser implements TemplateNameParserInterface
     /**
      * @var TemplateReferenceInterface[]
      */
-    private $cache = [];
+    private $cache = array();
 
     /**
      * @param TemplateNameParserInterface $decoratedParser
-     * @param KernelInterface $kernel
+     * @param KernelInterface             $kernel
      */
     public function __construct(TemplateNameParserInterface $decoratedParser, KernelInterface $kernel)
     {

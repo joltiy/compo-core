@@ -21,30 +21,30 @@ use Sylius\Bundle\ThemeBundle\Model\ThemeAuthor;
  */
 final class ThemeAuthorFactorySpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(ThemeAuthorFactory::class);
     }
 
-    function it_implements_theme_author_factory_interface()
+    public function it_implements_theme_author_factory_interface()
     {
         $this->shouldImplement(ThemeAuthorFactoryInterface::class);
     }
 
-    function it_creates_an_author_from_an_array()
+    public function it_creates_an_author_from_an_array()
     {
         $this
-            ->createFromArray(['name' => 'Rynkowsky', 'email' => 'richard@rynkowsky.com'])
+            ->createFromArray(array('name' => 'Rynkowsky', 'email' => 'richard@rynkowsky.com'))
             ->shouldBeAnAuthorWithNameAndEmail('Rynkowsky', 'richard@rynkowsky.com')
         ;
     }
 
     public function getMatchers()
     {
-        return [
+        return array(
             'beAnAuthorWithNameAndEmail' => function (ThemeAuthor $themeAuthor, $name, $email) {
                 return $name === $themeAuthor->getName() && $email === $themeAuthor->getEmail();
             },
-        ];
+        );
     }
 }

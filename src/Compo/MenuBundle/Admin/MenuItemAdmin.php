@@ -7,20 +7,18 @@ use Compo\MenuBundle\Entity\MenuItemRepository;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Compo\Sonata\AdminBundle\Form\Type\TreeSelectorType;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Knp\Menu\ItemInterface as MenuItemInterface;
-use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class MenuItemAdmin extends AbstractAdmin
 {
     /**
-     * Конфигурация админки
+     * Конфигурация админки.
      */
     public function configure()
     {
@@ -28,12 +26,10 @@ class MenuItemAdmin extends AbstractAdmin
         $this->configureTree(true);
 
         $this->setParentParentAssociationMapping('menu');
-
-
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function preUpdate($object)
     {
@@ -51,7 +47,7 @@ class MenuItemAdmin extends AbstractAdmin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function prePersist($object)
     {
@@ -59,7 +55,7 @@ class MenuItemAdmin extends AbstractAdmin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function preRemove($object)
     {
@@ -71,7 +67,6 @@ class MenuItemAdmin extends AbstractAdmin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-
     }
 
     /**
@@ -88,7 +83,6 @@ class MenuItemAdmin extends AbstractAdmin
                 '_action',
                 null,
                 array(
-
                 )
             );
     }
@@ -121,7 +115,7 @@ class MenuItemAdmin extends AbstractAdmin
             $tree = $repository->getForTreeSelector(
                 $id,
                 function ($qb) use ($root_menu_item) {
-                    /** @var QueryBuilder $qb */
+                    /* @var QueryBuilder $qb */
                     $qb->andWhere('c.root = ' . $root_menu_item->getId());
                 }
             );
@@ -130,18 +124,17 @@ class MenuItemAdmin extends AbstractAdmin
             $tree = $repository->getForTreeSelector($id);
         }
 
-
         $formMapper->tab(
             'main_menu',
             array(
-                'translation_domain' => $this->getTranslationDomain()
+                'translation_domain' => $this->getTranslationDomain(),
             )
         );
 
         $formMapper->with(
             'main',
             array(
-                'name' => false
+                'name' => false,
             )
         );
 
@@ -185,10 +178,9 @@ class MenuItemAdmin extends AbstractAdmin
                         'manufacture' => array('manufacture'),
                     ),
                     'placeholder' => 'Укажите тип',
-                    'required' => true
+                    'required' => true,
                 )
             );
-
 
         $query = $this->getDoctrine()->getManager()->createQuery('SELECT p FROM Compo\Sonata\PageBundle\Entity\Page p WHERE p.routeName = \'page_slug\' ORDER BY p.parent ASC, p.position ASC');
 
@@ -197,7 +189,7 @@ class MenuItemAdmin extends AbstractAdmin
             'sonata_type_model',
             array(
                 'required' => false,
-                'query' => $query
+                'query' => $query,
             )
         );
 
@@ -208,7 +200,7 @@ class MenuItemAdmin extends AbstractAdmin
             'sonata_type_model',
             array(
                 'required' => false,
-                'query' => $query
+                'query' => $query,
             )
         );
 
@@ -219,7 +211,7 @@ class MenuItemAdmin extends AbstractAdmin
             'sonata_type_model',
             array(
                 'required' => false,
-                'query' => $query
+                'query' => $query,
             )
         );
 
@@ -230,14 +222,12 @@ class MenuItemAdmin extends AbstractAdmin
             'sonata_type_model',
             array(
                 'required' => false,
-                'query' => $query
+                'query' => $query,
             )
         );
 
-
         /** @var \Doctrine\ORM\QueryBuilder $queryBuilder */
         $queryBuilder = $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager()->getRepository('CompoCatalogBundle:Catalog')->createQueryBuilder('c');
-
 
         $queryBuilder->select('c')
             ->orderBy('c.root, c.lft', 'ASC');
@@ -255,7 +245,6 @@ class MenuItemAdmin extends AbstractAdmin
             )
         );
 
-
         $formMapper->add('url');
 
         $formMapper->add(
@@ -264,7 +253,7 @@ class MenuItemAdmin extends AbstractAdmin
             array(
                 'required' => false,
                 'choices' => array(
-                    'В новом окне' => '_blank'
+                    'В новом окне' => '_blank',
                 ),
                 'multiple' => false,
             )
@@ -295,5 +284,4 @@ class MenuItemAdmin extends AbstractAdmin
             ->add('updatedAt')
             ->add('deletedAt');
     }
-
 }

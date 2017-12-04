@@ -7,7 +7,7 @@ use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Sonata\CoreBundle\Model\BaseEntityManager;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class ContactsManager extends BaseEntityManager
 {

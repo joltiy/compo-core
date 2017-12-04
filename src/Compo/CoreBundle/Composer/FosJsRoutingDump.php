@@ -5,7 +5,7 @@ namespace Compo\CoreBundle\Composer;
 use Composer\Script\Event;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class FosJsRoutingDump extends \Sensio\Bundle\DistributionBundle\Composer\ScriptHandler
 {
@@ -21,6 +21,6 @@ class FosJsRoutingDump extends \Sensio\Bundle\DistributionBundle\Composer\Script
         $options = self::getOptions($event);
         $consoleDir = self::getConsoleDir($event, 'FosJsRoutingDump');
 
-        static::executeCommand($event, $consoleDir, 'fos:js-routing:dump --target='.$root_dir . '/web/js/fos_js_routes.js', $options['process-timeout']);
+        static::executeCommand($event, $consoleDir, 'fos:js-routing:dump --target=' . $root_dir . '/web/js/fos_js_routes.js', $options['process-timeout']);
     }
 }

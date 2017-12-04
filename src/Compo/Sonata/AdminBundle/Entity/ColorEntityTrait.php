@@ -5,8 +5,7 @@ namespace Compo\Sonata\AdminBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Trait ColorEntityTrait
- * @package Compo\Sonata\AdminBundle\Entity
+ * Trait ColorEntityTrait.
  */
 trait ColorEntityTrait
 {
@@ -28,7 +27,7 @@ trait ColorEntityTrait
     }
 
     /**
-     * Get color
+     * Get color.
      *
      * @return string
      */
@@ -38,7 +37,7 @@ trait ColorEntityTrait
     }
 
     /**
-     * Set color
+     * Set color.
      *
      * @param string $color
      *

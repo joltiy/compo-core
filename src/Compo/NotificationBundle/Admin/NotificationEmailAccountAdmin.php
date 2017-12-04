@@ -10,12 +10,12 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class NotificationEmailAccountAdmin extends AbstractAdmin
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configure()
     {
@@ -24,7 +24,7 @@ class NotificationEmailAccountAdmin extends AbstractAdmin
     }
 
     /**
-     * @param DatagridMapper $datagridMapper
+     * {@inheritdoc}
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
@@ -41,7 +41,7 @@ class NotificationEmailAccountAdmin extends AbstractAdmin
     }
 
     /**
-     * @param ListMapper $listMapper
+     * {@inheritdoc}
      */
     protected function configureListFields(ListMapper $listMapper)
     {
@@ -63,11 +63,11 @@ class NotificationEmailAccountAdmin extends AbstractAdmin
     }
 
     /**
-     * @param FormMapper $formMapper
+     * {@inheritdoc}
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $notificationManager = $this->getContainer()->get('compo_notification.manager.notification');
+        $notificationManager = $this->getNotificationManager();
 
         $formMapper
             ->tab('main')
@@ -105,7 +105,15 @@ class NotificationEmailAccountAdmin extends AbstractAdmin
     }
 
     /**
-     * @param ShowMapper $showMapper
+     * @return \Compo\NotificationBundle\Manager\NotificationManager
+     */
+    public function getNotificationManager()
+    {
+        return $this->getContainer()->get('compo_notification.manager.notification');
+    }
+
+    /**
+     * {@inheritdoc}
      */
     protected function configureShowFields(ShowMapper $showMapper)
     {

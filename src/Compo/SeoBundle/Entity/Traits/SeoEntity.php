@@ -6,13 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Trait SeoEntity
- * @package Compo\SeoBundle\Entity\Traits
+ * Trait SeoEntity.
  */
 trait SeoEntity
 {
     /**
-     * URL
+     * URL.
      *
      * @Gedmo\Slug(fields={"name"}, updatable=false)
      * @ORM\Column(type="string", nullable=false, unique=true)
@@ -20,7 +19,7 @@ trait SeoEntity
     protected $slug;
 
     /**
-     * Title
+     * Title.
      *
      * @var string
      * @ORM\Column(type="string", nullable=true)
@@ -28,7 +27,7 @@ trait SeoEntity
     protected $title;
 
     /**
-     * Meta Keywords
+     * Meta Keywords.
      *
      * @var string
      * @ORM\Column(type="string", nullable=true)
@@ -36,16 +35,15 @@ trait SeoEntity
     protected $metaKeyword;
 
     /**
-     * Meta Descriptions
+     * Meta Descriptions.
      *
      * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $metaDescription;
 
-
     /**
-     * Заголовок на странице
+     * Заголовок на странице.
      *
      * @var string
      * @ORM\Column(type="string", nullable=true)
@@ -53,9 +51,9 @@ trait SeoEntity
     protected $header;
 
     /**
-     * Запрет индексирование
+     * Запрет индексирование.
      *
-     * @var boolean
+     * @var bool
      * @ORM\Column(type="boolean", nullable=false, options={"default": false})
      */
     protected $noIndexEnabled = false;
@@ -109,7 +107,7 @@ trait SeoEntity
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isNoIndexEnabled()
     {
@@ -117,9 +115,9 @@ trait SeoEntity
     }
 
     /**
-     * Get noIndexEnabled
+     * Get noIndexEnabled.
      *
-     * @return boolean
+     * @return bool
      */
     public function getNoIndexEnabled()
     {
@@ -127,7 +125,7 @@ trait SeoEntity
     }
 
     /**
-     * @param boolean $noIndexEnabled
+     * @param bool $noIndexEnabled
      */
     public function setNoIndexEnabled($noIndexEnabled)
     {

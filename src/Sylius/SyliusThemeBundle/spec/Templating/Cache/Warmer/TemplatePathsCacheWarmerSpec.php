@@ -27,7 +27,7 @@ use Symfony\Component\Templating\TemplateReferenceInterface;
  */
 final class TemplatePathsCacheWarmerSpec extends ObjectBehavior
 {
-    function let(
+    public function let(
         TemplateFinderInterface $templateFinder,
         TemplateLocatorInterface $templateLocator,
         ThemeRepositoryInterface $themeRepository,
@@ -36,17 +36,17 @@ final class TemplatePathsCacheWarmerSpec extends ObjectBehavior
         $this->beConstructedWith($templateFinder, $templateLocator, $themeRepository, $cache);
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(TemplatePathsCacheWarmer::class);
     }
 
-    function it_implements_cache_warmer_interface()
+    public function it_implements_cache_warmer_interface()
     {
         $this->shouldImplement(CacheWarmerInterface::class);
     }
 
-    function it_builds_cache_by_warming_up_every_template_and_every_theme_together(
+    public function it_builds_cache_by_warming_up_every_template_and_every_theme_together(
         TemplateFinderInterface $templateFinder,
         TemplateLocatorInterface $templateLocator,
         ThemeRepositoryInterface $themeRepository,
@@ -55,9 +55,9 @@ final class TemplatePathsCacheWarmerSpec extends ObjectBehavior
         TemplateReferenceInterface $firstTemplate,
         TemplateReferenceInterface $secondTemplate
     ) {
-        $templateFinder->findAllTemplates()->willReturn([$firstTemplate, $secondTemplate]);
+        $templateFinder->findAllTemplates()->willReturn(array($firstTemplate, $secondTemplate));
 
-        $themeRepository->findAll()->willReturn([$theme]);
+        $themeRepository->findAll()->willReturn(array($theme));
 
         $theme->getName()->willReturn('theme/name');
         $firstTemplate->getLogicalName()->willReturn('Logical:Name:First');

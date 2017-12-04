@@ -3,10 +3,8 @@
 namespace Compo\SeoBundle\Extension;
 
 /**
- * Trait SeoExtensionTrait
- * @package Compo\SeoBundle\Extension
+ * Trait SeoExtensionTrait.
  */
 trait SeoExtensionTrait
 {
-
 }

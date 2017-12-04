@@ -5,7 +5,7 @@ namespace Compo\MenuBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class CompoMenuBundle extends Bundle
 {

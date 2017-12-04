@@ -34,7 +34,7 @@ final class RequestListener
 
     /**
      * @param ThemeRepositoryInterface $themeRepository
-     * @param SettableThemeContext $themeContext
+     * @param SettableThemeContext     $themeContext
      */
     public function __construct(ThemeRepositoryInterface $themeRepository, SettableThemeContext $themeContext)
     {

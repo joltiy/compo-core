@@ -12,7 +12,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Command to dump the sitemaps to provided directory
+ * Command to dump the sitemaps to provided directory.
  *
  * @author Konstantin Tjuterev <kostik.lv@gmail.com>
  */
@@ -29,9 +29,7 @@ class SitemapsDumpCommand extends ContainerAwareCommand implements CronCommand
     }
 
     /**
-     * Configure CLI command, message, options
-     *
-     * @return void
+     * Configure CLI command, message, options.
      */
     protected function configure()
     {
@@ -58,13 +56,12 @@ class SitemapsDumpCommand extends ContainerAwareCommand implements CronCommand
     }
 
     /**
-     * Code to execute for the command
+     * Code to execute for the command.
      *
-     * @param InputInterface $input Input object from the console
+     * @param InputInterface  $input  Input object from the console
      * @param OutputInterface $output Output object for the console
      *
      * @throws \InvalidArgumentException
-     * @return void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -75,7 +72,6 @@ class SitemapsDumpCommand extends ContainerAwareCommand implements CronCommand
         /* @var $dumper DumperInterface */
 
         $targetDir = $this->getApplication()->getKernel()->getProjectDir() . '/web/';
-
 
         $host = $this->getContainer()->getParameter('server_name');
 
@@ -101,11 +97,11 @@ class SitemapsDumpCommand extends ContainerAwareCommand implements CronCommand
             );
         }
         $options = array(
-            'gzip' => (Boolean)$input->getOption('gzip'),
+            'gzip' => (bool) $input->getOption('gzip'),
         );
         $filenames = $dumper->dump($targetDir, $baseUrl, $input->getOption('section'), $options);
 
-        if ($filenames === false) {
+        if (false === $filenames) {
             $output->writeln('<error>No URLs were added to sitemap by EventListeners</error> - this may happen when provided section is invalid');
 
             return;

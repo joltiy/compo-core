@@ -11,12 +11,12 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class AdvantagesItemAdmin extends AbstractAdmin
 {
     /**
-     * Конфигурация админки
+     * Конфигурация админки.
      */
     public function configure()
     {
@@ -26,7 +26,7 @@ class AdvantagesItemAdmin extends AbstractAdmin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function preUpdate($object)
     {
@@ -44,7 +44,7 @@ class AdvantagesItemAdmin extends AbstractAdmin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function prePersist($object)
     {
@@ -52,7 +52,7 @@ class AdvantagesItemAdmin extends AbstractAdmin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function preRemove($object)
     {
@@ -80,7 +80,7 @@ class AdvantagesItemAdmin extends AbstractAdmin
             ->add('id')
             ->addIdentifier('name')
             ->add('url', null, array(
-                'default' => false
+                'default' => false,
             ))
             ->add('enabled')
             ->add('_action');
@@ -128,5 +128,4 @@ class AdvantagesItemAdmin extends AbstractAdmin
             ->add('updatedAt')
             ->add('deletedAt');
     }
-
 }

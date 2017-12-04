@@ -22,53 +22,53 @@ use Sylius\Bundle\ThemeBundle\Model\ThemeScreenshot;
  */
 final class ThemeSpec extends ObjectBehavior
 {
-    function let()
+    public function let()
     {
         $this->beConstructedWith('theme/name', '/theme/path');
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(Theme::class);
     }
 
-    function it_implements_theme_interface()
+    public function it_implements_theme_interface()
     {
         $this->shouldImplement(ThemeInterface::class);
     }
 
-    function its_name_cannot_have_underscores()
+    public function its_name_cannot_have_underscores()
     {
         $this->beConstructedWith('first_theme/name', '/theme/path');
 
         $this->shouldThrow(\InvalidArgumentException::class)->duringInstantiation();
     }
 
-    function it_has_immutable_name()
+    public function it_has_immutable_name()
     {
         $this->getName()->shouldReturn('theme/name');
     }
 
-    function its_name_might_contain_numbers()
+    public function its_name_might_contain_numbers()
     {
         $this->beConstructedWith('1e/e7', '/theme/path');
 
         $this->getName()->shouldReturn('1e/e7');
     }
 
-    function its_name_might_contain_uppercase_characters()
+    public function its_name_might_contain_uppercase_characters()
     {
         $this->beConstructedWith('AbC/DeF', '/theme/path');
 
         $this->getName()->shouldReturn('AbC/DeF');
     }
 
-    function it_has_immutable_path()
+    public function it_has_immutable_path()
     {
         $this->getPath()->shouldReturn('/theme/path');
     }
 
-    function it_has_title()
+    public function it_has_title()
     {
         $this->getTitle()->shouldReturn(null);
 
@@ -76,7 +76,7 @@ final class ThemeSpec extends ObjectBehavior
         $this->getTitle()->shouldReturn('Foo Bar');
     }
 
-    function it_has_description()
+    public function it_has_description()
     {
         $this->getDescription()->shouldReturn(null);
 
@@ -84,7 +84,7 @@ final class ThemeSpec extends ObjectBehavior
         $this->getDescription()->shouldReturn('Lorem ipsum.');
     }
 
-    function it_has_authors()
+    public function it_has_authors()
     {
         $themeAuthor = new ThemeAuthor();
 
@@ -97,7 +97,7 @@ final class ThemeSpec extends ObjectBehavior
         $this->getAuthors()->shouldHaveCount(0);
     }
 
-    function it_has_parents(ThemeInterface $theme)
+    public function it_has_parents(ThemeInterface $theme)
     {
         $this->getParents()->shouldHaveCount(0);
 
@@ -108,7 +108,7 @@ final class ThemeSpec extends ObjectBehavior
         $this->getParents()->shouldHaveCount(0);
     }
 
-    function it_has_screenshots()
+    public function it_has_screenshots()
     {
         $themeScreenshot = new ThemeScreenshot('some path');
 

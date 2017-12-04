@@ -6,18 +6,17 @@ use Composer\Script\Event;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Class HerokuEnvironment
+ * Class HerokuEnvironment.
  *
  * composer.json
- *
- * @package Compo\CoreBundle\Composer
  */
 class CreateConfigs
 {
     /**
-     * Populate Heroku environment
+     * Populate Heroku environment.
      *
      * @param Event $event Event
+     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
@@ -32,7 +31,6 @@ class CreateConfigs
         $parameters = Yaml::parse(file_get_contents($root_dir . '/config/parameters.yml'));
         $parameters = $parameters['parameters'];
 
-
         if (!$parameters['server_root']) {
             $parameters['server_root'] = realpath($root_dir . '/../web/');
         }
@@ -46,13 +44,12 @@ class CreateConfigs
                 'servers.yml.dist' => file_get_contents($root_dir . '/config/servers.yml.dist'),
 
                 '@CompoCore/Nginx/nginx_macro.html.twig' => file_get_contents($vendor . '/comporu/compo-core/src/Compo/CoreBundle/Resources/views/Nginx/nginx_macro.html.twig'),
-
             )
         );
 
         $twig = new \Twig_Environment($loader, array('autoescape' => false, 'debug' => false));
 
-        if (!file_exists($root_dir . '/config/htpasswd.conf') || file_get_contents($root_dir . '/config/htpasswd.conf') !== $parameters['server_user'] . ':' . crypt($parameters['server_password'], base64_encode($parameters['server_password']))) {
+        if (!file_exists($root_dir . '/config/htpasswd.conf') || $parameters['server_user'] . ':' . crypt($parameters['server_password'], base64_encode($parameters['server_password'])) !== file_get_contents($root_dir . '/config/htpasswd.conf')) {
             file_put_contents($root_dir . '/config/htpasswd.conf', $parameters['server_user'] . ':' . crypt($parameters['server_password'], base64_encode($parameters['server_password'])));
         }
 

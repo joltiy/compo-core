@@ -5,20 +5,19 @@ namespace Compo\Sonata\AdminBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Trait ViewsEntityTrait
- * @package Compo\Sonata\AdminBundle\Entity
+ * Trait ViewsEntityTrait.
  */
 trait ViewsEntityTrait
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(type="integer", nullable=false, options={"default": 0})
      */
     protected $views = 0;
 
     /**
-     * @return integer
+     * @return int
      */
     public function getViews()
     {
@@ -26,11 +25,10 @@ trait ViewsEntityTrait
     }
 
     /**
-     * @param integer $views
+     * @param int $views
      */
     public function setViews($views)
     {
         $this->views = $views;
     }
-
 }

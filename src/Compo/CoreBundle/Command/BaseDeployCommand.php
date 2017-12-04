@@ -10,9 +10,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class BaseDeployCommand
- *
- * @package Compo\CoreBundle\Command
+ * Class BaseDeployCommand.
  */
 class BaseDeployCommand extends ContainerAwareCommand
 {
@@ -22,7 +20,7 @@ class BaseDeployCommand extends ContainerAwareCommand
     public $output;
 
     /**
-     * Выполняет миграции
+     * Выполняет миграции.
      *
      * @throws \Exception
      */
@@ -31,13 +29,13 @@ class BaseDeployCommand extends ContainerAwareCommand
         $this->runCommand(
             'doctrine:migrations:migrate',
             array(
-                '--no-interaction' => 1
+                '--no-interaction' => 1,
             )
         );
     }
 
     /**
-     * Выполняет консольную команду
+     * Выполняет консольную команду.
      *
      * @param       $command    string Команда
      * @param array $arrayInput Аргументы
@@ -74,7 +72,7 @@ class BaseDeployCommand extends ContainerAwareCommand
     }
 
     /**
-     * Обновляет маршрутизацию
+     * Обновляет маршрутизацию.
      *
      * @throws \Exception
      */
@@ -83,18 +81,18 @@ class BaseDeployCommand extends ContainerAwareCommand
         $sites = $this->getSites();
 
         foreach ($sites as $site) {
-            /** @var $site Site */
+            /* @var $site Site */
             $this->runCommand(
                 'sonata:page:update-core-routes',
                 array(
-                    '--site' => array($site->getId())
+                    '--site' => array($site->getId()),
                 )
             );
         }
     }
 
     /**
-     * Возращает список сайтов
+     * Возращает список сайтов.
      *
      * @return array
      */
@@ -104,7 +102,7 @@ class BaseDeployCommand extends ContainerAwareCommand
     }
 
     /**
-     * Публикует страницы
+     * Публикует страницы.
      *
      * @throws \Symfony\Component\Console\Exception\ExceptionInterface
      */
@@ -112,12 +110,12 @@ class BaseDeployCommand extends ContainerAwareCommand
     {
         $pages = $this->getContainer()->get('sonata.page.manager.page')->findBy(
             array(
-                'edited' => 1
+                'edited' => 1,
             )
         );
 
         foreach ($pages as $item) {
-            /** @var $item Page */
+            /* @var $item Page */
             $this->getContainer()->get('sonata.notification.backend.runtime')->createAndPublish(
                 'sonata.page.create_snapshot',
                 array(
@@ -129,9 +127,10 @@ class BaseDeployCommand extends ContainerAwareCommand
     }
 
     /**
-     * Очистка и прогрев кеша
+     * Очистка и прогрев кеша.
      *
      * @param bool $warmup
+     *
      * @throws \Exception
      */
     public function runCacheClear($warmup = true)
@@ -149,7 +148,6 @@ class BaseDeployCommand extends ContainerAwareCommand
     }
 
     /**
-     *
      * @throws \Exception
      */
     public function runAsseticDump()
@@ -165,7 +163,7 @@ class BaseDeployCommand extends ContainerAwareCommand
             'assetic:dump',
             array(
                 '--env' => 'prod',
-                '--no-debug'
+                '--no-debug',
             )
         );
     }
@@ -183,7 +181,7 @@ class BaseDeployCommand extends ContainerAwareCommand
             'sylius:theme:assets:install',
             array(
                 '--symlink' => true,
-                '--relative' => true
+                '--relative' => true,
             )
         );
     }
@@ -197,8 +195,7 @@ class BaseDeployCommand extends ContainerAwareCommand
             'doctrine:schema:update',
             array(
                 '--force' => true,
-                '--dump-sql' => true
-
+                '--dump-sql' => true,
             )
         );
     }
@@ -211,13 +208,13 @@ class BaseDeployCommand extends ContainerAwareCommand
         $this->runCommand(
             'doctrine:fixtures:load',
             array(
-                '--append' => true
+                '--append' => true,
             )
         );
     }
 
     /**
-     * Очистка и прогрев кеша
+     * Очистка и прогрев кеша.
      *
      * @throws \Exception
      */
@@ -228,7 +225,7 @@ class BaseDeployCommand extends ContainerAwareCommand
     }
 
     /**
-     * Удаляет таблицы БД
+     * Удаляет таблицы БД.
      *
      * @throws \Exception
      */
@@ -241,13 +238,13 @@ class BaseDeployCommand extends ContainerAwareCommand
                 '--force' => 1,
                 '--quiet' => 1,
                 '--no-debug' => 1,
-                '--full-database' => 1
+                '--full-database' => 1,
             )
         );
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function configure()
     {
@@ -257,7 +254,7 @@ class BaseDeployCommand extends ContainerAwareCommand
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

@@ -21,40 +21,40 @@ use Sylius\Bundle\ThemeBundle\Translation\Resource\TranslationResource;
  */
 final class TranslatorResourceProviderSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(TranslatorResourceProvider::class);
     }
 
-    function it_implements_translation_resource_provider_interface()
+    public function it_implements_translation_resource_provider_interface()
     {
         $this->shouldImplement(TranslatorResourceProviderInterface::class);
     }
 
-    function it_transforms_previously_received_paths_into_translation_resources()
+    public function it_transforms_previously_received_paths_into_translation_resources()
     {
-        $this->beConstructedWith([
+        $this->beConstructedWith(array(
             'messages.en.yml',
             'domain.en.yml',
-        ]);
+        ));
 
-        $this->getResources()->shouldBeLike([
+        $this->getResources()->shouldBeLike(array(
             new TranslationResource('messages.en.yml'),
             new TranslationResource('domain.en.yml'),
-        ]);
+        ));
     }
 
-    function it_extracts_unique_locales_from_received_paths()
+    public function it_extracts_unique_locales_from_received_paths()
     {
-        $this->beConstructedWith([
+        $this->beConstructedWith(array(
             'messages.en.yml',
             'domain.en_US.yml',
             'validation.en.yml',
-        ]);
+        ));
 
-        $this->getResourcesLocales()->shouldReturn([
+        $this->getResourcesLocales()->shouldReturn(array(
             'en',
             'en_US',
-        ]);
+        ));
     }
 }

@@ -8,19 +8,18 @@ use Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class WithoutImageExtension extends AbstractAdminExtension
 {
     use ContainerAwareTrait;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         if ($datagridMapper->has('without_image')) {
-
             $datagridMapper->remove('without_image');
 
             $datagridMapper->add(
@@ -32,12 +31,12 @@ class WithoutImageExtension extends AbstractAdminExtension
                             return false;
                         }
 
-                        /** @var QueryBuilder $queryBuilder */
+                        /* @var QueryBuilder $queryBuilder */
                         $queryBuilder->andWhere($queryBuilder->getRootAliases()[0] . '.image IS NULL');
 
                         return true;
                     },
-                    'field_type' => 'checkbox'
+                    'field_type' => 'checkbox',
                 )
             );
         }

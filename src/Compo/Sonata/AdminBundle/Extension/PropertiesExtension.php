@@ -8,21 +8,21 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class PropertiesExtension extends AbstractAdminExtension
 {
     use ContainerAwareTrait;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         if (!$this->isUseEntityTraits($datagridMapper->getAdmin(), array(
             'Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait',
-            'Gedmo\Timestampable\Traits\TimestampableEntity'
-        ) )) {
+            'Gedmo\Timestampable\Traits\TimestampableEntity',
+        ))) {
             return;
         }
 
@@ -44,7 +44,7 @@ class PropertiesExtension extends AbstractAdminExtension
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configureFormFields(FormMapper $formMapper)
     {
@@ -57,8 +57,8 @@ class PropertiesExtension extends AbstractAdminExtension
 
         if (!$this->isUseEntityTraits($admin, array(
             'Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait',
-            'Gedmo\Timestampable\Traits\TimestampableEntity'
-        ) )) {
+            'Gedmo\Timestampable\Traits\TimestampableEntity',
+        ))) {
             return;
         }
 
@@ -72,14 +72,14 @@ class PropertiesExtension extends AbstractAdminExtension
                 'createdBy',
                 'sonata_type_model_list',
                 array(
-                    'required' => false
+                    'required' => false,
                 ),
                 array(
                     'link_parameters' => array(
                         'context' => 'default',
                         'hide_context' => true,
                     ),
-                    'translation_domain' => 'SonataAdminBundle'
+                    'translation_domain' => 'SonataAdminBundle',
                 )
             )
             ->add(
@@ -90,7 +90,7 @@ class PropertiesExtension extends AbstractAdminExtension
                     'required' => true,
                 ),
                 array(
-                    'translation_domain' => 'SonataAdminBundle'
+                    'translation_domain' => 'SonataAdminBundle',
                 )
             )
             ->end()
@@ -99,14 +99,14 @@ class PropertiesExtension extends AbstractAdminExtension
                 'updatedBy',
                 'sonata_type_model_list',
                 array(
-                    'required' => false
+                    'required' => false,
                 ),
                 array(
                     'link_parameters' => array(
                         'context' => 'default',
                         'hide_context' => true,
                     ),
-                    'translation_domain' => 'SonataAdminBundle'
+                    'translation_domain' => 'SonataAdminBundle',
                 )
             )
             ->add(
@@ -117,7 +117,7 @@ class PropertiesExtension extends AbstractAdminExtension
                     'required' => true,
                 ),
                 array(
-                    'translation_domain' => 'SonataAdminBundle'
+                    'translation_domain' => 'SonataAdminBundle',
                 )
             )
             ->end()

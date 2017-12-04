@@ -27,7 +27,6 @@ class FeedbackFormBlockService extends AbstractBlockService
         $template = $settings['template'];
         $type = $settings['type'];
 
-
         $feedbackManager = $container->get('compo_feedback.manager.feedback');
 
         $feedbackType = $feedbackManager->getType($type);
@@ -36,7 +35,6 @@ class FeedbackFormBlockService extends AbstractBlockService
             $template = $feedbackType['template'];
         }
 
-
         $form = $container->get('form.factory')->create($feedbackType['form'], null, array('type' => $type, 'extra_data' => $settings['extra_data']))->createView();
 
         return $this->renderResponse(
@@ -44,7 +42,7 @@ class FeedbackFormBlockService extends AbstractBlockService
             array(
                 'block' => $block,
                 'settings' => $settings,
-                'form' => $form
+                'form' => $form,
             ),
             $response
         );
@@ -55,11 +53,9 @@ class FeedbackFormBlockService extends AbstractBlockService
      */
     public function buildForm(FormMapper $formMapper, BlockInterface $block)
     {
-
         $feedbackManager = $this->getContainer()->get('compo_feedback.manager.feedback');
 
         $choices = $feedbackManager->getTypesChoice();
-
 
         $formMapper->add(
             'settings',
@@ -81,7 +77,7 @@ class FeedbackFormBlockService extends AbstractBlockService
             array(
                 'template' => '',
                 'type' => '',
-                'extra_data' => array()
+                'extra_data' => array(),
             )
         );
     }

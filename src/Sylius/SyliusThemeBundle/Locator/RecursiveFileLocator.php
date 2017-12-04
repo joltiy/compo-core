@@ -31,7 +31,7 @@ final class RecursiveFileLocator implements FileLocatorInterface
 
     /**
      * @param FinderFactoryInterface $finderFactory
-     * @param array $paths An array of paths where to look for resources
+     * @param array                  $paths         An array of paths where to look for resources
      */
     public function __construct(FinderFactoryInterface $finderFactory, array $paths)
     {

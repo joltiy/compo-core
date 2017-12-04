@@ -2,12 +2,11 @@
 
 namespace Compo\Sonata\CoreBundle\Model;
 
-
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class BaseEntityManager extends \Sonata\CoreBundle\Model\BaseEntityManager
 {
@@ -18,7 +17,6 @@ class BaseEntityManager extends \Sonata\CoreBundle\Model\BaseEntityManager
      */
     public function getRequest()
     {
-
         $request_stack = $this->getContainer()->get('request_stack');
 
         if ($request_stack) {

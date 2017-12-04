@@ -5,7 +5,7 @@ namespace Compo\AdvantagesBundle\Controller;
 use Compo\Sonata\AdminBundle\Controller\CRUDController;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class AdvantagesItemAdminController extends CRUDController
 {

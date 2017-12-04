@@ -9,15 +9,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class TranslationCommand
- *
- * @package Compo\CoreBundle\Command
+ * Class TranslationCommand.
  */
 class TranslationCommand extends ContainerAwareCommand
 {
-    /**
-     *
-     */
     protected function configure()
     {
         $this
@@ -26,10 +21,11 @@ class TranslationCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
      *
      * @return null|int null or 0 if everything went fine, or an error code
+     *
      * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -43,12 +39,11 @@ class TranslationCommand extends ContainerAwareCommand
         $domains = array('messages');
 
         foreach ($bundles as $key => $class) {
-
             $application = new Application($kernel);
 
             $application->setAutoExit(false);
 
-            if (preg_match('/Compo.*/', $key) && preg_match('/^CompoSonata.*/', $key) === 0) {
+            if (preg_match('/Compo.*/', $key) && 0 === preg_match('/^CompoSonata.*/', $key)) {
                 $resources = $kernel->locateResource('@' . $key . '/Resources');
 
                 $bundle_dir = realpath($kernel->locateResource('@' . $key . '/Resources') . '/../');
@@ -72,7 +67,7 @@ class TranslationCommand extends ContainerAwareCommand
 
                     '--keep',
                     '--domain' => array($key),
-                    '--ignore-domain' => $domains
+                    '--ignore-domain' => $domains,
                 );
 
                 $domains[] = $key;

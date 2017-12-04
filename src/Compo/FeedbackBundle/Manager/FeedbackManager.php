@@ -6,7 +6,7 @@ use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Sonata\CoreBundle\Model\BaseEntityManager;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class FeedbackManager extends BaseEntityManager
 {
@@ -51,6 +51,7 @@ class FeedbackManager extends BaseEntityManager
 
     /**
      * @param $name
+     *
      * @return mixed
      */
     public function getType($name)

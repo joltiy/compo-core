@@ -8,5 +8,4 @@ namespace Compo\SeoBundle\Repository;
  */
 class SeoPageRepository extends \Compo\CoreBundle\Doctrine\ORM\EntityRepository
 {
-
 }

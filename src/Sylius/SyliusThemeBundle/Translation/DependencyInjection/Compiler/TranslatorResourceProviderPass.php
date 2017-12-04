@@ -55,12 +55,12 @@ final class TranslatorResourceProviderPass implements CompilerPassInterface
                 $options = $symfonyTranslator->getArgument(4);
             }
         } catch (OutOfBoundsException $exception) {
-            $options = [];
+            $options = array();
         }
 
-        $languagesFiles = isset($options['resource_files']) ? $options['resource_files'] : [];
+        $languagesFiles = isset($options['resource_files']) ? $options['resource_files'] : array();
 
-        $resourceFiles = [];
+        $resourceFiles = array();
         foreach ($languagesFiles as $language => $files) {
             foreach ($files as $file) {
                 $resourceFiles[] = $file;

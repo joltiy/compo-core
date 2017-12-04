@@ -34,7 +34,7 @@ final class CompositeConfigurationProvider implements ConfigurationProviderInter
      */
     public function getConfigurations()
     {
-        $configurations = [];
+        $configurations = array();
         foreach ($this->configurationProviders as $configurationProvider) {
             $configurations = array_merge(
                 $configurations,

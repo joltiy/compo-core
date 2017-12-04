@@ -21,29 +21,29 @@ use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
  */
 final class ThemeFactorySpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(ThemeFactory::class);
     }
 
-    function it_implements_theme_factory_interface()
+    public function it_implements_theme_factory_interface()
     {
         $this->shouldImplement(ThemeFactoryInterface::class);
     }
 
-    function it_creates_a_theme()
+    public function it_creates_a_theme()
     {
         $this->create('example/theme', '/theme/path')->shouldHaveNameAndPath('example/theme', '/theme/path');
     }
 
     public function getMatchers()
     {
-        return [
+        return array(
             'haveNameAndPath' => function (ThemeInterface $theme, $expectedName, $expectedPath) {
                 return $expectedName === $theme->getName()
                     && $expectedPath === $theme->getPath()
                 ;
             },
-        ];
+        );
     }
 }

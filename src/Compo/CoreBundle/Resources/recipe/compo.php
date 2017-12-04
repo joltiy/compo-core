@@ -1,9 +1,18 @@
 <?php
 
 use Symfony\Component\Yaml\Yaml;
-use function Deployer\{
-    commandExist, download, get, run, runLocally, set, task, upload, writeln, after, test, has
-};
+use function Deployer\commandExist;
+use function Deployer\download;
+use function Deployer\get;
+use function Deployer\run;
+use function Deployer\runLocally;
+use function Deployer\set;
+use function Deployer\task;
+use function Deployer\upload;
+use function Deployer\writeln;
+use function Deployer\after;
+use function Deployer\test;
+use function Deployer\has;
 
 require 'recipe/symfony.php';
 
@@ -15,24 +24,23 @@ set('ssh_multiplexing', true);
 set('git_tty', true);
 set('default_stage', 'stage');
 set('writable_mode', 'chmod');
-set('php_version', (float)phpversion());
+set('php_version', (float) PHP_VERSION);
 
 // Symfony shared dirs
-
 
 set('bin_dir', 'bin');
 set('var_dir', 'var');
 
-set('copy_dirs', ['vendor', 'web/vendor', 'web/assetic']);
+set('copy_dirs', array('vendor', 'web/vendor', 'web/assetic'));
 set('env', 'prod');
 set('shared_dirs', array('var/logs', 'var/sessions', 'web/uploads', 'web/media', 'web/userfiles'));
 set('shared_files', array('app/config/parameters.yml', 'web/robots.txt'));
 set('writable_dirs', array('var/cache', 'var/logs', 'var/sessions', 'web/uploads', 'web/media'));
 
-set('clear_paths', []);
+set('clear_paths', array());
 //set('clear_paths', ['web/app_*.php', 'web/config.php']);
 
-set('assets', []);
+set('assets', array());
 //set('assets', ['web/css', 'web/images', 'web/js']);
 
 set('dump_assets', true);
@@ -47,7 +55,6 @@ set(
 
 set('timezone', 'Europe/Moscow');
 date_default_timezone_set('Europe/Moscow');
-
 
 task('deploy:copy_dirs', function () {
     if (has('previous_release')) {
@@ -69,28 +76,25 @@ task(
     }
 )->desc('timezone');
 
-
 task(
     'deploy:vendors',
     function () {
         if (!commandExist('unzip')) {
             writeln('<comment>To speed up composer installation setup "unzip" command with PHP zip extension https://goo.gl/sxzFcD</comment>');
         }
-        
+
         run(
             'cd {{release_path}} && {{env_vars}} {{bin/composer}} {{composer_options}}',
-            [
+            array(
                 'timeout' => 6800,
-            ]
+            )
         );
     }
 );
 
-
 task(
     'database:sync-from-remote',
     function () {
-        
         $databasePath = '{{deploy_path}}/backup/database';
         // mysqldump -u [username] -p [database name] > [database name].sql
 
@@ -111,7 +115,6 @@ task(
 
         download($exportDatabasePath, $localDatabasePath);
 
-
         runLocally('cd ' . $projectDir . ' && ' . ' php bin/console doctrine:database:drop --if-exists --force --quiet --no-interaction --no-debug');
         runLocally('cd ' . $projectDir . ' && ' . ' php bin/console doctrine:database:create --if-not-exists');
 
@@ -124,19 +127,16 @@ task(
             . ' ' . $parameters['parameters']['database_name']
             . ' < '
             . $localDatabasePath,
-            [
+            array(
                 'timeout' => 6800,
-            ]
+            )
         );
     }
 )->desc('database:sync-from-remote');
 
-
-
 task(
     'database:backup',
     function () {
-        
         $databasePath = '{{deploy_path}}/current/var/database';
         // mysqldump -u [username] -p [database name] > [database name].sql
 
@@ -144,19 +144,15 @@ task(
 
         $parametrs = get('parameters');
 
-        $exportDatabasePath = $databasePath . '/' . $parametrs['database_name'] . '_' . date('YmdHis'). '.sql';
+        $exportDatabasePath = $databasePath . '/' . $parametrs['database_name'] . '_' . date('YmdHis') . '.sql';
 
         run('mysqldump -u ' . $parametrs['database_user'] . ' ' . $parametrs['database_name'] . ' > ' . $exportDatabasePath);
     }
 )->desc('database:sync-from-remote');
 
-
-
-
 task(
     'database:sync-to-remote',
     function () {
-
         $projectDir = runLocally('pwd');
         $varDir = $projectDir . '/var/database';
         runLocally('mkdir -p ' . $varDir);
@@ -171,12 +167,10 @@ task(
 
         upload($exportDatabasePath, '{{release_path}}/var/database/' . $parameters['parameters']['database_name'] . '.sql');
 
-
         run('cd {{release_path}} && ' . ' php bin/console doctrine:database:drop --if-exists --force --quiet --no-interaction --no-debug');
         run('cd {{release_path}} && ' . ' php bin/console doctrine:database:create --if-not-exists');
 
         $parametrs = get('parameters');
-
 
         run(
             'cd {{release_path}} && '
@@ -185,8 +179,6 @@ task(
             . ' < '
             . '{{release_path}}/var/database/' . $parameters['parameters']['database_name'] . '.sql'
         );
-
-
     }
 )->desc('database:sync-to-remote');
 
@@ -205,17 +197,16 @@ task(
         $projectDir = runLocally('pwd');
 
         runLocally('cd ' . $projectDir . ' && ' . ' rm -rf var/cache/dev var/cache/prod');
-
     }
 )->desc('local:cache:clear');
 
 task(
     'sync-from-remote',
-    [
+    array(
         'database:sync-from-remote',
         'uploads:sync-from-remote',
         'local:cache:clear',
-    ]
+    )
 )->desc('sync-from-remote');
 
 task(
@@ -256,7 +247,6 @@ task(
         $parametrs_array[] = 'SYMFONY_ENV=prod';
 
         set('env_vars', implode(' ', $parametrs_array));
-
     }
 )->setPrivate();
 
@@ -344,12 +334,9 @@ task(
     }
 )->desc('Dump assets');
 
-
-
 task(
     'deploy:sitemaps',
     function () {
-
         $sitemapsPath = '{{deploy_path}}/backup/sitemaps';
 
         run("mkdir -p $sitemapsPath");
@@ -358,19 +345,13 @@ task(
             run("cp -rf {{deploy_path}}/current/web/sitemap.* $sitemapsPath/");
             run("cp -rf $sitemapsPath/sitemap.* {{release_path}}/web/");
         } catch (\Exception $e) {
-
         }
-
-
     }
 )->desc('deploy:sitemaps');
-
-
 
 task(
     'deploy:market',
     function () {
-
         $sitemapsPath = '{{deploy_path}}/backup/market';
 
         run("mkdir -p $sitemapsPath");
@@ -382,13 +363,9 @@ task(
             run("cp -rf {{deploy_path}}/current/web/google.merchant.* $sitemapsPath/");
             run("cp -rf $sitemapsPath/google.merchant.* {{release_path}}/web/");
         } catch (\Exception $e) {
-
         }
-
-
     }
 )->desc('deploy:market');
-
 
 task(
     'deploy:vendors:update',
@@ -398,9 +375,9 @@ task(
         }
         run(
             'cd {{release_path}} && {{env_vars}} {{bin/composer}} update "comporu/*" --verbose --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader',
-            [
+            array(
                 'timeout' => 6800,
-            ]
+            )
         );
     }
 );
@@ -412,14 +389,12 @@ task(
             run('cd {{release_path}} && {{env_vars}} git commit composer.lock -m "Composer update"');
             run('cd {{release_path}} && {{env_vars}} git push');
         }
-
     }
 )->desc('git:commit:composer');
 
-
 task(
     'deploy:dev',
-    [
+    array(
         'timezone',
         'deploy:prepare',
         'deploy:lock',
@@ -446,14 +421,12 @@ task(
         'git:commit:composer',
         'deploy:unlock',
         'cleanup',
-    ]
+    )
 )->desc('Deploy dev your project');
-
-
 
 task(
     'install',
-    [
+    array(
         'timezone',
         'deploy:prepare',
         'deploy:lock',
@@ -479,13 +452,12 @@ task(
         'nginx:reload',
         'deploy:unlock',
         'cleanup',
-    ]
+    )
 )->desc('Install your project');
-
 
 task(
     'deploy',
-    [
+    array(
         'timezone',
         'deploy:prepare',
         'deploy:lock',
@@ -514,10 +486,10 @@ task(
         //'behat',
         'deploy:unlock',
         'cleanup',
-    ]
+    )
 )->desc('Deploy your project');
 
-task('rollback:after', [
+task('rollback:after', array(
     'php-fpm:reload',
     'nginx:reload',
     'deploy:vendors',
@@ -525,6 +497,6 @@ task('rollback:after', [
     'compo:core:update',
     'php-fpm:reload',
     'nginx:reload',
-]);
+));
 
 after('rollback', 'rollback:after');

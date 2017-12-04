@@ -20,22 +20,22 @@ use Sylius\Bundle\ThemeBundle\Translation\Resource\TranslationResourceInterface;
  */
 final class TranslationResourceSpec extends ObjectBehavior
 {
-    function let()
+    public function let()
     {
         $this->beConstructedWith('my-domain.my-locale.my-format');
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(TranslationResource::class);
     }
 
-    function it_implements_translation_resource_interface()
+    public function it_implements_translation_resource_interface()
     {
         $this->shouldImplement(TranslationResourceInterface::class);
     }
 
-    function it_is_a_translation_resource_value_object()
+    public function it_is_a_translation_resource_value_object()
     {
         $this->getName()->shouldReturn('my-domain.my-locale.my-format');
         $this->getDomain()->shouldReturn('my-domain');
@@ -43,7 +43,7 @@ final class TranslationResourceSpec extends ObjectBehavior
         $this->getFormat()->shouldReturn('my-format');
     }
 
-    function it_throws_an_invalid_argument_exception_if_failed_to_instantiate_with_given_filepath()
+    public function it_throws_an_invalid_argument_exception_if_failed_to_instantiate_with_given_filepath()
     {
         $this->beConstructedWith('one.dot');
 

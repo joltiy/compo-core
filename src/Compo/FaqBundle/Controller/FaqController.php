@@ -12,8 +12,11 @@ class FaqController extends Controller
 {
     /**
      * Lists all article entities.
+     *
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Throwable
      */
     public function indexAction(Request $request)
@@ -30,8 +33,7 @@ class FaqController extends Controller
         $seoPage->addVar('page', $page);
         $seoPage->addVar('total_pages', $pager->getPageCount());
 
-
-        if ($page !== 1) {
+        if (1 !== $page) {
             $seoPage->setLinkCanonical($manager->getFaqIndexPermalink(array('page' => $page), 0));
         } else {
             $seoPage->setLinkCanonical($manager->getFaqIndexPermalink(array(), 0));
@@ -45,7 +47,6 @@ class FaqController extends Controller
             $seoPage->setLinkPrev($manager->getFaqIndexPermalink(array('page' => $page - 1), 0));
         }
 
-
         $seoPage->build();
 
         return $this->render(
@@ -58,7 +59,9 @@ class FaqController extends Controller
 
     /**
      * @param $slug
+     *
      * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Throwable
      */
     public function showBySlugAction($slug)
@@ -89,7 +92,6 @@ class FaqController extends Controller
 
         $seoPage->setLinkCanonical($manager->getArticleShowPermalink($article, 0));
 
-
         $seoPage->build();
 
         return $this->render(
@@ -102,6 +104,7 @@ class FaqController extends Controller
 
     /**
      * @param $id
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showByIdAction($id)

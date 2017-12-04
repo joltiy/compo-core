@@ -9,11 +9,10 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class LegacyConvertFileCommand extends ContainerAwareCommand
 {
-
     /**
      * {@inheritdoc}
      */
@@ -47,7 +46,6 @@ class LegacyConvertFileCommand extends ContainerAwareCommand
                 'Dry-run',
                 false
             );
-
     }
 
     /**
@@ -67,7 +65,7 @@ class LegacyConvertFileCommand extends ContainerAwareCommand
 
         $cache_dir = $kernel->getCacheDir();
 
-        if (strpos($path, 'http') === false) {
+        if (false === strpos($path, 'http')) {
             $file_path = $path;
 
             if (!file_exists($file_path)) {
@@ -79,7 +77,7 @@ class LegacyConvertFileCommand extends ContainerAwareCommand
 
         if ($id) {
             $media = $mediaManager->findOneBy(array(
-                'name' => $filename
+                'name' => $filename,
             ));
         } else {
             $media = new Media();

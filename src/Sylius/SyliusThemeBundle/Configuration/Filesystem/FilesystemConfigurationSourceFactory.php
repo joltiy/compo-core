@@ -33,7 +33,7 @@ final class FilesystemConfigurationSourceFactory implements ConfigurationSourceF
                 ->children()
                     ->scalarNode('filename')->defaultValue('composer.json')->cannotBeEmpty()->end()
                     ->arrayNode('directories')
-                        ->defaultValue(['%kernel.root_dir%/themes'])
+                        ->defaultValue(array('%kernel.root_dir%/themes'))
                         ->requiresAtLeastOneElement()
                         ->performNoDeepMerging()
                         ->prototype('scalar')
@@ -46,23 +46,23 @@ final class FilesystemConfigurationSourceFactory implements ConfigurationSourceF
      */
     public function initializeSource(ContainerBuilder $container, array $config)
     {
-        $recursiveFileLocator = new Definition(RecursiveFileLocator::class, [
+        $recursiveFileLocator = new Definition(RecursiveFileLocator::class, array(
             new Reference('sylius.theme.finder_factory'),
             $config['directories'],
-        ]);
+        ));
 
-        $configurationLoader = new Definition(ProcessingConfigurationLoader::class, [
-            new Definition(JsonFileConfigurationLoader::class, [
+        $configurationLoader = new Definition(ProcessingConfigurationLoader::class, array(
+            new Definition(JsonFileConfigurationLoader::class, array(
                 new Reference('sylius.theme.filesystem'),
-            ]),
+            )),
             new Reference('sylius.theme.configuration.processor'),
-        ]);
+        ));
 
-        $configurationProvider = new Definition(FilesystemConfigurationProvider::class, [
+        $configurationProvider = new Definition(FilesystemConfigurationProvider::class, array(
             $recursiveFileLocator,
             $configurationLoader,
             $config['filename'],
-        ]);
+        ));
 
         return $configurationProvider;
     }

@@ -69,12 +69,12 @@ interface ThemeInterface
     /**
      * @param ThemeInterface $theme
      */
-    public function addParent(ThemeInterface $theme);
+    public function addParent(self $theme);
 
     /**
      * @param ThemeInterface $theme
      */
-    public function removeParent(ThemeInterface $theme);
+    public function removeParent(self $theme);
 
     /**
      * @return ThemeScreenshot[]

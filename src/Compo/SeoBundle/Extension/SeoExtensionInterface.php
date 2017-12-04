@@ -3,10 +3,8 @@
 namespace Compo\SeoBundle\Extension;
 
 /**
- * Interface SeoExtensionInterface
- * @package Compo\SeoBundle\Extension
+ * Interface SeoExtensionInterface.
  */
 interface SeoExtensionInterface
 {
-
 }

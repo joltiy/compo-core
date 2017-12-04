@@ -33,7 +33,7 @@ final class ParameterTransformerListener
     /**
      * @var array
      */
-    private $parametersMap = [];
+    private $parametersMap = array();
 
     /**
      * @param ContainerInterface $container
@@ -85,20 +85,20 @@ final class ParameterTransformerListener
         }
 
         // reset parameters map
-        $this->parametersMap = [];
+        $this->parametersMap = array();
     }
 
     /**
      * @param SettingsInterface $settings
-     * @param EntityManager $entityManager
+     * @param EntityManager     $entityManager
      */
     protected function transform(SettingsInterface $settings, EntityManager $entityManager)
     {
         // store old parameters, so we can revert to it after flush
-        $this->parametersMap[] = [
+        $this->parametersMap[] = array(
             'entity' => $settings,
             'parameters' => $settings->getParameters(),
-        ];
+        );
 
         $transformers = $this->getTransformers($settings);
         foreach ($settings->getParameters() as $name => $value) {
@@ -125,7 +125,6 @@ final class ParameterTransformerListener
                 }
             }
         }
-
     }
 
     /**

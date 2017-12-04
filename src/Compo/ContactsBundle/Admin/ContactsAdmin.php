@@ -7,11 +7,10 @@ use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class ContactsAdmin extends AbstractAdmin
 {
@@ -52,7 +51,6 @@ class ContactsAdmin extends AbstractAdmin
                 '_action',
                 null,
                 array(
-
                 )
             );
     }

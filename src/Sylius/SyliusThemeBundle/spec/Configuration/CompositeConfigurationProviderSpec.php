@@ -20,47 +20,47 @@ use Sylius\Bundle\ThemeBundle\Configuration\ConfigurationProviderInterface;
  */
 final class CompositeConfigurationProviderSpec extends ObjectBehavior
 {
-    function let()
+    public function let()
     {
-        $this->beConstructedWith([]);
+        $this->beConstructedWith(array());
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(CompositeConfigurationProvider::class);
     }
 
-    function it_implements_configuration_provider_interface()
+    public function it_implements_configuration_provider_interface()
     {
         $this->shouldImplement(ConfigurationProviderInterface::class);
     }
 
-    function it_returns_empty_array_if_no_configurations_are_loaded()
+    public function it_returns_empty_array_if_no_configurations_are_loaded()
     {
-        $this->getConfigurations()->shouldReturn([]);
+        $this->getConfigurations()->shouldReturn(array());
     }
 
-    function it_returns_sum_of_configurations_returned_by_nested_configuration_providers(
+    public function it_returns_sum_of_configurations_returned_by_nested_configuration_providers(
         ConfigurationProviderInterface $firstConfigurationProvider,
         ConfigurationProviderInterface $secondConfigurationProvider
     ) {
-        $this->beConstructedWith([
+        $this->beConstructedWith(array(
             $firstConfigurationProvider,
             $secondConfigurationProvider,
-        ]);
+        ));
 
-        $firstConfigurationProvider->getConfigurations()->willReturn([
-            ['name' => 'first/theme'],
-        ]);
-        $secondConfigurationProvider->getConfigurations()->willReturn([
-            ['name' => 'second/theme'],
-            ['name' => 'third/theme'],
-        ]);
+        $firstConfigurationProvider->getConfigurations()->willReturn(array(
+            array('name' => 'first/theme'),
+        ));
+        $secondConfigurationProvider->getConfigurations()->willReturn(array(
+            array('name' => 'second/theme'),
+            array('name' => 'third/theme'),
+        ));
 
-        $this->getConfigurations()->shouldReturn([
-            ['name' => 'first/theme'],
-            ['name' => 'second/theme'],
-            ['name' => 'third/theme'],
-        ]);
+        $this->getConfigurations()->shouldReturn(array(
+            array('name' => 'first/theme'),
+            array('name' => 'second/theme'),
+            array('name' => 'third/theme'),
+        ));
     }
 }

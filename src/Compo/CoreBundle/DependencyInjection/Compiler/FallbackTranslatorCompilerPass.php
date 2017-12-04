@@ -9,12 +9,12 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class FallbackTranslatorCompilerPass implements CompilerPassInterface
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function process(ContainerBuilder $container)
     {
@@ -30,7 +30,5 @@ class FallbackTranslatorCompilerPass implements CompilerPassInterface
 
         $definition = $container->getDefinition('sonata.page.service.default');
         $definition->addMethodCall('setContainer', array(new Reference('service_container')));
-
-
     }
 }

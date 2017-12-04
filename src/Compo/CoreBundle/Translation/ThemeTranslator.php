@@ -9,19 +9,17 @@ use Symfony\Component\Translation\MessageSelector;
 use Symfony\Component\Translation\Translator as BaseTranslator;
 
 /**
- * Class FallbackTranslator
- *
- * @package Compo\CoreBundle\Translation
+ * Class FallbackTranslator.
  */
 class ThemeTranslator extends BaseTranslator implements WarmableInterface
 {
     /**
      * @var array
      */
-    protected $options = [
+    protected $options = array(
         'cache_dir' => null,
         'debug' => false,
-    ];
+    );
 
     /**
      * @var TranslatorLoaderProviderInterface
@@ -39,18 +37,18 @@ class ThemeTranslator extends BaseTranslator implements WarmableInterface
     private $resourcesLoaded = false;
 
     /**
-     * @param TranslatorLoaderProviderInterface $loaderProvider
+     * @param TranslatorLoaderProviderInterface   $loaderProvider
      * @param TranslatorResourceProviderInterface $resourceProvider
-     * @param MessageSelector $messageSelector
-     * @param string $locale
-     * @param array $options
+     * @param MessageSelector                     $messageSelector
+     * @param string                              $locale
+     * @param array                               $options
      */
     public function __construct(
         TranslatorLoaderProviderInterface $loaderProvider,
         TranslatorResourceProviderInterface $resourceProvider,
         MessageSelector $messageSelector,
         $locale,
-        array $options = []
+        array $options = array()
     ) {
         $this->assertOptionsAreKnown($options);
 
@@ -75,9 +73,6 @@ class ThemeTranslator extends BaseTranslator implements WarmableInterface
         }
     }
 
-    /**
-     *
-     */
     private function addResources()
     {
         if ($this->resourcesLoaded) {
@@ -109,7 +104,7 @@ class ThemeTranslator extends BaseTranslator implements WarmableInterface
 
         $locales = array_merge(
             $this->getFallbackLocales(),
-            [$this->getLocale()],
+            array($this->getLocale()),
             $this->resourceProvider->getResourcesLocales()
         );
         foreach (array_unique($locales) as $locale) {
@@ -143,11 +138,11 @@ class ThemeTranslator extends BaseTranslator implements WarmableInterface
 
         // Change translation domain to 'messages' if a translation can't be found in the
         // current domain
-        if ('messages' !== $domain && false === $this->catalogues[$locale]->has((string)$id, $domain)) {
+        if ('messages' !== $domain && false === $this->catalogues[$locale]->has((string) $id, $domain)) {
             $domain = 'messages';
         }
 
-        return strtr($this->catalogues[$locale]->get((string)$id, $domain), $parameters);
+        return strtr($this->catalogues[$locale]->get((string) $id, $domain), $parameters);
     }
 
     /**
@@ -160,18 +155,12 @@ class ThemeTranslator extends BaseTranslator implements WarmableInterface
         parent::initializeCatalogue($locale);
     }
 
-    /**
-     *
-     */
     private function initialize()
     {
         $this->addResources();
         $this->addLoaders();
     }
 
-    /**
-     *
-     */
     private function addLoaders()
     {
         $loaders = $this->loaderProvider->getLoaders();
@@ -187,7 +176,7 @@ class ThemeTranslator extends BaseTranslator implements WarmableInterface
     {
         $locales = parent::computeFallbackLocales($locale);
 
-        while (strrchr($locale, '_') !== false) {
+        while (false !== strrchr($locale, '_')) {
             $locale = substr($locale, 0, -strlen(strrchr($locale, '_')));
 
             array_unshift($locales, $locale);

@@ -35,9 +35,9 @@ final class FilesystemConfigurationProvider implements ConfigurationProviderInte
     private $configurationFilename;
 
     /**
-     * @param FileLocatorInterface $fileLocator
+     * @param FileLocatorInterface         $fileLocator
      * @param ConfigurationLoaderInterface $loader
-     * @param string $configurationFilename
+     * @param string                       $configurationFilename
      */
     public function __construct(FileLocatorInterface $fileLocator, ConfigurationLoaderInterface $loader, $configurationFilename)
     {
@@ -53,11 +53,11 @@ final class FilesystemConfigurationProvider implements ConfigurationProviderInte
     {
         try {
             return array_map(
-                [$this->loader, 'load'],
+                array($this->loader, 'load'),
                 $this->fileLocator->locateFilesNamed($this->configurationFilename)
             );
         } catch (\InvalidArgumentException $exception) {
-            return [];
+            return array();
         }
     }
 }

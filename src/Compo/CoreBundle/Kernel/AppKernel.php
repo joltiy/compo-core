@@ -6,14 +6,12 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel;
 
 /**
- * Class AppKernel
- *
- * @package Compo\CoreBundle\Kernel
+ * Class AppKernel.
  */
 class AppKernel extends Kernel
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function registerBundles()
     {
@@ -45,7 +43,6 @@ class AppKernel extends Kernel
             new \FOS\RestBundle\FOSRestBundle(),
             new \FOS\ElasticaBundle\FOSElasticaBundle(),
             new \FOS\JsRoutingBundle\FOSJsRoutingBundle(),
-
 
             new \Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new \SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
@@ -152,6 +149,7 @@ class AppKernel extends Kernel
 
     /**
      * @param LoaderInterface $loader
+     *
      * @throws \Exception
      */
     public function registerContainerConfiguration(LoaderInterface $loader)
@@ -160,9 +158,8 @@ class AppKernel extends Kernel
         $loader->load($this->getRootDir() . '/config/config_' . $this->getEnvironment() . '.yml');
     }
 
-
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getCacheDir()
     {
@@ -170,23 +167,25 @@ class AppKernel extends Kernel
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getLogDir()
     {
         return dirname($this->getRootDir()) . '/var/logs';
     }
 
-    public function getProjectName() {
+    public function getProjectName()
+    {
         return 'CompoCore';
     }
 
-    public function getProjectVersionPath() {
+    public function getProjectVersionPath()
+    {
         return $this->getProjectDir() . '/VERSION';
     }
 
-    public function getProjectVersion() {
-
+    public function getProjectVersion()
+    {
         if (file_exists($this->getProjectVersionPath())) {
             return trim(file_get_contents($this->getProjectVersionPath()));
         } else {

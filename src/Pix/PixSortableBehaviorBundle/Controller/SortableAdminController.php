@@ -15,12 +15,12 @@ use Sonata\AdminBundle\Controller\CRUDController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class SortableAdminController extends CRUDController
 {
     /**
-     * Move element
+     * Move element.
      *
      * @param string $position
      *
@@ -68,7 +68,7 @@ class SortableAdminController extends CRUDController
         if ($this->isXmlHttpRequest()) {
             return $this->renderJson(array(
                 'result' => 'ok',
-                'objectId' => $this->admin->getNormalizedIdentifier($object)
+                'objectId' => $this->admin->getNormalizedIdentifier($object),
             ));
         }
 
@@ -82,5 +82,4 @@ class SortableAdminController extends CRUDController
             array('filter' => $this->admin->getFilterParameters())
         ));
     }
-
 }

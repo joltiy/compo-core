@@ -11,12 +11,12 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class NotificationSmsAdmin extends AbstractAdmin
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configure()
     {
@@ -37,17 +37,33 @@ class NotificationSmsAdmin extends AbstractAdmin
      */
     public function fixData($object)
     {
-        $notificationManager = $this->getContainer()->get('compo_notification.manager.notification');
+        $notificationManager = $this->getNotificationManager();
 
-        $event = $notificationManager->getEvent($object->getEvent());
+        $event = $notificationManager->getDefaultEventByName($object->getCode());
 
-        if (!$object->getRecipient()) {
+        if (!$event) {
+            $events = $notificationManager->getDefaultEventsByEvent($object->getEvent());
+
+            foreach ($events as $item) {
+                $event = $item;
+            }
+        }
+
+        if ($event && !$object->getRecipient()) {
             $object->setRecipient($notificationManager->getTemplateSource($event['recipient_sms']));
         }
 
-        if (!$object->getBody()) {
+        if ($event && !$object->getBody()) {
             $object->setBody($notificationManager->getTemplateSource($event['body_sms']));
         }
+    }
+
+    /**
+     * @return \Compo\NotificationBundle\Manager\NotificationManager
+     */
+    public function getNotificationManager()
+    {
+        return $this->getContainer()->get('compo_notification.manager.notification');
     }
 
     /**
@@ -65,10 +81,10 @@ class NotificationSmsAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('id')
+            ->add('name')
             ->add('event')
             ->add('recipient')
             ->add('body')
-            ->add('note')
             ->add('enabled')
             ->add('createdAt')
             ->add('updatedAt')
@@ -76,7 +92,7 @@ class NotificationSmsAdmin extends AbstractAdmin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configureListFields(ListMapper $listMapper)
     {
@@ -89,8 +105,8 @@ class NotificationSmsAdmin extends AbstractAdmin
                     'catalogue' => 'CompoNotificationBundle',
                 )
             )
+            ->add('name')
             ->add('recipient')
-            ->add('note')
             ->add('enabled')
             ->add(
                 '_action',
@@ -105,19 +121,22 @@ class NotificationSmsAdmin extends AbstractAdmin
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $notificationManager = $this->getContainer()->get('compo_notification.manager.notification');
+        $notificationManager = $this->getNotificationManager();
 
         $subject = $this->getSubject();
 
-        if ($this->isCurrentRoute('create')) {
-            $help = '';
-        } else {
-            $event = $notificationManager->getEvent($subject->getEvent());
-            $help = $event['help'];
+        $help = '';
+
+        if (!$this->isCurrentRoute('create')) {
+            $events = $notificationManager->getDefaultEventsByEvent($subject->getEvent());
+
+            foreach ($events as $event) {
+                $help = $event['help'];
+            }
         }
 
         $formMapper
@@ -126,6 +145,7 @@ class NotificationSmsAdmin extends AbstractAdmin
 
         $formMapper->add('id')
             ->add('enabled')
+            ->add('name')
             ->add(
                 'event',
                 'choice',
@@ -134,7 +154,6 @@ class NotificationSmsAdmin extends AbstractAdmin
                     'choice_translation_domain' => 'CompoNotificationBundle',
                 )
             )
-            ->add('note')
             ->add('sender', null, array('required' => true, 'label' => 'sms_sender'))
             ->add('recipient', null, array('attr' => array('class' => 'highlight-src'), 'required' => false))
             ->add('body', null, array('attr' => array('class' => 'highlight-src'), 'required' => false));
@@ -143,8 +162,7 @@ class NotificationSmsAdmin extends AbstractAdmin
             'help',
             HelpType::class,
             array(
-                'template' => $help
-
+                'template' => $help,
             )
         );
         $formMapper->end()

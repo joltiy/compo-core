@@ -63,7 +63,7 @@ class PageCodeBlockService extends AbstractBlockService
         $resolver->setDefaults(
             array(
                 'template' => 'CompoPageCodeBundle:Block:page_code.html.twig',
-                'layout' => ''
+                'layout' => '',
             )
         );
     }

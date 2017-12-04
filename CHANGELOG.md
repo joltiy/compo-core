@@ -7,26 +7,37 @@
 - **Fixed**: исправления ошибок и мелкие правки.
 - **Removed**: удаление устаревшей функциональности.
 
-## [v3.3.18] - 2017-11-27 06:55:05
+## [v3.3.19] - 2017-11-28 08:57:46
 
 ### Added
-- Добавлен вывод CHANGELOG и версии проекта в админке.
-- [ContactsBundle] Добавлено поле имя. В блоке контактов, выводятся все контакты, а не только первый.
-- Добавлено создание нескольких контактов
-- Добавлен .editorconfig
-- Добавлен LICENSE
-- Добавлен UPGRADE.md
+- Добавлен .php_cs.dist
+- Добавлен столбце Тип, в обратную связь.
+
+### Changed
+- Update .php_cs.dist
+- Upgrade vendors
+- Update .gitignore (+2)
+- Update .editorconfig
+
+### Fixed
+- Исправлены SMS уведомления
+- Незначительные правки (+1)
+- Disable runDoctrineFixturesLoadAppend
+- Исправлено название товара в корзине, в заказе...
+- Исправлено название товара в корзине.
+- php-cs-fixer Compo
+- php-cs-fixer Pix/PixSortableBehaviorBundle
+- php-cs-fixer Sylius/SyliusSettingsBundle
+- php-cs-fixer SyliusThemeBundle
+- [NotificationBundle] Small fix.
+- [NotificationBundle] Рефакторинг. Уведомления, форма обратной связи.
+- [NotificationBundle] Рефакторинг
+- Исправлена ошибка просмотра сообщений обратной связи, когда отсутствуют дополнительные данные.
+
+## [v3.3.18] - 2017-11-28 08:11:12
 
 ### Changed
 - Update .editorconfig
-- Update LICENSE
-- Обновлён .gitignore /vendor/
-- Обновлены внешние зависимости
-
-### Fixed
-- Незначительные правки
-- Исправлены контакты, адрес - не обязательное поле
-- Исправлен перевод label_address
 
 ## [v3.3.17] - 2017-11-28 07:53:30
 
@@ -64,7 +75,7 @@
 ### Changed
 - Обновлены внешние зависимости
 
-## [v3.3.10] - 2017-10-24 05:05:25
+## [v3.3.5] - 2017-10-24 05:05:25
 
 ### Added
 - Add VERSION file
@@ -410,11 +421,12 @@
 
 [comporu/compo-core]: https://github.com/comporu/compo-core
 
-[v3.3.18]: https://github.com/comporu/compo-core/compare/v3.3.9...v3.3.18
+[v3.3.19]: https://github.com/comporu/compo-core/compare/v3.3.18...v3.3.19
+[v3.3.18]: https://github.com/comporu/compo-core/compare/v3.3.17...v3.3.18
 [v3.3.17]: https://github.com/comporu/compo-core/compare/v3.3.16...v3.3.17
 [v3.3.16]: https://github.com/comporu/compo-core/compare/v3.3.15...v3.3.16
 [v3.3.15]: https://github.com/comporu/compo-core/compare/v3.3.14...v3.3.15
 [v3.3.14]: https://github.com/comporu/compo-core/compare/v3.3.13...v3.3.14
 [v3.3.13]: https://github.com/comporu/compo-core/compare/v3.3.12...v3.3.13
-[v3.3.10]: https://github.com/comporu/compo-core/compare/v3.3.1...v3.3.10
+[v3.3.5]: https://github.com/comporu/compo-core/compare/v3.3.1...v3.3.5
 [v1.0.8]: https://github.com/comporu/compo-core/compare/5fdb2ebdc0b2f434385dd418f014670fad8b5051...v1.0.8

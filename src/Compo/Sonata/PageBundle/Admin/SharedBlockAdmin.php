@@ -13,9 +13,8 @@ namespace Compo\Sonata\PageBundle\Admin;
 
 use Sonata\AdminBundle\Form\FormMapper;
 
-
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class SharedBlockAdmin extends \Sonata\PageBundle\Admin\SharedBlockAdmin
 {
@@ -32,6 +31,4 @@ class SharedBlockAdmin extends \Sonata\PageBundle\Admin\SharedBlockAdmin
 
         parent::configureFormFields($formMapper);
     }
-
-
 }

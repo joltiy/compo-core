@@ -20,36 +20,36 @@ use Sylius\Bundle\ThemeBundle\Translation\Finder\TranslationFilesFinderInterface
  */
 final class OrderingTranslationFilesFinderSpec extends ObjectBehavior
 {
-    function let(TranslationFilesFinderInterface $translationFilesFinder)
+    public function let(TranslationFilesFinderInterface $translationFilesFinder)
     {
         $this->beConstructedWith($translationFilesFinder);
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(OrderingTranslationFilesFinder::class);
     }
 
-    function it_implements_Translation_Files_Finder_interface()
+    public function it_implements_Translation_Files_Finder_interface()
     {
         $this->shouldImplement(TranslationFilesFinderInterface::class);
     }
 
-    function it_puts_application_translations_files_before_bundle_translations_files(
+    public function it_puts_application_translations_files_before_bundle_translations_files(
         TranslationFilesFinderInterface $translationFilesFinder
     ) {
-        $translationFilesFinder->findTranslationFiles('/some/path/to/theme')->willReturn([
+        $translationFilesFinder->findTranslationFiles('/some/path/to/theme')->willReturn(array(
             '/some/path/to/theme/AcmeBundle/messages.en.yml',
             '/some/path/to/theme/translations/messages.en.yml',
             '/some/path/to/theme/YcmeBundle/messages.en.yml',
-        ]);
+        ));
 
         $this->findTranslationFiles('/some/path/to/theme')->shouldHaveFirstElement('/some/path/to/theme/translations/messages.en.yml');
     }
 
     public function getMatchers()
     {
-        return [
+        return array(
             'haveFirstElement' => function ($subject, $element) {
                 if ($element !== reset($subject)) {
                     throw new \InvalidArgumentException(sprintf(
@@ -61,6 +61,6 @@ final class OrderingTranslationFilesFinderSpec extends ObjectBehavior
 
                 return true;
             },
-        ];
+        );
     }
 }

@@ -1,12 +1,11 @@
 <?php
 
-
 namespace Compo\Sonata\BlockBundle\Block\Service;
 
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 
 /**
- * {@inheritDoc}
+ * {@inheritdoc}
  */
 class AbstractAdminBlockService extends \Sonata\BlockBundle\Block\Service\AbstractAdminBlockService
 {

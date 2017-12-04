@@ -31,15 +31,15 @@ class NewsBreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
                     'uri' => $this->getContainer()->get('router')->generate('compo_news_index'),
                     'label' => 'breadcrumb.news',
                     'extras' => array(
-                        'translation_domain' => 'CompoNewsBundle'
-                    )
+                        'translation_domain' => 'CompoNewsBundle',
+                    ),
                 )
             );
 
             $menu->addChild(
                 $news->getSlug(),
                 array(
-                    'label' => $news->getName()
+                    'label' => $news->getName(),
                 )
             );
         } else {
@@ -48,8 +48,8 @@ class NewsBreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
                 array(
                     'label' => 'breadcrumb.news',
                     'extras' => array(
-                        'translation_domain' => 'CompoNewsBundle'
-                    )
+                        'translation_domain' => 'CompoNewsBundle',
+                    ),
                 )
             );
         }

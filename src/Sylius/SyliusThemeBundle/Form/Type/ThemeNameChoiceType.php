@@ -40,18 +40,18 @@ final class ThemeNameChoiceType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
+        $resolver->setDefaults(array(
             'choices' => function (Options $options) {
                 $themes = $this->themeRepository->findAll();
 
-                $choices = [];
+                $choices = array();
                 foreach ($themes as $theme) {
                     $choices[(string) $theme] = $theme->getName();
                 }
 
                 return $choices;
             },
-        ]);
+        ));
     }
 
     /**

@@ -28,7 +28,6 @@ class SocialBlockService extends AbstractBlockService
         return $this->renderResponse(
             $blockContext->getTemplate(),
             array(
-
                 'list' => $list,
                 'block' => $blockContext->getBlock(),
                 'settings' => $blockContext->getSettings(),
