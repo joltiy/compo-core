@@ -612,3 +612,8 @@ th.table-th-id {
 .sonata-ba-list tr:hover .editable-many-to-many {
     visibility: visible;
 }
+
+
+.select2-container {
+    min-width: 120px;
+}
