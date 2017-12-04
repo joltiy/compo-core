@@ -7,6 +7,14 @@
 - **Fixed**: исправления ошибок и мелкие правки.
 - **Removed**: удаление устаревшей функциональности.
 
+## [v3.3.20] - 2017-12-04 18:29:05
+
+### Added
+- Добавлено AJAX редактирование связей Many-to-Many
+
+### Fixed
+- Незначительные правки
+
 ## [v3.3.19] - 2017-11-28 08:57:46
 
 ### Added
@@ -421,6 +429,7 @@
 
 [comporu/compo-core]: https://github.com/comporu/compo-core
 
+[v3.3.20]: https://github.com/comporu/compo-core/compare/v3.3.19...v3.3.20
 [v3.3.19]: https://github.com/comporu/compo-core/compare/v3.3.18...v3.3.19
 [v3.3.18]: https://github.com/comporu/compo-core/compare/v3.3.17...v3.3.18
 [v3.3.17]: https://github.com/comporu/compo-core/compare/v3.3.16...v3.3.17
