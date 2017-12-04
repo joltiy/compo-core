@@ -1,0 +1,173 @@
+{% extends '@SonataDoctrineORMAdmin/CRUD/list_orm_many_to_many.html.twig' %}
+
+{% block field %}
+    <div class="field-block">
+    {{ parent() }}
+    </div>
+
+    <a href="#"
+       class="editable-many-to-many btn btn-sm btn-default"
+       id="row-{{ field_description.name }}{{ admin.id(object) }}"
+       data-type="select2"
+       data-pk="{{ admin.id(object) }}"
+       data-value="
+        {%- for element in value -%}
+            {{- element.id -}}
+            {%- if not loop.last -%},{%- endif -%}
+        {%- endfor -%}
+        "
+       data-url="{{ admin.generateObjectUrl('update_many_to_many', object) }}"
+       data-title="{{ field_description.associationadmin.label|trans({}, field_description.associationadmin.translationdomain) }}"><i class="fa fa-pencil"></i></a>
+
+    <script>
+        $(function(){
+            {% set route_name = field_description.options.route.name %}
+
+            var initData{{ field_description.name }}{{ admin.id(object) }} = [
+                {%- for element in value -%}
+                {id: {{ element.id }}, label: '{{ element.name }}', edit_url: '{{ field_description.associationadmin.generateObjectUrl(route_name, element, field_description.options.route.parameters) }}'}
+                {%- if not loop.last -%},{% endif -%}
+                {%- endfor -%}
+            ];
+
+            var select2Options = {
+                placeholder: '', // allowClear needs placeholder to work properly
+                allowClear: true,
+                enable: true,
+                readonly: false,
+                minimumInputLength: 0,
+                multiple: true,
+
+                dropdownAutoWidth: true,
+                dropdownCssClass: '',
+                ajax: {
+                    url:  '{{ path('sonata_admin_retrieve_autocomplete_items') }}',
+                    dataType: 'json',
+                    quietMillis: 100,
+                    cache: true,
+
+                    data: function (term, page) { // page is the one-based page number tracked by Select2
+                        // Select2 v4 got a "params" unique argument
+                        // NEXT_MAJOR: Remove this BC layer.
+                        if (typeof term !== 'undefined') {
+                            if (typeof page === 'undefined') {
+                                page = typeof term.page !== 'undefined' ? term.page : 1;
+                                term = term.term;
+                            }
+                        } else {
+                            term = '';
+                            page = 1;
+                        }
+
+
+
+                        return {
+                            //search term
+                            'q': term,
+
+                            // page size
+                            '_per_page': 50,
+
+                            // page number
+                            '_page': page,
+
+                            // admin
+                            'uniqid': 's5a2550e4740dd',
+                            'admin_code': '{{ admin.code }}',
+
+                            // subclass
+
+                            'field':  '{{ field_description.name }}'
+
+                            // other parameters
+                        };
+                    },
+                },
+                escapeMarkup: function (m) { return m; } // we do not want to escape markup since we are displaying html in results
+            };
+
+
+
+            // Select2 v3/v4 special options.
+            // NEXT_MAJOR: Remove this BC layer while upgrading to v4.
+            var templateResult = function (item) {
+                return jQuery('<div class="">').text(item.label).prop('outerHTML'); // format of one dropdown item
+            };
+            var templateSelection = function (item) {
+                // Select2 v4 BC select pre-selection.
+                if (typeof item.label === 'undefined') {
+                    item.label = item.text;
+                }
+                return jQuery('<div>').text(item.label).prop('innerHTML'); // format selected item '<b>'+item.label+'</b>';
+            };
+
+            if (window.Select2) {
+
+                select2Options.initSelection = function (element, callback) {
+                    callback(initData{{ field_description.name }}{{ admin.id(object) }});
+                };
+
+                select2Options.ajax.results = function (data, page) {
+                    // notice we return the value of more so Select2 knows if more results can be loaded
+                    return {results: data.items, more: data.more};
+                };
+                select2Options.formatResult = templateResult;
+                select2Options.formatSelection = templateSelection;
+            } else {
+
+
+                select2Options.initSelection = function (element, callback) {
+                    callback(initData{{ field_description.name }}{{ admin.id(object) }});
+                };
+
+                select2Options.ajax.processResults = function (data, params) {
+                    return {
+                        results: data.items,
+                        pagination: {
+                            more: data.more
+                        }
+                    };
+                };
+                select2Options.templateResult = templateResult;
+                select2Options.templateSelection = templateSelection;
+            }
+
+            //local source
+            $('#row-{{ field_description.name }}{{ admin.id(object) }}').editable({
+                display: function(value, sourceData) {
+
+                    var list = [];
+
+                    $.each(initData{{ field_description.name }}{{ admin.id(object) }}, function(i, v) {
+                        var html = $('<div>');
+
+                        var a = $('<a>');
+
+                        a.attr('href', v.edit_url);
+
+                        a.html(v.label);
+
+                        html.append(a);
+
+                        list.push(html.html());
+                    });
+
+                    $(this).parent().find('.field-block').html(list.join(', '));
+
+
+                },
+                params: function(params) {
+                    //originally params contain pk, name and value
+                    params.field = '{{ field_description.name }}';
+                    return params;
+                },
+                success: function(response, newValue) {
+                    initData{{ field_description.name }}{{ admin.id(object) }} = response.items;
+                    $('#row-{{ field_description.name }}{{ admin.id(object) }}').data('value', newValue.join(','));
+                },
+                select2: select2Options
+            });
+
+        });
+    </script>
+{% endblock %}
