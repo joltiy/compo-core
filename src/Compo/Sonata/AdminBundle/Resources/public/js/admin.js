@@ -62,54 +62,112 @@ function getCookie(key) {
 }
 
 
-function initOrderElements() {
-    $('div[id*=_elements] td[class*=elements-quantity] input').change(function () {
-        var quantity_input = $(this);
+function number_format(number, decimals, dec_point, thousands_sep) {	// Format a number with grouped thousands
+    //
+    // +   original by: Jonas Raoni Soares Silva (http://www.jsfromhell.com)
+    // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+    // +	 bugfix by: Michael White (http://crestidg.com)
 
+    var i, j, kw, kd, km;
+
+    // input sanitation & defaults
+    if (isNaN(decimals = Math.abs(decimals))) {
+        decimals = 2;
+    }
+    if (dec_point == undefined) {
+        dec_point = ",";
+    }
+    if (thousands_sep == undefined) {
+        thousands_sep = ".";
+    }
+
+    i = parseInt(number = (+number || 0).toFixed(decimals)) + "";
+
+    if ((j = i.length) > 3) {
+        j = j % 3;
+    } else {
+        j = 0;
+    }
+
+    km = (j ? i.substr(0, j) + thousands_sep : "");
+    kw = i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands_sep);
+    //kd = (decimals ? dec_point + Math.abs(number - i).toFixed(decimals).slice(2) : "");
+    kd = (decimals ? dec_point + Math.abs(number - i).toFixed(decimals).replace(/-/, 0).slice(2) : "");
+
+
+    return km + kw + kd;
+}
+
+function updateOrderTotal() {
+    var total = 0;
+
+
+    $('div[id*=_elements] td[class*=elements-total] input').each(function () {
+        var total_el = $(this);
+
+        total = total + parseFloat(total_el.val().replace(',', '.'));
+    });
+
+    var order_total = $('.order_total');
+
+    order_total.val(number_format(total, 2, ',', ''));
+
+    order_total.change();
+}
+
+function initOrderElements(subject) {
+
+    $('td[class*=elements-quantity] input', subject).change(function () {
+        var quantity_input = $(this);
 
         var price_input = quantity_input.closest('tr').find('td[class*=elements-price] input').first();
         var total_input = quantity_input.closest('tr').find('td[class*=elements-total] input').first();
 
-        total_input.val(parseInt(quantity_input.val()) * parseFloat(price_input.val()));
 
-        total_input.change();
+        total_input.val(parseFloat(quantity_input.val().replace(',', '.')) * parseFloat(price_input.val().replace(',', '.')));
+
+        total_input.val(number_format(total_input.val(), 2, ',', ''));
+
+        updateOrderTotal();
     });
 
 
-    $('div[id*=_elements] td[class*=elements-price] input').change(function () {
+    $('td[class*=elements-price] input', subject).change(function () {
         var price_input = $(this);
-
 
         var quantity_input = price_input.closest('tr').find('td[class*=elements-quantity] input').first();
         var total_input = price_input.closest('tr').find('td[class*=elements-total] input').first();
 
-        total_input.val(parseInt(quantity_input.val()) * parseFloat(price_input.val()));
+        total_input.val(parseFloat(quantity_input.val().replace(',', '.')) * parseFloat(price_input.val().replace(',', '.')));
 
-        total_input.change();
+        total_input.val(number_format(total_input.val(), 2, ',', ''));
+
+        updateOrderTotal();
     });
 
-    $('div[id*=_elements] td[class*=elements-total] input').change(function () {
 
-        var total = 0;
+    $('td[class*=elements-total] input', subject).change(function () {
+        updateOrderTotal();
+    });
 
+}
 
-        $('div[id*=_elements] td[class*=elements-total] input').each(function () {
-            var total_el = $(this);
-
-            total = total + parseFloat(total_el.val());
-
-        });
-
+function initOrderTotal() {
+    $('.order_total, .order_delivery_cost').change(function () {
         var order_total = $('.order_total');
-
-        order_total.val(total);
-
-
         var order_delivery_cost = $('.order_delivery_cost');
 
+        $('.order_total_cost').val(parseFloat(order_total.val().replace(',', '.')) + parseFloat(order_delivery_cost.val().replace(',', '.')));
 
-        $('.order_total_cost').val(parseFloat(order_delivery_cost.val()) + total);
+        $('.order_total_cost').val(number_format($('.order_total_cost').val(), 2, ',', ''));
+    });
 
+    $('td[class*=elements-quantity] input').each(function () {
+        var quantity_input = $(this);
+
+        var tr = quantity_input.closest('tr');
+
+        initOrderElements(tr);
     });
 
 }
@@ -220,14 +278,13 @@ Admin.shared_setup = function (subject) {
 
     $('.page-composer__container__child__name__input').addClass('form-control');
 
-    initOrderElements();
+    initOrderElements(subject);
 };
 
 
 $(document).ready(function () {
 
-    initOrderElements();
-
+    initOrderTotal();
     $('.sidebar-toggle').click(function () {
         var body = $('body');
 

@@ -35,6 +35,7 @@
 /web/bundles
 /web/vendor
 /web/js
+/web/build
 
 # User data
 /web/uploads
@@ -50,10 +51,12 @@
 /web/robots.txt
 
 # Other
+/node_modules
 /ubuntu-xenial-16.04-cloudimg-console.log
 /.web-server-pid
 /composer-locaload.json
 /.php_cs.cache
+/yarn-error.log
 *~
 
 # CSS preprocessor cache
