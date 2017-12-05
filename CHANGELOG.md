@@ -7,6 +7,15 @@
 - **Fixed**: исправления ошибок и мелкие правки.
 - **Removed**: удаление устаревшей функциональности.
 
+## [v3.3.21] - 2017-12-05 02:00:52
+
+### Added
+- Добавлена Twig функция project_version()
+
+### Fixed
+- Исправлено подключение JS/CSS в админке
+- Исправлено подключение fosjsrouting в админке (+1)
+
 ## [v3.3.20] - 2017-12-04 18:29:05
 
 ### Added
@@ -429,6 +438,7 @@
 
 [comporu/compo-core]: https://github.com/comporu/compo-core
 
+[v3.3.21]: https://github.com/comporu/compo-core/compare/v3.3.20...v3.3.21
 [v3.3.20]: https://github.com/comporu/compo-core/compare/v3.3.19...v3.3.20
 [v3.3.19]: https://github.com/comporu/compo-core/compare/v3.3.18...v3.3.19
 [v3.3.18]: https://github.com/comporu/compo-core/compare/v3.3.17...v3.3.18
