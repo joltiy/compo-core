@@ -6,7 +6,7 @@ assetic:
 
     write_to: "%kernel.root_dir%/../web"
     #bundles: []
-    bundles:        [CompoCoreBundle]
+    bundles:        [CompoCoreBundle,CompoSonataAdminBundle ]
 
     filters:
         cssrewrite: ~

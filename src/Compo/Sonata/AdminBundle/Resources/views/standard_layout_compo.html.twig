@@ -124,8 +124,32 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    {% if app.environment == 'prod' %}
+        {% javascripts
+            'bundles/fosjsrouting/js/router.js'
+            'js/fos_js_routes.js'
+
+            filter='?yui_js'
+
+            output='assetic/router.js' %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% else %}
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    {% endif %}
+{% endblock %}
+
+{% block sonata_javascript_pool %}
+    {% for javascript in sonata_admin.adminPool.getOption('javascripts', []) %}
+        <script src="{{ asset(javascript) }}?v={{ project_version() }}"></script>
+    {% endfor %}
+{% endblock %}
+
+{% block stylesheets %}
+    {% for stylesheet in sonata_admin.adminPool.getOption('stylesheets', []) %}
+        <link rel="stylesheet" href="{{ asset(stylesheet) }}?v={{ project_version() }}">
+    {% endfor %}
 {% endblock %}
 
 {% block sonata_breadcrumb %}

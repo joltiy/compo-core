@@ -63,6 +63,13 @@ services:
         tags:
             - { name: twig.extension }
 
+    compo_core.core_extension:
+        class: Compo\CoreBundle\Twig\CoreExtension
+        parent: compo_core.abstract_container_aware
+        public: false
+        tags:
+            - { name: twig.extension }
+
     compo_core.twig.url_extension:
         class: Compo\CoreBundle\Twig\UrlExtension
         public: false
