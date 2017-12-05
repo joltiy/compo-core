@@ -140,6 +140,18 @@
     {% endif %}
 {% endblock %}
 
+{% block sonata_javascript_pool %}
+    {% for javascript in sonata_admin.adminPool.getOption('javascripts', []) %}
+        <script src="{{ asset(javascript) }}?v={{ project_version() }}"></script>
+    {% endfor %}
+{% endblock %}
+
+{% block stylesheets %}
+    {% for stylesheet in sonata_admin.adminPool.getOption('stylesheets', []) %}
+        <link rel="stylesheet" href="{{ asset(stylesheet) }}?v={{ project_version() }}">
+    {% endfor %}
+{% endblock %}
+
 {% block sonata_breadcrumb %}
 
 {% endblock sonata_breadcrumb %}
