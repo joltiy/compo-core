@@ -12,7 +12,7 @@ class GroupAdmin extends \Sonata\UserBundle\Admin\Model\GroupAdmin
     /**
      * {@inheritdoc}
      */
-    protected function configureFormFields(FormMapper $formMapper)
+    protected function configureFormFields(FormMapper $formMapper): void
     {
         $formMapper
             ->tab('Group')

@@ -16,7 +16,7 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
     /**
      * {@inheritdoc}
      */
-    protected function configureFormFields(FormMapper $formMapper)
+    protected function configureFormFields(FormMapper $formMapper): void
     {
         // define group zoning
         $formMapper
