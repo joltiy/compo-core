@@ -1,40 +1,44 @@
-<table class="table table-bordered">
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th></th>
-            <th>Кол-во</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <th scope="row">Сегодня</th>
-            <td>{{ stats.today }}</td>
-        </tr>
-        <tr>
-            <th scope="row">Вчера</th>
-            <td>{{ stats.yesterday }}</td>
-        </tr>
-        <tr>
-            <th scope="row">Текущая неделя</th>
-            <td>{{ stats.week }}</td>
-        </tr>
-        <tr>
-            <th scope="row">Предыдущая неделя</th>
-            <td>{{ stats.previousWeek }}</td>
-        </tr>
-        <tr>
-            <th scope="row">Текущий месяц</th>
-            <td>{{ stats.month }}</td>
-        </tr>
-        <tr>
-            <th scope="row">Предыдущый месяц</th>
-            <td>{{ stats.previousMonth }}</td>
-        </tr>
-        <tr>
-            <th scope="row">Всего</th>
-            <td>{{ stats.total }}</td>
-        </tr>
-        </tbody>
+{% extends '@CompoSonataDashboard/Dashboard/block_base.html.twig' %}
+
+{% block content %}
+    <table class="table table-bordered">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Кол-во</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">Сегодня</th>
+                <td>{{ stats.today }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Вчера</th>
+                <td>{{ stats.yesterday }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Текущая неделя</th>
+                <td>{{ stats.week }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Предыдущая неделя</th>
+                <td>{{ stats.previousWeek }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Текущий месяц</th>
+                <td>{{ stats.month }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Предыдущый месяц</th>
+                <td>{{ stats.previousMonth }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Всего</th>
+                <td>{{ stats.total }}</td>
+            </tr>
+            </tbody>
+        </table>
     </table>
-</table>
+{% endblock %}

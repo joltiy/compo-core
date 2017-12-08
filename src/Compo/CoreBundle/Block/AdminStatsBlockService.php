@@ -150,9 +150,12 @@ class AdminStatsBlockService extends AbstractBlockService
             'previousMonth' => $previousMonth,
         );
 
+        $url = $container->get('sonata.admin.pool')->getAdminByClass($entityClass)->generateUrl('list');
+
         return $this->renderResponse(
             $blockContext->getTemplate(),
             array(
+                'url' => $url,
                 'stats' => $stats,
                 'block' => $blockContext->getBlock(),
                 'settings' => $blockContext->getSettings(),
