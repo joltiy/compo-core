@@ -1,0 +1,14 @@
+services:
+    compo_dashboard.settings.dashboard:
+        class: Compo\Sonata\DashboardBundle\Settings\DashboardSettingsSchema
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: "sylius.settings_schema", namespace: "compo_dashboard", admin: "sonata.dashboard.admin.dashboard" }
+
+
+
+    compo_dashboard.listener.request_listener:
+        class: Compo\Sonata\DashboardBundle\Listener\RequestListener
+        arguments: ["@service_container"]
+        tags:
+            - { name: kernel.event_listener, lazy:  true, event: kernel.request, method: onKernelRequest, priority: -10 }

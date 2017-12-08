@@ -62,6 +62,14 @@ final class RegisterSchemasPass implements CompilerPassInterface
                     $arguments = $admin->getArguments();
 
                     if (isset($arguments[2])) {
+                        if (strpos($arguments[1], '%') === 0) {
+                            $arguments[1] = $container->getParameter(str_replace('%', '', $arguments[1]));
+                        }
+
+                        if (strpos($arguments[2], '%') === 0) {
+                            $arguments[2] = $container->getParameter(str_replace('%', '', $arguments[2]));
+                        }
+
                         $baseControllerNameArray = explode(':', $arguments[2]);
 
                         $schema->addMethodCall('setTranslationDomain', array($baseControllerNameArray[0]));
