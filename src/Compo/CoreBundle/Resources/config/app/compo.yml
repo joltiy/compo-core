@@ -36,3 +36,11 @@ parameters:
 compo_core:
     theme:
         name: "comporu/default"
+
+services:
+    compo_core.block.service.admin_stats:
+        class: Compo\CoreBundle\Block\AdminStatsBlockService
+        arguments: ["compo_core.block.service.admin_stats", "@templating"]
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: sonata.block }

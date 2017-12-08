@@ -35,3 +35,5 @@ sonata_admin:
 sonata_administration: Администрирование
 sonata_classification: Классификация
 settings.logo_tab: 'Логотип'
+
+block.title_admin_stats: 'Статистика'
