@@ -1,0 +1,144 @@
+{% extends '@CompoSonataDashboard/Dashboard/block_base.html.twig' %}
+
+{% block content %}
+    <div id="chart-{{ block.id }}"></div>
+
+    <table
+        {% if settings.tableVisible %}
+
+        {% else %}
+            style="display: none;"
+        {% endif %}
+
+        id="table-stats-{{ block.id }}" class="table table-bordered table-hover table-stats table-stats-custom">
+        <thead>
+        <tr>
+            {% for dimension in dimensions %}
+                {% set default_label = 'form.label_' ~ dimension.label_name %}
+                <th data-type="dimension" data-field-type="{{ dimension.field_type }}">{{ dimension.label|default(default_label|trans({}, translation_domain)) }}</th>
+            {% endfor %}
+            {% for metric in metrics %}
+                {% set default_label = 'form.label_' ~ metric.label_name %}
+                {% set default_label = default_label|trans({}, translation_domain) %}
+                {% set default_label = default_label ~ ' ('~metric.aggregation|trans({}, 'CompoCoreBundle') ~ ')' %}
+
+                <th data-type="metric" data-field-type="" class="{{ metric.aggregation|lower }}">{{ metric.label|default(default_label) }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for row in stats %}
+            <tr>
+                {% for dimension in dimensions %}
+                    <td data-raw="{{ attribute(row, dimension.code_name ~ '_raw')|default('') }}">
+                        {{ attribute(row, dimension.code_name)|default('&mdash;')|raw }}
+                    </td>
+                {% endfor %}
+                {% for metric in metrics %}
+                    <td>
+                        {{ attribute(row, metric.code_name)|number_format(0, '', '') }}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        {% for dimension in dimensions %}
+            <td>
+            </td>
+        {% endfor %}
+        {% for metric in metrics %}
+            <td class="{{ metric.aggregation|lower }}">
+            </td>
+        {% endfor %}
+        </tfoot>
+    </table>
+
+    <script>
+
+        $(function () {
+            {% if settings.chart %}
+                var tableCharts{{ block.id }} = $('#table-stats-{{ block.id }}').clone();
+
+            {% endif %}
+
+            var table{{ block.id }} = $('#table-stats-{{ block.id }}').DataTable({
+                "order": [[ {{ dimensions|length }}, 'asc' ]],
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Russian.json"
+                },
+                "footerCallback": function (row, data, start, end, display) {
+                    var api = this.api();
+
+                    api.columns('.sum', {
+                        page: 'current'
+                    }).every(function () {
+                        var sum = this
+                            .data()
+                            .reduce(function (a, b) {
+                                var x = parseFloat(a) || 0;
+                                var y = parseFloat(b) || 0;
+                                return parseInt(x + y);
+                            }, 0);
+                        $(this.footer()).html(sum);
+                    });
+
+                    api.columns('.count', {
+                        page: 'current'
+                    }).every(function () {
+                        var sum = this
+                            .data()
+                            .reduce(function (a, b) {
+                                var x = parseFloat(a) || 0;
+                                var y = parseFloat(b) || 0;
+                                return parseInt(x + y);
+                            }, 0);
+                        $(this.footer()).html(sum);
+                    });
+
+                    api.columns('.avg', {
+                        page: 'current'
+                    }).every(function () {
+                        var sum = this
+                            .data()
+                            .reduce(function (a, b) {
+                                var x = parseFloat(a) || 0;
+                                var y = parseFloat(b) || 0;
+                                return parseInt((x + y) / 2);
+                            }, 0);
+                        $(this.footer()).html(sum);
+                    });
+                }
+            });
+
+            table{{ block.id }}.on("draw", function () {
+                {% if settings.chart %}
+                    var order = table{{ block.id }}.order();
+                    var column_id = order[0][0];
+
+
+                    if (column_id < {{ dimensions|length }}) {
+                        column_id = {{ dimensions|length }};
+                    }
+
+                    {% if block.settings.timeline  %}
+                        var timeline = true;
+                    {% else %}
+                        var timeline = false;
+                    {% endif %}
+
+                    if (timeline) {
+                        createChartStock(tableCharts{{ block.id }}, {{ block.id }}, column_id + 1, {{ dimensions|length }}, timeline);
+
+                    } else {
+                        createChart(tableCharts{{ block.id }}, {{ block.id }}, column_id + 1, {{ dimensions|length }});
+                    }
+                {% endif %}
+            });
+        });
+    </script>
+
+
+{% endblock %}
+
+

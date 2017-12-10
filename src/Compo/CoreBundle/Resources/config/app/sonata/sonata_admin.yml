@@ -67,12 +67,23 @@ sonata_admin:
 
             - bundles/composonataadmin/js/nestedSortable.js
 
+            - "vendor/datatable/media/js/jquery.dataTables.js"
+            - "vendor/datatable/media/js/dataTables.bootstrap.js"
+
+            - "//code.highcharts.com/stock/highstock.js"
+
+            - "//code.highcharts.com/modules/series-label.js"
+
+            - "//code.highcharts.com/stock/modules/exporting.js"
+
+
             - bundles/composonataadmin/js/admin.js
 
         stylesheets:
             - assetic/sonata_admin_vendor_css.css
             - assetic/sonata_admin_core_css.css
             - assetic/sonata_admin_css.css
+            - "vendor/datatable/media/css/dataTables.bootstrap.css"
 
             - bundles/composonataadmin/css/admin.css
             - bundles/composonataadmin/css/tree.css

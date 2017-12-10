@@ -95,3 +95,5 @@ sonata_block:
 
         compo_core.block.service.admin_stats:
             contexts:   [admin, sonata_dashboard_bundle]
+        compo_core.block.service.admin_custom_stats:
+            contexts:   [admin, sonata_dashboard_bundle]

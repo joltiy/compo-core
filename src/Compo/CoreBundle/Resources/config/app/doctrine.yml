@@ -41,6 +41,10 @@ doctrine:
                     numeric_functions:
                         rand: DoctrineExtensions\Query\Mysql\Rand
 
+                    datetime_functions:
+                        DATE_FORMAT: DoctrineExtensions\Query\Mysql\DateFormat
+                        UNIX_TIMESTAMP: DoctrineExtensions\Query\Mysql\UnixTimestamp
+
                 # TODO: Может заменить на свой? Или трейты...
                 #default_repository_class:  Doctrine\ORM\EntityRepository
 
