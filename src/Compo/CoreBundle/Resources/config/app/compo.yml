@@ -51,3 +51,10 @@ services:
         parent: compo_core.abstract_container_aware
         tags:
             - { name: sonata.block }
+
+    compo_core.block.service.date_stats_admin:
+        class: Compo\CoreBundle\Block\DateStatsAdminBlockService
+        arguments: ["compo_core.block.service.date_stats_admin", "@templating"]
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: sonata.block }
