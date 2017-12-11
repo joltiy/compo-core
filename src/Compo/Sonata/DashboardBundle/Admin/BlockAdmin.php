@@ -330,7 +330,7 @@ class BlockAdmin extends AbstractAdmin
         $isComposer = $this->hasRequest() ? $this->getRequest()->get('composer', false) : false;
         $generalGroupOptions = $optionsGroupOptions = [];
         if ($isComposer) {
-            $generalGroupOptions['class'] = 'hidden';
+            //$generalGroupOptions['class'] = 'hidden';
             $optionsGroupOptions['name'] = '';
         }
 
