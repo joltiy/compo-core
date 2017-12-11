@@ -14,6 +14,7 @@ namespace Compo\CoreBundle\Block;
 use Compo\CoreBundle\Doctrine\ORM\EntityRepository;
 use Compo\OrderBundle\Entity\Order;
 use Compo\ProductBundle\Entity\Product;
+use Doctrine\ORM\AbstractQuery;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Admin\Pool;
 use Sonata\BlockBundle\Block\BlockContextInterface;
@@ -21,6 +22,7 @@ use Compo\Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Sonata\BlockBundle\Model\BlockInterface;
 use Sonata\CoreBundle\Form\Type\ImmutableArrayType;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -53,12 +55,8 @@ class DateStatsAdminBlockService extends AbstractBlockService
         $associationMappings = $classMetadata->associationMappings;
         $fieldsMappings = $classMetadata->fieldMappings;
 
+        $stats = array();
 
-        $qb = $repository->createQueryBuilder('entity');
-        $qb->resetDQLPart('select');
-
-        $qb->select('COUNT(entity.id)');
-        $total = $qb->getQuery()->getSingleScalarResult();
 
         $timeTodayFrom = new \DateTime();
         $timeTodayFrom->setTime(0,0,0);
@@ -67,11 +65,14 @@ class DateStatsAdminBlockService extends AbstractBlockService
         $timeTodayTo->setTime(23,59,59);
 
         $qb = $repository->createQueryBuilder('entity');
-        $qb->select('COUNT(entity.id)');
+        $qb->resetDQLPart('select');
+        $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata);
+        $qb->addSelect("'today' as period");
+
         $qb->where('entity.createdAt BETWEEN :from AND :to')
             ->setParameter('from', $timeTodayFrom->format('Y-m-d H:i:s'))
             ->setParameter('to', $timeTodayTo->format('Y-m-d H:i:s'));
-        $today = $qb->getQuery()->getSingleScalarResult();
+        $stats[] = $qb->getQuery()->getSingleResult(AbstractQuery::HYDRATE_ARRAY);
 
 
         $timeTodayFrom = new \DateTime();
@@ -83,41 +84,53 @@ class DateStatsAdminBlockService extends AbstractBlockService
         $timeTodayTo->modify('-1 day');
 
         $qb = $repository->createQueryBuilder('entity');
-        $qb->select('COUNT(entity.id)');
+        $qb->resetDQLPart('select');
+        $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata);
+        $qb->addSelect("'yesterday' as period");
+
         $qb->where('entity.createdAt BETWEEN :from AND :to')
             ->setParameter('from', $timeTodayFrom->format('Y-m-d H:i:s'))
             ->setParameter('to', $timeTodayTo->format('Y-m-d H:i:s'));
-        $yesterday = $qb->getQuery()->getSingleScalarResult();
+        $stats[] = $qb->getQuery()->getSingleResult(AbstractQuery::HYDRATE_ARRAY);
 
 
-        $timeTodayFrom = new \DateTime('last Monday');
+
+        $timeTodayFrom = new \DateTime('Monday');
         $timeTodayFrom->setTime(0,0,0);
 
         $timeTodayTo = new \DateTime('Sunday');
         $timeTodayTo->setTime(23,59,59);
 
         $qb = $repository->createQueryBuilder('entity');
-        $qb->select('COUNT(entity.id)');
+        $qb->resetDQLPart('select');
+        $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata);
+        $qb->addSelect("'week' as period");
+
         $qb->where('entity.createdAt BETWEEN :from AND :to')
             ->setParameter('from', $timeTodayFrom->format('Y-m-d H:i:s'))
             ->setParameter('to', $timeTodayTo->format('Y-m-d H:i:s'));
-        $week = $qb->getQuery()->getSingleScalarResult();
+
+        $stats[] = $qb->getQuery()->getSingleResult(AbstractQuery::HYDRATE_ARRAY);
 
 
-        $timeTodayFrom = new \DateTime('last Monday');
+        $timeTodayFrom = new \DateTime('Monday');
         $timeTodayFrom->modify('-1 week');
         $timeTodayFrom->setTime(0,0,0);
 
         $timeTodayTo = new \DateTime('Sunday');
-        $timeTodayFrom->modify('-1 week');
+        $timeTodayTo->modify('-1 week');
         $timeTodayTo->setTime(23,59,59);
 
         $qb = $repository->createQueryBuilder('entity');
-        $qb->select('COUNT(entity.id)');
+        $qb->resetDQLPart('select');
+        $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata);
+        $qb->addSelect("'previousWeek' as period");
+
         $qb->where('entity.createdAt BETWEEN :from AND :to')
             ->setParameter('from', $timeTodayFrom->format('Y-m-d H:i:s'))
             ->setParameter('to', $timeTodayTo->format('Y-m-d H:i:s'));
-        $previousWeek = $qb->getQuery()->getSingleScalarResult();
+
+        $stats[] = $qb->getQuery()->getSingleResult(AbstractQuery::HYDRATE_ARRAY);
 
         $timeTodayFrom = new \DateTime();
         $timeTodayFrom->setDate($timeTodayFrom->format('Y'), $timeTodayFrom->format('m'), 1);
@@ -127,11 +140,14 @@ class DateStatsAdminBlockService extends AbstractBlockService
         $timeTodayTo->setTime(23,59,59);
 
         $qb = $repository->createQueryBuilder('entity');
-        $qb->select('COUNT(entity.id)');
+        $qb->resetDQLPart('select');
+        $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata);
+        $qb->addSelect("'month' as period");
+
         $qb->where('entity.createdAt BETWEEN :from AND :to')
             ->setParameter('from', $timeTodayFrom->format('Y-m-d H:i:s'))
             ->setParameter('to', $timeTodayTo->format('Y-m-d H:i:s'));
-        $month = $qb->getQuery()->getSingleScalarResult();
+        $stats[] = $qb->getQuery()->getSingleResult(AbstractQuery::HYDRATE_ARRAY);
 
 
         $timeTodayFrom = new \DateTime();
@@ -145,21 +161,24 @@ class DateStatsAdminBlockService extends AbstractBlockService
         $timeTodayTo->modify('-1 month');
 
         $qb = $repository->createQueryBuilder('entity');
-        $qb->select('COUNT(entity.id)');
+        $qb->resetDQLPart('select');
+        $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata);
+        $qb->addSelect("'previousMonth' as period");
+
         $qb->where('entity.createdAt BETWEEN :from AND :to')
             ->setParameter('from', $timeTodayFrom->format('Y-m-d H:i:s'))
             ->setParameter('to', $timeTodayTo->format('Y-m-d H:i:s'));
-        $previousMonth = $qb->getQuery()->getSingleScalarResult();
 
-        $stats = array(
-            'total' => $total,
-            'today' => $today,
-            'yesterday' => $yesterday,
-            'week' => $week,
-            'previousWeek' => $previousWeek,
-            'month' => $month,
-            'previousMonth' => $previousMonth,
-        );
+        $stats[] = $qb->getQuery()->getSingleResult(AbstractQuery::HYDRATE_ARRAY);
+
+        $qb = $repository->createQueryBuilder('entity');
+
+        $qb->resetDQLPart('select');
+        $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata);
+        $qb->addSelect("'total' as period");
+
+        $stats[] = $qb->getQuery()->getSingleResult(AbstractQuery::HYDRATE_ARRAY);
+
 
         $url = $container->get('sonata.admin.pool')->getAdminByClass($entityClass)->generateUrl('list');
 
@@ -167,6 +186,14 @@ class DateStatsAdminBlockService extends AbstractBlockService
             $blockContext->getTemplate(),
             array(
                 'metrics' => $metrics,
+                'dimensions' => array(
+                    'period' => array(
+                        'label_name' => 'Период',
+                        'label' => 'Период',
+                        'field_type' => 'string',
+                        'code_name' => 'period',
+                    )
+                ),
 
                 'translation_domain' => $admin->getTranslationDomain(),
                 'url' => $url,
@@ -177,10 +204,56 @@ class DateStatsAdminBlockService extends AbstractBlockService
             $response
         );
     }
+
+
+    public function applyMetrics($qb, &$metrics, $associationMappings, $classMetadata) {
+        $joins = array();
+
+        foreach ($metrics as $metricItemKey => $metricItem) {
+            $metric = $metricItem['field'];
+            $metric_name = str_replace('.', '___', $metric) . '___' . $metricItem['aggregation'];
+            $metrics[$metricItemKey]['code_name'] = $metric_name;
+
+            if (strpos($metric,'.') !== false) {
+                $metric_parts = explode('.', $metric);
+                $metrics[$metricItemKey]['label_name'] = $this->camelCaseToUnderscore($metric_parts[0]);
+
+                $associationMapping = $associationMappings[$metric_parts[0]];
+
+                $associationTargetClass = $classMetadata->getAssociationTargetClass($metric_parts[0]);
+
+                $on = '';
+
+                foreach ($associationMapping['sourceToTargetKeyColumns'] as $source => $target) {
+                    $on = 'entity.' . $source . ' = ' . $metric_parts[0] . '_join';
+                }
+
+                if (!in_array($associationTargetClass, $joins)) {
+                    $joins[] = $associationTargetClass;
+                    $qb->leftJoin($associationTargetClass, $metric_parts[0] . '_join', 'WITH', $on);
+                }
+
+                $qb->addSelect($metricItem['aggregation'] . '('.$metric.') as ' . $metric_name);
+
+
+
+            } else {
+                $metrics[$metricItemKey]['label_name'] = $this->camelCaseToUnderscore($metric);
+
+                $qb->addSelect($metricItem['aggregation'] . '('.'entity.' . $metric.') as ' . $metric_name);
+            }
+        }
+
+        return $qb;
+    }
+
+
     function camelCaseToUnderscore($input)
     {
         return strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $input));
     }
+
+
     /**
      * {@inheritdoc}
      */
@@ -191,6 +264,10 @@ class DateStatsAdminBlockService extends AbstractBlockService
             'sonata_type_immutable_array',
             array(
                 'keys' => array(
+                    array('tableVisible', CheckboxType::class, array('label' => 'Таблица', 'required' => false)),
+
+                    array('chart', CheckboxType::class, array('label' => 'График', 'required' => false)),
+
                     array('entity', ChoiceType::class, array(
                         'choices' => array(
                             'Заказы' => Order::class,
@@ -230,8 +307,13 @@ class DateStatsAdminBlockService extends AbstractBlockService
     {
         $resolver->setDefaults(
             array(
+                'tableVisible' => true,
+                'timeline' => false,
+
+                'chart' => false,
                 'entity' => '',
                 'metrics' => array(),
+                'dimensions' => array(),
 
                 'template' => 'CompoCoreBundle:Block:date_stats_admin.html.twig',
             )

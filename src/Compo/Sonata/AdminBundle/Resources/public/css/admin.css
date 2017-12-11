@@ -634,3 +634,13 @@ text.highcharts-credits {
     display: none;
 }
 */
+
+.data-table-dimension {
+    font-weight: bold;
+}
+
+.stats-date-range .form-field-range {
+    display: inline-block;
+    width: 50%;
+    max-width: 140px;
+}

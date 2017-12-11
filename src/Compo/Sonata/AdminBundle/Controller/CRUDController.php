@@ -37,6 +37,11 @@ class CRUDController extends BaseCRUDController
      */
     protected $admin;
 
+    public function statsAction() {
+        $em = $this->getAdmin()->getDoctrine()->getManager();
+        $ids = $request->request->get('value');
+    }
+
     /**
      * Return the admin related to the given $class.
      *

@@ -294,7 +294,7 @@ $(document).ready(function () {
             printButtonTitle: "Печать",
             rangeSelectorFrom: "С",
             rangeSelectorTo: "По",
-            rangeSelectorZoom: "Период",
+            rangeSelectorZoom: "Детализация",
             downloadPNG: 'Скачать PNG',
             downloadJPEG: 'Скачать JPEG',
             downloadPDF: 'Скачать PDF',
@@ -758,7 +758,25 @@ function createChartStock(tableCharts, id, column_id, dimensions_size, timeline)
     var series = [];
 
     $.each(series_obj, function (index, value) {
-        series.push(value);
+        if (timeline) {
+            var unordered = {};
+
+            $.each(value.data, function (index_row, value_row) {
+                unordered[value_row[0]] = value_row;
+            });
+
+            value.data = [];
+
+
+            Object.keys(unordered).sort().forEach(function(key) {
+                value.data.push(unordered[key]);
+            });
+
+            series.push(value);
+
+        } else {
+            series.push(value);
+        }
     });
 
 
@@ -767,26 +785,42 @@ function createChartStock(tableCharts, id, column_id, dimensions_size, timeline)
             type: 'spline',
         },
         rangeSelector: {
-            buttons: [{
-                type: 'month',
-                count: 1,
-                text: '1 мес.',
-            }, {
-                type: 'month',
-                count: 3,
-                text: '3 мес.'
-            }, {
-                type: 'month',
-                count: 6,
-                text: '6 мес.'
-            }, {
-                type: 'year',
-                count: 1,
-                text: '1 год'
-            }, {
-                type: 'all',
-                text: 'Все'
-            }],
+            inputDateFormat: '%d.%m.%Y',
+            inputEditDateFormat: '%d.%m.%Y',
+
+            buttonTheme: {
+                width: 50,
+            },
+            allButtonsEnabled: true,
+            buttons: [
+                {
+                    type: 'week',
+                    count: 1,
+                    text: 'День',
+                    dataGrouping: {
+                        forced: true,
+                        units: [['day', [1]]]
+                    }
+                },
+                {
+                    type: 'month',
+                    count: 4,
+                    text: 'Неделя',
+                    dataGrouping: {
+                        forced: true,
+                        units: [['week', [1]]]
+                    }
+                },
+                {
+                    type: 'year',
+                    count: 12,
+                    text: 'Месяц',
+                    dataGrouping: {
+                        forced: true,
+                        units: [['month', [1]]]
+                    }
+                }
+            ],
             selected: 0
         },
         title: {
@@ -799,7 +833,7 @@ function createChartStock(tableCharts, id, column_id, dimensions_size, timeline)
 
         yAxis: {
             title: {
-                text: series_name
+                text: $('th:nth-child(' + column_id + ')', tableCharts).text().trim()
             }
         },
 
@@ -817,12 +851,28 @@ function createChartStock(tableCharts, id, column_id, dimensions_size, timeline)
 
         plotOptions: {
             series: {
+                dataGrouping: {
+                    approximation: 'sum',
+                },
                 allowPointSelect: true,
                 label: {
                     connectorAllowed: false
                 },
 
                 showInNavigator: true,
+                connectNulls: true,
+
+                line: {
+                    connectNulls: true,
+                },
+                spline: {
+                    connectNulls: true,
+                }
+            },
+            line: {
+                connectNulls: true,
+            },
+            spline: {
                 connectNulls: true,
             }
         },
@@ -849,12 +899,28 @@ function createChartStock(tableCharts, id, column_id, dimensions_size, timeline)
             }]
         }
 
+    }, function (chart) {
+        setTimeout(function () {
+            $('input.highcharts-range-selector', $(chart.container).parent())
+                .datepicker({
+                    regional: $.datepicker.regional['ru'],
+                    dateFormat: 'dd.mm.yy',
+                    onSelect: function () {
+                        this.onchange();
+                        this.onblur();
+                    }
+                });
+        }, 0);
     });
 }
 
 
-function createChart(tableCharts, id, column_id, dimensions_size) {
+function createChart(tableCharts, id, column_id, dimensions_size, ignore) {
     var columns = [];
+
+    if (ignore == undefined) {
+        ignore = [];
+    }
 
     $('thead th', tableCharts).each(function () {
         var th = $(this);
@@ -882,6 +948,10 @@ function createChart(tableCharts, id, column_id, dimensions_size) {
 
     $('tbody tr', tableCharts).each(function () {
         var tr = $(this);
+
+        if (!ignore.indexOf($('td:nth-child(1)', tr).text().trim())) {
+            return;
+        }
 
         categories[$('td:nth-child(1)', tr).text().trim()] = $('td:nth-child(1)', tr).text().trim();
 
@@ -918,7 +988,7 @@ function createChart(tableCharts, id, column_id, dimensions_size) {
         $.each(series_data, function (index, value) {
 
             var series_item = {
-                name: '',
+                name: yAxis_label,
                 data: []
             };
             series_item.name = index;
@@ -943,6 +1013,8 @@ function createChart(tableCharts, id, column_id, dimensions_size) {
         });
 
         series.push({
+            name: yAxis_label,
+
             type: 'column',
             colorByPoint: true,
             showInLegend: false,
@@ -951,14 +1023,11 @@ function createChart(tableCharts, id, column_id, dimensions_size) {
     }
 
 
-
     var categories_array = [];
 
     $.each(categories, function (index, value) {
         categories_array.push(value);
     });
-
-
 
 
     Highcharts.chart('chart-' + id, {

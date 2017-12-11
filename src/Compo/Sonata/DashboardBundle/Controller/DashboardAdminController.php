@@ -137,4 +137,31 @@ class DashboardAdminController extends CRUDController
             'dashboard' => $block->getDashboard(),
         ]);
     }
+
+    public function renderBlockAction(Request $request)
+    {
+        if (false === $this->get('sonata.dashboard.admin.block')->isGranted('LIST')) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $id = $request->get($this->admin->getIdParameter());
+
+        $block = $this->get('sonata.dashboard.admin.block')->getObject($id);
+
+        if (!$block) {
+            throw $this->createNotFoundException(sprintf('unable to find the block with id : %s', $id));
+        }
+
+
+        $content = $this->container->get('templating')->render('@CompoSonataDashboard/Dashboard/single_block.html.twig', array(
+            'block' => $block,
+            'request' => $request
+        ));
+
+        $response = new Response();
+
+        $response->setContent($content);
+
+        return $response;
+    }
 }

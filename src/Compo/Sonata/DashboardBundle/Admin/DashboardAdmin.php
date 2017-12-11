@@ -128,10 +128,16 @@ class DashboardAdmin extends AbstractAdmin
         $collection->add('compose', '{id}/compose', [
             'id' => null,
         ]);
+
         $collection->add('render', '{id}/render', [
             'id' => null,
         ]);
+
         $collection->add('compose_container_show', 'compose/container/{id}', [
+            'id' => null,
+        ]);
+
+        $collection->add('render_block', 'render/block/{id}', [
             'id' => null,
         ]);
     }

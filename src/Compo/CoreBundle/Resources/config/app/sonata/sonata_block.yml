@@ -93,11 +93,15 @@ sonata_block:
         #sonata.seo.block.twitter.mention_button:
         #sonata.seo.block.twitter.embed:
 
-        compo_core.block.service.admin_stats:
-            contexts:   [admin, sonata_dashboard_bundle]
+# TODO: Deprecated
+#        compo_core.block.service.admin_stats:
+#           contexts:   [admin, sonata_dashboard_bundle]
 
         compo_core.block.service.admin_custom_stats:
             contexts:   [admin, sonata_dashboard_bundle]
 
         compo_core.block.service.date_stats_admin:
+            contexts:   [admin, sonata_dashboard_bundle]
+
+        compo_core.block.service.date_period_stats_admin:
             contexts:   [admin, sonata_dashboard_bundle]

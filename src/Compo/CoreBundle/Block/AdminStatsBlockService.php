@@ -79,7 +79,7 @@ class AdminStatsBlockService extends AbstractBlockService
         $yesterday = $qb->getQuery()->getSingleScalarResult();
 
 
-        $timeTodayFrom = new \DateTime('last Monday');
+        $timeTodayFrom = new \DateTime('Monday');
         $timeTodayFrom->setTime(0,0,0);
 
         $timeTodayTo = new \DateTime('Sunday');
@@ -93,12 +93,12 @@ class AdminStatsBlockService extends AbstractBlockService
         $week = $qb->getQuery()->getSingleScalarResult();
 
 
-        $timeTodayFrom = new \DateTime('last Monday');
+        $timeTodayFrom = new \DateTime('Monday');
         $timeTodayFrom->modify('-1 week');
         $timeTodayFrom->setTime(0,0,0);
 
         $timeTodayTo = new \DateTime('Sunday');
-        $timeTodayFrom->modify('-1 week');
+        $timeTodayTo->modify('-1 week');
         $timeTodayTo->setTime(23,59,59);
 
         $qb = $repository->createQueryBuilder('entity');

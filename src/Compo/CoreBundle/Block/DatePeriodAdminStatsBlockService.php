@@ -17,7 +17,6 @@ use Compo\ProductBundle\Entity\Product;
 use Doctrine\ORM\AbstractQuery;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Admin\Pool;
-use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Sonata\BlockBundle\Block\BlockContextInterface;
@@ -27,14 +26,13 @@ use Sonata\CoreBundle\Form\Type\ImmutableArrayType;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
  */
-class AdminCustomStatsBlockService extends AbstractBlockService
+class DatePeriodAdminStatsBlockService extends AbstractBlockService
 {
     /**
      * {@inheritdoc}
@@ -57,39 +55,6 @@ class AdminCustomStatsBlockService extends AbstractBlockService
         $repository = $em->getRepository($entityClass);
 
         $qb = $repository->createQueryBuilder('entity');
-
-        $timeTodayFrom = new \DateTime();
-        $timeTodayFrom->setDate($timeTodayFrom->format('Y'), $timeTodayFrom->format('m'), 1);
-        $timeTodayFrom->setTime(0,0,0);
-
-        $timeTodayTo = new \DateTime(date("Y-m-t"));
-        $timeTodayTo->setTime(23,59,59);
-
-
-        $request = $container->get('request_stack')->getCurrentRequest();
-
-
-        if ($settings['period']) {
-
-            $fromDate = $request->get('from_date', $settings['fromDate']);
-            $toDate = $request->get('to_date', $settings['toDate']);
-
-            if ($fromDate && $toDate) {
-                $timeTodayFrom = new \DateTime($fromDate);
-
-                $timeTodayTo = new \DateTime($toDate);
-
-                $qb->where('entity.createdAt BETWEEN :from AND :to')
-                    ->setParameter('from', $timeTodayFrom->format('Y-m-d H:i:s'))
-                    ->setParameter('to', $timeTodayTo->format('Y-m-d H:i:s'));
-
-            } else {
-                $qb->where('entity.createdAt BETWEEN :from AND :to')
-                    ->setParameter('from', $timeTodayFrom->format('Y-m-d H:i:s'))
-                    ->setParameter('to', $timeTodayTo->format('Y-m-d H:i:s'));
-            }
-
-        }
 
         $classMetadata = $em->getClassMetadata($entityClass);
         $associationMappings = $classMetadata->associationMappings;
@@ -135,7 +100,7 @@ class AdminCustomStatsBlockService extends AbstractBlockService
 
                 if (isset($fieldsMappings[$dimension]) && $fieldsMappings[$dimension]['type'] === 'datetime') {
                     $dimensions[$dimensionItemKey]['field_type'] = 'datetime';
-                    $qb->addSelect('DATE_FORMAT(entity.' . $dimension . ', \'%d.%m.%Y\') as ' . $dimension);
+                    $qb->addSelect('DATE_FORMAT(entity.' . $dimension . ', \'%Y.%m.%d\') as ' . $dimension);
 
                     $qb->addSelect('UNIX_TIMESTAMP(DATE_FORMAT(entity.' . $dimension . ', \'%Y-%m-%d\')) as ' . $dimension . '_raw');
 
@@ -193,9 +158,9 @@ class AdminCustomStatsBlockService extends AbstractBlockService
 
             foreach ($resultItem as $key => $value) {
                 if (is_object($value) && $value instanceof \DateTime) {
-                    $result[$resultKey][$key] = $value->format('d.m.Y');
+                    $result[$resultKey][$key] = $value->format('Y.m.d');
 
-                    $result[$resultKey][$key . '_raw'] = $value->getTimestamp();
+                   // $result[$resultKey][$key . '_raw'] = $value->getTimestamp();
 
                 } else {
                     //$result[$resultKey][$key . '_raw'] = '';
@@ -212,27 +177,9 @@ class AdminCustomStatsBlockService extends AbstractBlockService
 
         $url = $admin->generateUrl('list');
 
-
-
-        $form = $container->get('form.factory')->createBuilder('Symfony\Component\Form\Extension\Core\Type\FormType', array(
-            'fromDate' => $timeTodayFrom,
-            'toDate' => $timeTodayTo,
-
-        ))
-            ->add('fromDate', DatePickerType::class, array(
-                'format' => 'dd.MM.y',
-                'attr' => array('class' => 'from-date-input')
-            ))
-            ->add('toDate', DatePickerType::class, array(
-                'format' => 'dd.MM.y',
-                'attr' => array('class' => 'to-date-input')
-            ))
-            ->getForm();
-
         return $this->renderResponse(
             $blockContext->getTemplate(),
             array(
-                'date_range_form' => $form->createView(),
                 'dimensions' => $dimensions,
                 'metrics' => $metrics,
 
@@ -265,7 +212,6 @@ class AdminCustomStatsBlockService extends AbstractBlockService
 
                     array('chart', CheckboxType::class, array('label' => 'График', 'required' => false)),
                     array('timeline', CheckboxType::class, array('label' => 'По дате', 'required' => false)),
-                    array('period', CheckboxType::class, array('label' => 'За период', 'required' => false)),
 
                     array('dimensions', \Sonata\AdminBundle\Form\Type\CollectionType::class, array(
                         'allow_add' => true,
@@ -318,11 +264,7 @@ class AdminCustomStatsBlockService extends AbstractBlockService
     {
         $resolver->setDefaults(
             array(
-                'fromDate' => false,
-                'toDate' => false,
-
                 'tableVisible' => true,
-                'period' => false,
 
                 'chart' => false,
                 'timeline' => false,
