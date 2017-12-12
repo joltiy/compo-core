@@ -34,6 +34,7 @@ class ProductWantLowerCostFormType extends FeedbackBaseFormType
         } else {
             $product_id = null;
         }
+
         if (isset($options['extra_data'], $options['extra_data']['product_url'])) {
             $product_url = $options['extra_data']['product_url'];
         } else {
