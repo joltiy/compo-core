@@ -115,7 +115,7 @@ class AdminCustomStatsBlockService extends BaseAdminStatsBlockService
 
         $url = $admin->generateUrl('list');
 
-        $form = $container->get('form.factory')->createBuilder('Symfony\Component\Form\Extension\Core\Type\FormType', array(
+        $form = $container->get('form.factory')->createNamed('date_range_form_' . $blockContext->getBlock()->getId(),'Symfony\Component\Form\Extension\Core\Type\FormType', array(
             'fromDate' => $timeTodayFrom,
             'toDate' => $timeTodayTo,
 
@@ -127,8 +127,7 @@ class AdminCustomStatsBlockService extends BaseAdminStatsBlockService
             ->add('toDate', DatePickerType::class, array(
                 'format' => 'dd.MM.y',
                 'attr' => array('class' => 'to-date-input')
-            ))
-            ->getForm();
+            ));
 
         return $this->renderResponse(
             $blockContext->getTemplate(),
