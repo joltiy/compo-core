@@ -7,6 +7,12 @@
 - **Fixed**: исправления ошибок и мелкие правки.
 - **Removed**: удаление устаревшей функциональности.
 
+## [v3.3.26] - 2017-12-12 16:39:25
+
+### Added
+- Добавлен заголовок и описание формы "Хочу дешевле"
+- Добавлен плагин выбора цвета в визуальный редактор
+
 ## [v3.3.25] - 2017-12-12 13:28:49
 
 ### Fixed
@@ -479,6 +485,7 @@
 
 [comporu/compo-core]: https://github.com/comporu/compo-core
 
+[v3.3.26]: https://github.com/comporu/compo-core/compare/v3.3.25...v3.3.26
 [v3.3.25]: https://github.com/comporu/compo-core/compare/v3.3.24...v3.3.25
 [v3.3.24]: https://github.com/comporu/compo-core/compare/v3.3.23...v3.3.24
 [v3.3.23]: https://github.com/comporu/compo-core/compare/v3.3.22...v3.3.23
