@@ -242,6 +242,7 @@ class DateStatsAdminBlockService extends BaseAdminStatsBlockService
                         'sonata_help' => 'Вывод графика'
                     )),
                     array('entity', ChoiceType::class, array(
+                        'attr' => array('class' => 'form-stats-entity'),
                         'choices' => $entityChoices,
                         'required' => true
                     )),
