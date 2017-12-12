@@ -86,13 +86,25 @@ class DashboardAdmin extends AbstractAdmin
                 )
             )->setAttribute('icon', 'fa fa-list');
 
-            $tabMenuDropdown->addChild(
-                'tab_menu.list_mode.list.' . $admin->getLabel(),
-                array(
-                    'label' => $admin->getSubject()->getName(),
-                    'uri' => $admin->generateUrl('render', ['id' => $id]),
-                )
-            );
+
+            $qb = $this->createQuery('list');
+
+            $list = $qb->getQuery()->getResult();
+
+            foreach ($list as $listItem) {
+                $tabMenuDropdown->addChild(
+                    'tab_menu.list_mode.list.' . $admin->getLabel() . $listItem->getId(),
+                    array(
+                        'label' => $listItem->getName(),
+                        'uri' => $admin->generateUrl('render', ['id' => $listItem->getId()]),
+                    )
+                );
+            }
+
+
+
+
+
         }
 
 

@@ -3,6 +3,7 @@
 namespace Compo\Sonata\BlockBundle\Block\Service;
 
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
+use Compo\CoreBundle\Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Block\Service\AbstractBlockService as BaseAbstractBlockService;
 use Sonata\BlockBundle\Model\BlockInterface;
@@ -16,6 +17,40 @@ use Sonata\PageBundle\Model\Block;
 class AbstractBlockService extends BaseAbstractBlockService
 {
     use ContainerAwareTrait;
+
+
+
+    /**
+     * @return \Doctrine\Common\Persistence\ObjectManager
+     */
+    public function getEntityManager() {
+        $container = $this->getContainer();
+
+        return $container->get('doctrine')->getManager();
+    }
+
+    /**
+     * @param $entityClass
+     * @return \Sonata\AdminBundle\Admin\AdminInterface
+     */
+    public function getAdminByClass($entityClass) {
+        $container = $this->getContainer();
+
+        return $container->get('sonata.admin.pool')->getAdminByClass($entityClass);
+    }
+
+    /**
+     * @param $entityClass
+     * @return \Doctrine\Common\Persistence\ObjectRepository
+     */
+    public function getRepository($entityClass) {
+        $container = $this->getContainer();
+
+        $em = $container->get('doctrine')->getManager();
+
+        /** @var EntityRepository $repository */
+        return $em->getRepository($entityClass);
+    }
 
     /**
      * @return \Symfony\Component\HttpFoundation\Request

@@ -39,7 +39,6 @@ settings.logo_tab: 'Логотип'
 block.title_admin_stats: 'Статистика'
 block.title_admin_custom_stats: 'Статистика - расширенная'
 block.title_date_stats_admin: 'Статистика - по дате создания'
-block.title_date_period_stats_admin: 'Статистика - за период'
 
 SUM: 'сумма'
 COUNT: 'кол-во'

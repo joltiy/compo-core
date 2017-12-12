@@ -128,19 +128,33 @@
 
         function updateStats{{ block.id }}() {
             {% if settings.chart %}
+
+            {% if settings.pagination %}
+            var tableCharts{{ block.id }} = $('#table-stats-{{ block.id }}');
+
+            {% else %}
             var tableCharts{{ block.id }} = $('#table-stats-{{ block.id }}').clone();
+
+            {% endif %}
 
             {% endif %}
 
             var table{{ block.id }} = $('#table-stats-{{ block.id }}').DataTable({
 
                 {% if settings.tableVisible %}
-
+                {% if settings.pagination %}
                 {% else %}
                 "info": false,
                 paging: false,
                 searching: false,
                 {% endif %}
+                {% else %}
+                "info": false,
+                paging: false,
+                searching: false,
+                {% endif %}
+
+
 
                 "order": [[ {{ dimensions|length }}, 'asc']],
                 "language": {

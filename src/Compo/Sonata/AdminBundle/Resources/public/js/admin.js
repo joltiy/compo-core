@@ -272,6 +272,8 @@ Admin.shared_setup = function (subject) {
     Admin.setup_collection_counter(subject);
     Admin.setup_sticky_elements(subject);
 
+    setupStatsDimensions(subject);
+
 //        Admin.setup_list_modal(subject);
 
     $('.page-composer__container__child__name__input').addClass('form-control');
@@ -1073,6 +1075,51 @@ function createChart(tableCharts, id, column_id, dimensions_size, ignore) {
     });
 
 
+
+
+
+
 }
 
 
+function setupStatsDimensions(subject) {
+    $('.form-stats-entity', subject).each(function () {
+        var entity = $(this);
+
+        entity.change(function () {
+            // ... retrieve the corresponding form.
+            var $form = $(this).closest('form');
+            // Simulate form data, but only include the selected sport value.
+            var data = {};
+            data[entity.attr('name')] = entity.val();
+            // Submit data via AJAX to the form's action path.
+
+            data['get_dimensions'] = 1;
+            data['entity'] = entity.val();
+
+            $.ajax({
+                url : $form.attr('action'),
+                type: 'GET',
+                data : data,
+                success: function(html) {
+                    // Replace current position field ...
+                    $('.form-stats-dimensions', $form).parent().html(
+                        // ... with the returned one from the AJAX response.
+                        $(html).find('.form-stats-dimensions').parent().html()
+                    );
+
+                    $('.form-stats-metrics', $form).parent().html(
+                        // ... with the returned one from the AJAX response.
+                        $(html).find('.form-stats-metrics').parent().html()
+                    );
+
+                    //Admin.setup_collection_counter(subject);
+
+                    //Admin.setup_collection_buttons(subject);
+
+                    // Position field now displays the appropriate positions.
+                }
+            });
+        });
+    });
+}

@@ -37,10 +37,10 @@ class Block extends BaseBlock
     /**
      * @var string
      *
-     * @ORM\Column(type="string", nullable=true, options={"default": "col-lg-4"})
+     * @ORM\Column(type="string", nullable=true, options={"default": "col-lg-6"})
      *
      */
-    protected $cssClass = 'col-lg-4';
+    protected $cssClass = 'col-lg-6';
 
     /**
      * Get id.
@@ -62,7 +62,7 @@ class Block extends BaseBlock
     /**
      * @param string $cssClass
      */
-    public function setCssClass(string $cssClass)
+    public function setCssClass( $cssClass)
     {
         $this->cssClass = $cssClass;
     }

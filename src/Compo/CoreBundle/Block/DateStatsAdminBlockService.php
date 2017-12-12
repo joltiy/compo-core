@@ -24,13 +24,16 @@ use Sonata\CoreBundle\Form\Type\ImmutableArrayType;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
  */
-class DateStatsAdminBlockService extends AbstractBlockService
+class DateStatsAdminBlockService extends BaseAdminStatsBlockService
 {
     /**
      * {@inheritdoc}
@@ -53,7 +56,6 @@ class DateStatsAdminBlockService extends AbstractBlockService
 
         $classMetadata = $em->getClassMetadata($entityClass);
         $associationMappings = $classMetadata->associationMappings;
-        $fieldsMappings = $classMetadata->fieldMappings;
 
         $stats = array();
 
@@ -66,7 +68,9 @@ class DateStatsAdminBlockService extends AbstractBlockService
 
         $qb = $repository->createQueryBuilder('entity');
         $qb->resetDQLPart('select');
-        $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata);
+
+        $joins = array();
+        $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata, $joins);
         $qb->addSelect("'today' as period");
 
         $qb->where('entity.createdAt BETWEEN :from AND :to')
@@ -85,7 +89,8 @@ class DateStatsAdminBlockService extends AbstractBlockService
 
         $qb = $repository->createQueryBuilder('entity');
         $qb->resetDQLPart('select');
-        $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata);
+        $joins = array();
+        $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata, $joins);
         $qb->addSelect("'yesterday' as period");
 
         $qb->where('entity.createdAt BETWEEN :from AND :to')
@@ -103,7 +108,8 @@ class DateStatsAdminBlockService extends AbstractBlockService
 
         $qb = $repository->createQueryBuilder('entity');
         $qb->resetDQLPart('select');
-        $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata);
+        $joins = array();
+        $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata, $joins);
         $qb->addSelect("'week' as period");
 
         $qb->where('entity.createdAt BETWEEN :from AND :to')
@@ -123,7 +129,8 @@ class DateStatsAdminBlockService extends AbstractBlockService
 
         $qb = $repository->createQueryBuilder('entity');
         $qb->resetDQLPart('select');
-        $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata);
+        $joins = array();
+        $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata, $joins);
         $qb->addSelect("'previousWeek' as period");
 
         $qb->where('entity.createdAt BETWEEN :from AND :to')
@@ -141,7 +148,8 @@ class DateStatsAdminBlockService extends AbstractBlockService
 
         $qb = $repository->createQueryBuilder('entity');
         $qb->resetDQLPart('select');
-        $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata);
+        $joins = array();
+        $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata, $joins);
         $qb->addSelect("'month' as period");
 
         $qb->where('entity.createdAt BETWEEN :from AND :to')
@@ -162,7 +170,10 @@ class DateStatsAdminBlockService extends AbstractBlockService
 
         $qb = $repository->createQueryBuilder('entity');
         $qb->resetDQLPart('select');
-        $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata);
+
+        $joins = array();
+        $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata, $joins);
+
         $qb->addSelect("'previousMonth' as period");
 
         $qb->where('entity.createdAt BETWEEN :from AND :to')
@@ -174,7 +185,8 @@ class DateStatsAdminBlockService extends AbstractBlockService
         $qb = $repository->createQueryBuilder('entity');
 
         $qb->resetDQLPart('select');
-        $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata);
+        $joins = array();
+        $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata, $joins);
         $qb->addSelect("'total' as period");
 
         $stats[] = $qb->getQuery()->getSingleResult(AbstractQuery::HYDRATE_ARRAY);
@@ -206,98 +218,67 @@ class DateStatsAdminBlockService extends AbstractBlockService
     }
 
 
-    public function applyMetrics($qb, &$metrics, $associationMappings, $classMetadata) {
-        $joins = array();
-
-        foreach ($metrics as $metricItemKey => $metricItem) {
-            $metric = $metricItem['field'];
-            $metric_name = str_replace('.', '___', $metric) . '___' . $metricItem['aggregation'];
-            $metrics[$metricItemKey]['code_name'] = $metric_name;
-
-            if (strpos($metric,'.') !== false) {
-                $metric_parts = explode('.', $metric);
-                $metrics[$metricItemKey]['label_name'] = $this->camelCaseToUnderscore($metric_parts[0]);
-
-                $associationMapping = $associationMappings[$metric_parts[0]];
-
-                $associationTargetClass = $classMetadata->getAssociationTargetClass($metric_parts[0]);
-
-                $on = '';
-
-                foreach ($associationMapping['sourceToTargetKeyColumns'] as $source => $target) {
-                    $on = 'entity.' . $source . ' = ' . $metric_parts[0] . '_join';
-                }
-
-                if (!in_array($associationTargetClass, $joins)) {
-                    $joins[] = $associationTargetClass;
-                    $qb->leftJoin($associationTargetClass, $metric_parts[0] . '_join', 'WITH', $on);
-                }
-
-                $qb->addSelect($metricItem['aggregation'] . '('.$metric.') as ' . $metric_name);
-
-
-
-            } else {
-                $metrics[$metricItemKey]['label_name'] = $this->camelCaseToUnderscore($metric);
-
-                $qb->addSelect($metricItem['aggregation'] . '('.'entity.' . $metric.') as ' . $metric_name);
-            }
-        }
-
-        return $qb;
-    }
-
-
-    function camelCaseToUnderscore($input)
-    {
-        return strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $input));
-    }
-
 
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormMapper $formMapper, BlockInterface $block)
     {
+        $entityChoices = $this->getEntityChoices();
+
         $formMapper->add(
             'settings',
             'sonata_type_immutable_array',
             array(
                 'keys' => array(
-                    array('tableVisible', CheckboxType::class, array('label' => 'Таблица', 'required' => false)),
-
-                    array('chart', CheckboxType::class, array('label' => 'График', 'required' => false)),
-
-                    array('entity', ChoiceType::class, array(
-                        'choices' => array(
-                            'Заказы' => Order::class,
-                            'Товары' => Product::class
-                        ),
-                        'required' => true
+                    array('tableVisible', CheckboxType::class, array(
+                        'label' => 'Таблица',
+                        'required' => false,
+                        'sonata_help' => 'Вывод таблицы'
                     )),
-                    array('metrics', \Sonata\AdminBundle\Form\Type\CollectionType::class, array(
-                        'allow_add' => true,
-                        'allow_delete' => true,
-                        'entry_type' => ImmutableArrayType::class,
-                        'entry_options' => array('keys' => array(
-                            array('field', 'text', array('label' => 'Имя')),
-                            array('label', 'text', array('label' => 'Заголовок', 'required' => false)),
-
-                            array('aggregation', 'choice', array(
-                                'label' => 'Агрегация',
-                                'choices' => array(
-                                    'Кол-во' => 'COUNT',
-                                    'Сумма' => 'SUM',
-                                    'Среднее арифметическое' => 'AVG',
-                                    'Минимальное' => 'MIN',
-                                    'Максимальное' => 'MAX',
-                                )
-                            )),
-                        )),
+                    array('chart', CheckboxType::class, array(
+                        'label' => 'График',
+                        'required' => false,
+                        'sonata_help' => 'Вывод графика'
+                    )),
+                    array('entity', ChoiceType::class, array(
+                        'choices' => $entityChoices,
+                        'required' => true
                     )),
                 ),
             )
         );
+
+        $formModifier = function (FormInterface $form, $data = null) {
+            if ($data) {
+                $settings = $form->get('settings');
+
+                $settings_data = $data->getSettings();
+
+                $request_entity = $this->getRequest()->get('entity');
+
+                if ($request_entity) {
+                    $fieldsChoices = $this->getFieldsChoices($request_entity);
+                } elseif (isset($settings_data['entity'])) {
+                    $entity = $settings_data['entity'];
+                    $fieldsChoices = $this->getFieldsChoices($entity);
+                } else {
+                    $entitys = $this->getEntityChoices();
+
+                    $fieldsChoices = $this->getFieldsChoices(array_shift($entitys));
+                }
+
+                $this->createMetrics($settings, $fieldsChoices);
+
+                $isGetDimensions = $this->getRequest() ? $this->getRequest()->get('get_dimensions', false) : false;
+
+                if ($isGetDimensions) {
+                    $this->createMetrics($form, $fieldsChoices, false);
+                }
+            }
+        };
+
+        $this->applyFormEvents($formMapper, $formModifier);
     }
 
     /**
@@ -307,6 +288,7 @@ class DateStatsAdminBlockService extends AbstractBlockService
     {
         $resolver->setDefaults(
             array(
+
                 'tableVisible' => true,
                 'timeline' => false,
 

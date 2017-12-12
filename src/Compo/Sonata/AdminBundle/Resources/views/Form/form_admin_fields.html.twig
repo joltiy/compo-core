@@ -180,7 +180,10 @@ file that was distributed with this source code.
 
         <div class="{{ div_class_field }} checkbox-widget">
             {{- widget|raw -}}
+            {% if sonata_help %}
+                <span class="help-block sonata-ba-field-help">{{ sonata_help|raw }}</span>
 
+            {% endif %}
         </div>
 
 

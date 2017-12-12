@@ -12,29 +12,24 @@
 namespace Compo\CoreBundle\Block;
 
 use Compo\CoreBundle\Doctrine\ORM\EntityRepository;
-use Compo\OrderBundle\Entity\Order;
-use Compo\ProductBundle\Entity\Product;
 use Doctrine\ORM\AbstractQuery;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Admin\Pool;
-use Sonata\CoreBundle\Form\Type\DatePickerType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Sonata\BlockBundle\Block\BlockContextInterface;
-use Compo\Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Sonata\BlockBundle\Model\BlockInterface;
+use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Sonata\CoreBundle\Form\Type\ImmutableArrayType;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
  */
-class AdminCustomStatsBlockService extends AbstractBlockService
+class AdminCustomStatsBlockService extends BaseAdminStatsBlockService
 {
     /**
      * {@inheritdoc}
@@ -44,7 +39,7 @@ class AdminCustomStatsBlockService extends AbstractBlockService
         $settings = $blockContext->getSettings();
 
         $entityClass = $settings['entity'];
-        $dimensions =  $settings['dimensions'];
+        $dimensions = $settings['dimensions'];
         $metrics = $settings['metrics'];
 
         $container = $this->getContainer();
@@ -60,10 +55,10 @@ class AdminCustomStatsBlockService extends AbstractBlockService
 
         $timeTodayFrom = new \DateTime();
         $timeTodayFrom->setDate($timeTodayFrom->format('Y'), $timeTodayFrom->format('m'), 1);
-        $timeTodayFrom->setTime(0,0,0);
+        $timeTodayFrom->setTime(0, 0, 0);
 
         $timeTodayTo = new \DateTime(date("Y-m-t"));
-        $timeTodayTo->setTime(23,59,59);
+        $timeTodayTo->setTime(23, 59, 59);
 
 
         $request = $container->get('request_stack')->getCurrentRequest();
@@ -99,93 +94,10 @@ class AdminCustomStatsBlockService extends AbstractBlockService
 
         $joins = array();
 
-        foreach ($dimensions as $dimensionItemKey => $dimensionItem) {
-            $dimension = $dimensionItem['field'];
-            $dimension_name = str_replace('.', '___', $dimension);
+        $this->applyDimensions($qb, $dimensions, $associationMappings, $fieldsMappings, $classMetadata, $joins);
 
-            $dimensions[$dimensionItemKey]['code_name'] = $dimension_name;
+        $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata, $joins);
 
-            if (strpos($dimension,'.') !== false) {
-                $dimension_parts = explode('.', $dimension);
-                $dimensions[$dimensionItemKey]['label_name'] = $this->camelCaseToUnderscore($dimension_parts[0]);
-
-                $associationMapping = $associationMappings[$dimension_parts[0]];
-
-                $associationTargetClass = $classMetadata->getAssociationTargetClass($dimension_parts[0]);
-
-                $on = '';
-
-                foreach ($associationMapping['sourceToTargetKeyColumns'] as $source => $target) {
-                    $on = 'entity.' . $dimension_parts[0] . ' = ' . $dimension_parts[0] . '_join';
-                }
-
-
-                if (!in_array($associationTargetClass, $joins)) {
-                    $joins[] = $associationTargetClass;
-                    $qb->leftJoin($associationTargetClass, $dimension_parts[0] . '_join', 'WITH', $on);
-                }
-
-                $qb->addSelect(str_replace($dimension_parts[0], $dimension_parts[0] . '_join', $dimension) . ' as ' . $dimension_name);
-                $qb->addGroupBy($dimension_name);
-                $dimensions[$dimensionItemKey]['field_type'] = 'string';
-
-            } else {
-                $dimensions[$dimensionItemKey]['label_name'] = $this->camelCaseToUnderscore($dimension);
-
-
-                if (isset($fieldsMappings[$dimension]) && $fieldsMappings[$dimension]['type'] === 'datetime') {
-                    $dimensions[$dimensionItemKey]['field_type'] = 'datetime';
-                    $qb->addSelect('DATE_FORMAT(entity.' . $dimension . ', \'%d.%m.%Y\') as ' . $dimension);
-
-                    $qb->addSelect('UNIX_TIMESTAMP(DATE_FORMAT(entity.' . $dimension . ', \'%Y-%m-%d\')) as ' . $dimension . '_raw');
-
-                    $qb->addGroupBy($dimension);
-
-                } else {
-                    $dimensions[$dimensionItemKey]['field_type'] = 'string';
-
-                    $qb->addSelect('entity.' . $dimension . ' as ' . $dimension);
-
-                    $qb->addGroupBy($dimension);
-
-                }
-            }
-        }
-
-        foreach ($metrics as $metricItemKey => $metricItem) {
-            $metric = $metricItem['field'];
-            $metric_name = str_replace('.', '___', $metric) . '___' . $metricItem['aggregation'];
-            $metrics[$metricItemKey]['code_name'] = $metric_name;
-
-            if (strpos($metric,'.') !== false) {
-                $metric_parts = explode('.', $metric);
-                $metrics[$metricItemKey]['label_name'] = $this->camelCaseToUnderscore($metric_parts[0]);
-
-                $associationMapping = $associationMappings[$metric_parts[0]];
-
-                $associationTargetClass = $classMetadata->getAssociationTargetClass($metric_parts[0]);
-
-                $on = '';
-
-                foreach ($associationMapping['sourceToTargetKeyColumns'] as $source => $target) {
-                    $on = 'entity.' . $source . ' = ' . $metric_parts[0] . '_join';
-                }
-
-                if (!in_array($associationTargetClass, $joins)) {
-                    $joins[] = $associationTargetClass;
-                    $qb->leftJoin($associationTargetClass, $metric_parts[0] . '_join', 'WITH', $on);
-                }
-
-                $qb->addSelect($metricItem['aggregation'] . '('.$metric.') as ' . $metric_name);
-
-
-
-            } else {
-                $metrics[$metricItemKey]['label_name'] = $this->camelCaseToUnderscore($metric);
-
-                $qb->addSelect($metricItem['aggregation'] . '('.'entity.' . $metric.') as ' . $metric_name);
-            }
-        }
 
         $result = $qb->getQuery()->getResult(AbstractQuery::HYDRATE_ARRAY);
 
@@ -196,23 +108,12 @@ class AdminCustomStatsBlockService extends AbstractBlockService
                     $result[$resultKey][$key] = $value->format('d.m.Y');
 
                     $result[$resultKey][$key . '_raw'] = $value->getTimestamp();
-
-                } else {
-                    //$result[$resultKey][$key . '_raw'] = '';
                 }
             }
-
         }
 
 
-        $totalItem = array();
-
-
-
-
         $url = $admin->generateUrl('list');
-
-
 
         $form = $container->get('form.factory')->createBuilder('Symfony\Component\Form\Extension\Core\Type\FormType', array(
             'fromDate' => $timeTodayFrom,
@@ -246,69 +147,88 @@ class AdminCustomStatsBlockService extends AbstractBlockService
         );
     }
 
-    function camelCaseToUnderscore($input)
-    {
-        return strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $input));
-    }
 
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormMapper $formMapper, BlockInterface $block)
     {
+        $entityChoices = $this->getEntityChoices();
+
         $formMapper->add(
             'settings',
             'sonata_type_immutable_array',
             array(
                 'keys' => array(
-                    array('tableVisible', CheckboxType::class, array('label' => 'Таблица', 'required' => false)),
-
-                    array('chart', CheckboxType::class, array('label' => 'График', 'required' => false)),
-                    array('timeline', CheckboxType::class, array('label' => 'По дате', 'required' => false)),
-                    array('period', CheckboxType::class, array('label' => 'За период', 'required' => false)),
-
-                    array('dimensions', \Sonata\AdminBundle\Form\Type\CollectionType::class, array(
-                        'allow_add' => true,
-                        'allow_delete' => true,
-                        'entry_type' => ImmutableArrayType::class,
-                        'entry_options' => array('keys' => array(
-                            array('field', 'text', array('label' => 'Имя')),
-                            array('label', 'text', array('label' => 'Заголовок', 'required' => false)),
-                        )),
+                    array('tableVisible', CheckboxType::class, array(
+                        'label' => 'Таблица',
+                        'required' => false,
+                        'sonata_help' => 'Вывод таблицы'
                     )),
-                    array('metrics', \Sonata\AdminBundle\Form\Type\CollectionType::class, array(
-                        'allow_add' => true,
-                        'allow_delete' => true,
-                        'entry_type' => ImmutableArrayType::class,
-                        'entry_options' => array('keys' => array(
-                            array('field', 'text', array('label' => 'Имя')),
-                            array('label', 'text', array('label' => 'Заголовок', 'required' => false)),
-
-                            array('aggregation', 'choice', array(
-                                'label' => 'Агрегация',
-                                'choices' => array(
-                                    'Кол-во' => 'COUNT',
-                                    'Сумма' => 'SUM',
-                                    'Среднее арифметическое' => 'AVG',
-                                    'Минимальное' => 'MIN',
-                                    'Максимальное' => 'MAX',
-                                )
-                            )),
-                        )),
+                    array('pagination', CheckboxType::class, array(
+                        'label' => 'Постраничная навигация',
+                        'required' => false,
+                        'sonata_help' => 'Вывод постраничной навигации, поиска'
                     )),
-                    //array('dimensions', TextType::class, array('required' => true)),
-                    //array('metrics', TextType::class, array('required' => true)),
+
+                    array('chart', CheckboxType::class, array(
+                        'label' => 'График',
+                        'required' => false,
+                        'sonata_help' => 'Вывод графика'
+                    )),
+                    array('timeline', CheckboxType::class, array(
+                        'label' => 'По дате',
+                        'required' => false,
+                        'sonata_help' => 'Вывод графика по дате (первая группировка должна быть датой)'
+                    )),
+                    array('period', CheckboxType::class, array(
+                        'label' => 'За период',
+                        'required' => false,
+                        'sonata_help' => 'Выборка и группировка по дате создания за период'
+                    )),
 
                     array('entity', ChoiceType::class, array(
-                        'choices' => array(
-                            'Заказы' => Order::class,
-                            'Товары' => Product::class
-                        ),
+                        'attr' => array('class' => 'form-stats-entity'),
+                        'choices' => $entityChoices,
                         'required' => true
                     )),
                 ),
             )
         );
+
+        $formModifier = function (FormInterface $form, $data = null) {
+
+            if ($data) {
+                $settings = $form->get('settings');
+
+                $settings_data = $data->getSettings();
+
+                $request_entity = $this->getRequest()->get('entity');
+
+                if ($request_entity) {
+                    $fieldsChoices = $this->getFieldsChoices($request_entity);
+                } elseif (isset($settings_data['entity'])) {
+                    $entity = $settings_data['entity'];
+                    $fieldsChoices = $this->getFieldsChoices($entity);
+                } else {
+                    $entitys = $this->getEntityChoices();
+
+                    $fieldsChoices = $this->getFieldsChoices(array_shift($entitys));
+                }
+
+                $this->createDimensions($settings, $fieldsChoices);
+                $this->createMetrics($settings, $fieldsChoices);
+
+                $isGetDimensions = $this->getRequest() ? $this->getRequest()->get('get_dimensions', false) : false;
+
+                if ($isGetDimensions) {
+                    $this->createDimensions($form, $fieldsChoices, false);
+                    $this->createMetrics($form, $fieldsChoices, false);
+                }
+            }
+        };
+
+        $this->applyFormEvents($formMapper, $formModifier);
     }
 
     /**
@@ -320,6 +240,7 @@ class AdminCustomStatsBlockService extends AbstractBlockService
             array(
                 'fromDate' => false,
                 'toDate' => false,
+                'pagination' => false,
 
                 'tableVisible' => true,
                 'period' => false,

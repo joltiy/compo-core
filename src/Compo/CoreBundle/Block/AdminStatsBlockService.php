@@ -169,16 +169,15 @@ class AdminStatsBlockService extends AbstractBlockService
      */
     public function buildForm(FormMapper $formMapper, BlockInterface $block)
     {
+        $entityChoices = $this->getEntityChoices();
+
         $formMapper->add(
             'settings',
             'sonata_type_immutable_array',
             array(
                 'keys' => array(
                     array('entity', ChoiceType::class, array(
-                        'choices' => array(
-                            'Заказы' => Order::class,
-                            'Товары' => Product::class
-                        ),
+                        'choices' => $entityChoices,
                         'required' => true
                     )),
                 ),
