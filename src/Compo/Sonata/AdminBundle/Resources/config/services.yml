@@ -121,3 +121,4 @@ services:
         tags:
             - { name: sonata.admin.extension, global: true }
         parent: compo_core.abstract_container_aware
+

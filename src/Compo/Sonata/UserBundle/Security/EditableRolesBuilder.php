@@ -82,8 +82,7 @@ class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuil
                 'sonata.media.admin.gallery_has_media',
                 'sonata.page.admin.snapshot',
                 'sonata.page.admin.shared_block',
-                'sonata.dashboard.admin.dashboard',
-                'sonata.dashboard.admin.block',
+
             ), true)) {
                 continue;
             }

@@ -1227,6 +1227,8 @@ class AbstractAdmin extends BaseAdmin
     {
         parent::configureRoutes($collection);
 
+        $collection->add('stats', '/stats');
+
         $collection->add('clone', $this->getRouterIdParameter() . '/clone');
         $collection->add('update_many_to_many', $this->getRouterIdParameter() . '/update_many_to_many');
 

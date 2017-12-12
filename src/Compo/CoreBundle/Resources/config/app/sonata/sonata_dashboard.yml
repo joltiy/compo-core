@@ -10,5 +10,6 @@ doctrine:
         entity_managers:
             default:
                 mappings:
-                    CompoSonataDashboardBundle: ~ # only once the ApplicationSonataDashboardBundle is generated
+                    CompoSonataDashboardBundle:
+                        type: annotation
                     SonataDashboardBundle: ~

@@ -1,0 +1,248 @@
+{% extends '@CompoSonataDashboard/Dashboard/block_base.html.twig' %}
+
+{% block content %}
+
+    {% if settings.period %}
+        <div id="stats_date_range_{{ block.id }}" class="pull-right stats-date-range" style="padding: 0 15px" data-block-id="{{ block.id }}">
+            <div class="form-field-range">
+                {{ form_widget(date_range_form.fromDate) }}
+            </div>
+            <div class="form-field-range">
+                {{ form_widget(date_range_form.toDate) }}
+            </div>
+        </div>
+
+        <script>
+            $(function () {
+                var stats_date_range = $('#stats_date_range_{{ block.id }}');
+
+                var from_date = $('.from-date-input', stats_date_range);
+                var to_date = $('.to-date-input', stats_date_range);
+
+                var updateBlock{{ block.id }} = function () {
+                    var render_block_url = Routing.generate('admin_sonata_dashboard_dashboard_render_block', {
+                        'id': {{ block.id }}
+                    });
+
+                    $.ajax({
+                        method: "GET",
+                        url: render_block_url,
+                        dataType: 'html',
+                        data: {
+                            'from_date': from_date.val(),
+                            'to_date': to_date.val(),
+                        }
+                    })
+                        .done(function( response ) {
+                            var response_html = $(response);
+
+                            var table = response_html.find('table').html();
+                            $('#table-stats-{{ block.id }}').DataTable().destroy();
+
+                            $('#table-stats-{{ block.id }}').html(table);
+
+                            updateStats{{ block.id }}();
+
+
+                        });
+                };
+
+                to_date.parent().on('dp.change', updateBlock{{ block.id }});
+
+                from_date.parent().on('dp.change', updateBlock{{ block.id }});
+
+            });
+        </script>
+
+    {% endif %}
+
+
+    <div id="chart-{{ block.id }}"></div>
+
+    <table
+        id="table-stats-{{ block.id }}"
+        class="table table-bordered table-hover table-stats table-stats-custom">
+        <thead>
+        <tr>
+            {% for dimension in dimensions %}
+                {% set default_label = 'form.label_' ~ dimension.label_name %}
+                <th data-type="dimension" data-field-type="{{ dimension.field_type }}">{{ dimension.label|default(default_label|trans({}, translation_domain)) }}</th>
+            {% endfor %}
+            {% for metric in metrics %}
+                {% set default_label = 'form.label_' ~ metric.label_name %}
+                {% set default_label = default_label|trans({}, translation_domain) %}
+                {% set default_label = default_label ~ ' ('~metric.aggregation|trans({}, 'CompoCoreBundle') ~ ')' %}
+
+                <th data-type="metric" data-field-type="" class="{{ metric.aggregation|lower }}">{{ metric.label|default(default_label) }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody
+            {% if settings.tableVisible %}
+
+            {% else %}
+                style="display: none;"
+            {% endif %}
+        >
+        {% for row in stats %}
+            <tr>
+                {% for dimension in dimensions %}
+                    <td data-raw="{{ attribute(row, dimension.code_name ~ '_raw')|default('') }}">
+                        {{ attribute(row, dimension.code_name)|default('&mdash;')|raw }}
+                    </td>
+                {% endfor %}
+                {% for metric in metrics %}
+                    <td>
+                        {{ attribute(row, metric.code_name)|number_format(0, '', '') }}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot
+            {% if settings.tableVisible %}
+
+            {% else %}
+                style="display: none;"
+            {% endif %}
+        >
+        {% for dimension in dimensions %}
+            {% if loop.index == 1 %}
+                <td class="data-table-dimension">
+                    Всего
+                </td>
+            {% else %}
+                <td>
+                </td>
+            {% endif %}
+
+        {% endfor %}
+        {% for metric in metrics %}
+            <td class="{{ metric.aggregation|lower }}">
+            </td>
+        {% endfor %}
+        </tfoot>
+    </table>
+
+    <script>
+
+        function updateStats{{ block.id }}() {
+            {% if settings.chart %}
+
+            {% if settings.pagination %}
+            var tableCharts{{ block.id }} = $('#table-stats-{{ block.id }}');
+
+            {% else %}
+            var tableCharts{{ block.id }} = $('#table-stats-{{ block.id }}').clone();
+
+            {% endif %}
+
+            {% endif %}
+
+            var table{{ block.id }} = $('#table-stats-{{ block.id }}').DataTable({
+
+                {% if settings.tableVisible %}
+                {% if settings.pagination %}
+                {% else %}
+                "info": false,
+                paging: false,
+                searching: false,
+                {% endif %}
+                {% else %}
+                "info": false,
+                paging: false,
+                searching: false,
+                {% endif %}
+
+
+
+                "order": [[ {{ dimensions|length }}, 'asc']],
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Russian.json"
+                },
+                "footerCallback": function (row, data, start, end, display) {
+                    var api = this.api();
+
+                    api.columns('.sum', {
+                        page: 'current'
+                    }).every(function () {
+                        var sum = this
+                            .data()
+                            .reduce(function (a, b) {
+                                var x = parseFloat(a) || 0;
+                                var y = parseFloat(b) || 0;
+                                return parseInt(x + y);
+                            }, 0);
+                        $(this.footer()).html(sum);
+                    });
+
+                    api.columns('.count', {
+                        page: 'current'
+                    }).every(function () {
+                        var sum = this
+                            .data()
+                            .reduce(function (a, b) {
+                                var x = parseFloat(a) || 0;
+                                var y = parseFloat(b) || 0;
+                                return parseInt(x + y);
+                            }, 0);
+                        $(this.footer()).html(sum);
+                    });
+
+                    api.columns('.avg', {
+                        page: 'current'
+                    }).every(function () {
+                        var sum = this
+                            .data()
+                            .reduce(function (a, b) {
+                                var x = parseFloat(a) || 0;
+                                var y = parseFloat(b) || 0;
+                                return parseInt((x + y) / 2);
+                            }, 0);
+                        $(this.footer()).html(sum);
+                    });
+                }
+            });
+
+            table{{ block.id }}.on("draw", function () {
+                {% if settings.chart %}
+                var order = table{{ block.id }}.order();
+
+                if (order.length) {
+                    var column_id = order[0][0];
+
+                } else {
+                    var column_id = 0;
+                }
+
+
+
+                if (column_id < {{ dimensions|length }}) {
+                    column_id = {{ dimensions|length }};
+                }
+
+                {% if block.settings.timeline %}
+                var timeline = true;
+                {% else %}
+                var timeline = false;
+                {% endif %}
+
+                if (timeline) {
+                    createChartStock(tableCharts{{ block.id }}, {{ block.id }}, column_id + 1, {{ dimensions|length }}, timeline);
+
+                } else {
+                    createChart(tableCharts{{ block.id }}, {{ block.id }}, column_id + 1, {{ dimensions|length }});
+                }
+                {% endif %}
+            });
+        }
+
+        $(function () {
+            updateStats{{ block.id }}();
+        });
+    </script>
+
+
+{% endblock %}
+
+

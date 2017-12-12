@@ -1,0 +1,8 @@
+sonata_dashboard: 'Панель управления'
+form.label_settings_allow_create: 'Разрешить создание'
+form.label_settings_default: 'Панель по умолчанию'
+form.group_form_dashboard_group_main_label: 'Панель'
+form.label_user_groups: 'Доступно для групп пользователей'
+list.label_allow_edit: 'Редактируемый'
+form.label_allow_edit: 'Разрешить редактирование'
+tab_menu.link_render: 'Показать'

@@ -46,6 +46,7 @@ sonata_block:
         sonata.block.service.template:
 
         sonata.formatter.block.formatter:
+            contexts:   [sonata_page_bundle, admin, sonata_dashboard_bundle]
 
         compo_core.block.service.news_with_articles_last:
         compo_core.block.service.text_page:
@@ -68,8 +69,7 @@ sonata_block:
 
         # TimelineBundle's Blocks
         sonata.timeline.block.timeline:
-        sonata.timeline.block.timeline:
-            contexts:   [admin]
+            contexts:   [admin, sonata_dashboard_bundle]
 
         # UserBundle's Blocks
         sonata.user.block.account:
@@ -92,3 +92,13 @@ sonata_block:
         #sonata.seo.block.twitter.hashtag_button:
         #sonata.seo.block.twitter.mention_button:
         #sonata.seo.block.twitter.embed:
+
+# TODO: Deprecated
+#        compo_core.block.service.admin_stats:
+#           contexts:   [admin, sonata_dashboard_bundle]
+
+        compo_core.block.service.admin_custom_stats:
+            contexts:   [admin, sonata_dashboard_bundle]
+
+        compo_core.block.service.date_stats_admin:
+            contexts:   [admin, sonata_dashboard_bundle]

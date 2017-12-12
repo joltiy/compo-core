@@ -25,6 +25,7 @@ set('git_tty', true);
 set('default_stage', 'stage');
 set('writable_mode', 'chmod');
 set('php_version', (float) PHP_VERSION);
+set('composer_options', '{{composer_action}} --verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader');
 
 // Symfony shared dirs
 

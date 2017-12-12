@@ -1,3 +1,4 @@
 sonata_block:
     blocks:
         compo_articles.block.service.articles_last:
+            contexts:   [sonata_page_bundle]

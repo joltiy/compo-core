@@ -74,6 +74,7 @@ filter:
     label_updated_by: 'Обновил'
 
 form:
+    label_entity: 'Сущность'
     label_header: 'Заголовок'
     label_meta_description: 'Meta Description'
     label_meta_keyword: 'Meta Keyword'

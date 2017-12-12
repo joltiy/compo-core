@@ -35,3 +35,25 @@ sonata_admin:
 sonata_administration: Администрирование
 sonata_classification: Классификация
 settings.logo_tab: 'Логотип'
+
+block.title_admin_stats: 'Статистика'
+block.title_admin_custom_stats: 'Статистика - расширенная'
+block.title_date_stats_admin: 'Статистика - по дате создания'
+
+SUM: 'сумма'
+COUNT: 'кол-во'
+AVG: 'среднее'
+MAX: 'макс.'
+MIN: 'мин.'
+
+form.label_dimensions: 'Группировки'
+form.label_metrics: 'Метрики'
+
+
+total: 'Всего'
+today: 'Сегодня'
+yesterday: 'Вчера'
+week: 'Текущая неделя'
+previousWeek: 'Предыдущая неделя'
+month: 'Текущий месяц'
+previousMonth: 'Предыдущый месяц'
