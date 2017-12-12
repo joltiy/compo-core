@@ -100,7 +100,7 @@ class DateStatsAdminBlockService extends BaseAdminStatsBlockService
 
 
 
-        $timeTodayFrom = new \DateTime('Monday');
+        $timeTodayFrom = new \DateTime('last Monday');
         $timeTodayFrom->setTime(0,0,0);
 
         $timeTodayTo = new \DateTime('Sunday');
@@ -119,7 +119,7 @@ class DateStatsAdminBlockService extends BaseAdminStatsBlockService
         $stats[] = $qb->getQuery()->getSingleResult(AbstractQuery::HYDRATE_ARRAY);
 
 
-        $timeTodayFrom = new \DateTime('Monday');
+        $timeTodayFrom = new \DateTime('last Monday');
         $timeTodayFrom->modify('-1 week');
         $timeTodayFrom->setTime(0,0,0);
 
