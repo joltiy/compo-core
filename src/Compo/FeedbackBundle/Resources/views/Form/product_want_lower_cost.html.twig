@@ -4,16 +4,25 @@
 
 
     <a href="#" class="" data-toggle="modal" data-target="#product_want_lower_cost">
-        Хочу дешевле!
+        {{ settings.extra_data.title|raw }}
     </a>
+
 
     <div id="product_want_lower_cost" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title">Хочу дешевле</h3>
+                    <h3 class="modal-title">{{ settings.extra_data.title|striptags }}</h3>
                 </div>
                 <div class="modal-body">
+
+                    {% if settings.extra_data.description %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ settings.extra_data.description|raw }}
+                            </div>
+                        </div>
+                    {% endif %}
 
                     <div class="row">
                         <div class="col-lg-12" data-ng-bind-html-unsafe="formResponse" data-ng-controller="FeedbackFormController as feedback" data-ng-cloak>
