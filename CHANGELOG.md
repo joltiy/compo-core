@@ -7,6 +7,11 @@
 - **Fixed**: исправления ошибок и мелкие правки.
 - **Removed**: удаление устаревшей функциональности.
 
+## [v3.3.25] - 2017-12-12 13:28:49
+
+### Fixed
+- Исправлен виджет статистики за период.
+
 ## [v3.3.24] - 2017-12-12 11:44:23
 
 ### Fixed
@@ -474,6 +479,7 @@
 
 [comporu/compo-core]: https://github.com/comporu/compo-core
 
+[v3.3.25]: https://github.com/comporu/compo-core/compare/v3.3.24...v3.3.25
 [v3.3.24]: https://github.com/comporu/compo-core/compare/v3.3.23...v3.3.24
 [v3.3.23]: https://github.com/comporu/compo-core/compare/v3.3.22...v3.3.23
 [v3.3.22]: https://github.com/comporu/compo-core/compare/v3.3.21...v3.3.22
