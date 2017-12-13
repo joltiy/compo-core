@@ -7,6 +7,14 @@
 - **Fixed**: исправления ошибок и мелкие правки.
 - **Removed**: удаление устаревшей функциональности.
 
+## [v3.3.29] - 2017-12-13 08:23:51
+
+### Added
+- Добавлена кнопка закрытия в форму "Хочу дешевле"
+
+### Fixed
+- Форма "Хочу дешевле", добвлено дополнительное поле для названия кнопки.
+
 ## [v3.3.28] - 2017-12-13 06:17:06
 
 ### Fixed
@@ -498,6 +506,7 @@
 
 [comporu/compo-core]: https://github.com/comporu/compo-core
 
+[v3.3.29]: https://github.com/comporu/compo-core/compare/v3.3.28...v3.3.29
 [v3.3.28]: https://github.com/comporu/compo-core/compare/v3.3.27...v3.3.28
 [v3.3.27]: https://github.com/comporu/compo-core/compare/v3.3.26...v3.3.27
 [v3.3.26]: https://github.com/comporu/compo-core/compare/v3.3.25...v3.3.26
