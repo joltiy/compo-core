@@ -7,6 +7,14 @@
 - **Fixed**: исправления ошибок и мелкие правки.
 - **Removed**: удаление устаревшей функциональности.
 
+## [v3.3.28] - 2017-12-13 06:17:06
+
+### Fixed
+- Исправлен экспорт. Экспортируются только отображаемые столбцы.
+
+### Removed
+- Удалён устаревшей код
+
 ## [v3.3.27] - 2017-12-12 18:03:28
 
 ### Fixed
@@ -490,6 +498,7 @@
 
 [comporu/compo-core]: https://github.com/comporu/compo-core
 
+[v3.3.28]: https://github.com/comporu/compo-core/compare/v3.3.27...v3.3.28
 [v3.3.27]: https://github.com/comporu/compo-core/compare/v3.3.26...v3.3.27
 [v3.3.26]: https://github.com/comporu/compo-core/compare/v3.3.25...v3.3.26
 [v3.3.25]: https://github.com/comporu/compo-core/compare/v3.3.24...v3.3.25
