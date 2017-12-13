@@ -7,6 +7,11 @@
 - **Fixed**: исправления ошибок и мелкие правки.
 - **Removed**: удаление устаревшей функциональности.
 
+## [v3.3.30] - 2017-12-13 09:07:01
+
+### Added
+- Добавлен перевод значений выборки в статистике.
+
 ## [v3.3.29] - 2017-12-13 08:23:51
 
 ### Added
@@ -506,6 +511,7 @@
 
 [comporu/compo-core]: https://github.com/comporu/compo-core
 
+[v3.3.30]: https://github.com/comporu/compo-core/compare/v3.3.29...v3.3.30
 [v3.3.29]: https://github.com/comporu/compo-core/compare/v3.3.28...v3.3.29
 [v3.3.28]: https://github.com/comporu/compo-core/compare/v3.3.27...v3.3.28
 [v3.3.27]: https://github.com/comporu/compo-core/compare/v3.3.26...v3.3.27
