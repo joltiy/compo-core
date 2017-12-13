@@ -7,6 +7,11 @@
 - **Fixed**: исправления ошибок и мелкие правки.
 - **Removed**: удаление устаревшей функциональности.
 
+## [v3.3.32] - 2017-12-13 10:23:46
+
+### Fixed
+- Исправлена генерация slug после клонирования. https://trello.com/c/he22hQ3j/136-url-%D0%B2-%D0%BA%D0%BE%D0%BF%D0%B8%D1%8F%D1%85
+
 ## [v3.3.31] - 2017-12-13 09:31:17
 
 ### Added
@@ -516,6 +521,7 @@
 
 [comporu/compo-core]: https://github.com/comporu/compo-core
 
+[v3.3.32]: https://github.com/comporu/compo-core/compare/v3.3.31...v3.3.32
 [v3.3.31]: https://github.com/comporu/compo-core/compare/v3.3.30...v3.3.31
 [v3.3.30]: https://github.com/comporu/compo-core/compare/v3.3.29...v3.3.30
 [v3.3.29]: https://github.com/comporu/compo-core/compare/v3.3.28...v3.3.29
