@@ -43,8 +43,11 @@ class AdminCustomStatsBlockService extends BaseAdminStatsBlockService
         $metrics = $settings['metrics'];
 
         $container = $this->getContainer();
+        $translator = $container->get('translator');
 
         $admin = $container->get('sonata.admin.pool')->getAdminByClass($entityClass);
+
+        $translation_domain = $admin->getTranslationDomain();
 
         $em = $container->get('doctrine')->getManager();
 
@@ -108,6 +111,10 @@ class AdminCustomStatsBlockService extends BaseAdminStatsBlockService
                     $result[$resultKey][$key] = $value->format('d.m.Y');
 
                     $result[$resultKey][$key . '_raw'] = $value->getTimestamp();
+                }
+
+                if (in_array($key, $dimensions)) {
+                    $result[$resultKey][$key] = $translator->trans($value, array(), $translation_domain);
                 }
             }
         }
