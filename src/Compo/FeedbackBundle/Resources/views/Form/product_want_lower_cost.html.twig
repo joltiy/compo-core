@@ -49,13 +49,13 @@
 
                                                     <div class="goods-card__quantity text-center">
                                                         <div class="counter " style="    display: inline-block;">
-                                                            <span class="counter__btn counter__btn--minus" >
+                                                            <span class="counter__btn counter__btn--minus counter__btn_simple" >
                                                                 <i class="fa fa-minus" aria-hidden="true"></i>
                                                             </span>
 
                                                             {{ form_widget(form.quantity, { "label_attr": {"class":"col-sm-2 control-label"},  'attr' : { 'min': "1", 'value': "1", "class" : "form-control", "validator" : "required","data-ng-model":"feedback.form.quantity","data-ng-init":"feedback.form.quantity=1"  }}  ) }}
 
-                                                            <span class="counter__btn counter__btn--plus" >
+                                                            <span class="counter__btn counter__btn--plus counter__btn_simple" >
                                                                 <i class="fa fa-plus" aria-hidden="true"></i>
                                                             </span>
                                                         </div>
