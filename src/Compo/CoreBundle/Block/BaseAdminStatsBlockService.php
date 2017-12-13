@@ -208,6 +208,10 @@ class BaseAdminStatsBlockService extends AbstractBlockService
             $settings->remove('dimensions');
         }
 
+        if ($this->getRequest()->getMethod() == 'POST' && $mapping) {
+            $fieldsChoices = $this->getFieldsChoices();
+        }
+
         $settings->add('dimensions', \Sonata\AdminBundle\Form\Type\CollectionType::class, array(
             'attr' => array('class' => 'form-stats-dimensions'),
             'label' => 'Группировки',
@@ -252,6 +256,7 @@ class BaseAdminStatsBlockService extends AbstractBlockService
                 // It's important here to fetch $event->getForm()->getData(), as
                 // $event->getData() will get you the client data (that is, the ID)
                 $data = $event->getForm()->getData();
+
 
                 // since we've added the listener to the child, we'll have to pass on
                 // the parent to the callback functions!
@@ -310,6 +315,10 @@ class BaseAdminStatsBlockService extends AbstractBlockService
     {
         if ($settings->has('metrics')) {
             $settings->remove('metrics');
+        }
+
+        if ($this->getRequest()->getMethod() == 'POST' && $mapping) {
+            $fieldsChoices = $this->getFieldsChoices();
         }
 
         $settings->add('metrics', \Sonata\AdminBundle\Form\Type\CollectionType::class, array(

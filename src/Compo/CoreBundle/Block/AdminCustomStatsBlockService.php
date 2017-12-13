@@ -104,6 +104,12 @@ class AdminCustomStatsBlockService extends BaseAdminStatsBlockService
 
         $result = $qb->getQuery()->getResult(AbstractQuery::HYDRATE_ARRAY);
 
+        $dimensionsKeys = array();
+
+        foreach ($dimensions as $dimension) {
+            $dimensionsKeys[] = $dimension['field'];
+        }
+
         foreach ($result as $resultKey => $resultItem) {
 
             foreach ($resultItem as $key => $value) {
@@ -113,7 +119,9 @@ class AdminCustomStatsBlockService extends BaseAdminStatsBlockService
                     $result[$resultKey][$key . '_raw'] = $value->getTimestamp();
                 }
 
-                if (in_array($key, $dimensions)) {
+                if (in_array($key, $dimensionsKeys)) {
+
+
                     $result[$resultKey][$key] = $translator->trans($value, array(), $translation_domain);
                 }
             }
