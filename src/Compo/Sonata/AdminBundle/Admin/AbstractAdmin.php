@@ -123,6 +123,10 @@ class AbstractAdmin extends BaseAdmin
                 continue;
             }
 
+            if (!$element->getOption('active')) {
+                continue;
+            }
+
             if (ClassMetadataInfo::MANY_TO_ONE == $element->getMappingType()) {
                 //$fields[$element->getOption('label')] = $element->getName() . '.' . $element->getOption('associated_property', 'id');
                 $fields[$element->getName()] = $element->getName();
@@ -1226,8 +1230,6 @@ class AbstractAdmin extends BaseAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);
-
-        $collection->add('stats', '/stats');
 
         $collection->add('clone', $this->getRouterIdParameter() . '/clone');
         $collection->add('update_many_to_many', $this->getRouterIdParameter() . '/update_many_to_many');
