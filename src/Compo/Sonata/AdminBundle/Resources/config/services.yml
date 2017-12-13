@@ -1,4 +1,9 @@
 services:
+    compo.sonata.admin.clone_slug.extension:
+        class: Compo\Sonata\AdminBundle\Extension\CloneSlugExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+
     compo.sonata.admin.tabmenu.extension:
         class: Compo\Sonata\AdminBundle\Extension\TabMenuExtension
         tags:

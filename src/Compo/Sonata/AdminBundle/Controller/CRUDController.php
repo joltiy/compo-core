@@ -127,6 +127,12 @@ class CRUDController extends BaseCRUDController
             $clonedObject->setName($object->getName() . ' (Копия)');
         }
 
+        if (method_exists($clonedObject, 'setSlug')) {
+            $clonedObject->setSlug('clone-slug-' . $clonedObject->getSlug());
+        }
+
+
+
         $clonedObject->setId(null);
 
         $this->admin->create($clonedObject);
