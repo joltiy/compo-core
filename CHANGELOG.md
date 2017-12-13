@@ -7,6 +7,11 @@
 - **Fixed**: исправления ошибок и мелкие правки.
 - **Removed**: удаление устаревшей функциональности.
 
+## [v3.3.27] - 2017-12-12 18:03:28
+
+### Fixed
+- Fix: Не корректно считается кол-во плитки - https://trello.com/c/H5vOw454/203-%D0%BD%D0%B5-%D0%BA%D0%BE%D1%80%D1%80%D0%B5%D0%BA%D1%82%D0%BD%D0%BE-%D1%81%D1%87%D0%B8%D1%82%D0%B0%D0%B5%D1%82%D1%81%D1%8F-%D0%BA%D0%BE%D0%BB-%D0%B2%D0%BE-%D0%BF%D0%BB%D0%B8%D1%82%D0%BA%D0%B8
+
 ## [v3.3.26] - 2017-12-12 16:39:25
 
 ### Added
@@ -485,6 +490,7 @@
 
 [comporu/compo-core]: https://github.com/comporu/compo-core
 
+[v3.3.27]: https://github.com/comporu/compo-core/compare/v3.3.26...v3.3.27
 [v3.3.26]: https://github.com/comporu/compo-core/compare/v3.3.25...v3.3.26
 [v3.3.25]: https://github.com/comporu/compo-core/compare/v3.3.24...v3.3.25
 [v3.3.24]: https://github.com/comporu/compo-core/compare/v3.3.23...v3.3.24
