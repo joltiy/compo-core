@@ -123,6 +123,10 @@ class AbstractAdmin extends BaseAdmin
                 continue;
             }
 
+            if (!$element->getOption('active')) {
+                continue;
+            }
+
             if (ClassMetadataInfo::MANY_TO_ONE == $element->getMappingType()) {
                 //$fields[$element->getOption('label')] = $element->getName() . '.' . $element->getOption('associated_property', 'id');
                 $fields[$element->getName()] = $element->getName();
