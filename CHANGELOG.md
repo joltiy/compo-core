@@ -7,6 +7,11 @@
 - **Fixed**: исправления ошибок и мелкие правки.
 - **Removed**: удаление устаревшей функциональности.
 
+## [v3.3.34] - 2017-12-14 15:40:40
+
+### Fixed
+- Исправлена генерация URL на дочернии админки.
+
 ## [v3.3.33] - 2017-12-13 13:55:06
 
 ### Added
@@ -540,6 +545,7 @@
 
 [comporu/compo-core]: https://github.com/comporu/compo-core
 
+[v3.3.34]: https://github.com/comporu/compo-core/compare/v3.3.33...v3.3.34
 [v3.3.33]: https://github.com/comporu/compo-core/compare/v3.3.32...v3.3.33
 [v3.3.32]: https://github.com/comporu/compo-core/compare/v3.3.31...v3.3.32
 [v3.3.31]: https://github.com/comporu/compo-core/compare/v3.3.30...v3.3.31
