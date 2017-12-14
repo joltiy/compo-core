@@ -37,17 +37,17 @@
         </div>
 
         <script>
-            $(document).ready(function(){
+            $(document).ready(function () {
                 interval();
             });
 
-            function interval(){
+            function interval() {
                 $.ajax({
                     'url': '{{ admin.generateUrl('importStatus', {id: uploadFile.id}) }}',
                     'dataType': 'JSON',
-                    'success': function(data){
+                    'success': function (data) {
                         $('#count').html(data.count);
-                        switch(data.status){
+                        switch (data.status) {
                             case 2:
                                 $('#head_h1').html('{{ 'upload.h1.success'|trans({}, 'CompoSonataImportBundle') }}');
                                 window.location.reload();
@@ -58,12 +58,12 @@
                                 window.location.reload();
                                 break;
                             default:
-                                setTimeout(function(){
+                                setTimeout(function () {
                                     interval();
                                 }, 500);
                         }
                     },
-                    'error': function(){
+                    'error': function () {
                         alert('{{ 'upload.error'|trans({}, 'CompoSonataImportBundle') }}');
                     }
                 });
@@ -71,8 +71,8 @@
         </script>
     {% else %}
         <style>
-            .status a.active{
-                color:black;
+            .status a.active {
+                color: black;
                 text-decoration: underline;
             }
         </style>
@@ -89,7 +89,7 @@
                                         {{ 'upload.h1.error'|trans({}, 'CompoSonataImportBundle') }}
                                     </h4>
                                     <div class="bg-danger">
-                                    {{ 'upload.error'|trans({}, 'CompoSonataImportBundle') }}: {{ uploadFile.message }}
+                                        {{ 'upload.error'|trans({}, 'CompoSonataImportBundle') }}: {{ uploadFile.message }}
                                     </div>
                                 {% else %}
                                     <h4 id="head_h1" class="box-title">
@@ -105,8 +105,6 @@
                             </div>
 
 
-
-
                             <div class="box-body">
                                 <div class="sonata-ba-collapsed-fields">
                                     <div id="uploading">
@@ -116,29 +114,29 @@
 
                                     <div class="status well">
                                         <a {{ app.request.get('type') == 'all' ? 'class="active"' : '' }}
-                                                href="?page={{ app.request.get('page', 1) }}&type=all">
+                                            href="?page={{ app.request.get('page', 1) }}&type=all">
                                             Все
                                         </a> |
                                         <a {{ app.request.get('type') == 'success' ? 'class="active"' : '' }}
-                                                href="?page={{ app.request.get('page', 1) }}&type=success">
+                                            href="?page={{ app.request.get('page', 1) }}&type=success">
                                             Успешно загруженные
                                         </a> |
                                         <a {{ app.request.get('type') == 'nochanges' ? 'class="active"' : '' }}
                                             href="?page={{ app.request.get('page', 1) }}&type=nochanges">
                                             Без изменений
-                                        </a> |
+                                        </a> <span class="badge">{{ stats[0].count }}</span> |
                                         <a {{ app.request.get('type') == 'new' ? 'class="active"' : '' }}
-                                                href="?page={{ app.request.get('page', 1) }}&type=new">
+                                            href="?page={{ app.request.get('page', 1) }}&type=new">
                                             Новые
-                                        </a> |
+                                        </a> <span class="badge">{{ stats[1].count }}</span> |
                                         <a {{ app.request.get('type') == 'update' ? 'class="active"' : '' }}
-                                                href="?page={{ app.request.get('page', 1) }}&type=update">
+                                            href="?page={{ app.request.get('page', 1) }}&type=update">
                                             Обновленные
-                                        </a> |
+                                        </a> <span class="badge">{{ stats[2].count }}</span> |
                                         <a {{ app.request.get('type') == 'error' ? 'class="active"' : '' }}
-                                                href="?page={{ app.request.get('page', 1) }}&type=error">
+                                            href="?page={{ app.request.get('page', 1) }}&type=error">
                                             С ошибкой
-                                        </a>
+                                        </a> <span class="badge">{{ stats[3].count }}</span>
                                     </div>
 
                                     {{ knp_pagination_render(paginator) }}
@@ -187,24 +185,21 @@
                                                     {% endif %}
                                                 </td>
                                                 <td class="changes">
-                                                    {% for changes_key, changes in i.changes %}
-                                                        <div class="old bg-danger">
-                                                            <strong class="filed-name">
-                                                                {{ admin.translationLabel(changes_key, 'list', 'label')|trans({}, admin.translationDomain) }}:
-                                                            </strong>
-                                                            <span class="filed-value">
-                                                                {{ changes.old }}
-                                                            </span>
-                                                        </div>
-                                                        <div class="new bg-success">
-                                                            <strong class="filed-name">
-                                                                {{ admin.translationLabel(changes_key, 'list', 'label')|trans({}, admin.translationDomain) }}:
-                                                            </strong>
-                                                            <span class="filed-value">
-                                                                {{ changes.new }}
-                                                            </span>
-                                                        </div>
-                                                    {% endfor %}
+                                                    <table style="width: 100%" class="table table-bordered">
+                                                        {% for changes_key, changes in i.changes %}
+                                                            <tr>
+                                                                <th scope="row" style="min-width: 100px">
+                                                                    {{ admin.translationLabel(changes_key, 'list', 'label')|trans({}, admin.translationDomain) }}:
+                                                                </th>
+                                                                <td class="old bg-danger" style="width: 50%">
+                                                                    {{ changes.old }}
+                                                                </td>
+                                                                <td class="new bg-success" style="width: 50%">
+                                                                    {{ changes.new }}
+                                                                </td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                    </table>
                                                 </td>
                                                 <td>
                                                     {% set error_message = i.messageEncode %}

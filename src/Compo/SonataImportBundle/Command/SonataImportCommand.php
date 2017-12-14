@@ -3,6 +3,7 @@
 namespace Compo\SonataImportBundle\Command;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\ORMException;
 use Compo\SonataImportBundle\Entity\UploadFile;
@@ -10,6 +11,8 @@ use Compo\SonataImportBundle\Entity\ImportLog;
 use Compo\SonataImportBundle\Loaders\CsvFileLoader;
 use Compo\SonataImportBundle\Loaders\FileLoaderInterface;
 use Compo\SonataImportBundle\Service\ImportInterface;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
@@ -124,6 +127,7 @@ class SonataImportCommand extends ContainerAwareCommand{
 
                 $changes = array();
                 $oldValueRawArray = array();
+                $newValueRawArray = array();
 
                 foreach ($exportFields as $key => $name) {
 
@@ -142,6 +146,7 @@ class SonataImportCommand extends ContainerAwareCommand{
 
                     $valueRaw = $value = isset($data[$data_key]) ? $data[$data_key] : '';
 
+                    $newValueRawArray[$name] = $valueRaw;
 
                     /**
                      * В случае если указан ID (первый столбец)
@@ -197,9 +202,17 @@ class SonataImportCommand extends ContainerAwareCommand{
 
                         }
 
-                        $value = $this->setValue($value, $oldValue, $formBuilder, $instance);
+                        $value = $this->setValue($entity, $value, $oldValue, $formBuilder, $instance);
                         $method = $this->getSetMethod($name);
-                        $entity->$method($value);
+
+                        if (is_string($value)) {
+                            if ($value != $oldValue) {
+                                $entity->$method($value);
+                            }
+                        } else {
+                            $entity->$method($value);
+                        }
+
 
                         if (isset($exportFieldsAsString[$name])) {
                             $getMethodRaw = $getMethod . 'ExportAsString';
@@ -212,6 +225,11 @@ class SonataImportCommand extends ContainerAwareCommand{
                     }
                 }
 
+                $idMethod = $this->getSetMethod($identifier, 'get');
+
+                if ($entity->$idMethod()) {
+                    $log->setForeignId($entity->$idMethod());
+                }
 
 
                 if(!count($errors)) {
@@ -237,6 +255,8 @@ class SonataImportCommand extends ContainerAwareCommand{
 
                     $aChangeSet = $uow->getEntityChangeSet($entity);
 
+
+
                     $getScheduledCollectionUpdates = $uow->getScheduledCollectionUpdates();
 
                     $getScheduledCollectionDeletions = $uow->getScheduledCollectionDeletions();
@@ -250,10 +270,33 @@ class SonataImportCommand extends ContainerAwareCommand{
                         }
 
                     } else {
-                        $log->setStatus(ImportLog::STATUS_NOCHANGE);
+                        if (!$entity->$idMethod()) {
+                            $log->setStatus(ImportLog::STATUS_SUCCESS);
+
+                            foreach ($newValueRawArray as $newValueRawArrayKey => $newValueRawArrayValue) {
+                                $changes[$newValueRawArrayKey] = array(
+                                    'old' => '',
+                                    'new' => $newValueRawArrayValue,
+                                );
+                            }
+
+                            $log->setChanges($changes);
+
+                            if (!$isDryRun) {
+                                $this->em->persist($entity);
+                                $this->em->flush($entity);
+                                $log->setForeignId($entity->$idMethod());
+
+
+                            } else {
+                                $uow->detach($entity);
+                            }
+
+                        } else {
+                            $log->setStatus(ImportLog::STATUS_NOCHANGE);
+                        }
                     }
 
-                    $log->setForeignId($entity->$idMethod());
 
                     foreach ($aChangeSet as $aChangeSetKey => $aChangeSetValue) {
                         if ($aChangeSetValue[0] instanceof \DateTimeInterface) {
@@ -302,7 +345,7 @@ class SonataImportCommand extends ContainerAwareCommand{
         } catch(\Exception $e){
 
 
-
+            throw $e;
             /**
              * Данный хак нужен в случае бросания ORMException
              * В случае бросания ORMException entity manager останавливается
@@ -328,7 +371,7 @@ class SonataImportCommand extends ContainerAwareCommand{
         return $method . str_replace(' ', '', ucfirst(join('', explode('_', $name))));
     }
 
-    protected function setValue($value, $oldValue, FormBuilderInterface $fieldDescription, AbstractAdmin $admin){
+    protected function setValue($subject, $value, $oldValue, FormBuilderInterface $fieldDescription, AbstractAdmin $admin){
 
 
         $mappings = $this->getContainer()->getParameter('compo_sonata_import.mappings');
@@ -370,6 +413,10 @@ class SonataImportCommand extends ContainerAwareCommand{
                 $type = 'many_to_many';
             }
 
+            if (ClassMetadataInfo::MANY_TO_ONE == $associationMappingsItem['type']) {
+
+                $type = 'entity';
+            }
         }
 
 
@@ -453,6 +500,7 @@ class SonataImportCommand extends ContainerAwareCommand{
                 );
             }
 
+            /** @var EntityRepository $repo */
             $repo = $admin->getConfigurationPool()->getContainer()->get('doctrine')->getManager()
                 ->getRepository($fieldDescription->getOption('class'));
 
@@ -460,13 +508,25 @@ class SonataImportCommand extends ContainerAwareCommand{
              * Если значение число, то пытаемся найти его по ID.
              * Если значение не число, то ищем его по полю name
              */
-            if(is_numeric($value)){
+            if(false && is_numeric($value)){
                 $value = $repo->find($value);
             } else {
                 try {
-                    $value = $repo->findOneBy([
-                        'name' => $value
-                    ]);
+                    $qb = $repo->createQueryBuilder('entity');
+
+                    /** @var QueryBuilder $qb */
+                    $qb = $admin->importFieldHandler($qb, $subject, $field, $value);
+                    $qb->getQuery()->setCacheable(true);
+                    $qb->getQuery()->setResultCacheLifetime(120);
+                    $qb->getQuery()->setQueryCacheLifetime(120);
+                    $result = $qb->getQuery()->getResult();
+
+                    if (count($result) == 1) {
+                        $value = $result[0];
+                    } else {
+                        $value = null;
+                    }
+
                 } catch (ORMException $e) {
                     throw new InvalidArgumentException('Field name not found');
                 }

@@ -125,11 +125,41 @@ class DefaultController extends CRUDController
         );
 
 
+        $stats = array(
+            0 => array(
+                'status' => 0,
+                'count' => 0
+            ),
+            1 => array(
+                'status' => 1,
+                'count' => 0
+            ),
+            2 => array(
+                'status' => 2,
+                'count' => 0
+            ),
+            3 => array(
+                'status' => 3,
+                'count' => 0
+            )
+        );
+
+        foreach ($stats as $statKey => $stat) {
+
+            $stats[$statKey]['count'] = $em->getRepository('CompoSonataImportBundle:ImportLog')->count([
+                'uploadFile' => $uploadFile->getId(),
+                'status' => $stat['status']
+            ]);
+        }
+
+
         return $this->render('@CompoSonataImport/Default/upload.html.twig', [
             'uploadFile' => $uploadFile,
             'paginator' => $pagination,
             'action' => 'upload',
             'admin' => $this->admin,
+            'stats' => $stats,
+
             'countImport' => $countImport,
             'base_template' => $this->getBaseTemplate(),
         ]);

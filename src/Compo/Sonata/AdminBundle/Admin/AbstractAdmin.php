@@ -1275,4 +1275,19 @@ class AbstractAdmin extends BaseAdmin
             );
         }
     }
+
+    /**
+     * @param $qb QueryBuilder
+     * @param $subject
+     * @param $field
+     * @param $value
+     */
+    public function importFieldHandler($qb, $subject, $field, $value) {
+        $qb->andWhere('entity.name = :value');
+        $qb->setParameter('value', $value);
+        $qb->setMaxResults(1);
+        $qb->setCacheable(true);
+
+        return $qb;
+    }
 }

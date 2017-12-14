@@ -37,6 +37,8 @@ class DefaultRepository extends EntityRepository{
         return $sql->getQuery();
     }
 
+
+
     public function count(array $where = []) {
         $sql = $this->createQueryBuilder('data');
         $sql->select('COUNT(data)');
