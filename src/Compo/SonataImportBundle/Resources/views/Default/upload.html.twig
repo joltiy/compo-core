@@ -26,7 +26,7 @@
                             <div class="box-body">
                                 <div class="sonata-ba-collapsed-fields">
                                     <div id="uploading">
-                                        {{ 'upload.upload_entity'|trans({}, 'CompoSonataImportBundle') }} <span id="count">0</span>
+                                        {{ 'upload.upload_entity'|trans({}, 'CompoSonataImportBundle') }} <span class="badge" id="count">0</span>
                                     </div>
                                 </div>
                             </div>
@@ -85,20 +85,32 @@
                             <div class="box-header">
 
                                 {% if uploadFile.status == 3 %}
-                                    <h4 id="head_h1" class="box-title" style="display: block">
+                                    <h4 id="head_h1 bg-danger" class="box-title" style="display: block">
                                         {{ 'upload.h1.error'|trans({}, 'CompoSonataImportBundle') }}
                                     </h4>
+                                    <div class="bg-danger">
                                     {{ 'upload.error'|trans({}, 'CompoSonataImportBundle') }}: {{ uploadFile.message }}
+                                    </div>
                                 {% else %}
                                     <h4 id="head_h1" class="box-title">
                                         {{ 'upload.h1.success'|trans({}, 'CompoSonataImportBundle') }}
                                     </h4>
                                 {% endif %}
+
+                                {% if uploadFile.isDryRun %}
+                                    <h4 class="box-title">
+                                        <span class="label label-info">Пробный импорт</span>
+                                    </h4>
+                                {% endif %}
                             </div>
+
+
+
+
                             <div class="box-body">
                                 <div class="sonata-ba-collapsed-fields">
                                     <div id="uploading">
-                                        {{ 'upload.upload_entity'|trans({}, 'CompoSonataImportBundle') }}: <span id="count">{{ countImport }}</span>
+                                        {{ 'upload.upload_entity'|trans({}, 'CompoSonataImportBundle') }} <span class="badge" id="count">{{ countImport }}</span>
                                     </div>
                                     <h4 id="head_h1">{{ 'upload.log'|trans({}, 'CompoSonataImportBundle') }}</h4>
 

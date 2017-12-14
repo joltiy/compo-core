@@ -37,7 +37,7 @@ class SonataImportCommand extends ContainerAwareCommand{
                 'dry-run',
                 'dr',
                 InputOption::VALUE_NONE,
-                'With version create'
+                'Dry run'
             )
         ;
     }
@@ -45,6 +45,7 @@ class SonataImportCommand extends ContainerAwareCommand{
     protected function execute(InputInterface $input, OutputInterface $output) {
 
         $isDryRun = $input->getOption('dry-run');
+
 
         $this->em = $this->getContainer()->get('doctrine')->getManager();
         $uploadFileId = $input->getArgument('csv_file');
@@ -244,6 +245,8 @@ class SonataImportCommand extends ContainerAwareCommand{
 
                         if (!$isDryRun) {
                             $this->em->flush($entity);
+                        } else {
+                            $uow->detach($entity);
                         }
 
                     } else {

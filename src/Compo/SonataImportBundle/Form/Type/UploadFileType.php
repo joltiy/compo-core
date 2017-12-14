@@ -63,6 +63,7 @@ class UploadFileType extends AbstractType
         ]);
 
         $builder->add('dryRun', CheckboxType::class, [
+            'required' => false,
             'label' => 'Пробный импорт'
         ]);
 
