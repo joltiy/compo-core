@@ -944,7 +944,7 @@ class AbstractAdmin extends BaseAdmin
                 foreach ($children as $child) {
                     if ($child->hasAccess('list')) {
                         $tabMenu->addChild(
-                            'tab_menu.link_list_' . $child->getLabel(),
+                            'tab_menu.link_list_' . $child->getCode(),
                             array(
                                 'label' => $childAdmin->trans('tab_menu.title_list', array('%name%' => $childAdmin->trans($child->getLabel()))),
 
@@ -994,7 +994,8 @@ class AbstractAdmin extends BaseAdmin
                             array(
                                 'label' => $admin->trans('tab_menu.title_list', array('%name%' => $admin->trans($child->getLabel()))),
 
-                                'uri' => $admin->generateUrl($child->getCode() . '.list', array('id' => $id)),
+                                //'uri' => $admin->generateUrl($child->getCode() . '.list', array('id' => $id)),
+                                'uri' => $child->generateUrl( 'list', array('id' => $id)),
                             )
                         )->setAttribute('icon', 'fa fa-list');
                     }
