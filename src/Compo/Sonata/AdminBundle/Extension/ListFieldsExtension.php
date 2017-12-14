@@ -15,15 +15,23 @@ class ListFieldsExtension extends AbstractAdminExtension
 
     public function configureListFields(ListMapper $listMapper)
     {
-        $user = $listMapper->getAdmin()->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
+        $token = $listMapper->getAdmin()->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken();
 
-        $userSettings = $user->getSettings();
+        if ($token) {
+            $user = $listMapper->getAdmin()->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
+            $userSettings = $user->getSettings();
 
-        if (isset($userSettings[$listMapper->getAdmin()->getCode() . '.list.fields'])) {
-            $fields = $userSettings[$listMapper->getAdmin()->getCode() . '.list.fields'];
+            if (isset($userSettings[$listMapper->getAdmin()->getCode() . '.list.fields'])) {
+                $fields = $userSettings[$listMapper->getAdmin()->getCode() . '.list.fields'];
+            } else {
+                $fields = array();
+            }
+
         } else {
             $fields = array();
         }
+
+
 
         if (count($fields)) {
             $keys = $listMapper->keys();
@@ -67,12 +75,15 @@ class ListFieldsExtension extends AbstractAdminExtension
                 $item->setOptions($options);
             }
 
-            $userSettings[$listMapper->getAdmin()->getCode() . '.list.fields'] = $fields;
+            if ($token) {
+                $userSettings[$listMapper->getAdmin()->getCode() . '.list.fields'] = $fields;
 
-            $user->setSettings($userSettings);
+                $user->setSettings($userSettings);
 
-            $this->getContainer()->get('doctrine')->getManager()->persist($user);
-            $this->getContainer()->get('doctrine')->getManager()->flush();
+                $this->getContainer()->get('doctrine')->getManager()->persist($user);
+                $this->getContainer()->get('doctrine')->getManager()->flush();
+            }
+
         }
     }
 }
