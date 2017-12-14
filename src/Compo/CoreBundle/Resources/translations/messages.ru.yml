@@ -344,6 +344,7 @@ btn_history_revert: 'Востановить'
 link_action_history_list: 'В список изменений'
 tab_menu.title_import: 'Импорт'
 breadcrumb.link_import: 'Импорт'
+breadcrumb.link_upload: 'Результаты импорта'
 
 ROLE_LIST: 'Список'
 ROLE_VIEW: 'Просмотр'

@@ -1,6 +1,17 @@
-{% extends baseTemplate %}
+{% extends base_template %}
 
-{% block form %}
+{%- block actions -%}
+    {% include 'SonataAdminBundle:CRUD:action_buttons.html.twig' %}
+{%- endblock -%}
+
+{% block tab_menu %}{{ knp_menu_render(admin.sidemenu(action), {'currentClass' : 'active', 'template': sonata_admin.adminPool.getTemplate('tab_menu_template')}, 'twig') }}{% endblock %}
+
+{% block navbar_title %}
+    {% set title_batch = 'tab_menu.title_import' %}
+    {{ title_batch|trans({"%name%": admin.label|trans({}, admin.translationDomain)}, admin.translationDomain) }}
+{% endblock %}
+
+{% block content %}
     {% if uploadFile.status == 1 %}
         <div class="row">
             <div class="col-md-12">
@@ -87,11 +98,11 @@
                             <div class="box-body">
                                 <div class="sonata-ba-collapsed-fields">
                                     <div id="uploading">
-                                        {{ 'upload.upload_entity'|trans({}, 'CompoSonataImportBundle') }}<span id="count">{{ countImport }}</span>
+                                        {{ 'upload.upload_entity'|trans({}, 'CompoSonataImportBundle') }}: <span id="count">{{ countImport }}</span>
                                     </div>
                                     <h4 id="head_h1">{{ 'upload.log'|trans({}, 'CompoSonataImportBundle') }}</h4>
 
-                                    <div class="status">
+                                    <div class="status well">
                                         <a {{ app.request.get('type') == 'all' ? 'class="active"' : '' }}
                                                 href="?page={{ app.request.get('page', 1) }}&type=all">
                                             Все
@@ -120,7 +131,8 @@
 
                                     {{ knp_pagination_render(paginator) }}
 
-                                    <table class="table">
+                                    <table class="table table-striped table-bordered">
+                                        <thead>
                                         <tr>
                                             <th>{{ 'upload.table.line'|trans({}, 'CompoSonataImportBundle') }}</th>
                                             <th>{{ 'upload.table.status'|trans({}, 'CompoSonataImportBundle') }}</th>
@@ -129,19 +141,30 @@
 
                                             <th>{{ 'upload.table.error'|trans({}, 'CompoSonataImportBundle') }}</th>
                                         </tr>
+                                        </thead>
+
+                                        <tbody>
                                         {% for i in paginator %}
 
                                             <tr>
-                                                <td>{{ i.line + 1 }}</td>
+                                                <th scope="row">{{ i.line + 1 }}</th>
                                                 <td>
                                                     {% if i.status == 1 %}
-                                                        {{ 'upload.table.stat.new'|trans({}, 'CompoSonataImportBundle') }}
+                                                        <span class="label label-success">
+                                                            {{ 'upload.table.stat.new'|trans({}, 'CompoSonataImportBundle') }}
+                                                        </span>
                                                     {% elseif i.status == 2 %}
+                                                        <span class="label label-warning">
                                                         {{ 'upload.table.stat.update'|trans({}, 'CompoSonataImportBundle') }}
+                                                        </span>
                                                     {% elseif i.status == 3 %}
+                                                        <span class="label label-danger">
                                                         {{ 'upload.table.stat.error'|trans({}, 'CompoSonataImportBundle') }}
+                                                        </span>
                                                     {% elseif i.status == 0 %}
+                                                        <span class="label label-default">
                                                         Без изменений
+                                                        </span>
                                                     {% endif %}
                                                 </td>
                                                 <td>
@@ -151,20 +174,20 @@
                                                         </a>
                                                     {% endif %}
                                                 </td>
-                                                <td>
+                                                <td class="changes">
                                                     {% for changes_key, changes in i.changes %}
-                                                        <div class="old">
-                                                            <span class="filed-name">
+                                                        <div class="old bg-danger">
+                                                            <strong class="filed-name">
                                                                 {{ admin.translationLabel(changes_key, 'list', 'label')|trans({}, admin.translationDomain) }}:
-                                                            </span>
+                                                            </strong>
                                                             <span class="filed-value">
                                                                 {{ changes.old }}
                                                             </span>
                                                         </div>
-                                                        <div class="new">
-                                                            <span class="filed-name">
+                                                        <div class="new bg-success">
+                                                            <strong class="filed-name">
                                                                 {{ admin.translationLabel(changes_key, 'list', 'label')|trans({}, admin.translationDomain) }}:
-                                                            </span>
+                                                            </strong>
                                                             <span class="filed-value">
                                                                 {{ changes.new }}
                                                             </span>
@@ -181,6 +204,7 @@
                                                 </td>
                                             </tr>
                                         {% endfor %}
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
