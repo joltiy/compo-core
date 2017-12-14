@@ -91,6 +91,7 @@ class AppKernel extends Kernel
             new \Compo\Sonata\FormatterBundle\CompoSonataFormatterBundle(),
             new \Compo\Sonata\SeoBundle\CompoSonataSeoBundle(),
             new \Compo\Sonata\DashboardBundle\CompoSonataDashboardBundle(),
+            new \Compo\SonataImportBundle\CompoSonataImportBundle(),
 
             new \Compo\CoreBundle\CompoCoreBundle(),
             new \Compo\SeoBundle\CompoSeoBundle(),

@@ -1,0 +1,50 @@
+{% extends baseTemplate %}
+
+
+{% block form %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <h4 class="box-title">
+                                {{ 'index.h1'|trans({}, 'CompoSonataImportBundle') }}
+                            </h4>
+                        </div>
+                        <div class="box-body">
+                            <div class="sonata-ba-collapsed-fields">
+                                {{ form(form) }}
+                            </div>
+                        </div>
+                        <div class="box-header">
+                            <h4>{{ 'index.h2'|trans({}, 'CompoSonataImportBundle') }}</h4>
+                        </div>
+                        <div class="box-body">
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    {{ 'index.table.column'|trans({}, 'CompoSonataImportBundle') }}
+                                </th>
+                                <th>
+                                    {{ 'index.table.name'|trans({}, 'CompoSonataImportBundle') }}
+                                </th>
+                            </tr>
+                            {% for key, i in builder %}
+                                <tr>
+                                    <td>
+                                        {{ key }}
+                                    </td>
+                                    <td>
+                                        {{ i }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
