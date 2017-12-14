@@ -152,34 +152,40 @@ class AbstractAdmin extends BaseAdmin
         $fields = array();
 
         foreach ($this->getExportFields() as $key => $field) {
-            $label = $this->getTranslationLabel($field, 'export', 'label');
-            $transLabel = $this->trans($label);
+            $transLabel = $this->getExportTranslationLabel($key, $field);
 
-            if ($transLabel == $label) {
-                $label = $this->getTranslationLabel($field, 'list', 'label');
-                $transLabel = $this->trans($label);
-            }
-
-            if ($transLabel == $label) {
-                $label = $this->getTranslationLabel($key, 'export', 'label');
-                $transLabel = $this->trans($label);
-            }
-
-            if ($transLabel == $label) {
-                $label = $this->getTranslationLabel($key, 'list', 'label');
-                $transLabel = $this->trans($label);
-            }
-
-            // NEXT_MAJOR: Remove this hack, because all field labels will be translated with the major release
-            // No translation key exists
-            if ($transLabel == $label) {
-                $fields[$key] = $field;
-            } else {
-                $fields[$transLabel] = $field;
-            }
+            $fields[$transLabel] = $field;
         }
 
-        return $this->getModelManager()->getDataSourceIterator($datagrid, $fields);
+        $dataSourceIterator = $this->getModelManager()->getDataSourceIterator($datagrid, $fields);
+        $dataSourceIterator->setDateTimeFormat('d.m.Y H:i:s');
+        return $dataSourceIterator;
+    }
+
+    public function getExportTranslationLabel($key, $field) {
+        $label = $this->getTranslationLabel($field, 'export', 'label');
+        $transLabel = $this->trans($label);
+
+        if ($transLabel == $label) {
+            $label = $this->getTranslationLabel($field, 'list', 'label');
+            $transLabel = $this->trans($label);
+        }
+
+        if ($transLabel == $label) {
+            $label = $this->getTranslationLabel($key, 'export', 'label');
+            $transLabel = $this->trans($label);
+        }
+
+        if ($transLabel == $label) {
+            $label = $this->getTranslationLabel($key, 'list', 'label');
+            $transLabel = $this->trans($label);
+        }
+
+        if ($transLabel == $label) {
+            $transLabel = $key;
+        }
+
+        return $transLabel;
     }
 
     public function getBatchActions()
@@ -1230,6 +1236,16 @@ class AbstractAdmin extends BaseAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);
+
+        $collection->add('import', 'import', [
+            '_controller' => 'CompoSonataImportBundle:Default:index'
+        ]);
+        $collection->add('upload', $this->getRouterIdParameter(). '/upload', [
+            '_controller' => 'CompoSonataImportBundle:Default:upload'
+        ]);
+        $collection->add('importStatus', $this->getRouterIdParameter() .'/upload/status', [
+            '_controller' => 'CompoSonataImportBundle:Default:importStatus'
+        ]);
 
         $collection->add('clone', $this->getRouterIdParameter() . '/clone');
         $collection->add('update_many_to_many', $this->getRouterIdParameter() . '/update_many_to_many');
