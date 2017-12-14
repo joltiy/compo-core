@@ -90,6 +90,7 @@ class NewsAdmin extends AbstractAdmin
             ->add('id')
             ->addIdentifier('publicationAt')
             ->addIdentifier('name')
+            ->add('tags')
             ->add('enabled')
             ->add(
                 '_action',
