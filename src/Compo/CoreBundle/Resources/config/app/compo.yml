@@ -58,3 +58,33 @@ services:
         parent: compo_core.abstract_container_aware
         tags:
             - { name: sonata.block }
+
+doctrine:
+    # ...
+    orm:
+        # ...
+        entity_managers:
+            default:
+                mappings:
+                    CompoSonataImportBundle: ~
+
+compo_sonata_import:
+    mappings:
+    #   - { name: center_point, class: compo.form_format.point}
+    #   - { name: city_autocomplete, class: compo.form_format.city_pa}
+        - { name: date, class: doctrs.type.datetime}
+        - { name: datetime, class: doctrs.type.datetime}
+        - { name: boolean, class: doctrs.type.boolean}
+        - { name: integer, class: doctrs.type.integer}
+        - { name: entity, class: doctrs.type.entity}
+        - { name: choice, class: doctrs.type.entity}
+    upload_dir: '%kernel.root_dir%/../web/uploads/import'
+    class_loaders:
+        - { name: CSV, class: Compo\SonataImportBundle\Loaders\CsvFileLoader}
+    #   - { name: XLS, class: AppBundle\Loader\Compo\XlsFileLoader}
+    encode:
+        default: utf8
+        list:
+            - cp1251
+            - utf8
+            - koir8

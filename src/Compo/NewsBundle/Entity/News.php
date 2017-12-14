@@ -41,7 +41,7 @@ class News
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Compo\NewsBundle\Entity\NewsTag")
+     * @ORM\ManyToMany(targetEntity="Compo\NewsBundle\Entity\NewsTag", indexBy="id")
      * @ORM\JoinTable(name="news_tags",
      *      joinColumns={@ORM\JoinColumn(name="news_id", referencedColumnName="id", onDelete="CASCADE")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
@@ -66,7 +66,7 @@ class News
      */
     public function addTag(\Compo\NewsBundle\Entity\NewsTag $tag)
     {
-        $this->tags[] = $tag;
+        $this->tags[$tag->getId()] = $tag;
 
         return $this;
     }
@@ -89,5 +89,39 @@ class News
     public function getTags()
     {
         return $this->tags;
+    }
+
+    public function setTags($tags) {
+        $removeTags = array();
+
+        foreach ($tags as $tagKey => $tag) {
+            foreach ($this->getTags() as $tagCurrent) {
+                if ($tagCurrent == $tag) {
+                    unset($tags[$tagKey]);
+                    continue;
+                } else {
+                    $removeTags[] = $tagCurrent;
+                }
+            }
+        }
+
+        foreach ($tags as $tag) {
+            $this->addTag($tag);
+        }
+
+        foreach ($removeTags as $tag) {
+            $this->removeTag($tag);
+        }
+    }
+
+    public function getTagsExportAsString()
+    {
+        $tags = array();
+
+        foreach ($this->getTags() as $tag) {
+            $tags[] = $tag->getName();
+        }
+
+        return implode(', ', $tags);
     }
 }

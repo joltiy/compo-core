@@ -478,7 +478,7 @@ th.sonata-ba-list-field-header-datetime {
     color: #f00;
 }
 .form-horizontal .required:after{
-    right: 5px;
+    right: -5px;
 }
 .navbar-collapse-actions .fa {
     margin-right: 5px;

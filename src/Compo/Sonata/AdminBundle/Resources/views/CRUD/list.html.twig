@@ -179,7 +179,16 @@ file that was distributed with this source code.
                                     </div>
 
 
+
                                     <div class="pull-right">
+                                        <a
+                                            href="{{ admin.generateUrl('import') }}"
+                                            class="btn btn-default"
+                                        >
+                                            <i class="fa fa-arrow-circle-o-down" aria-hidden="true"></i>
+                                            Импорт
+                                        </a>
+
                                         {% if admin.hasRoute('export') and admin.isGranted('EXPORT') and admin.getExportFormats()|length %}
                                             <div class="btn-group">
                                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">

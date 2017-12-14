@@ -13,7 +13,7 @@ breadcrumb:
     link_news_tag_edit: 'Редактирование метки новостей'
     link_news_tag_list: 'Список меток новостей'
     link_news_tag_update: 'Обновление метки новостей'
-    
+
 form:
     label_settings_news_per_page: 'Новостей на страницу'
     tab_main: Новость
@@ -50,3 +50,4 @@ block.title_news_last: 'Последние новости'
 
 news_tag: 'Метки новостей'
 form.label_tags: Метки
+list.label_tags: 'Метки'
