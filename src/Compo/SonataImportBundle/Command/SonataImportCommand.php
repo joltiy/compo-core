@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\File\File;
@@ -32,10 +33,18 @@ class SonataImportCommand extends ContainerAwareCommand{
             ->addArgument('admin_code', InputArgument::REQUIRED, 'code to sonata admin bundle')
             ->addArgument('encode', InputArgument::OPTIONAL, 'file encode')
             ->addArgument('file_loader', InputArgument::OPTIONAL, 'number of loader class')
+            ->addOption(
+                'dry-run',
+                'dr',
+                InputOption::VALUE_NONE,
+                'With version create'
+            )
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
+
+        $isDryRun = $input->getOption('dry-run');
 
         $this->em = $this->getContainer()->get('doctrine')->getManager();
         $uploadFileId = $input->getArgument('csv_file');
@@ -233,7 +242,9 @@ class SonataImportCommand extends ContainerAwareCommand{
 
                     if (count($aChangeSet) || count($getScheduledCollectionUpdates) || count($getScheduledCollectionDeletions)) {
 
-                        $this->em->flush($entity);
+                        if (!$isDryRun) {
+                            $this->em->flush($entity);
+                        }
 
                     } else {
                         $log->setStatus(ImportLog::STATUS_NOCHANGE);
@@ -270,12 +281,10 @@ class SonataImportCommand extends ContainerAwareCommand{
 
                     }
 
-                    dump($changes);
 
                     $log->setChanges($changes);
 
                 } else {
-                    dump($errors);
 
                     $log->setMessage(json_encode($errors));
                     $log->setStatus(ImportLog::STATUS_ERROR);
@@ -290,7 +299,6 @@ class SonataImportCommand extends ContainerAwareCommand{
         } catch(\Exception $e){
 
 
-            dump($e);
 
             /**
              * Данный хак нужен в случае бросания ORMException

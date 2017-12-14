@@ -59,14 +59,27 @@ class DefaultController extends CRUDController
      */
     private function runCommand(UploadFile $fileEntity)
     {
-        $command = sprintf(
-            '/usr/bin/php %s/console compo:sonata:import %d "%s" "%s" %d > /dev/null 2>&1 &',
-            $this->get('kernel')->getRootDir() . '/../bin',
-            $fileEntity->getId(),
-            $this->admin->getCode(),
-            $fileEntity->getEncode() ? $fileEntity->getEncode() : 'utf8',
-            $fileEntity->getLoaderClass()
-        );
+        if ($fileEntity->isDryRun()) {
+            $command = sprintf(
+                '/usr/bin/php %s/console compo:sonata:import %d "%s" "%s" %d --dry-run > /dev/null 2>&1 &',
+                $this->get('kernel')->getRootDir() . '/../bin',
+                $fileEntity->getId(),
+                $this->admin->getCode(),
+                $fileEntity->getEncode() ? $fileEntity->getEncode() : 'utf8',
+                $fileEntity->getLoaderClass()
+            );
+        } else {
+            $command = sprintf(
+                '/usr/bin/php %s/console compo:sonata:import %d "%s" "%s" %d > /dev/null 2>&1 &',
+                $this->get('kernel')->getRootDir() . '/../bin',
+                $fileEntity->getId(),
+                $this->admin->getCode(),
+                $fileEntity->getEncode() ? $fileEntity->getEncode() : 'utf8',
+                $fileEntity->getLoaderClass()
+            );
+        }
+
+
 
         $process = new Process($command);
         $process->run();
