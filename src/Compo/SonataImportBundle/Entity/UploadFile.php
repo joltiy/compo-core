@@ -51,6 +51,13 @@ class UploadFile
     private $encode;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", options={"default": true})
+     */
+    private $dryRun = true;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="loader_class", type="string")
@@ -207,4 +214,22 @@ class UploadFile
     public function __toString() {
         return (string)$this->message;
     }
+
+    /**
+     * @return bool
+     */
+    public function isDryRun()
+    {
+        return $this->dryRun;
+    }
+
+    /**
+     * @param bool $dryRun
+     */
+    public function setDryRun($dryRun)
+    {
+        $this->dryRun = $dryRun;
+    }
+
+
 }

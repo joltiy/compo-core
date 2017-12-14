@@ -7,6 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -55,10 +56,16 @@ class UploadFileType extends AbstractType
         foreach($loaders_list as $key => $item){
             $loader[$item['name']] = $key;
         }
+
         $builder->add('loaderClass', ChoiceType::class, [
             'choices' => $loader,
             'label' => 'form.loader_class'
         ]);
+
+        $builder->add('dryRun', CheckboxType::class, [
+            'label' => 'Пробный импорт'
+        ]);
+
         $builder
             ->add('submit', SubmitType::class, [
                 'label' => 'form.submit',
