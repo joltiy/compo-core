@@ -342,6 +342,8 @@ message_history_revert_confirmation: 'Восстановить ревизию?'
 history_revert_or: ' или '
 btn_history_revert: 'Востановить'
 link_action_history_list: 'В список изменений'
+tab_menu.title_import: 'Импорт'
+breadcrumb.link_import: 'Импорт'
 
 ROLE_LIST: 'Список'
 ROLE_VIEW: 'Просмотр'
@@ -360,3 +362,5 @@ ROLE_ALLOWED_TO_SWITCH: 'Смена пользователя'
 ROLE_USER: 'Пользователь'
 ROLE_SONATA_ADMIN: 'Администратор (админки)'
 SONATA: 'Админка'
+
+

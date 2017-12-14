@@ -1,7 +1,17 @@
-{% extends baseTemplate %}
+{% extends base_template %}
 
+{%- block actions -%}
+    {% include 'SonataAdminBundle:CRUD:action_buttons.html.twig' %}
+{%- endblock -%}
 
-{% block form %}
+{% block tab_menu %}{{ knp_menu_render(admin.sidemenu(action), {'currentClass' : 'active', 'template': sonata_admin.adminPool.getTemplate('tab_menu_template')}, 'twig') }}{% endblock %}
+
+{% block navbar_title %}
+    {% set title_batch = 'tab_menu.title_import' %}
+    {{ title_batch|trans({"%name%": admin.label|trans({}, admin.translationDomain)}, admin.translationDomain) }}
+{% endblock %}
+
+{% block content %}
     <div class="row">
         <div class="col-md-12">
             <div class="row">
@@ -13,7 +23,7 @@
                             </h4>
                         </div>
                         <div class="box-body">
-                            <div class="sonata-ba-collapsed-fields">
+                            <div class="sonata-ba-collapsed-fields well">
                                 {{ form(form) }}
                             </div>
                         </div>
@@ -36,7 +46,7 @@
                                         {{ key }}
                                     </td>
                                     <td>
-                                        {{ i }}
+                                        {{ admin.translationLabel(i, 'list', 'label')|trans({}, admin.translationDomain) }}
                                     </td>
                                 </tr>
                             {% endfor %}

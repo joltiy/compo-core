@@ -762,7 +762,7 @@ class AbstractAdmin extends BaseAdmin
          *
          */
 
-        if (in_array($action, array('list', 'trash', 'tree', 'create'))) {
+        if (in_array($action, array('list', 'import', 'trash', 'tree', 'create'))) {
             if ($childAdmin) {
                 $currentLeafChildAdmin = $this->getCurrentLeafChildAdmin();
 
@@ -875,7 +875,7 @@ class AbstractAdmin extends BaseAdmin
             }
         }
 
-        if (in_array($action, array('list', 'tree'))) {
+        if (in_array($action, array('list', 'import', 'tree'))) {
             if ($childAdmin) {
                 if (method_exists($childAdmin, 'generatePermalink') && $childAdmin->generatePermalink()) {
                     $tabMenu->addChild(

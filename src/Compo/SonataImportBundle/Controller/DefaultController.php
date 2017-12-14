@@ -7,7 +7,7 @@ use Pagerfanta\Pagerfanta;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Compo\SonataImportBundle\Entity\UploadFile;
 use Compo\SonataImportBundle\Form\Type\UploadFileType;
-use Sonata\AdminBundle\Controller\CRUDController;
+use Compo\Sonata\AdminBundle\Controller\CRUDController;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,7 +49,7 @@ class DefaultController extends CRUDController {
         ;
         return $this->render('@CompoSonataImport/Default/index.html.twig', [
             'form' => $form->createView(),
-            'baseTemplate' => $this->getBaseTemplate(),
+            'base_template' => $this->getBaseTemplate(),
             'builder' => $builder,
             'action' => 'import',
             'letters' => $this->getLetterArray()
