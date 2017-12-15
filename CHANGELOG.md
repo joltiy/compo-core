@@ -7,6 +7,11 @@
 - **Fixed**: исправления ошибок и мелкие правки.
 - **Removed**: удаление устаревшей функциональности.
 
+## [v3.3.38] - 2017-12-15 12:20:53
+
+### Fixed
+- Незначительные правки
+
 ## [v3.3.37] - 2017-12-15 10:35:34
 
 ### Added
@@ -564,6 +569,7 @@
 
 [comporu/compo-core]: https://github.com/comporu/compo-core
 
+[v3.3.38]: https://github.com/comporu/compo-core/compare/v3.3.37...v3.3.38
 [v3.3.37]: https://github.com/comporu/compo-core/compare/v3.3.36...v3.3.37
 [v3.3.36]: https://github.com/comporu/compo-core/compare/v3.3.35...v3.3.36
 [v3.3.35]: https://github.com/comporu/compo-core/compare/v3.3.34...v3.3.35
