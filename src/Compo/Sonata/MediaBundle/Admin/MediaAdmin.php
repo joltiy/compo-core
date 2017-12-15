@@ -8,6 +8,7 @@
 
 namespace Compo\Sonata\MediaBundle\Admin;
 
+use Compo\Sonata\AdminBundle\Admin\Traits\ConfigureTabMenuTrait;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -18,6 +19,8 @@ use Sonata\MediaBundle\Form\DataTransformer\ProviderDataTransformer;
  */
 class MediaAdmin extends \Sonata\MediaBundle\Admin\ORM\MediaAdmin
 {
+    use ConfigureTabMenuTrait;
+
     /**
      * {@inheritdoc}
      */
