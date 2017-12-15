@@ -82,12 +82,30 @@ function fillmanufactureCollectionSelect(wrap) {
 
 
                 manufactureCollection_select.select2({
-                    query: function (query){
-                        var data_results = {
-                            results: data
-                        };
-
-                        query.callback(data_results);
+                    query: function(options) {
+                        var city, i, j, output, paginate_by, results, term;
+                        term = options.term.toLowerCase();
+                        results = [];
+                        output = {};
+                        paginate_by = 50;
+                        i = 0;
+                        j = 0;
+                        while (results.length < paginate_by && i < data.length) {
+                            i += 1;
+                            city = data[i - 1];
+                            if (city.text.toLowerCase().indexOf(term) > -1) {
+                                j += 1;
+                                if (j > (options.page - 1) * paginate_by) {
+                                    results.push({
+                                        id: city.id,
+                                        text: city.text
+                                    });
+                                }
+                            }
+                        }
+                        output.results = results;
+                        output.more = i < data.length;
+                        return options.callback(output);
                     },
                     width: function(){
                         // Select2 v3 and v4 BC. If window.Select2 is defined, then the v3 is installed.
