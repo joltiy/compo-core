@@ -11,6 +11,7 @@ use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -62,6 +63,7 @@ class AdminSettingsSchema extends BaseBundleAdminSettingsSchema
         $options = array(
             'email' => 'info@example.com',
             'header_menu' => null,
+            'header_search_placeholder' => 'Поиск среди 100 000 предложений',
 
             'header_timework' => '09:00–19:00',
             'header_timework_description' => '<div>
@@ -126,6 +128,8 @@ class AdminSettingsSchema extends BaseBundleAdminSettingsSchema
                 'choices' => $this->getMenuRepository()->getChoices(),
             )
         );
+
+        $header_tab->add('header_search_placeholder', TextType::class);
 
         $header_tab->add('header_phones', CKEditorType::class);
         $header_tab->add('header_timework', CKEditorType::class);

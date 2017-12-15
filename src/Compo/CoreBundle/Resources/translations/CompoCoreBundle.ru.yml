@@ -20,6 +20,8 @@ form:
     label_settings_header_phones: Телефоны
     label_settings_header_timework: 'Режим работы'
     label_settings_header_timework_description: 'Режим работы (примечание)'
+    label_settings_header_search_placeholder: 'Поиск в шапке (placeholder)'
+
 
 settings:
     footer_tab: Подвал
