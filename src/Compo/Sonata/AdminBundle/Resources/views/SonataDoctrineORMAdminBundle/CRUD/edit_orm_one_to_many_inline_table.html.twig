@@ -1,7 +1,8 @@
 {#
 COMPO field_name в th
 #}
-<table class="table table-bordered">
+
+<table class="table table-bordered {{ form.vars.attr.class|default('') }}">
     <thead>
     <tr>
         {% for field_name, nested_field in form.children|first.children %}
@@ -23,7 +24,7 @@ COMPO field_name в th
     </thead>
     <tbody class="sonata-ba-tbody">
     {% for nested_group_field_name, nested_group_field in form.children %}
-        <tr>
+        <tr class="edit_orm_one_to_many_inline_table_tr">
             {% for field_name, nested_field in nested_group_field.children %}
                 <td class="
                         {% if field_name == '_delete' %}
