@@ -181,13 +181,15 @@ file that was distributed with this source code.
 
 
                                     <div class="pull-right">
-                                        <a
-                                            href="{{ admin.generateUrl('import') }}"
-                                            class="btn btn-default"
-                                        >
-                                            <i class="fa fa-arrow-circle-o-down" aria-hidden="true"></i>
-                                            Импорт
-                                        </a>
+                                        {% if admin.hasRoute('import') %}
+                                            <a
+                                                href="{{ admin.generateUrl('import') }}"
+                                                class="btn btn-default"
+                                            >
+                                                <i class="fa fa-arrow-circle-o-down" aria-hidden="true"></i>
+                                                Импорт
+                                            </a>
+                                        {% endif %}
 
                                         {% if admin.hasRoute('export') and admin.isGranted('EXPORT') and admin.getExportFormats()|length %}
                                             <div class="btn-group">

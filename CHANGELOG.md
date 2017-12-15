@@ -7,6 +7,15 @@
 - **Fixed**: исправления ошибок и мелкие правки.
 - **Removed**: удаление устаревшей функциональности.
 
+## [v3.3.36] - 2017-12-15 09:19:02
+
+### Added
+- Ссылка на редактирование JS/CSS вынесена в раздел "Сайт". Добавлен пункт меню на редактирование Media.
+
+### Fixed
+- Незначительные правки
+- Создан ConfigureTabMenuTrait.php
+
 ## [v3.3.35] - 2017-12-14 17:36:23
 
 ### Fixed
@@ -550,6 +559,7 @@
 
 [comporu/compo-core]: https://github.com/comporu/compo-core
 
+[v3.3.36]: https://github.com/comporu/compo-core/compare/v3.3.35...v3.3.36
 [v3.3.35]: https://github.com/comporu/compo-core/compare/v3.3.34...v3.3.35
 [v3.3.34]: https://github.com/comporu/compo-core/compare/v3.3.33...v3.3.34
 [v3.3.33]: https://github.com/comporu/compo-core/compare/v3.3.32...v3.3.33
