@@ -7,6 +7,11 @@
 - **Fixed**: исправления ошибок и мелкие правки.
 - **Removed**: удаление устаревшей функциональности.
 
+## [v3.3.37] - 2017-12-15 10:35:34
+
+### Added
+- Исправлено массовое изменение коллекций. Добавлена AJAX подгрузка коллекций, в зависимости от выбранного производителя. https://trello.com/c/pGiZLwaV/142-%D0%BC%D0%B0%D1%81%D1%81%D0%BE%D0%B2%D1%8B%D0%B5-%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F-%D0%B8%D0%B7%D0%BC%D0%B5%D0%BD%D0%B8%D1%82%D1%8C-%D0%BA%D0%BE%D0%BB%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D1%8E
+
 ## [v3.3.36] - 2017-12-15 09:19:02
 
 ### Added
@@ -559,6 +564,7 @@
 
 [comporu/compo-core]: https://github.com/comporu/compo-core
 
+[v3.3.37]: https://github.com/comporu/compo-core/compare/v3.3.36...v3.3.37
 [v3.3.36]: https://github.com/comporu/compo-core/compare/v3.3.35...v3.3.36
 [v3.3.35]: https://github.com/comporu/compo-core/compare/v3.3.34...v3.3.35
 [v3.3.34]: https://github.com/comporu/compo-core/compare/v3.3.33...v3.3.34
