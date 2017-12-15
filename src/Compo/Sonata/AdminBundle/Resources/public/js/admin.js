@@ -49,6 +49,59 @@ function fillmanufactureCollection() {
     }
 }
 
+function fillmanufactureCollectionSelect(wrap) {
+    if ($('.manufactureCollection-dependet').length) {
+        //$('.select2-container').parent().find('select').attr('style','');
+
+        var request_data = {};
+
+        var manufacture_selected = $("input.manufacture-dependet", wrap);
+
+        if (manufacture_selected.length) {
+            request_data = {
+                manufacture: manufacture_selected.val()
+            };
+        }
+
+        var manufactureCollection_selected = $("input.manufactureCollection-dependet", wrap);
+
+        if (manufactureCollection_selected.length) {
+            var manufactureCollection = manufactureCollection_selected.val();
+        } else {
+            var manufactureCollection = 0;
+        }
+
+        $.ajax({
+
+            url: Routing.generate('admin_compo_manufacture_manufacturecollection_select2'),
+            data: request_data,
+            success: function (data) {
+                var manufactureCollection_select = $("input.manufactureCollection-dependet", wrap);
+
+                manufactureCollection_select.select2("destroy");
+
+
+                manufactureCollection_select.select2({
+                    query: function (query){
+                        var data_results = {
+                            results: data
+                        };
+
+                        query.callback(data_results);
+                    },
+                    width: function(){
+                        // Select2 v3 and v4 BC. If window.Select2 is defined, then the v3 is installed.
+                        // NEXT_MAJOR: Remove Select2 v3 support.
+                        return Admin.get_select2_width(window.Select2 ? this.element : select);
+                    },
+                    dropdownAutoWidth: true
+                });
+            },
+            dataType: 'json'
+        });
+    }
+}
+
 
 function setCookie(key, value) {
     var expires = new Date();
@@ -573,6 +626,10 @@ $(document).ready(function () {
 
     $(".manufacture-select2").on("change", function (e) {
         fillmanufactureCollection();
+    });
+
+    $('input.manufacture-dependet').on("change", function (e) {
+        fillmanufactureCollectionSelect($(this).closest('.actionFormModal'));
     });
 
 
