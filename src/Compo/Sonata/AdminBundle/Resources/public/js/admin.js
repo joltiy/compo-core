@@ -187,9 +187,31 @@ function updateOrderTotal() {
 }
 
 function initOrderElements(subject) {
+    var row = $(subject).closest('tr');
+    var product_input = row.find('.product-element');
+
+    product_input.change(function () {
+        $.ajax({
+            url: Routing.generate('api_products_get_product', {
+                'id': product_input.val()
+            }),
+            success: function (data) {
+                row.find('.order-product-name-field').val(data.name_formatted);
+                row.find('.product-element-price').val(data.price);
+                row.find('.product-element-price').change();
+            },
+            dataType: 'json'
+        });
+    });
+
+    $('input[id*=_delete]', subject).change(function () {
+        $('td[class*=elements-quantity] input', subject).change();
+    });
 
     $('td[class*=elements-quantity] input', subject).change(function () {
         var quantity_input = $(this);
+
+        var is_delete = $('input[id*=_delete]', subject).prop('checked');
 
         var price_input = quantity_input.closest('tr').find('td[class*=elements-price] input').first();
         var total_input = quantity_input.closest('tr').find('td[class*=elements-total] input').first();
@@ -198,6 +220,10 @@ function initOrderElements(subject) {
         total_input.val(parseFloat(quantity_input.val().replace(',', '.')) * parseFloat(price_input.val().replace(',', '.')));
 
         total_input.val(number_format(total_input.val(), 2, ',', ''));
+
+        if (is_delete) {
+            total_input.val(0);
+        }
 
         updateOrderTotal();
     });
