@@ -225,4 +225,31 @@ class AbstractBlockService extends BaseAbstractBlockService
     {
         return $this->getContainer()->get('doctrine')->getManager();
     }
+
+    public function getCacheKeys(BlockInterface $block)
+    {
+        $settings = $block->getSettings();
+
+        $keys = parent::getCacheKeys($block);
+
+        $keys['environment'] = $this->getContainer()->get('kernel')->getEnvironment();
+
+        if (isset($settings['template'])) {
+            $keys['template'] =  $settings['template'];
+        }
+
+        if (isset($settings['id'])) {
+            $key = $this->getName() . ':' . $settings['id'];
+
+            if (isset($settings['template'])) {
+                $key = $key . ':' . $settings['template'];
+            }
+
+            $keys['block_id'] = $key;
+        }
+
+        $keys['updated_at'] = '';
+
+        return $keys;
+    }
 }
