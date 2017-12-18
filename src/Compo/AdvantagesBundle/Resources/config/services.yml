@@ -19,3 +19,8 @@ services:
         arguments: ["compo_advantages.block.service.advantages", "@templating"]
         tags:
             - { name: sonata.block }
+
+    compo_advantages.manager.advantages:
+        class: Compo\AdvantagesBundle\Manager\AdvantagesManager
+        arguments: [Compo\AdvantagesBundle\Entity\Advantages, "@doctrine"]
+        parent: compo_core.abstract_container_aware
