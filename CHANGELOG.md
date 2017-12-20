@@ -7,6 +7,16 @@
 - **Fixed**: исправления ошибок и мелкие правки.
 - **Removed**: удаление устаревшей функциональности.
 
+## [v3.3.39] - 2017-12-15 12:37:17
+
+### Added
+- Добавлен Hinclude.
+
+### Fixed
+- Незначительные правки (+2)
+- Исправлена генерация cache-ключей для блоков.
+- Исправлено заполнение полей позиции заказа, после добавления товара. Исправлен пересчёт сумм, после редактирования/удаления/добавления позиции заказа. https://trello.com/c/tqCGoBqn/143-%D1%80%D0%B5%D0%B4%D0%B0%D0%BA%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7
+
 ## [v3.3.38] - 2017-12-15 12:20:53
 
 ### Fixed
@@ -569,6 +579,7 @@
 
 [comporu/compo-core]: https://github.com/comporu/compo-core
 
+[v3.3.39]: https://github.com/comporu/compo-core/compare/v3.3.38...v3.3.39
 [v3.3.38]: https://github.com/comporu/compo-core/compare/v3.3.37...v3.3.38
 [v3.3.37]: https://github.com/comporu/compo-core/compare/v3.3.36...v3.3.37
 [v3.3.36]: https://github.com/comporu/compo-core/compare/v3.3.35...v3.3.36

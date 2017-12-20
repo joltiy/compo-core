@@ -40,6 +40,8 @@ class AdvantagesItemAdmin extends AbstractAdmin
     {
         if ($object->getAdvantages()) {
             $object->getAdvantages()->setUpdatedAt(new \DateTime());
+
+            $this->getContainer()->get('compo_advantages.manager.advantages')->deleteUpdatedAt();
         }
     }
 

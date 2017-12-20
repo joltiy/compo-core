@@ -80,28 +80,11 @@ class AdvantagesBlockService extends AbstractBlockService
      */
     public function getCacheKeys(BlockInterface $block)
     {
-        $settings = $block->getSettings();
-
         $keys = parent::getCacheKeys($block);
 
-        $keys['environment'] = $this->getContainer()->get('kernel')->getEnvironment();
+        $AdvantagesManager = $this->getContainer()->get('compo_advantages.manager.advantages');
 
-        if (isset($settings['id'])) {
-            $repository = $this->getDoctrineManager()->getRepository(Advantages::class);
-
-            $item = $repository->find($settings['id']);
-
-            if ($item) {
-                $key = $this->getName() . ':' . $settings['id'];
-
-                if (isset($settings['template'])) {
-                    $key = $key . ':' . $settings['template'];
-                }
-
-                $keys['block_id'] = $key;
-                $keys['updated_at'] = $item->getUpdatedAt()->format('U');
-            }
-        }
+        $keys['updated_at'] = $AdvantagesManager->getUpdatedAt()->format('U');
 
         return $keys;
     }
