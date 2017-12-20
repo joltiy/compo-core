@@ -2,7 +2,8 @@
   "name": "compo-core",
   "dependencies": {
     "angular": "^1.6.4",
-    "datatable": "latest"
+    "datatable": "latest",
+    "hinclude": "latest"
   },
   "license": "MIT",
   "private": true

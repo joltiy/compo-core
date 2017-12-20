@@ -10,4 +10,5 @@ compo_feedback:
 compo_news:
     resource: "@CompoNewsBundle/Resources/config/routing.yml"
 
-
+compo_advantages:
+    resource: "@CompoAdvantagesBundle/Resources/config/routing.yml"
