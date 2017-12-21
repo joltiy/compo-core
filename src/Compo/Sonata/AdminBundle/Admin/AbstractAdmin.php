@@ -110,7 +110,7 @@ class AbstractAdmin extends BaseAdmin
     public function getExportFormats()
     {
         return array(
-            'csv', 'xls', 'xml', 'json',
+             'xls', 'csv', 'xml', 'json',
         );
     }
 
