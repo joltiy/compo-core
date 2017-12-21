@@ -101,7 +101,14 @@ class SonataImportCommand extends ContainerAwareCommand{
                 }
             }
 
-            foreach ($fileLoader->getIteration() as $line => $dataRaw) {
+
+            if ($uploadFile->getLoaderClass() == 0) {
+                $iterator = $fileLoader->getRows();
+            } else {
+                $iterator = $fileLoader->getIteration();
+            }
+
+            foreach ($iterator as $line => $dataRaw) {
 
                 if ($line === 0) {
                     $firstLine = $dataRaw;

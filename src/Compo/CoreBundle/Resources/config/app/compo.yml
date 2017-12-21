@@ -80,8 +80,9 @@ compo_sonata_import:
         - { name: choice, class: doctrs.type.entity}
     upload_dir: '%kernel.root_dir%/../web/uploads/import'
     class_loaders:
+        - { name: XLS, class: Compo\SonataImportBundle\Loaders\XlsFileLoader}
         - { name: CSV, class: Compo\SonataImportBundle\Loaders\CsvFileLoader}
-    #   - { name: XLS, class: AppBundle\Loader\Compo\XlsFileLoader}
+
     encode:
         default: utf8
         list:
