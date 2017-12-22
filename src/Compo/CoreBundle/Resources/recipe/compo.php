@@ -215,8 +215,16 @@ task(
     function () {
         //run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console compo:core:update --env={{env}} --no-debug');
         //run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console fos:elastica:populate --env=dev --no-debug');
-        run('cd {{release_path}} && {{env_vars}} composer run-script compo-update-prod');
-        run('cd {{release_path}} && {{env_vars}} composer run-script compo-update-core');
+        run('cd {{release_path}} && {{env_vars}} composer run-script compo-update-prod',
+            array(
+                'timeout' => 6800,
+            )
+        );
+        run('cd {{release_path}} && {{env_vars}} composer run-script compo-update-core',
+            array(
+                'timeout' => 6800,
+            )
+        );
     }
 )->desc('compo:core:update');
 
