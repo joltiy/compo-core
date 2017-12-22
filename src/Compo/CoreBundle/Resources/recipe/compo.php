@@ -32,7 +32,7 @@ set('composer_options', '{{composer_action}} --verbose --prefer-dist --no-progre
 set('bin_dir', 'bin');
 set('var_dir', 'var');
 
-set('copy_dirs', array('vendor', 'web/vendor', 'web/assetic'));
+set('copy_dirs', array('vendor', 'web/assetic')); // 'web/vendor',
 set('env', 'prod');
 set('shared_dirs', array('var/logs', 'var/sessions', 'web/uploads', 'web/media', 'web/userfiles'));
 set('shared_files', array('app/config/parameters.yml', 'web/robots.txt'));
