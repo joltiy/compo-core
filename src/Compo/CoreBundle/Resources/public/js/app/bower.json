@@ -1,10 +1,11 @@
 {
-  "name": "compo-core",
-  "dependencies": {
-    "angular": "^1.6.4",
-    "datatable": "latest",
-    "hinclude": "latest"
-  },
-  "license": "MIT",
-  "private": true
+    "name": "compo-core",
+    "dependencies": {
+        "angular": "^1.6.4",
+        "datatable": "latest",
+        "hinclude": "latest",
+        "sisyphus": "latest"
+    },
+    "license": "MIT",
+    "private": true
 }
