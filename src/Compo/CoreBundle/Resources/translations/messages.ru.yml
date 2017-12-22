@@ -139,6 +139,8 @@ form:
     label_settings_index_text: 'Основной текст'
     label_settings_index_manufacture_collection_tag_criteria_block_1: 'Коллекции по меткам - 1'
     label_settings_index_manufacture_collection_tag_criteria_block_2: 'Коллекции по меткам - 2'
+    label_settings_index_manufacture_collection_tag_criteria_block_3: 'Коллекции по меткам - 3'
+
     label_css_class: 'CSS класс'
     label_description_additional: 'Дополнительное описание'
     label_settings_order_page: 'Страница выполненного заказа'
