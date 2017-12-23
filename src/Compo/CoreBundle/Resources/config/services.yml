@@ -179,6 +179,12 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 1000 }
 
+    compo_core.listener.utm:
+        parent: compo_core.abstract_container_aware
+        class: Compo\CoreBundle\Listener\UtmListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 1001 }
+
     compo_core.listener.fix_slug:
         parent: compo_core.abstract_container_aware
         class: Compo\CoreBundle\Listener\FixSlugListener
