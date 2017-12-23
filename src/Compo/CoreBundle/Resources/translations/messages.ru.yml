@@ -347,6 +347,7 @@ link_action_history_list: 'В список изменений'
 tab_menu.title_import: 'Импорт'
 breadcrumb.link_import: 'Импорт'
 breadcrumb.link_upload: 'Результаты импорта'
+form.label_last_job: 'Последний статус задачи'
 
 ROLE_LIST: 'Список'
 ROLE_VIEW: 'Просмотр'
