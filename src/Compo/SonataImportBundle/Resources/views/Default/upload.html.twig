@@ -43,7 +43,7 @@
 
             function interval() {
                 $.ajax({
-                    'url': '{{ admin.generateUrl('importStatus', {id: uploadFile.id}) }}',
+                    'url': '{{ admin.generateUrl('importStatus', {import_id: uploadFile.id}) }}',
                     'dataType': 'JSON',
                     'success': function (data) {
                         $('#count').html(data.count);

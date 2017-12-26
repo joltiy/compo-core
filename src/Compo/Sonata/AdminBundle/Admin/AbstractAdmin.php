@@ -110,7 +110,7 @@ class AbstractAdmin extends BaseAdmin
     public function getExportFormats()
     {
         return array(
-             'xls', 'csv', 'xml', 'json',
+             'xlsx', 'csv', 'xml', 'json',
         );
     }
 
@@ -779,10 +779,10 @@ class AbstractAdmin extends BaseAdmin
         $collection->add('import', 'import', [
             '_controller' => 'CompoSonataImportBundle:Default:index'
         ]);
-        $collection->add('upload', $this->getRouterIdParameter(). '/upload', [
+        $collection->add('upload', '{import_id}/upload', [
             '_controller' => 'CompoSonataImportBundle:Default:upload'
         ]);
-        $collection->add('importStatus', $this->getRouterIdParameter() .'/upload/status', [
+        $collection->add('importStatus', '{import_id}/upload/status', [
             '_controller' => 'CompoSonataImportBundle:Default:importStatus'
         ]);
 

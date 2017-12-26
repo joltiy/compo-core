@@ -696,8 +696,9 @@ class CRUDController extends BaseCRUDController
                     'form' => $formView,
                     'datagrid' => $datagrid,
                     'csrf_token' => $this->getCsrfToken('sonata.batch'),
-                    'export_formats' => $this->has('sonata.admin.admin_exporter') ?
-                        $this->get('sonata.admin.admin_exporter')->getAvailableFormats($this->admin) :
+                    'export_formats' =>
+                        //$this->has('sonata.admin.admin_exporter') ?
+                        //$this->get('sonata.admin.admin_exporter')->getAvailableFormats($this->admin) :
                         $this->admin->getExportFormats(),
                 ), null);
             } else {
@@ -739,8 +740,9 @@ class CRUDController extends BaseCRUDController
 
             'datagrid' => $datagrid,
             'csrf_token' => $this->getCsrfToken('sonata.batch'),
-            'export_formats' => $this->has('sonata.admin.admin_exporter') ?
-                $this->get('sonata.admin.admin_exporter')->getAvailableFormats($this->admin) :
+            'export_formats' =>
+                //$this->has('sonata.admin.admin_exporter') ?
+                //$this->get('sonata.admin.admin_exporter')->getAvailableFormats($this->admin) :
                 $this->admin->getExportFormats(),
         ), null);
     }

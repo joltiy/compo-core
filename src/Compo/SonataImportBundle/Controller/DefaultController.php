@@ -34,7 +34,7 @@ class DefaultController extends CRUDController
 
                 $this->runCommand($fileEntity);
                 return $this->redirect($this->admin->generateUrl('upload', [
-                    'id' => $fileEntity->getId()
+                    'import_id' => $fileEntity->getId()
                 ]));
             } else {
                 $form->get('file')->addError(new FormError($fileEntity->getFile()->getErrorMessage()));
@@ -106,9 +106,12 @@ class DefaultController extends CRUDController
      * @param UploadFile $uploadFile
      * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function uploadAction(Request $request, UploadFile $uploadFile)
+    public function uploadAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+
+        $uploadFile = $em->getRepository('CompoSonataImportBundle:UploadFile')->find($request->get('import_id'));
+
 
         $countImport = $em->getRepository('CompoSonataImportBundle:ImportLog')->count([
             'uploadFile' => $uploadFile->getId()
@@ -169,8 +172,12 @@ class DefaultController extends CRUDController
      * @param UploadFile $uploadFile
      * @return JsonResponse
      */
-    public function importStatusAction(UploadFile $uploadFile)
+    public function importStatusAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+
+        $uploadFile = $em->getRepository('CompoSonataImportBundle:UploadFile')->find($request->get('import_id'));
+
         $countImport = $this->getDoctrine()->getManager()->getRepository('CompoSonataImportBundle:ImportLog')->count([
             'uploadFile' => $uploadFile->getId()
         ]);

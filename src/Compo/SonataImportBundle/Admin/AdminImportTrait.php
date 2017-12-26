@@ -13,10 +13,10 @@ trait AdminImportTrait{
         $collection->add('import', 'import', [
             '_controller' => 'CompoSonataImportBundle:Default:index'
         ]);
-        $collection->add('upload', '{id}/upload', [
+        $collection->add('upload', '{import_id}/upload', [
             '_controller' => 'CompoSonataImportBundle:Default:upload'
         ]);
-        $collection->add('importStatus', '{id}/upload/status', [
+        $collection->add('importStatus', '{import_id}/upload/status', [
             '_controller' => 'CompoSonataImportBundle:Default:importStatus'
         ]);
     }

@@ -59,6 +59,14 @@ services:
         tags:
             - { name: sonata.block }
 
+
+    sonata.exporter.writer.xls:
+        class: Compo\CoreBundle\Exporter\Writer\XmlExcelWriter
+        arguments: ["%sonata.exporter.writer.xls.filename%", "%sonata.exporter.writer.xls.show_headers%"]
+        tags:
+            - { name: sonata.exporter.writer }
+
+
 doctrine:
     # ...
     orm:
@@ -80,7 +88,7 @@ compo_sonata_import:
         - { name: choice, class: doctrs.type.entity}
     upload_dir: '%kernel.root_dir%/../web/uploads/import'
     class_loaders:
-        - { name: XLS, class: Compo\SonataImportBundle\Loaders\XlsFileLoader}
+        - { name: XLSX, class: Compo\SonataImportBundle\Loaders\XlsxFileLoader}
         - { name: CSV, class: Compo\SonataImportBundle\Loaders\CsvFileLoader}
 
     encode:
