@@ -138,10 +138,14 @@ class SonataImportCommand extends ContainerAwareCommand{
 
                 foreach ($exportFields as $key => $name) {
 
+
                     if (!isset($data[$key])) {
                         $transLabel = $instance->getExportTranslationLabel($key, $name);
 
-                        if (isset($data[$transLabel])) {
+
+
+
+                        if (array_key_exists($transLabel, $data)) {
                             $data_key = $transLabel;
                         } else {
                             continue;
@@ -209,10 +213,17 @@ class SonataImportCommand extends ContainerAwareCommand{
 
                         }
 
-                        $value = $this->setValue($entity, $value, $oldValue, $formBuilder, $instance);
+                        $field = $formBuilder->get($name);
+                        $value = $this->setValue($entity, $value, $oldValue, $field, $instance);
                         $method = $this->getSetMethod($name);
 
-                        if (is_string($value)) {
+
+                        if (is_string($value) || is_null($value)) {
+                            if ($method == 'setSlug' && $value == '') {
+                                $value = null;
+                                $entity->$method($value);
+                            }
+
                             if ($value != $oldValue) {
                                 $entity->$method($value);
                             }
@@ -458,6 +469,11 @@ class SonataImportCommand extends ContainerAwareCommand{
             $value = (int)$value;
         }
 
+
+
+        if ($type === 'decimal') {
+            $value = number_format($value, 2,'.', '');
+        }
         if ($type === 'many_to_many') {
             $repo = $admin->getConfigurationPool()->getContainer()->get('doctrine')->getManager()
                 ->getRepository($fieldDescription->getOption('class'));
