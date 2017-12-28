@@ -283,8 +283,6 @@ class SonataImportCommand extends ContainerAwareCommand{
 
                         if (!$isDryRun) {
                             $this->em->flush($entity);
-                        } else {
-                            $uow->detach($entity);
                         }
 
                     } else {
@@ -304,10 +302,6 @@ class SonataImportCommand extends ContainerAwareCommand{
                                 $this->em->persist($entity);
                                 $this->em->flush($entity);
                                 $log->setForeignId($entity->$idMethod());
-
-
-                            } else {
-                                $uow->detach($entity);
                             }
 
                         } else {
@@ -345,11 +339,10 @@ class SonataImportCommand extends ContainerAwareCommand{
 
                     }
 
+                    $uow->detach($entity);
 
                     $log->setChanges($changes);
-
                 } else {
-
                     $log->setMessage(json_encode($errors));
                     $log->setStatus(ImportLog::STATUS_ERROR);
                 }
