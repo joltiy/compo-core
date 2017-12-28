@@ -336,7 +336,6 @@ class SonataImportCommand extends ContainerAwareCommand{
                             'old' => $oldValueRawArray[$getScheduledCollectionUpdatesMapping['fieldName']],
                             'new' => $valueRawArray[$getScheduledCollectionUpdatesMapping['fieldName']]
                         );
-
                     }
 
                     $uow->detach($entity);
