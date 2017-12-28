@@ -178,7 +178,7 @@ class MenuItemAdmin extends AbstractAdmin
                         'manufacture' => array('manufacture'),
                     ),
                     'placeholder' => 'Укажите тип',
-                    'required' => true,
+                    'required' => false,
                 )
             );
 
