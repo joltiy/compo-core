@@ -88,7 +88,7 @@ class SonataImportCommand extends ContainerAwareCommand{
             $meta = $this->em->getClassMetadata($entityClass);
             $identifier = $meta->getSingleIdentifierFieldName();
             $exportFields = $instance->getExportFields();
-            $form = $instance->getFormBuilder();
+            //$form = $instance->getFormBuilder();
 
             $firstLine = array();
 
@@ -138,10 +138,14 @@ class SonataImportCommand extends ContainerAwareCommand{
 
                 foreach ($exportFields as $key => $name) {
 
+
                     if (!isset($data[$key])) {
                         $transLabel = $instance->getExportTranslationLabel($key, $name);
 
-                        if (isset($data[$transLabel])) {
+
+
+
+                        if (array_key_exists($transLabel, $data)) {
                             $data_key = $transLabel;
                         } else {
                             continue;
@@ -175,14 +179,14 @@ class SonataImportCommand extends ContainerAwareCommand{
                      * Поля форм не всегда соответствуют тому, что есть на сайте, и что в админке
                      * Поэтому если поле не указано в админке, то просто пропускаем его
                      */
-                    if (!$form->has($name)) {
+                    //if (!$form->has($name)) {
 
                         //continue;
-                    }
+                    //}
 
 
-                    $formBuilder = $form->get($name);
 
+                    $formBuilder = $instance->getFormBuilder();
 
                     /**
                      * Многие делают ошибки в стандартной кодировке,
@@ -209,10 +213,17 @@ class SonataImportCommand extends ContainerAwareCommand{
 
                         }
 
-                        $value = $this->setValue($entity, $value, $oldValue, $formBuilder, $instance);
+                        $field = $formBuilder->get($name);
+                        $value = $this->setValue($entity, $value, $oldValue, $field, $instance);
                         $method = $this->getSetMethod($name);
 
-                        if (is_string($value)) {
+
+                        if (is_string($value) || is_null($value)) {
+                            if ($method == 'setSlug' && $value == '') {
+                                $value = null;
+                                $entity->$method($value);
+                            }
+
                             if ($value != $oldValue) {
                                 $entity->$method($value);
                             }
@@ -272,8 +283,6 @@ class SonataImportCommand extends ContainerAwareCommand{
 
                         if (!$isDryRun) {
                             $this->em->flush($entity);
-                        } else {
-                            $uow->detach($entity);
                         }
 
                     } else {
@@ -293,10 +302,6 @@ class SonataImportCommand extends ContainerAwareCommand{
                                 $this->em->persist($entity);
                                 $this->em->flush($entity);
                                 $log->setForeignId($entity->$idMethod());
-
-
-                            } else {
-                                $uow->detach($entity);
                             }
 
                         } else {
@@ -331,14 +336,12 @@ class SonataImportCommand extends ContainerAwareCommand{
                             'old' => $oldValueRawArray[$getScheduledCollectionUpdatesMapping['fieldName']],
                             'new' => $valueRawArray[$getScheduledCollectionUpdatesMapping['fieldName']]
                         );
-
                     }
 
+                    $uow->detach($entity);
 
                     $log->setChanges($changes);
-
                 } else {
-
                     $log->setMessage(json_encode($errors));
                     $log->setStatus(ImportLog::STATUS_ERROR);
                 }
@@ -378,7 +381,7 @@ class SonataImportCommand extends ContainerAwareCommand{
         return $method . str_replace(' ', '', ucfirst(join('', explode('_', $name))));
     }
 
-    protected function setValue($subject, $value, $oldValue, FormBuilderInterface $fieldDescription, AbstractAdmin $admin){
+    protected function setValue($subject, $value, $oldValue, $fieldDescription, AbstractAdmin $admin){
 
 
         $mappings = $this->getContainer()->getParameter('compo_sonata_import.mappings');
@@ -458,6 +461,11 @@ class SonataImportCommand extends ContainerAwareCommand{
             $value = (int)$value;
         }
 
+
+
+        if ($type === 'decimal') {
+            $value = number_format($value, 2,'.', '');
+        }
         if ($type === 'many_to_many') {
             $repo = $admin->getConfigurationPool()->getContainer()->get('doctrine')->getManager()
                 ->getRepository($fieldDescription->getOption('class'));

@@ -4,6 +4,7 @@ sonata_core:
 sonata_exporter:
     exporter:
         default_writers:
+            - xlsx
             - csv
             - xls
             - xml

@@ -161,6 +161,10 @@ trait SeoEntity
      */
     public function setSlug($slug)
     {
+        if ($slug == '') {
+            $slug = null;
+        }
+
         $this->slug = $slug;
     }
 }

@@ -14,7 +14,7 @@ class DefaultRepository extends EntityRepository{
         $sql = $this->createQueryBuilder('data');
         $sql->select('data');
         $sql->andWhere('data.uploadFile = :uploadFile');
-        $sql->setParameter('uploadFile', $request->get('id'));
+        $sql->setParameter('uploadFile', $request->get('import_id'));
 
 
         switch($request->get('type', 'all')){
