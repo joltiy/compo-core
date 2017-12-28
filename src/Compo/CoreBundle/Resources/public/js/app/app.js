@@ -34,7 +34,7 @@
                 }
             });
         }])
-        .directive("formOnChange", function($parse){
+        .directive("formOnChange", ['$parse', function($parse){
             return {
                 require: "form",
                 link: function(scope, element, attrs){
@@ -44,8 +44,7 @@
                     });
                 }
             }
-        });
-
+        }])
     ;
 
 })();
