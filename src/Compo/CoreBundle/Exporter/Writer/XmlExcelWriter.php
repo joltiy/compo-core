@@ -96,10 +96,21 @@ class XmlExcelWriter implements TypedWriterInterface
      */
     public function write(array $data)
     {
-        $this->init($data);
+        //dump($this->position);
+
+        if (0 == $this->position && $this->showHeaders) {
+
+            $this->init($data);
+
+            $this->position = 2;
+        }
+
+
         foreach ($data as $header => $value) {
+
             $this->setCellValue($this->getColumn($header), $value);
         }
+
         ++$this->position;
     }
     /**
@@ -110,9 +121,6 @@ class XmlExcelWriter implements TypedWriterInterface
      */
     protected function init($data)
     {
-        if ($this->position > 1) {
-            return;
-        }
         $i = 0;
         foreach ($data as $header => $value) {
             $column = self::formatColumnName($i);
