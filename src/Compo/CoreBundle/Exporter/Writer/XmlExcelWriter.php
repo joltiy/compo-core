@@ -110,7 +110,7 @@ class XmlExcelWriter implements TypedWriterInterface
      */
     protected function init($data)
     {
-        if ($this->position > 2) {
+        if ($this->position > 1) {
             return;
         }
         $i = 0;
