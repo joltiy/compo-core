@@ -103,7 +103,9 @@ task(
 
         $parametrs = get('parameters');
 
-        $exportDatabasePath = $databasePath . '/' . $parametrs['database_name'] . '.sql';
+        $filename = $parametrs['database_name'] . '_' . date('YmdHis') . '.sql';
+
+        $exportDatabasePath = $databasePath . '/' . $filename;
 
         run('mysqldump -u ' . $parametrs['database_user'] . ' ' . $parametrs['database_name'] . ' > ' . $exportDatabasePath);
 
@@ -112,9 +114,11 @@ task(
         $varDir = $projectDir . '/var/database';
         runLocally('mkdir -p ' . $varDir);
 
-        $localDatabasePath = $varDir . '/' . $parametrs['database_name'] . '.sql';
+        $localDatabasePath = $varDir . '/' . $filename;
 
         download($exportDatabasePath, $localDatabasePath);
+
+        run('rm -rf ' . $exportDatabasePath);
 
         runLocally('cd ' . $projectDir . ' && ' . ' php bin/console doctrine:database:drop --if-exists --force --quiet --no-interaction --no-debug');
         runLocally('cd ' . $projectDir . ' && ' . ' php bin/console doctrine:database:create --if-not-exists');
@@ -132,13 +136,15 @@ task(
                 'timeout' => 6800,
             )
         );
+
+        runLocally('rm -rf ' . $localDatabasePath);
     }
 )->desc('database:sync-from-remote');
 
 task(
     'database:backup',
     function () {
-        $databasePath = '{{deploy_path}}/current/var/database';
+        $databasePath = '{{deploy_path}}/backup/database';
         // mysqldump -u [username] -p [database name] > [database name].sql
 
         run('mkdir -p ' . $databasePath);
@@ -147,9 +153,12 @@ task(
 
         $exportDatabasePath = $databasePath . '/' . $parametrs['database_name'] . '_' . date('YmdHis') . '.sql';
 
+
         run('mysqldump -u ' . $parametrs['database_user'] . ' ' . $parametrs['database_name'] . ' > ' . $exportDatabasePath);
+
+        run('cd ' . $databasePath . ' && ls -d1 * > /tmp/file; for i in `sed \'1,5d\' /tmp/file`; do rm -rf "$i"; done');
     }
-)->desc('database:sync-from-remote');
+)->desc('database:backup');
 
 task(
     'database:sync-to-remote',
@@ -160,13 +169,17 @@ task(
 
         $parameters = Yaml::parse(file_get_contents($projectDir . '/app/config/parameters.yml'));
 
-        $exportDatabasePath = $varDir . '/' . $parameters['parameters']['database_name'] . '.sql';
+        $filename = $parameters['parameters']['database_name'] . '_' . date('YmdHis') . '.sql';
+
+        $exportDatabasePath = $varDir . '/' . $filename;
 
         runLocally('mysqldump -u ' . $parameters['parameters']['database_user'] . ' ' . $parameters['parameters']['database_name'] . ' > ' . $exportDatabasePath);
 
         run('mkdir -p {{release_path}}/var/database/');
 
         upload($exportDatabasePath, '{{release_path}}/var/database/' . $parameters['parameters']['database_name'] . '.sql');
+
+        runLocally('rm -rf ' . $exportDatabasePath);
 
         run('cd {{release_path}} && ' . ' php bin/console doctrine:database:drop --if-exists --force --quiet --no-interaction --no-debug');
         run('cd {{release_path}} && ' . ' php bin/console doctrine:database:create --if-not-exists');
@@ -178,8 +191,11 @@ task(
             . ' mysql --user=' . $parametrs['database_user'] . ' --password=' . $parametrs['database_password']
             . ' ' . $parametrs['database_name']
             . ' < '
-            . '{{release_path}}/var/database/' . $parameters['parameters']['database_name'] . '.sql'
+            . '{{release_path}}/var/database/' . $filename
         );
+
+        run('rm -rf ' . '{{release_path}}/var/database/' . $filename);
+
     }
 )->desc('database:sync-to-remote');
 
