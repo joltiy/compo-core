@@ -32,7 +32,7 @@ framework:
         save_path: '%kernel.project_dir%/var/sessions/'
         cookie_domain: "%cookie_domain%"
         cookie_lifetime:  217728000
-        cookie_httponly:  false
+        cookie_httponly:  true
 
     fragments:       ~
     http_method_override: true
