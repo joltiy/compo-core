@@ -144,7 +144,7 @@ task(
 task(
     'database:backup',
     function () {
-        $databasePath = '{{deploy_path}}/backup/database';
+        $databasePath = '{{deploy_path}}/current/var/database';
         // mysqldump -u [username] -p [database name] > [database name].sql
 
         run('mkdir -p ' . $databasePath);
@@ -153,10 +153,7 @@ task(
 
         $exportDatabasePath = $databasePath . '/' . $parametrs['database_name'] . '_' . date('YmdHis') . '.sql';
 
-
         run('mysqldump -u ' . $parametrs['database_user'] . ' ' . $parametrs['database_name'] . ' > ' . $exportDatabasePath);
-
-        run('cd ' . $databasePath . ' && ls -d1 * > /tmp/file; for i in `sed \'1,5d\' /tmp/file`; do rm -rf "$i"; done');
     }
 )->desc('database:backup');
 
