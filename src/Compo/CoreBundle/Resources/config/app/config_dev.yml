@@ -44,7 +44,10 @@ monolog:
         #    level:  info
 
 #swiftmailer:
-#    delivery_address: me@example.com
+#  mailers:
+#    mailer:
+#      spool: ~
+#      delivery_addresses: ['root@localhost']
 
 assetic:
     workers:
