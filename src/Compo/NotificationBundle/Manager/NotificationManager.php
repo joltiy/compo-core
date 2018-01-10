@@ -78,8 +78,8 @@ class NotificationManager
     public function getEmailTransport()
     {
         return array(
-            'smtp' => 'SMTP',
-            'sendmail' => 'SendMail',
+            'SMTP' => 'smtp',
+            'SendMail' => 'sendmail',
         );
     }
 
@@ -99,8 +99,8 @@ class NotificationManager
     public function getEmailEncryption()
     {
         return array(
-            'tls' => 'TLS',
-            'ssl' => 'SSL',
+            'TLS' => 'tls',
+            'SSL' => 'ssl',
         );
     }
 
@@ -110,9 +110,9 @@ class NotificationManager
     public function getEmailAuthMode()
     {
         return array(
-            'plain' => 'Plain',
-            'login' => 'Login',
-            'cram-md5' => 'Cram-MD5',
+            'Plain' => 'plain',
+            'Login' => 'login',
+            'Cram-MD5' => 'cram-md5',
         );
     }
 
@@ -181,15 +181,13 @@ class NotificationManager
         foreach ($notifications as $notification) {
             $recipients = $this->prepareEmails($notification->getRecipient(), $vars);
 
-            $mailer = $this->getContainer()->get('mailer');
 
             foreach ($recipients as $email) {
                 if (!$email) {
                     continue;
                 }
 
-                /** @var \Swift_Message $message */
-                $message = $mailer->createMessage();
+
 
                 $subject = $this->renderTemplate($notification->getSubject(), $vars);
                 $body = $this->renderTemplate($notification->getBody(), $vars);
@@ -200,20 +198,26 @@ class NotificationManager
                     $sender = $this->getDefaultSender();
                 }
 
-                if ('smtp' === $sender->getTransport()) {
+                $from = $sender->getUsername();
+
+                if ('smtp' === strtolower($sender->getTransport())) {
                     $transport = (new \Swift_SmtpTransport($sender->getHostname(), $sender->getPort()))
                         ->setUsername($sender->getUsername())
                         ->setPassword($sender->getPassword());
-                    $transport->setAuthMode($sender->getAuthMode());
-                    $transport->setEncryption($sender->getEncryption());
+                    $transport->setAuthMode(strtolower($sender->getAuthMode()));
+                    $transport->setEncryption(strtolower($sender->getEncryption()));
+                    $mailer = new \Swift_Mailer($transport);
                 } else {
-                    $transport = new \Swift_SendmailTransport();
+                    //$transport = new \Swift_SendmailTransport();
+                    $mailer = $this->getContainer()->get('mailer');
                 }
 
-                $mailer = new \Swift_Mailer($transport);
+
+                /** @var \Swift_Message $message */
+                $message = $mailer->createMessage();
 
                 $message->setSubject($subject)
-                    ->setFrom($sender->getUsername(), $sender->getName())
+                    ->setFrom($from, $sender->getName())
                     ->setTo($email)
                     ->setBody($body, 'text/html');
 
