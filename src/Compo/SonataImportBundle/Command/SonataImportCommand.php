@@ -294,9 +294,7 @@ class SonataImportCommand extends ContainerAwareCommand
                         }
                     }
 
-                    /**
-                     * @var \Doctrine\ORM\PersistentCollection
-                     */
+                    /** @var \Doctrine\ORM\PersistentCollection $getScheduledCollectionUpdates */
                     foreach ($getScheduledCollectionUpdates as $getScheduledCollectionUpdatesKey => $getScheduledCollectionUpdatesValue) {
                         $getScheduledCollectionUpdatesMapping = $getScheduledCollectionUpdatesValue->getMapping();
 
