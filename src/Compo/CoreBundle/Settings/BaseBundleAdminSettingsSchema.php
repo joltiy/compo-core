@@ -63,9 +63,9 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
     /**
      * @param $formMapper
      *
-     * @return mixed
-     *
      * @throws \Exception
+     *
+     * @return mixed
      */
     public function getMediaBuilder($formMapper)
     {
@@ -76,30 +76,30 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
         $fieldDescription = $this->getMediaAdmin()->getModelManager()->getNewFieldDescriptionInstance(
             $this->mediaAdmin->getClass(),
             'media',
-            array(
+            [
                 'translation_domain' => 'SonataMediaBundle',
-            )
+            ]
         );
         $fieldDescription->setAssociationAdmin($this->getMediaAdmin());
         $fieldDescription->setAdmin($admin);
         $fieldDescription->setOption('edit', 'list');
         $fieldDescription->setAssociationMapping(
-            array(
+            [
                 'fieldName' => 'media',
                 'type' => ClassMetadataInfo::MANY_TO_ONE,
-            )
+            ]
         );
 
         return $formMapper->add(
             'mediaId',
             'sonata_type_model_list',
-            array(
+            [
                 'sonata_field_description' => $fieldDescription,
                 'class' => $this->getMediaAdmin()->getClass(),
                 'model_manager' => $this->getMediaAdmin()->getModelManager(),
                 'label' => 'form.label_media',
                 'required' => false,
-            )
+            ]
         );
     }
 
@@ -120,9 +120,9 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
     }
 
     /**
-     * @return \Compo\Sonata\MediaBundle\Admin\MediaAdmin|object
-     *
      * @throws \Exception
+     *
+     * @return \Compo\Sonata\MediaBundle\Admin\MediaAdmin|object
      */
     public function getMediaAdmin()
     {
@@ -134,9 +134,9 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
     }
 
     /**
-     * @return \Doctrine\Bundle\DoctrineBundle\Registry|object
-     *
      * @throws \Exception
+     *
+     * @return \Doctrine\Bundle\DoctrineBundle\Registry|object
      */
     public function getDoctrine()
     {
@@ -158,7 +158,7 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
      */
     public function getDefaultSettings()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -196,10 +196,10 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
         return $this->getFormBuilder()->create(
             'tab_label_settings_' . $name,
             TabType::class,
-            array(
+            [
                 'label' => 'tab.label_settings_' . $name,
                 'inherit_data' => true,
-            )
+            ]
         );
     }
 
@@ -231,22 +231,22 @@ class BaseBundleAdminSettingsSchema implements SchemaInterface
         $this->getSettingsBuilder()->setDefaults($items);
 
         foreach ($items as $item_name => $types) {
-            $this->getSettingsBuilder()->addAllowedTypes($item_name, array('null', 'boolean', 'integer', 'object', 'string', 'array'));
+            $this->getSettingsBuilder()->addAllowedTypes($item_name, ['null', 'boolean', 'integer', 'object', 'string', 'array']);
         }
     }
 
     /**
-     * @return array
-     *
      * @throws \Exception
+     *
+     * @return array
      */
     public function getDefaultOptions()
     {
-        return array(
+        return [
             'action' => $this->getContainer()->get('router')->generate($this->getBaseRouteName() . '_settings') . '?',
             'label_format' => 'form.label_settings_%name%',
             'translation_domain' => $this->getTranslationDomain(),
-        );
+        ];
     }
 
     /**

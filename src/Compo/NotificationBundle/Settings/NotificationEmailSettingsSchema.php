@@ -17,11 +17,11 @@ class NotificationEmailSettingsSchema extends BaseBundleAdminSettingsSchema
      */
     public function getDefaultSettings()
     {
-        return array(
+        return [
             'notification_email_account_default' => $this->getNotificationEmailAccountRepository()->getDefaultId(),
             'notification_email_recipient_default' => '',
             'footer_contacts' => '',
-        );
+        ];
     }
 
     /**
@@ -42,9 +42,9 @@ class NotificationEmailSettingsSchema extends BaseBundleAdminSettingsSchema
         $tab->add(
             'notification_email_account_default',
             ChoiceType::class,
-            array(
+            [
                 'choices' => $this->getNotificationEmailAccountRepository()->getChoices(),
-            )
+            ]
         );
 
         $tab->add('notification_email_recipient_default', TextType::class);

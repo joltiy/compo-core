@@ -21,11 +21,11 @@ class HelpType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'mapped' => false,
                 'template' => '',
                 'required' => false,
-            )
+            ]
         );
     }
 
@@ -41,7 +41,7 @@ class HelpType extends AbstractType
                         $value = $options['template'];
                     }
 
-                    if (0 === strpos($value, 'Compo')) {
+                    if (0 === mb_strpos($value, 'Compo')) {
                         return $this->getContainer()->get('twig')->render($options['template']);
                     }
 

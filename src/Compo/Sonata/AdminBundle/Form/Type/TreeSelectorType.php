@@ -28,7 +28,7 @@ class TreeSelectorType extends ModelType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $options = array();
+        $options = [];
         $propertyAccessor = $this->propertyAccessor;
         if (interface_exists('Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface')) { // SF2.7+
             $options['choice_loader'] = function (Options $options, $previousValue) use ($propertyAccessor) {
@@ -70,7 +70,7 @@ class TreeSelectorType extends ModelType
         $resolver->setDefaults(
             array_merge(
                 $options,
-                array(
+                [
                     'compound' => function (Options $options) {
                         if (isset($options['multiple']) && $options['multiple']) {
                             if (isset($options['expanded']) && $options['expanded']) {
@@ -98,8 +98,8 @@ class TreeSelectorType extends ModelType
                     'class' => null,
                     'property' => null,
                     'query' => null,
-                    'choices' => array(),
-                    'preferred_choices' => array(),
+                    'choices' => [],
+                    'preferred_choices' => [],
                     'btn_add' => 'link_add',
                     'btn_list' => 'link_list',
                     'btn_delete' => 'link_delete',
@@ -107,7 +107,7 @@ class TreeSelectorType extends ModelType
 
                     'tree' => null,
                     'current' => null,
-                )
+                ]
             )
         );
     }
@@ -121,7 +121,7 @@ class TreeSelectorType extends ModelType
     {
         $tree = $options['tree'];
 
-        $choices = array();
+        $choices = [];
 
         foreach ($tree as $item) {
             if ($options['current'] && $options['current']->getId() === $item->getId()) {

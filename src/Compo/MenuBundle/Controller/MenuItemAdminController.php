@@ -20,7 +20,7 @@ class MenuItemAdminController extends CRUDController
         $repo->recover();
         $em->flush();
 
-        $node = $repo->findOneBy(array('menu' => $request->get('id')));
+        $node = $repo->findOneBy(['menu' => $request->get('id')]);
         $tree = $repo->childrenHierarchyWithNodes($node);
 
         return $tree;

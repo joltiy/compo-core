@@ -22,26 +22,26 @@ class AdminSettingsSchema extends BaseBundleAdminSettingsSchema
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'action' => $this->getContainer()->get('router')->generate($this->getBaseRouteName() . '_update') . '?',
                 'label_format' => 'form.label_settings_%name%',
                 'translation_domain' => $this->getTranslationDomain(),
-            )
+            ]
         );
     }
 
     /**
-     * @return array
-     *
      * @throws \Exception
+     *
+     * @return array
      */
     public function getDefaultOptions()
     {
-        return array(
+        return [
             'action' => $this->getContainer()->get('router')->generate('compo_core_update') . '?',
             'label_format' => 'form.label_settings_%name%',
             'translation_domain' => $this->getTranslationDomain(),
-        );
+        ];
     }
 
     /**
@@ -60,7 +60,7 @@ class AdminSettingsSchema extends BaseBundleAdminSettingsSchema
      */
     public function getDefaultSettings()
     {
-        $options = array(
+        $options = [
             'email' => 'info@example.com',
             'header_menu' => null,
             'header_search_placeholder' => 'Поиск среди 100 000 предложений',
@@ -90,7 +90,7 @@ class AdminSettingsSchema extends BaseBundleAdminSettingsSchema
 </div>',
 
             'logo_image' => null,
-        );
+        ];
 
         return $options;
     }
@@ -105,28 +105,28 @@ class AdminSettingsSchema extends BaseBundleAdminSettingsSchema
         $main_tab = $builder->create(
             'main_tab',
             TabType::class,
-            array(
+            [
                 'label' => 'settings.main_tab',
                 'inherit_data' => true,
-            )
+            ]
         );
         $main_tab->add('email', EmailType::class);
 
         $header_tab = $builder->create(
             'header_tab',
             TabType::class,
-            array(
+            [
                 'label' => 'settings.header_tab',
                 'inherit_data' => true,
-            )
+            ]
         );
 
         $header_tab->add(
             'header_menu',
             ChoiceType::class,
-            array(
+            [
                 'choices' => $this->getMenuRepository()->getChoices(),
-            )
+            ]
         );
 
         $header_tab->add('header_search_placeholder', TextType::class);
@@ -138,18 +138,18 @@ class AdminSettingsSchema extends BaseBundleAdminSettingsSchema
         $footer_tab = $builder->create(
             'footer_tab',
             TabType::class,
-            array(
+            [
                 'label' => 'settings.footer_tab',
                 'inherit_data' => true,
-            )
+            ]
         );
 
         $footer_tab->add(
             'footer_menu',
             ChoiceType::class,
-            array(
+            [
                 'choices' => $this->getMenuRepository()->getChoices(),
-            )
+            ]
         );
 
         $footer_tab->add('footer_copyright', CKEditorType::class);
@@ -159,20 +159,20 @@ class AdminSettingsSchema extends BaseBundleAdminSettingsSchema
         $logo_tab = $builder->create(
             'logo_tab',
             TabType::class,
-            array(
+            [
                 'label' => 'settings.logo_tab',
                 'inherit_data' => true,
-            )
+            ]
         );
 
         $logo_tab->add(
             'logo_image',
             MediaType::class,
-            array(
+            [
                 'required' => false,
                 'context' => 'default',
                 'provider' => 'sonata.media.provider.image',
-            )
+            ]
         );
 
         $builder
@@ -188,9 +188,9 @@ class AdminSettingsSchema extends BaseBundleAdminSettingsSchema
                     $mediaManager = $container->get('sonata.media.manager.media');
 
                     return $mediaManager->find($id);
-                } else {
-                    return new Media();
                 }
+
+                return new Media();
             },
             function ($media) {
                 /** @var $media Media */
@@ -201,9 +201,9 @@ class AdminSettingsSchema extends BaseBundleAdminSettingsSchema
                     $mediaManager->save($media);
 
                     return $media->getId();
-                } else {
-                    return null;
                 }
+
+                return null;
             }
         );
 
@@ -211,9 +211,9 @@ class AdminSettingsSchema extends BaseBundleAdminSettingsSchema
     }
 
     /**
-     * @return MenuRepository
-     *
      * @throws \Exception
+     *
+     * @return MenuRepository
      */
     public function getMenuRepository()
     {
@@ -221,9 +221,9 @@ class AdminSettingsSchema extends BaseBundleAdminSettingsSchema
     }
 
     /**
-     * @return \Doctrine\Bundle\DoctrineBundle\Registry|object
-     *
      * @throws \Exception
+     *
+     * @return \Doctrine\Bundle\DoctrineBundle\Registry|object
      */
     public function getDoctrine()
     {

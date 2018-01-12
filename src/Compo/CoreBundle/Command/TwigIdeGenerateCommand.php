@@ -33,7 +33,7 @@ class TwigIdeGenerateCommand extends ContainerAwareCommand
         $finder = new Finder();
         $themesDirs = $finder->directories()->in($themesDir)->depth('== 0');
 
-        $ideTwigItems = array();
+        $ideTwigItems = [];
 
         /** @var SplFileInfo $themesDirsItem */
         foreach ($themesDirs as $themesDirsItem) {
@@ -44,17 +44,17 @@ class TwigIdeGenerateCommand extends ContainerAwareCommand
             /** @var SplFileInfo $bundlesItem */
             foreach ($bundles as $bundlesItem) {
                 //dump($bundlesItem->getRealPath());
-                $ideTwigItems[] = array(
+                $ideTwigItems[] = [
                     'namespace' => $bundlesItem->getBasename(),
                     'path' => 'app/themes/' . $themesDirsItem->getBasename() . '/' . $bundlesItem->getBasename() . '/views',
                     'type' => 'Bundle',
-                );
+                ];
             }
         }
 
-        $ideTwig = array(
+        $ideTwig = [
             'namespaces' => $ideTwigItems,
-        );
+        ];
 
         $fs = new Filesystem();
 

@@ -65,7 +65,7 @@ class LegacyConvertImageCommand extends ContainerAwareCommand
 
         $cache_dir = $kernel->getCacheDir();
 
-        if (false === strpos($path, 'http')) {
+        if (false === mb_strpos($path, 'http')) {
             $file_path = $path;
 
             if (!file_exists($file_path)) {

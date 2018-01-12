@@ -45,7 +45,7 @@ final class ResourceLocator implements ResourceLocatorInterface
      */
     public function locateResource($resourcePath, ThemeInterface $theme)
     {
-        if (0 === strpos($resourcePath, '@')) {
+        if (0 === mb_strpos($resourcePath, '@')) {
             return $this->bundleResourceLocator->locateResource($resourcePath, $theme);
         }
 

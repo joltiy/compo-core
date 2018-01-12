@@ -2,16 +2,14 @@
 
 namespace Compo\SonataImportBundle\Command;
 
+use Compo\SonataImportBundle\Entity\ImportLog;
+use Compo\SonataImportBundle\Entity\UploadFile;
+use Compo\SonataImportBundle\Loaders\FileLoaderInterface;
+use Compo\SonataImportBundle\Service\ImportInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\ORMException;
-use Compo\SonataImportBundle\Entity\UploadFile;
-use Compo\SonataImportBundle\Entity\ImportLog;
-use Compo\SonataImportBundle\Loaders\CsvFileLoader;
-use Compo\SonataImportBundle\Loaders\FileLoaderInterface;
-use Compo\SonataImportBundle\Service\ImportInterface;
-use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -20,15 +18,15 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\File\File;
 
-class SonataImportCommand extends ContainerAwareCommand{
-
-    /** @var EntityManager $this->em  */
+class SonataImportCommand extends ContainerAwareCommand
+{
+    /** @var EntityManager $this->em */
     protected $em;
 
-    protected function configure() {
+    protected function configure()
+    {
         $this
             ->setName('compo:sonata:import')
             ->setDescription('Import data to sonata from CSV')
@@ -45,15 +43,14 @@ class SonataImportCommand extends ContainerAwareCommand{
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) {
-
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
         $isDryRun = $input->getOption('dry-run');
-
 
         $this->em = $this->getContainer()->get('doctrine')->getManager();
         $uploadFileId = $input->getArgument('csv_file');
         $adminCode = $input->getArgument('admin_code');
-        $encode = strtolower($input->getArgument('encode'));
+        $encode = mb_strtolower($input->getArgument('encode'));
         $fileLoaderId = $input->getArgument('file_loader');
 
         /** @var UploadFile $uploadFile */
@@ -63,20 +60,21 @@ class SonataImportCommand extends ContainerAwareCommand{
             $fileLoaders[$fileLoaderId]['class'] :
             null;
 
-        if(!class_exists($fileLoader)){
+        if (!class_exists($fileLoader)) {
             $uploadFile->setStatus(UploadFile::STATUS_ERROR);
             $uploadFile->setMessage('class_loader not found');
             $this->em->flush($uploadFile);
+
             return;
         }
         $fileLoader = new $fileLoader();
-        if(!$fileLoader instanceof FileLoaderInterface){
+        if (!$fileLoader instanceof FileLoaderInterface) {
             $uploadFile->setStatus(UploadFile::STATUS_ERROR);
             $uploadFile->setMessage('class_loader must be instanceof "FileLoaderInterface"');
             $this->em->flush($uploadFile);
+
             return;
         }
-
 
         try {
             $fileLoader->setFile(new File($uploadFile->getFile()));
@@ -90,32 +88,30 @@ class SonataImportCommand extends ContainerAwareCommand{
             $exportFields = $instance->getExportFields();
             //$form = $instance->getFormBuilder();
 
-            $firstLine = array();
+            $firstLine = [];
 
-            $exportFieldsAsString = array();
+            $exportFieldsAsString = [];
 
             foreach ($exportFields as $exportFieldKey => $exportField) {
-                if (strpos($exportField, 'ExportAsString') !== false) {
+                if (false !== mb_strpos($exportField, 'ExportAsString')) {
                     $exportFieldsAsString[$exportFieldKey] = $exportFieldKey;
                     $exportFields[$exportFieldKey] = str_replace('ExportAsString', '', $exportField);
                 }
             }
 
-
-            if ($uploadFile->getLoaderClass() == 0) {
+            if (0 === $uploadFile->getLoaderClass()) {
                 $iterator = $fileLoader->getRows();
             } else {
                 $iterator = $fileLoader->getIteration();
             }
 
             foreach ($iterator as $line => $dataRaw) {
-
-                if ($line === 0) {
+                if (0 === $line) {
                     $firstLine = $dataRaw;
                     continue;
                 }
 
-                $data = array();
+                $data = [];
 
                 foreach ($firstLine as $columnKey => $columnName) {
                     $data[$columnName] = $dataRaw[$columnKey];
@@ -130,20 +126,13 @@ class SonataImportCommand extends ContainerAwareCommand{
                 $entity = new $entityClass();
                 $errors = [];
 
-
-
-                $changes = array();
-                $oldValueRawArray = array();
-                $newValueRawArray = array();
+                $changes = [];
+                $oldValueRawArray = [];
+                $newValueRawArray = [];
 
                 foreach ($exportFields as $key => $name) {
-
-
                     if (!isset($data[$key])) {
                         $transLabel = $instance->getExportTranslationLabel($key, $name);
-
-
-
 
                         if (array_key_exists($transLabel, $data)) {
                             $data_key = $transLabel;
@@ -154,17 +143,15 @@ class SonataImportCommand extends ContainerAwareCommand{
                         $data_key = $key;
                     }
 
-
                     $valueRaw = $value = isset($data[$data_key]) ? $data[$data_key] : '';
 
                     $newValueRawArray[$name] = $valueRaw;
 
-                    /**
+                    /*
                      * В случае если указан ID (первый столбец)
                      * ищем сущность в базе
                      */
                     if ($name === $identifier) {
-
                         if ($value) {
                             $oldEntity = $instance->getObject($value);
 
@@ -177,25 +164,22 @@ class SonataImportCommand extends ContainerAwareCommand{
 
                     /**
                      * Поля форм не всегда соответствуют тому, что есть на сайте, и что в админке
-                     * Поэтому если поле не указано в админке, то просто пропускаем его
+                     * Поэтому если поле не указано в админке, то просто пропускаем его.
                      */
                     //if (!$form->has($name)) {
 
-                        //continue;
+                    //continue;
                     //}
-
-
 
                     $formBuilder = $instance->getFormBuilder();
 
-                    /**
+                    /*
                      * Многие делают ошибки в стандартной кодировке,
                      * поэтому на всякий случай провверяем оба варианта написания
                      */
-                    if ($encode !== 'utf8' && $encode !== 'utf-8') {
+                    if ('utf8' !== $encode && 'utf-8' !== $encode) {
                         $value = iconv($encode, 'utf8//TRANSLIT', $value);
                     }
-
 
                     try {
                         $getMethod = $this->getSetMethod($name, 'get');
@@ -203,40 +187,34 @@ class SonataImportCommand extends ContainerAwareCommand{
                         $oldValue = $entity->$getMethod();
                         $oldValueRaw = $oldValue;
 
-
-
                         if (isset($exportFieldsAsString[$name])) {
                             $getMethodRaw = $getMethod . 'ExportAsString';
 
                             $oldValueRaw = $entity->$getMethodRaw();
                             $oldValueRawArray[$name] = $oldValueRaw;
-
                         }
 
                         $field = $formBuilder->get($name);
                         $value = $this->setValue($entity, $value, $oldValue, $field, $instance);
                         $method = $this->getSetMethod($name);
 
-
-                        if (is_string($value) || is_null($value)) {
-                            if ($method == 'setSlug' && $value == '') {
+                        if (is_string($value) || null === $value) {
+                            if ('setSlug' === $method && '' === $value) {
                                 $value = null;
                                 $entity->$method($value);
                             }
 
-                            if ($value != $oldValue) {
+                            if ($value !== $oldValue) {
                                 $entity->$method($value);
                             }
                         } else {
                             $entity->$method($value);
                         }
 
-
                         if (isset($exportFieldsAsString[$name])) {
                             $getMethodRaw = $getMethod . 'ExportAsString';
                             $valueRawArray[$name] = $entity->$getMethodRaw();
                         }
-
                     } catch (\Exception $e) {
                         $errors[] = $e->getMessage();
                         break;
@@ -249,8 +227,7 @@ class SonataImportCommand extends ContainerAwareCommand{
                     $log->setForeignId($entity->$idMethod());
                 }
 
-
-                if(!count($errors)) {
+                if (!count($errors)) {
                     $validator = $this->getContainer()->get('validator');
                     $errors = $validator->validate($entity);
                 }
@@ -258,7 +235,7 @@ class SonataImportCommand extends ContainerAwareCommand{
                 if (!count($errors)) {
                     $idMethod = $this->getSetMethod($identifier, 'get');
 
-                    /**
+                    /*
                      * Если у сещности нет ID, то она новая - добавляем ее
                      */
                     if (!$entity->$idMethod()) {
@@ -268,32 +245,27 @@ class SonataImportCommand extends ContainerAwareCommand{
                     }
                     $uow = $this->em->getUnitOfWork();
 
-
                     $uow->computeChangeSets();
 
                     $aChangeSet = $uow->getEntityChangeSet($entity);
-
-
 
                     $getScheduledCollectionUpdates = $uow->getScheduledCollectionUpdates();
 
                     $getScheduledCollectionDeletions = $uow->getScheduledCollectionDeletions();
 
                     if (count($aChangeSet) || count($getScheduledCollectionUpdates) || count($getScheduledCollectionDeletions)) {
-
                         if (!$isDryRun) {
                             $this->em->flush($entity);
                         }
-
                     } else {
                         if (!$entity->$idMethod()) {
                             $log->setStatus(ImportLog::STATUS_SUCCESS);
 
                             foreach ($newValueRawArray as $newValueRawArrayKey => $newValueRawArrayValue) {
-                                $changes[$newValueRawArrayKey] = array(
+                                $changes[$newValueRawArrayKey] = [
                                     'old' => '',
                                     'new' => $newValueRawArrayValue,
-                                );
+                                ];
                             }
 
                             $log->setChanges($changes);
@@ -303,39 +275,36 @@ class SonataImportCommand extends ContainerAwareCommand{
                                 $this->em->flush($entity);
                                 $log->setForeignId($entity->$idMethod());
                             }
-
                         } else {
                             $log->setStatus(ImportLog::STATUS_NOCHANGE);
                         }
                     }
 
-
                     foreach ($aChangeSet as $aChangeSetKey => $aChangeSetValue) {
                         if ($aChangeSetValue[0] instanceof \DateTimeInterface) {
-                            $changes[$aChangeSetKey] = array(
-                                'old' => (string)$aChangeSetValue[0]->format('d.m.Y H:i:s'),
-                                'new' => (string)$aChangeSetValue[1]->format('d.m.Y H:i:s'),
-                            );
+                            $changes[$aChangeSetKey] = [
+                                'old' => (string) $aChangeSetValue[0]->format('d.m.Y H:i:s'),
+                                'new' => (string) $aChangeSetValue[1]->format('d.m.Y H:i:s'),
+                            ];
                         } else {
-                            $changes[$aChangeSetKey] = array(
-                                'old' => (string)$aChangeSetValue[0],
-                                'new' => (string)$aChangeSetValue[1],
-                            );
+                            $changes[$aChangeSetKey] = [
+                                'old' => (string) $aChangeSetValue[0],
+                                'new' => (string) $aChangeSetValue[1],
+                            ];
                         }
                     }
 
-
                     /**
-                     * @var  $getScheduledCollectionUpdatesKey
+                     * @var 
                      * @var \Doctrine\ORM\PersistentCollection $getScheduledCollectionUpdatesValue
                      */
                     foreach ($getScheduledCollectionUpdates as $getScheduledCollectionUpdatesKey => $getScheduledCollectionUpdatesValue) {
                         $getScheduledCollectionUpdatesMapping = $getScheduledCollectionUpdatesValue->getMapping();
 
-                        $changes[$getScheduledCollectionUpdatesMapping['fieldName']] = array(
+                        $changes[$getScheduledCollectionUpdatesMapping['fieldName']] = [
                             'old' => $oldValueRawArray[$getScheduledCollectionUpdatesMapping['fieldName']],
-                            'new' => $valueRawArray[$getScheduledCollectionUpdatesMapping['fieldName']]
-                        );
+                            'new' => $valueRawArray[$getScheduledCollectionUpdatesMapping['fieldName']],
+                        ];
                     }
 
                     $uow->detach($entity);
@@ -352,11 +321,9 @@ class SonataImportCommand extends ContainerAwareCommand{
 
             $uploadFile->setStatus(UploadFile::STATUS_SUCCESS);
             $this->em->flush($uploadFile);
-        } catch(\Exception $e){
-
-
+        } catch (\Exception $e) {
             throw $e;
-            /**
+            /*
              * Данный хак нужен в случае бросания ORMException
              * В случае бросания ORMException entity manager останавливается
              * и его требуется перезагрузить
@@ -375,15 +342,13 @@ class SonataImportCommand extends ContainerAwareCommand{
         }
     }
 
-
-
-    protected function getSetMethod($name, $method = 'set') {
-        return $method . str_replace(' ', '', ucfirst(join('', explode('_', $name))));
+    protected function getSetMethod($name, $method = 'set')
+    {
+        return $method . str_replace(' ', '', ucfirst(implode('', explode('_', $name))));
     }
 
-    protected function setValue($subject, $value, $oldValue, $fieldDescription, AbstractAdmin $admin){
-
-
+    protected function setValue($subject, $value, $oldValue, $fieldDescription, AbstractAdmin $admin)
+    {
         $mappings = $this->getContainer()->getParameter('compo_sonata_import.mappings');
 
         $originalValue = $value;
@@ -391,8 +356,7 @@ class SonataImportCommand extends ContainerAwareCommand{
         $field = $fieldDescription->getName();
         $fieldDescriptionType = $fieldDescription->getType();
 
-
-        if ($fieldDescriptionType->getParent() && $fieldDescriptionType->getParent()->getBlockPrefix() !== 'form') {
+        if ($fieldDescriptionType->getParent() && 'form' !== $fieldDescriptionType->getParent()->getBlockPrefix()) {
             $type = $fieldDescriptionType->getParent()->getBlockPrefix();
         } else {
             $type = $fieldDescriptionType->getBlockPrefix();
@@ -408,12 +372,12 @@ class SonataImportCommand extends ContainerAwareCommand{
             $type = $fieldsMappings[$field]['type'];
         }
 
-        $valueArray = array();
+        $valueArray = [];
 
         if (isset($associationMappings[$field])) {
             $associationMappingsItem = $associationMappings[$field];
 
-            if (ClassMetadataInfo::MANY_TO_MANY == $associationMappingsItem['type']) {
+            if (ClassMetadataInfo::MANY_TO_MANY === $associationMappingsItem['type']) {
                 $valueArray = explode(',', $value);
 
                 foreach ($valueArray as $valueArrayKey => $valueArrayItem) {
@@ -423,65 +387,60 @@ class SonataImportCommand extends ContainerAwareCommand{
                 $type = 'many_to_many';
             }
 
-            if (ClassMetadataInfo::MANY_TO_ONE == $associationMappingsItem['type']) {
-
+            if (ClassMetadataInfo::MANY_TO_ONE === $associationMappingsItem['type']) {
                 $type = 'entity';
             }
         }
 
-
-        /**
+        /*
          * Проверяем кастомные типы форм на наличие в конфиге.
          * В случае совпадения, получаем значение из класса, указанного в конфиге
          */
-        foreach($mappings as $item){
-            if($item['name'] === $type){
-                if($this->getContainer()->has($item['class']) && $this->getContainer()->get($item['class']) instanceof ImportInterface){
+        foreach ($mappings as $item) {
+            if ($item['name'] === $type) {
+                if ($this->getContainer()->has($item['class']) && $this->getContainer()->get($item['class']) instanceof ImportInterface) {
                     /** @var ImportInterface $class */
                     $class = $this->getContainer()->get($item['class']);
+
                     return $class->getFormatValue($value);
                 }
             }
         }
 
-        if ($type === 'date' || $type === 'datetime') {
+        if ('date' === $type || 'datetime' === $type) {
             if ($value) {
                 $value = new \DateTime($value);
-                if ($value == $oldValue) {
+                if ($value === $oldValue) {
                     $value = $oldValue;
                 }
             } else {
                 $value = null;
             }
         }
-        if ($type === 'boolean') {
+        if ('boolean' === $type) {
             $value = filter_var($value, FILTER_VALIDATE_BOOLEAN);
         }
-        if ($type === 'integer') {
-            $value = (int)$value;
+        if ('integer' === $type) {
+            $value = (int) $value;
         }
 
-
-
-        if ($type === 'decimal') {
-            $value = number_format($value, 2,'.', '');
+        if ('decimal' === $type) {
+            $value = number_format($value, 2, '.', '');
         }
-        if ($type === 'many_to_many') {
+        if ('many_to_many' === $type) {
             $repo = $admin->getConfigurationPool()->getContainer()->get('doctrine')->getManager()
                 ->getRepository($fieldDescription->getOption('class'));
 
-            $valueCollection = array();
+            $valueCollection = [];
 
             foreach ($valueArray as $valueItem) {
-                $valueItemObject = $repo->findOneBy(array(
-                    'name' => $valueItem
-                ));
+                $valueItemObject = $repo->findOneBy([
+                    'name' => $valueItem,
+                ]);
 
                 if ($valueItemObject) {
                     $valueCollection[$valueItemObject->getId()] = $valueItemObject;
                 }
-
-
             }
 
             return $valueCollection;
@@ -489,14 +448,14 @@ class SonataImportCommand extends ContainerAwareCommand{
 
         if (
             (
-                $type === 'choice' &&
+                'choice' === $type &&
                 $fieldDescription->getOption('class')
             ) || (
-                $type === 'entity' &&
+                'entity' === $type &&
                 $fieldDescription->getOption('class')
             )
         ) {
-            if(!$value){
+            if (!$value) {
                 return null;
             }
             /** @var \Doctrine\ORM\Mapping\ClassMetadata $metaData */
@@ -504,7 +463,7 @@ class SonataImportCommand extends ContainerAwareCommand{
                 ->getEntityManager($admin->getClass())->getClassMetadata($admin->getClass());
             $associations = $metaData->getAssociationNames();
 
-            if (!in_array($field, $associations)) {
+            if (!in_array($field, $associations, true)) {
                 throw new InvalidArgumentException(
                     sprintf(
                         'Unknown association "%s", association does not exist in entity "%s", available associations are "%s".',
@@ -519,11 +478,11 @@ class SonataImportCommand extends ContainerAwareCommand{
             $repo = $admin->getConfigurationPool()->getContainer()->get('doctrine')->getManager()
                 ->getRepository($fieldDescription->getOption('class'));
 
-            /**
+            /*
              * Если значение число, то пытаемся найти его по ID.
              * Если значение не число, то ищем его по полю name
              */
-            if(false && is_numeric($value)){
+            if (false && is_numeric($value)) {
                 $value = $repo->find($value);
             } else {
                 try {
@@ -536,12 +495,11 @@ class SonataImportCommand extends ContainerAwareCommand{
                     $qb->getQuery()->setQueryCacheLifetime(120);
                     $result = $qb->getQuery()->getResult();
 
-                    if (count($result) == 1) {
+                    if (1 === count($result)) {
                         $value = $result[0];
                     } else {
                         $value = null;
                     }
-
                 } catch (ORMException $e) {
                     throw new InvalidArgumentException('Field name not found');
                 }

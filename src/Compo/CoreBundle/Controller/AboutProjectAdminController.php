@@ -18,14 +18,14 @@ class AboutProjectAdminController extends CRUDController
 
         return $this->render(
             'CompoCoreBundle:Admin:about_project.html.twig',
-            array(
+            [
                 'action' => 'list',
                 'breadcrumbs_builder' => $this->get('sonata.admin.breadcrumbs_builder'),
                 'base_template' => 'CompoSonataAdminBundle::standard_layout_compo.html.twig',
                 'admin' => $admin,
                 'admin_pool' => $admin_pool,
                 'translation_domain' => $this->getAdmin()->getTranslationDomain(),
-            )
+            ]
         );
     }
 }

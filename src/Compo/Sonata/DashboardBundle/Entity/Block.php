@@ -11,9 +11,9 @@
 
 namespace Compo\Sonata\DashboardBundle\Entity;
 
-use Sonata\DashboardBundle\Entity\BaseBlock;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Sonata\DashboardBundle\Entity\BaseBlock;
 
 /**
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
@@ -38,7 +38,6 @@ class Block extends BaseBlock
      * @var string
      *
      * @ORM\Column(type="string", nullable=true, options={"default": "col-lg-6"})
-     *
      */
     protected $cssClass = 'col-lg-6';
 
@@ -51,6 +50,7 @@ class Block extends BaseBlock
     {
         return $this->id;
     }
+
     /**
      * @return string
      */
@@ -62,7 +62,7 @@ class Block extends BaseBlock
     /**
      * @param string $cssClass
      */
-    public function setCssClass( $cssClass)
+    public function setCssClass($cssClass)
     {
         $this->cssClass = $cssClass;
     }

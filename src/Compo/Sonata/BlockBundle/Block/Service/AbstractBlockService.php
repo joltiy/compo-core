@@ -18,12 +18,11 @@ class AbstractBlockService extends BaseAbstractBlockService
 {
     use ContainerAwareTrait;
 
-
-
     /**
      * @return \Doctrine\Common\Persistence\ObjectManager
      */
-    public function getEntityManager() {
+    public function getEntityManager()
+    {
         $container = $this->getContainer();
 
         return $container->get('doctrine')->getManager();
@@ -31,9 +30,11 @@ class AbstractBlockService extends BaseAbstractBlockService
 
     /**
      * @param $entityClass
+     *
      * @return \Sonata\AdminBundle\Admin\AdminInterface
      */
-    public function getAdminByClass($entityClass) {
+    public function getAdminByClass($entityClass)
+    {
         $container = $this->getContainer();
 
         return $container->get('sonata.admin.pool')->getAdminByClass($entityClass);
@@ -41,14 +42,16 @@ class AbstractBlockService extends BaseAbstractBlockService
 
     /**
      * @param $entityClass
+     *
      * @return \Doctrine\Common\Persistence\ObjectRepository
      */
-    public function getRepository($entityClass) {
+    public function getRepository($entityClass)
+    {
         $container = $this->getContainer();
 
         $em = $container->get('doctrine')->getManager();
 
-        /** @var EntityRepository $repository */
+        /* @var EntityRepository $repository */
         return $em->getRepository($entityClass);
     }
 
@@ -95,7 +98,7 @@ class AbstractBlockService extends BaseAbstractBlockService
             /** @var Metadata $blockMetadata */
             $blockMetadata = $this->getBlockMetadata();
 
-            $name = $this->getContainer()->get('translator')->trans($blockMetadata->getTitle(), array(), $blockMetadata->getDomain());
+            $name = $this->getContainer()->get('translator')->trans($blockMetadata->getTitle(), [], $blockMetadata->getDomain());
 
             $object->setName($name);
         }
@@ -119,9 +122,9 @@ class AbstractBlockService extends BaseAbstractBlockService
         $domain = implode('', $domainArray) . 'Bundle';
 
         return new Metadata(
-            'block.title_' . $nameArray[3], $this->getName(), false, $domain, array(
+            'block.title_' . $nameArray[3], $this->getName(), false, $domain, [
                 'class' => 'fa fa-file-text-o',
-            )
+            ]
         );
     }
 
@@ -185,7 +188,7 @@ class AbstractBlockService extends BaseAbstractBlockService
 
         foreach ($settingsKeys as $key => $settingsKeysItem) {
             if (!isset($settingsKeysItem[2])) {
-                $settingsKeysItem[2] = array();
+                $settingsKeysItem[2] = [];
             }
 
             if (!isset($settingsKeysItem[2]['label'])) {
@@ -203,7 +206,7 @@ class AbstractBlockService extends BaseAbstractBlockService
 
         $formMapper->remove('settings');
 
-        $formMapper->add('settings', 'sonata_type_immutable_array', array('keys' => $settingsKeys), array('translation_domain' => $translation_domain));
+        $formMapper->add('settings', 'sonata_type_immutable_array', ['keys' => $settingsKeys], ['translation_domain' => $translation_domain]);
 
         $formMapper->remove('temp');
     }
@@ -235,7 +238,7 @@ class AbstractBlockService extends BaseAbstractBlockService
         $keys['environment'] = $this->getContainer()->get('kernel')->getEnvironment();
 
         if (isset($settings['template'])) {
-            $keys['template'] =  $settings['template'];
+            $keys['template'] = $settings['template'];
         }
 
         if (isset($settings['id'])) {

@@ -39,17 +39,17 @@ class Theme implements ThemeInterface
     /**
      * @var ThemeAuthor[]
      */
-    protected $authors = array();
+    protected $authors = [];
 
     /**
      * @var ThemeInterface[]
      */
-    protected $parents = array();
+    protected $parents = [];
 
     /**
      * @var ThemeScreenshot[]
      */
-    protected $screenshots = array();
+    protected $screenshots = [];
 
     /**
      * @param string $name

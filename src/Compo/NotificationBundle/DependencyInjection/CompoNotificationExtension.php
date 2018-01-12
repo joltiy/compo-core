@@ -26,7 +26,7 @@ class CompoNotificationExtension extends Extension
         $loader->load('services.yml');
 
         $serviceDefintion = $container->getDefinition('compo_notification.manager.notification');
-        $serviceDefintion->addMethodCall('setDefaultEvents', array($config['events']));
+        $serviceDefintion->addMethodCall('setDefaultEvents', [$config['events']]);
     }
 
     /**

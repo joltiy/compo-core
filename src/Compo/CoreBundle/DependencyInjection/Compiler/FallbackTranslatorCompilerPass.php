@@ -23,12 +23,12 @@ class FallbackTranslatorCompilerPass implements CompilerPassInterface
 
         $definition = $container->getDefinition('sonata.admin.audit.orm.reader');
         $definition->setClass(AuditReader::class);
-        $definition->addMethodCall('setContainer', array(new Reference('service_container')));
+        $definition->addMethodCall('setContainer', [new Reference('service_container')]);
 
         $definition = $container->getDefinition('sonata.admin.breadcrumbs_builder');
         $definition->setClass(BreadcrumbsBuilder::class);
 
         $definition = $container->getDefinition('sonata.page.service.default');
-        $definition->addMethodCall('setContainer', array(new Reference('service_container')));
+        $definition->addMethodCall('setContainer', [new Reference('service_container')]);
     }
 }

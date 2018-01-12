@@ -95,7 +95,7 @@ final class SettingsManager implements SettingsManagerInterface
         $parameters = $settings->getParameters();
 
         if (!$parameters) {
-            $parameters = array();
+            $parameters = [];
         }
 
         $settingsBuilder = new SettingsBuilder();

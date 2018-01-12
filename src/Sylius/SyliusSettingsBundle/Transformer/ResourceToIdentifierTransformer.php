@@ -66,6 +66,6 @@ final class ResourceToIdentifierTransformer implements ParameterTransformerInter
             return $this->repository->find($value);
         }
 
-        return $this->repository->findOneBy(array($this->identifier => $value));
+        return $this->repository->findOneBy([$this->identifier => $value]);
     }
 }

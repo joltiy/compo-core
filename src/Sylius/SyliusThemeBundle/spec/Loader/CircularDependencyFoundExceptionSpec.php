@@ -22,7 +22,7 @@ final class CircularDependencyFoundExceptionSpec extends ObjectBehavior
 {
     public function let()
     {
-        $this->beConstructedWith(array());
+        $this->beConstructedWith([]);
     }
 
     public function it_is_initializable()
@@ -46,7 +46,7 @@ final class CircularDependencyFoundExceptionSpec extends ObjectBehavior
         ThemeInterface $thirdTheme,
         ThemeInterface $fourthTheme
     ) {
-        $this->beConstructedWith(array($firstTheme, $secondTheme, $thirdTheme, $fourthTheme, $thirdTheme));
+        $this->beConstructedWith([$firstTheme, $secondTheme, $thirdTheme, $fourthTheme, $thirdTheme]);
 
         $firstTheme->getName()->willReturn('first/theme');
         $secondTheme->getName()->willReturn('second/theme');
@@ -62,7 +62,7 @@ final class CircularDependencyFoundExceptionSpec extends ObjectBehavior
         ThemeInterface $thirdTheme,
         ThemeInterface $fourthTheme
     ) {
-        $this->beConstructedWith(array($firstTheme, $secondTheme, $thirdTheme, $fourthTheme));
+        $this->beConstructedWith([$firstTheme, $secondTheme, $thirdTheme, $fourthTheme]);
 
         $this->shouldThrow(new \InvalidArgumentException('There is no cycle within given themes.'))->duringInstantiation();
     }

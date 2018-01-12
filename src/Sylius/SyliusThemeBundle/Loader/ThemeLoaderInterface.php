@@ -19,9 +19,9 @@ use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
 interface ThemeLoaderInterface
 {
     /**
-     * @return ThemeInterface[]
-     *
      * @throws ThemeLoadingFailedException
+     *
+     * @return ThemeInterface[]
      */
     public function load();
 }

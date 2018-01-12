@@ -15,9 +15,9 @@ class FaqSettingsSchema extends BaseBundleAdminSettingsSchema
      */
     public function getDefaultSettings()
     {
-        return array(
+        return [
             'faq_per_page' => 21,
-        );
+        ];
     }
 
     /**

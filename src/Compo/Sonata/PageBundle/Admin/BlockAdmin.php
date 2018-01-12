@@ -25,9 +25,9 @@ class BlockAdmin extends \Sonata\PageBundle\Admin\BlockAdmin
 
         $container->get('sonata.notification.backend.runtime')->createAndPublish(
             'sonata.page.create_snapshot',
-            array(
+            [
                 'pageId' => $object->getPage()->getId(),
-            )
+            ]
         );
     }
 
@@ -42,9 +42,9 @@ class BlockAdmin extends \Sonata\PageBundle\Admin\BlockAdmin
 
         $container->get('sonata.notification.backend.runtime')->createAndPublish(
             'sonata.page.create_snapshot',
-            array(
+            [
                 'pageId' => $object->getPage()->getId(),
-            )
+            ]
         );
     }
 
@@ -61,9 +61,9 @@ class BlockAdmin extends \Sonata\PageBundle\Admin\BlockAdmin
 
         $container->get('sonata.notification.backend.runtime')->createAndPublish(
             'sonata.page.create_snapshot',
-            array(
+            [
                 'pageId' => $object->getPage()->getId(),
-            )
+            ]
         );
     }
 
@@ -78,9 +78,9 @@ class BlockAdmin extends \Sonata\PageBundle\Admin\BlockAdmin
 
         $container->get('sonata.notification.backend.runtime')->createAndPublish(
             'sonata.page.create_snapshot',
-            array(
+            [
                 'pageId' => $object->getPage()->getId(),
-            )
+            ]
         );
     }
 

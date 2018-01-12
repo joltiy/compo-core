@@ -50,7 +50,7 @@ final class SettingsFormFactorySpec extends ObjectBehavior
         ServiceRegistryInterface $schemaRegistry
     ) {
         $schemaRegistry->get('sylius_general')->willReturn($schema);
-        $formFactory->createBuilder('form', null, array('data_class' => null))->willReturn($formBuilder);
+        $formFactory->createBuilder('form', null, ['data_class' => null])->willReturn($formBuilder);
         $schema->buildForm($formBuilder)->shouldBeCalled()->willReturn($formBuilder);
         $formBuilder->getForm()->willReturn($form);
 

@@ -29,7 +29,7 @@ final class SyliusThemeExtension extends Extension implements PrependExtensionIn
     /**
      * @var ConfigurationSourceFactoryInterface[]
      */
-    private $configurationSourceFactories = array();
+    private $configurationSourceFactories = [];
 
     /**
      * @internal
@@ -38,7 +38,7 @@ final class SyliusThemeExtension extends Extension implements PrependExtensionIn
      */
     public function load(array $config, ContainerBuilder $container)
     {
-        $config = $this->processConfiguration($this->getConfiguration(array(), $container), $config);
+        $config = $this->processConfiguration($this->getConfiguration([], $container), $config);
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
 
@@ -114,7 +114,7 @@ final class SyliusThemeExtension extends Extension implements PrependExtensionIn
      */
     private function resolveConfigurationSources(ContainerBuilder $container, array $config)
     {
-        $configurationProviders = array();
+        $configurationProviders = [];
         foreach ($this->configurationSourceFactories as $configurationSourceFactory) {
             $sourceName = $configurationSourceFactory->getName();
             if (isset($config['sources'][$sourceName]) && $config['sources'][$sourceName]['enabled']) {

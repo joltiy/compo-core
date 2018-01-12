@@ -44,10 +44,10 @@ final class ThemeScreenshotControllerSpec extends ObjectBehavior
     {
         $themeRepository->findOneByName('theme/name')->willReturn($theme);
 
-        $theme->getScreenshots()->willReturn(array(
+        $theme->getScreenshots()->willReturn([
             'screenshot/0-amazing.jpg', // exists
             'screenshot/1-awesome.jpg', // does not exist
-        ));
+        ]);
         $theme->getPath()->willReturn($this->fixturesPath);
 
         $this
@@ -62,10 +62,10 @@ final class ThemeScreenshotControllerSpec extends ObjectBehavior
     ) {
         $themeRepository->findOneByName('theme/name')->willReturn($theme);
 
-        $theme->getScreenshots()->willReturn(array(
+        $theme->getScreenshots()->willReturn([
             'screenshot/0-amazing.jpg', // exists
             'screenshot/1-awesome.jpg', // does not exists
-        ));
+        ]);
         $theme->getPath()->willReturn($this->fixturesPath);
 
         $this
@@ -73,7 +73,7 @@ final class ThemeScreenshotControllerSpec extends ObjectBehavior
                 'Screenshot "%s/screenshot/1-awesome.jpg" does not exist',
                 $this->fixturesPath
             )))
-            ->during('streamScreenshotAction', array('theme/name', 1))
+            ->during('streamScreenshotAction', ['theme/name', 1])
         ;
     }
 
@@ -83,15 +83,15 @@ final class ThemeScreenshotControllerSpec extends ObjectBehavior
     ) {
         $themeRepository->findOneByName('theme/name')->willReturn($theme);
 
-        $theme->getScreenshots()->willReturn(array(
+        $theme->getScreenshots()->willReturn([
             'screenshot/0-amazing.jpg',
             'screenshot/1-awesome.jpg',
-        ));
+        ]);
         $theme->getTitle()->willReturn('Candy shop');
 
         $this
             ->shouldThrow(new NotFoundHttpException('Theme "Candy shop" does not have screenshot #4'))
-            ->during('streamScreenshotAction', array('theme/name', 4))
+            ->during('streamScreenshotAction', ['theme/name', 4])
         ;
     }
 
@@ -101,7 +101,7 @@ final class ThemeScreenshotControllerSpec extends ObjectBehavior
 
         $this
             ->shouldThrow(new NotFoundHttpException('Theme with name "theme/name" not found'))
-            ->during('streamScreenshotAction', array('theme/name', 666))
+            ->during('streamScreenshotAction', ['theme/name', 666])
         ;
     }
 
@@ -110,10 +110,10 @@ final class ThemeScreenshotControllerSpec extends ObjectBehavior
      */
     public function getMatchers()
     {
-        return array(
+        return [
             'beBinaryFileResponseStreamingFile' => function (BinaryFileResponse $response, $file) {
                 return $response->getFile()->getRealPath() === $file;
             },
-        );
+        ];
     }
 }

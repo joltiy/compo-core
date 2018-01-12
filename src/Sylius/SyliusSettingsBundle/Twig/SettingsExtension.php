@@ -36,9 +36,9 @@ final class SettingsExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
-             new \Twig_SimpleFunction('sylius_settings', array($this->helper, 'getSettings')),
-        );
+        return [
+             new \Twig_SimpleFunction('sylius_settings', [$this->helper, 'getSettings']),
+        ];
     }
 
     /**

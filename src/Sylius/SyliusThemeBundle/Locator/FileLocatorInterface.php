@@ -19,18 +19,18 @@ interface FileLocatorInterface
     /**
      * @param string $name
      *
-     * @return string
-     *
      * @throws \InvalidArgumentException If name is not valid or file was not found
+     *
+     * @return string
      */
     public function locateFileNamed($name);
 
     /**
      * @param string $name
      *
-     * @return array
-     *
      * @throws \InvalidArgumentException If name is not valid or files were not found
+     *
+     * @return array
      */
     public function locateFilesNamed($name);
 }

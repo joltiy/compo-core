@@ -37,8 +37,8 @@ class ColorExtension extends \Twig_Extension
      */
     protected static function normalizeColor($color, &$mode = null)
     {
-        $color = strtolower($color);
-        if (false !== strpos($color, 'rgb')) {
+        $color = mb_strtolower($color);
+        if (false !== mb_strpos($color, 'rgb')) {
             $mode = 'rgb';
             $color = trim($color, 'rgba()');
             $color = str_replace(' ', '', $color);
@@ -51,14 +51,14 @@ class ColorExtension extends \Twig_Extension
         } else {
             $mode = 'hex';
             $color = str_replace('#', '', $color);
-            if (3 === strlen($color)) {
+            if (3 === mb_strlen($color)) {
                 $color = str_repeat($color[0], 2) . str_repeat($color[1], 2) . str_repeat($color[2], 2);
             }
-            $color = array(
-                hexdec(substr($color, 0, 2)),
-                hexdec(substr($color, 2, 2)),
-                hexdec(substr($color, 4, 2)),
-            );
+            $color = [
+                hexdec(mb_substr($color, 0, 2)),
+                hexdec(mb_substr($color, 2, 2)),
+                hexdec(mb_substr($color, 4, 2)),
+            ];
         }
 
         return $color;
@@ -135,19 +135,19 @@ class ColorExtension extends \Twig_Extension
         $mode = '';
         $color = self::normalizeColor($color, $mode);
         if (null !== $set) {
-            $newColor = array(
+            $newColor = [
                 $set,
                 $color[1],
                 $color[2],
-            );
+            ];
             if (self::hasAlpha($color)) {
                 $newColor[3] = $color[3];
             }
 
             return self::resolveColor($newColor, $mode);
-        } else {
-            return $color[0];
         }
+
+        return $color[0];
     }
 
     /**
@@ -161,19 +161,19 @@ class ColorExtension extends \Twig_Extension
         $mode = '';
         $color = self::normalizeColor($color, $mode);
         if (null !== $set) {
-            $newColor = array(
+            $newColor = [
                 $color[0],
                 $set,
                 $color[2],
-            );
+            ];
             if (self::hasAlpha($color)) {
                 $newColor[3] = $color[3];
             }
 
             return self::resolveColor($newColor, $mode);
-        } else {
-            return $color[1];
         }
+
+        return $color[1];
     }
 
     /**
@@ -187,19 +187,19 @@ class ColorExtension extends \Twig_Extension
         $mode = '';
         $color = self::normalizeColor($color, $mode);
         if (null !== $set) {
-            $newColor = array(
+            $newColor = [
                 $color[0],
                 $color[1],
                 $set,
-            );
+            ];
             if (self::hasAlpha($color)) {
                 $newColor[3] = $color[3];
             }
 
             return self::resolveColor($newColor, $mode);
-        } else {
-            return $color[2];
         }
+
+        return $color[2];
     }
 
     /**
@@ -216,9 +216,9 @@ class ColorExtension extends \Twig_Extension
             $color[3] = ($set / 100);
 
             return self::resolveColor($color, 'rgb');
-        } else {
-            return (self::hasAlpha($color)) ? $color[3] : (float) 1;
         }
+
+        return (self::hasAlpha($color)) ? $color[3] : (float) 1;
     }
 
     /**
@@ -250,11 +250,11 @@ class ColorExtension extends \Twig_Extension
             $totalGreen += $color[1];
             $totalBlue += $color[2];
         }
-        $color = array(
+        $color = [
             round($totalRed / $amountColors),
             round($totalGreen / $amountColors),
             round($totalBlue / $amountColors),
-        );
+        ];
 
         return self::resolveColor($color);
     }
@@ -264,7 +264,7 @@ class ColorExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
+        return [
             new \Twig_SimpleFunction('color_lighten', '\Compo\CoreBundle\Twig\ColorExtension::lighten'),
             new \Twig_SimpleFunction('color_darken', '\Compo\CoreBundle\Twig\ColorExtension::darken'),
             new \Twig_SimpleFunction('color_red', '\Compo\CoreBundle\Twig\ColorExtension::red'),
@@ -272,7 +272,7 @@ class ColorExtension extends \Twig_Extension
             new \Twig_SimpleFunction('color_blue', '\Compo\CoreBundle\Twig\ColorExtension::blue'),
             new \Twig_SimpleFunction('color_alpha', '\Compo\CoreBundle\Twig\ColorExtension::alpha'),
             new \Twig_SimpleFunction('color_mix', '\Compo\CoreBundle\Twig\ColorExtension::mix'),
-        );
+        ];
     }
 
     /**

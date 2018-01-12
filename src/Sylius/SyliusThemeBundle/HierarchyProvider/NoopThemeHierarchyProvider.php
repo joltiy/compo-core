@@ -24,9 +24,9 @@ final class NoopThemeHierarchyProvider implements ThemeHierarchyProviderInterfac
     public function getThemeHierarchy(ThemeInterface $theme = null)
     {
         if (null === $theme) {
-            return array();
+            return [];
         }
 
-        return array($theme);
+        return [$theme];
     }
 }

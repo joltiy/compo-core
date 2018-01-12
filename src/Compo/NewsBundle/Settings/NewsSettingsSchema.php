@@ -15,9 +15,9 @@ class NewsSettingsSchema extends BaseBundleAdminSettingsSchema
      */
     public function getDefaultSettings()
     {
-        return array(
+        return [
             'news_per_page' => 21,
-        );
+        ];
     }
 
     /**

@@ -23,9 +23,9 @@ class ActionsExtension extends AbstractAdminExtension
 
                 if (!isset($options['actions'])) {
                     if (isset($listMapper->getAdmin()->treeEnabled) && $listMapper->getAdmin()->treeEnabled) {
-                        $options['actions']['create_parent'] = array(
+                        $options['actions']['create_parent'] = [
                             'template' => 'SonataAdminBundle:CRUD:list__action_create_parent.html.twig',
-                        );
+                        ];
                     }
                     /*
                     $options['actions']['edit'] = array(
@@ -33,13 +33,13 @@ class ActionsExtension extends AbstractAdminExtension
                     );
                     */
 
-                    $options['actions']['delete'] = array(
+                    $options['actions']['delete'] = [
                         'template' => 'SonataAdminBundle:CRUD:list__action_delete.html.twig',
-                    );
+                    ];
 
-                    $options['actions']['clone'] = array(
+                    $options['actions']['clone'] = [
                         'template' => 'SonataAdminBundle:CRUD:list__action_clone.html.twig',
-                    );
+                    ];
 
                     /*
                     $options['actions']['history'] = array(
@@ -48,9 +48,9 @@ class ActionsExtension extends AbstractAdminExtension
                     */
 
                     if (method_exists($listMapper->getAdmin(), 'generatePermalink')) {
-                        $options['actions']['show_on_site'] = array(
+                        $options['actions']['show_on_site'] = [
                             'template' => 'SonataAdminBundle:CRUD:list__action_show_on_site.html.twig',
-                        );
+                        ];
                     }
                 }
 

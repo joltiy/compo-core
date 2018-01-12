@@ -75,9 +75,9 @@ class ExceptionListener extends \Sonata\PageBundle\Listener\ExceptionListener
     {
         $content = $this->templating->render(
             'SonataPageBundle::internal_error.html.twig',
-            array(
+            [
                 'exception' => $event->getException(),
-            )
+            ]
         );
 
         $event->setResponse(new Response($content, 500));
@@ -137,7 +137,7 @@ class ExceptionListener extends \Sonata\PageBundle\Listener\ExceptionListener
                 $event->getRequest()->setLocale($page->getSite()->getLocale());
             }
 
-            $response = $this->pageServiceManager->execute($page, $event->getRequest(), array(), new Response('', $statusCode));
+            $response = $this->pageServiceManager->execute($page, $event->getRequest(), [], new Response('', $statusCode));
         } catch (\Exception $e) {
             $this->logException($exception, $e);
 
@@ -177,9 +177,9 @@ class ExceptionListener extends \Sonata\PageBundle\Listener\ExceptionListener
 
         if (null !== $this->logger) {
             if (!$originalException instanceof HttpExceptionInterface || $originalException->getStatusCode() >= 500) {
-                $this->logger->critical($message, array('exception' => $originalException));
+                $this->logger->critical($message, ['exception' => $originalException]);
             } else {
-                $this->logger->error($message, array('exception' => $originalException));
+                $this->logger->error($message, ['exception' => $originalException]);
             }
         } else {
             error_log($message);
@@ -191,10 +191,10 @@ class ExceptionListener extends \Sonata\PageBundle\Listener\ExceptionListener
      *
      * @param int $statusCode
      *
-     * @return \Sonata\PageBundle\Model\PageInterface
-     *
      * @throws \RuntimeException      When site is not found, check your state database
      * @throws InternalErrorException When you do not configure page for http error code
+     *
+     * @return \Sonata\PageBundle\Model\PageInterface
      */
     public function getErrorCodePage($statusCode)
     {

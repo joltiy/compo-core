@@ -38,9 +38,9 @@ class SitemapFaqSubscriber implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             SitemapPopulateEvent::ON_SITEMAP_POPULATE => 'registerItems',
-        );
+        ];
     }
 
     /**
@@ -55,7 +55,7 @@ class SitemapFaqSubscriber implements EventSubscriberInterface
                 new UrlConcrete(
                     $this->urlGenerator->generate(
                         'compo_faq_show_by_slug',
-                        array('slug' => $post->getSlug()),
+                        ['slug' => $post->getSlug()],
                         UrlGeneratorInterface::ABSOLUTE_URL
                     ),
                     $post->getUpdatedAt()

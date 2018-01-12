@@ -38,12 +38,12 @@ final class ThemeFactorySpec extends ObjectBehavior
 
     public function getMatchers()
     {
-        return array(
+        return [
             'haveNameAndPath' => function (ThemeInterface $theme, $expectedName, $expectedPath) {
                 return $expectedName === $theme->getName()
                     && $expectedPath === $theme->getPath()
                 ;
             },
-        );
+        ];
     }
 }

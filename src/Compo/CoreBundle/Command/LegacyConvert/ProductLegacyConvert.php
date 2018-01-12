@@ -12,7 +12,7 @@ class ProductLegacyConvert extends BaseLegacyConvert
     /**
      * @var array
      */
-    public $tovar = array();
+    public $tovar = [];
 
     public function configure()
     {
@@ -56,20 +56,20 @@ class ProductLegacyConvert extends BaseLegacyConvert
         $currency_code = $oldDataItem['currency'];
 
         $currency_code = str_replace(
-            array(
+            [
                 'rur',
                 'usd',
                 'euro',
-            ),
-            array(
+            ],
+            [
                 'rub',
                 'usd',
                 'eur',
-            ),
+            ],
             $currency_code
         );
 
-        $currency = $this->getEntityManager()->getRepository('CompoCurrencyBundle:Currency')->findOneBy(array('code' => strtolower($currency_code)));
+        $currency = $this->getEntityManager()->getRepository('CompoCurrencyBundle:Currency')->findOneBy(['code' => mb_strtolower($currency_code)]);
 
         $newItem->setCurrency($currency);
 
@@ -141,20 +141,20 @@ class ProductLegacyConvert extends BaseLegacyConvert
         $unit_code = $oldDataItem['vtype'];
 
         $unit_code = str_replace(
-            array(
+            [
                 'шт.',
                 'кв.м',
                 'компл.',
-            ),
-            array(
+            ],
+            [
                 'Штука',
                 'Квадратный метр',
                 'Комплект',
-            ),
+            ],
             $unit_code
         );
 
-        $unitCodeEntity = $this->getEntityManager()->getRepository('CompoUnitBundle:Unit')->findOneBy(array('name' => $unit_code));
+        $unitCodeEntity = $this->getEntityManager()->getRepository('CompoUnitBundle:Unit')->findOneBy(['name' => $unit_code]);
 
         $newItem->setUnit($unitCodeEntity);
     }

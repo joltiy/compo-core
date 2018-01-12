@@ -25,5 +25,5 @@ interface SettingsFormFactoryInterface
      *
      * @return FormInterface
      */
-    public function create($schemaAlias, $data = null, array $options = array());
+    public function create($schemaAlias, $data = null, array $options = []);
 }

@@ -6,9 +6,7 @@ use Compo\Sonata\AdminBundle\Admin\Traits\ConfigureTabMenuTrait;
 use Doctrine\Common\Cache\Cache;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\QueryBuilder;
-use Knp\Menu\ItemInterface as MenuItemInterface;
 use Sonata\AdminBundle\Admin\AbstractAdmin as BaseAdmin;
-use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Admin\FieldDescriptionInterface;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\DoctrineORMAdminBundle\Admin\FieldDescription;
@@ -37,7 +35,7 @@ class AbstractAdmin extends BaseAdmin
     /**
      * @var array
      */
-    public $postionRelatedFields = array();
+    public $postionRelatedFields = [];
 
     /**
      * @var int
@@ -50,19 +48,19 @@ class AbstractAdmin extends BaseAdmin
     /**
      * @var array
      */
-    protected $datagridValues = array(
+    protected $datagridValues = [
         '_page' => 1,
         '_per_page' => 50,
-    );
+    ];
 
     /**
      * @var array
      */
-    protected $perPageOptions = array(10, 50, 100, 500, 1000, 10000);
+    protected $perPageOptions = [10, 50, 100, 500, 1000, 10000];
     /**
      * @var array
      */
-    protected $searchResultActions = array('edit');
+    protected $searchResultActions = ['edit'];
 
     /**
      * @var
@@ -75,20 +73,19 @@ class AbstractAdmin extends BaseAdmin
 
     protected $propertiesEnabled = true;
 
-    protected $listFields = array();
+    protected $listFields = [];
 
-    protected $listModes = array(
-        'tree' => array(
+    protected $listModes = [
+        'tree' => [
             'class' => 'fa fa-sitemap',
-        ),
-        'list' => array(
+        ],
+        'list' => [
             'class' => 'fa fa-list fa-fw',
-        ),
-        'mosaic' => array(
+        ],
+        'mosaic' => [
             'class' => self::MOSAIC_ICON_CLASS,
-        ),
-    );
-
+        ],
+    ];
 
     /**
      * {@inheritdoc}
@@ -96,7 +93,7 @@ class AbstractAdmin extends BaseAdmin
     public function addListFieldDescription($name, FieldDescriptionInterface $fieldDescription)
     {
         if (
-            $fieldDescription->getType() === 'orm_many_to_many'
+            'orm_many_to_many' === $fieldDescription->getType()
             &&
             $fieldDescription->getOption('editable', false)
         ) {
@@ -104,25 +101,24 @@ class AbstractAdmin extends BaseAdmin
         }
 
         parent::addListFieldDescription($name, $fieldDescription);
-
     }
 
     public function getExportFormats()
     {
-        return array(
+        return [
              'xlsx', 'csv', 'xml', 'json',
-        );
+        ];
     }
 
     public function getExportFields()
     {
-        $fields = array();
+        $fields = [];
 
         /** @var FieldDescription[] $elements */
         $elements = $this->getList()->getElements();
 
         foreach ($elements as $element) {
-            if (in_array($element->getName(), array('batch', '_action'))) {
+            if (in_array($element->getName(), ['batch', '_action'], true)) {
                 continue;
             }
 
@@ -130,12 +126,12 @@ class AbstractAdmin extends BaseAdmin
                 continue;
             }
 
-            if (ClassMetadataInfo::MANY_TO_ONE == $element->getMappingType()) {
+            if (ClassMetadataInfo::MANY_TO_ONE === $element->getMappingType()) {
                 //$fields[$element->getOption('label')] = $element->getName() . '.' . $element->getOption('associated_property', 'id');
                 $fields[$element->getName()] = $element->getName();
-            } elseif (ClassMetadataInfo::MANY_TO_MANY == $element->getMappingType()) {
+            } elseif (ClassMetadataInfo::MANY_TO_MANY === $element->getMappingType()) {
                 $fields[$element->getName()] = $element->getName() . 'ExportAsString';
-            } elseif (null == $element->getMappingType()) {
+            } elseif (null === $element->getMappingType()) {
             } else {
                 $fields[$element->getName()] = $element->getName();
             }
@@ -152,7 +148,7 @@ class AbstractAdmin extends BaseAdmin
         $datagrid = $this->getDatagrid();
         $datagrid->buildPager();
 
-        $fields = array();
+        $fields = [];
 
         foreach ($this->getExportFields() as $key => $field) {
             $transLabel = $this->getExportTranslationLabel($key, $field);
@@ -162,29 +158,31 @@ class AbstractAdmin extends BaseAdmin
 
         $dataSourceIterator = $this->getModelManager()->getDataSourceIterator($datagrid, $fields);
         $dataSourceIterator->setDateTimeFormat('d.m.Y H:i:s');
+
         return $dataSourceIterator;
     }
 
-    public function getExportTranslationLabel($key, $field) {
+    public function getExportTranslationLabel($key, $field)
+    {
         $label = $this->getTranslationLabel($field, 'export', 'label');
         $transLabel = $this->trans($label);
 
-        if ($transLabel == $label) {
+        if ($transLabel === $label) {
             $label = $this->getTranslationLabel($field, 'list', 'label');
             $transLabel = $this->trans($label);
         }
 
-        if ($transLabel == $label) {
+        if ($transLabel === $label) {
             $label = $this->getTranslationLabel($key, 'export', 'label');
             $transLabel = $this->trans($label);
         }
 
-        if ($transLabel == $label) {
+        if ($transLabel === $label) {
             $label = $this->getTranslationLabel($key, 'list', 'label');
             $transLabel = $this->trans($label);
         }
 
-        if ($transLabel == $label) {
+        if ($transLabel === $label) {
             $transLabel = $key;
         }
 
@@ -193,12 +191,12 @@ class AbstractAdmin extends BaseAdmin
 
     public function getBatchActions()
     {
-        $actions = array();
+        $actions = [];
 
         if ($this->hasRoute('delete') && $this->hasAccess('delete')) {
-            $actions['delete'] = array(
+            $actions['delete'] = [
                 'ask_confirmation' => true, // by default always true
-            );
+            ];
         }
 
         $actions = $this->configureBatchActions($actions);
@@ -243,7 +241,7 @@ class AbstractAdmin extends BaseAdmin
      * @param bool $settingsEnabled
      * @param $settingsNamespace
      */
-    public function configureSettings($settingsEnabled = true, $settingsNamespace)
+    public function configureSettings($settingsEnabled, $settingsNamespace)
     {
         $this->setSettingsEnabled($settingsEnabled);
         $this->setSettingsNamespace($settingsNamespace);
@@ -323,16 +321,16 @@ class AbstractAdmin extends BaseAdmin
      */
     public function getFilterParameters()
     {
-        $parameters = array();
+        $parameters = [];
 
         // build the values array
         if ($this->hasRequest()) {
-            $filters = $this->request->query->get('filter', array());
+            $filters = $this->request->query->get('filter', []);
 
             // if persisting filters, save filters to session, or pull them out of session if no new filters set
             if ($this->persistFilters) {
-                if ($filters == array() && 'reset' != $this->request->query->get('filters')) {
-                    $filters = $this->request->getSession()->get($this->getCode() . '.filter.parameters', array());
+                if ($filters === [] && 'reset' !== $this->request->query->get('filters')) {
+                    $filters = $this->request->getSession()->get($this->getCode() . '.filter.parameters', []);
                 } else {
                     $this->request->getSession()->set($this->getCode() . '.filter.parameters', $filters);
                 }
@@ -352,12 +350,12 @@ class AbstractAdmin extends BaseAdmin
             // always force the parent value
             if ($this->isChild() && $this->getParentAssociationMapping()) {
                 $name = str_replace('.', '__', $this->getParentAssociationMapping());
-                $parameters[$name] = array('value' => $this->request->get($this->getParent()->getIdParameter()));
+                $parameters[$name] = ['value' => $this->request->get($this->getParent()->getIdParameter())];
 
-                if (ClassMetadataInfo::MANY_TO_MANY == $this->getParentAssociationMappingType()) {
-                    $parameters[$name] = array('value' => array($this->request->get($this->getParent()->getIdParameter())));
+                if (ClassMetadataInfo::MANY_TO_MANY === $this->getParentAssociationMappingType()) {
+                    $parameters[$name] = ['value' => [$this->request->get($this->getParent()->getIdParameter())]];
                 } else {
-                    $parameters[$name] = array('value' => $this->request->get($this->getParent()->getIdParameter()));
+                    $parameters[$name] = ['value' => $this->request->get($this->getParent()->getIdParameter())];
                 }
             }
         }
@@ -448,7 +446,7 @@ class AbstractAdmin extends BaseAdmin
      * @param $positionEnabled
      * @param array $postionRelatedFields
      */
-    public function configurePosition($positionEnabled, array $postionRelatedFields = array())
+    public function configurePosition($positionEnabled, array $postionRelatedFields = [])
     {
         $this->positionEnabled = $positionEnabled;
 
@@ -457,11 +455,11 @@ class AbstractAdmin extends BaseAdmin
         if ($positionEnabled) {
             //$postionRelatedFields = array_merge($postionRelatedFields, array('position'));
 
-            $this->datagridValues = array(
+            $this->datagridValues = [
                 '_page' => 1,
                 '_sort_order' => 'ASC',
                 '_sort_by' => 'position',
-            );
+            ];
 
             //$this->addExtension($this->getConfigurationPool()->getContainer()->get('compo.sonata.admin.extension.position'));
         }
@@ -523,18 +521,18 @@ class AbstractAdmin extends BaseAdmin
         // Редактирование
         $menu->addChild(
             $this->trans('tab_menu.link_edit'),
-            array('uri' => $admin->generateUrl('edit', array('id' => $id)))
+            ['uri' => $admin->generateUrl('edit', ['id' => $id])]
         );
 
         if (false === $route_paramters) {
-            $route_paramters = array('id' => $id);
+            $route_paramters = ['id' => $id];
         }
 
         // Просмотр
         if ($this->hasSubject() && null !== $this->getSubject()->getId()) {
             $menu->addChild(
                 $this->trans('tab_menu.link_show_on_site'),
-                array('uri' => $admin->getRouteGenerator()->generate($route, $route_paramters), 'linkAttributes' => array('target' => '_blank'))
+                ['uri' => $admin->getRouteGenerator()->generate($route, $route_paramters), 'linkAttributes' => ['target' => '_blank']]
             );
         }
     }
@@ -608,35 +606,35 @@ class AbstractAdmin extends BaseAdmin
      */
     public function configureActionButtons($action, $object = null)
     {
-        return array();
+        return [];
 
-        $list = array();
+        $list = [];
 
-        if (in_array($action, array('create', 'acl', 'trash', 'history', 'tree', 'show', 'edit', 'delete', 'list', 'batch', 'settings'), true)
+        if (in_array($action, ['create', 'acl', 'trash', 'history', 'tree', 'show', 'edit', 'delete', 'list', 'batch', 'settings'], true)
             && $this->hasAccess('create')
             && $this->hasRoute('create')
         ) {
-            $list['create'] = array(
+            $list['create'] = [
                 'template' => $this->getTemplate('button_create'),
-            );
+            ];
         }
 
-        if (in_array($action, array('edit', 'show', 'trash', 'delete', 'acl', 'history'), true)
+        if (in_array($action, ['edit', 'show', 'trash', 'delete', 'acl', 'history'], true)
             && $this->canAccessObject('edit', $object)
             && $this->hasRoute('edit')
         ) {
-            $list['edit'] = array(
+            $list['edit'] = [
                 'template' => $this->getTemplate('button_edit'),
-            );
+            ];
         }
 
-        if (in_array($action, array('history', 'show', 'trash', 'edit', 'acl', 'trash'), true)
+        if (in_array($action, ['history', 'show', 'trash', 'edit', 'acl', 'trash'], true)
             && $this->canAccessObject('history', $object)
             && $this->hasRoute('history')
         ) {
-            $list['history'] = array(
+            $list['history'] = [
                 'template' => $this->getTemplate('button_history'),
-            );
+            ];
         }
 
         /*
@@ -651,37 +649,37 @@ class AbstractAdmin extends BaseAdmin
         }
         */
 
-        if (in_array($action, array('create', 'trash', 'list', 'tree', 'history', 'show', 'edit', 'delete', 'acl', 'batch', 'settings'), true)
+        if (in_array($action, ['create', 'trash', 'list', 'tree', 'history', 'show', 'edit', 'delete', 'acl', 'batch', 'settings'], true)
             && $this->hasAccess('list')
             && $this->hasRoute('list')
         ) {
-            $list['list'] = array(
+            $list['list'] = [
                 'template' => $this->getTemplate('button_list'),
-            );
+            ];
         }
 
         if (
-            in_array($action, array('settings', 'trash', 'batch', 'tree', 'list'), true)
+            in_array($action, ['settings', 'trash', 'batch', 'tree', 'list'], true)
             && $this->hasAccess('acl') && $this->hasRoute('settings')
         ) {
-            $list['settings'] = array(
+            $list['settings'] = [
                 'template' => $this->getTemplate('button_settings'),
-            );
+            ];
         }
 
         if (
-            in_array($action, array('settings', 'trash', 'batch', 'tree', 'list'), true)
+            in_array($action, ['settings', 'trash', 'batch', 'tree', 'list'], true)
             && $this->hasAccess('acl')
         ) {
             if ($this->isUseEntityTraits(
                 $this,
-                array(
+                [
                     'Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity',
-                )
+                ]
             )) {
-                $list['trash'] = array(
+                $list['trash'] = [
                     'template' => '@CompoSonataAdmin/Button/trash_button.html.twig',
-                );
+                ];
             }
         }
 
@@ -694,7 +692,7 @@ class AbstractAdmin extends BaseAdmin
      *
      * @return bool
      */
-    public function isUseEntityTraits($admin, array $traits = array())
+    public function isUseEntityTraits($admin, array $traits = [])
     {
         $traitsAdmin = class_uses($admin->getClass());
 
@@ -737,10 +735,9 @@ class AbstractAdmin extends BaseAdmin
         parent::initialize();
     }
 
-
     protected function getAccess()
     {
-        $access = array_merge(array(
+        $access = array_merge([
             'acl' => 'MASTER',
             'export' => 'EXPORT',
             'historyCompareRevisions' => 'EDIT',
@@ -757,7 +754,7 @@ class AbstractAdmin extends BaseAdmin
             'undelete' => 'UNDELETE',
 
             'settings' => 'SETTINGS',
-        ), $this->getAccessMapping());
+        ], $this->getAccessMapping());
 
         foreach ($this->extensions as $extension) {
             // TODO: remove method check in next major release
@@ -777,13 +774,13 @@ class AbstractAdmin extends BaseAdmin
         parent::configureRoutes($collection);
 
         $collection->add('import', 'import', [
-            '_controller' => 'CompoSonataImportBundle:Default:index'
+            '_controller' => 'CompoSonataImportBundle:Default:index',
         ]);
         $collection->add('upload', '{import_id}/upload', [
-            '_controller' => 'CompoSonataImportBundle:Default:upload'
+            '_controller' => 'CompoSonataImportBundle:Default:upload',
         ]);
         $collection->add('importStatus', '{import_id}/upload/status', [
-            '_controller' => 'CompoSonataImportBundle:Default:importStatus'
+            '_controller' => 'CompoSonataImportBundle:Default:importStatus',
         ]);
 
         $collection->add('clone', $this->getRouterIdParameter() . '/clone');
@@ -799,18 +796,18 @@ class AbstractAdmin extends BaseAdmin
         //}
 
         if ($this->treeEnabled) {
-            $collection->add('tree', 'tree', array('_controller' => $this->baseControllerName . ':tree'));
-            $collection->add('move', 'move', array('_controller' => $this->baseControllerName . ':move'));
+            $collection->add('tree', 'tree', ['_controller' => $this->baseControllerName . ':tree']);
+            $collection->add('move', 'move', ['_controller' => $this->baseControllerName . ':move']);
         }
 
         if ($this->settingsEnabled && $this->settingsNamespace) {
             $collection->add(
                 'settings',
                 'settings',
-                array(
+                [
                     '_controller' => $this->getBaseControllerName() . ':settings',
                     'namespace' => $this->settingsNamespace,
-                )
+                ]
             );
         }
     }
@@ -821,7 +818,8 @@ class AbstractAdmin extends BaseAdmin
      * @param $field
      * @param $value
      */
-    public function importFieldHandler($qb, $subject, $field, $value) {
+    public function importFieldHandler($qb, $subject, $field, $value)
+    {
         $qb->andWhere('entity.name = :value');
         $qb->setParameter('value', $value);
         $qb->setMaxResults(1);

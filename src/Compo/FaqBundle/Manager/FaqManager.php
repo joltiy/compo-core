@@ -34,7 +34,7 @@ class FaqManager extends BaseEntityManager
 
         $limit = $settings->get('faq_per_page');
 
-        $parameters = array();
+        $parameters = [];
 
         /** @var FaqRepository $repository */
         $repository = $this->getRepository();
@@ -122,7 +122,7 @@ class FaqManager extends BaseEntityManager
      */
     public function getArticleShowRouteParameters(Faq $faq)
     {
-        return array('slug' => $faq->getSlug());
+        return ['slug' => $faq->getSlug()];
     }
 
     /**
@@ -131,7 +131,7 @@ class FaqManager extends BaseEntityManager
      *
      * @return string
      */
-    public function getFaqIndexPermalink(array $parameters = array(), $absolute = 1)
+    public function getFaqIndexPermalink(array $parameters = [], $absolute = 1)
     {
         return $this->getContainer()->get('router')->generate($this->getFaqIndexRoute(), $this->getFaqIndexRouteParameters($parameters), $absolute);
     }

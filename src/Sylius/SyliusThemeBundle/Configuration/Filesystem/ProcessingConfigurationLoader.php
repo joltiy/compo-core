@@ -45,7 +45,7 @@ final class ProcessingConfigurationLoader implements ConfigurationLoaderInterfac
     {
         $rawConfiguration = $this->decoratedLoader->load($identifier);
 
-        $configurations = array($rawConfiguration);
+        $configurations = [$rawConfiguration];
         if (isset($rawConfiguration['extra']['sylius-theme'])) {
             $configurations[] = $rawConfiguration['extra']['sylius-theme'];
         }

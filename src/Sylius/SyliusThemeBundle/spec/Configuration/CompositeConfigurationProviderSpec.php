@@ -22,7 +22,7 @@ final class CompositeConfigurationProviderSpec extends ObjectBehavior
 {
     public function let()
     {
-        $this->beConstructedWith(array());
+        $this->beConstructedWith([]);
     }
 
     public function it_is_initializable()
@@ -37,30 +37,30 @@ final class CompositeConfigurationProviderSpec extends ObjectBehavior
 
     public function it_returns_empty_array_if_no_configurations_are_loaded()
     {
-        $this->getConfigurations()->shouldReturn(array());
+        $this->getConfigurations()->shouldReturn([]);
     }
 
     public function it_returns_sum_of_configurations_returned_by_nested_configuration_providers(
         ConfigurationProviderInterface $firstConfigurationProvider,
         ConfigurationProviderInterface $secondConfigurationProvider
     ) {
-        $this->beConstructedWith(array(
+        $this->beConstructedWith([
             $firstConfigurationProvider,
             $secondConfigurationProvider,
-        ));
+        ]);
 
-        $firstConfigurationProvider->getConfigurations()->willReturn(array(
-            array('name' => 'first/theme'),
-        ));
-        $secondConfigurationProvider->getConfigurations()->willReturn(array(
-            array('name' => 'second/theme'),
-            array('name' => 'third/theme'),
-        ));
+        $firstConfigurationProvider->getConfigurations()->willReturn([
+            ['name' => 'first/theme'],
+        ]);
+        $secondConfigurationProvider->getConfigurations()->willReturn([
+            ['name' => 'second/theme'],
+            ['name' => 'third/theme'],
+        ]);
 
-        $this->getConfigurations()->shouldReturn(array(
-            array('name' => 'first/theme'),
-            array('name' => 'second/theme'),
-            array('name' => 'third/theme'),
-        ));
+        $this->getConfigurations()->shouldReturn([
+            ['name' => 'first/theme'],
+            ['name' => 'second/theme'],
+            ['name' => 'third/theme'],
+        ]);
     }
 }

@@ -37,35 +37,35 @@ final class CompositeTranslatorResourceProviderSpec extends ObjectBehavior
         TranslationResourceInterface $firstResource,
         TranslationResourceInterface $secondResource
     ) {
-        $this->beConstructedWith(array($firstResourceProvider, $secondResourceProvider));
+        $this->beConstructedWith([$firstResourceProvider, $secondResourceProvider]);
 
-        $firstResourceProvider->getResources()->willReturn(array($firstResource));
-        $secondResourceProvider->getResources()->willReturn(array($secondResource, $firstResource));
+        $firstResourceProvider->getResources()->willReturn([$firstResource]);
+        $secondResourceProvider->getResources()->willReturn([$secondResource, $firstResource]);
 
-        $this->getResources()->shouldReturn(array($firstResource, $secondResource, $firstResource));
+        $this->getResources()->shouldReturn([$firstResource, $secondResource, $firstResource]);
     }
 
     public function it_aggregates_the_resources_locales(
         TranslatorResourceProviderInterface $firstResourceProvider,
         TranslatorResourceProviderInterface $secondResourceProvider
     ) {
-        $this->beConstructedWith(array($firstResourceProvider, $secondResourceProvider));
+        $this->beConstructedWith([$firstResourceProvider, $secondResourceProvider]);
 
-        $firstResourceProvider->getResourcesLocales()->willReturn(array('first-locale'));
-        $secondResourceProvider->getResourcesLocales()->willReturn(array('second-locale'));
+        $firstResourceProvider->getResourcesLocales()->willReturn(['first-locale']);
+        $secondResourceProvider->getResourcesLocales()->willReturn(['second-locale']);
 
-        $this->getResourcesLocales()->shouldReturn(array('first-locale', 'second-locale'));
+        $this->getResourcesLocales()->shouldReturn(['first-locale', 'second-locale']);
     }
 
     public function it_aggregates_the_unique_resources_locales(
         TranslatorResourceProviderInterface $firstResourceProvider,
         TranslatorResourceProviderInterface $secondResourceProvider
     ) {
-        $this->beConstructedWith(array($firstResourceProvider, $secondResourceProvider));
+        $this->beConstructedWith([$firstResourceProvider, $secondResourceProvider]);
 
-        $firstResourceProvider->getResourcesLocales()->willReturn(array('first-locale'));
-        $secondResourceProvider->getResourcesLocales()->willReturn(array('second-locale', 'first-locale', 'second-locale'));
+        $firstResourceProvider->getResourcesLocales()->willReturn(['first-locale']);
+        $secondResourceProvider->getResourcesLocales()->willReturn(['second-locale', 'first-locale', 'second-locale']);
 
-        $this->getResourcesLocales()->shouldReturn(array('first-locale', 'second-locale'));
+        $this->getResourcesLocales()->shouldReturn(['first-locale', 'second-locale']);
     }
 }

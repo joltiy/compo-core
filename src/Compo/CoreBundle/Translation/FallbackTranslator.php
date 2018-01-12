@@ -14,7 +14,7 @@ class FallbackTranslator extends Translator
      *
      * @api
      */
-    public function trans($id, array $parameters = array(), $domain = null, $locale = null)
+    public function trans($id, array $parameters = [], $domain = null, $locale = null)
     {
         if (null === $locale) {
             $locale = $this->getLocale();

@@ -25,12 +25,12 @@ final class SyliusThemeExtensionTest extends AbstractExtensionTestCase
      */
     public function it_does_not_register_a_provider_while_it_is_disabled()
     {
-        $this->load(array('sources' => array('filesystem' => false)));
+        $this->load(['sources' => ['filesystem' => false]]);
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'sylius.theme.configuration.provider',
             0,
-            array()
+            []
         );
     }
 
@@ -42,6 +42,6 @@ final class SyliusThemeExtensionTest extends AbstractExtensionTestCase
         $themeExtension = new SyliusThemeExtension();
         $themeExtension->addConfigurationSourceFactory(new FilesystemConfigurationSourceFactory());
 
-        return array($themeExtension);
+        return [$themeExtension];
     }
 }

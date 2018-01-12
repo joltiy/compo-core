@@ -37,7 +37,7 @@ final class TranslationTest extends WebTestCase
      */
     protected function getTranslationsLines()
     {
-        return array(
+        return [
             'BUNDLE/Resources/translations: BUNDLE/Resources/translations',
             'app/Resources/BUNDLE_NAME/translations: app/Resources/BUNDLE_NAME/translations',
             'app/Resources/translations: app/Resources/translations',
@@ -45,6 +45,6 @@ final class TranslationTest extends WebTestCase
             'THEME/translations: THEME/translations',
             'PARENT_THEME/BUNDLE_NAME/translations: PARENT_THEME/BUNDLE_NAME/translations',
             'PARENT_THEME/translations: PARENT_THEME/translations',
-        );
+        ];
     }
 }

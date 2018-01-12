@@ -2,10 +2,7 @@
 
 namespace Compo\SonataImportBundle\Form\Type;
 
-use Symfony\Component\DependencyInjection\Container;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -14,7 +11,6 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class UploadFileType extends AbstractType
 {
@@ -22,57 +18,57 @@ class UploadFileType extends AbstractType
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('file', FileType::class, [
-                'label' => 'form.file'
+                'label' => 'form.file',
             ])
         ;
 
         $default_encode = $this->container->getParameter('compo_sonata_import.encode.default');
         $encode_list = $this->container->getParameter('compo_sonata_import.encode.list');
-        if(!count($encode_list)){
+        if (!count($encode_list)) {
             $builder->add('encode', HiddenType::class, [
                 'data' => $default_encode,
-                'label' => 'form.encode'
+                'label' => 'form.encode',
             ]);
         } else {
             $el = [];
-            foreach($encode_list as $item){
+            foreach ($encode_list as $item) {
                 $el[$item] = $item;
             }
             $builder->add('encode', ChoiceType::class, [
                 'choices' => $el,
                 'data' => $default_encode,
-                'label' => 'form.encode'
+                'label' => 'form.encode',
             ]);
         }
 
         $loader = [];
         $loaders_list = $this->container->getParameter('compo_sonata_import.class_loaders');
-        foreach($loaders_list as $key => $item){
+        foreach ($loaders_list as $key => $item) {
             $loader[$item['name']] = $key;
         }
 
         $builder->add('loaderClass', ChoiceType::class, [
             'choices' => $loader,
-            'label' => 'form.loader_class'
+            'label' => 'form.loader_class',
         ]);
 
         $builder->add('dryRun', CheckboxType::class, [
             'required' => false,
-            'label' => 'Пробный импорт'
+            'label' => 'Пробный импорт',
         ]);
 
         $builder
             ->add('submit', SubmitType::class, [
                 'label' => 'form.submit',
                 'attr' => [
-                    'class' => 'btn btn-success'
-                ]
+                    'class' => 'btn btn-success',
+                ],
             ])
         ;
     }
@@ -82,16 +78,17 @@ class UploadFileType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'Compo\SonataImportBundle\Entity\UploadFile',
-            'translation_domain' => 'CompoSonataImportBundle'
-        ));
+            'translation_domain' => 'CompoSonataImportBundle',
+        ]);
     }
 
     /**
      * @return string
      */
-    public function getBlockPrefix(){
+    public function getBlockPrefix()
+    {
         return $this->getName();
     }
 

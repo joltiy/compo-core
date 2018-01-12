@@ -21,12 +21,12 @@ class BaseBreadcrumbMenuBlockService extends \Sonata\SeoBundle\Block\Breadcrumb\
         parent::configureSettings($resolver);
 
         $resolver->setDefaults(
-            array(
+            [
                 'current_uri' => $this->getRequest()->getRequestUri(),
                 'menu_template' => 'SonataSeoBundle:Block:breadcrumb.html.twig',
                 'include_homepage_link' => true,
                 'context' => false,
-            )
+            ]
         );
     }
 
@@ -69,7 +69,7 @@ class BaseBreadcrumbMenuBlockService extends \Sonata\SeoBundle\Block\Breadcrumb\
         }
 
         if ($settings['include_homepage_link']) {
-            $menu->addChild('sonata_seo_homepage_breadcrumb', array('uri' => '/'));
+            $menu->addChild('sonata_seo_homepage_breadcrumb', ['uri' => '/']);
         }
 
         return $menu;

@@ -50,12 +50,12 @@ class FeedbackAdmin extends AbstractAdmin
             ->add(
                 '_action',
                 null,
-                array(
-                    'actions' => array(
-                        'edit' => array(),
-                        'delete' => array(),
-                    ),
-                )
+                [
+                    'actions' => [
+                        'edit' => [],
+                        'delete' => [],
+                    ],
+                ]
             );
     }
 
@@ -74,19 +74,19 @@ class FeedbackAdmin extends AbstractAdmin
 
         $formMapper
             ->tab('main')
-            ->with('main', array('name' => false, 'class' => 'col-lg-6'))
+            ->with('main', ['name' => false, 'class' => 'col-lg-6'])
             ->add('id')
             ->add('createdAt')
             ->add(
                 'type',
                 'sonata_type_choice_field_mask',
-                array(
+                [
                     'choices' => $feedbackManager->getTypesChoice(),
                     'choice_translation_domain' => 'CompoFeedbackBundle',
-                    'map' => array(
-                        'compo_feedback.product_want_lower_cost' => array('product', 'product_url'),
-                    ),
-                )
+                    'map' => [
+                        'compo_feedback.product_want_lower_cost' => ['product', 'product_url'],
+                    ],
+                ]
             )
             ->add('name')
             ->add('email')
@@ -94,29 +94,29 @@ class FeedbackAdmin extends AbstractAdmin
             ->add('message');
 
         $formMapper
-            ->add('product', 'text', array(
+            ->add('product', 'text', [
                 'property_path' => 'data[product]',
-            ))
-            ->add('product_url', 'text', array(
+            ])
+            ->add('product_url', 'text', [
                     'property_path' => 'data[product_url]',
-                )
+                ]
             )
         ;
 
         $formMapper->end();
-        $formMapper->with('extra', array('name' => false, 'class' => 'col-lg-6'));
+        $formMapper->with('extra', ['name' => false, 'class' => 'col-lg-6']);
 
         $formMapper->add(
                 'tags',
                 'sonata_type_model',
-                array(
+                [
                     'by_reference' => false,
                     'multiple' => true,
                     'expanded' => false,
                     'compound' => false,
                     'required' => false,
                     'query' => $tagsQb,
-                )
+                ]
             );
         $formMapper->add('page');
 

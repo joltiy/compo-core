@@ -14,7 +14,7 @@ trait TreeTrait
      */
     public function findAll()
     {
-        return $this->findBy(array(), array('lft' => 'ASC'));
+        return $this->findBy([], ['lft' => 'ASC']);
     }
 
     /**
@@ -36,7 +36,7 @@ trait TreeTrait
         }
 
         if ($qb_callback) {
-            call_user_func_array($qb_callback, array($queryBuilder));
+            call_user_func_array($qb_callback, [$queryBuilder]);
         }
 
         return $queryBuilder->getQuery()->getResult();
@@ -51,7 +51,7 @@ trait TreeTrait
     public function getFlatNodes($startNode = null, $options = null)
     {
         if (null === $options) {
-            $options = array(
+            $options = [
                 'decorate' => false,
                 'rootOpen' => '',
                 'rootClose' => '',
@@ -60,7 +60,7 @@ trait TreeTrait
                 'nodeDecorator' => function ($node) {
                     return '' . $node['name'] . '';
                 },
-            );
+            ];
         }
         $htmlTree = $this->childrenHierarchy(
             $startNode, // starting from root nodes
@@ -80,7 +80,7 @@ trait TreeTrait
      */
     public function toFlat($node, $sep = ' > ', $path = '')
     {
-        $els = array();
+        $els = [];
         foreach ($node as $id => $opts) {
             $els[$opts['id']] = $path . $opts['name'];
             if (isset($opts['__children']) && is_array($opts['__children']) && count($opts['__children'])) {
@@ -102,7 +102,7 @@ trait TreeTrait
      *
      * @return mixed
      */
-    public function childrenHierarchyWithNodes($node = null, $direct = false, array $options = array(), $includeNode = false)
+    public function childrenHierarchyWithNodes($node = null, $direct = false, array $options = [], $includeNode = false)
     {
         $tree = $this->childrenHierarchy($node, $direct, $options, $includeNode);
 
@@ -120,9 +120,9 @@ trait TreeTrait
     {
         $ids = $this->getIdsForTree($tree);
 
-        $nodes_array = $this->findBy(array('id' => $ids));
+        $nodes_array = $this->findBy(['id' => $ids]);
 
-        $nodes = array();
+        $nodes = [];
 
         foreach ($nodes_array as $nodes_array_item) {
             /* @var $nodes_array_item \Compo\Sonata\AdminBundle\Entity\IdEntityTrait */
@@ -143,7 +143,7 @@ trait TreeTrait
      */
     protected function getIdsForTree($tree)
     {
-        $ids = array();
+        $ids = [];
 
         foreach ($tree as $key => $item) {
             $ids[] = $item['id'];

@@ -31,18 +31,18 @@ class NewsAdmin extends AbstractAdmin
      */
     public function configureActionButtons($action, $object = null)
     {
-        $list = array();
+        $list = [];
 
-        if (in_array($action, array('history', 'acl', 'show', 'delete', 'edit'), true)) {
-            $list['show_on_site'] = array(
+        if (in_array($action, ['history', 'acl', 'show', 'delete', 'edit'], true)) {
+            $list['show_on_site'] = [
                 'template' => $this->getTemplate('button_show_on_site'),
                 'uri' => $this->generatePermalink($this->getSubject()),
-            );
+            ];
         } else {
-            $list['show_on_site'] = array(
+            $list['show_on_site'] = [
                 'template' => $this->getTemplate('button_show_on_site'),
                 'uri' => $this->generatePermalink(),
-            );
+            ];
         }
 
         $list = array_merge($list, parent::configureActionButtons($action, $object));
@@ -95,13 +95,13 @@ class NewsAdmin extends AbstractAdmin
             ->add(
                 '_action',
                 null,
-                array(
-                    'actions' => array(
-                        'edit' => array(),
-                        'delete' => array(),
-                        'show_on_site' => array(),
-                    ),
-                )
+                [
+                    'actions' => [
+                        'edit' => [],
+                        'delete' => [],
+                        'show_on_site' => [],
+                    ],
+                ]
             );
     }
 
@@ -112,14 +112,14 @@ class NewsAdmin extends AbstractAdmin
     {
         $formMapper
             ->tab('main')
-            ->with('main', array('name' => false, 'class' => 'col-lg-6'))
+            ->with('main', ['name' => false, 'class' => 'col-lg-6'])
             ->add('id')
             ->add('enabled')
             ->add('publicationAt')
             ->add('views')
             ->add('name')
-            ->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false))
-            ->add('body', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false));
+            ->add('description', CKEditorType::class, ['attr' => ['class' => ''], 'required' => false])
+            ->add('body', CKEditorType::class, ['attr' => ['class' => ''], 'required' => false]);
 
         /** @var QueryBuilder $tagsQb */
         $tagsQb = $this->getDoctrine()->getManager()->createQueryBuilder('c');
@@ -130,14 +130,14 @@ class NewsAdmin extends AbstractAdmin
         $formMapper->add(
             'tags',
             'sonata_type_model',
-            array(
+            [
                 'by_reference' => false,
                 'multiple' => true,
                 'expanded' => false,
                 'compound' => false,
                 'required' => false,
                 'query' => $tagsQb,
-            )
+            ]
         );
 
         $formMapper->end()
@@ -173,26 +173,26 @@ class NewsAdmin extends AbstractAdmin
 
         $tabMenuDropdown = $menu->addChild(
             'tab_menu.list_mode.' . $this->getLabel(),
-            array(
-                'label' => $this->getContainer()->get('translator')->trans($this->getLabel(), array(), $this->getTranslationDomain()),
-                'attributes' => array('dropdown' => true),
-            )
+            [
+                'label' => $this->getContainer()->get('translator')->trans($this->getLabel(), [], $this->getTranslationDomain()),
+                'attributes' => ['dropdown' => true],
+            ]
         );
 
         $menu->setAttribute('icon', 'fa fa-list')->setAttribute('is_dropdown', true)->setAttribute('is_dropdown', true);
         $tabMenuDropdown->setChildrenAttribute('class', 'dropdown-menu');
 
-        $tabMenuDropdown->addChild('list', array(
-            'uri' => $this->generateUrl('list', array()),
+        $tabMenuDropdown->addChild('list', [
+            'uri' => $this->generateUrl('list', []),
             'label' => 'Список',
-        ))->setAttribute('icon', 'fa fa-list');
+        ])->setAttribute('icon', 'fa fa-list');
 
-        if ('news_list' == $context) {
+        if ('news_list' === $context) {
         } else {
-            $tabMenuDropdown->addChild('edit', array(
-                'uri' => $this->generateUrl('edit', array('id' => $vars['news']->getId())),
+            $tabMenuDropdown->addChild('edit', [
+                'uri' => $this->generateUrl('edit', ['id' => $vars['news']->getId()]),
                 'label' => 'Редактировать',
-            ))->setAttribute('icon', 'fa fa-pencil');
+            ])->setAttribute('icon', 'fa fa-pencil');
         }
 
         return $menu;

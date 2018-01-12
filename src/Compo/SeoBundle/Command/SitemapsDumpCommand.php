@@ -96,9 +96,9 @@ class SitemapsDumpCommand extends ContainerAwareCommand implements CronCommand
                 )
             );
         }
-        $options = array(
+        $options = [
             'gzip' => (bool) $input->getOption('gzip'),
-        );
+        ];
         $filenames = $dumper->dump($targetDir, $baseUrl, $input->getOption('section'), $options);
 
         if (false === $filenames) {

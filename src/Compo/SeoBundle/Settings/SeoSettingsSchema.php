@@ -16,11 +16,11 @@ class SeoSettingsSchema extends BaseBundleAdminSettingsSchema
      */
     public function getDefaultSettings()
     {
-        return array(
+        return [
             'yandex_metrika_id' => null,
             'google_analytics_id' => '',
             'google_tag_manager_id' => '',
-        );
+        ];
     }
 
     /**

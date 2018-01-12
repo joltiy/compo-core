@@ -15,9 +15,9 @@ class ArticlesRepository extends \Compo\CoreBundle\Doctrine\ORM\EntityRepository
     /**
      * @param $slug
      *
-     * @return Articles
-     *
      * @throws \Doctrine\ORM\NonUniqueResultException
+     *
+     * @return Articles
      */
     public function findBySlug($slug)
     {

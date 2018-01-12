@@ -43,7 +43,7 @@ class ResolverServiceRegistry implements ServiceRegistryInterface
     /**
      * {@inheritdoc}
      */
-    public function all():array
+    public function all(): array
     {
         return $this->decoratedRegistry->all();
     }
@@ -51,7 +51,7 @@ class ResolverServiceRegistry implements ServiceRegistryInterface
     /**
      * {@inheritdoc}
      */
-    public function register(string $type, $service):void
+    public function register(string $type, $service): void
     {
         $this->decoratedRegistry->register($type, $service);
     }
@@ -59,7 +59,7 @@ class ResolverServiceRegistry implements ServiceRegistryInterface
     /**
      * {@inheritdoc}
      */
-    public function unregister(string $type):void
+    public function unregister(string $type): void
     {
         $this->decoratedRegistry->unregister($type);
     }
@@ -67,7 +67,7 @@ class ResolverServiceRegistry implements ServiceRegistryInterface
     /**
      * {@inheritdoc}
      */
-    public function has(string $type):bool
+    public function has(string $type): bool
     {
         return $this->decoratedRegistry->has($type);
     }

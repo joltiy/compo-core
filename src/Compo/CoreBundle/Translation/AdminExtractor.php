@@ -75,9 +75,9 @@ class AdminExtractor implements ExtractorInterface, TranslatorInterface, Securit
     /**
      * Extract messages to MessageCatalogue.
      *
-     * @return MessageCatalogue
-     *
      * @throws \Exception|\RuntimeException
+     *
+     * @return MessageCatalogue
      */
     public function extract()
     {
@@ -103,20 +103,20 @@ class AdminExtractor implements ExtractorInterface, TranslatorInterface, Securit
 //            }
 
             // call the different public method
-            $methods = array(
-                'getShow' => array(array()),
-                'getDatagrid' => array(array()),
-                'getList' => array(array()),
-                'getForm' => array(array()),
-                'getBreadcrumbs' => array(
-                    array('list'),
-                    array('edit'),
-                    array('create'),
-                    array('update'),
-                    array('batch'),
-                    array('delete'),
-                ),
-            );
+            $methods = [
+                'getShow' => [[]],
+                'getDatagrid' => [[]],
+                'getList' => [[]],
+                'getForm' => [[]],
+                'getBreadcrumbs' => [
+                    ['list'],
+                    ['edit'],
+                    ['create'],
+                    ['update'],
+                    ['batch'],
+                    ['delete'],
+                ],
+            ];
 
             if ($this->logger) {
                 $this->logger->info(sprintf('Retrieving message from admin:%s - class: %s', $admin->getCode(), get_class($admin)));
@@ -125,7 +125,7 @@ class AdminExtractor implements ExtractorInterface, TranslatorInterface, Securit
             foreach ($methods as $method => $calls) {
                 foreach ($calls as $args) {
                     try {
-                        call_user_func_array(array($admin, $method), $args);
+                        call_user_func_array([$admin, $method], $args);
                     } catch (\Exception $e) {
                         if ($this->logger) {
                             $this->logger->error(sprintf('ERROR : admin:%s - Raise an exception : %s', $admin->getCode(), $e->getMessage()));
@@ -156,7 +156,7 @@ class AdminExtractor implements ExtractorInterface, TranslatorInterface, Securit
     /**
      * {@inheritdoc}
      */
-    public function trans($id, array $parameters = array(), $domain = null, $locale = null)
+    public function trans($id, array $parameters = [], $domain = null, $locale = null)
     {
         $this->addMessage($id, $domain);
 
@@ -190,7 +190,7 @@ class AdminExtractor implements ExtractorInterface, TranslatorInterface, Securit
     /**
      * {@inheritdoc}
      */
-    public function transChoice($id, $number, array $parameters = array(), $domain = null, $locale = null)
+    public function transChoice($id, $number, array $parameters = [], $domain = null, $locale = null)
     {
         $this->addMessage($id, $domain);
 

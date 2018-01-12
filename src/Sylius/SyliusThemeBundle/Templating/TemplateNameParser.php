@@ -37,7 +37,7 @@ final class TemplateNameParser implements TemplateNameParserInterface
     /**
      * @var TemplateReferenceInterface[]
      */
-    private $cache = array();
+    private $cache = [];
 
     /**
      * @param TemplateNameParserInterface $decoratedParser

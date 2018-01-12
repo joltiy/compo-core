@@ -52,7 +52,7 @@ final class SettingsSpec extends ObjectBehavior
         $this->getSchemaAlias()->shouldReturn('theme');
         $this
             ->shouldThrow(new \LogicException('The schema alias of the settings model is immutable, instantiate a new object in order to use another schema.'))
-            ->during('setSchemaAlias', array('i_dont_like_to_be_changed'))
+            ->during('setSchemaAlias', ['i_dont_like_to_be_changed'])
         ;
     }
 
@@ -67,24 +67,24 @@ final class SettingsSpec extends ObjectBehavior
         $this->getNamespace()->shouldReturn('banana');
         $this
             ->shouldThrow(new \LogicException('The namespace of the settings model is immutable, instantiate a new object in order to use another namespace.'))
-            ->during('setNamespace', array('i_dont_like_to_be_changed'))
+            ->during('setNamespace', ['i_dont_like_to_be_changed'])
         ;
     }
 
     public function its_parameters_has_empty_array_by_default()
     {
-        $this->getParameters()->shouldReturn(array());
+        $this->getParameters()->shouldReturn([]);
     }
 
     public function it_can_set_a_parameter()
     {
         $this->set('key', 'value');
-        $this->getParameters()->shouldReturn(array('key' => 'value'));
+        $this->getParameters()->shouldReturn(['key' => 'value']);
     }
 
     public function it_throws_parameter_not_found_exception_when_getting_non_existing_parameter()
     {
-        $this->shouldThrow(ParameterNotFoundException::class)->during('get', array('non_existing'));
+        $this->shouldThrow(ParameterNotFoundException::class)->during('get', ['non_existing']);
     }
 
     public function it_can_get_a_parameter()
@@ -102,7 +102,7 @@ final class SettingsSpec extends ObjectBehavior
 
     public function it_throws_parameter_not_found_exception_when_removing_non_existing_parameter()
     {
-        $this->shouldThrow(ParameterNotFoundException::class)->during('remove', array('non_existing'));
+        $this->shouldThrow(ParameterNotFoundException::class)->during('remove', ['non_existing']);
     }
 
     public function it_can_remove_a_parameter()

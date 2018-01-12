@@ -24,10 +24,10 @@ class NewsWithArticlesLastBlockService extends AbstractBlockService
     {
         return $this->renderResponse(
             $blockContext->getTemplate(),
-            array(
+            [
                 'block' => $blockContext->getBlock(),
                 'settings' => $blockContext->getSettings(),
-            ),
+            ],
             $response
         );
     }
@@ -40,11 +40,11 @@ class NewsWithArticlesLastBlockService extends AbstractBlockService
         $formMapper->add(
             'settings',
             'sonata_type_immutable_array',
-            array(
-                'keys' => array(
-                    array('limit', 'integer', array('required' => true)),
-                ),
-            )
+            [
+                'keys' => [
+                    ['limit', 'integer', ['required' => true]],
+                ],
+            ]
         );
     }
 
@@ -54,10 +54,10 @@ class NewsWithArticlesLastBlockService extends AbstractBlockService
     public function configureSettings(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'limit' => 5,
                 'template' => 'CompoCoreBundle:Block:news_with_articles_last.html.twig',
-            )
+            ]
         );
     }
 }

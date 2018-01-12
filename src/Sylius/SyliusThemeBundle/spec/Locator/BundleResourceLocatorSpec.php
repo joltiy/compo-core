@@ -47,7 +47,7 @@ final class BundleResourceLocatorSpec extends ObjectBehavior
         BundleInterface $childBundle,
         BundleInterface $parentBundle
     ) {
-        $kernel->getBundle('ParentBundle', false)->willReturn(array($childBundle, $parentBundle));
+        $kernel->getBundle('ParentBundle', false)->willReturn([$childBundle, $parentBundle]);
 
         $childBundle->getName()->willReturn('ChildBundle');
         $parentBundle->getName()->willReturn('ParentBundle');
@@ -67,7 +67,7 @@ final class BundleResourceLocatorSpec extends ObjectBehavior
         BundleInterface $childBundle,
         BundleInterface $parentBundle
     ) {
-        $kernel->getBundle('ParentBundle', false)->willReturn(array($childBundle, $parentBundle));
+        $kernel->getBundle('ParentBundle', false)->willReturn([$childBundle, $parentBundle]);
 
         $childBundle->getName()->willReturn('ChildBundle');
         $parentBundle->getName()->willReturn('ParentBundle');
@@ -78,21 +78,21 @@ final class BundleResourceLocatorSpec extends ObjectBehavior
         $filesystem->exists('/theme/path/ChildBundle/views/index.html.twig')->shouldBeCalled()->willReturn(false);
         $filesystem->exists('/theme/path/ParentBundle/views/index.html.twig')->shouldBeCalled()->willReturn(false);
 
-        $this->shouldThrow(ResourceNotFoundException::class)->during('locateResource', array('@ParentBundle/Resources/views/index.html.twig', $theme));
+        $this->shouldThrow(ResourceNotFoundException::class)->during('locateResource', ['@ParentBundle/Resources/views/index.html.twig', $theme]);
     }
 
     public function it_throws_an_exception_if_resource_path_does_not_start_with_an_asperand(ThemeInterface $theme)
     {
-        $this->shouldThrow(\InvalidArgumentException::class)->during('locateResource', array('ParentBundle/Resources/views/index.html.twig', $theme));
+        $this->shouldThrow(\InvalidArgumentException::class)->during('locateResource', ['ParentBundle/Resources/views/index.html.twig', $theme]);
     }
 
     public function it_throws_an_exception_if_resource_path_contains_two_dots_in_a_row(ThemeInterface $theme)
     {
-        $this->shouldThrow(\InvalidArgumentException::class)->during('locateResource', array('@ParentBundle/Resources/views/../views/index.html.twig', $theme));
+        $this->shouldThrow(\InvalidArgumentException::class)->during('locateResource', ['@ParentBundle/Resources/views/../views/index.html.twig', $theme]);
     }
 
     public function it_throws_an_exception_if_resource_path_does_not_contain_resources_dir(ThemeInterface $theme)
     {
-        $this->shouldThrow(\InvalidArgumentException::class)->during('locateResource', array('@ParentBundle/views/Resources.index.html.twig', $theme));
+        $this->shouldThrow(\InvalidArgumentException::class)->during('locateResource', ['@ParentBundle/views/Resources.index.html.twig', $theme]);
     }
 }

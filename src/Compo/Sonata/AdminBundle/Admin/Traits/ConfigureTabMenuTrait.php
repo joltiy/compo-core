@@ -35,7 +35,7 @@ trait ConfigureTabMenuTrait
          *
          */
 
-        if (in_array($action, array('list','upload', 'import', 'trash', 'tree', 'create'))) {
+        if (in_array($action, ['list', 'upload', 'import', 'trash', 'tree', 'create'], true)) {
             if ($childAdmin) {
                 $currentLeafChildAdmin = $this->getCurrentLeafChildAdmin();
 
@@ -63,28 +63,28 @@ trait ConfigureTabMenuTrait
                 if ($currentLeafChildAdmin->hasAccess('list')) {
                     $tabMenuDropdown = $tabMenu->addChild(
                         'tab_menu.list_mode.' . $currentLeafChildAdmin->getLabel(),
-                        array(
+                        [
                             'label' => $currentLeafChildAdmin->trans('tab_menu.link_list'),
-                            'uri' => $currentLeafChildAdmin->generateUrl('list', array()),
-                            'attributes' => array('dropdown' => true),
-                        )
+                            'uri' => $currentLeafChildAdmin->generateUrl('list', []),
+                            'attributes' => ['dropdown' => true],
+                        ]
                     )->setAttribute('icon', 'fa fa-list');
 
                     $tabMenuDropdown->addChild(
                         'tab_menu.list_mode.list.' . $currentLeafChildAdmin->getLabel(),
-                        array(
+                        [
                             'label' => $currentLeafChildAdmin->trans('tab_menu.link_list'),
-                            'uri' => $currentLeafChildAdmin->generateUrl('list', array('_list_mode' => 'list')),
-                        )
+                            'uri' => $currentLeafChildAdmin->generateUrl('list', ['_list_mode' => 'list']),
+                        ]
                     )->setAttribute('icon', 'fa fa-list');
 
                     if (isset($currentLeafChildAdmin->treeEnabled) && $currentLeafChildAdmin->treeEnabled) {
                         $tabMenuDropdown->addChild(
                             'tab_menu.list_mode.tree.' . $admin->getLabel(),
-                            array(
+                            [
                                 'label' => $currentLeafChildAdmin->trans('tab_menu.link_tree'),
-                                'uri' => $currentLeafChildAdmin->generateUrl('list', array('_list_mode' => 'tree')),
-                            )
+                                'uri' => $currentLeafChildAdmin->generateUrl('list', ['_list_mode' => 'tree']),
+                            ]
                         )->setAttribute('icon', 'fa fa-sitemap');
                     }
                 }
@@ -92,42 +92,42 @@ trait ConfigureTabMenuTrait
                 if ($currentLeafChildAdmin->hasRoute('trash') && $currentLeafChildAdmin->hasAccess('undelete')) {
                     $tabMenu->addChild(
                         $currentLeafChildAdmin->trans('tab_menu.link_trash'),
-                        array('uri' => $currentLeafChildAdmin->generateUrl('trash', array()))
+                        ['uri' => $currentLeafChildAdmin->generateUrl('trash', [])]
                     )->setAttribute('icon', 'fa fa-trash');
                 }
 
                 if ($currentLeafChildAdmin->hasRoute('create') && $currentLeafChildAdmin->hasAccess('create')) {
                     $tabMenu->addChild(
                         $currentLeafChildAdmin->trans('tab_menu.link_create'),
-                        array('uri' => $currentLeafChildAdmin->generateUrl('create', array()))
+                        ['uri' => $currentLeafChildAdmin->generateUrl('create', [])]
                     )->setAttribute('icon', 'fa fa-plus');
                 }
             } else {
                 if ($admin->hasAccess('list')) {
                     $tabMenuDropdown = $tabMenu->addChild(
                         'tab_menu.list_mode.' . $admin->getLabel(),
-                        array(
+                        [
                             'label' => $admin->trans('tab_menu.link_list'),
-                            'uri' => $admin->generateUrl('list', array()),
-                            'attributes' => array('dropdown' => true),
-                        )
+                            'uri' => $admin->generateUrl('list', []),
+                            'attributes' => ['dropdown' => true],
+                        ]
                     )->setAttribute('icon', 'fa fa-list');
 
                     $tabMenuDropdown->addChild(
                         'tab_menu.list_mode.list.' . $admin->getLabel(),
-                        array(
+                        [
                             'label' => $admin->trans('tab_menu.link_list'),
-                            'uri' => $admin->generateUrl('list', array('_list_mode' => 'list')),
-                        )
+                            'uri' => $admin->generateUrl('list', ['_list_mode' => 'list']),
+                        ]
                     )->setAttribute('icon', 'fa fa-list');
 
                     if (isset($admin->treeEnabled) && $admin->treeEnabled) {
                         $tabMenuDropdown->addChild(
                             'tab_menu.list_mode.tree.' . $admin->getLabel(),
-                            array(
+                            [
                                 'label' => $admin->trans('tab_menu.link_tree'),
-                                'uri' => $admin->generateUrl('list', array('_list_mode' => 'tree')),
-                            )
+                                'uri' => $admin->generateUrl('list', ['_list_mode' => 'tree']),
+                            ]
                         )->setAttribute('icon', 'fa fa-sitemap');
                     }
                 }
@@ -135,38 +135,38 @@ trait ConfigureTabMenuTrait
                 if ($admin->hasRoute('trash') && $admin->hasAccess('undelete')) {
                     $tabMenu->addChild(
                         $this->trans('tab_menu.link_trash'),
-                        array('uri' => $admin->generateUrl('trash', array()))
+                        ['uri' => $admin->generateUrl('trash', [])]
                     )->setAttribute('icon', 'fa fa-trash');
                 }
 
                 if ($admin->hasRoute('create') && $admin->hasAccess('create')) {
                     $tabMenu->addChild(
                         $admin->trans('tab_menu.link_create'),
-                        array('uri' => $admin->generateUrl('create', array()))
+                        ['uri' => $admin->generateUrl('create', [])]
                     )->setAttribute('icon', 'fa fa-plus');
                 }
             }
         }
 
-        if (in_array($action, array('list', 'upload', 'import', 'tree'))) {
+        if (in_array($action, ['list', 'upload', 'import', 'tree'], true)) {
             if ($childAdmin) {
                 if (method_exists($childAdmin, 'generatePermalink') && $childAdmin->generatePermalink()) {
                     $tabMenu->addChild(
                         $childAdmin->trans('tab_menu.link_show_on_site'),
-                        array('uri' => $childAdmin->generatePermalink(), 'linkAttributes' => array('target' => '_blank'))
+                        ['uri' => $childAdmin->generatePermalink(), 'linkAttributes' => ['target' => '_blank']]
                     )->setAttribute('icon', 'fa fa-eye');
                 }
             } else {
                 if (method_exists($admin, 'generatePermalink') && $admin->generatePermalink()) {
                     $tabMenu->addChild(
                         $admin->trans('tab_menu.link_show_on_site'),
-                        array('uri' => $admin->generatePermalink(), 'linkAttributes' => array('target' => '_blank'))
+                        ['uri' => $admin->generatePermalink(), 'linkAttributes' => ['target' => '_blank']]
                     )->setAttribute('icon', 'fa fa-eye');
                 }
             }
         }
 
-        if (in_array($action, array('delete', 'edit', 'history', 'untrash'))) {
+        if (in_array($action, ['delete', 'edit', 'history', 'untrash'], true)) {
             if ($childAdmin) {
                 $currentLeafChildAdmin = $this->getCurrentLeafChildAdmin();
 
@@ -184,30 +184,30 @@ trait ConfigureTabMenuTrait
                 if ($currentLeafChildAdmin->hasAccess('edit', $currentLeafChildAdmin->getSubject())) {
                     $tabMenu->addChild(
                         $currentLeafChildAdmin->trans('tab_menu.link_edit'),
-                        array(
-                            'uri' => $currentLeafChildAdmin->generateUrl('edit', array('id' => $currentLeafChildAdmin->getSubject()->getId())),
-                        )
+                        [
+                            'uri' => $currentLeafChildAdmin->generateUrl('edit', ['id' => $currentLeafChildAdmin->getSubject()->getId()]),
+                        ]
                     )->setAttribute('icon', 'fa fa-pencil');
                 }
 
                 if ($currentLeafChildAdmin->hasRoute('history') && $currentLeafChildAdmin->hasAccess('edit', $currentLeafChildAdmin->getSubject())) {
                     $tabMenu->addChild(
                         $currentLeafChildAdmin->trans('tab_menu.link_history'),
-                        array('uri' => $currentLeafChildAdmin->generateUrl('history', array('id' => $currentLeafChildAdmin->getSubject()->getId())))
+                        ['uri' => $currentLeafChildAdmin->generateUrl('history', ['id' => $currentLeafChildAdmin->getSubject()->getId()])]
                     )->setAttribute('icon', 'fa fa-archive');
                 }
 
                 if ($currentLeafChildAdmin->hasRoute('clone') && $currentLeafChildAdmin->hasAccess('create')) {
                     $tabMenu->addChild(
                         $currentLeafChildAdmin->trans('tab_menu.link_clone'),
-                        array('uri' => $currentLeafChildAdmin->generateUrl('clone', array('id' => $currentLeafChildAdmin->getSubject()->getId())))
+                        ['uri' => $currentLeafChildAdmin->generateUrl('clone', ['id' => $currentLeafChildAdmin->getSubject()->getId()])]
                     )->setAttribute('icon', 'fa fa-copy');
                 }
 
                 if (method_exists($currentLeafChildAdmin, 'generatePermalink') && $currentLeafChildAdmin->generatePermalink($currentLeafChildAdmin->getSubject())) {
                     $tabMenu->addChild(
                         $currentLeafChildAdmin->trans('tab_menu.link_show_on_site'),
-                        array('uri' => $currentLeafChildAdmin->generatePermalink($currentLeafChildAdmin->getSubject()), 'linkAttributes' => array('target' => '_blank'))
+                        ['uri' => $currentLeafChildAdmin->generatePermalink($currentLeafChildAdmin->getSubject()), 'linkAttributes' => ['target' => '_blank']]
                     )->setAttribute('icon', 'fa fa-eye');
                 }
 
@@ -218,11 +218,11 @@ trait ConfigureTabMenuTrait
                     if ($child->hasAccess('list')) {
                         $tabMenu->addChild(
                             'tab_menu.link_list_' . $child->getCode(),
-                            array(
-                                'label' => $childAdmin->trans('tab_menu.title_list', array('%name%' => $childAdmin->trans($child->getLabel()))),
+                            [
+                                'label' => $childAdmin->trans('tab_menu.title_list', ['%name%' => $childAdmin->trans($child->getLabel())]),
 
-                                'uri' => $childAdmin->generateUrl($child->getCode() . '.list', array('id' => $childAdmin->getSubject()->getId())),
-                            )
+                                'uri' => $childAdmin->generateUrl($child->getCode() . '.list', ['id' => $childAdmin->getSubject()->getId()]),
+                            ]
                         )->setAttribute('icon', 'fa fa-list');
                     }
                 }
@@ -230,30 +230,30 @@ trait ConfigureTabMenuTrait
                 if ($admin->hasAccess('edit', $admin->getSubject())) {
                     $tabMenu->addChild(
                         $admin->trans('tab_menu.link_edit'),
-                        array(
-                            'uri' => $admin->generateUrl('edit', array('id' => $id)),
-                        )
+                        [
+                            'uri' => $admin->generateUrl('edit', ['id' => $id]),
+                        ]
                     )->setAttribute('icon', 'fa fa-pencil');
                 }
 
                 if ($admin->hasRoute('history') && $admin->hasAccess('edit', $admin->getSubject())) {
                     $tabMenu->addChild(
                         $this->trans('tab_menu.link_history'),
-                        array('uri' => $admin->generateUrl('history', array('id' => $admin->getSubject()->getId())))
+                        ['uri' => $admin->generateUrl('history', ['id' => $admin->getSubject()->getId()])]
                     )->setAttribute('icon', 'fa fa-archive');
                 }
 
                 if ($admin->hasRoute('clone') && $admin->hasAccess('create')) {
                     $tabMenu->addChild(
                         $admin->trans('tab_menu.link_clone'),
-                        array('uri' => $admin->generateUrl('clone', array('id' => $admin->getSubject()->getId())))
+                        ['uri' => $admin->generateUrl('clone', ['id' => $admin->getSubject()->getId()])]
                     )->setAttribute('icon', 'fa fa-copy');
                 }
 
                 if (method_exists($admin, 'generatePermalink') && $admin->generatePermalink($admin->getSubject())) {
                     $tabMenu->addChild(
                         $admin->trans('tab_menu.link_show_on_site'),
-                        array('uri' => $admin->generatePermalink($admin->getSubject()), 'linkAttributes' => array('target' => '_blank'))
+                        ['uri' => $admin->generatePermalink($admin->getSubject()), 'linkAttributes' => ['target' => '_blank']]
                     )->setAttribute('icon', 'fa fa-eye');
                 }
 
@@ -264,12 +264,12 @@ trait ConfigureTabMenuTrait
                     if ($child->hasAccess('list')) {
                         $tabMenu->addChild(
                             'tab_menu.link_list_' . $child->getLabel(),
-                            array(
-                                'label' => $admin->trans('tab_menu.title_list', array('%name%' => $admin->trans($child->getLabel()))),
+                            [
+                                'label' => $admin->trans('tab_menu.title_list', ['%name%' => $admin->trans($child->getLabel())]),
 
                                 //'uri' => $admin->generateUrl($child->getCode() . '.list', array('id' => $id)),
-                                'uri' => $child->generateUrl( 'list', array('id' => $id)),
-                            )
+                                'uri' => $child->generateUrl('list', ['id' => $id]),
+                            ]
                         )->setAttribute('icon', 'fa fa-list');
                     }
                 }
@@ -283,7 +283,7 @@ trait ConfigureTabMenuTrait
                 if ($this->hasAccess('edit', $this->getSubject()) && $this->hasRoute('history')) {
                     $tabMenu->addChild(
                         $this->trans('tab_menu.link_history'),
-                        array('uri' => $this->generateUrl('history', array('id' => $this->getSubject()->getId())))
+                        ['uri' => $this->generateUrl('history', ['id' => $this->getSubject()->getId()])]
                     )->setAttribute('icon', 'fa fa-archive');
                 }
             }
@@ -294,28 +294,28 @@ trait ConfigureTabMenuTrait
                 if ($this->hasAccess('list')) {
                     $tabMenu->addChild(
                         $this->trans('tab_menu.link_list'),
-                        array('uri' => $this->generateUrl('list', array()))
+                        ['uri' => $this->generateUrl('list', [])]
                     )->setAttribute('icon', 'fa fa-list');
                 }
 
                 if ($this->hasRoute('trash') && $this->hasAccess('undelete')) {
                     $tabMenu->addChild(
                         $this->trans('tab_menu.link_trash'),
-                        array('uri' => $this->generateUrl('trash', array()))
+                        ['uri' => $this->generateUrl('trash', [])]
                     )->setAttribute('icon', 'fa fa-trash');
                 }
 
                 if ($this->hasRoute('create') && $this->hasAccess('create')) {
                     $tabMenu->addChild(
                         $this->trans('tab_menu.link_create'),
-                        array('uri' => $this->generateUrl('create', array()))
+                        ['uri' => $this->generateUrl('create', [])]
                     )->setAttribute('icon', 'fa fa-plus');
                 }
 
                 if (method_exists($this, 'generatePermalink') && $this->generatePermalink()) {
                     $tabMenu->addChild(
                         $this->trans('tab_menu.link_show_on_site'),
-                        array('uri' => $this->generatePermalink(), 'linkAttributes' => array('target' => '_blank'))
+                        ['uri' => $this->generatePermalink(), 'linkAttributes' => ['target' => '_blank']]
                     )->setAttribute('icon', 'fa fa-eye');
                 }
             }
@@ -324,7 +324,7 @@ trait ConfigureTabMenuTrait
                 if ($this->hasRoute('clone') && $this->hasAccess('create')) {
                     $tabMenu->addChild(
                         $this->trans('tab_menu.link_clone'),
-                        array('uri' => $this->generateUrl('clone', array('id' => $this->getSubject()->getId())))
+                        ['uri' => $this->generateUrl('clone', ['id' => $this->getSubject()->getId()])]
                     )->setAttribute('icon', 'fa fa-copy');
                 }
                 $children = $this->getChildren();
@@ -334,11 +334,11 @@ trait ConfigureTabMenuTrait
                     if ($child->hasAccess('list')) {
                         $tabMenu->addChild(
                             'tab_menu.link_list_' . $child->getLabel(),
-                            array(
-                                'label' => $this->trans('tab_menu.title_list', array('%name%' => $this->trans($child->getLabel()))),
+                            [
+                                'label' => $this->trans('tab_menu.title_list', ['%name%' => $this->trans($child->getLabel())]),
 
-                                'uri' => $this->generateUrl($child->getBaseCodeRoute() . '.list', array('id' => $this->getSubject()->getId())),
-                            )
+                                'uri' => $this->generateUrl($child->getBaseCodeRoute() . '.list', ['id' => $this->getSubject()->getId()]),
+                            ]
                         )->setAttribute('icon', 'fa fa-list');
                     }
 
@@ -371,7 +371,7 @@ trait ConfigureTabMenuTrait
                 if (method_exists($this, 'generatePermalink') && $this->generatePermalink($this->getSubject())) {
                     $tabMenu->addChild(
                         $this->trans('tab_menu.link_show_on_site'),
-                        array('uri' => $this->generatePermalink($this->getSubject()), 'linkAttributes' => array('target' => '_blank'))
+                        ['uri' => $this->generatePermalink($this->getSubject()), 'linkAttributes' => ['target' => '_blank']]
                     )->setAttribute('icon', 'fa fa-eye');
                 }
             }
@@ -380,21 +380,21 @@ trait ConfigureTabMenuTrait
                 if ($childAdmin->hasAccess('edit', $childAdmin->getSubject())) {
                     $tabMenu->addChild(
                         $this->trans('tab_menu.link_edit'),
-                        array('uri' => $childAdmin->generateUrl('edit', array('id' => $childAdmin->getSubject()->getId())))
+                        ['uri' => $childAdmin->generateUrl('edit', ['id' => $childAdmin->getSubject()->getId()])]
                     )->setAttribute('icon', 'fa fa-pencil');
                 }
 
                 if ($childAdmin->hasRoute('history') && $childAdmin->hasAccess('edit', $childAdmin->getSubject())) {
                     $tabMenu->addChild(
                         $this->trans('tab_menu.link_history'),
-                        array('uri' => $childAdmin->generateUrl('history', array('id' => $childAdmin->getSubject()->getId())))
+                        ['uri' => $childAdmin->generateUrl('history', ['id' => $childAdmin->getSubject()->getId()])]
                     )->setAttribute('icon', 'fa fa-archive');
                 }
 
                 if ($childAdmin->hasRoute('clone') && $childAdmin->hasAccess('create')) {
                     $tabMenu->addChild(
                         $this->trans('tab_menu.link_clone'),
-                        array('uri' => $childAdmin->generateUrl('clone', array('id' => $childAdmin->getSubject()->getId())))
+                        ['uri' => $childAdmin->generateUrl('clone', ['id' => $childAdmin->getSubject()->getId()])]
                     )->setAttribute('icon', 'fa fa-copy');
                 }
             }
@@ -403,21 +403,21 @@ trait ConfigureTabMenuTrait
                 if ($childAdmin->hasAccess('list')) {
                     $tabMenu->addChild(
                         $this->trans('tab_menu.link_list'),
-                        array('uri' => $this->generateUrl($childAdmin->getBaseCodeRoute() . '.list', array('id' => $this->getSubject()->getId())))
+                        ['uri' => $this->generateUrl($childAdmin->getBaseCodeRoute() . '.list', ['id' => $this->getSubject()->getId()])]
                     )->setAttribute('icon', 'fa fa-list');
                 }
 
                 if ($this->hasRoute('create') && $childAdmin->hasAccess('create')) {
                     $tabMenu->addChild(
                         $this->trans('tab_menu.link_create'),
-                        array('uri' => $this->generateUrl($childAdmin->getBaseCodeRoute() . '.create', array('id' => $this->getSubject()->getId())))
+                        ['uri' => $this->generateUrl($childAdmin->getBaseCodeRoute() . '.create', ['id' => $this->getSubject()->getId()])]
                     )->setAttribute('icon', 'fa fa-plus');
                 }
 
                 if ($childAdmin->hasRoute('trash')) {
                     $tabMenu->addChild(
                         $this->trans('tab_menu.link_trash'),
-                        array('uri' => $this->generateUrl($childAdmin->getBaseCodeRoute() . '.trash', array('id' => $this->getSubject()->getId())))
+                        ['uri' => $this->generateUrl($childAdmin->getBaseCodeRoute() . '.trash', ['id' => $this->getSubject()->getId()])]
                     )->setAttribute('icon', 'fa fa-trash');
                 }
             }
@@ -436,11 +436,11 @@ trait ConfigureTabMenuTrait
                     if ($child->hasAccess('list')) {
                         $tabMenu->addChild(
                             'tab_menu.link_list_' . $child->getLabel(),
-                            array(
-                                'label' => $this->trans('tab_menu.title_list', array('%name%' => $this->trans($child->getLabel()))),
+                            [
+                                'label' => $this->trans('tab_menu.title_list', ['%name%' => $this->trans($child->getLabel())]),
 
-                                'uri' => $admin->generateUrl($child->getCode() . '.list', array('id' => $admin->getSubject()->getId())),
-                            )
+                                'uri' => $admin->generateUrl($child->getCode() . '.list', ['id' => $admin->getSubject()->getId()]),
+                            ]
                         )->setAttribute('icon', 'fa fa-list');
                     }
 
@@ -472,5 +472,4 @@ trait ConfigureTabMenuTrait
             }
         }
     }
-
 }

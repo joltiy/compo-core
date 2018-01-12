@@ -32,7 +32,7 @@ final class TranslatorLoaderProviderPass implements CompilerPassInterface
         }
 
         $taggedServices = $container->findTaggedServiceIds('translation.loader');
-        $loaders = array();
+        $loaders = [];
         foreach ($taggedServices as $id => $attributes) {
             $loader = $container->findDefinition($id);
             $loader->setLazy(true);

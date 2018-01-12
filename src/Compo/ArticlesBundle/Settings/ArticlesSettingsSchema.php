@@ -15,9 +15,9 @@ class ArticlesSettingsSchema extends BaseBundleAdminSettingsSchema
      */
     public function getDefaultSettings()
     {
-        return array(
+        return [
             'articles_per_page' => 21,
-        );
+        ];
     }
 
     /**

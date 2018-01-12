@@ -38,9 +38,9 @@ class SitemapPageSubscriber implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             SitemapPopulateEvent::ON_SITEMAP_POPULATE => 'registerItems',
-        );
+        ];
     }
 
     /**
@@ -49,9 +49,9 @@ class SitemapPageSubscriber implements EventSubscriberInterface
     public function registerItems(SitemapPopulateEvent $event)
     {
         $posts = $this->manager->getRepository('CompoSonataPageBundle:Page')->findBy(
-            array(
+            [
                 'routeName' => 'page_slug',
-            )
+            ]
         );
 
         foreach ($posts as $post) {
@@ -59,7 +59,7 @@ class SitemapPageSubscriber implements EventSubscriberInterface
                 new UrlConcrete(
                     $this->urlGenerator->generate(
                         'page_slug',
-                        array('path' => $post->getUrl()),
+                        ['path' => $post->getUrl()],
                         UrlGeneratorInterface::ABSOLUTE_URL
                     ),
                     $post->getUpdatedAt()

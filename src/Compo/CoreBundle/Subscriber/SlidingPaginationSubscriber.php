@@ -26,7 +26,7 @@ class SlidingPaginationSubscriber implements EventSubscriberInterface
     /**
      * @var array
      */
-    private $params = array();
+    private $params = [];
     /**
      * @var array
      */
@@ -47,9 +47,9 @@ class SlidingPaginationSubscriber implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(
-            'knp_pager.pagination' => array('pagination', 1),
-        );
+        return [
+            'knp_pager.pagination' => ['pagination', 1],
+        ];
     }
 
     /**
@@ -64,9 +64,9 @@ class SlidingPaginationSubscriber implements EventSubscriberInterface
         $request = $event->getRequest();
 
         $this->route = $request->attributes->get('_route');
-        $this->params = array_merge(array(), $request->attributes->get('_route_params', array()));
+        $this->params = array_merge([], $request->attributes->get('_route_params', []));
         foreach ($this->params as $key => $param) {
-            if (0 === strpos($key, '_')) {
+            if (0 === mb_strpos($key, '_')) {
                 unset($this->params[$key]);
             }
         }

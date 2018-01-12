@@ -34,9 +34,9 @@ final class AssetsInstallCommand extends ContainerAwareCommand
     {
         $this
             ->setName('sylius:theme:assets:install')
-            ->setDefinition(array(
+            ->setDefinition([
                 new InputArgument('target', InputArgument::OPTIONAL, 'The target directory', 'web'),
-            ))
+            ])
             ->addOption('symlink', null, InputOption::VALUE_NONE, 'Symlinks the assets instead of copying it')
             ->addOption('relative', null, InputOption::VALUE_NONE, 'Make relative symlinks')
             ->setDescription('Installs themes web assets under a public web directory')

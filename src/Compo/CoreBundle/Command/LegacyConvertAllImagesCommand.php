@@ -22,14 +22,14 @@ class LegacyConvertAllImagesCommand extends BaseLegacyConvertCommand
      *
      * @var array
      */
-    public $dbpics = array();
+    public $dbpics = [];
 
     /**
      * Изображения из текущей БД.
      *
      * @var array
      */
-    public $mediaIsset = array();
+    public $mediaIsset = [];
 
     /**
      * @return array
@@ -105,7 +105,7 @@ class LegacyConvertAllImagesCommand extends BaseLegacyConvertCommand
     {
         $this->getIo()->section('Load new media process');
 
-        $queue = array();
+        $queue = [];
 
         $console = $this->getConsoleBinCommand();
 
@@ -137,7 +137,7 @@ class LegacyConvertAllImagesCommand extends BaseLegacyConvertCommand
             }
         }
 
-        $queue_running = array();
+        $queue_running = [];
 
         while (count($queue) > 0) {
             while (count($queue_running) < $this->getThread()) {

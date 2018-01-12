@@ -35,7 +35,7 @@ final class CircularDependencyCheckerSpec extends ObjectBehavior
     public function it_does_not_find_circular_dependency_if_checking_a_theme_without_any_parents(
         ThemeInterface $theme
     ) {
-        $theme->getParents()->willReturn(array());
+        $theme->getParents()->willReturn([]);
 
         $this->check($theme);
     }
@@ -46,10 +46,10 @@ final class CircularDependencyCheckerSpec extends ObjectBehavior
         ThemeInterface $thirdTheme,
         ThemeInterface $fourthTheme
     ) {
-        $firstTheme->getParents()->willReturn(array($secondTheme, $thirdTheme));
-        $secondTheme->getParents()->willReturn(array($thirdTheme, $fourthTheme));
-        $thirdTheme->getParents()->willReturn(array($fourthTheme));
-        $fourthTheme->getParents()->willReturn(array());
+        $firstTheme->getParents()->willReturn([$secondTheme, $thirdTheme]);
+        $secondTheme->getParents()->willReturn([$thirdTheme, $fourthTheme]);
+        $thirdTheme->getParents()->willReturn([$fourthTheme]);
+        $fourthTheme->getParents()->willReturn([]);
 
         $this->check($firstTheme);
     }
@@ -60,10 +60,10 @@ final class CircularDependencyCheckerSpec extends ObjectBehavior
         ThemeInterface $thirdTheme,
         ThemeInterface $fourthTheme
     ) {
-        $firstTheme->getParents()->willReturn(array($secondTheme, $thirdTheme));
-        $secondTheme->getParents()->willReturn(array($thirdTheme));
-        $thirdTheme->getParents()->willReturn(array($fourthTheme));
-        $fourthTheme->getParents()->willReturn(array($secondTheme));
+        $firstTheme->getParents()->willReturn([$secondTheme, $thirdTheme]);
+        $secondTheme->getParents()->willReturn([$thirdTheme]);
+        $thirdTheme->getParents()->willReturn([$fourthTheme]);
+        $fourthTheme->getParents()->willReturn([$secondTheme]);
 
         $firstTheme->getName()->willReturn('first/theme');
         $secondTheme->getName()->willReturn('second/theme');
@@ -72,7 +72,7 @@ final class CircularDependencyCheckerSpec extends ObjectBehavior
 
         $this
             ->shouldThrow(CircularDependencyFoundException::class)
-            ->during('check', array($firstTheme))
+            ->during('check', [$firstTheme])
         ;
     }
 }

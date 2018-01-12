@@ -56,31 +56,31 @@ class SeoExtension extends AbstractAdminExtension
      */
     public function configureFormFields(FormMapper $formMapper)
     {
-        if (!$this->isUseEntityTraits($formMapper->getAdmin(), array(
+        if (!$this->isUseEntityTraits($formMapper->getAdmin(), [
             'Compo\SeoBundle\Entity\Traits\SeoEntity',
-        ))) {
+        ])) {
             return;
         }
 
         $formMapper
             ->tab('seo')
-            ->with('seo_main', array('name' => false, 'class' => 'col-lg-6'))
-            ->add('slug', 'text', array('required' => false))
-            ->add('noIndexEnabled', 'checkbox', array('required' => false))
+            ->with('seo_main', ['name' => false, 'class' => 'col-lg-6'])
+            ->add('slug', 'text', ['required' => false])
+            ->add('noIndexEnabled', 'checkbox', ['required' => false])
             ->end()
-            ->with('seo_meta', array('name' => false, 'class' => 'col-lg-6'))
-            ->add('header', 'textarea', array('required' => false, 'attr' => array('class' => 'highlight-src')))
-            ->add('title', 'textarea', array('required' => false, 'attr' => array('class' => 'highlight-src')))
-            ->add('metaDescription', 'textarea', array('required' => false, 'attr' => array('class' => 'highlight-src')))
-            ->add('metaKeyword', 'textarea', array('required' => false, 'attr' => array('class' => 'highlight-src')))
+            ->with('seo_meta', ['name' => false, 'class' => 'col-lg-6'])
+            ->add('header', 'textarea', ['required' => false, 'attr' => ['class' => 'highlight-src']])
+            ->add('title', 'textarea', ['required' => false, 'attr' => ['class' => 'highlight-src']])
+            ->add('metaDescription', 'textarea', ['required' => false, 'attr' => ['class' => 'highlight-src']])
+            ->add('metaKeyword', 'textarea', ['required' => false, 'attr' => ['class' => 'highlight-src']])
             ->add(
                 'seoVars',
                 SeoVarsType::class,
-                array(
+                [
                     'mapped' => false,
                     'required' => false,
                     'by_reference' => false,
-                )
+                ]
             )
             ->end()
             ->end();

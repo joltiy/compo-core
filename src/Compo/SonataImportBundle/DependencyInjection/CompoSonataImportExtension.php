@@ -2,13 +2,13 @@
 
 namespace Compo\SonataImportBundle\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
- * This is the class that loads and manages your bundle configuration
+ * This is the class that loads and manages your bundle configuration.
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
@@ -31,7 +31,8 @@ class CompoSonataImportExtension extends Extension
      * @param array            $config
      * @param ContainerBuilder $container
      */
-    private function prepairConfig(array $config, ContainerBuilder $container){
+    private function prepairConfig(array $config, ContainerBuilder $container)
+    {
         $container->setParameter(
             'compo_sonata_import.mappings',
             $config['mappings']
@@ -45,10 +46,10 @@ class CompoSonataImportExtension extends Extension
             'compo_sonata_import.class_loaders',
             $config['class_loaders']
         );
-        if(!isset($config['encode'])){
+        if (!isset($config['encode'])) {
             $config['encode'] = [
                 'default' => 'utf8',
-                'list' => []
+                'list' => [],
             ];
         }
         $container->setParameter(

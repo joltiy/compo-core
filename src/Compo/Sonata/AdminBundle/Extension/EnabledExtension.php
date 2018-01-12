@@ -43,11 +43,11 @@ class EnabledExtension extends AbstractAdminExtension
             if (
                 $admin->hasRoute('edit') && $admin->isGranted('EDIT')
             ) {
-                $actions['enable'] = array(
-                );
+                $actions['enable'] = [
+                ];
 
-                $actions['disable'] = array(
-                );
+                $actions['disable'] = [
+                ];
             }
         }
 
@@ -59,9 +59,9 @@ class EnabledExtension extends AbstractAdminExtension
      */
     public function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        if (!$this->isUseEntityTraits($datagridMapper->getAdmin(), array(
+        if (!$this->isUseEntityTraits($datagridMapper->getAdmin(), [
             'Compo\Sonata\AdminBundle\Entity\EnabledEntityTrait',
-        ))) {
+        ])) {
             return;
         }
 

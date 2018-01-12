@@ -97,9 +97,9 @@ class SeoPageAdmin extends AbstractAdmin
             ->addIdentifier(
                 'context',
                 'trans',
-                array(
+                [
                     'catalogue' => 'CompoSeoBundle',
-                )
+                ]
             )
             ->add('header')
             ->add('title')
@@ -108,12 +108,12 @@ class SeoPageAdmin extends AbstractAdmin
             ->add(
                 '_action',
                 null,
-                array(
-                    'actions' => array(
-                        'edit' => array(),
-                        'delete' => array(),
-                    ),
-                )
+                [
+                    'actions' => [
+                        'edit' => [],
+                        'delete' => [],
+                    ],
+                ]
             );
     }
 
@@ -140,30 +140,30 @@ class SeoPageAdmin extends AbstractAdmin
 
         $formMapper
             ->tab('main')
-            ->with('main', array('name' => false, 'class' => 'col-lg-12'));
+            ->with('main', ['name' => false, 'class' => 'col-lg-12']);
 
         $formMapper->add('id')
             ->add(
                 'context',
                 'choice',
-                array(
+                [
                     'choices' => $manager->getChoices(),
                     'choice_translation_domain' => 'CompoSeoBundle',
-                )
+                ]
             )
-            ->add('title', null, array('attr' => array('class' => 'highlight-src'), 'required' => false))
-            ->add('metaKeyword', null, array('attr' => array('class' => 'highlight-src'), 'required' => false))
-            ->add('metaDescription', null, array('attr' => array('class' => 'highlight-src'), 'required' => false))
-            ->add('header', null, array('attr' => array('class' => 'highlight-src'), 'required' => false))
-            ->add('description', null, array('attr' => array('class' => ''), 'required' => false))
-            ->add('descriptionAdditional', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false));
+            ->add('title', null, ['attr' => ['class' => 'highlight-src'], 'required' => false])
+            ->add('metaKeyword', null, ['attr' => ['class' => 'highlight-src'], 'required' => false])
+            ->add('metaDescription', null, ['attr' => ['class' => 'highlight-src'], 'required' => false])
+            ->add('header', null, ['attr' => ['class' => 'highlight-src'], 'required' => false])
+            ->add('description', null, ['attr' => ['class' => ''], 'required' => false])
+            ->add('descriptionAdditional', CKEditorType::class, ['attr' => ['class' => ''], 'required' => false]);
 
         $formMapper->add(
             'help',
             HelpType::class,
-            array(
+            [
                 'template' => $help,
-            )
+            ]
         );
 
         $formMapper->end()

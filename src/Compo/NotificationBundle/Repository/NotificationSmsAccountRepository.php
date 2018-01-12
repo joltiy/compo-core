@@ -14,7 +14,7 @@ class NotificationSmsAccountRepository extends EntityRepository
 {
     public function getDefaultId()
     {
-        $currency = $this->findOneBy(array(), array('id' => 'ASC'));
+        $currency = $this->findOneBy([], ['id' => 'ASC']);
 
         if ($currency) {
             return $currency->getId();

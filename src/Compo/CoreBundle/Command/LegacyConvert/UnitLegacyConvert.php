@@ -22,64 +22,64 @@ class UnitLegacyConvert extends BaseLegacyConvert
      */
     public function getOldData()
     {
-        return array(
-            array(
+        return [
+            [
                 'id' => 1,
                 'name' => 'Штука',
                 'shortNameNational' => 'шт',
                 'literalNameNational' => 'ШТ',
                 'shortNameInternational' => 'pc',
                 'literalNameInternational' => 'PCE',
-            ),
-            array(
+            ],
+            [
                 'id' => 2,
                 'name' => 'Комплект',
                 'shortNameNational' => 'компл',
                 'literalNameNational' => 'КОМПЛ',
                 'shortNameInternational' => 'set',
                 'literalNameInternational' => 'SET',
-            ),
-            array(
+            ],
+            [
                 'id' => 3,
                 'name' => 'Квадратный метр',
                 'shortNameNational' => 'м2',
                 'literalNameNational' => 'М2',
                 'shortNameInternational' => 'm2',
                 'literalNameInternational' => 'MTK',
-            ),
-            array(
+            ],
+            [
                 'id' => 4,
                 'name' => 'Сантиметр',
                 'shortNameNational' => 'см',
                 'literalNameNational' => 'СМ',
                 'shortNameInternational' => 'cm',
                 'literalNameInternational' => 'CMT',
-            ),
-            array(
+            ],
+            [
                 'id' => 5,
                 'name' => 'Метр',
                 'shortNameNational' => 'м',
                 'literalNameNational' => 'М',
                 'shortNameInternational' => 'm',
                 'literalNameInternational' => 'MTR',
-            ),
-            array(
+            ],
+            [
                 'id' => 6,
                 'name' => 'Миллиметр',
                 'shortNameNational' => 'мм',
                 'literalNameNational' => 'ММ',
                 'shortNameInternational' => 'mm',
                 'literalNameInternational' => 'MMT',
-            ),
-            array(
+            ],
+            [
                 'id' => 7,
                 'name' => 'Килограмм',
                 'shortNameNational' => 'кг',
                 'literalNameNational' => 'КГ',
                 'shortNameInternational' => 'kg',
                 'literalNameInternational' => 'KGM',
-            ),
-        );
+            ],
+        ];
     }
 
     /**

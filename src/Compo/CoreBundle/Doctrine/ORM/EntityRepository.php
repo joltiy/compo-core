@@ -12,9 +12,9 @@ class EntityRepository extends \Doctrine\ORM\EntityRepository
      */
     public function getChoices()
     {
-        $choices = array();
+        $choices = [];
 
-        $items = $this->findBy(array(), array('name' => 'ASC'));
+        $items = $this->findBy([], ['name' => 'ASC']);
 
         foreach ($items as $item) {
             $choices[$item->getName()] = $item->getId();
@@ -28,9 +28,9 @@ class EntityRepository extends \Doctrine\ORM\EntityRepository
      */
     public function getChoicesAsValues()
     {
-        $choices = array();
+        $choices = [];
 
-        $items = $this->findBy(array(), array('name' => 'ASC'));
+        $items = $this->findBy([], ['name' => 'ASC']);
 
         foreach ($items as $item) {
             $choices[$item->getId()] = $item->getName();

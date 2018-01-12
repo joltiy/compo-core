@@ -27,7 +27,7 @@ final class TranslatorFallbackLocalesPassTest extends AbstractCompilerPassTestCa
     public function it_copies_method_call_that_sets_fallback_locales_to_theme_translator()
     {
         $symfonyTranslatorDefinition = new Definition();
-        $symfonyTranslatorDefinition->addMethodCall('setFallbackLocales', array('pl_PL'));
+        $symfonyTranslatorDefinition->addMethodCall('setFallbackLocales', ['pl_PL']);
         $this->setDefinition('translator.default', $symfonyTranslatorDefinition);
 
         $this->setDefinition('sylius.theme.translation.translator', new Definition());
@@ -37,7 +37,7 @@ final class TranslatorFallbackLocalesPassTest extends AbstractCompilerPassTestCa
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'sylius.theme.translation.translator',
             'setFallbackLocales',
-            array('pl_PL')
+            ['pl_PL']
         );
     }
 
@@ -47,9 +47,9 @@ final class TranslatorFallbackLocalesPassTest extends AbstractCompilerPassTestCa
     public function it_filters_out_other_method_calls_to_symfony_translator()
     {
         $symfonyTranslatorDefinition = new Definition();
-        $symfonyTranslatorDefinition->addMethodCall('doFooAndBar', array('argument1', 'argument2'));
-        $symfonyTranslatorDefinition->addMethodCall('setFallbackLocales', array('pl_PL'));
-        $symfonyTranslatorDefinition->addMethodCall('doFoo', array('argument1'));
+        $symfonyTranslatorDefinition->addMethodCall('doFooAndBar', ['argument1', 'argument2']);
+        $symfonyTranslatorDefinition->addMethodCall('setFallbackLocales', ['pl_PL']);
+        $symfonyTranslatorDefinition->addMethodCall('doFoo', ['argument1']);
         $this->setDefinition('translator.default', $symfonyTranslatorDefinition);
 
         $this->setDefinition('sylius.theme.translation.translator', new Definition());
@@ -59,7 +59,7 @@ final class TranslatorFallbackLocalesPassTest extends AbstractCompilerPassTestCa
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'sylius.theme.translation.translator',
             'setFallbackLocales',
-            array('pl_PL')
+            ['pl_PL']
         );
     }
 
@@ -69,8 +69,8 @@ final class TranslatorFallbackLocalesPassTest extends AbstractCompilerPassTestCa
     public function it_copies_method_calls_that_set_fallback_locales_to_theme_translator()
     {
         $symfonyTranslatorDefinition = new Definition();
-        $symfonyTranslatorDefinition->addMethodCall('setFallbackLocales', array('pl_PL'));
-        $symfonyTranslatorDefinition->addMethodCall('setFallbackLocales', array('en_US'));
+        $symfonyTranslatorDefinition->addMethodCall('setFallbackLocales', ['pl_PL']);
+        $symfonyTranslatorDefinition->addMethodCall('setFallbackLocales', ['en_US']);
         $this->setDefinition('translator.default', $symfonyTranslatorDefinition);
 
         $this->setDefinition('sylius.theme.translation.translator', new Definition());
@@ -80,13 +80,13 @@ final class TranslatorFallbackLocalesPassTest extends AbstractCompilerPassTestCa
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'sylius.theme.translation.translator',
             'setFallbackLocales',
-            array('pl_PL')
+            ['pl_PL']
         );
 
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'sylius.theme.translation.translator',
             'setFallbackLocales',
-            array('en_US')
+            ['en_US']
         );
     }
 

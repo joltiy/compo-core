@@ -60,6 +60,6 @@ final class TemplateLocatorSpec extends ObjectBehavior
 
         $resourceLocator->locateResource('@AcmeBundle/Resources/views/index.html.twig', $theme)->willThrow(ResourceNotFoundException::class);
 
-        $this->shouldThrow(ResourceNotFoundException::class)->during('locateTemplate', array($template, $theme));
+        $this->shouldThrow(ResourceNotFoundException::class)->during('locateTemplate', [$template, $theme]);
     }
 }

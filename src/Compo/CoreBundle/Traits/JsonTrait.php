@@ -17,9 +17,9 @@ trait JsonTrait
      */
     public function getJsonParams(Request $request)
     {
-        $request_params = array();
+        $request_params = [];
 
-        if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
+        if (0 === mb_strpos($request->headers->get('Content-Type'), 'application/json')) {
             $request_params = json_decode($request->getContent(), true);
         }
 

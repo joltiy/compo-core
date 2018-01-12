@@ -49,12 +49,12 @@ class RedirectAdmin extends AbstractAdmin
             ->add(
                 '_action',
                 null,
-                array(
-                    'actions' => array(
-                        'edit' => array(),
-                        'delete' => array(),
-                    ),
-                )
+                [
+                    'actions' => [
+                        'edit' => [],
+                        'delete' => [],
+                    ],
+                ]
             );
     }
 
@@ -65,7 +65,7 @@ class RedirectAdmin extends AbstractAdmin
     {
         $formMapper
             ->tab('main')
-            ->with('main', array('name' => false, 'class' => 'col-lg-12'))
+            ->with('main', ['name' => false, 'class' => 'col-lg-12'])
             ->add('id')
             ->add('urIn')
             ->add('urOut')

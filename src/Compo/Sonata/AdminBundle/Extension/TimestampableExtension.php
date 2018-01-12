@@ -26,14 +26,14 @@ class TimestampableExtension extends AbstractAdminExtension
             $datagridMapper->add(
                 'createdAt',
                 'doctrine_orm_date_range',
-                array(
+                [
                     'field_type' => 'sonata_type_date_range_picker',
-                    'field_options' => array(
-                        'field_options' => array(
+                    'field_options' => [
+                        'field_options' => [
                             'format' => 'dd.MM.yyyy',
-                        ),
-                    ),
-                )
+                        ],
+                    ],
+                ]
             );
         }
 
@@ -43,14 +43,14 @@ class TimestampableExtension extends AbstractAdminExtension
             $datagridMapper->add(
                 'updatedAt',
                 'doctrine_orm_date_range',
-                array(
+                [
                     'field_type' => 'sonata_type_date_range_picker',
-                    'field_options' => array(
-                        'field_options' => array(
+                    'field_options' => [
+                        'field_options' => [
                             'format' => 'dd.MM.yyyy',
-                        ),
-                    ),
-                )
+                        ],
+                    ],
+                ]
             );
         }
 
@@ -60,14 +60,14 @@ class TimestampableExtension extends AbstractAdminExtension
             $datagridMapper->add(
                 'publicationAt',
                 'doctrine_orm_date_range',
-                array(
+                [
                     'field_type' => 'sonata_type_date_range_picker',
-                    'field_options' => array(
-                        'field_options' => array(
+                    'field_options' => [
+                        'field_options' => [
                             'format' => 'dd.MM.yyyy',
-                        ),
-                    ),
-                )
+                        ],
+                    ],
+                ]
             );
         }
     }
@@ -81,39 +81,39 @@ class TimestampableExtension extends AbstractAdminExtension
             $formMapper,
             'publicationAt',
             'sonata_type_datetime_picker',
-            array(
+            [
                 'format' => 'dd.MM.y HH:mm:ss',
                 'required' => true,
-            ),
-            array(
+            ],
+            [
                 'translation_domain' => 'SonataAdminBundle',
-            )
+            ]
         );
 
         $this->replaceFormField(
             $formMapper,
             'createdAt',
             'sonata_type_datetime_picker',
-            array(
+            [
                 'format' => 'dd.MM.y HH:mm:ss',
                 'required' => true,
-            ),
-            array(
+            ],
+            [
                 'translation_domain' => 'SonataAdminBundle',
-            )
+            ]
         );
 
         $this->replaceFormField(
             $formMapper,
             'updatedAt',
             'sonata_type_datetime_picker',
-            array(
+            [
                 'format' => 'dd.MM.y HH:mm:ss',
                 'required' => true,
-            ),
-            array(
+            ],
+            [
                 'translation_domain' => 'SonataAdminBundle',
-            )
+            ]
         );
     }
 

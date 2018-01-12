@@ -52,9 +52,9 @@ interface SettingsInterface extends ResourceInterface, \ArrayAccess, \Countable
     /**
      * @param string $name
      *
-     * @return string
-     *
      * @throws ParameterNotFoundException
+     *
+     * @return string
      */
     public function get($name);
 

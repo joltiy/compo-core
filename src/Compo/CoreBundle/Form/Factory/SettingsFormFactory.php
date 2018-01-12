@@ -35,7 +35,7 @@ final class SettingsFormFactory implements SettingsFormFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function create($schemaAlias, $data = null, array $options = array())
+    public function create($schemaAlias, $data = null, array $options = [])
     {
         /** @var SchemaInterface $schema */
         $schema = $this->schemaRegistry->get($schemaAlias);
@@ -44,7 +44,7 @@ final class SettingsFormFactory implements SettingsFormFactoryInterface
             'form',
             $data,
             array_merge_recursive(
-                array('data_class' => null),
+                ['data_class' => null],
                 $options,
                 $schema->getDefaultOptions()
             )

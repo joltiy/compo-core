@@ -17,7 +17,7 @@ use Sylius\Bundle\ThemeBundle\Configuration\ThemeConfiguration;
 /**
  * @author Kamil Kokot <kamil@kokot.me>
  */
-final class ThemeConfigurationTest extends \PHPUnit_Framework_TestCase
+final class ThemeConfigurationTest extends \PHPUnit\Framework\TestCase
 {
     use ConfigurationTestCaseTrait;
 
@@ -27,10 +27,10 @@ final class ThemeConfigurationTest extends \PHPUnit_Framework_TestCase
     public function it_requires_only_name()
     {
         $this->assertProcessedConfigurationEquals(
-            array(
-                array('name' => 'example/sylius-theme'),
-            ),
-            array('name' => 'example/sylius-theme'),
+            [
+                ['name' => 'example/sylius-theme'],
+            ],
+            ['name' => 'example/sylius-theme'],
             'name'
         );
     }
@@ -41,16 +41,16 @@ final class ThemeConfigurationTest extends \PHPUnit_Framework_TestCase
     public function its_name_is_required_and_cannot_be_empty()
     {
         $this->assertPartialConfigurationIsInvalid(
-            array(
-                array(/* no name defined */),
-            ),
+            [
+                [/* no name defined */],
+            ],
             'name'
         );
 
         $this->assertPartialConfigurationIsInvalid(
-            array(
-                array('name' => ''),
-            ),
+            [
+                ['name' => ''],
+            ],
             'name'
         );
     }
@@ -61,16 +61,16 @@ final class ThemeConfigurationTest extends \PHPUnit_Framework_TestCase
     public function its_title_is_optional_but_cannot_be_empty()
     {
         $this->assertPartialConfigurationIsInvalid(
-            array(
-                array('title' => ''),
-            ),
+            [
+                ['title' => ''],
+            ],
             'title'
         );
 
         $this->assertConfigurationIsValid(
-            array(
-                array('title' => 'Lorem ipsum'),
-            ),
+            [
+                ['title' => 'Lorem ipsum'],
+            ],
             'title'
         );
     }
@@ -81,16 +81,16 @@ final class ThemeConfigurationTest extends \PHPUnit_Framework_TestCase
     public function its_description_is_optional_but_cannot_be_empty()
     {
         $this->assertPartialConfigurationIsInvalid(
-            array(
-                array('description' => ''),
-            ),
+            [
+                ['description' => ''],
+            ],
             'description'
         );
 
         $this->assertConfigurationIsValid(
-            array(
-                array('description' => 'Lorem ipsum dolor sit amet'),
-            ),
+            [
+                ['description' => 'Lorem ipsum dolor sit amet'],
+            ],
             'description'
         );
     }
@@ -101,16 +101,16 @@ final class ThemeConfigurationTest extends \PHPUnit_Framework_TestCase
     public function its_path_is_optional_but_cannot_be_empty()
     {
         $this->assertPartialConfigurationIsInvalid(
-            array(
-                array('path' => ''),
-            ),
+            [
+                ['path' => ''],
+            ],
             'path'
         );
 
         $this->assertConfigurationIsValid(
-            array(
-                array('path' => '/theme/path'),
-            ),
+            [
+                ['path' => '/theme/path'],
+            ],
             'path'
         );
     }
@@ -121,9 +121,9 @@ final class ThemeConfigurationTest extends \PHPUnit_Framework_TestCase
     public function its_authors_are_optional()
     {
         $this->assertConfigurationIsValid(
-            array(
-                array(/* no authors defined */),
-            ),
+            [
+                [/* no authors defined */],
+            ],
             'authors'
         );
     }
@@ -134,37 +134,37 @@ final class ThemeConfigurationTest extends \PHPUnit_Framework_TestCase
     public function its_author_can_have_only_name_email_homepage_and_role_properties()
     {
         $this->assertConfigurationIsValid(
-            array(
-                array('authors' => array(array('name' => 'Kamil Kokot'))),
-            ),
+            [
+                ['authors' => [['name' => 'Kamil Kokot']]],
+            ],
             'authors'
         );
 
         $this->assertConfigurationIsValid(
-            array(
-                array('authors' => array(array('email' => 'kamil@kokot.me'))),
-            ),
+            [
+                ['authors' => [['email' => 'kamil@kokot.me']]],
+            ],
             'authors'
         );
 
         $this->assertConfigurationIsValid(
-            array(
-                array('authors' => array(array('homepage' => 'http://kamil.kokot.me'))),
-            ),
+            [
+                ['authors' => [['homepage' => 'http://kamil.kokot.me']]],
+            ],
             'authors'
         );
 
         $this->assertConfigurationIsValid(
-            array(
-                array('authors' => array(array('role' => 'Developer'))),
-            ),
+            [
+                ['authors' => [['role' => 'Developer']]],
+            ],
             'authors'
         );
 
         $this->assertPartialConfigurationIsInvalid(
-            array(
-                array('authors' => array(array('undefined' => '42'))),
-            ),
+            [
+                ['authors' => [['undefined' => '42']]],
+            ],
             'authors'
         );
     }
@@ -175,9 +175,9 @@ final class ThemeConfigurationTest extends \PHPUnit_Framework_TestCase
     public function its_author_must_have_at_least_one_property()
     {
         $this->assertPartialConfigurationIsInvalid(
-            array(
-                array('authors' => array(array(/* empty author */))),
-            ),
+            [
+                ['authors' => [[/* empty author */]]],
+            ],
             'authors',
             'Author cannot be empty'
         );
@@ -189,11 +189,11 @@ final class ThemeConfigurationTest extends \PHPUnit_Framework_TestCase
     public function its_authors_replaces_other_authors_defined_elsewhere()
     {
         $this->assertProcessedConfigurationEquals(
-            array(
-                array('authors' => array(array('name' => 'Kamil Kokot'))),
-                array('authors' => array(array('name' => 'Krzysztof Krawczyk'))),
-            ),
-            array('authors' => array(array('name' => 'Krzysztof Krawczyk'))),
+            [
+                ['authors' => [['name' => 'Kamil Kokot']]],
+                ['authors' => [['name' => 'Krzysztof Krawczyk']]],
+            ],
+            ['authors' => [['name' => 'Krzysztof Krawczyk']]],
             'authors'
         );
     }
@@ -204,9 +204,9 @@ final class ThemeConfigurationTest extends \PHPUnit_Framework_TestCase
     public function it_ignores_undefined_root_level_fields()
     {
         $this->assertConfigurationIsValid(
-            array(
-                array('name' => 'example/sylius-theme', 'undefined_variable' => '42'),
-            )
+            [
+                ['name' => 'example/sylius-theme', 'undefined_variable' => '42'],
+            ]
         );
     }
 
@@ -216,16 +216,16 @@ final class ThemeConfigurationTest extends \PHPUnit_Framework_TestCase
     public function its_parents_are_optional_but_has_to_have_at_least_one_element()
     {
         $this->assertConfigurationIsValid(
-            array(
-                array(),
-            ),
+            [
+                [],
+            ],
             'parents'
         );
 
         $this->assertPartialConfigurationIsInvalid(
-            array(
-                array('parents' => array(/* no elements */)),
-            ),
+            [
+                ['parents' => [/* no elements */]],
+            ],
             'parents'
         );
     }
@@ -236,9 +236,9 @@ final class ThemeConfigurationTest extends \PHPUnit_Framework_TestCase
     public function its_parent_is_strings()
     {
         $this->assertConfigurationIsValid(
-            array(
-                array('parents' => array('example/parent-theme', 'example/parent-theme-2')),
-            ),
+            [
+                ['parents' => ['example/parent-theme', 'example/parent-theme-2']],
+            ],
             'parents'
         );
     }
@@ -249,9 +249,9 @@ final class ThemeConfigurationTest extends \PHPUnit_Framework_TestCase
     public function its_parent_cannot_be_empty()
     {
         $this->assertPartialConfigurationIsInvalid(
-            array(
-                array('parents' => array('')),
-            ),
+            [
+                ['parents' => ['']],
+            ],
             'parents'
         );
     }
@@ -262,11 +262,11 @@ final class ThemeConfigurationTest extends \PHPUnit_Framework_TestCase
     public function its_parents_replaces_other_parents_defined_elsewhere()
     {
         $this->assertProcessedConfigurationEquals(
-            array(
-                array('parents' => array('example/first-theme')),
-                array('parents' => array('example/second-theme')),
-            ),
-            array('parents' => array('example/second-theme')),
+            [
+                ['parents' => ['example/first-theme']],
+                ['parents' => ['example/second-theme']],
+            ],
+            ['parents' => ['example/second-theme']],
             'parents'
         );
     }
@@ -277,9 +277,9 @@ final class ThemeConfigurationTest extends \PHPUnit_Framework_TestCase
     public function its_screenshots_are_strings()
     {
         $this->assertConfigurationIsValid(
-            array(
-                array('screenshots' => array('screenshot/krzysztof-krawczyk.jpg', 'screenshot/ryszard-rynkowski.jpg')),
-            ),
+            [
+                ['screenshots' => ['screenshot/krzysztof-krawczyk.jpg', 'screenshot/ryszard-rynkowski.jpg']],
+            ],
             'screenshots'
         );
     }
@@ -290,9 +290,9 @@ final class ThemeConfigurationTest extends \PHPUnit_Framework_TestCase
     public function its_screenshots_are_optional()
     {
         $this->assertConfigurationIsValid(
-            array(
-                array(/* no screenshots defined */),
-            ),
+            [
+                [/* no screenshots defined */],
+            ],
             'screenshots'
         );
     }
@@ -303,9 +303,9 @@ final class ThemeConfigurationTest extends \PHPUnit_Framework_TestCase
     public function its_screenshots_must_have_at_least_one_element()
     {
         $this->assertPartialConfigurationIsInvalid(
-            array(
-                array('screenshots' => array(/* no elements */)),
-            ),
+            [
+                ['screenshots' => [/* no elements */]],
+            ],
             'screenshots'
         );
     }
@@ -316,9 +316,9 @@ final class ThemeConfigurationTest extends \PHPUnit_Framework_TestCase
     public function its_screenshots_cannot_be_empty()
     {
         $this->assertPartialConfigurationIsInvalid(
-            array(
-                array('screenshots' => array('')),
-            ),
+            [
+                ['screenshots' => ['']],
+            ],
             'screenshots'
         );
     }
@@ -329,11 +329,11 @@ final class ThemeConfigurationTest extends \PHPUnit_Framework_TestCase
     public function its_screenshots_replaces_other_screenshots_defined_elsewhere()
     {
         $this->assertProcessedConfigurationEquals(
-            array(
-                array('screenshots' => array('screenshot/zbigniew-holdys.jpg')),
-                array('screenshots' => array('screenshot/maryla-rodowicz.jpg')),
-            ),
-            array('screenshots' => array(array('path' => 'screenshot/maryla-rodowicz.jpg'))),
+            [
+                ['screenshots' => ['screenshot/zbigniew-holdys.jpg']],
+                ['screenshots' => ['screenshot/maryla-rodowicz.jpg']],
+            ],
+            ['screenshots' => [['path' => 'screenshot/maryla-rodowicz.jpg']]],
             'screenshots'
         );
     }
@@ -344,9 +344,9 @@ final class ThemeConfigurationTest extends \PHPUnit_Framework_TestCase
     public function its_screenshots_are_an_array()
     {
         $this->assertConfigurationIsValid(
-            array(
-                array('screenshots' => array(array('path' => 'screenshot/rick-astley.jpg'))),
-            ),
+            [
+                ['screenshots' => [['path' => 'screenshot/rick-astley.jpg']]],
+            ],
             'screenshots'
         );
     }
@@ -357,9 +357,9 @@ final class ThemeConfigurationTest extends \PHPUnit_Framework_TestCase
     public function its_screenshots_must_have_a_path()
     {
         $this->assertPartialConfigurationIsInvalid(
-            array(
-                array('screenshots' => array(array('title' => 'Candy shop'))),
-            ),
+            [
+                ['screenshots' => [['title' => 'Candy shop']]],
+            ],
             'screenshots'
         );
     }
@@ -370,13 +370,13 @@ final class ThemeConfigurationTest extends \PHPUnit_Framework_TestCase
     public function its_screenshots_have_optional_title_and_description()
     {
         $this->assertConfigurationIsValid(
-            array(
-                array('screenshots' => array(array(
+            [
+                ['screenshots' => [[
                     'path' => 'screenshot/rick-astley.jpg',
                     'title' => 'Rick Astley',
                     'description' => 'He\'ll never gonna give you up or let you down',
-                ))),
-            ),
+                ]]],
+            ],
             'screenshots'
         );
     }

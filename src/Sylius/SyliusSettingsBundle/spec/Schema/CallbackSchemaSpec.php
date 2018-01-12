@@ -40,10 +40,10 @@ final class CallbackSchemaSpec extends ObjectBehavior
     public function it_uses_callback_to_build_settings(SettingsBuilderInterface $settingsBuilder)
     {
         $this->beConstructedWith(function (SettingsBuilderInterface $settingsBuilder) {
-            $settingsBuilder->setDefaults(array('foo' => 'bar'));
+            $settingsBuilder->setDefaults(['foo' => 'bar']);
         }, function () {});
 
-        $settingsBuilder->setDefaults(array('foo' => 'bar'))->shouldBeCalled();
+        $settingsBuilder->setDefaults(['foo' => 'bar'])->shouldBeCalled();
 
         $this->buildSettings($settingsBuilder);
     }

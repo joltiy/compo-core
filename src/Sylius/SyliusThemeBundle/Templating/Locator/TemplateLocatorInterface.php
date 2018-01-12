@@ -24,9 +24,9 @@ interface TemplateLocatorInterface
      * @param TemplateReferenceInterface $template
      * @param ThemeInterface             $theme
      *
-     * @return string
-     *
      * @throws ResourceNotFoundException
+     *
+     * @return string
      */
     public function locateTemplate(TemplateReferenceInterface $template, ThemeInterface $theme);
 }

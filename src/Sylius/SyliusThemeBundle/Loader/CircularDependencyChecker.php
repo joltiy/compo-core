@@ -21,16 +21,16 @@ final class CircularDependencyChecker implements CircularDependencyCheckerInterf
     /**
      * {@inheritdoc}
      */
-    public function check(ThemeInterface $theme, array $previousThemes = array())
+    public function check(ThemeInterface $theme, array $previousThemes = [])
     {
         if (0 === count($theme->getParents())) {
             return;
         }
 
-        $previousThemes = array_merge($previousThemes, array($theme));
+        $previousThemes = array_merge($previousThemes, [$theme]);
         foreach ($theme->getParents() as $parent) {
             if (in_array($parent, $previousThemes, true)) {
-                throw new CircularDependencyFoundException(array_merge($previousThemes, array($parent)));
+                throw new CircularDependencyFoundException(array_merge($previousThemes, [$parent]));
             }
 
             $this->check($parent, $previousThemes);

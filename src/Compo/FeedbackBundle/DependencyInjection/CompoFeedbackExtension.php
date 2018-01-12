@@ -27,7 +27,7 @@ class CompoFeedbackExtension extends Extension implements PrependExtensionInterf
         $loader->load('services.yml');
 
         $serviceDefintion = $container->getDefinition('compo_feedback.manager.feedback');
-        $serviceDefintion->addMethodCall('setTypes', array($config['types']));
+        $serviceDefintion->addMethodCall('setTypes', [$config['types']]);
     }
 
     /**

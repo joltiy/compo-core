@@ -37,10 +37,10 @@ class FeedbackController extends Controller
      *
      * @param Request $request request represents an HTTP request
      *
-     * @return View
-     *
      * @throws \HttpRequestMethodException
      * @throws \Throwable
+     *
+     * @return View
      */
     public function postAction(Request $request)
     {
@@ -64,7 +64,7 @@ class FeedbackController extends Controller
         if (!$form->isValid()) {
             $csrf->refreshToken('feedback_protection');
 
-            return View::create(array('success' => false, 'error' => 'form_not_valid'), 400);
+            return View::create(['success' => false, 'error' => 'form_not_valid'], 400);
         }
 
         try {
@@ -75,11 +75,11 @@ class FeedbackController extends Controller
 
             $csrf->refreshToken('feedback_protection');
 
-            $this->get('compo_notification.manager.notification')->send($feedback->getType(), array('feedback' => $feedback));
+            $this->get('compo_notification.manager.notification')->send($feedback->getType(), ['feedback' => $feedback]);
 
-            return View::create(array('success' => true, 'message' => 'contacts_sent'), 200);
+            return View::create(['success' => true, 'message' => 'contacts_sent'], 200);
         } catch (\Exception $e) {
-            return View::create(array('success' => false, 'error' => $e->getMessage()), 400);
+            return View::create(['success' => false, 'error' => $e->getMessage()], 400);
         }
     }
 }

@@ -28,11 +28,11 @@ class ContactsMainBlockService extends AbstractBlockService
 
         return $this->renderResponse(
             $template,
-            array(
+            [
                 'block' => $block,
                 'settings' => $settings,
                 'contacts' => $contacts,
-            ),
+            ],
             $response
         );
     }
@@ -51,9 +51,9 @@ class ContactsMainBlockService extends AbstractBlockService
     public function configureSettings(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'template' => 'CompoContactsBundle:Block:contacts_main.html.twig',
-            )
+            ]
         );
     }
 }

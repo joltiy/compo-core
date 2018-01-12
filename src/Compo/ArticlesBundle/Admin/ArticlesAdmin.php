@@ -76,14 +76,14 @@ class ArticlesAdmin extends AbstractAdmin
     {
         $formMapper
             ->tab('main')
-            ->with('main', array('name' => false))
+            ->with('main', ['name' => false])
             ->add('id')
             ->add('enabled')
             ->add('publicationAt')
             ->add('views')
             ->add('name')
-            ->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false))
-            ->add('body', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false))
+            ->add('description', CKEditorType::class, ['attr' => ['class' => ''], 'required' => false])
+            ->add('body', CKEditorType::class, ['attr' => ['class' => ''], 'required' => false])
             ->end()
             ->end();
 
@@ -117,26 +117,26 @@ class ArticlesAdmin extends AbstractAdmin
 
         $tabMenuDropdown = $menu->addChild(
             'tab_menu.list_mode.' . $this->getLabel(),
-            array(
-                'label' => $this->getContainer()->get('translator')->trans($this->getLabel(), array(), $this->getTranslationDomain()),
-                'attributes' => array('dropdown' => true),
-            )
+            [
+                'label' => $this->getContainer()->get('translator')->trans($this->getLabel(), [], $this->getTranslationDomain()),
+                'attributes' => ['dropdown' => true],
+            ]
         );
 
         $menu->setAttribute('icon', 'fa fa-list')->setAttribute('is_dropdown', true)->setAttribute('is_dropdown', true);
         $tabMenuDropdown->setChildrenAttribute('class', 'dropdown-menu');
 
-        $tabMenuDropdown->addChild('list', array(
-            'uri' => $this->generateUrl('list', array()),
+        $tabMenuDropdown->addChild('list', [
+            'uri' => $this->generateUrl('list', []),
             'label' => 'Список',
-        ))->setAttribute('icon', 'fa fa-list');
+        ])->setAttribute('icon', 'fa fa-list');
 
-        if ('article_list' == $context) {
+        if ('article_list' === $context) {
         } else {
-            $tabMenuDropdown->addChild('edit', array(
-                'uri' => $this->generateUrl('edit', array('id' => $vars['article']->getId())),
+            $tabMenuDropdown->addChild('edit', [
+                'uri' => $this->generateUrl('edit', ['id' => $vars['article']->getId()]),
                 'label' => 'Редактировать',
-            ))->setAttribute('icon', 'fa fa-pencil');
+            ])->setAttribute('icon', 'fa fa-pencil');
         }
 
         return $menu;

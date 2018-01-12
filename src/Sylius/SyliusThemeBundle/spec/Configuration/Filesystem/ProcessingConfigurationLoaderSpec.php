@@ -40,43 +40,43 @@ final class ProcessingConfigurationLoaderSpec extends ObjectBehavior
         ConfigurationLoaderInterface $decoratedLoader,
         ConfigurationProcessorInterface $configurationProcessor
     ) {
-        $basicConfiguration = array('name' => 'example/sylius-theme');
+        $basicConfiguration = ['name' => 'example/sylius-theme'];
 
         $decoratedLoader->load('theme-configuration-resource')->willReturn($basicConfiguration);
 
-        $configurationProcessor->process(array($basicConfiguration))->willReturn(array(
+        $configurationProcessor->process([$basicConfiguration])->willReturn([
             'name' => 'example/sylius-theme',
-        ));
+        ]);
 
-        $this->load('theme-configuration-resource')->shouldReturn(array(
+        $this->load('theme-configuration-resource')->shouldReturn([
             'name' => 'example/sylius-theme',
-        ));
+        ]);
     }
 
     public function it_processes_the_configuration_and_extracts_extra_sylius_theme_key_as_another_configuration(
         ConfigurationLoaderInterface $decoratedLoader,
         ConfigurationProcessorInterface $configurationProcessor
     ) {
-        $basicConfiguration = array(
+        $basicConfiguration = [
             'name' => 'example/sylius-theme',
-            'extra' => array(
-                'sylius-theme' => array(
+            'extra' => [
+                'sylius-theme' => [
                     'name' => 'example/brand-new-sylius-theme',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         $decoratedLoader->load('theme-configuration-resource')->willReturn($basicConfiguration);
 
-        $configurationProcessor->process(array(
+        $configurationProcessor->process([
             $basicConfiguration,
-            array('name' => 'example/brand-new-sylius-theme'),
-        ))->willReturn(array(
+            ['name' => 'example/brand-new-sylius-theme'],
+        ])->willReturn([
             'name' => 'example/brand-new-sylius-theme',
-        ));
+        ]);
 
-        $this->load('theme-configuration-resource')->shouldReturn(array(
+        $this->load('theme-configuration-resource')->shouldReturn([
             'name' => 'example/brand-new-sylius-theme',
-        ));
+        ]);
     }
 }

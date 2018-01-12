@@ -34,17 +34,17 @@ final class ThemeAuthorFactorySpec extends ObjectBehavior
     public function it_creates_an_author_from_an_array()
     {
         $this
-            ->createFromArray(array('name' => 'Rynkowsky', 'email' => 'richard@rynkowsky.com'))
+            ->createFromArray(['name' => 'Rynkowsky', 'email' => 'richard@rynkowsky.com'])
             ->shouldBeAnAuthorWithNameAndEmail('Rynkowsky', 'richard@rynkowsky.com')
         ;
     }
 
     public function getMatchers()
     {
-        return array(
+        return [
             'beAnAuthorWithNameAndEmail' => function (ThemeAuthor $themeAuthor, $name, $email) {
                 return $name === $themeAuthor->getName() && $email === $themeAuthor->getEmail();
             },
-        );
+        ];
     }
 }

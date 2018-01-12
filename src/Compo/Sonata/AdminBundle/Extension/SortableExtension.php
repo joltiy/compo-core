@@ -22,8 +22,8 @@ class SortableExtension extends AbstractAdminExtension
         foreach ($list as $fieldDescription) {
             if (false !== $fieldDescription->getOption('sort_parent_association_enable', false)) {
                 $fieldDescription->setOption('sortable', $fieldDescription->getOption('sortable', true));
-                $fieldDescription->setOption('sort_parent_association_mappings', array(array('fieldName' => $fieldDescription->getName())));
-                $fieldDescription->setOption('sort_field_mapping', array('fieldName' => 'name'));
+                $fieldDescription->setOption('sort_parent_association_mappings', [['fieldName' => $fieldDescription->getName()]]);
+                $fieldDescription->setOption('sort_field_mapping', ['fieldName' => 'name']);
             }
         }
     }

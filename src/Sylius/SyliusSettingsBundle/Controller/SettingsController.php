@@ -64,16 +64,16 @@ class SettingsController extends FOSRestController
 
         $form = $this
             ->getSettingsFormFactory()
-            ->create($schemaAlias, $settings, $isApiRequest ? array('csrf_protection' => false) : array())
+            ->create($schemaAlias, $settings, $isApiRequest ? ['csrf_protection' => false] : [])
         ;
 
         if ($form->handleRequest($request)->isValid()) {
             $messageType = 'success';
             try {
                 $settingsManager->save($settings);
-                $message = $this->getTranslator()->trans('sylius.settings.update', array(), 'flashes');
+                $message = $this->getTranslator()->trans('sylius.settings.update', [], 'flashes');
             } catch (ValidatorException $exception) {
-                $message = $this->getTranslator()->trans($exception->getMessage(), array(), 'validators');
+                $message = $this->getTranslator()->trans($exception->getMessage(), [], 'validators');
                 $messageType = 'error';
             }
 
@@ -88,10 +88,10 @@ class SettingsController extends FOSRestController
             }
         }
 
-        return $this->render($request->attributes->get('template', 'SyliusSettingsBundle:Settings:update.html.twig'), array(
+        return $this->render($request->attributes->get('template', 'SyliusSettingsBundle:Settings:update.html.twig'), [
             'settings' => $settings,
             'form' => $form->createView(),
-        ));
+        ]);
     }
 
     /**

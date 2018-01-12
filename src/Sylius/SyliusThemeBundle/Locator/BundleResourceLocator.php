@@ -69,15 +69,15 @@ final class BundleResourceLocator implements ResourceLocatorInterface
      */
     private function assertResourcePathIsValid($resourcePath)
     {
-        if ('@' !== substr($resourcePath, 0, 1)) {
+        if ('@' !== mb_substr($resourcePath, 0, 1)) {
             throw new \InvalidArgumentException(sprintf('Bundle resource path (given "%s") should start with an "@".', $resourcePath));
         }
 
-        if (false !== strpos($resourcePath, '..')) {
+        if (false !== mb_strpos($resourcePath, '..')) {
             throw new \InvalidArgumentException(sprintf('File name "%s" contains invalid characters (..).', $resourcePath));
         }
 
-        if (false === strpos($resourcePath, 'Resources/')) {
+        if (false === mb_strpos($resourcePath, 'Resources/')) {
             throw new \InvalidArgumentException(sprintf('Resource path "%s" should be in bundles\' "Resources/" directory.', $resourcePath));
         }
     }
@@ -89,7 +89,7 @@ final class BundleResourceLocator implements ResourceLocatorInterface
      */
     private function getBundleNameFromResourcePath($resourcePath)
     {
-        return substr($resourcePath, 1, strpos($resourcePath, '/') - 1);
+        return mb_substr($resourcePath, 1, mb_strpos($resourcePath, '/') - 1);
     }
 
     /**
@@ -99,6 +99,6 @@ final class BundleResourceLocator implements ResourceLocatorInterface
      */
     private function getResourceNameFromResourcePath($resourcePath)
     {
-        return substr($resourcePath, strpos($resourcePath, 'Resources/') + strlen('Resources/'));
+        return mb_substr($resourcePath, mb_strpos($resourcePath, 'Resources/') + mb_strlen('Resources/'));
     }
 }

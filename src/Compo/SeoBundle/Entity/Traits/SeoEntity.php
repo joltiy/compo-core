@@ -161,7 +161,7 @@ trait SeoEntity
      */
     public function setSlug($slug)
     {
-        if ($slug == '') {
+        if ('' === $slug) {
             $slug = null;
         }
 

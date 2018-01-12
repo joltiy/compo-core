@@ -35,8 +35,8 @@ final class TranslatorLoaderProviderSpec extends ObjectBehavior
         LoaderInterface $firstLoader,
         LoaderInterface $secondLoader
     ) {
-        $this->beConstructedWith(array('first' => $firstLoader, 'second' => $secondLoader));
+        $this->beConstructedWith(['first' => $firstLoader, 'second' => $secondLoader]);
 
-        $this->getLoaders()->shouldReturn(array('first' => $firstLoader, 'second' => $secondLoader));
+        $this->getLoaders()->shouldReturn(['first' => $firstLoader, 'second' => $secondLoader]);
     }
 }

@@ -22,19 +22,19 @@ class ImageExtension extends AbstractAdminExtension
             $formMapper,
             'image',
             'sonata_type_model_list',
-            array(
+            [
                 'required' => false,
                 'by_reference' => true,
                 'translation_domain' => 'SonataAdminBundle',
-            ),
-            array(
+            ],
+            [
                 'translation_domain' => 'SonataAdminBundle',
 
-                'link_parameters' => array(
+                'link_parameters' => [
                     'context' => 'image',
                     'hide_context' => true,
-                ),
-            )
+                ],
+            ]
         );
     }
 }

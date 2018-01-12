@@ -13,10 +13,9 @@ namespace Compo\Sonata\DashboardBundle\Entity;
 
 use Compo\Sonata\UserBundle\Entity\Group;
 use Doctrine\Common\Collections\ArrayCollection;
-use Sonata\DashboardBundle\Entity\BaseDashboard;
-
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Sonata\DashboardBundle\Entity\BaseDashboard;
 
 /**
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
@@ -30,7 +29,6 @@ class Dashboard extends BaseDashboard
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
     /**
-     *
      * @ORM\ManyToMany(targetEntity="Compo\Sonata\UserBundle\Entity\Group", indexBy="id")
      * @ORM\JoinTable(name="dashboard__dashboard_groups",
      *      joinColumns={@ORM\JoinColumn(name="dashboard_id", referencedColumnName="id")},
@@ -38,8 +36,6 @@ class Dashboard extends BaseDashboard
      *      )
      */
     protected $userGroups;
-
-
 
     /**
      * @var int
@@ -83,7 +79,6 @@ class Dashboard extends BaseDashboard
     {
         $this->allowEdit = $allowEdit;
     }
-
 
     /**
      * {@inheritdoc}
@@ -144,8 +139,4 @@ class Dashboard extends BaseDashboard
     {
         $this->userGroups->removeElement($group);
     }
-
-
-
-
 }

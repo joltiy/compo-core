@@ -50,10 +50,10 @@ class TemplateChoiceType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'choices' => $this->getTemplates(),
                 'choice_translation_domain' => false,
-            )
+            ]
         );
     }
 
@@ -62,7 +62,7 @@ class TemplateChoiceType extends AbstractType
      */
     public function getTemplates()
     {
-        $templates = array();
+        $templates = [];
         foreach ($this->manager->getAll() as $code => $template) {
             $templates[$template->getName()] = $code;
         }

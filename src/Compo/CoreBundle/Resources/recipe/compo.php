@@ -1,18 +1,18 @@
 <?php
 
 use Symfony\Component\Yaml\Yaml;
+use function Deployer\after;
 use function Deployer\commandExist;
 use function Deployer\download;
 use function Deployer\get;
+use function Deployer\has;
 use function Deployer\run;
 use function Deployer\runLocally;
 use function Deployer\set;
 use function Deployer\task;
+use function Deployer\test;
 use function Deployer\upload;
 use function Deployer\writeln;
-use function Deployer\after;
-use function Deployer\test;
-use function Deployer\has;
 
 require 'recipe/symfony.php';
 
@@ -32,16 +32,16 @@ set('composer_options', '{{composer_action}} --verbose --prefer-dist --no-progre
 set('bin_dir', 'bin');
 set('var_dir', 'var');
 
-set('copy_dirs', array('vendor', 'web/assetic')); // 'web/vendor',
+set('copy_dirs', ['vendor', 'web/assetic']); // 'web/vendor',
 set('env', 'prod');
-set('shared_dirs', array('var/logs', 'var/sessions', 'web/uploads', 'web/media', 'web/userfiles'));
-set('shared_files', array('app/config/parameters.yml', 'web/robots.txt'));
-set('writable_dirs', array('var/cache', 'var/logs', 'var/sessions', 'web/uploads', 'web/media'));
+set('shared_dirs', ['var/logs', 'var/sessions', 'web/uploads', 'web/media', 'web/userfiles']);
+set('shared_files', ['app/config/parameters.yml', 'web/robots.txt']);
+set('writable_dirs', ['var/cache', 'var/logs', 'var/sessions', 'web/uploads', 'web/media']);
 
-set('clear_paths', array());
+set('clear_paths', []);
 //set('clear_paths', ['web/app_*.php', 'web/config.php']);
 
-set('assets', array());
+set('assets', []);
 //set('assets', ['web/css', 'web/images', 'web/js']);
 
 set('dump_assets', true);
@@ -86,9 +86,9 @@ task(
 
         run(
             'cd {{release_path}} && {{env_vars}} {{bin/composer}} {{composer_options}}',
-            array(
+            [
                 'timeout' => 6800,
-            )
+            ]
         );
     }
 );
@@ -132,9 +132,9 @@ task(
             . ' ' . $parameters['parameters']['database_name']
             . ' < '
             . $localDatabasePath,
-            array(
+            [
                 'timeout' => 6800,
-            )
+            ]
         );
 
         runLocally('rm -rf ' . $localDatabasePath);
@@ -192,7 +192,6 @@ task(
         );
 
         run('rm -rf ' . '{{release_path}}/var/database/' . $filename);
-
     }
 )->desc('database:sync-to-remote');
 
@@ -201,7 +200,7 @@ task(
     function () {
         $projectDir = runLocally('pwd');
 
-        download('{{deploy_path}}/shared/web/uploads/', $projectDir . '/web/uploads/', array('-anv'));
+        download('{{deploy_path}}/shared/web/uploads/', $projectDir . '/web/uploads/', ['-anv']);
     }
 )->desc('uploads:sync-from-remote');
 
@@ -216,11 +215,11 @@ task(
 
 task(
     'sync-from-remote',
-    array(
+    [
         'database:sync-from-remote',
         'uploads:sync-from-remote',
         'local:cache:clear',
-    )
+    ]
 )->desc('sync-from-remote');
 
 task(
@@ -229,14 +228,14 @@ task(
         //run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console compo:core:update --env={{env}} --no-debug');
         //run('{{bin/php}} {{release_path}}/' . trim(get('bin_dir'), '/') . '/console fos:elastica:populate --env=dev --no-debug');
         run('cd {{release_path}} && {{env_vars}} composer run-script compo-update-prod',
-            array(
+            [
                 'timeout' => 6800,
-            )
+            ]
         );
         run('cd {{release_path}} && {{env_vars}} composer run-script compo-update-core',
-            array(
+            [
                 'timeout' => 6800,
-            )
+            ]
         );
     }
 )->desc('compo:core:update');
@@ -260,10 +259,10 @@ task(
     function () {
         $parametrs = get('parameters');
 
-        $parametrs_array = array();
+        $parametrs_array = [];
 
         foreach ($parametrs as $parametrs_key => $parametrs_val) {
-            $parametrs_array[] = 'PARAMETERS__' . strtoupper($parametrs_key) . '=' . $parametrs_val;
+            $parametrs_array[] = 'PARAMETERS__' . mb_strtoupper($parametrs_key) . '=' . $parametrs_val;
         }
 
         $parametrs_array[] = 'SYMFONY_ENV=prod';
@@ -397,9 +396,9 @@ task(
         }
         run(
             'cd {{release_path}} && {{env_vars}} {{bin/composer}} update "comporu/*" --verbose --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader',
-            array(
+            [
                 'timeout' => 6800,
-            )
+            ]
         );
     }
 );
@@ -416,7 +415,7 @@ task(
 
 task(
     'deploy:dev',
-    array(
+    [
         'timezone',
         'deploy:prepare',
         'deploy:lock',
@@ -443,12 +442,12 @@ task(
         'git:commit:composer',
         'deploy:unlock',
         'cleanup',
-    )
+    ]
 )->desc('Deploy dev your project');
 
 task(
     'install',
-    array(
+    [
         'timezone',
         'deploy:prepare',
         'deploy:lock',
@@ -474,12 +473,12 @@ task(
         'nginx:reload',
         'deploy:unlock',
         'cleanup',
-    )
+    ]
 )->desc('Install your project');
 
 task(
     'deploy',
-    array(
+    [
         'timezone',
         'deploy:prepare',
         'deploy:lock',
@@ -508,10 +507,10 @@ task(
         //'behat',
         'deploy:unlock',
         'cleanup',
-    )
+    ]
 )->desc('Deploy your project');
 
-task('rollback:after', array(
+task('rollback:after', [
     'php-fpm:reload',
     'nginx:reload',
     'deploy:vendors',
@@ -519,6 +518,6 @@ task('rollback:after', array(
     'compo:core:update',
     'php-fpm:reload',
     'nginx:reload',
-));
+]);
 
 after('rollback', 'rollback:after');

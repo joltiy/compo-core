@@ -61,7 +61,7 @@ final class ThemeTranslatorResourceProvider implements TranslatorResourceProvide
         /** @var ThemeInterface[] $themes */
         $themes = $this->themeRepository->findAll();
 
-        $resources = array();
+        $resources = [];
         foreach ($themes as $theme) {
             $resources = array_merge($resources, $this->extractResourcesFromTheme($theme));
         }
@@ -89,7 +89,7 @@ final class ThemeTranslatorResourceProvider implements TranslatorResourceProvide
         /** @var ThemeInterface[] $themes */
         $themes = array_reverse($this->themeHierarchyProvider->getThemeHierarchy($mainTheme));
 
-        $resources = array();
+        $resources = [];
         foreach ($themes as $theme) {
             $paths = $this->translationFilesFinder->findTranslationFiles($theme->getPath());
 

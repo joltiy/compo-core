@@ -22,38 +22,38 @@ class ProductAvailabilityLegacyConvert extends BaseLegacyConvert
      */
     public function getOldData()
     {
-        return array(
-            array(
+        return [
+            [
                 'id' => 10,
                 'name' => 'В наличии',
                 'color' => '',
                 'description' => '',
-            ),
-            array(
+            ],
+            [
                 'id' => 25,
                 'name' => 'Предоплата',
                 'color' => '',
                 'description' => '',
-            ),
-            array(
+            ],
+            [
                 'id' => 20,
                 'name' => 'Предзаказ',
                 'color' => '',
                 'description' => '',
-            ),
-            array(
+            ],
+            [
                 'id' => 30,
                 'name' => 'Нет в наличии',
                 'color' => '',
                 'description' => '',
-            ),
-            array(
+            ],
+            [
                 'id' => 40,
                 'name' => 'Снято с производства',
                 'color' => '',
                 'description' => '',
-            ),
-        );
+            ],
+        ];
     }
 
     /**

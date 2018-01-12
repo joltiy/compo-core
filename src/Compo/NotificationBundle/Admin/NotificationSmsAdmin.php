@@ -101,9 +101,9 @@ class NotificationSmsAdmin extends AbstractAdmin
             ->addIdentifier(
                 'event',
                 'trans',
-                array(
+                [
                     'catalogue' => 'CompoNotificationBundle',
-                )
+                ]
             )
             ->add('name')
             ->add('recipient')
@@ -111,12 +111,12 @@ class NotificationSmsAdmin extends AbstractAdmin
             ->add(
                 '_action',
                 null,
-                array(
-                    'actions' => array(
-                        'edit' => array(),
-                        'delete' => array(),
-                    ),
-                )
+                [
+                    'actions' => [
+                        'edit' => [],
+                        'delete' => [],
+                    ],
+                ]
             );
     }
 
@@ -141,7 +141,7 @@ class NotificationSmsAdmin extends AbstractAdmin
 
         $formMapper
             ->tab('main')
-            ->with('main', array('name' => false, 'class' => 'col-lg-12'));
+            ->with('main', ['name' => false, 'class' => 'col-lg-12']);
 
         $formMapper->add('id')
             ->add('enabled')
@@ -149,21 +149,21 @@ class NotificationSmsAdmin extends AbstractAdmin
             ->add(
                 'event',
                 'choice',
-                array(
+                [
                     'choices' => $notificationManager->getEventsChoice(),
                     'choice_translation_domain' => 'CompoNotificationBundle',
-                )
+                ]
             )
-            ->add('sender', null, array('required' => true, 'label' => 'sms_sender'))
-            ->add('recipient', null, array('attr' => array('class' => 'highlight-src'), 'required' => false))
-            ->add('body', null, array('attr' => array('class' => 'highlight-src'), 'required' => false));
+            ->add('sender', null, ['required' => true, 'label' => 'sms_sender'])
+            ->add('recipient', null, ['attr' => ['class' => 'highlight-src'], 'required' => false])
+            ->add('body', null, ['attr' => ['class' => 'highlight-src'], 'required' => false]);
 
         $formMapper->add(
             'help',
             HelpType::class,
-            array(
+            [
                 'template' => $help,
-            )
+            ]
         );
         $formMapper->end()
             ->end();

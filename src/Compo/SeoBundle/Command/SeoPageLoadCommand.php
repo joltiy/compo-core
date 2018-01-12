@@ -36,7 +36,7 @@ class SeoPageLoadCommand extends ContainerAwareCommand
         $repository = $em->getRepository('CompoSeoBundle:SeoPage');
 
         foreach ($items as $key => $item) {
-            if (!$repository->findBy(array('context' => $item['context']))) {
+            if (!$repository->findBy(['context' => $item['context']])) {
                 $seoPage = new SeoPage();
 
                 $seoPage->setContext($item['context']);

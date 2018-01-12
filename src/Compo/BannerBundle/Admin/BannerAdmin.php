@@ -20,7 +20,7 @@ class BannerAdmin extends AbstractAdmin
      */
     public function postRemove($object)
     {
-        $banner_items = $this->getDoctrine()->getRepository('CompoBannerBundle:BannerItem')->findBy(array('banner' => $object));
+        $banner_items = $this->getDoctrine()->getRepository('CompoBannerBundle:BannerItem')->findBy(['banner' => $object]);
 
         /** @var BannerItem $item */
         foreach ($banner_items as $item) {
@@ -56,12 +56,12 @@ class BannerAdmin extends AbstractAdmin
             ->add(
                 '_action',
                 'actions',
-                array(
-                    'actions' => array(
-                        'edit' => array(),
-                        'delete' => array(),
-                    ),
-                )
+                [
+                    'actions' => [
+                        'edit' => [],
+                        'delete' => [],
+                    ],
+                ]
             );
     }
 
@@ -72,10 +72,10 @@ class BannerAdmin extends AbstractAdmin
     {
         $formMapper
             ->tab('main')
-            ->with('main', array('name' => false))
+            ->with('main', ['name' => false])
             ->add('id')
             ->add('name')
-            ->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false));
+            ->add('description', CKEditorType::class, ['attr' => ['class' => ''], 'required' => false]);
 
         $formMapper
             ->end()

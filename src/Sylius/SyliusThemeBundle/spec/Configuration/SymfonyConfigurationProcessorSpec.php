@@ -42,11 +42,11 @@ final class SymfonyConfigurationProcessorSpec extends ObjectBehavior
         Processor $processor
     ) {
         $processor
-            ->processConfiguration($configuration, array(array('name' => 'example/theme')))
-            ->willReturn(array('name' => 'example/theme'))
+            ->processConfiguration($configuration, [['name' => 'example/theme']])
+            ->willReturn(['name' => 'example/theme'])
         ;
 
-        $this->process(array(array('name' => 'example/theme')))->shouldReturn(array('name' => 'example/theme'));
+        $this->process([['name' => 'example/theme']])->shouldReturn(['name' => 'example/theme']);
     }
 
     public function it_does_not_catch_any_exception_thrown_by_symfony_configuration_processor(
@@ -54,10 +54,10 @@ final class SymfonyConfigurationProcessorSpec extends ObjectBehavior
         Processor $processor
     ) {
         $processor
-            ->processConfiguration($configuration, array())
+            ->processConfiguration($configuration, [])
             ->willThrow(\Exception::class)
         ;
 
-        $this->shouldThrow(\Exception::class)->duringProcess(array());
+        $this->shouldThrow(\Exception::class)->duringProcess([]);
     }
 }

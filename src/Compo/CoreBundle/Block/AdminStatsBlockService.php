@@ -12,14 +12,11 @@
 namespace Compo\CoreBundle\Block;
 
 use Compo\CoreBundle\Doctrine\ORM\EntityRepository;
-use Compo\OrderBundle\Entity\Order;
-use Compo\ProductBundle\Entity\Product;
-use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Admin\Pool;
-use Sonata\BlockBundle\Block\BlockContextInterface;
 use Compo\Sonata\BlockBundle\Block\Service\AbstractBlockService;
+use Sonata\AdminBundle\Admin\Pool;
+use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\BlockBundle\Model\BlockInterface;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -50,10 +47,10 @@ class AdminStatsBlockService extends AbstractBlockService
         $total = $qb->getQuery()->getSingleScalarResult();
 
         $timeTodayFrom = new \DateTime();
-        $timeTodayFrom->setTime(0,0,0);
+        $timeTodayFrom->setTime(0, 0, 0);
 
         $timeTodayTo = new \DateTime();
-        $timeTodayTo->setTime(23,59,59);
+        $timeTodayTo->setTime(23, 59, 59);
 
         $qb = $repository->createQueryBuilder('entity');
         $qb->select('COUNT(entity.id)');
@@ -62,13 +59,12 @@ class AdminStatsBlockService extends AbstractBlockService
             ->setParameter('to', $timeTodayTo->format('Y-m-d H:i:s'));
         $today = $qb->getQuery()->getSingleScalarResult();
 
-
         $timeTodayFrom = new \DateTime();
-        $timeTodayFrom->setTime(0,0,0);
+        $timeTodayFrom->setTime(0, 0, 0);
         $timeTodayFrom->modify('-1 day');
 
         $timeTodayTo = new \DateTime();
-        $timeTodayTo->setTime(23,59,59);
+        $timeTodayTo->setTime(23, 59, 59);
         $timeTodayTo->modify('-1 day');
 
         $qb = $repository->createQueryBuilder('entity');
@@ -78,12 +74,11 @@ class AdminStatsBlockService extends AbstractBlockService
             ->setParameter('to', $timeTodayTo->format('Y-m-d H:i:s'));
         $yesterday = $qb->getQuery()->getSingleScalarResult();
 
-
         $timeTodayFrom = new \DateTime('last Monday');
-        $timeTodayFrom->setTime(0,0,0);
+        $timeTodayFrom->setTime(0, 0, 0);
 
         $timeTodayTo = new \DateTime('Sunday');
-        $timeTodayTo->setTime(23,59,59);
+        $timeTodayTo->setTime(23, 59, 59);
 
         $qb = $repository->createQueryBuilder('entity');
         $qb->select('COUNT(entity.id)');
@@ -92,14 +87,13 @@ class AdminStatsBlockService extends AbstractBlockService
             ->setParameter('to', $timeTodayTo->format('Y-m-d H:i:s'));
         $week = $qb->getQuery()->getSingleScalarResult();
 
-
         $timeTodayFrom = new \DateTime('last Monday');
         $timeTodayFrom->modify('-1 week');
-        $timeTodayFrom->setTime(0,0,0);
+        $timeTodayFrom->setTime(0, 0, 0);
 
         $timeTodayTo = new \DateTime('Sunday');
         $timeTodayTo->modify('-1 week');
-        $timeTodayTo->setTime(23,59,59);
+        $timeTodayTo->setTime(23, 59, 59);
 
         $qb = $repository->createQueryBuilder('entity');
         $qb->select('COUNT(entity.id)');
@@ -110,10 +104,10 @@ class AdminStatsBlockService extends AbstractBlockService
 
         $timeTodayFrom = new \DateTime();
         $timeTodayFrom->setDate($timeTodayFrom->format('Y'), $timeTodayFrom->format('m'), 1);
-        $timeTodayFrom->setTime(0,0,0);
+        $timeTodayFrom->setTime(0, 0, 0);
 
-        $timeTodayTo = new \DateTime(date("Y-m-t"));
-        $timeTodayTo->setTime(23,59,59);
+        $timeTodayTo = new \DateTime(date('Y-m-t'));
+        $timeTodayTo->setTime(23, 59, 59);
 
         $qb = $repository->createQueryBuilder('entity');
         $qb->select('COUNT(entity.id)');
@@ -122,15 +116,14 @@ class AdminStatsBlockService extends AbstractBlockService
             ->setParameter('to', $timeTodayTo->format('Y-m-d H:i:s'));
         $month = $qb->getQuery()->getSingleScalarResult();
 
-
         $timeTodayFrom = new \DateTime();
         $timeTodayFrom->setDate($timeTodayFrom->format('Y'), $timeTodayFrom->format('m'), 1);
 
-        $timeTodayFrom->setTime(0,0,0);
+        $timeTodayFrom->setTime(0, 0, 0);
         $timeTodayFrom->modify('-1 month');
 
-        $timeTodayTo = new \DateTime(date("Y-m-t"));
-        $timeTodayTo->setTime(23,59,59);
+        $timeTodayTo = new \DateTime(date('Y-m-t'));
+        $timeTodayTo->setTime(23, 59, 59);
         $timeTodayTo->modify('-1 month');
 
         $qb = $repository->createQueryBuilder('entity');
@@ -140,7 +133,7 @@ class AdminStatsBlockService extends AbstractBlockService
             ->setParameter('to', $timeTodayTo->format('Y-m-d H:i:s'));
         $previousMonth = $qb->getQuery()->getSingleScalarResult();
 
-        $stats = array(
+        $stats = [
             'total' => $total,
             'today' => $today,
             'yesterday' => $yesterday,
@@ -148,18 +141,18 @@ class AdminStatsBlockService extends AbstractBlockService
             'previousWeek' => $previousWeek,
             'month' => $month,
             'previousMonth' => $previousMonth,
-        );
+        ];
 
         $url = $container->get('sonata.admin.pool')->getAdminByClass($entityClass)->generateUrl('list');
 
         return $this->renderResponse(
             $blockContext->getTemplate(),
-            array(
+            [
                 'url' => $url,
                 'stats' => $stats,
                 'block' => $blockContext->getBlock(),
                 'settings' => $blockContext->getSettings(),
-            ),
+            ],
             $response
         );
     }
@@ -174,14 +167,14 @@ class AdminStatsBlockService extends AbstractBlockService
         $formMapper->add(
             'settings',
             'sonata_type_immutable_array',
-            array(
-                'keys' => array(
-                    array('entity', ChoiceType::class, array(
+            [
+                'keys' => [
+                    ['entity', ChoiceType::class, [
                         'choices' => $entityChoices,
-                        'required' => true
-                    )),
-                ),
-            )
+                        'required' => true,
+                    ]],
+                ],
+            ]
         );
     }
 
@@ -191,10 +184,10 @@ class AdminStatsBlockService extends AbstractBlockService
     public function configureSettings(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'entity' => '',
                 'template' => 'CompoCoreBundle:Block:admin_stats.html.twig',
-            )
+            ]
         );
     }
 }

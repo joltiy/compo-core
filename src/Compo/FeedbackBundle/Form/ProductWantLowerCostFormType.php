@@ -42,35 +42,35 @@ class ProductWantLowerCostFormType extends FeedbackBaseFormType
         }
 
         $builder
-            ->add('product', TextType::class, array(
-                'attr' => array('readonly' => 'readonly'),
+            ->add('product', TextType::class, [
+                'attr' => ['readonly' => 'readonly'],
                 'required' => false,
                 'property_path' => 'data[product]',
                 'data' => $product,
-            ))
+            ])
             ->add(
                 'product_id',
                 HiddenType::class,
-                array(
+                [
                     'property_path' => 'data[product_id]',
                     'data' => $product_id,
-                )
+                ]
             )
             ->add(
                 'product_url',
                 HiddenType::class,
-                array(
+                [
                     'property_path' => 'data[product_url]',
                     'data' => $product_url,
-                )
+                ]
             )
 
-            ->add('quantity', IntegerType::class, array(
+            ->add('quantity', IntegerType::class, [
                 'property_path' => 'data[quantity]',
-            ))
+            ])
 
             ->add('name', TextType::class)
             ->add('phone', TextType::class)
-            ->add('message', TextareaType::class, array('required' => false));
+            ->add('message', TextareaType::class, ['required' => false]);
     }
 }

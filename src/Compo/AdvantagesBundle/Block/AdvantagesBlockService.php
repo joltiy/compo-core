@@ -25,19 +25,19 @@ class AdvantagesBlockService extends AbstractBlockService
 
         $repository = $this->getDoctrineManager()->getRepository(AdvantagesItem::class);
 
-        $list = array();
+        $list = [];
 
         if ($settings['id']) {
-            $list = $repository->findBy(array('advantages' => $settings['id'], 'enabled' => true), array('position' => 'asc'));
+            $list = $repository->findBy(['advantages' => $settings['id'], 'enabled' => true], ['position' => 'asc']);
         }
 
         return $this->renderResponse(
             $settings['template'],
-            array(
+            [
                 'list' => $list,
                 'block' => $blockContext->getBlock(),
                 'settings' => $blockContext->getSettings(),
-            ),
+            ],
             $response
         );
     }
@@ -54,11 +54,11 @@ class AdvantagesBlockService extends AbstractBlockService
         $formMapper->add(
             'settings',
             'sonata_type_immutable_array',
-            array(
-                'keys' => array(
-                    array('id', 'choice', array('choices' => $choices, 'label' => 'Приемущества')),
-                ),
-            )
+            [
+                'keys' => [
+                    ['id', 'choice', ['choices' => $choices, 'label' => 'Приемущества']],
+                ],
+            ]
         );
     }
 
@@ -68,10 +68,10 @@ class AdvantagesBlockService extends AbstractBlockService
     public function configureSettings(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'id' => null,
                 'template' => 'CompoAdvantagesBundle:Block:advantages.html.twig',
-            )
+            ]
         );
     }
 

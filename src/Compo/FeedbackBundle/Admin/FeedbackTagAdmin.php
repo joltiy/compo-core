@@ -45,20 +45,20 @@ class FeedbackTagAdmin extends AbstractAdmin
             ->add(
                 'enabled',
                 null,
-                array(
+                [
                     'editable' => true,
                     'required' => true,
-                )
+                ]
             )
             ->add(
                 '_action',
                 'actions',
-                array(
-                    'actions' => array(
-                        'edit' => array(),
-                        'delete' => array(),
-                    ),
-                )
+                [
+                    'actions' => [
+                        'edit' => [],
+                        'delete' => [],
+                    ],
+                ]
             );
     }
 
@@ -68,13 +68,13 @@ class FeedbackTagAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper->tab('main');
-        $formMapper->with('main', array('name' => false, 'class' => ''));
+        $formMapper->with('main', ['name' => false, 'class' => '']);
 
         $formMapper
             ->add('enabled')
             ->add('name')
-            ->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false))
-            ->add('color', ColorType::class, array('required' => false))
+            ->add('description', CKEditorType::class, ['attr' => ['class' => ''], 'required' => false])
+            ->add('color', ColorType::class, ['required' => false])
             ->add('cssClass');
         $formMapper->end();
         $formMapper->end();

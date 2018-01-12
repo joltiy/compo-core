@@ -67,7 +67,7 @@ class NumberRangeFilter extends Filter
      */
     public function getDefaultOptions()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -75,15 +75,15 @@ class NumberRangeFilter extends Filter
      */
     public function getRenderSettings()
     {
-        return array(
+        return [
             'sonata_type_filter_default',
-            array(
+            [
                 'field_type' => $this->getFieldType(),
                 'field_options' => $this->getFieldOptions(),
                 'operator_type' => 'hidden',
-                'operator_options' => array(),
+                'operator_options' => [],
                 'label' => $this->getLabel(),
-            ),
-        );
+            ],
+        ];
     }
 }

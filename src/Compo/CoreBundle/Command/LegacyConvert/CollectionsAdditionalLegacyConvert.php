@@ -41,10 +41,10 @@ class CollectionsAdditionalLegacyConvert extends BaseLegacyConvert
                 $queryBuilder
                     ->insert('product_additional_manufacture_collections')
                     ->values(
-                        array(
+                        [
                             'manufacture_collection_id' => '?',
                             'product_id' => '?',
-                        )
+                        ]
                     )
                     ->setParameter(0, $oldDataItem['tovar_id'])
                     ->setParameter(1, $oldDataItem['complects_id'])

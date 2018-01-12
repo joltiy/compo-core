@@ -29,19 +29,19 @@ class BannerBlockService extends AbstractBlockService
         /** @var BannerItemRepository $repo */
         $repo = $em->getRepository('CompoBannerBundle:BannerItem');
 
-        $list = array();
+        $list = [];
 
         if ($settings['id']) {
-            $list = $repo->findBy(array('banner' => $settings['id'], 'enabled' => true), array('position' => 'asc'));
+            $list = $repo->findBy(['banner' => $settings['id'], 'enabled' => true], ['position' => 'asc']);
         }
 
         return $this->renderResponse(
             $settings['template'],
-            array(
+            [
                 'list' => $list,
                 'block' => $blockContext->getBlock(),
                 'settings' => $blockContext->getSettings(),
-            ),
+            ],
             $response
         );
     }
@@ -61,19 +61,19 @@ class BannerBlockService extends AbstractBlockService
         $formMapper->add(
             'settings',
             'sonata_type_immutable_array',
-            array(
-                'keys' => array(
-                    array('id', 'choice', array('choices' => $list, 'label' => 'Баннеры')),
-                    array('template', 'choice', array(
-                        'choices' => array(
+            [
+                'keys' => [
+                    ['id', 'choice', ['choices' => $list, 'label' => 'Баннеры']],
+                    ['template', 'choice', [
+                        'choices' => [
                             'Обычный' => 'CompoBannerBundle:Block:slider.html.twig',
                             'Zoom' => 'CompoBannerBundle:Block:zoom.html.twig',
                             'Менеджеры' => 'CompoBannerBundle:Block:managers.html.twig',
-                        ),
+                        ],
                         'label' => 'Шаблон',
-                    )),
-                ),
-            )
+                    ]],
+                ],
+            ]
         );
     }
 
@@ -83,10 +83,10 @@ class BannerBlockService extends AbstractBlockService
     public function configureSettings(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'id' => null,
                 'template' => 'CompoBannerBundle:Block:slider.html.twig',
-            )
+            ]
         );
     }
 

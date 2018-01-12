@@ -12,7 +12,7 @@ class FormMapper extends \Sonata\AdminBundle\Form\FormMapper
      *
      * @return $this
      */
-    public function tab($name, array $options = array())
+    public function tab($name, array $options = [])
     {
         if (!isset($options['label'])) {
             $options['label'] = 'form.tab_' . $name;
@@ -27,11 +27,11 @@ class FormMapper extends \Sonata\AdminBundle\Form\FormMapper
      * @param string $name
      * @param array  $options
      *
-     * @return $this
-     *
      * @throws \RuntimeException
+     *
+     * @return $this
      */
-    public function with($name, array $options = array())
+    public function with($name, array $options = [])
     {
         /*
          * The current implementation should work with the following workflow:
@@ -53,7 +53,7 @@ class FormMapper extends \Sonata\AdminBundle\Form\FormMapper
          *        ->end();
          *
          */
-        $defaultOptions = array(
+        $defaultOptions = [
             'collapsed' => false,
             'class' => false,
             'description' => false,
@@ -62,7 +62,7 @@ class FormMapper extends \Sonata\AdminBundle\Form\FormMapper
             'translation_domain' => null,
             'name' => $name,
             'box_class' => 'box box-primary',
-        );
+        ];
 
         $code = $name;
 
@@ -81,13 +81,13 @@ class FormMapper extends \Sonata\AdminBundle\Form\FormMapper
             }
 
             if (!isset($tabs[$name])) {
-                $tabs[$name] = array();
+                $tabs[$name] = [];
             }
 
-            $tabs[$code] = array_merge($defaultOptions, array(
+            $tabs[$code] = array_merge($defaultOptions, [
                 'auto_created' => false,
-                'groups' => array(),
-            ), $tabs[$code], $options);
+                'groups' => [],
+            ], $tabs[$code], $options);
 
             $this->currentTab = $code;
         } else {
@@ -97,11 +97,11 @@ class FormMapper extends \Sonata\AdminBundle\Form\FormMapper
 
             if (!$this->currentTab) {
                 // no tab define
-                $this->with('default', array(
+                $this->with('default', [
                     'tab' => true,
                     'auto_created' => true,
                     'translation_domain' => isset($options['translation_domain']) ? $options['translation_domain'] : null,
-                )); // add new tab automatically
+                ]); // add new tab automatically
             }
 
             // if no tab is selected, we go the the main one named '_' ..
@@ -111,19 +111,19 @@ class FormMapper extends \Sonata\AdminBundle\Form\FormMapper
 
             $groups = $this->getGroups();
             if (!isset($groups[$code])) {
-                $groups[$code] = array();
+                $groups[$code] = [];
             }
 
-            $groups[$code] = array_merge($defaultOptions, array(
-                'fields' => array(),
-            ), $groups[$code], $options);
+            $groups[$code] = array_merge($defaultOptions, [
+                'fields' => [],
+            ], $groups[$code], $options);
 
             $this->currentGroup = $code;
             $this->setGroups($groups);
             $tabs = $this->getTabs();
         }
 
-        if ($this->currentGroup && isset($tabs[$this->currentTab]) && !in_array($this->currentGroup, $tabs[$this->currentTab]['groups'])) {
+        if ($this->currentGroup && isset($tabs[$this->currentTab]) && !in_array($this->currentGroup, $tabs[$this->currentTab]['groups'], true)) {
             $tabs[$this->currentTab]['groups'][] = $this->currentGroup;
         }
 

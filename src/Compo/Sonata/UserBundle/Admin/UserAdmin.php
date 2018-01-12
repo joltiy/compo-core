@@ -6,9 +6,9 @@
 
 namespace Compo\Sonata\UserBundle\Admin;
 
-use Sonata\AdminBundle\Form\FormMapper;
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use Sonata\AdminBundle\Admin\AdminInterface;
+use Sonata\AdminBundle\Form\FormMapper;
 
 /**
  * Class UserAdmin.
@@ -23,12 +23,12 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
         // define group zoning
         $formMapper
             ->tab('User')
-            ->with('Profile', array('class' => 'col-md-6'))->end()
-            ->with('General', array('class' => 'col-md-6'))->end()
+            ->with('Profile', ['class' => 'col-md-6'])->end()
+            ->with('General', ['class' => 'col-md-6'])->end()
             ->end()
             ->tab('Security')
-            ->with('Status', array('class' => 'col-md-6'))->end()
-            ->with('Groups', array('class' => 'col-md-6'))->end()
+            ->with('Status', ['class' => 'col-md-6'])->end()
+            ->with('Groups', ['class' => 'col-md-6'])->end()
             //->with('Keys', array('class' => 'col-md-4'))->end()
             //->with('Roles', array('class' => 'col-md-12'))->end()
             ->end();
@@ -41,32 +41,32 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
             ->add(
                 'plainPassword',
                 'text',
-                array(
+                [
                     'required' => !$this->getSubject() || null === $this->getSubject()->getId(),
-                )
+                ]
             )
             ->end()
             ->with('Profile')
-            ->add('firstname', null, array('required' => false))
-            ->add('lastname', null, array('required' => false))
+            ->add('firstname', null, ['required' => false])
+            ->add('lastname', null, ['required' => false])
             ->add(
                 'gender',
                 'sonata_user_gender',
-                array(
+                [
                     'required' => true,
                     'translation_domain' => $this->getTranslationDomain(),
-                )
+                ]
             )
             ->add(
                 'dateOfBirth',
                 'sonata_type_date_picker',
-                array(
+                [
                     'format' => 'dd.MM.y',
                     'required' => false,
-                )
+                ]
             )
             //->add('timezone', 'timezone', array('required' => false))
-            ->add('phone', null, array('required' => false))
+            ->add('phone', null, ['required' => false])
             ->end()
             ->end();
 
@@ -76,18 +76,18 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
                 ->with('Status')
                 //->add('locked', null, array('required' => false))
                 //->add('expired', null, array('required' => false))
-                ->add('enabled', null, array('required' => false))
+                ->add('enabled', null, ['required' => false])
                 //->add('credentialsExpired', null, array('required' => false))
                 ->end()
                 ->with('Groups')
                 ->add(
                     'groups',
                     'sonata_type_model',
-                    array(
+                    [
                         'required' => false,
                         'expanded' => true,
                         'multiple' => true,
-                    )
+                    ]
                 )
                 ->end()
                 /*
@@ -104,7 +104,6 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
                 ->end();
         }
     }
-
 
     protected function configureTabMenu(MenuItemInterface $tabMenu, $action, AdminInterface $childAdmin = null)
     {
@@ -131,7 +130,7 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
          *
          */
 
-        if (in_array($action, array('list', 'trash', 'tree', 'create'))) {
+        if (in_array($action, ['list', 'trash', 'tree', 'create'], true)) {
             if ($childAdmin) {
                 $currentLeafChildAdmin = $this->getCurrentLeafChildAdmin();
 
@@ -159,28 +158,28 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
                 if ($currentLeafChildAdmin->hasAccess('list')) {
                     $tabMenuDropdown = $tabMenu->addChild(
                         'tab_menu.list_mode.' . $currentLeafChildAdmin->getLabel(),
-                        array(
+                        [
                             'label' => $currentLeafChildAdmin->trans('tab_menu.link_list'),
-                            'uri' => $currentLeafChildAdmin->generateUrl('list', array()),
-                            'attributes' => array('dropdown' => true),
-                        )
+                            'uri' => $currentLeafChildAdmin->generateUrl('list', []),
+                            'attributes' => ['dropdown' => true],
+                        ]
                     )->setAttribute('icon', 'fa fa-list');
 
                     $tabMenuDropdown->addChild(
                         'tab_menu.list_mode.list.' . $currentLeafChildAdmin->getLabel(),
-                        array(
+                        [
                             'label' => $currentLeafChildAdmin->trans('tab_menu.link_list'),
-                            'uri' => $currentLeafChildAdmin->generateUrl('list', array('_list_mode' => 'list')),
-                        )
+                            'uri' => $currentLeafChildAdmin->generateUrl('list', ['_list_mode' => 'list']),
+                        ]
                     )->setAttribute('icon', 'fa fa-list');
 
                     if (isset($currentLeafChildAdmin->treeEnabled) && $currentLeafChildAdmin->treeEnabled) {
                         $tabMenuDropdown->addChild(
                             'tab_menu.list_mode.tree.' . $admin->getLabel(),
-                            array(
+                            [
                                 'label' => $currentLeafChildAdmin->trans('tab_menu.link_tree'),
-                                'uri' => $currentLeafChildAdmin->generateUrl('list', array('_list_mode' => 'tree')),
-                            )
+                                'uri' => $currentLeafChildAdmin->generateUrl('list', ['_list_mode' => 'tree']),
+                            ]
                         )->setAttribute('icon', 'fa fa-sitemap');
                     }
                 }
@@ -188,42 +187,42 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
                 if ($currentLeafChildAdmin->hasRoute('trash') && $currentLeafChildAdmin->hasAccess('undelete')) {
                     $tabMenu->addChild(
                         $currentLeafChildAdmin->trans('tab_menu.link_trash'),
-                        array('uri' => $currentLeafChildAdmin->generateUrl('trash', array()))
+                        ['uri' => $currentLeafChildAdmin->generateUrl('trash', [])]
                     )->setAttribute('icon', 'fa fa-trash');
                 }
 
                 if ($currentLeafChildAdmin->hasRoute('create') && $currentLeafChildAdmin->hasAccess('create')) {
                     $tabMenu->addChild(
                         $currentLeafChildAdmin->trans('tab_menu.link_create'),
-                        array('uri' => $currentLeafChildAdmin->generateUrl('create', array()))
+                        ['uri' => $currentLeafChildAdmin->generateUrl('create', [])]
                     )->setAttribute('icon', 'fa fa-plus');
                 }
             } else {
                 if ($admin->hasAccess('list')) {
                     $tabMenuDropdown = $tabMenu->addChild(
                         'tab_menu.list_mode.' . $admin->getLabel(),
-                        array(
+                        [
                             'label' => $admin->trans('tab_menu.link_list'),
-                            'uri' => $admin->generateUrl('list', array()),
-                            'attributes' => array('dropdown' => true),
-                        )
+                            'uri' => $admin->generateUrl('list', []),
+                            'attributes' => ['dropdown' => true],
+                        ]
                     )->setAttribute('icon', 'fa fa-list');
 
                     $tabMenuDropdown->addChild(
                         'tab_menu.list_mode.list.' . $admin->getLabel(),
-                        array(
+                        [
                             'label' => $admin->trans('tab_menu.link_list'),
-                            'uri' => $admin->generateUrl('list', array('_list_mode' => 'list')),
-                        )
+                            'uri' => $admin->generateUrl('list', ['_list_mode' => 'list']),
+                        ]
                     )->setAttribute('icon', 'fa fa-list');
 
                     if (isset($admin->treeEnabled) && $admin->treeEnabled) {
                         $tabMenuDropdown->addChild(
                             'tab_menu.list_mode.tree.' . $admin->getLabel(),
-                            array(
+                            [
                                 'label' => $admin->trans('tab_menu.link_tree'),
-                                'uri' => $admin->generateUrl('list', array('_list_mode' => 'tree')),
-                            )
+                                'uri' => $admin->generateUrl('list', ['_list_mode' => 'tree']),
+                            ]
                         )->setAttribute('icon', 'fa fa-sitemap');
                     }
                 }
@@ -231,38 +230,38 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
                 if ($admin->hasRoute('trash') && $admin->hasAccess('undelete')) {
                     $tabMenu->addChild(
                         $this->trans('tab_menu.link_trash'),
-                        array('uri' => $admin->generateUrl('trash', array()))
+                        ['uri' => $admin->generateUrl('trash', [])]
                     )->setAttribute('icon', 'fa fa-trash');
                 }
 
                 if ($admin->hasRoute('create') && $admin->hasAccess('create')) {
                     $tabMenu->addChild(
                         $admin->trans('tab_menu.link_create'),
-                        array('uri' => $admin->generateUrl('create', array()))
+                        ['uri' => $admin->generateUrl('create', [])]
                     )->setAttribute('icon', 'fa fa-plus');
                 }
             }
         }
 
-        if (in_array($action, array('list', 'tree'))) {
+        if (in_array($action, ['list', 'tree'], true)) {
             if ($childAdmin) {
                 if (method_exists($childAdmin, 'generatePermalink') && $childAdmin->generatePermalink()) {
                     $tabMenu->addChild(
                         $childAdmin->trans('tab_menu.link_show_on_site'),
-                        array('uri' => $childAdmin->generatePermalink(), 'linkAttributes' => array('target' => '_blank'))
+                        ['uri' => $childAdmin->generatePermalink(), 'linkAttributes' => ['target' => '_blank']]
                     )->setAttribute('icon', 'fa fa-eye');
                 }
             } else {
                 if (method_exists($admin, 'generatePermalink') && $admin->generatePermalink()) {
                     $tabMenu->addChild(
                         $admin->trans('tab_menu.link_show_on_site'),
-                        array('uri' => $admin->generatePermalink(), 'linkAttributes' => array('target' => '_blank'))
+                        ['uri' => $admin->generatePermalink(), 'linkAttributes' => ['target' => '_blank']]
                     )->setAttribute('icon', 'fa fa-eye');
                 }
             }
         }
 
-        if (in_array($action, array('delete', 'edit', 'history', 'untrash'))) {
+        if (in_array($action, ['delete', 'edit', 'history', 'untrash'], true)) {
             if ($childAdmin) {
                 $currentLeafChildAdmin = $this->getCurrentLeafChildAdmin();
 
@@ -280,30 +279,30 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
                 if ($currentLeafChildAdmin->hasAccess('edit', $currentLeafChildAdmin->getSubject())) {
                     $tabMenu->addChild(
                         $currentLeafChildAdmin->trans('tab_menu.link_edit'),
-                        array(
-                            'uri' => $currentLeafChildAdmin->generateUrl('edit', array('id' => $currentLeafChildAdmin->getSubject()->getId())),
-                        )
+                        [
+                            'uri' => $currentLeafChildAdmin->generateUrl('edit', ['id' => $currentLeafChildAdmin->getSubject()->getId()]),
+                        ]
                     )->setAttribute('icon', 'fa fa-pencil');
                 }
 
                 if ($currentLeafChildAdmin->hasRoute('history') && $currentLeafChildAdmin->hasAccess('edit', $currentLeafChildAdmin->getSubject())) {
                     $tabMenu->addChild(
                         $currentLeafChildAdmin->trans('tab_menu.link_history'),
-                        array('uri' => $currentLeafChildAdmin->generateUrl('history', array('id' => $currentLeafChildAdmin->getSubject()->getId())))
+                        ['uri' => $currentLeafChildAdmin->generateUrl('history', ['id' => $currentLeafChildAdmin->getSubject()->getId()])]
                     )->setAttribute('icon', 'fa fa-archive');
                 }
 
                 if ($currentLeafChildAdmin->hasRoute('clone') && $currentLeafChildAdmin->hasAccess('create')) {
                     $tabMenu->addChild(
                         $currentLeafChildAdmin->trans('tab_menu.link_clone'),
-                        array('uri' => $currentLeafChildAdmin->generateUrl('clone', array('id' => $currentLeafChildAdmin->getSubject()->getId())))
+                        ['uri' => $currentLeafChildAdmin->generateUrl('clone', ['id' => $currentLeafChildAdmin->getSubject()->getId()])]
                     )->setAttribute('icon', 'fa fa-copy');
                 }
 
                 if (method_exists($currentLeafChildAdmin, 'generatePermalink') && $currentLeafChildAdmin->generatePermalink($currentLeafChildAdmin->getSubject())) {
                     $tabMenu->addChild(
                         $currentLeafChildAdmin->trans('tab_menu.link_show_on_site'),
-                        array('uri' => $currentLeafChildAdmin->generatePermalink($currentLeafChildAdmin->getSubject()), 'linkAttributes' => array('target' => '_blank'))
+                        ['uri' => $currentLeafChildAdmin->generatePermalink($currentLeafChildAdmin->getSubject()), 'linkAttributes' => ['target' => '_blank']]
                     )->setAttribute('icon', 'fa fa-eye');
                 }
 
@@ -314,11 +313,11 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
                     if ($child->hasAccess('list')) {
                         $tabMenu->addChild(
                             'tab_menu.link_list_' . $child->getLabel(),
-                            array(
-                                'label' => $childAdmin->trans('tab_menu.title_list', array('%name%' => $childAdmin->trans($child->getLabel()))),
+                            [
+                                'label' => $childAdmin->trans('tab_menu.title_list', ['%name%' => $childAdmin->trans($child->getLabel())]),
 
-                                'uri' => $childAdmin->generateUrl($child->getCode() . '.list', array('id' => $childAdmin->getSubject()->getId())),
-                            )
+                                'uri' => $childAdmin->generateUrl($child->getCode() . '.list', ['id' => $childAdmin->getSubject()->getId()]),
+                            ]
                         )->setAttribute('icon', 'fa fa-list');
                     }
                 }
@@ -326,30 +325,30 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
                 if ($admin->hasAccess('edit', $admin->getSubject())) {
                     $tabMenu->addChild(
                         $admin->trans('tab_menu.link_edit'),
-                        array(
-                            'uri' => $admin->generateUrl('edit', array('id' => $id)),
-                        )
+                        [
+                            'uri' => $admin->generateUrl('edit', ['id' => $id]),
+                        ]
                     )->setAttribute('icon', 'fa fa-pencil');
                 }
 
                 if ($admin->hasRoute('history') && $admin->hasAccess('edit', $admin->getSubject())) {
                     $tabMenu->addChild(
                         $this->trans('tab_menu.link_history'),
-                        array('uri' => $admin->generateUrl('history', array('id' => $admin->getSubject()->getId())))
+                        ['uri' => $admin->generateUrl('history', ['id' => $admin->getSubject()->getId()])]
                     )->setAttribute('icon', 'fa fa-archive');
                 }
 
                 if ($admin->hasRoute('clone') && $admin->hasAccess('create')) {
                     $tabMenu->addChild(
                         $admin->trans('tab_menu.link_clone'),
-                        array('uri' => $admin->generateUrl('clone', array('id' => $admin->getSubject()->getId())))
+                        ['uri' => $admin->generateUrl('clone', ['id' => $admin->getSubject()->getId()])]
                     )->setAttribute('icon', 'fa fa-copy');
                 }
 
                 if (method_exists($admin, 'generatePermalink') && $admin->generatePermalink($admin->getSubject())) {
                     $tabMenu->addChild(
                         $admin->trans('tab_menu.link_show_on_site'),
-                        array('uri' => $admin->generatePermalink($admin->getSubject()), 'linkAttributes' => array('target' => '_blank'))
+                        ['uri' => $admin->generatePermalink($admin->getSubject()), 'linkAttributes' => ['target' => '_blank']]
                     )->setAttribute('icon', 'fa fa-eye');
                 }
 
@@ -360,17 +359,15 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
                     if ($child->hasAccess('list')) {
                         $tabMenu->addChild(
                             'tab_menu.link_list_' . $child->getLabel(),
-                            array(
-                                'label' => $admin->trans('tab_menu.title_list', array('%name%' => $admin->trans($child->getLabel()))),
+                            [
+                                'label' => $admin->trans('tab_menu.title_list', ['%name%' => $admin->trans($child->getLabel())]),
 
-                                'uri' => $admin->generateUrl($child->getCode() . '.list', array('id' => $id)),
-                            )
+                                'uri' => $admin->generateUrl($child->getCode() . '.list', ['id' => $id]),
+                            ]
                         )->setAttribute('icon', 'fa fa-list');
                     }
                 }
             }
         }
-
     }
-
 }

@@ -38,7 +38,7 @@ final class DefaultSettingsResolver implements SettingsResolverInterface
     public function resolve($schemaAlias, $namespace = null)
     {
         try {
-            $criteria = array('schemaAlias' => $schemaAlias);
+            $criteria = ['schemaAlias' => $schemaAlias];
 
             if (null !== $namespace) {
                 $criteria['namespace'] = $namespace;

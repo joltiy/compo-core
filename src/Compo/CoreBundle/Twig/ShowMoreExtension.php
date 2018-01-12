@@ -21,9 +21,9 @@ class ShowMoreExtension extends Twig_Extension
      */
     public function getFilters()
     {
-        return array(
-            'show_more' => new Twig_SimpleFilter('show_more', array($this, 'showMoreFilter')),
-        );
+        return [
+            'show_more' => new Twig_SimpleFilter('show_more', [$this, 'showMoreFilter']),
+        ];
     }
 
     /**
@@ -48,9 +48,9 @@ class ShowMoreExtension extends Twig_Extension
             $result .= '</div>';
 
             return $result;
-        } else {
-            return $text;
         }
+
+        return $text;
     }
 
     /**

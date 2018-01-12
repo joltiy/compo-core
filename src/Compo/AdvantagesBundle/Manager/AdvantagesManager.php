@@ -2,8 +2,6 @@
 
 namespace Compo\AdvantagesBundle\Manager;
 
-use Compo\AdvantagesBundle\Entity\Advantages;
-use Compo\AdvantagesBundle\Entity\AdvantagesRepository;
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Sonata\CoreBundle\Model\BaseEntityManager;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
@@ -15,9 +13,8 @@ class AdvantagesManager extends BaseEntityManager
 {
     use ContainerAwareTrait;
 
-    /**
-     */
-    public function deleteUpdatedAt() {
+    public function deleteUpdatedAt()
+    {
         $cache = new FilesystemAdapter('app.cache');
         $cache->deleteItem('advantages_updated_at');
     }
@@ -25,20 +22,20 @@ class AdvantagesManager extends BaseEntityManager
     /**
      * @return \DateTime
      */
-    public function getUpdatedAt() {
+    public function getUpdatedAt()
+    {
         $cache = new FilesystemAdapter('app.cache');
         $updatedAtCache = $cache->getItem('advantages_updated_at');
 
         if ($updatedAtCache->isHit()) {
             return $updatedAtCache->get();
-        } else {
-            $updatedAt = new \DateTime();
-
-            $updatedAtCache->set($updatedAt);
-
-            $cache->save($updatedAtCache);
-
-            return $updatedAt;
         }
+        $updatedAt = new \DateTime();
+
+        $updatedAtCache->set($updatedAt);
+
+        $cache->save($updatedAtCache);
+
+        return $updatedAt;
     }
 }

@@ -14,8 +14,8 @@ class FeedbackSettingsSchema extends BaseBundleAdminSettingsSchema
      */
     public function getDefaultSettings()
     {
-        return array(
-        );
+        return [
+        ];
     }
 
     /**

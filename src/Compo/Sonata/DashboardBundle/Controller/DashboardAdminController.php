@@ -152,11 +152,10 @@ class DashboardAdminController extends CRUDController
             throw $this->createNotFoundException(sprintf('unable to find the block with id : %s', $id));
         }
 
-
-        $content = $this->container->get('templating')->render('@CompoSonataDashboard/Dashboard/single_block.html.twig', array(
+        $content = $this->container->get('templating')->render('@CompoSonataDashboard/Dashboard/single_block.html.twig', [
             'block' => $block,
-            'request' => $request
-        ));
+            'request' => $request,
+        ]);
 
         $response = new Response();
 

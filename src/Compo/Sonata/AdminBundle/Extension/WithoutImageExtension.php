@@ -25,7 +25,7 @@ class WithoutImageExtension extends AbstractAdminExtension
             $datagridMapper->add(
                 'without_image',
                 'doctrine_orm_callback',
-                array(
+                [
                     'callback' => function ($queryBuilder, $alias, $field, $value) {
                         if (!$value['value']) {
                             return false;
@@ -37,7 +37,7 @@ class WithoutImageExtension extends AbstractAdminExtension
                         return true;
                     },
                     'field_type' => 'checkbox',
-                )
+                ]
             );
         }
     }

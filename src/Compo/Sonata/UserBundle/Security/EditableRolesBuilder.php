@@ -12,11 +12,11 @@ class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuil
      */
     public function getRoles($domain = false, $expanded = true)
     {
-        $roles = array();
-        $rolesReadOnly = array();
+        $roles = [];
+        $rolesReadOnly = [];
 
         if (!$this->tokenStorage->getToken()) {
-            return array($roles, $rolesReadOnly);
+            return [$roles, $rolesReadOnly];
         }
 
         $translator = $this->pool->getContainer()->get('translator');
@@ -26,19 +26,19 @@ class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuil
         // get roles from the service container
         foreach ($this->rolesHierarchy as $name => $rolesHierarchy) {
             if ($isMaster || $this->authorizationChecker->isGranted($name)) {
-                $roles[$name] = $translator->trans($name, array(), 'messages');
+                $roles[$name] = $translator->trans($name, [], 'messages');
 
                 foreach ($rolesHierarchy as $role) {
                     if (!isset($roles[$role])) {
-                        if (!in_array($role, array(
+                        if (!in_array($role, [
                             'ROLE_SONATA_ADMIN',
                             'ROLE_USER',
                             'ROLE_SONATA_MEDIA_ADMIN_MEDIA_LIST',
                             'ROLE_SONATA_MEDIA_ADMIN_MEDIA_CREATE',
                             'ROLE_SONATA_MEDIA_ADMIN_MEDIA_VIEW',
                             'ROLE_SONATA_MEDIA_ADMIN_MEDIA_EDIT',
-                        ))) {
-                            $roles[$role] = $translator->trans($role, array(), 'messages');
+                        ], true)) {
+                            $roles[$role] = $translator->trans($role, [], 'messages');
                         }
                     }
                 }
@@ -64,7 +64,7 @@ class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuil
 
             //dump($admin); exit;
 
-            $items = array(
+            $items = [
                 'LIST',
                 'VIEW',
                 'EDIT',
@@ -74,16 +74,15 @@ class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuil
                 'EXPORT',
                 'IMPORT',
                 'SETTINGS',
-            );
+            ];
 
-            if (in_array($id, array(
+            if (in_array($id, [
                 'sonata.media.admin.media',
                 'sonata.media.admin.gallery',
                 'sonata.media.admin.gallery_has_media',
                 'sonata.page.admin.snapshot',
                 'sonata.page.admin.shared_block',
-
-            ), true)) {
+            ], true)) {
                 continue;
             }
 
@@ -92,9 +91,9 @@ class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuil
 
                 //dump($role);
 
-                $role_label = $translator->trans($admin->getLabel(), array(), $admin->getTranslationDomain())
+                $role_label = $translator->trans($admin->getLabel(), [], $admin->getTranslationDomain())
                     . ' - '
-                    . $translator->trans('ROLE_' . $role_item, array(), $admin->getTranslationDomain());
+                    . $translator->trans('ROLE_' . $role_item, [], $admin->getTranslationDomain());
 
                 if ($isMaster) {
                     // if the user has the MASTER permission, allow to grant access the admin roles to other users

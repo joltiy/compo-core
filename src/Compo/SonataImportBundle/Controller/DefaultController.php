@@ -12,16 +12,16 @@ use Symfony\Component\Process\Process;
 
 class DefaultController extends CRUDController
 {
-
     /**
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(Request $request)
     {
         $fileEntity = new UploadFile();
         $form = $this->createForm(UploadFileType::class, $fileEntity, [
-            'method' => 'POST'
+            'method' => 'POST',
         ]);
         $form->handleRequest($request);
 
@@ -33,24 +33,24 @@ class DefaultController extends CRUDController
                 $this->getDoctrine()->getManager()->flush($fileEntity);
 
                 $this->runCommand($fileEntity);
-                return $this->redirect($this->admin->generateUrl('upload', [
-                    'import_id' => $fileEntity->getId()
-                ]));
-            } else {
-                $form->get('file')->addError(new FormError($fileEntity->getFile()->getErrorMessage()));
-            }
-        }
 
+                return $this->redirect($this->admin->generateUrl('upload', [
+                    'import_id' => $fileEntity->getId(),
+                ]));
+            }
+            $form->get('file')->addError(new FormError($fileEntity->getFile()->getErrorMessage()));
+        }
 
         $builder = $this->get('sonata.admin.pool')
             ->getInstance($this->admin->getCode())
             ->getExportFields();
+
         return $this->render('@CompoSonataImport/Default/index.html.twig', [
             'form' => $form->createView(),
             'base_template' => $this->getBaseTemplate(),
             'builder' => $builder,
             'action' => 'import',
-            'letters' => $this->getLetterArray()
+            'letters' => $this->getLetterArray(),
         ]);
     }
 
@@ -79,14 +79,13 @@ class DefaultController extends CRUDController
             );
         }
 
-
-
         $process = new Process($command);
         $process->run();
     }
 
     /**
-     * get array from A to ZZ
+     * get array from A to ZZ.
+     *
      * @return array
      */
     private function getLetterArray()
@@ -98,12 +97,14 @@ class DefaultController extends CRUDController
                 $letters[] = $first . $second;
             }
         }
+
         return $letters;
     }
 
     /**
      * @param Request    $request
      * @param UploadFile $uploadFile
+     *
      * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function uploadAction(Request $request)
@@ -112,9 +113,8 @@ class DefaultController extends CRUDController
 
         $uploadFile = $em->getRepository('CompoSonataImportBundle:UploadFile')->find($request->get('import_id'));
 
-
         $countImport = $em->getRepository('CompoSonataImportBundle:ImportLog')->count([
-            'uploadFile' => $uploadFile->getId()
+            'uploadFile' => $uploadFile->getId(),
         ]);
 
         $data = $em->getRepository('CompoSonataImportBundle:ImportLog')->pagerfanta($request);
@@ -127,34 +127,31 @@ class DefaultController extends CRUDController
             100
         );
 
-
-        $stats = array(
-            0 => array(
+        $stats = [
+            0 => [
                 'status' => 0,
-                'count' => 0
-            ),
-            1 => array(
+                'count' => 0,
+            ],
+            1 => [
                 'status' => 1,
-                'count' => 0
-            ),
-            2 => array(
+                'count' => 0,
+            ],
+            2 => [
                 'status' => 2,
-                'count' => 0
-            ),
-            3 => array(
+                'count' => 0,
+            ],
+            3 => [
                 'status' => 3,
-                'count' => 0
-            )
-        );
+                'count' => 0,
+            ],
+        ];
 
         foreach ($stats as $statKey => $stat) {
-
             $stats[$statKey]['count'] = $em->getRepository('CompoSonataImportBundle:ImportLog')->count([
                 'uploadFile' => $uploadFile->getId(),
-                'status' => $stat['status']
+                'status' => $stat['status'],
             ]);
         }
-
 
         return $this->render('@CompoSonataImport/Default/upload.html.twig', [
             'uploadFile' => $uploadFile,
@@ -170,6 +167,7 @@ class DefaultController extends CRUDController
 
     /**
      * @param UploadFile $uploadFile
+     *
      * @return JsonResponse
      */
     public function importStatusAction(Request $request)
@@ -179,13 +177,13 @@ class DefaultController extends CRUDController
         $uploadFile = $em->getRepository('CompoSonataImportBundle:UploadFile')->find($request->get('import_id'));
 
         $countImport = $this->getDoctrine()->getManager()->getRepository('CompoSonataImportBundle:ImportLog')->count([
-            'uploadFile' => $uploadFile->getId()
+            'uploadFile' => $uploadFile->getId(),
         ]);
 
         return new JsonResponse([
             'status' => $uploadFile->getStatus(),
             'error' => $uploadFile->getMessage(),
-            'count' => $countImport
+            'count' => $countImport,
         ]);
     }
 }

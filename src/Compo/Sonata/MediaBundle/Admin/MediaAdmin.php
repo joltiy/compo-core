@@ -26,9 +26,9 @@ class MediaAdmin extends \Sonata\MediaBundle\Admin\ORM\MediaAdmin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        $options = array(
-            'choices' => array(),
-        );
+        $options = [
+            'choices' => [],
+        ];
 
         foreach ($this->pool->getContexts() as $name => $context) {
             $options['choices'][$name] = $name;
@@ -42,7 +42,7 @@ class MediaAdmin extends \Sonata\MediaBundle\Admin\ORM\MediaAdmin
             ->add('height')
             ->add('contentType');
 
-        $providers = array();
+        $providers = [];
 
         $providerNames = (array) $this->pool->getProviderNamesByContext($this->getPersistentParameter('context', $this->pool->getDefaultContext()));
         foreach ($providerNames as $name) {
@@ -52,15 +52,15 @@ class MediaAdmin extends \Sonata\MediaBundle\Admin\ORM\MediaAdmin
         $datagridMapper->add(
             'providerName',
             'doctrine_orm_choice',
-            array(
-                'field_options' => array(
+            [
+                'field_options' => [
                     'choices' => $providers,
                     'required' => false,
                     'multiple' => false,
                     'expanded' => false,
-                ),
+                ],
                 'field_type' => 'choice',
-            )
+            ]
         );
     }
 

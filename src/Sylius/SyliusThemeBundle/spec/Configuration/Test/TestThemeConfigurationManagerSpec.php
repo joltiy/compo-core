@@ -48,39 +48,39 @@ final class TestThemeConfigurationManagerSpec extends ObjectBehavior
 
     public function it_finds_all_saved_configurations()
     {
-        $this->findAll()->shouldReturn(array());
+        $this->findAll()->shouldReturn([]);
     }
 
     public function it_stores_theme_configuration(ConfigurationProcessorInterface $configurationProcessor)
     {
-        $configurationProcessor->process(array(array('name' => 'theme/name')))->willReturn(array('name' => 'theme/name'));
+        $configurationProcessor->process([['name' => 'theme/name']])->willReturn(['name' => 'theme/name']);
 
-        $this->add(array('name' => 'theme/name'));
+        $this->add(['name' => 'theme/name']);
 
         $this->findAll()->shouldHaveCount(1);
     }
 
     public function its_theme_configurations_can_be_removed(ConfigurationProcessorInterface $configurationProcessor)
     {
-        $configurationProcessor->process(array(array('name' => 'theme/name')))->willReturn(array('name' => 'theme/name'));
+        $configurationProcessor->process([['name' => 'theme/name']])->willReturn(['name' => 'theme/name']);
 
-        $this->add(array('name' => 'theme/name'));
+        $this->add(['name' => 'theme/name']);
         $this->remove('theme/name');
 
-        $this->findAll()->shouldReturn(array());
+        $this->findAll()->shouldReturn([]);
     }
 
     public function it_clears_all_theme_configurations(ConfigurationProcessorInterface $configurationProcessor)
     {
-        $configurationProcessor->process(array(array('name' => 'theme/name1')))->willReturn(array('name' => 'theme/name1'));
-        $configurationProcessor->process(array(array('name' => 'theme/name2')))->willReturn(array('name' => 'theme/name2'));
+        $configurationProcessor->process([['name' => 'theme/name1']])->willReturn(['name' => 'theme/name1']);
+        $configurationProcessor->process([['name' => 'theme/name2']])->willReturn(['name' => 'theme/name2']);
 
-        $this->add(array('name' => 'theme/name1'));
-        $this->add(array('name' => 'theme/name2'));
+        $this->add(['name' => 'theme/name1']);
+        $this->add(['name' => 'theme/name2']);
 
         $this->clear();
 
-        $this->findAll()->shouldReturn(array());
+        $this->findAll()->shouldReturn([]);
     }
 
     public function it_does_not_throw_any_exception_if_clearing_unexisting_storage()

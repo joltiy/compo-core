@@ -12,7 +12,6 @@ class CoreExtension extends \Twig_Extension
     use ContainerAwareTrait;
 
     /**
-     *
      * @return string
      */
     public function getProjectVersion()
@@ -25,9 +24,9 @@ class CoreExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
-            new \Twig_SimpleFunction('project_version', array($this, 'getProjectVersion'), array('is_safe' => array('html'))),
-        );
+        return [
+            new \Twig_SimpleFunction('project_version', [$this, 'getProjectVersion'], ['is_safe' => ['html']]),
+        ];
     }
 
     /**

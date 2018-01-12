@@ -89,6 +89,6 @@ final class CachedTemplateLocatorSpec extends ObjectBehavior
 
         $decoratedTemplateLocator->locateTemplate(Argument::cetera())->shouldNotBeCalled();
 
-        $this->shouldThrow(ResourceNotFoundException::class)->during('locateTemplate', array($template, $theme));
+        $this->shouldThrow(ResourceNotFoundException::class)->during('locateTemplate', [$template, $theme]);
     }
 }

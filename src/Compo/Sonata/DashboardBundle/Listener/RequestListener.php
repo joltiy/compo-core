@@ -11,7 +11,6 @@
 
 namespace Compo\Sonata\DashboardBundle\Listener;
 
-use Sonata\AdminBundle\Admin\AdminInterface;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -46,7 +45,7 @@ class RequestListener
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
-        if ($event->getRequest()->get('_route') === 'sonata_admin_dashboard') {
+        if ('sonata_admin_dashboard' === $event->getRequest()->get('_route')) {
             $settingsManager = $this->container->get('sylius.settings_manager');
 
             $settings = $settingsManager->load('compo_dashboard');
@@ -61,7 +60,7 @@ class RequestListener
 
             $defaultDashboard = $modelManager->findOneBy(
                 $admin->getClass(),
-                array('id' => $settings['default'])
+                ['id' => $settings['default']]
             );
 
             if (!$defaultDashboard) {

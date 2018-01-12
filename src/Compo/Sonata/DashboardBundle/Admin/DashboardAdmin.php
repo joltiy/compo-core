@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Compo\Sonata\DashboardBundle\Admin;
 
+use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Compo\Sonata\UserBundle\Entity\User;
 use Knp\Menu\ItemInterface as MenuItemInterface;
-use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -64,28 +64,26 @@ class DashboardAdmin extends AbstractAdmin
         $admin = $this->isChild() ? $this->getParent() : $this;
         $id = $admin->getRequest()->get('id');
 
-        if (in_array($action, array('delete', 'edit', 'history', 'untrash'))) {
+        if (in_array($action, ['delete', 'edit', 'history', 'untrash'], true)) {
             $tabMenu->addChild(
                 $admin->trans('tab_menu.link_render'),
-                array('uri' => $admin->generateUrl('render', array('id' => $admin->getSubject()->getId())))
+                ['uri' => $admin->generateUrl('render', ['id' => $admin->getSubject()->getId()])]
             )->setAttribute('icon', 'fa fa-eye');
-
 
             $tabMenu->addChild('sidemenu.link_compose_dashboard',
                 ['uri' => $admin->generateUrl('compose', ['id' => $id])]
             )->setAttribute('icon', 'fa fa-folder');
         }
 
-        if (in_array($action, array('render'))) {
+        if (in_array($action, ['render'], true)) {
             $tabMenuDropdown = $tabMenu->addChild(
                 'tab_menu.list_mode.' . $admin->getLabel(),
-                array(
+                [
                     'label' => $admin->getSubject()->getName(),
                     'uri' => $admin->generateUrl('render', ['id' => $id]),
-                    'attributes' => array('dropdown' => true),
-                )
+                    'attributes' => ['dropdown' => true],
+                ]
             )->setAttribute('icon', 'fa fa-list');
-
 
             $qb = $this->createQuery('list');
 
@@ -94,31 +92,20 @@ class DashboardAdmin extends AbstractAdmin
             foreach ($list as $listItem) {
                 $tabMenuDropdown->addChild(
                     'tab_menu.list_mode.list.' . $admin->getLabel() . $listItem->getId(),
-                    array(
+                    [
                         'label' => $listItem->getName(),
                         'uri' => $admin->generateUrl('render', ['id' => $listItem->getId()]),
-                    )
+                    ]
                 );
             }
-
-
-
-
-
         }
-
-
-
-
-
     }
-
 
     public function configureActionButtons($action, $object = null)
     {
         $list = parent::configureActionButtons($action, $object);
 
-        if (in_array($action, ['show', 'delete', 'acl', 'history', 'render'])
+        if (in_array($action, ['show', 'delete', 'acl', 'history', 'render'], true)
             && $this->canAccessObject('edit', $object)
             && $this->hasRoute('edit')
         ) {
@@ -220,7 +207,7 @@ class DashboardAdmin extends AbstractAdmin
                 ->add('name')
                 ->add('enabled', CheckboxType::class, ['required' => false])
                 ->add('userGroups','sonata_type_model_autocomplete',
-                    array(
+                    [
                         'required' => false,
 
                         'multiple' => true,
@@ -237,9 +224,9 @@ class DashboardAdmin extends AbstractAdmin
 
                             $queryBuilder->orderBy($queryBuilder->getRootAliases()[0] . '.name', 'ASC');
                             $datagrid->setValue($property, null, $value);
-                        }
-                    ))
-            ->add('allowEdit', CheckboxType::class, array('required' => false))
+                        },
+                    ])
+            ->add('allowEdit', CheckboxType::class, ['required' => false])
 
             ->end()
         ;
@@ -248,5 +235,4 @@ class DashboardAdmin extends AbstractAdmin
             'name' => 'help_dashboard_name',
         ]);
     }
-
 }

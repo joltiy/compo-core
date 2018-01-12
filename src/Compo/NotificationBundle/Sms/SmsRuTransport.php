@@ -26,7 +26,7 @@ class SmsRuTransport
      * @param string $recipient
      * @param $body
      */
-    public function send($recipient = '', $body)
+    public function send($recipient, $body)
     {
         if ($recipient) {
             $to = preg_replace('/[^[0-9]/', '', $recipient);

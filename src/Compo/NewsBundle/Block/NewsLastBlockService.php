@@ -31,11 +31,11 @@ class NewsLastBlockService extends AbstractBlockService
 
         return $this->renderResponse(
             $template,
-            array(
+            [
                 'news' => $publications,
                 'block' => $block,
                 'settings' => $settigs,
-            ),
+            ],
             $response
         );
     }
@@ -48,11 +48,11 @@ class NewsLastBlockService extends AbstractBlockService
         $formMapper->add(
             'settings',
             'sonata_type_immutable_array',
-            array(
-                'keys' => array(
-                    array('limit', 'integer', array('required' => true)),
-                ),
-            )
+            [
+                'keys' => [
+                    ['limit', 'integer', ['required' => true]],
+                ],
+            ]
         );
     }
 
@@ -62,10 +62,10 @@ class NewsLastBlockService extends AbstractBlockService
     public function configureSettings(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'limit' => 5,
                 'template' => 'CompoNewsBundle:Block:news_last.html.twig',
-            )
+            ]
         );
     }
 }

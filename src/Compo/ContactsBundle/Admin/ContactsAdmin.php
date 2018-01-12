@@ -50,8 +50,8 @@ class ContactsAdmin extends AbstractAdmin
             ->add(
                 '_action',
                 null,
-                array(
-                )
+                [
+                ]
             );
     }
 
@@ -62,24 +62,24 @@ class ContactsAdmin extends AbstractAdmin
     {
         $formMapper
             ->tab('main')
-            ->with('major', array('class' => 'col-md-9'))
+            ->with('major', ['class' => 'col-md-9'])
             ->add('name')
 
             ->add('phone', CKEditorType::class)
             ->add('email')
             ->add('worktime', 'ckeditor')
             ->add('address', 'ckeditor')
-            ->add('bankprops', 'ckeditor', array('required' => false))
+            ->add('bankprops', 'ckeditor', ['required' => false])
             ->end()->end()
             ->tab('instructions')
-            ->with('car', array('class' => 'col-md-6'))
-            ->add('car_instruction', 'ckeditor', array('required' => false))
+            ->with('car', ['class' => 'col-md-6'])
+            ->add('car_instruction', 'ckeditor', ['required' => false])
             ->end()
-            ->with('walk', array('class' => 'col-md-6'))
-            ->add('walk_instruction', 'ckeditor', array('required' => false))
+            ->with('walk', ['class' => 'col-md-6'])
+            ->add('walk_instruction', 'ckeditor', ['required' => false])
             ->end()->end()
             ->tab('map')
-            ->with('map', array('class' => 'col-md-9'))
+            ->with('map', ['class' => 'col-md-9'])
             ->add('maps_code')
             ->add('cix')
             ->add('ciy')

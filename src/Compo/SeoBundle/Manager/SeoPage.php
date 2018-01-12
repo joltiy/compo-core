@@ -17,12 +17,12 @@ class SeoPage extends BaseEntityManager
     /**
      * @var array
      */
-    public $seoPages = array();
+    public $seoPages = [];
 
     /**
      * @var array
      */
-    public $seoPagesContext = array();
+    public $seoPagesContext = [];
 
     /**
      * @return object|\Sylius\Bundle\SettingsBundle\Model\SettingsInterface
@@ -63,13 +63,13 @@ class SeoPage extends BaseEntityManager
     {
         if (isset($this->seoPagesContext[$context])) {
             return $this->seoPagesContext[$context];
-        } else {
-            $contextTemplate = $this->findOneBy(array('context' => $context));
+        }
+        $contextTemplate = $this->findOneBy(['context' => $context]);
 
-            if ($contextTemplate) {
-                $this->seoPagesContext[$context] = $contextTemplate;
-                return $this->seoPagesContext[$context];
-            }
+        if ($contextTemplate) {
+            $this->seoPagesContext[$context] = $contextTemplate;
+
+            return $this->seoPagesContext[$context];
         }
 
         return null;
@@ -94,7 +94,7 @@ class SeoPage extends BaseEntityManager
      */
     public function getChoices()
     {
-        $choices = array();
+        $choices = [];
 
         foreach ($this->seoPages as $items) {
             $choices[$items['context']] = $items['context'];

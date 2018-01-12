@@ -25,16 +25,16 @@ class FeedbackBaseFormType extends AbstractType
             ->add(
                 'type',
                 HiddenType::class,
-                array(
+                [
                     'data' => $options['type'],
-                )
+                ]
             )
             ->add(
                 'page',
                 HiddenType::class,
-                array(
+                [
                     'data' => $this->getRequest()->getUri(),
-                )
+                ]
             );
     }
 
@@ -52,13 +52,13 @@ class FeedbackBaseFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
-                'extra_data' => array(),
+            [
+                'extra_data' => [],
 
                 'type' => '',
                 'data_class' => 'Compo\FeedbackBundle\Entity\Feedback',
                 'translation_domain' => 'CompoFeedbackBundle',
-            )
+            ]
         );
     }
 }

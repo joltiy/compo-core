@@ -38,18 +38,18 @@ final class OrderingTranslationFilesFinderSpec extends ObjectBehavior
     public function it_puts_application_translations_files_before_bundle_translations_files(
         TranslationFilesFinderInterface $translationFilesFinder
     ) {
-        $translationFilesFinder->findTranslationFiles('/some/path/to/theme')->willReturn(array(
+        $translationFilesFinder->findTranslationFiles('/some/path/to/theme')->willReturn([
             '/some/path/to/theme/AcmeBundle/messages.en.yml',
             '/some/path/to/theme/translations/messages.en.yml',
             '/some/path/to/theme/YcmeBundle/messages.en.yml',
-        ));
+        ]);
 
         $this->findTranslationFiles('/some/path/to/theme')->shouldHaveFirstElement('/some/path/to/theme/translations/messages.en.yml');
     }
 
     public function getMatchers()
     {
-        return array(
+        return [
             'haveFirstElement' => function ($subject, $element) {
                 if ($element !== reset($subject)) {
                     throw new \InvalidArgumentException(sprintf(
@@ -61,6 +61,6 @@ final class OrderingTranslationFilesFinderSpec extends ObjectBehavior
 
                 return true;
             },
-        );
+        ];
     }
 }

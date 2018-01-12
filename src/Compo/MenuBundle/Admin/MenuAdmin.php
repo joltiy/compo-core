@@ -38,7 +38,7 @@ class MenuAdmin extends AbstractAdmin
      */
     public function postRemove($object)
     {
-        $menu_item_root = $this->getDoctrine()->getRepository('CompoMenuBundle:MenuItem')->findOneBy(array('menu' => $object));
+        $menu_item_root = $this->getDoctrine()->getRepository('CompoMenuBundle:MenuItem')->findOneBy(['menu' => $object]);
 
         if ($menu_item_root) {
             $menu_item_root->setDeletedAt(new \DateTime());
@@ -81,8 +81,8 @@ class MenuAdmin extends AbstractAdmin
             ->add(
                 '_action',
                 'actions',
-                array(
-                )
+                [
+                ]
             );
     }
 
@@ -93,10 +93,10 @@ class MenuAdmin extends AbstractAdmin
     {
         $formMapper
             ->tab('main')
-            ->with('main', array('name' => false))
+            ->with('main', ['name' => false])
             ->add('id')
             ->add('name')
-            ->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false));
+            ->add('description', CKEditorType::class, ['attr' => ['class' => ''], 'required' => false]);
 
         $formMapper
             ->end()

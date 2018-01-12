@@ -61,7 +61,7 @@ class BaseSettingsAdminController extends SettingsController
 
         return $this->render(
             'CompoCoreBundle:Admin:settings.html.twig',
-            array(
+            [
                 'action' => 'list',
                 'breadcrumbs_builder' => $this->get('sonata.admin.breadcrumbs_builder'),
                 'base_template' => 'CompoSonataAdminBundle::standard_layout_compo.html.twig',
@@ -70,7 +70,7 @@ class BaseSettingsAdminController extends SettingsController
                 'form' => $form->createView(),
                 'admin_pool' => $admin_pool,
                 'translation_domain' => $this->getTranslationDomain(),
-            )
+            ]
         );
     }
 

@@ -33,28 +33,28 @@ final class TranslatorResourceProviderSpec extends ObjectBehavior
 
     public function it_transforms_previously_received_paths_into_translation_resources()
     {
-        $this->beConstructedWith(array(
+        $this->beConstructedWith([
             'messages.en.yml',
             'domain.en.yml',
-        ));
+        ]);
 
-        $this->getResources()->shouldBeLike(array(
+        $this->getResources()->shouldBeLike([
             new TranslationResource('messages.en.yml'),
             new TranslationResource('domain.en.yml'),
-        ));
+        ]);
     }
 
     public function it_extracts_unique_locales_from_received_paths()
     {
-        $this->beConstructedWith(array(
+        $this->beConstructedWith([
             'messages.en.yml',
             'domain.en_US.yml',
             'validation.en.yml',
-        ));
+        ]);
 
-        $this->getResourcesLocales()->shouldReturn(array(
+        $this->getResourcesLocales()->shouldReturn([
             'en',
             'en_US',
-        ));
+        ]);
     }
 }

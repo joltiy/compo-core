@@ -12,9 +12,9 @@ class PageCodeRepository extends \Compo\CoreBundle\Doctrine\ORM\EntityRepository
 {
     public function getLayoutChoices()
     {
-        return array(
+        return [
             'До </head>' => 'pre_head_end',
             'До </body>' => 'pre_body_end',
-        );
+        ];
     }
 }

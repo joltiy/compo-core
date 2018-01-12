@@ -19,12 +19,12 @@ class Error404BlockService extends FormatterBlockService
     public function configureSettings(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'format' => 'richhtml',
                 'rawContent' => '<b>404</b>',
                 'content' => '<b>404</b>',
                 'template' => 'CompoCoreBundle:Block:error_404.html.twig',
-            )
+            ]
         );
     }
 }

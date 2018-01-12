@@ -48,7 +48,7 @@ final class TemplateFileLocatorSpec extends ObjectBehavior
 
     public function it_throws_an_exception_if_located_thing_is_not_an_instance_of_template_reference_interface()
     {
-        $this->shouldThrow(\InvalidArgumentException::class)->during('locate', array('not an instance'));
+        $this->shouldThrow(\InvalidArgumentException::class)->during('locate', ['not an instance']);
     }
 
     public function it_returns_first_possible_theme_resource(
@@ -60,7 +60,7 @@ final class TemplateFileLocatorSpec extends ObjectBehavior
         ThemeInterface $secondTheme
     ) {
         $themeContext->getTheme()->willReturn($firstTheme);
-        $themeHierarchyProvider->getThemeHierarchy($firstTheme)->willReturn(array($firstTheme, $secondTheme));
+        $themeHierarchyProvider->getThemeHierarchy($firstTheme)->willReturn([$firstTheme, $secondTheme]);
 
         $templateLocator->locateTemplate($template, $firstTheme)->willThrow(ResourceNotFoundException::class);
         $templateLocator->locateTemplate($template, $secondTheme)->willReturn('/second/theme/template/path');
@@ -77,7 +77,7 @@ final class TemplateFileLocatorSpec extends ObjectBehavior
         ThemeInterface $theme
     ) {
         $themeContext->getTheme()->willReturn($theme);
-        $themeHierarchyProvider->getThemeHierarchy($theme)->willReturn(array($theme));
+        $themeHierarchyProvider->getThemeHierarchy($theme)->willReturn([$theme]);
 
         $templateLocator->locateTemplate($template, $theme)->willThrow(ResourceNotFoundException::class);
 
@@ -93,7 +93,7 @@ final class TemplateFileLocatorSpec extends ObjectBehavior
         TemplateReferenceInterface $template
     ) {
         $themeContext->getTheme()->willReturn(null);
-        $themeHierarchyProvider->getThemeHierarchy(null)->willReturn(array());
+        $themeHierarchyProvider->getThemeHierarchy(null)->willReturn([]);
 
         $decoratedFileLocator->locate($template, Argument::cetera())->willReturn('/app/template/path');
 

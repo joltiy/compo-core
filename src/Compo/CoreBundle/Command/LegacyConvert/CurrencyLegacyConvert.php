@@ -22,8 +22,8 @@ class CurrencyLegacyConvert extends BaseLegacyConvert
      */
     public function getOldData()
     {
-        return array(
-            array(
+        return [
+            [
                 'id' => 1,
                 'name' => 'Рубль',
                 'description' => 'Российский рубль',
@@ -31,8 +31,8 @@ class CurrencyLegacyConvert extends BaseLegacyConvert
                 'sign' => '&#8381;',
                 'code' => 'RUB',
                 'rate' => '1',
-            ),
-            array(
+            ],
+            [
                 'id' => 2,
                 'name' => 'Доллар',
                 'description' => 'Доллар США',
@@ -40,8 +40,8 @@ class CurrencyLegacyConvert extends BaseLegacyConvert
                 'sign' => '$',
                 'code' => 'USD',
                 'rate' => '66',
-            ),
-            array(
+            ],
+            [
                 'id' => 3,
                 'name' => 'Евро',
                 'description' => 'Евро',
@@ -49,8 +49,8 @@ class CurrencyLegacyConvert extends BaseLegacyConvert
                 'sign' => '&#8364;',
                 'code' => 'EUR',
                 'rate' => '77',
-            ),
-        );
+            ],
+        ];
     }
 
     /**

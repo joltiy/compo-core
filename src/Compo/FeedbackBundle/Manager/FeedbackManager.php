@@ -15,7 +15,7 @@ class FeedbackManager extends BaseEntityManager
     /**
      * @var array
      */
-    public $types = array();
+    public $types = [];
 
     /**
      * @return array
@@ -40,7 +40,7 @@ class FeedbackManager extends BaseEntityManager
      */
     public function getTypesChoice()
     {
-        $choice = array();
+        $choice = [];
 
         foreach ($this->types as $type_key => $type) {
             $choice[$type_key] = $type_key;

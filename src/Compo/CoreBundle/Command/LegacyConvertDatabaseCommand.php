@@ -29,7 +29,7 @@ class LegacyConvertDatabaseCommand extends BaseLegacyConvertCommand
     /**
      * @var array
      */
-    protected $tables = array();
+    protected $tables = [];
 
     /**
      * @return array
@@ -62,21 +62,21 @@ class LegacyConvertDatabaseCommand extends BaseLegacyConvertCommand
     {
         $this->processMedia();
 
-        $this->processLegacyConvert(ArticlesLegacyConvert::class, array('main', 'articles'));
-        $this->processLegacyConvert(FaqLegacyConvert::class, array('main', 'faq'));
-        $this->processLegacyConvert(NewsLegacyConvert::class, array('main', 'news'));
-        $this->processLegacyConvert(UnitLegacyConvert::class, array('main', 'unit'));
-        $this->processLegacyConvert(ProductTagLegacyConvert::class, array('main', 'product_tag'));
-        $this->processLegacyConvert(CurrencyLegacyConvert::class, array('main', 'currency'));
-        $this->processLegacyConvert(ProductAvailabilityLegacyConvert::class, array('main', 'product_availability'));
-        $this->processLegacyConvert(SupplierLegacyConvert::class, array('main', 'supplier'));
-        $this->processLegacyConvert(CountryLegacyConvert::class, array('main', 'country'));
-        $this->processLegacyConvert(CatalogLegacyConvert::class, array('main', 'catalog'));
-        $this->processLegacyConvert(ManufactureLegacyConvert::class, array('main', 'manufacture'));
-        $this->processLegacyConvert(ManufactureCollectionLegacyConvert::class, array('manufacture_collection'));
-        $this->processLegacyConvert(ProductLegacyConvert::class, array('product'));
-        $this->processLegacyConvert(FeaturesLegacyConvert::class, array('features'));
-        $this->processLegacyConvert(FeaturesValueLegacyConvert::class, array('features_value'));
+        $this->processLegacyConvert(ArticlesLegacyConvert::class, ['main', 'articles']);
+        $this->processLegacyConvert(FaqLegacyConvert::class, ['main', 'faq']);
+        $this->processLegacyConvert(NewsLegacyConvert::class, ['main', 'news']);
+        $this->processLegacyConvert(UnitLegacyConvert::class, ['main', 'unit']);
+        $this->processLegacyConvert(ProductTagLegacyConvert::class, ['main', 'product_tag']);
+        $this->processLegacyConvert(CurrencyLegacyConvert::class, ['main', 'currency']);
+        $this->processLegacyConvert(ProductAvailabilityLegacyConvert::class, ['main', 'product_availability']);
+        $this->processLegacyConvert(SupplierLegacyConvert::class, ['main', 'supplier']);
+        $this->processLegacyConvert(CountryLegacyConvert::class, ['main', 'country']);
+        $this->processLegacyConvert(CatalogLegacyConvert::class, ['main', 'catalog']);
+        $this->processLegacyConvert(ManufactureLegacyConvert::class, ['main', 'manufacture']);
+        $this->processLegacyConvert(ManufactureCollectionLegacyConvert::class, ['manufacture_collection']);
+        $this->processLegacyConvert(ProductLegacyConvert::class, ['product']);
+        $this->processLegacyConvert(FeaturesLegacyConvert::class, ['features']);
+        $this->processLegacyConvert(FeaturesValueLegacyConvert::class, ['features_value']);
     }
 
     /**

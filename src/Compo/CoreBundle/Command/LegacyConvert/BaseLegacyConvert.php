@@ -21,9 +21,9 @@ class BaseLegacyConvert
     /**
      * @var
      */
-    public $idFields = array(
+    public $idFields = [
         'id' => 'id',
-    );
+    ];
 
     /**
      * @var int
@@ -96,7 +96,7 @@ class BaseLegacyConvert
 
         if ($searchedListener) {
             $evm = $em->getEventManager();
-            $evm->removeEventListener(array('onFlush', 'postPersist', 'postUpdate', 'postFlush'), $searchedListener);
+            $evm->removeEventListener(['onFlush', 'postPersist', 'postUpdate', 'postFlush'], $searchedListener);
         }
 
         $this->getCommand()->getIo()->section('Load: ' . $this->getRepositoryName());
@@ -119,7 +119,7 @@ class BaseLegacyConvert
             $newItem = null;
 
             if (!$this->getCommand()->isDrop()) {
-                $idsFields = array();
+                $idsFields = [];
 
                 foreach ($oldDataItem as $oldDataItemFieldKey => $oldDataItemFieldValue) {
                     if (isset($this->idFields[$oldDataItemFieldKey])) {

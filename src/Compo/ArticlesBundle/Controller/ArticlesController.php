@@ -15,16 +15,16 @@ class ArticlesController extends Controller
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Throwable
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(Request $request)
     {
         $manager = $this->get('compo_articles.manager.articles');
 
         $page = $request->get('page', 1);
-        $pager = $manager->getPager(array(), $page);
+        $pager = $manager->getPager([], $page);
         $totalPages = $pager->getPageCount();
 
         $seoPage = $this->get('sonata.seo.page');
@@ -33,35 +33,35 @@ class ArticlesController extends Controller
         $seoPage->addVar('total_pages', $totalPages);
 
         if (1 !== $page) {
-            $seoPage->setLinkCanonical($manager->getArticlesIndexPermalink(array('page' => $page), 0));
+            $seoPage->setLinkCanonical($manager->getArticlesIndexPermalink(['page' => $page], 0));
         } else {
-            $seoPage->setLinkCanonical($manager->getArticlesIndexPermalink(array(), 0));
+            $seoPage->setLinkCanonical($manager->getArticlesIndexPermalink([], 0));
         }
 
         if ($totalPages > 1 && $page < $totalPages) {
-            $seoPage->setLinkNext($manager->getArticlesIndexPermalink(array('page' => $page + 1), 0));
+            $seoPage->setLinkNext($manager->getArticlesIndexPermalink(['page' => $page + 1], 0));
         }
 
         if ($totalPages > 1 && $page > 1) {
-            $seoPage->setLinkPrev($manager->getArticlesIndexPermalink(array('page' => $page - 1), 0));
+            $seoPage->setLinkPrev($manager->getArticlesIndexPermalink(['page' => $page - 1], 0));
         }
 
         $seoPage->build();
 
         return $this->render(
             'CompoArticlesBundle:Articles:index.html.twig',
-            array(
+            [
                 'pager' => $pager,
-            )
+            ]
         );
     }
 
     /**
      * @param $id
      *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showByIdAction($id)
     {
@@ -73,16 +73,16 @@ class ArticlesController extends Controller
             throw $this->createNotFoundException('compo_articles.exception.not_found_article');
         }
 
-        return $this->redirectToRoute('compo_articles_show_by_slug', array('slug' => $article->getSlug()), 301);
+        return $this->redirectToRoute('compo_articles_show_by_slug', ['slug' => $article->getSlug()], 301);
     }
 
     /**
      * @param $slug
      *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @throws \Throwable
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showBySlugAction($slug)
     {
@@ -102,12 +102,12 @@ class ArticlesController extends Controller
 
         $seoPage->addTemplates(
             'article_show',
-            array(
+            [
                 'header' => $article->getHeader(),
                 'title' => $article->getTitle(),
                 'metaKeyword' => $article->getMetaKeyword(),
                 'metaDescription' => $article->getMetaDescription(),
-            )
+            ]
         );
 
         $seoPage->setLinkCanonical($manager->getArticleShowPermalink($article, 0));
@@ -116,9 +116,9 @@ class ArticlesController extends Controller
 
         return $this->render(
             'CompoArticlesBundle:Articles:show.html.twig',
-            array(
+            [
                 'article' => $article,
-            )
+            ]
         );
     }
 }

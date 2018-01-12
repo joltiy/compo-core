@@ -55,9 +55,9 @@ final class TemplatePathsCacheWarmerSpec extends ObjectBehavior
         TemplateReferenceInterface $firstTemplate,
         TemplateReferenceInterface $secondTemplate
     ) {
-        $templateFinder->findAllTemplates()->willReturn(array($firstTemplate, $secondTemplate));
+        $templateFinder->findAllTemplates()->willReturn([$firstTemplate, $secondTemplate]);
 
-        $themeRepository->findAll()->willReturn(array($theme));
+        $themeRepository->findAll()->willReturn([$theme]);
 
         $theme->getName()->willReturn('theme/name');
         $firstTemplate->getLogicalName()->willReturn('Logical:Name:First');

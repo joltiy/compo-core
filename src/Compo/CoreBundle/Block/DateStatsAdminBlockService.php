@@ -12,20 +12,13 @@
 namespace Compo\CoreBundle\Block;
 
 use Compo\CoreBundle\Doctrine\ORM\EntityRepository;
-use Compo\OrderBundle\Entity\Order;
-use Compo\ProductBundle\Entity\Product;
 use Doctrine\ORM\AbstractQuery;
-use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Admin\Pool;
+use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Block\BlockContextInterface;
-use Compo\Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Sonata\BlockBundle\Model\BlockInterface;
-use Sonata\CoreBundle\Form\Type\ImmutableArrayType;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -57,19 +50,18 @@ class DateStatsAdminBlockService extends BaseAdminStatsBlockService
         $classMetadata = $em->getClassMetadata($entityClass);
         $associationMappings = $classMetadata->associationMappings;
 
-        $stats = array();
-
+        $stats = [];
 
         $timeTodayFrom = new \DateTime();
-        $timeTodayFrom->setTime(0,0,0);
+        $timeTodayFrom->setTime(0, 0, 0);
 
         $timeTodayTo = new \DateTime();
-        $timeTodayTo->setTime(23,59,59);
+        $timeTodayTo->setTime(23, 59, 59);
 
         $qb = $repository->createQueryBuilder('entity');
         $qb->resetDQLPart('select');
 
-        $joins = array();
+        $joins = [];
         $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata, $joins);
         $qb->addSelect("'today' as period");
 
@@ -78,18 +70,17 @@ class DateStatsAdminBlockService extends BaseAdminStatsBlockService
             ->setParameter('to', $timeTodayTo->format('Y-m-d H:i:s'));
         $stats[] = $qb->getQuery()->getSingleResult(AbstractQuery::HYDRATE_ARRAY);
 
-
         $timeTodayFrom = new \DateTime();
-        $timeTodayFrom->setTime(0,0,0);
+        $timeTodayFrom->setTime(0, 0, 0);
         $timeTodayFrom->modify('-1 day');
 
         $timeTodayTo = new \DateTime();
-        $timeTodayTo->setTime(23,59,59);
+        $timeTodayTo->setTime(23, 59, 59);
         $timeTodayTo->modify('-1 day');
 
         $qb = $repository->createQueryBuilder('entity');
         $qb->resetDQLPart('select');
-        $joins = array();
+        $joins = [];
         $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata, $joins);
         $qb->addSelect("'yesterday' as period");
 
@@ -98,17 +89,15 @@ class DateStatsAdminBlockService extends BaseAdminStatsBlockService
             ->setParameter('to', $timeTodayTo->format('Y-m-d H:i:s'));
         $stats[] = $qb->getQuery()->getSingleResult(AbstractQuery::HYDRATE_ARRAY);
 
-
-
         $timeTodayFrom = new \DateTime('last Monday');
-        $timeTodayFrom->setTime(0,0,0);
+        $timeTodayFrom->setTime(0, 0, 0);
 
         $timeTodayTo = new \DateTime('Sunday');
-        $timeTodayTo->setTime(23,59,59);
+        $timeTodayTo->setTime(23, 59, 59);
 
         $qb = $repository->createQueryBuilder('entity');
         $qb->resetDQLPart('select');
-        $joins = array();
+        $joins = [];
         $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata, $joins);
         $qb->addSelect("'week' as period");
 
@@ -118,18 +107,17 @@ class DateStatsAdminBlockService extends BaseAdminStatsBlockService
 
         $stats[] = $qb->getQuery()->getSingleResult(AbstractQuery::HYDRATE_ARRAY);
 
-
         $timeTodayFrom = new \DateTime('last Monday');
         $timeTodayFrom->modify('-1 week');
-        $timeTodayFrom->setTime(0,0,0);
+        $timeTodayFrom->setTime(0, 0, 0);
 
         $timeTodayTo = new \DateTime('Sunday');
         $timeTodayTo->modify('-1 week');
-        $timeTodayTo->setTime(23,59,59);
+        $timeTodayTo->setTime(23, 59, 59);
 
         $qb = $repository->createQueryBuilder('entity');
         $qb->resetDQLPart('select');
-        $joins = array();
+        $joins = [];
         $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata, $joins);
         $qb->addSelect("'previousWeek' as period");
 
@@ -141,14 +129,14 @@ class DateStatsAdminBlockService extends BaseAdminStatsBlockService
 
         $timeTodayFrom = new \DateTime();
         $timeTodayFrom->setDate($timeTodayFrom->format('Y'), $timeTodayFrom->format('m'), 1);
-        $timeTodayFrom->setTime(0,0,0);
+        $timeTodayFrom->setTime(0, 0, 0);
 
-        $timeTodayTo = new \DateTime(date("Y-m-t"));
-        $timeTodayTo->setTime(23,59,59);
+        $timeTodayTo = new \DateTime(date('Y-m-t'));
+        $timeTodayTo->setTime(23, 59, 59);
 
         $qb = $repository->createQueryBuilder('entity');
         $qb->resetDQLPart('select');
-        $joins = array();
+        $joins = [];
         $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata, $joins);
         $qb->addSelect("'month' as period");
 
@@ -157,21 +145,20 @@ class DateStatsAdminBlockService extends BaseAdminStatsBlockService
             ->setParameter('to', $timeTodayTo->format('Y-m-d H:i:s'));
         $stats[] = $qb->getQuery()->getSingleResult(AbstractQuery::HYDRATE_ARRAY);
 
-
         $timeTodayFrom = new \DateTime();
         $timeTodayFrom->setDate($timeTodayFrom->format('Y'), $timeTodayFrom->format('m'), 1);
 
-        $timeTodayFrom->setTime(0,0,0);
+        $timeTodayFrom->setTime(0, 0, 0);
         $timeTodayFrom->modify('-1 month');
 
-        $timeTodayTo = new \DateTime(date("Y-m-t"));
-        $timeTodayTo->setTime(23,59,59);
+        $timeTodayTo = new \DateTime(date('Y-m-t'));
+        $timeTodayTo->setTime(23, 59, 59);
         $timeTodayTo->modify('-1 month');
 
         $qb = $repository->createQueryBuilder('entity');
         $qb->resetDQLPart('select');
 
-        $joins = array();
+        $joins = [];
         $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata, $joins);
 
         $qb->addSelect("'previousMonth' as period");
@@ -185,39 +172,36 @@ class DateStatsAdminBlockService extends BaseAdminStatsBlockService
         $qb = $repository->createQueryBuilder('entity');
 
         $qb->resetDQLPart('select');
-        $joins = array();
+        $joins = [];
         $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata, $joins);
         $qb->addSelect("'total' as period");
 
         $stats[] = $qb->getQuery()->getSingleResult(AbstractQuery::HYDRATE_ARRAY);
 
-
         $url = $container->get('sonata.admin.pool')->getAdminByClass($entityClass)->generateUrl('list');
 
         return $this->renderResponse(
             $blockContext->getTemplate(),
-            array(
+            [
                 'metrics' => $metrics,
-                'dimensions' => array(
-                    'period' => array(
+                'dimensions' => [
+                    'period' => [
                         'label_name' => 'Период',
                         'label' => 'Период',
                         'field_type' => 'string',
                         'code_name' => 'period',
-                    )
-                ),
+                    ],
+                ],
 
                 'translation_domain' => $admin->getTranslationDomain(),
                 'url' => $url,
                 'stats' => $stats,
                 'block' => $blockContext->getBlock(),
                 'settings' => $blockContext->getSettings(),
-            ),
+            ],
             $response
         );
     }
-
-
 
     /**
      * {@inheritdoc}
@@ -229,25 +213,25 @@ class DateStatsAdminBlockService extends BaseAdminStatsBlockService
         $formMapper->add(
             'settings',
             'sonata_type_immutable_array',
-            array(
-                'keys' => array(
-                    array('tableVisible', CheckboxType::class, array(
+            [
+                'keys' => [
+                    ['tableVisible', CheckboxType::class, [
                         'label' => 'Таблица',
                         'required' => false,
-                        'sonata_help' => 'Вывод таблицы'
-                    )),
-                    array('chart', CheckboxType::class, array(
+                        'sonata_help' => 'Вывод таблицы',
+                    ]],
+                    ['chart', CheckboxType::class, [
                         'label' => 'График',
                         'required' => false,
-                        'sonata_help' => 'Вывод графика'
-                    )),
-                    array('entity', ChoiceType::class, array(
-                        'attr' => array('class' => 'form-stats-entity'),
+                        'sonata_help' => 'Вывод графика',
+                    ]],
+                    ['entity', ChoiceType::class, [
+                        'attr' => ['class' => 'form-stats-entity'],
                         'choices' => $entityChoices,
-                        'required' => true
-                    )),
-                ),
-            )
+                        'required' => true,
+                    ]],
+                ],
+            ]
         );
 
         $formModifier = function (FormInterface $form, $data = null) {
@@ -288,18 +272,17 @@ class DateStatsAdminBlockService extends BaseAdminStatsBlockService
     public function configureSettings(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
-
+            [
                 'tableVisible' => true,
                 'timeline' => false,
 
                 'chart' => false,
                 'entity' => '',
-                'metrics' => array(),
-                'dimensions' => array(),
+                'metrics' => [],
+                'dimensions' => [],
 
                 'template' => 'CompoCoreBundle:Block:date_stats_admin.html.twig',
-            )
+            ]
         );
     }
 }

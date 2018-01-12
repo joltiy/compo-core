@@ -53,11 +53,11 @@ final class FilesystemConfigurationProvider implements ConfigurationProviderInte
     {
         try {
             return array_map(
-                array($this->loader, 'load'),
+                [$this->loader, 'load'],
                 $this->fileLocator->locateFilesNamed($this->configurationFilename)
             );
         } catch (\InvalidArgumentException $exception) {
-            return array();
+            return [];
         }
     }
 }

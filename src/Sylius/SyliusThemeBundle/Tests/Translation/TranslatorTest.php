@@ -23,15 +23,16 @@ use Symfony\Component\Translation\MessageSelector;
  *
  * @author Jan Góralski <jan.goralski@lakion.com>
  */
-final class TranslatorTest extends \PHPUnit_Framework_TestCase
+final class TranslatorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @test
      * @dataProvider getInvalidOptionsTests
-     * @expectedException \InvalidArgumentException
      */
     public function it_throws_exception_on_instantiating_with_invalid_options(array $options)
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->createTranslator('en', $options);
     }
 
@@ -47,10 +48,11 @@ final class TranslatorTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @dataProvider getInvalidLocalesTests
-     * @expectedException \InvalidArgumentException
      */
     public function it_throws_exception_on_instantiating_with_invalid_locale($locale)
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->createTranslator($locale);
     }
 
@@ -62,18 +64,19 @@ final class TranslatorTest extends \PHPUnit_Framework_TestCase
     {
         $translator = $this->createTranslator($locale);
 
-        $this->assertEquals($locale, $translator->getLocale());
+        $this->assertSame($locale, $translator->getLocale());
     }
 
     /**
      * @test
      * @dataProvider getInvalidLocalesTests
-     * @expectedException \InvalidArgumentException
      */
     public function its_throws_exception_on_setting_invalid_fallback_locales($locale)
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $translator = $this->createTranslator('fr');
-        $translator->setFallbackLocales(array('fr', $locale));
+        $translator->setFallbackLocales(['fr', $locale]);
     }
 
     /**
@@ -83,7 +86,7 @@ final class TranslatorTest extends \PHPUnit_Framework_TestCase
     public function its_fallback_locales_can_be_set_only_if_valid($locale)
     {
         $translator = $this->createTranslator('fr');
-        $translator->setFallbackLocales(array('fr', $locale));
+        $translator->setFallbackLocales(['fr', $locale]);
     }
 
     /**
@@ -93,7 +96,7 @@ final class TranslatorTest extends \PHPUnit_Framework_TestCase
     public function it_adds_resources_with_valid_locales($locale)
     {
         $translator = $this->createTranslator('fr');
-        $translator->addResource('array', array('foo' => 'foofoo'), $locale);
+        $translator->addResource('array', ['foo' => 'foofoo'], $locale);
     }
 
     /**
@@ -104,10 +107,10 @@ final class TranslatorTest extends \PHPUnit_Framework_TestCase
     {
         $translator = $this->createTranslator($locale);
         $translator->addLoader('array', new ArrayLoader());
-        $translator->addResource('array', array('test' => 'OK'), $locale);
+        $translator->addResource('array', ['test' => 'OK'], $locale);
 
-        $this->assertEquals('OK', $translator->trans('test'));
-        $this->assertEquals('OK', $translator->trans('test', array(), null, $locale));
+        $this->assertSame('OK', $translator->trans('test'));
+        $this->assertSame('OK', $translator->trans('test', [], null, $locale));
     }
 
     /**
@@ -116,13 +119,13 @@ final class TranslatorTest extends \PHPUnit_Framework_TestCase
     public function it_translates_to_a_fallback_locale()
     {
         $translator = $this->createTranslator('en');
-        $translator->setFallbackLocales(array('fr'));
+        $translator->setFallbackLocales(['fr']);
 
         $translator->addLoader('array', new ArrayLoader());
-        $translator->addResource('array', array('foo' => 'foofoo'), 'en');
-        $translator->addResource('array', array('bar' => 'foobar'), 'fr');
+        $translator->addResource('array', ['foo' => 'foofoo'], 'en');
+        $translator->addResource('array', ['bar' => 'foobar'], 'fr');
 
-        $this->assertEquals('foobar', $translator->trans('bar'));
+        $this->assertSame('foobar', $translator->trans('bar'));
     }
 
     /**
@@ -131,15 +134,15 @@ final class TranslatorTest extends \PHPUnit_Framework_TestCase
     public function it_can_have_multiple_fallback_locales()
     {
         $translator = $this->createTranslator('en');
-        $translator->setFallbackLocales(array('de', 'fr'));
+        $translator->setFallbackLocales(['de', 'fr']);
 
         $translator->addLoader('array', new ArrayLoader());
-        $translator->addResource('array', array('foo' => 'foo (en)'), 'en');
-        $translator->addResource('array', array('bar' => 'bar (fr)'), 'fr');
-        $translator->addResource('array', array('foobar' => 'foobar (de)'), 'de');
+        $translator->addResource('array', ['foo' => 'foo (en)'], 'en');
+        $translator->addResource('array', ['bar' => 'bar (fr)'], 'fr');
+        $translator->addResource('array', ['foobar' => 'foobar (de)'], 'de');
 
-        $this->assertEquals('bar (fr)', $translator->trans('bar'));
-        $this->assertEquals('foobar (de)', $translator->trans('foobar'));
+        $this->assertSame('bar (fr)', $translator->trans('bar'));
+        $this->assertSame('foobar (de)', $translator->trans('foobar'));
     }
 
     /**
@@ -151,7 +154,7 @@ final class TranslatorTest extends \PHPUnit_Framework_TestCase
         $translator = $this->createTranslator($locale);
         $catalogue = new MessageCatalogue($locale);
 
-        $this->assertEquals($catalogue, $translator->getCatalogue());
+        $this->assertSame($catalogue, $translator->getCatalogue());
     }
 
     /**
@@ -163,11 +166,11 @@ final class TranslatorTest extends \PHPUnit_Framework_TestCase
         $translator = $this->createTranslator($locale);
 
         $catalogue = new MessageCatalogue($locale);
-        $themeDelimiter = strrpos($locale, '@');
+        $themeDelimiter = mb_strrpos($locale, '@');
 
-        $catalogue->addFallbackCatalogue(new MessageCatalogue(substr($locale, 0, $themeDelimiter)));
+        $catalogue->addFallbackCatalogue(new MessageCatalogue(mb_substr($locale, 0, $themeDelimiter)));
 
-        $this->assertEquals($catalogue, $translator->getCatalogue());
+        $this->assertSame($catalogue, $translator->getCatalogue());
     }
 
     /**
@@ -182,7 +185,7 @@ final class TranslatorTest extends \PHPUnit_Framework_TestCase
         $fallback = new MessageCatalogue('fr');
         $catalogue->addFallbackCatalogue($fallback);
 
-        $this->assertEquals($catalogue, $translator->getCatalogue());
+        $this->assertSame($catalogue, $translator->getCatalogue());
     }
 
     /**
@@ -203,7 +206,7 @@ final class TranslatorTest extends \PHPUnit_Framework_TestCase
         $thirdFallback = new MessageCatalogue('fr');
         $secondFallback->addFallbackCatalogue($thirdFallback);
 
-        $this->assertEquals($catalogue, $translator->getCatalogue());
+        $this->assertSame($catalogue, $translator->getCatalogue());
     }
 
     /**
@@ -212,7 +215,7 @@ final class TranslatorTest extends \PHPUnit_Framework_TestCase
     public function it_creates_a_nested_catalogue_with_fallback_translations_with_duplicated_additional_fallbacks()
     {
         $translator = $this->createTranslator('fr_FR@heron');
-        $translator->setFallbackLocales(array('fr_FR', 'fr'));
+        $translator->setFallbackLocales(['fr_FR', 'fr']);
 
         $catalogue = new MessageCatalogue('fr_FR@heron');
 
@@ -225,7 +228,7 @@ final class TranslatorTest extends \PHPUnit_Framework_TestCase
         $thirdFallback = new MessageCatalogue('fr');
         $secondFallback->addFallbackCatalogue($thirdFallback);
 
-        $this->assertEquals($catalogue, $translator->getCatalogue());
+        $this->assertSame($catalogue, $translator->getCatalogue());
     }
 
     /**
@@ -234,7 +237,7 @@ final class TranslatorTest extends \PHPUnit_Framework_TestCase
     public function it_creates_a_nested_catalogue_with_fallback_translations()
     {
         $translator = $this->createTranslator('fr_FR@heron');
-        $translator->setFallbackLocales(array('en_US', 'en'));
+        $translator->setFallbackLocales(['en_US', 'en']);
 
         $catalogue = new MessageCatalogue('fr_FR@heron');
 
@@ -259,7 +262,7 @@ final class TranslatorTest extends \PHPUnit_Framework_TestCase
         $seventhFallback = new MessageCatalogue('en');
         $sixthFallback->addFallbackCatalogue($seventhFallback);
 
-        $this->assertEquals($catalogue, $translator->getCatalogue());
+        $this->assertSame($catalogue, $translator->getCatalogue());
     }
 
     /**
@@ -267,19 +270,19 @@ final class TranslatorTest extends \PHPUnit_Framework_TestCase
      */
     public function getInvalidLocalesTests()
     {
-        return array(
-            array('fr FR'),
-            array('français'),
-            array('fr+en'),
-            array('utf#8'),
-            array('fr&en'),
-            array('fr~FR'),
-            array(' fr'),
-            array('fr '),
-            array('fr*'),
-            array('fr/FR'),
-            array('fr\\FR'),
-        );
+        return [
+            ['fr FR'],
+            ['français'],
+            ['fr+en'],
+            ['utf#8'],
+            ['fr&en'],
+            ['fr~FR'],
+            [' fr'],
+            ['fr '],
+            ['fr*'],
+            ['fr/FR'],
+            ['fr\\FR'],
+        ];
     }
 
     /**
@@ -298,15 +301,15 @@ final class TranslatorTest extends \PHPUnit_Framework_TestCase
      */
     public function getThemedLocalesTests()
     {
-        return array(
-            array('fr@heron'),
-            array('francais@heron'),
-            array('FR@heron'),
-            array('frFR@heron'),
-            array('fr-FR@heron'),
-            array('fr.FR@heron'),
-            array('fr-FR.UTF8@heron'),
-        );
+        return [
+            ['fr@heron'],
+            ['francais@heron'],
+            ['FR@heron'],
+            ['frFR@heron'],
+            ['fr-FR@heron'],
+            ['fr.FR@heron'],
+            ['fr-FR.UTF8@heron'],
+        ];
     }
 
     /**
@@ -314,17 +317,17 @@ final class TranslatorTest extends \PHPUnit_Framework_TestCase
      */
     public function getThemelessLocalesTests()
     {
-        return array(
-            array(''),
-            array(null),
-            array('fr'),
-            array('francais'),
-            array('FR'),
-            array('frFR'),
-            array('fr-FR'),
-            array('fr.FR'),
-            array('fr-FR.UTF8'),
-        );
+        return [
+            [''],
+            [null],
+            ['fr'],
+            ['francais'],
+            ['FR'],
+            ['frFR'],
+            ['fr-FR'],
+            ['fr.FR'],
+            ['fr-FR.UTF8'],
+        ];
     }
 
     /**
@@ -332,13 +335,13 @@ final class TranslatorTest extends \PHPUnit_Framework_TestCase
      */
     public function getValidOptionsTests()
     {
-        return array(
-            array(array('cache_dir' => null, 'debug' => false)),
-            array(array('cache_dir' => 'someDirectory', 'debug' => false)),
-            array(array('debug' => false)),
-            array(array('cache_dir' => 'yup')),
-            array(array()),
-        );
+        return [
+            [['cache_dir' => null, 'debug' => false]],
+            [['cache_dir' => 'someDirectory', 'debug' => false]],
+            [['debug' => false]],
+            [['cache_dir' => 'yup']],
+            [[]],
+        ];
     }
 
     /**
@@ -346,11 +349,11 @@ final class TranslatorTest extends \PHPUnit_Framework_TestCase
      */
     public function getInvalidOptionsTests()
     {
-        return array(
-            array(array('heron' => '')),
-            array(array('cache_dir' => null, 'pugs' => 'yes')),
-            array(array('cache_dir' => null, 'debug' => false, 'pug' => 'heron')),
-        );
+        return [
+            [['heron' => '']],
+            [['cache_dir' => null, 'pugs' => 'yes']],
+            [['cache_dir' => null, 'debug' => false, 'pug' => 'heron']],
+        ];
     }
 
     /**
@@ -359,7 +362,7 @@ final class TranslatorTest extends \PHPUnit_Framework_TestCase
      *
      * @return Translator
      */
-    private function createTranslator($locale = 'en', $options = array())
+    private function createTranslator($locale = 'en', $options = [])
     {
         $loaderProvider = new TranslatorLoaderProvider();
         $resourceProvider = new TranslatorResourceProvider();

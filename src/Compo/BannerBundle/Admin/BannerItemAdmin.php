@@ -19,7 +19,7 @@ class BannerItemAdmin extends AbstractAdmin
      */
     public function configure()
     {
-        $this->configurePosition(true, array('banner'));
+        $this->configurePosition(true, ['banner']);
         $this->setParentParentAssociationMapping('banner');
     }
 
@@ -77,12 +77,12 @@ class BannerItemAdmin extends AbstractAdmin
             ->add(
                 '_action',
                 null,
-                array(
-                    'actions' => array(
-                        'edit' => array(),
-                        'delete' => array(),
-                    ),
-                )
+                [
+                    'actions' => [
+                        'edit' => [],
+                        'delete' => [],
+                    ],
+                ]
             );
     }
 
@@ -93,16 +93,16 @@ class BannerItemAdmin extends AbstractAdmin
     {
         $formMapper->tab(
             'main_banner',
-            array(
+            [
                 'translation_domain' => $this->getTranslationDomain(),
-            )
+            ]
         );
 
         $formMapper->with(
             'main',
-            array(
+            [
                 'name' => false,
-            )
+            ]
         )
             ->add('id')
             ->add('enabled')

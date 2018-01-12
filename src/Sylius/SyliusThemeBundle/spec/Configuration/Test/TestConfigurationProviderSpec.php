@@ -38,12 +38,12 @@ final class TestConfigurationProviderSpec extends ObjectBehavior
 
     public function it_provides_configuration_based_on_test_configuration_manager(TestThemeConfigurationManagerInterface $testThemeConfigurationManager)
     {
-        $testThemeConfigurationManager->findAll()->willReturn(array(
-            array('name' => 'theme/name'),
-        ));
+        $testThemeConfigurationManager->findAll()->willReturn([
+            ['name' => 'theme/name'],
+        ]);
 
-        $this->getConfigurations()->shouldReturn(array(
-            array('name' => 'theme/name'),
-        ));
+        $this->getConfigurations()->shouldReturn([
+            ['name' => 'theme/name'],
+        ]);
     }
 }

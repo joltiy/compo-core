@@ -34,7 +34,7 @@ class PositionExtension extends AbstractAdminExtension
         if (isset($admin->positionEnabled) && $admin->positionEnabled) {
             //$collection->add('move', $admin->getRouterIdParameter() . '/move/{position}');
 
-            $collection->add('sortable', 'sortable', array('_controller' => $admin->getBaseControllerName() . ':sortable'));
+            $collection->add('sortable', 'sortable', ['_controller' => $admin->getBaseControllerName() . ':sortable']);
         }
     }
 
@@ -50,7 +50,7 @@ class PositionExtension extends AbstractAdminExtension
                 $options = $_action->getOptions();
 
                 //$options['actions']['move'] = array('template' => 'PixSortableBehaviorBundle:Default:_sort.html.twig');
-                $options['actions']['sortable'] = array('template' => 'CompoSonataAdminBundle:Button:_sort.html.twig');
+                $options['actions']['sortable'] = ['template' => 'CompoSonataAdminBundle:Button:_sort.html.twig'];
 
                 $_action->setOptions($options);
             }

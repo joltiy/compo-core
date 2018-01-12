@@ -49,12 +49,12 @@ class NewsTagAdmin extends AbstractAdmin
             ->add(
                 '_action',
                 null,
-                array(
-                    'actions' => array(
-                        'edit' => array(),
-                        'delete' => array(),
-                    ),
-                )
+                [
+                    'actions' => [
+                        'edit' => [],
+                        'delete' => [],
+                    ],
+                ]
             );
     }
 
@@ -64,11 +64,11 @@ class NewsTagAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper->tab('main');
-        $formMapper->with('main', array('name' => false, 'class' => ''));
+        $formMapper->with('main', ['name' => false, 'class' => '']);
 
         $formMapper
             ->add('name')
-            ->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false))
+            ->add('description', CKEditorType::class, ['attr' => ['class' => ''], 'required' => false])
             ->add('color', ColorType::class);
 
         $formMapper->end();

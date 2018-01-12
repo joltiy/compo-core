@@ -41,9 +41,9 @@ class DefaultPageService extends \Sonata\PageBundle\Page\Service\DefaultPageServ
         if ('page_slug' === $route) {
             $this->seoPage->setLinkCanonical($this->getContainer()->get('router')->generate(
                 $route,
-                array(
+                [
                     'path' => $page->getUrl(),
-                ),
+                ],
                 0
             ));
         }

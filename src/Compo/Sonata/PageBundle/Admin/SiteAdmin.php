@@ -38,7 +38,7 @@ class SiteAdmin extends \Sonata\PageBundle\Admin\SiteAdmin
     {
         $listMapper
             ->addIdentifier('name')
-            ->add('enabled', null, array('editable' => true, 'label' => 'Включён'))
+            ->add('enabled', null, ['editable' => true, 'label' => 'Включён'])
             ->add('host');
     }
 
@@ -55,16 +55,16 @@ class SiteAdmin extends \Sonata\PageBundle\Admin\SiteAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('form_site.label_general', array('class' => 'col-md-6'))
+            ->with('form_site.label_general', ['class' => 'col-md-6'])
             ->add('name')
             //->add('isDefault', null, array('required' => false))
-            ->add('enabled', null, array('required' => false))
+            ->add('enabled', null, ['required' => false])
             ->add('host')
             ->end()
-            ->with('form_site.label_seo', array('class' => 'col-md-6'))
-            ->add('title', null, array('required' => false))
-            ->add('metaDescription', 'textarea', array('required' => false))
-            ->add('metaKeywords', 'textarea', array('required' => false))
+            ->with('form_site.label_seo', ['class' => 'col-md-6'])
+            ->add('title', null, ['required' => false])
+            ->add('metaDescription', 'textarea', ['required' => false])
+            ->add('metaKeywords', 'textarea', ['required' => false])
             ->end();
     }
 

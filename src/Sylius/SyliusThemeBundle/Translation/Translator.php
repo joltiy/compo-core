@@ -25,10 +25,10 @@ final class Translator extends BaseTranslator implements WarmableInterface
     /**
      * @var array
      */
-    protected $options = array(
+    protected $options = [
         'cache_dir' => null,
         'debug' => false,
-    );
+    ];
 
     /**
      * @var TranslatorLoaderProviderInterface
@@ -57,7 +57,7 @@ final class Translator extends BaseTranslator implements WarmableInterface
         TranslatorResourceProviderInterface $resourceProvider,
         MessageSelector $messageSelector,
         $locale,
-        array $options = array()
+        array $options = []
     ) {
         $this->assertOptionsAreKnown($options);
 
@@ -84,7 +84,7 @@ final class Translator extends BaseTranslator implements WarmableInterface
 
         $locales = array_merge(
             $this->getFallbackLocales(),
-            array($this->getLocale()),
+            [$this->getLocale()],
             $this->resourceProvider->getResourcesLocales()
         );
         foreach (array_unique($locales) as $locale) {
@@ -118,8 +118,8 @@ final class Translator extends BaseTranslator implements WarmableInterface
         $computedFallbackLocales = parent::computeFallbackLocales($locale);
         array_unshift($computedFallbackLocales, $localeWithoutModifier);
 
-        $fallbackLocales = array();
-        foreach (array_diff($computedFallbackLocales, array($locale)) as $computedFallback) {
+        $fallbackLocales = [];
+        foreach (array_diff($computedFallbackLocales, [$locale]) as $computedFallback) {
             $fallback = $computedFallback . $themeModifier;
             if (null !== $themeModifier && $locale !== $fallback) {
                 $fallbackLocales[] = $fallback;
@@ -138,7 +138,7 @@ final class Translator extends BaseTranslator implements WarmableInterface
      */
     private function getLocaleModifier($locale)
     {
-        $modifier = strrchr($locale, '@');
+        $modifier = mb_strrchr($locale, '@');
 
         return $modifier ?: '';
     }

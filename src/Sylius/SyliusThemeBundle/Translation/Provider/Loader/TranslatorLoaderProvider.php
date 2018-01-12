@@ -26,7 +26,7 @@ final class TranslatorLoaderProvider implements TranslatorLoaderProviderInterfac
     /**
      * @param LoaderInterface[] $loaders
      */
-    public function __construct(array $loaders = array())
+    public function __construct(array $loaders = [])
     {
         $this->loaders = $loaders;
     }

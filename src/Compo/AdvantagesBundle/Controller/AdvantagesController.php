@@ -21,7 +21,6 @@ class AdvantagesController extends Controller
         $response->setSharedMaxAge(601);
         $response->setMaxAge(601);
 
-
         // Set response as public. Otherwise it will be private by default.
         $response->setPublic();
 
@@ -32,20 +31,13 @@ class AdvantagesController extends Controller
         }
 
         $response->setContent(
-            $blockHelper->render(array(
+            $blockHelper->render([
                 'type' => 'compo_advantages.block.service.advantages',
-                'settings' => array(
-                    'id' => $id
-                )
-            ))
+                'settings' => [
+                    'id' => $id,
+                ],
+            ])
         );
-
-
-
-
-
-
-
 
         return $response;
     }

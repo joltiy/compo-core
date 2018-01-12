@@ -46,17 +46,17 @@ final class TranslationFilesFinderSpec extends ObjectBehavior
         $finder->in('/theme')->shouldBeCalled()->willReturn($finder);
         $finder->ignoreUnreadableDirs()->shouldBeCalled()->willReturn($finder);
 
-        $finder->getIterator()->willReturn(new \ArrayIterator(array(
+        $finder->getIterator()->willReturn(new \ArrayIterator([
             '/theme/messages.en.yml',
             '/theme/translations/messages.en.yml',
             '/theme/translations/messages.en.yml.jpg',
             '/theme/translations/messages.yml',
             '/theme/AcmeBundle/translations/messages.pl_PL.yml',
-        )));
+        ]));
 
-        $this->findTranslationFiles('/theme')->shouldReturn(array(
+        $this->findTranslationFiles('/theme')->shouldReturn([
             '/theme/translations/messages.en.yml',
             '/theme/AcmeBundle/translations/messages.pl_PL.yml',
-        ));
+        ]);
     }
 }

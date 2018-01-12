@@ -58,14 +58,14 @@ final class ResourceToIdentifierTransformerSpec extends ObjectBehavior
         ParameterFixture $object,
         RepositoryInterface $repository
     ) {
-        $repository->findOneBy(array('name' => 'foo'))->shouldBeCalled()->willReturn($object);
+        $repository->findOneBy(['name' => 'foo'])->shouldBeCalled()->willReturn($object);
 
         $this->reverseTransform('foo')->shouldReturn($object);
     }
 
     public function it_returns_null_when_object_was_not_found_on_reverse_transform($repository)
     {
-        $repository->findOneBy(array('name' => 'baz'))->shouldBeCalled()->willReturn(null);
+        $repository->findOneBy(['name' => 'baz'])->shouldBeCalled()->willReturn(null);
 
         $this->reverseTransform('baz')->shouldReturn(null);
     }

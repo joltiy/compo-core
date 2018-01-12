@@ -66,10 +66,10 @@ class SortableAdminController extends CRUDController
         $this->admin->update($object);
 
         if ($this->isXmlHttpRequest()) {
-            return $this->renderJson(array(
+            return $this->renderJson([
                 'result' => 'ok',
                 'objectId' => $this->admin->getNormalizedIdentifier($object),
-            ));
+            ]);
         }
 
         $this->addFlash(
@@ -79,7 +79,7 @@ class SortableAdminController extends CRUDController
 
         return new RedirectResponse($this->admin->generateUrl(
             'list',
-            array('filter' => $this->admin->getFilterParameters())
+            ['filter' => $this->admin->getFilterParameters()]
         ));
     }
 }

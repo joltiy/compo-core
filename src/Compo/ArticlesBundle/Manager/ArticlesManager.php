@@ -34,7 +34,7 @@ class ArticlesManager extends BaseEntityManager
 
         $limit = $settings->get('articles_per_page');
 
-        $parameters = array();
+        $parameters = [];
 
         /** @var ArticlesRepository $repository */
         $repository = $this->getRepository();
@@ -86,9 +86,9 @@ class ArticlesManager extends BaseEntityManager
     /**
      * @param $slug
      *
-     * @return Articles
-     *
      * @throws \Doctrine\ORM\NonUniqueResultException
+     *
+     * @return Articles
      */
     public function findBySlug($slug)
     {
@@ -124,7 +124,7 @@ class ArticlesManager extends BaseEntityManager
      */
     public function getArticleShowRouteParameters(Articles $articles)
     {
-        return array('slug' => $articles->getSlug());
+        return ['slug' => $articles->getSlug()];
     }
 
     /**
@@ -133,7 +133,7 @@ class ArticlesManager extends BaseEntityManager
      *
      * @return string
      */
-    public function getArticlesIndexPermalink(array $parameters = array(), $absolute = 1)
+    public function getArticlesIndexPermalink(array $parameters = [], $absolute = 1)
     {
         return $this->getContainer()->get('router')->generate($this->getArticlesIndexRoute(), $this->getArticlesIndexRouteParameters($parameters), $absolute);
     }

@@ -42,16 +42,16 @@ final class JsonFileConfigurationLoaderSpec extends ObjectBehavior
 
         $filesystem->getFileContents('/directory/composer.json')->willReturn('{ "name": "example/sylius-theme" }');
 
-        $this->load('/directory/composer.json')->shouldReturn(array(
+        $this->load('/directory/composer.json')->shouldReturn([
             'path' => '/directory',
             'name' => 'example/sylius-theme',
-        ));
+        ]);
     }
 
     public function it_throws_an_exception_if_file_does_not_exist(FilesystemInterface $filesystem)
     {
         $filesystem->exists('composer.json')->willReturn(false);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('load', array('composer.json'));
+        $this->shouldThrow(\InvalidArgumentException::class)->during('load', ['composer.json']);
     }
 }

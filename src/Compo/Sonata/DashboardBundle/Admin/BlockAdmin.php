@@ -291,7 +291,7 @@ class BlockAdmin extends AbstractAdmin
     {
         parent::configureRoutes($collection);
 
-        $collection->add('view', $this->getRouterIdParameter().'/view');
+        $collection->add('view', $this->getRouterIdParameter() . '/view');
         $collection->add('switchParent', 'switch-parent');
         $collection->add('savePosition', '{block_id}/save-position', [
             'block_id' => null,
@@ -322,7 +322,7 @@ class BlockAdmin extends AbstractAdmin
                 $block->setDashboard($dashboard);
             }
 
-            if ($block->getDashboard()->getId() != $dashboard->getId()) {
+            if ($block->getDashboard()->getId() !== $dashboard->getId()) {
                 throw new \RuntimeException('The dashboard reference on BlockAdmin and parent admin are not the same');
             }
         }
@@ -337,16 +337,15 @@ class BlockAdmin extends AbstractAdmin
         $formMapper->with('form.field_group_general', $generalGroupOptions);
 
         $containerBlockTypes = $this->containerBlockTypes;
-        $isContainerRoot = $block && in_array($block->getType(), $containerBlockTypes) && !$this->hasParentFieldDescription();
-        $isStandardBlock = $block && !in_array($block->getType(), $containerBlockTypes) && !$this->hasParentFieldDescription();
+        $isContainerRoot = $block && in_array($block->getType(), $containerBlockTypes, true) && !$this->hasParentFieldDescription();
+        $isStandardBlock = $block && !in_array($block->getType(), $containerBlockTypes, true) && !$this->hasParentFieldDescription();
 
         if (!$isComposer) {
             $formMapper->add('name');
         } elseif (!$isContainerRoot) {
             $formMapper->add('name', HiddenType::class);
 
-            $formMapper->add('cssClass', null, array('required' => false));
-
+            $formMapper->add('cssClass', null, ['required' => false]);
         }
 
         $formMapper->end();

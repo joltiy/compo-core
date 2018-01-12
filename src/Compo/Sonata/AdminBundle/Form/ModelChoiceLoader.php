@@ -85,7 +85,7 @@ class ModelChoiceLoader implements ChoiceLoaderInterface
      * @param PropertyAccessorInterface|null $propertyAccessor
      * @param $options
      */
-    public function __construct(ModelManagerInterface $modelManager, $class, $property = null, $query = null, array $choices = array(), PropertyAccessorInterface $propertyAccessor = null, $options)
+    public function __construct(ModelManagerInterface $modelManager, $class, $property, $query, array $choices, PropertyAccessorInterface $propertyAccessor = null, $options)
     {
         $this->modelManager = $modelManager;
         $this->class = $class;
@@ -126,7 +126,7 @@ class ModelChoiceLoader implements ChoiceLoaderInterface
                 $entities = $this->modelManager->findBy($this->class);
             }
 
-            $choices = array();
+            $choices = [];
             foreach ($entities as $key => $entity) {
                 if ($this->propertyPath) {
                     // If the property option was given, use it
@@ -143,7 +143,7 @@ class ModelChoiceLoader implements ChoiceLoaderInterface
                 $id = implode(AdapterInterface::ID_SEPARATOR, $this->getIdentifierValues($entity));
 
                 if (!array_key_exists($valueObject, $choices)) {
-                    $choices[$valueObject] = array();
+                    $choices[$valueObject] = [];
                 }
 
                 $choices[$valueObject][] = $id;
@@ -153,7 +153,7 @@ class ModelChoiceLoader implements ChoiceLoaderInterface
 
             $tree = $this->options['tree'];
 
-            $choices = array();
+            $choices = [];
 
             foreach ($tree as $item) {
                 if ($this->options['current'] && $this->options['current']->getId() === $item->getId()) {

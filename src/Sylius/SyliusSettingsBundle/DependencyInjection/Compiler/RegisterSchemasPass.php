@@ -62,37 +62,37 @@ final class RegisterSchemasPass implements CompilerPassInterface
                     $arguments = $admin->getArguments();
 
                     if (isset($arguments[2])) {
-                        if (strpos($arguments[1], '%') === 0) {
+                        if (0 === mb_strpos($arguments[1], '%')) {
                             $arguments[1] = $container->getParameter(str_replace('%', '', $arguments[1]));
                         }
 
-                        if (strpos($arguments[2], '%') === 0) {
+                        if (0 === mb_strpos($arguments[2], '%')) {
                             $arguments[2] = $container->getParameter(str_replace('%', '', $arguments[2]));
                         }
 
                         $baseControllerNameArray = explode(':', $arguments[2]);
 
-                        $schema->addMethodCall('setTranslationDomain', array($baseControllerNameArray[0]));
+                        $schema->addMethodCall('setTranslationDomain', [$baseControllerNameArray[0]]);
 
                         preg_match(self::CLASS_REGEX, $arguments[1], $matches);
 
-                        $schema->addMethodCall('setBaseRouteName', array(sprintf('admin_%s%s_%s',
+                        $schema->addMethodCall('setBaseRouteName', [sprintf('admin_%s%s_%s',
                             empty($matches[1]) ? '' : $this->urlize($matches[1]) . '_',
                             $this->urlize($matches[3]),
                             $this->urlize($matches[5])
-                        )));
+                        )]);
 
-                        $admin->addMethodCall('setSettingsEnabled', array(true));
-                        $admin->addMethodCall('setSettingsNamespace', array($attributes['namespace']));
+                        $admin->addMethodCall('setSettingsEnabled', [true]);
+                        $admin->addMethodCall('setSettingsNamespace', [$attributes['namespace']]);
                     }
                 }
 
-                $schemaRegistry->addMethodCall('register', array($attributes['alias'], new Reference($id)));
+                $schemaRegistry->addMethodCall('register', [$attributes['alias'], new Reference($id)]);
             }
 
-            $tags = array(
+            $tags = [
                 'sylius.settings_schema' => $tags,
-            );
+            ];
 
             $schema->setTags($tags);
         }
@@ -108,6 +108,6 @@ final class RegisterSchemasPass implements CompilerPassInterface
      */
     public function urlize($word, $sep = '_')
     {
-        return strtolower(preg_replace('/[^a-z0-9_]/i', $sep . '$1', $word));
+        return mb_strtolower(preg_replace('/[^a-z0-9_]/i', $sep . '$1', $word));
     }
 }

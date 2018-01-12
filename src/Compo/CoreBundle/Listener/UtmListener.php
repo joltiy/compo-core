@@ -13,9 +13,9 @@ class UtmListener
     use ContainerAwareTrait;
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Request
-     *
      * @throws \Exception
+     *
+     * @return \Symfony\Component\HttpFoundation\Request
      */
     public function getRequest()
     {
@@ -38,12 +38,12 @@ class UtmListener
 
         $session = $this->getContainer()->get('session');
 
-        $utm_params = array(
+        $utm_params = [
             'utm_source',
             'utm_campaign',
             'utm_medium',
             'utm_term',
-        );
+        ];
 
         foreach ($utm_params as $param) {
             if ($request->get($param)) {

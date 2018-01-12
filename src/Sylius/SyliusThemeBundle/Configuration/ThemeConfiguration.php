@@ -104,7 +104,7 @@ final class ThemeConfiguration implements ConfigurationInterface
         $screenshotNodeDefinition
             ->validate()
                 ->ifTrue(function ($screenshot) {
-                    return array() === $screenshot || array('path' => '') === $screenshot;
+                    return [] === $screenshot || ['path' => ''] === $screenshot;
                 })
                 ->thenInvalid('Screenshot cannot be empty!')
         ;
@@ -112,7 +112,7 @@ final class ThemeConfiguration implements ConfigurationInterface
             ->beforeNormalization()
                 ->ifString()
                 ->then(function ($value) {
-                    return array('path' => $value);
+                    return ['path' => $value];
                 })
         ;
 
@@ -138,7 +138,7 @@ final class ThemeConfiguration implements ConfigurationInterface
         $authorNodeDefinition
             ->validate()
                 ->ifTrue(function ($author) {
-                    return array() === $author;
+                    return [] === $author;
                 })
                 ->thenInvalid('Author cannot be empty!')
         ;

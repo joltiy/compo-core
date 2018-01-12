@@ -52,10 +52,10 @@ class PageAdmin extends AbstractAdmin
     /**
      * {@inheritdoc}
      */
-    protected $accessMapping = array(
+    protected $accessMapping = [
         'tree' => 'LIST',
         'compose' => 'EDIT',
-    );
+    ];
 
     /**
      * {@inheritdoc}
@@ -65,16 +65,16 @@ class PageAdmin extends AbstractAdmin
         $collection->add(
             'compose',
             '{id}/compose',
-            array(
+            [
                 'id' => null,
-            )
+            ]
         );
         $collection->add(
             'compose_container_show',
             'compose/container/{id}',
-            array(
+            [
                 'id' => null,
-            )
+            ]
         );
 
         $collection->add('tree', 'tree');
@@ -97,9 +97,9 @@ class PageAdmin extends AbstractAdmin
     {
         if ($this->cacheManager) {
             $this->cacheManager->invalidate(
-                array(
+                [
                     'page_id' => $object->getId(),
-                )
+                ]
             );
         }
 
@@ -107,9 +107,9 @@ class PageAdmin extends AbstractAdmin
 
         $container->get('sonata.notification.backend.runtime')->createAndPublish(
             'sonata.page.create_snapshot',
-            array(
+            [
                 'pageId' => $object->getId(),
-            )
+            ]
         );
     }
 
@@ -179,9 +179,9 @@ class PageAdmin extends AbstractAdmin
     }
 
     /**
-     * @return bool|object|SiteInterface
-     *
      * @throws \RuntimeException
+     *
+     * @return bool|object|SiteInterface
      */
     public function getSite()
     {
@@ -199,7 +199,7 @@ class PageAdmin extends AbstractAdmin
         $siteId = (null !== $siteId) ? $siteId : $this->getRequest()->get('siteId');
 
         if ($siteId) {
-            $site = $this->siteManager->findOneBy(array('id' => $siteId));
+            $site = $this->siteManager->findOneBy(['id' => $siteId]);
 
             if (!$site) {
                 throw new \RuntimeException('Unable to find the site with id=' . $this->getRequest()->get('siteId'));
@@ -216,7 +216,7 @@ class PageAdmin extends AbstractAdmin
      */
     public function getSites()
     {
-        return $this->siteManager->findBy(array());
+        return $this->siteManager->findBy([]);
     }
 
     /**
@@ -290,9 +290,9 @@ class PageAdmin extends AbstractAdmin
 
         $container->get('sonata.notification.backend.runtime')->createAndPublish(
             'sonata.page.create_snapshot',
-            array(
+            [
                 'pageId' => $object->getId(),
-            )
+            ]
         );
     }
 
@@ -322,7 +322,7 @@ class PageAdmin extends AbstractAdmin
         $listMapper
             ->addIdentifier('name')
             ->add('url')
-            ->add('enabled', null, array('editable' => true));
+            ->add('enabled', null, ['editable' => true]);
     }
 
     /**
@@ -350,17 +350,17 @@ class PageAdmin extends AbstractAdmin
 
         $menu->addChild(
             'sidemenu.link_edit_page',
-            $admin->generateMenuUrl('edit', array('id' => $id))
+            $admin->generateMenuUrl('edit', ['id' => $id])
         );
 
         $menu->addChild(
             'sidemenu.link_compose_page',
-            $admin->generateMenuUrl('compose', array('id' => $id))
+            $admin->generateMenuUrl('compose', ['id' => $id])
         );
 
         $menu->addChild(
             'sidemenu.link_list_blocks',
-            $admin->generateMenuUrl('sonata.page.admin.block.list', array('id' => $id))
+            $admin->generateMenuUrl('sonata.page.admin.block.list', ['id' => $id])
         );
 
         $page = $this->getSubject();
@@ -373,14 +373,14 @@ class PageAdmin extends AbstractAdmin
                 }
                 $menu->addChild(
                     'view_page',
-                    array(
+                    [
                         'uri' => $this->getRouteGenerator()->generate(
                             'page_slug',
-                            array(
+                            [
                                 'path' => $path,
-                            )
+                            ]
                         ),
-                    )
+                    ]
                 );
             } catch (\Exception $e) {
                 // avoid crashing the admin if the route is not setup correctly
@@ -402,27 +402,27 @@ class PageAdmin extends AbstractAdmin
 
         // define group zoning
         $formMapper
-            ->with('main', array('class' => 'col-md-6'))->end()
-            ->with('seo', array('class' => 'col-md-6'))->end()// ->with('form_page.group_advanced_label', array('class' => 'col-md-6'))->end()
+            ->with('main', ['class' => 'col-md-6'])->end()
+            ->with('seo', ['class' => 'col-md-6'])->end()// ->with('form_page.group_advanced_label', array('class' => 'col-md-6'))->end()
         ;
 
         if (!$this->getSubject() || (!$this->getSubject()->isInternal() && !$this->getSubject()->isError())) {
             $formMapper
                 ->with('main')
-                ->add('url', 'text', array('attr' => array('readonly' => 'readonly')))
+                ->add('url', 'text', ['attr' => ['readonly' => 'readonly']])
                 ->end();
         }
 
         $formMapper
             ->with('main')
             ->add('name')
-            ->add('enabled', null, array('required' => false))
+            ->add('enabled', null, ['required' => false])
             ->add('position')
             ->end();
 
         $formMapper
             ->with('main')
-            ->add('templateCode', TemplateChoiceType::class, array('required' => true))
+            ->add('templateCode', TemplateChoiceType::class, ['required' => true])
             ->end();
 
         if (!$this->getSubject() || ($this->getSubject() && $this->getSubject()->getParent()) || ($this->getSubject() && !$this->getSubject()->getId())) {
@@ -431,20 +431,20 @@ class PageAdmin extends AbstractAdmin
                 ->add(
                     'parent',
                     PageSelectorType::class,
-                    array(
+                    [
                         'page' => $this->getSubject() ?: null,
                         'site' => $this->getSubject() ? $this->getSubject()->getSite() : null,
                         'model_manager' => $this->getModelManager(),
                         'class' => $this->getClass(),
                         'required' => false,
-                        'filter_choice' => array('hierarchy' => 'root'),
-                    ),
-                    array(
+                        'filter_choice' => ['hierarchy' => 'root'],
+                    ],
+                    [
                         'admin_code' => $this->getCode(),
-                        'link_parameters' => array(
+                        'link_parameters' => [
                             'siteId' => $this->getSubject() ? $this->getSubject()->getSite()->getId() : null,
-                        ),
-                    )
+                        ],
+                    ]
                 )
                 ->end();
         }
@@ -452,7 +452,7 @@ class PageAdmin extends AbstractAdmin
         if (!$this->getSubject() || !$this->getSubject()->isDynamic()) {
             $formMapper
                 ->with('main')
-                ->add('pageAlias', null, array('required' => false))
+                ->add('pageAlias', null, ['required' => false])
                 /*
                 ->add('target', 'sonata_page_selector', array(
                     'page'          => $this->getSubject() ?: null,
@@ -475,30 +475,30 @@ class PageAdmin extends AbstractAdmin
         if (!$this->getSubject() || !$this->getSubject()->isHybrid()) {
             $formMapper
                 ->with('seo')
-                ->add('slug', 'text', array('required' => false))
+                ->add('slug', 'text', ['required' => false])
                 //->add('customUrl', 'text', array('required' => false))
                 ->end();
         }
 
         $formMapper
-            ->with('seo', array('collapsed' => true))
-            ->add('header', TextType::class, array('required' => false))
-            ->add('title', null, array('required' => false))
-            ->add('metaKeyword', 'textarea', array('required' => false))
-            ->add('metaDescription', 'textarea', array('required' => false))
+            ->with('seo', ['collapsed' => true])
+            ->add('header', TextType::class, ['required' => false])
+            ->add('title', null, ['required' => false])
+            ->add('metaKeyword', 'textarea', ['required' => false])
+            ->add('metaDescription', 'textarea', ['required' => false])
             ->end();
 
         if ($this->hasSubject() && !$this->getSubject()->isCms()) {
             $formMapper
-                ->with('form_page.group_advanced_label', array('collapsed' => true))
-                ->add('decorate', null, array('required' => false))
+                ->with('form_page.group_advanced_label', ['collapsed' => true])
+                ->add('decorate', null, ['required' => false])
                 ->end();
         }
 
         $formMapper->setHelps(
-            array(
+            [
                 'name' => $this->trans('help_page_name'),
-            )
+            ]
         );
     }
 }

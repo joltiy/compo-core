@@ -38,15 +38,15 @@ final class TestConfigurationSourceFactory implements ConfigurationSourceFactory
     {
         $container->setDefinition(
             'sylius.theme.test_theme_configuration_manager',
-            new Definition(TestThemeConfigurationManager::class, array(
+            new Definition(TestThemeConfigurationManager::class, [
                 new Reference('sylius.theme.configuration.processor'),
                 new Parameter('kernel.cache_dir'),
-            ))
+            ])
         );
 
-        return new Definition(TestConfigurationProvider::class, array(
+        return new Definition(TestConfigurationProvider::class, [
             new Reference('sylius.theme.test_theme_configuration_manager'),
-        ));
+        ]);
     }
 
     /**

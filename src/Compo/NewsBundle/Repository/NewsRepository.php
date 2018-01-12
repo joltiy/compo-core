@@ -15,9 +15,9 @@ class NewsRepository extends \Compo\CoreBundle\Doctrine\ORM\EntityRepository
     /**
      * @param $slug
      *
-     * @return News
-     *
      * @throws \Doctrine\ORM\NonUniqueResultException
+     *
+     * @return News
      */
     public function findBySlug($slug)
     {

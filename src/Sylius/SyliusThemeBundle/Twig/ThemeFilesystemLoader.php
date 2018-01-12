@@ -38,7 +38,7 @@ final class ThemeFilesystemLoader implements \Twig_LoaderInterface, \Twig_Exists
     /**
      * @var array
      */
-    private $cache = array();
+    private $cache = [];
 
     /**
      * @param \Twig_LoaderInterface       $decoratedLoader

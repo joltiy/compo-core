@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
-use Metadata\ClassMetadata;
 use Pix\SortableBehaviorBundle\Services\PositionHandler;
 use Sonata\AdminBundle\Controller\CRUDController as BaseCRUDController;
 use Sonata\AdminBundle\Exception\ModelManagerException;
@@ -65,41 +64,37 @@ class CRUDController extends BaseCRUDController
 
         $mm = $this->getAdmin()->getModelManager();
 
-        /** @var  \Doctrine\ORM\Mapping\ClassMetadata $ClassMetadata */
+        /** @var \Doctrine\ORM\Mapping\ClassMetadata $ClassMetadata */
         $ClassMetadata = $mm->getMetadata($this->getAdmin()->getClass());
 
         $associationMapping = $ClassMetadata->getAssociationMapping($field);
 
+        $items = $em->getRepository($associationMapping['targetEntity'])->findBy([
+            'id' => $ids,
+        ]);
 
-        $items = $em->getRepository($associationMapping['targetEntity'])->findBy(array(
-            'id' => $ids
-        ));
-
-        call_user_func_array(array($object, 'set' . ucfirst($field)), array(
-            $items
-        ));
+        call_user_func_array([$object, 'set' . ucfirst($field)], [
+            $items,
+        ]);
 
         $this->getAdmin()->update($object);
 
-        $result = array(
-
-        );
+        $result = [
+        ];
 
         $associationAdmin = $this->getAdmin()->getConfigurationPool()->getAdminByClass($associationMapping['targetEntity']);
 
         foreach ($items as $item) {
-
-            $result[] = array(
+            $result[] = [
                 'id' => $item->getId(),
                 'label' => $item->getName(),
                 'edit_url' => $associationAdmin->generateObjectUrl('edit', $item),
-
-            );
+            ];
         }
 
-        return new JsonResponse(array(
-            'items' => $result
-        ));
+        return new JsonResponse([
+            'items' => $result,
+        ]);
     }
 
     /**
@@ -131,15 +126,13 @@ class CRUDController extends BaseCRUDController
             $clonedObject->setSlug('clone-slug-' . $clonedObject->getSlug());
         }
 
-
-
         $clonedObject->setId(null);
 
         $this->admin->create($clonedObject);
 
         $this->addFlash('sonata_flash_success', 'Создана копия');
 
-        return new RedirectResponse($this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters())));
+        return new RedirectResponse($this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()]));
 
         // if you have a filtered list and want to keep your filters after the redirect
         // return new RedirectResponse($this->admin->generateUrl('list', $this->admin->getFilterParameters()));
@@ -174,27 +167,27 @@ class CRUDController extends BaseCRUDController
                 $reader->revert($object, $revision);
 
                 if ($this->isXmlHttpRequest()) {
-                    return $this->renderJson(array('result' => 'ok'));
+                    return $this->renderJson(['result' => 'ok']);
                 }
 
-                $this->addFlash('sonata_flash_info', $this->get('translator')->trans('flash_history_revert_successfull', array(), 'PicossSonataExtraAdminBundle'));
+                $this->addFlash('sonata_flash_info', $this->get('translator')->trans('flash_history_revert_successfull', [], 'PicossSonataExtraAdminBundle'));
             } catch (ModelManagerException $e) {
                 if ($this->isXmlHttpRequest()) {
-                    return $this->renderJson(array('result' => 'error'));
+                    return $this->renderJson(['result' => 'error']);
                 }
 
-                $this->addFlash('sonata_flash_info', $this->get('translator')->trans('flash_history_revert_error', array(), 'PicossSonataExtraAdminBundle'));
+                $this->addFlash('sonata_flash_info', $this->get('translator')->trans('flash_history_revert_error', [], 'PicossSonataExtraAdminBundle'));
             }
 
             return new RedirectResponse($this->admin->generateUrl('list'));
         }
 
-        return $this->render('@CompoSonataAdmin/CRUD/history_revert.html.twig', array(
+        return $this->render('@CompoSonataAdmin/CRUD/history_revert.html.twig', [
             'object' => $object,
             'revision' => $revision,
             'action' => 'revert',
             'csrf_token' => $this->getCsrfToken('sonata.history.revert'),
-        ));
+        ]);
     }
 
     /**
@@ -228,12 +221,12 @@ class CRUDController extends BaseCRUDController
         // set the theme for the current Admin Form
         $this->get('twig')->getExtension('Symfony\Bridge\Twig\Extension\FormExtension')->renderer->setTheme($formView, $this->admin->getFilterTheme());
 
-        return $this->render('@CompoSonataAdmin/CRUD/trash.html.twig', array(
+        return $this->render('@CompoSonataAdmin/CRUD/trash.html.twig', [
             'action' => 'trash',
             'form' => $formView,
             'datagrid' => $datagrid,
             'csrf_token' => $this->getCsrfToken('sonata.batch'),
-        ));
+        ]);
     }
 
     public function untrashAction(Request $request, $id)
@@ -270,7 +263,7 @@ class CRUDController extends BaseCRUDController
             throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
         }
 
-        if ('POST' == $request->getMethod()) {
+        if ('POST' === $request->getMethod()) {
             // check the csrf token
             $this->validateCsrfToken('sonata.untrash');
 
@@ -279,26 +272,26 @@ class CRUDController extends BaseCRUDController
                 $this->admin->update($object);
 
                 if ($this->isXmlHttpRequest()) {
-                    return $this->renderJson(array('result' => 'ok'));
+                    return $this->renderJson(['result' => 'ok']);
                 }
 
-                $this->addFlash('sonata_flash_info', $this->get('translator')->trans('flash_untrash_successfull', array(), 'PicossSonataExtraAdminBundle'));
+                $this->addFlash('sonata_flash_info', $this->get('translator')->trans('flash_untrash_successfull', [], 'PicossSonataExtraAdminBundle'));
             } catch (ModelManagerException $e) {
                 if ($this->isXmlHttpRequest()) {
-                    return $this->renderJson(array('result' => 'error'));
+                    return $this->renderJson(['result' => 'error']);
                 }
 
-                $this->addFlash('sonata_flash_info', $this->get('translator')->trans('flash_untrash_error', array(), 'PicossSonataExtraAdminBundle'));
+                $this->addFlash('sonata_flash_info', $this->get('translator')->trans('flash_untrash_error', [], 'PicossSonataExtraAdminBundle'));
             }
 
             return new RedirectResponse($this->admin->generateUrl('list'));
         }
 
-        return $this->render('@CompoSonataAdmin/CRUD/untrash.html.twig', array(
+        return $this->render('@CompoSonataAdmin/CRUD/untrash.html.twig', [
             'object' => $object,
             'action' => 'untrash',
             'csrf_token' => $this->getCsrfToken('sonata.untrash'),
-        ));
+        ]);
     }
 
     /**
@@ -343,7 +336,7 @@ class CRUDController extends BaseCRUDController
 
         return $this->render(
             'CompoCoreBundle:Admin:settings.html.twig',
-            array(
+            [
                 'action' => 'settings',
                 'breadcrumbs_builder' => $this->get('sonata.admin.breadcrumbs_builder'),
                 'admin' => $this->admin,
@@ -353,7 +346,7 @@ class CRUDController extends BaseCRUDController
                 'form' => $form->createView(),
                 'admin_pool' => $admin_pool,
                 'translation_domain' => $this->admin->getTranslationDomain(),
-            )
+            ]
         );
     }
 
@@ -413,7 +406,7 @@ class CRUDController extends BaseCRUDController
 
         foreach ($positionRelatedFields as $field) {
             $qb->andWhere('i.' . $field . '= :position_' . $field);
-            $qb->setParameter('position_' . $field, call_user_func_array(array($object, 'get' . ucfirst($field)), array()));
+            $qb->setParameter('position_' . $field, call_user_func_array([$object, 'get' . ucfirst($field)], []));
         }
 
         $qb->getQuery()->execute();
@@ -446,7 +439,7 @@ class CRUDController extends BaseCRUDController
 
         foreach ($positionRelatedFields as $field) {
             $qb->andWhere('i.' . $field . '= :position_' . $field);
-            $qb->setParameter('position_' . $field, call_user_func_array(array($object, 'get' . ucfirst($field)), array()));
+            $qb->setParameter('position_' . $field, call_user_func_array([$object, 'get' . ucfirst($field)], []));
         }
 
         $qb->getQuery()->execute();
@@ -460,7 +453,7 @@ class CRUDController extends BaseCRUDController
 
         foreach ($positionRelatedFields as $field) {
             $qb->andWhere('i.' . $field . '= :position_' . $field);
-            $qb->setParameter('position_' . $field, call_user_func_array(array($object, 'get' . ucfirst($field)), array()));
+            $qb->setParameter('position_' . $field, call_user_func_array([$object, 'get' . ucfirst($field)], []));
         }
 
         $qb->getQuery()->execute();
@@ -474,7 +467,7 @@ class CRUDController extends BaseCRUDController
 
         foreach ($positionRelatedFields as $field) {
             $qb->andWhere('i.' . $field . '= :position_' . $field);
-            $qb->setParameter('position_' . $field, call_user_func_array(array($object, 'get' . ucfirst($field)), array()));
+            $qb->setParameter('position_' . $field, call_user_func_array([$object, 'get' . ucfirst($field)], []));
         }
 
         $qb->getQuery()->execute();
@@ -485,10 +478,10 @@ class CRUDController extends BaseCRUDController
         }
 
         return $this->renderJson(
-            array(
+            [
                 'result' => 'ok',
                 'objectId' => $this->admin->getNormalizedIdentifier($object),
-            )
+            ]
         );
     }
 
@@ -557,73 +550,72 @@ class CRUDController extends BaseCRUDController
             $this->admin->update($currentNode);
             $this->admin->update($targetNode);
 
-            $response = new Response(json_encode(array('result' => true)), 200);
+            $response = new Response(json_encode(['result' => true]), 200);
 
             $response->headers->set('Content-Type', 'application/json');
 
             return $response;
-        } else {
-            $translator = $this->get('translator');
+        }
+        $translator = $this->get('translator');
 
-            if (!$this->admin->isGranted('EDIT')) {
-                $this->addFlash(
+        if (!$this->admin->isGranted('EDIT')) {
+            $this->addFlash(
                     'sonata_flash_error',
                     $translator->trans('flash_error_no_rights_update_position')
                 );
 
-                return new RedirectResponse($this->admin->generateUrl('list', $this->admin->getFilterParameters()));
-            }
+            return new RedirectResponse($this->admin->generateUrl('list', $this->admin->getFilterParameters()));
+        }
 
-            $object = $this->admin->getSubject();
+        $object = $this->admin->getSubject();
 
-            /** @var PositionHandler $positionService */
-            $positionService = $this->get('pix_sortable_behavior.position');
+        /** @var PositionHandler $positionService */
+        $positionService = $this->get('pix_sortable_behavior.position');
 
-            $entity = \Doctrine\Common\Util\ClassUtils::getClass($object);
+        $entity = \Doctrine\Common\Util\ClassUtils::getClass($object);
 
-            $lastPosition = $positionService->getLastPosition($entity);
+        $lastPosition = $positionService->getLastPosition($entity);
 
-            $position = $request->query->get('position');
+        $position = $request->query->get('position');
 
-            $position = $positionService->getPosition($object, $position, $lastPosition);
+        $position = $positionService->getPosition($object, $position, $lastPosition);
 
-            $setter = sprintf('set%s', ucfirst($positionService->getPositionFieldByEntity($entity)));
+        $setter = sprintf('set%s', ucfirst($positionService->getPositionFieldByEntity($entity)));
 
-            if (!method_exists($object, $setter)) {
-                throw new \LogicException(
+        if (!method_exists($object, $setter)) {
+            throw new \LogicException(
                     sprintf(
                         '%s does not implement ->%s() to set the desired position.',
                         $object,
                         $setter
                     )
                 );
-            }
+        }
 
-            $object->{$setter}($position);
+        $object->{$setter}($position);
 
-            $this->admin->update($object);
+        $this->admin->update($object);
 
-            if ($this->isXmlHttpRequest()) {
-                return $this->renderJson(
-                    array(
+        if ($this->isXmlHttpRequest()) {
+            return $this->renderJson(
+                    [
                         'result' => 'ok',
                         'objectId' => $this->admin->getNormalizedIdentifier($object),
-                    )
+                    ]
                 );
-            }
+        }
 
-            $this->addFlash(
+        $this->addFlash(
                 'sonata_flash_success',
                 $translator->trans('flash_success_position_updated')
             );
 
-            return new RedirectResponse(
+        return new RedirectResponse(
                 $this->admin->generateUrl(
                     'list',
-                    array('filter' => $this->admin->getFilterParameters())
+                    ['filter' => $this->admin->getFilterParameters()]
                 )
             );
-        }
     }
 
     /**
@@ -639,27 +631,27 @@ class CRUDController extends BaseCRUDController
         //}
         //}
 
-        $filters = $request->query->get('filter', array());
+        $filters = $request->query->get('filter', []);
         if ($this->getAdmin()->isChild() && $this->getAdmin()->getParentAssociationMapping()) {
             $name = str_replace('.', '__', $this->getAdmin()->getParentAssociationMapping());
-            $val = array('value' => $request->get($this->getAdmin()->getParent()->getIdParameter()));
+            $val = ['value' => $request->get($this->getAdmin()->getParent()->getIdParameter())];
 
-            if (ClassMetadataInfo::MANY_TO_MANY == $this->getAdmin()->getParentAssociationMappingType()) {
-                $val = array('value' => array($request->get($this->getAdmin()->getParent()->getIdParameter())));
+            if (ClassMetadataInfo::MANY_TO_MANY === $this->getAdmin()->getParentAssociationMappingType()) {
+                $val = ['value' => [$request->get($this->getAdmin()->getParent()->getIdParameter())]];
             } else {
-                $val = array('value' => $request->get($this->getAdmin()->getParent()->getIdParameter()));
+                $val = ['value' => $request->get($this->getAdmin()->getParent()->getIdParameter())];
             }
 
             if (isset($filters[$name]) && is_array($filters[$name]['value'])) {
                 if (count($filters[$name]['value']) > 1) {
                     return new RedirectResponse(
-                        $this->admin->getConfigurationPool()->getAdminByAdminCode($this->getAdmin()->getCode())->generateUrl('list', array('filter' => $filters))
+                        $this->admin->getConfigurationPool()->getAdminByAdminCode($this->getAdmin()->getCode())->generateUrl('list', ['filter' => $filters])
                     );
                 }
 
-                if ($filters[$name]['value'][0] != $request->get($this->getAdmin()->getParent()->getIdParameter())) {
+                if ($filters[$name]['value'][0] !== $request->get($this->getAdmin()->getParent()->getIdParameter())) {
                     return new RedirectResponse(
-                        $this->admin->getConfigurationPool()->getAdminByAdminCode($this->getAdmin()->getCode())->generateUrl('list', array('filter' => $filters))
+                        $this->admin->getConfigurationPool()->getAdminByAdminCode($this->getAdmin()->getCode())->generateUrl('list', ['filter' => $filters])
                     );
                 }
             }
@@ -688,7 +680,7 @@ class CRUDController extends BaseCRUDController
                 $datagrid = $this->admin->getDatagrid();
                 $formView = $datagrid->getForm()->createView();
 
-                return $this->render($this->admin->getTemplate('list'), array(
+                return $this->render($this->admin->getTemplate('list'), [
                     'nodes' => $this->getTreeNodes($request),
                     'batch_action_forms' => $this->getBatchActionFormViews(),
 
@@ -700,13 +692,13 @@ class CRUDController extends BaseCRUDController
                         //$this->has('sonata.admin.admin_exporter') ?
                         //$this->get('sonata.admin.admin_exporter')->getAvailableFormats($this->admin) :
                         $this->admin->getExportFormats(),
-                ), null);
-            } else {
-                return $this->listActionCustom($request);
+                ], null);
             }
-        } else {
+
             return $this->listActionCustom($request);
         }
+
+        return $this->listActionCustom($request);
     }
 
     /**
@@ -733,7 +725,7 @@ class CRUDController extends BaseCRUDController
         // set the theme for the current Admin Form
         $this->setFormThemePublic($formView, $this->admin->getFilterTheme());
 
-        return $this->render($this->admin->getTemplate('list'), array(
+        return $this->render($this->admin->getTemplate('list'), [
             'action' => 'list',
             'form' => $formView,
             'batch_action_forms' => $this->getBatchActionFormViews(),
@@ -744,7 +736,7 @@ class CRUDController extends BaseCRUDController
                 //$this->has('sonata.admin.admin_exporter') ?
                 //$this->get('sonata.admin.admin_exporter')->getAvailableFormats($this->admin) :
                 $this->admin->getExportFormats(),
-        ), null);
+        ], null);
     }
 
     /**
@@ -755,22 +747,22 @@ class CRUDController extends BaseCRUDController
     public function createBatchActionForm($name)
     {
         return $this->get('form.factory')
-            ->createNamedBuilder($name, 'form', array(), array(
+            ->createNamedBuilder($name, 'form', [], [
                 'label_format' => 'form.label_%name%',
                 'translation_domain' => $this->admin->getTranslationDomain(),
-            ));
+            ]);
     }
 
     public function configureBatchActionForms()
     {
-        $actionForms = array();
+        $actionForms = [];
 
         return $actionForms;
     }
 
     public function getBatchActionFormViews()
     {
-        $actionForms = array();
+        $actionForms = [];
 
         foreach ($this->configureBatchActionForms() as $formName => $form) {
             $actionForms[$formName] = $form->getForm()->createView();
@@ -818,10 +810,10 @@ class CRUDController extends BaseCRUDController
      * @param \Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery
      * @param Request                                            $request
      *
-     * @return RedirectResponse
-     *
      * @throws ModelManagerException
      * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @return RedirectResponse
      */
     public function batchActionDisable(\Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery, Request $request = null)
     {
@@ -846,7 +838,7 @@ class CRUDController extends BaseCRUDController
                 $object[0]->setEnabled(false);
                 $modelManager->update($object[0]);
 
-                if (0 == (++$i % 100)) {
+                if (0 === (++$i % 100)) {
                     $entityManager->flush();
                     $entityManager->clear();
                 }
@@ -863,7 +855,7 @@ class CRUDController extends BaseCRUDController
         $this->addFlash('sonata_flash_success', 'flash_batch.disable_success');
 
         return new RedirectResponse(
-            $this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters()))
+            $this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()])
         );
     }
 
@@ -885,9 +877,9 @@ class CRUDController extends BaseCRUDController
         /* @var QueryBuilder $selectedModelQuery */
         $selectedModelQuery->select($qb->getRootAliases()[0] . '.id');
 
-        $result = $selectedModelQuery->execute(array(), Query::HYDRATE_ARRAY);
+        $result = $selectedModelQuery->execute([], Query::HYDRATE_ARRAY);
 
-        $ids = array();
+        $ids = [];
 
         foreach ($result as $result_item) {
             $ids[] = $result_item['id'];
@@ -910,7 +902,7 @@ class CRUDController extends BaseCRUDController
         $this->addFlash('sonata_flash_success', 'flash_batch.enable_success');
 
         return new RedirectResponse(
-            $this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters()))
+            $this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()])
         );
     }
 
@@ -934,10 +926,10 @@ class CRUDController extends BaseCRUDController
      * @param \Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery
      * @param Request                                            $request
      *
-     * @return RedirectResponse
-     *
      * @throws ModelManagerException
      * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @return RedirectResponse
      */
     public function batchActionEnable(\Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery $selectedModelQuery, Request $request = null)
     {
@@ -959,7 +951,7 @@ class CRUDController extends BaseCRUDController
                 $object[0]->setEnabled(true);
                 $modelManager->update($object[0]);
 
-                if (0 == (++$i % 100)) {
+                if (0 === (++$i % 100)) {
                     $entityManager->flush();
                     $entityManager->clear();
                 }
@@ -976,7 +968,7 @@ class CRUDController extends BaseCRUDController
         $this->addFlash('sonata_flash_success', 'flash_batch.enable_success');
 
         return new RedirectResponse(
-            $this->admin->generateUrl('list', array('filter' => $this->admin->getFilterParameters()))
+            $this->admin->generateUrl('list', ['filter' => $this->admin->getFilterParameters()])
         );
     }
 
@@ -1038,7 +1030,7 @@ class CRUDController extends BaseCRUDController
         }
 
         if (null !== $request->get('btn_create_and_create')) {
-            $params = array();
+            $params = [];
             if ($this->admin->hasActiveSubClass()) {
                 $params['subclass'] = $request->get('subclass');
             }
@@ -1050,9 +1042,9 @@ class CRUDController extends BaseCRUDController
         }
 
         if (!$url) {
-            foreach (array('edit', 'show') as $route) {
-                if ($this->admin->hasRoute($route) && $this->admin->isGranted(strtoupper($route), $object)) {
-                    $params = array();
+            foreach (['edit', 'show'] as $route) {
+                if ($this->admin->hasRoute($route) && $this->admin->isGranted(mb_strtoupper($route), $object)) {
+                    $params = [];
 
                     if ('edit' === $route) {
                         $params['current_tab_index'] = $request->get('current_tab_index');

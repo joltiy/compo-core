@@ -50,9 +50,9 @@ class InstallCommand extends BaseDeployCommand
     {
         $this->runCommand(
             'doctrine:database:create',
-            array(
+            [
                 '--if-not-exists' => true,
-            )
+            ]
         );
     }
 
@@ -62,20 +62,20 @@ class InstallCommand extends BaseDeployCommand
     public function runCreateAdmin()
     {
         $admin = $this->getContainer()->get('fos_user.user_manager')->findOneBy(
-            array(
+            [
                 'username' => 'admin',
-            )
+            ]
         );
 
         if (!$admin) {
             $this->runCommand(
                 'fos:user:create',
-                array(
+                [
                     '--super-admin' => true,
                     'username' => 'admin',
                     'email' => 'admin@admin.com',
                     'password' => 'admin',
-                )
+                ]
             );
         }
     }
@@ -90,7 +90,7 @@ class InstallCommand extends BaseDeployCommand
         if (!$sites) {
             $this->runCommand(
                 'sonata:page:create-site',
-                array(
+                [
                     'command' => 'sonata:page:create-site',
                     '--enabled' => true,
                     '--name' => 'localhost',
@@ -102,7 +102,7 @@ class InstallCommand extends BaseDeployCommand
                     '--default' => 'true',
                     '--no-interaction' => 'true',
                     '--no-confirmation' => 'true',
-                )
+                ]
             );
         }
     }

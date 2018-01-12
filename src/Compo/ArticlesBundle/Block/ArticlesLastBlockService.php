@@ -31,11 +31,11 @@ class ArticlesLastBlockService extends AbstractBlockService
 
         return $this->renderResponse(
             $template,
-            array(
+            [
                 'articles' => $publications,
                 'block' => $block,
                 'settings' => $settigs,
-            ),
+            ],
             $response
         );
     }
@@ -48,11 +48,11 @@ class ArticlesLastBlockService extends AbstractBlockService
         $formMapper->add(
             'settings',
             'sonata_type_immutable_array',
-            array(
-                'keys' => array(
-                    array('limit', 'integer', array('required' => true)),
-                ),
-            )
+            [
+                'keys' => [
+                    ['limit', 'integer', ['required' => true]],
+                ],
+            ]
         );
     }
 
@@ -62,10 +62,10 @@ class ArticlesLastBlockService extends AbstractBlockService
     public function configureSettings(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'limit' => 5,
                 'template' => 'CompoArticlesBundle:Block:articles_last.html.twig',
-            )
+            ]
         );
     }
 }

@@ -25,7 +25,7 @@ final class RecursiveFileLocatorSpec extends ObjectBehavior
 {
     public function let(FinderFactoryInterface $finderFactory)
     {
-        $this->beConstructedWith($finderFactory, array('/search/path/'));
+        $this->beConstructedWith($finderFactory, ['/search/path/']);
     }
 
     public function it_is_initializable()
@@ -47,9 +47,9 @@ final class RecursiveFileLocatorSpec extends ObjectBehavior
         $finder->ignoreUnreadableDirs()->shouldBeCalled()->willReturn($finder);
         $finder->files()->shouldBeCalled()->willReturn($finder);
 
-        $finder->getIterator()->willReturn(new \ArrayIterator(array(
+        $finder->getIterator()->willReturn(new \ArrayIterator([
             $splFileInfo->getWrappedObject(),
-        )));
+        ]));
 
         $splFileInfo->getPathname()->willReturn('/search/path/nested/readme.md');
 
@@ -69,30 +69,30 @@ final class RecursiveFileLocatorSpec extends ObjectBehavior
         $finder->ignoreUnreadableDirs()->shouldBeCalled()->willReturn($finder);
         $finder->files()->shouldBeCalled()->willReturn($finder);
 
-        $finder->getIterator()->willReturn(new \ArrayIterator(array(
+        $finder->getIterator()->willReturn(new \ArrayIterator([
             $firstSplFileInfo->getWrappedObject(),
             $secondSplFileInfo->getWrappedObject(),
-        )));
+        ]));
 
         $firstSplFileInfo->getPathname()->willReturn('/search/path/nested1/readme.md');
         $secondSplFileInfo->getPathname()->willReturn('/search/path/nested2/readme.md');
 
-        $this->locateFilesNamed('readme.md')->shouldReturn(array(
+        $this->locateFilesNamed('readme.md')->shouldReturn([
             '/search/path/nested1/readme.md',
             '/search/path/nested2/readme.md',
-        ));
+        ]);
     }
 
     public function it_throws_an_exception_if_searching_for_file_with_empty_name()
     {
-        $this->shouldThrow(\InvalidArgumentException::class)->during('locateFileNamed', array(''));
-        $this->shouldThrow(\InvalidArgumentException::class)->during('locateFileNamed', array(null));
+        $this->shouldThrow(\InvalidArgumentException::class)->during('locateFileNamed', ['']);
+        $this->shouldThrow(\InvalidArgumentException::class)->during('locateFileNamed', [null]);
     }
 
     public function it_throws_an_exception_if_searching_for_files_with_empty_name()
     {
-        $this->shouldThrow(\InvalidArgumentException::class)->during('locateFilesNamed', array(''));
-        $this->shouldThrow(\InvalidArgumentException::class)->during('locateFilesNamed', array(null));
+        $this->shouldThrow(\InvalidArgumentException::class)->during('locateFilesNamed', ['']);
+        $this->shouldThrow(\InvalidArgumentException::class)->during('locateFilesNamed', [null]);
     }
 
     public function it_throws_an_exception_if_there_is_no_file_that_matches_the_given_name(
@@ -108,7 +108,7 @@ final class RecursiveFileLocatorSpec extends ObjectBehavior
 
         $finder->getIterator()->willReturn(new \ArrayIterator());
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('locateFileNamed', array('readme.md'));
+        $this->shouldThrow(\InvalidArgumentException::class)->during('locateFileNamed', ['readme.md']);
     }
 
     public function it_throws_an_exception_if_there_is_there_are_not_any_files_that_matches_the_given_name(
@@ -124,7 +124,7 @@ final class RecursiveFileLocatorSpec extends ObjectBehavior
 
         $finder->getIterator()->willReturn(new \ArrayIterator());
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('locateFilesNamed', array('readme.md'));
+        $this->shouldThrow(\InvalidArgumentException::class)->during('locateFilesNamed', ['readme.md']);
     }
 
     public function it_isolates_finding_paths_from_multiple_sources(
@@ -133,7 +133,7 @@ final class RecursiveFileLocatorSpec extends ObjectBehavior
         Finder $secondFinder,
         SplFileInfo $splFileInfo
     ) {
-        $this->beConstructedWith($finderFactory, array('/search/path/first/', '/search/path/second/'));
+        $this->beConstructedWith($finderFactory, ['/search/path/first/', '/search/path/second/']);
 
         $finderFactory->create()->willReturn($firstFinder, $secondFinder);
 
@@ -147,14 +147,14 @@ final class RecursiveFileLocatorSpec extends ObjectBehavior
         $secondFinder->ignoreUnreadableDirs()->shouldBeCalled()->willReturn($secondFinder);
         $secondFinder->files()->shouldBeCalled()->willReturn($secondFinder);
 
-        $firstFinder->getIterator()->willReturn(new \ArrayIterator(array($splFileInfo->getWrappedObject())));
+        $firstFinder->getIterator()->willReturn(new \ArrayIterator([$splFileInfo->getWrappedObject()]));
         $secondFinder->getIterator()->willReturn(new \ArrayIterator());
 
         $splFileInfo->getPathname()->willReturn('/search/path/first/nested/readme.md');
 
-        $this->locateFilesNamed('readme.md')->shouldReturn(array(
+        $this->locateFilesNamed('readme.md')->shouldReturn([
             '/search/path/first/nested/readme.md',
-        ));
+        ]);
     }
 
     public function it_silences_finder_exceptions_even_if_searching_in_multiple_sources(
@@ -163,7 +163,7 @@ final class RecursiveFileLocatorSpec extends ObjectBehavior
         Finder $secondFinder,
         SplFileInfo $splFileInfo
     ) {
-        $this->beConstructedWith($finderFactory, array('/search/path/first/', '/search/path/second/'));
+        $this->beConstructedWith($finderFactory, ['/search/path/first/', '/search/path/second/']);
 
         $finderFactory->create()->willReturn($firstFinder, $secondFinder);
 
@@ -177,13 +177,13 @@ final class RecursiveFileLocatorSpec extends ObjectBehavior
         $secondFinder->ignoreUnreadableDirs()->shouldBeCalled()->willReturn($secondFinder);
         $secondFinder->files()->shouldBeCalled()->willReturn($secondFinder);
 
-        $firstFinder->getIterator()->willReturn(new \ArrayIterator(array($splFileInfo->getWrappedObject())));
+        $firstFinder->getIterator()->willReturn(new \ArrayIterator([$splFileInfo->getWrappedObject()]));
         $secondFinder->getIterator()->willThrow(\InvalidArgumentException::class);
 
         $splFileInfo->getPathname()->willReturn('/search/path/first/nested/readme.md');
 
-        $this->locateFilesNamed('readme.md')->shouldReturn(array(
+        $this->locateFilesNamed('readme.md')->shouldReturn([
             '/search/path/first/nested/readme.md',
-        ));
+        ]);
     }
 }

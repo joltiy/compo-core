@@ -41,12 +41,12 @@ class SocialAdmin extends AbstractAdmin
             ->add(
                 '_action',
                 'actions',
-                array(
-                    'actions' => array(
-                        'edit' => array(),
-                        'delete' => array(),
-                    ),
-                )
+                [
+                    'actions' => [
+                        'edit' => [],
+                        'delete' => [],
+                    ],
+                ]
             );
     }
 
@@ -56,7 +56,7 @@ class SocialAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper->tab('main');
-        $formMapper->with('main', array('name' => false, 'class' => ''));
+        $formMapper->with('main', ['name' => false, 'class' => '']);
         $formMapper
             ->add('name')
             ->add('url')

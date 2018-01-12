@@ -39,24 +39,24 @@ final class FilesystemConfigurationProviderSpec extends ObjectBehavior
 
     public function it_provides_loaded_configuration_files(FileLocatorInterface $fileLocator, ConfigurationLoaderInterface $loader)
     {
-        $fileLocator->locateFilesNamed('configurationfile.json')->willReturn(array(
+        $fileLocator->locateFilesNamed('configurationfile.json')->willReturn([
             '/cristopher/configurationfile.json',
             '/richard/configurationfile.json',
-        ));
+        ]);
 
-        $loader->load('/cristopher/configurationfile.json')->willReturn(array('name' => 'cristopher/sylius-theme'));
-        $loader->load('/richard/configurationfile.json')->willReturn(array('name' => 'richard/sylius-theme'));
+        $loader->load('/cristopher/configurationfile.json')->willReturn(['name' => 'cristopher/sylius-theme']);
+        $loader->load('/richard/configurationfile.json')->willReturn(['name' => 'richard/sylius-theme']);
 
-        $this->getConfigurations()->shouldReturn(array(
-            array('name' => 'cristopher/sylius-theme'),
-            array('name' => 'richard/sylius-theme'),
-        ));
+        $this->getConfigurations()->shouldReturn([
+            ['name' => 'cristopher/sylius-theme'],
+            ['name' => 'richard/sylius-theme'],
+        ]);
     }
 
     public function it_provides_an_empty_array_if_there_were_no_themes_found(FileLocatorInterface $fileLocator)
     {
         $fileLocator->locateFilesNamed('configurationfile.json')->willThrow(\InvalidArgumentException::class);
 
-        $this->getConfigurations()->shouldReturn(array());
+        $this->getConfigurations()->shouldReturn([]);
     }
 }

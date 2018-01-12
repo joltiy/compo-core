@@ -116,7 +116,7 @@ final class AssetTest extends WebTestCase
 
             $contents = file_get_contents($webDirectory . $assetFile);
 
-            $this->assertEquals($expectedText, trim($contents));
+            $this->assertSame($expectedText, trim($contents));
         }
     }
 
@@ -125,10 +125,10 @@ final class AssetTest extends WebTestCase
      */
     public function getSymlinkMasks()
     {
-        return array(
-            array(AssetsInstallerInterface::RELATIVE_SYMLINK),
-            array(AssetsInstallerInterface::SYMLINK),
-            array(AssetsInstallerInterface::HARD_COPY),
-        );
+        return [
+            [AssetsInstallerInterface::RELATIVE_SYMLINK],
+            [AssetsInstallerInterface::SYMLINK],
+            [AssetsInstallerInterface::HARD_COPY],
+        ];
     }
 }

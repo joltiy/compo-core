@@ -91,17 +91,17 @@ class News
         return $this->tags;
     }
 
-    public function setTags($tags) {
-        $removeTags = array();
+    public function setTags($tags)
+    {
+        $removeTags = [];
 
         foreach ($tags as $tagKey => $tag) {
             foreach ($this->getTags() as $tagCurrent) {
-                if ($tagCurrent == $tag) {
+                if ($tagCurrent === $tag) {
                     unset($tags[$tagKey]);
                     continue;
-                } else {
-                    $removeTags[] = $tagCurrent;
                 }
+                $removeTags[] = $tagCurrent;
             }
         }
 
@@ -116,7 +116,7 @@ class News
 
     public function getTagsExportAsString()
     {
-        $tags = array();
+        $tags = [];
 
         foreach ($this->getTags() as $tag) {
             $tags[] = $tag->getName();

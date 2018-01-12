@@ -5,7 +5,7 @@ namespace Compo\SonataImportBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ImportLog
+ * ImportLog.
  *
  * @ORM\Table("ext_sonata_import_log")
  * @ORM\Entity(repositoryClass="Compo\SonataImportBundle\Repository\DefaultRepository")
@@ -20,7 +20,7 @@ class ImportLog
     const STATUS_ERROR = 3;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -36,7 +36,7 @@ class ImportLog
     private $ts;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="status", type="integer")
      */
@@ -64,22 +64,21 @@ class ImportLog
     private $uploadFile;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="foreign_id", type="integer", nullable=true)
      */
     private $foreignId;
 
     /**
-     *
      * @ORM\Column(name="changes", type="json")
      */
-    protected $changes = array();
+    protected $changes = [];
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -87,7 +86,7 @@ class ImportLog
     }
 
     /**
-     * Get ts
+     * Get ts.
      *
      * @return \DateTime
      */
@@ -97,9 +96,10 @@ class ImportLog
     }
 
     /**
-     * Set status
+     * Set status.
      *
-     * @param integer $status
+     * @param int $status
+     *
      * @return ImportLog
      */
     public function setStatus($status)
@@ -110,9 +110,9 @@ class ImportLog
     }
 
     /**
-     * Get status
+     * Get status.
      *
-     * @return integer
+     * @return int
      */
     public function getStatus()
     {
@@ -120,9 +120,10 @@ class ImportLog
     }
 
     /**
-     * Set message
+     * Set message.
      *
      * @param string $message
+     *
      * @return ImportLog
      */
     public function setMessage($message)
@@ -133,7 +134,7 @@ class ImportLog
     }
 
     /**
-     * Get message
+     * Get message.
      *
      * @return string
      */
@@ -145,14 +146,16 @@ class ImportLog
     /**
      * @return mixed
      */
-    public function messageEncode(){
+    public function messageEncode()
+    {
         return json_decode($this->message);
     }
 
     /**
-     * Set line
+     * Set line.
      *
      * @param string $line
+     *
      * @return ImportLog
      */
     public function setLine($line)
@@ -163,7 +166,7 @@ class ImportLog
     }
 
     /**
-     * Get line
+     * Get line.
      *
      * @return string
      */
@@ -173,9 +176,10 @@ class ImportLog
     }
 
     /**
-     * Set uploadFile
+     * Set uploadFile.
      *
      * @param string $uploadFile
+     *
      * @return ImportLog
      */
     public function setUploadFile($uploadFile)
@@ -186,7 +190,7 @@ class ImportLog
     }
 
     /**
-     * Get uploadFile
+     * Get uploadFile.
      *
      * @return string
      */
@@ -195,20 +199,22 @@ class ImportLog
         return $this->uploadFile;
     }
 
-
     /**
      * @ORM\PreUpdate()
      * @ORM\PrePersist()
      */
-    public function prePersistUpdate(){
+    public function prePersistUpdate()
+    {
         $this->ts = new \DateTime();
     }
 
     /**
      * @param $foreignId
+     *
      * @return ImportLog
      */
-    public function setForeignId($foreignId){
+    public function setForeignId($foreignId)
+    {
         $this->foreignId = $foreignId;
 
         return $this;
@@ -217,15 +223,17 @@ class ImportLog
     /**
      * @return int
      */
-    public function getForeignId(){
+    public function getForeignId()
+    {
         return $this->foreignId;
     }
 
     /**
      * @return string
      */
-    public function __toString() {
-        return (string)$this->message;
+    public function __toString()
+    {
+        return (string) $this->message;
     }
 
     /**
@@ -243,6 +251,4 @@ class ImportLog
     {
         $this->changes = $changes;
     }
-
-
 }

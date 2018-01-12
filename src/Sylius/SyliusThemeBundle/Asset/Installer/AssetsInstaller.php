@@ -95,7 +95,7 @@ final class AssetsInstaller implements AssetsInstallerInterface
      */
     public function installBundleAssets(BundleInterface $bundle, $targetDir, $symlinkMask)
     {
-        $targetDir .= preg_replace('/bundle$/', '', strtolower($bundle->getName()));
+        $targetDir .= preg_replace('/bundle$/', '', mb_strtolower($bundle->getName()));
 
         $this->filesystem->remove($targetDir);
 
@@ -229,9 +229,9 @@ final class AssetsInstaller implements AssetsInstallerInterface
      *
      * @return array
      */
-    private function findAssetsPaths(BundleInterface $bundle, array $themes = array())
+    private function findAssetsPaths(BundleInterface $bundle, array $themes = [])
     {
-        $sources = array();
+        $sources = [];
 
         foreach ($themes as $theme) {
             $sourceDir = $theme->getPath() . '/' . $bundle->getName() . '/public';

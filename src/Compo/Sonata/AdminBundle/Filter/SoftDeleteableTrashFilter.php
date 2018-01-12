@@ -10,8 +10,8 @@ class SoftDeleteableTrashFilter extends SQLFilter
 {
     protected $listener;
     protected $entityManager;
-    protected $disabled = array();
-    protected $enabled = array();
+    protected $disabled = [];
+    protected $enabled = [];
 
     public function addFilterConstraint(ClassMetadata $targetEntity, $targetTableAlias)
     {

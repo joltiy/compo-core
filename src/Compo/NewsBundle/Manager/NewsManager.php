@@ -34,7 +34,7 @@ class NewsManager extends BaseEntityManager
 
         $limit = $settings->get('news_per_page');
 
-        $parameters = array();
+        $parameters = [];
 
         /** @var NewsRepository $repository */
         $repository = $this->getRepository();
@@ -86,9 +86,9 @@ class NewsManager extends BaseEntityManager
     /**
      * @param $slug
      *
-     * @return News
-     *
      * @throws \Doctrine\ORM\NonUniqueResultException
+     *
+     * @return News
      */
     public function findBySlug($slug)
     {
@@ -124,7 +124,7 @@ class NewsManager extends BaseEntityManager
      */
     public function getNewsShowRouteParameters(News $articles)
     {
-        return array('slug' => $articles->getSlug());
+        return ['slug' => $articles->getSlug()];
     }
 
     /**
@@ -133,7 +133,7 @@ class NewsManager extends BaseEntityManager
      *
      * @return string
      */
-    public function getNewsIndexPermalink(array $parameters = array(), $absolute = 1)
+    public function getNewsIndexPermalink(array $parameters = [], $absolute = 1)
     {
         return $this->getContainer()->get('router')->generate($this->getNewsIndexRoute(), $this->getNewsIndexRouteParameters($parameters), $absolute);
     }

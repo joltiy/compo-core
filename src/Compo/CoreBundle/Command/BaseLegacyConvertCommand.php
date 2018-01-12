@@ -45,7 +45,7 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
      *
      * @var array
      */
-    protected $media = array();
+    protected $media = [];
 
     /**
      * Лимит для импорта.
@@ -321,7 +321,7 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
 
         unset($db_pics);
 
-        $media_isset = array();
+        $media_isset = [];
 
         $this->getIo()->note('Process Media. Load current');
 
@@ -533,12 +533,12 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
         $this->setDryRun($input->getOption('dry-run'));
 
         $this->createOldConnection(
-            array(
+            [
                 'host' => $input->getOption('host'),
                 'login' => $input->getOption('login'),
                 'password' => $input->getOption('password'),
                 'database' => $input->getOption('database'),
-            )
+            ]
         );
 
         $this->startProcess();
@@ -557,7 +557,7 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
      *
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function createOldConnection(array $config = array())
+    public function createOldConnection(array $config = [])
     {
         $this->getIo()->section('Create old connection');
 
@@ -565,7 +565,7 @@ class BaseLegacyConvertCommand extends ContainerAwareCommand
         $connectionFactory = $this->getContainer()->get('doctrine.dbal.connection_factory');
 
         $oldConnection = $connectionFactory->createConnection(
-            array('pdo' => new \PDO('mysql:host=' . $config['host'] . ';dbname=' . $config['database'], $config['login'], $config['password']))
+            ['pdo' => new \PDO('mysql:host=' . $config['host'] . ';dbname=' . $config['database'], $config['login'], $config['password'])]
         );
 
         $oldConnection->connect();

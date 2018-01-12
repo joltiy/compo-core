@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 
 /**
- * UploadFile
+ * UploadFile.
  *
  * @ORM\Table("ext_sonata_import_file")
  * @ORM\Entity(repositoryClass="Compo\SonataImportBundle\Repository\DefaultRepository")
@@ -14,13 +14,12 @@ use Symfony\Component\HttpFoundation\File\File;
  */
 class UploadFile
 {
-
     const STATUS_LOAD = 1;
     const STATUS_SUCCESS = 2;
     const STATUS_ERROR = 3;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -39,6 +38,7 @@ class UploadFile
      * @var string
      *
      * @ORM\Column(name="file", type="string")
+     *
      * @var File
      */
     private $file;
@@ -51,7 +51,7 @@ class UploadFile
     private $encode;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(type="boolean", options={"default": true})
      */
@@ -78,11 +78,10 @@ class UploadFile
      */
     private $message;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -90,7 +89,7 @@ class UploadFile
     }
 
     /**
-     * Get ts
+     * Get ts.
      *
      * @return \DateTime
      */
@@ -100,9 +99,10 @@ class UploadFile
     }
 
     /**
-     * Set file
+     * Set file.
      *
      * @param string $file
+     *
      * @return UploadFile
      */
     public function setFile($file)
@@ -113,7 +113,7 @@ class UploadFile
     }
 
     /**
-     * Get file
+     * Get file.
      *
      * @return File|null
      */
@@ -126,8 +126,9 @@ class UploadFile
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
      */
-    public function prePersistUpdate(){
-        if(!$this->status){
+    public function prePersistUpdate()
+    {
+        if (!$this->status) {
             $this->status = self::STATUS_LOAD;
         }
         $this->ts = new \DateTime();
@@ -135,9 +136,11 @@ class UploadFile
 
     /**
      * @param $encode
+     *
      * @return UploadFile
      */
-    public function setEncode($encode){
+    public function setEncode($encode)
+    {
         $this->encode = $encode;
 
         return $this;
@@ -146,15 +149,18 @@ class UploadFile
     /**
      * @return string
      */
-    public function getEncode(){
+    public function getEncode()
+    {
         return $this->encode;
     }
 
     /**
      * @param $message
+     *
      * @return UploadFile
      */
-    public function setMessage($message){
+    public function setMessage($message)
+    {
         $this->message = $message;
 
         return $this;
@@ -163,15 +169,18 @@ class UploadFile
     /**
      * @return string
      */
-    public function getMessage(){
+    public function getMessage()
+    {
         return $this->message;
     }
 
     /**
      * @param $status
+     *
      * @return UploadFile
      */
-    public function setStatus($status){
+    public function setStatus($status)
+    {
         $this->status = $status;
 
         return $this;
@@ -180,15 +189,18 @@ class UploadFile
     /**
      * @return string
      */
-    public function getStatus(){
+    public function getStatus()
+    {
         return $this->status;
     }
 
     /**
      * @param $loaderClass
+     *
      * @return $this
      */
-    public function setLoaderClass($loaderClass){
+    public function setLoaderClass($loaderClass)
+    {
         $this->loaderClass = $loaderClass;
 
         return $this;
@@ -197,11 +209,13 @@ class UploadFile
     /**
      * @return string
      */
-    public function getLoaderClass(){
+    public function getLoaderClass()
+    {
         return $this->loaderClass;
     }
 
-    public function move($uploadDir){
+    public function move($uploadDir)
+    {
         $file = $this->getFile();
         $fileName = md5(uniqid() . time()) . '.' . $file->guessExtension();
         $file->move($uploadDir, $fileName);
@@ -211,8 +225,9 @@ class UploadFile
     /**
      * @return string
      */
-    public function __toString() {
-        return (string)$this->message;
+    public function __toString()
+    {
+        return (string) $this->message;
     }
 
     /**
@@ -230,6 +245,4 @@ class UploadFile
     {
         $this->dryRun = $dryRun;
     }
-
-
 }

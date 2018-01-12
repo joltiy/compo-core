@@ -33,7 +33,7 @@ class BowerInstall extends \Sensio\Bundle\DistributionBundle\Composer\ScriptHand
 
         $root_dir = realpath($vendor . '/../');
 
-        $pathsArray = array();
+        $pathsArray = [];
 
         foreach ($paths as $path) {
             $pathsArray[] = $root_dir . '/' . $path;

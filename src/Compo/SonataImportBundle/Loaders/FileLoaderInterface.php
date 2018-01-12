@@ -2,12 +2,11 @@
 
 namespace Compo\SonataImportBundle\Loaders;
 
-
 use Symfony\Component\HttpFoundation\File\File;
 
-interface FileLoaderInterface{
+interface FileLoaderInterface
+{
+    public function setFile(File $file): self;
 
-    public function setFile(File $file) : FileLoaderInterface;
     public function getIteration();
-
 }

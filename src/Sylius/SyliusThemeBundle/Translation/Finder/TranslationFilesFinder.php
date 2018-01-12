@@ -38,7 +38,7 @@ final class TranslationFilesFinder implements TranslationFilesFinderInterface
     {
         $themeFiles = $this->getFiles($path);
 
-        $translationsFiles = array();
+        $translationsFiles = [];
         foreach ($themeFiles as $themeFile) {
             if (!$this->isTranslationFile($themeFile)) {
                 continue;
@@ -74,7 +74,7 @@ final class TranslationFilesFinder implements TranslationFilesFinderInterface
      */
     private function isTranslationFile($file)
     {
-        return false !== strpos($file, 'translations/')
+        return false !== mb_strpos($file, 'translations/')
             && (bool) preg_match('/^[^\.]+?\.[a-zA-Z_]{2,}?\.[a-z0-9]{2,}?$/', basename($file));
     }
 }

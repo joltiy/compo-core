@@ -33,11 +33,11 @@ final class NoopThemeHierarchyProviderSpec extends ObjectBehavior
 
     public function it_returns_array_with_given_theme_as_only_element(ThemeInterface $theme)
     {
-        $this->getThemeHierarchy($theme)->shouldReturn(array($theme));
+        $this->getThemeHierarchy($theme)->shouldReturn([$theme]);
     }
 
     public function it_returns_empty_array_if_given_theme_is_null()
     {
-        $this->getThemeHierarchy(null)->shouldReturn(array());
+        $this->getThemeHierarchy(null)->shouldReturn([]);
     }
 }

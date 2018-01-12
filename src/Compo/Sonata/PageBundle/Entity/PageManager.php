@@ -70,9 +70,9 @@ class PageManager extends \Sonata\PageBundle\Entity\PageManager
                     $page->setSlug(Page::slugify($page->getName()));
                 }
 
-                if ('/' == $page->getParent()->getUrl()) {
+                if ('/' === $page->getParent()->getUrl()) {
                     $base = '/';
-                } elseif ('/' != substr($page->getParent()->getUrl(), -1)) {
+                } elseif ('/' !== mb_substr($page->getParent()->getUrl(), -1)) {
                     $base = $page->getParent()->getUrl() . '/';
                 } else {
                     $base = $page->getParent()->getUrl();

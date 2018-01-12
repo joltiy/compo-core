@@ -27,7 +27,7 @@ class CompoSeoExtension extends Extension implements PrependExtensionInterface
         $loader->load('services.yml');
 
         $serviceDefintion = $container->getDefinition('compo_seo.page.manager');
-        $serviceDefintion->addMethodCall('setSeoPages', array($config['pages']));
+        $serviceDefintion->addMethodCall('setSeoPages', [$config['pages']]);
     }
 
     /**

@@ -26,8 +26,8 @@ class NumberRangeType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('start', $options['field_type'], array_merge(array('required' => false), $options['field_options']));
-        $builder->add('end', $options['field_type'], array_merge(array('required' => false), $options['field_options']));
+        $builder->add('start', $options['field_type'], array_merge(['required' => false], $options['field_options']));
+        $builder->add('end', $options['field_type'], array_merge(['required' => false], $options['field_options']));
     }
 
     /**
@@ -37,10 +37,10 @@ class NumberRangeType extends AbstractType
     {
         /* @var $resolver OptionsResolver */
         $resolver->setDefaults(
-            array(
-                'field_options' => array(),
+            [
+                'field_options' => [],
                 'field_type' => 'text',
-            )
+            ]
         );
     }
 

@@ -13,9 +13,9 @@ class RefererListener
     use ContainerAwareTrait;
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Request
-     *
      * @throws \Exception
+     *
+     * @return \Symfony\Component\HttpFoundation\Request
      */
     public function getRequest()
     {
@@ -38,7 +38,7 @@ class RefererListener
 
         $referer = $request->headers->get('referer');
 
-        if ($referer && false === strpos($referer, $request->getHost())) {
+        if ($referer && false === mb_strpos($referer, $request->getHost())) {
             $session = $this->getContainer()->get('session');
 
             $session->set('referer', $referer);

@@ -54,6 +54,6 @@ final class ApplicationResourceLocatorSpec extends ObjectBehavior
 
         $filesystem->exists('/theme/path/resource')->willReturn(false);
 
-        $this->shouldThrow(ResourceNotFoundException::class)->during('locateResource', array('resource', $theme));
+        $this->shouldThrow(ResourceNotFoundException::class)->during('locateResource', ['resource', $theme]);
     }
 }

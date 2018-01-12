@@ -19,7 +19,7 @@ class MediaExtension extends \Twig_Extension
     /**
      * @var array
      */
-    protected $resources = array();
+    protected $resources = [];
 
     /**
      * @var Pool
@@ -76,14 +76,14 @@ class MediaExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
-            new \Twig_SimpleFunction('media_width', array($this, 'getWidth'), array('is_safe' => array('html'))),
+        return [
+            new \Twig_SimpleFunction('media_width', [$this, 'getWidth'], ['is_safe' => ['html']]),
 
-            new \Twig_SimpleFunction('media_height', array($this, 'getHeight'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('media_height', [$this, 'getHeight'], ['is_safe' => ['html']]),
 
-            new \Twig_SimpleFunction('media_path', array($this, 'getPath'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('media_thumbnail', array($this, 'getThumbnail'), array('is_safe' => array('html'))),
-        );
+            new \Twig_SimpleFunction('media_path', [$this, 'getPath'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('media_thumbnail', [$this, 'getThumbnail'], ['is_safe' => ['html']]),
+        ];
     }
 
     /**
@@ -99,13 +99,13 @@ class MediaExtension extends \Twig_Extension
      * @param array $options_filter
      * @param array $attr
      *
-     * @return mixed|string
-     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
+     *
+     * @return mixed|string
      */
-    public function getThumbnail($media, array $options_filter = array(), array $attr = array())
+    public function getThumbnail($media, array $options_filter = [], array $attr = [])
     {
         $format = 'reference';
 
@@ -126,10 +126,10 @@ class MediaExtension extends \Twig_Extension
         $format_definition = $provider->getFormat($format);
 
         // build option
-        $defaultOptions = array(
+        $defaultOptions = [
             'title' => $media->getName(),
             'alt' => $media->getName(),
-        );
+        ];
 
         if ($format_definition['width']) {
             $defaultOptions['width'] = $format_definition['width'];
@@ -140,7 +140,7 @@ class MediaExtension extends \Twig_Extension
         }
 
         if (isset($options_filter['filter'])) {
-            $runtimeConfig = array();
+            $runtimeConfig = [];
 
             if (isset($options_filter['filter_options'])) {
                 $runtimeConfig = $options_filter['filter_options'];
@@ -188,10 +188,10 @@ class MediaExtension extends \Twig_Extension
 
         return $this->render(
             $provider->getTemplate('helper_thumbnail'),
-            array(
+            [
                 'media' => $media,
                 'options' => $attr,
-            )
+            ]
         );
     }
 
@@ -202,11 +202,11 @@ class MediaExtension extends \Twig_Extension
      */
     private function getMedia($media)
     {
-        if (!$media instanceof MediaInterface && strlen($media) > 0) {
+        if (!$media instanceof MediaInterface && mb_strlen($media) > 0) {
             $media = $this->mediaManager->findOneBy(
-                array(
+                [
                     'id' => $media,
-                )
+                ]
             );
         }
 
@@ -235,7 +235,7 @@ class MediaExtension extends \Twig_Extension
      *
      * @return string
      */
-    public function getPath($media, array $options = array())
+    public function getPath($media, array $options = [])
     {
         $format = 'reference';
 
@@ -258,7 +258,7 @@ class MediaExtension extends \Twig_Extension
 
         if (isset($options['filter'])) {
             if (!isset($options['filter_options'])) {
-                $options['filter_options'] = array();
+                $options['filter_options'] = [];
             }
 
             return $this->cacheManager->getBrowserPath($publicUrl, $options['filter'], $options['filter_options']);
@@ -271,13 +271,13 @@ class MediaExtension extends \Twig_Extension
      * @param string $template
      * @param array  $parameters
      *
-     * @return mixed
-     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
+     *
+     * @return mixed
      */
-    public function render($template, array $parameters = array())
+    public function render($template, array $parameters = [])
     {
         if (!isset($this->resources[$template])) {
             $this->resources[$template] = $this->environment->loadTemplate($template);

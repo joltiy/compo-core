@@ -21,23 +21,23 @@ class CatalogLegacyConvert extends BaseLegacyConvert
      */
     public function getOldData()
     {
-        return array(
-            1 => array(
+        return [
+            1 => [
                 'id' => 1,
                 'header' => 'Каталог',
                 'parent' => null,
-            ),
-            2 => array(
+            ],
+            2 => [
                 'id' => 2,
                 'header' => 'Плитка',
                 'parent' => 1,
-            ),
-            84 => array(
+            ],
+            84 => [
                 'id' => 84,
                 'header' => 'Люки',
                 'parent' => 1,
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -62,7 +62,7 @@ class CatalogLegacyConvert extends BaseLegacyConvert
     {
         $catalogRepository = $this->getCommand()->getEntityManager()->getRepository('CompoCatalogBundle:Catalog');
 
-        if (!$newCatalogItem = $catalogRepository->findOneBy(array('lvl' => 0))) {
+        if (!$newCatalogItem = $catalogRepository->findOneBy(['lvl' => 0])) {
             $newCatalogItem = new Catalog();
             $newCatalogItem->setId(1);
             $newCatalogItem->setName('Каталог');

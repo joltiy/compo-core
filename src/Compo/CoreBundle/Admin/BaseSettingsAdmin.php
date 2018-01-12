@@ -74,10 +74,10 @@ class BaseSettingsAdmin extends AbstractAdmin
         $collection->add(
             'list',
             'settings',
-            array(
+            [
                 '_controller' => 'Sylius\Bundle\SettingsBundle\Controller\SettingsController::updateAction',
                 'namespace' => $this->getNamespase(),
-            )
+            ]
         );
     }
 

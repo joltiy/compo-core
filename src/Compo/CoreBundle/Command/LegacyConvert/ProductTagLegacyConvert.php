@@ -22,20 +22,20 @@ class ProductTagLegacyConvert extends BaseLegacyConvert
      */
     public function getOldData()
     {
-        return array(
-            array(
+        return [
+            [
                 'id' => 1,
                 'name' => 'Хит',
-            ),
-            array(
+            ],
+            [
                 'id' => 2,
                 'name' => 'Новинка',
-            ),
-            array(
+            ],
+            [
                 'id' => 3,
                 'name' => 'Акция',
-            ),
-        );
+            ],
+        ];
     }
 
     /**

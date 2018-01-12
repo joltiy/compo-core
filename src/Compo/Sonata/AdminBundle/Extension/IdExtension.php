@@ -17,9 +17,9 @@ class IdExtension extends AbstractAdminExtension
      */
     public function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        if (!$this->isUseEntityTraits($datagridMapper->getAdmin(), array(
+        if (!$this->isUseEntityTraits($datagridMapper->getAdmin(), [
             'Compo\Sonata\AdminBundle\Entity\IdEntityTrait',
-        ))) {
+        ])) {
             return;
         }
 
@@ -43,9 +43,9 @@ class IdExtension extends AbstractAdminExtension
      */
     public function configureFormFields(FormMapper $formMapper)
     {
-        if (!$this->isUseEntityTraits($formMapper->getAdmin(), array(
+        if (!$this->isUseEntityTraits($formMapper->getAdmin(), [
             'Compo\Sonata\AdminBundle\Entity\IdEntityTrait',
-        ))) {
+        ])) {
             return;
         }
 
@@ -61,11 +61,11 @@ class IdExtension extends AbstractAdminExtension
                 $formMapper,
                 'id',
                 'text',
-                array(
+                [
                     'required' => false,
-                    'attr' => array('readonly' => true),
+                    'attr' => ['readonly' => true],
                     'disabled' => true,
-                )
+                ]
             );
         }
     }

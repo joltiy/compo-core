@@ -19,10 +19,10 @@ class PropertiesExtension extends AbstractAdminExtension
      */
     public function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        if (!$this->isUseEntityTraits($datagridMapper->getAdmin(), array(
+        if (!$this->isUseEntityTraits($datagridMapper->getAdmin(), [
             'Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait',
             'Gedmo\Timestampable\Traits\TimestampableEntity',
-        ))) {
+        ])) {
             return;
         }
 
@@ -55,10 +55,10 @@ class PropertiesExtension extends AbstractAdminExtension
             return;
         }
 
-        if (!$this->isUseEntityTraits($admin, array(
+        if (!$this->isUseEntityTraits($admin, [
             'Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait',
             'Gedmo\Timestampable\Traits\TimestampableEntity',
-        ))) {
+        ])) {
             return;
         }
 
@@ -67,58 +67,58 @@ class PropertiesExtension extends AbstractAdminExtension
         }
 
         $formMapper->tab('properties')
-            ->with('properties_created', array('name' => false, 'class' => 'col-lg-6'))
+            ->with('properties_created', ['name' => false, 'class' => 'col-lg-6'])
             ->add(
                 'createdBy',
                 'sonata_type_model_list',
-                array(
+                [
                     'required' => false,
-                ),
-                array(
-                    'link_parameters' => array(
+                ],
+                [
+                    'link_parameters' => [
                         'context' => 'default',
                         'hide_context' => true,
-                    ),
+                    ],
                     'translation_domain' => 'SonataAdminBundle',
-                )
+                ]
             )
             ->add(
                 'createdAt',
                 'sonata_type_datetime_picker',
-                array(
+                [
                     'format' => 'dd.MM.y HH:mm:ss',
                     'required' => true,
-                ),
-                array(
+                ],
+                [
                     'translation_domain' => 'SonataAdminBundle',
-                )
+                ]
             )
             ->end()
-            ->with('properties_updated', array('name' => false, 'class' => 'col-lg-6'))
+            ->with('properties_updated', ['name' => false, 'class' => 'col-lg-6'])
             ->add(
                 'updatedBy',
                 'sonata_type_model_list',
-                array(
+                [
                     'required' => false,
-                ),
-                array(
-                    'link_parameters' => array(
+                ],
+                [
+                    'link_parameters' => [
                         'context' => 'default',
                         'hide_context' => true,
-                    ),
+                    ],
                     'translation_domain' => 'SonataAdminBundle',
-                )
+                ]
             )
             ->add(
                 'updatedAt',
                 'sonata_type_datetime_picker',
-                array(
+                [
                     'format' => 'dd.MM.y HH:mm:ss',
                     'required' => true,
-                ),
-                array(
+                ],
+                [
                     'translation_domain' => 'SonataAdminBundle',
-                )
+                ]
             )
             ->end()
             ->end();

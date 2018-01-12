@@ -17,11 +17,8 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\BlockBundle\Model\BlockInterface;
 use Sonata\CoreBundle\Form\Type\DatePickerType;
-use Sonata\CoreBundle\Form\Type\ImmutableArrayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -60,15 +57,12 @@ class AdminCustomStatsBlockService extends BaseAdminStatsBlockService
         $timeTodayFrom->setDate($timeTodayFrom->format('Y'), $timeTodayFrom->format('m'), 1);
         $timeTodayFrom->setTime(0, 0, 0);
 
-        $timeTodayTo = new \DateTime(date("Y-m-t"));
+        $timeTodayTo = new \DateTime(date('Y-m-t'));
         $timeTodayTo->setTime(23, 59, 59);
-
 
         $request = $container->get('request_stack')->getCurrentRequest();
 
-
         if ($settings['period']) {
-
             $fromDate = $request->get('from_date', $settings['fromDate']);
             $toDate = $request->get('to_date', $settings['toDate']);
 
@@ -80,13 +74,11 @@ class AdminCustomStatsBlockService extends BaseAdminStatsBlockService
                 $qb->where('entity.createdAt BETWEEN :from AND :to')
                     ->setParameter('from', $timeTodayFrom->format('Y-m-d H:i:s'))
                     ->setParameter('to', $timeTodayTo->format('Y-m-d H:i:s'));
-
             } else {
                 $qb->where('entity.createdAt BETWEEN :from AND :to')
                     ->setParameter('from', $timeTodayFrom->format('Y-m-d H:i:s'))
                     ->setParameter('to', $timeTodayTo->format('Y-m-d H:i:s'));
             }
-
         }
 
         $classMetadata = $em->getClassMetadata($entityClass);
@@ -95,23 +87,21 @@ class AdminCustomStatsBlockService extends BaseAdminStatsBlockService
 
         $qb->resetDQLPart('select');
 
-        $joins = array();
+        $joins = [];
 
         $this->applyDimensions($qb, $dimensions, $associationMappings, $fieldsMappings, $classMetadata, $joins);
 
         $this->applyMetrics($qb, $metrics, $associationMappings, $classMetadata, $joins);
 
-
         $result = $qb->getQuery()->getResult(AbstractQuery::HYDRATE_ARRAY);
 
-        $dimensionsKeys = array();
+        $dimensionsKeys = [];
 
         foreach ($dimensions as $dimension) {
             $dimensionsKeys[] = $dimension['field'];
         }
 
         foreach ($result as $resultKey => $resultItem) {
-
             foreach ($resultItem as $key => $value) {
                 if (is_object($value) && $value instanceof \DateTime) {
                     $result[$resultKey][$key] = $value->format('d.m.Y');
@@ -119,34 +109,30 @@ class AdminCustomStatsBlockService extends BaseAdminStatsBlockService
                     $result[$resultKey][$key . '_raw'] = $value->getTimestamp();
                 }
 
-                if (in_array($key, $dimensionsKeys)) {
-
-
-                    $result[$resultKey][$key] = $translator->trans($value, array(), $translation_domain);
+                if (in_array($key, $dimensionsKeys, true)) {
+                    $result[$resultKey][$key] = $translator->trans($value, [], $translation_domain);
                 }
             }
         }
 
-
         $url = $admin->generateUrl('list');
 
-        $form = $container->get('form.factory')->createNamed('date_range_form_' . $blockContext->getBlock()->getId(),'Symfony\Component\Form\Extension\Core\Type\FormType', array(
+        $form = $container->get('form.factory')->createNamed('date_range_form_' . $blockContext->getBlock()->getId(), 'Symfony\Component\Form\Extension\Core\Type\FormType', [
             'fromDate' => $timeTodayFrom,
             'toDate' => $timeTodayTo,
-
-        ))
-            ->add('fromDate', DatePickerType::class, array(
+        ])
+            ->add('fromDate', DatePickerType::class, [
                 'format' => 'dd.MM.y',
-                'attr' => array('class' => 'from-date-input')
-            ))
-            ->add('toDate', DatePickerType::class, array(
+                'attr' => ['class' => 'from-date-input'],
+            ])
+            ->add('toDate', DatePickerType::class, [
                 'format' => 'dd.MM.y',
-                'attr' => array('class' => 'to-date-input')
-            ));
+                'attr' => ['class' => 'to-date-input'],
+            ]);
 
         return $this->renderResponse(
             $blockContext->getTemplate(),
-            array(
+            [
                 'date_range_form' => $form->createView(),
                 'dimensions' => $dimensions,
                 'metrics' => $metrics,
@@ -156,11 +142,10 @@ class AdminCustomStatsBlockService extends BaseAdminStatsBlockService
                 'stats' => $result,
                 'block' => $blockContext->getBlock(),
                 'settings' => $blockContext->getSettings(),
-            ),
+            ],
             $response
         );
     }
-
 
     /**
      * {@inheritdoc}
@@ -172,46 +157,45 @@ class AdminCustomStatsBlockService extends BaseAdminStatsBlockService
         $formMapper->add(
             'settings',
             'sonata_type_immutable_array',
-            array(
-                'keys' => array(
-                    array('tableVisible', CheckboxType::class, array(
+            [
+                'keys' => [
+                    ['tableVisible', CheckboxType::class, [
                         'label' => 'Таблица',
                         'required' => false,
-                        'sonata_help' => 'Вывод таблицы'
-                    )),
-                    array('pagination', CheckboxType::class, array(
+                        'sonata_help' => 'Вывод таблицы',
+                    ]],
+                    ['pagination', CheckboxType::class, [
                         'label' => 'Постраничная навигация',
                         'required' => false,
-                        'sonata_help' => 'Вывод постраничной навигации, поиска'
-                    )),
+                        'sonata_help' => 'Вывод постраничной навигации, поиска',
+                    ]],
 
-                    array('chart', CheckboxType::class, array(
+                    ['chart', CheckboxType::class, [
                         'label' => 'График',
                         'required' => false,
-                        'sonata_help' => 'Вывод графика'
-                    )),
-                    array('timeline', CheckboxType::class, array(
+                        'sonata_help' => 'Вывод графика',
+                    ]],
+                    ['timeline', CheckboxType::class, [
                         'label' => 'По дате',
                         'required' => false,
-                        'sonata_help' => 'Вывод графика по дате (первая группировка должна быть датой)'
-                    )),
-                    array('period', CheckboxType::class, array(
+                        'sonata_help' => 'Вывод графика по дате (первая группировка должна быть датой)',
+                    ]],
+                    ['period', CheckboxType::class, [
                         'label' => 'За период',
                         'required' => false,
-                        'sonata_help' => 'Выборка и группировка по дате создания за период'
-                    )),
+                        'sonata_help' => 'Выборка и группировка по дате создания за период',
+                    ]],
 
-                    array('entity', ChoiceType::class, array(
-                        'attr' => array('class' => 'form-stats-entity'),
+                    ['entity', ChoiceType::class, [
+                        'attr' => ['class' => 'form-stats-entity'],
                         'choices' => $entityChoices,
-                        'required' => true
-                    )),
-                ),
-            )
+                        'required' => true,
+                    ]],
+                ],
+            ]
         );
 
         $formModifier = function (FormInterface $form, $data = null) {
-
             if ($data) {
                 $settings = $form->get('settings');
 
@@ -251,7 +235,7 @@ class AdminCustomStatsBlockService extends BaseAdminStatsBlockService
     public function configureSettings(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'fromDate' => false,
                 'toDate' => false,
                 'pagination' => false,
@@ -263,11 +247,11 @@ class AdminCustomStatsBlockService extends BaseAdminStatsBlockService
                 'timeline' => false,
 
                 'entity' => '',
-                'dimensions' => array(),
-                'metrics' => array(),
+                'dimensions' => [],
+                'metrics' => [],
 
                 'template' => 'CompoCoreBundle:Block:admin_custom_stats.html.twig',
-            )
+            ]
         );
     }
 }

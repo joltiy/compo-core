@@ -16,10 +16,10 @@ class ThemeTranslator extends BaseTranslator implements WarmableInterface
     /**
      * @var array
      */
-    protected $options = array(
+    protected $options = [
         'cache_dir' => null,
         'debug' => false,
-    );
+    ];
 
     /**
      * @var TranslatorLoaderProviderInterface
@@ -48,7 +48,7 @@ class ThemeTranslator extends BaseTranslator implements WarmableInterface
         TranslatorResourceProviderInterface $resourceProvider,
         MessageSelector $messageSelector,
         $locale,
-        array $options = array()
+        array $options = []
     ) {
         $this->assertOptionsAreKnown($options);
 
@@ -104,7 +104,7 @@ class ThemeTranslator extends BaseTranslator implements WarmableInterface
 
         $locales = array_merge(
             $this->getFallbackLocales(),
-            array($this->getLocale()),
+            [$this->getLocale()],
             $this->resourceProvider->getResourcesLocales()
         );
         foreach (array_unique($locales) as $locale) {
@@ -122,7 +122,7 @@ class ThemeTranslator extends BaseTranslator implements WarmableInterface
      *
      * @api
      */
-    public function trans($id, array $parameters = array(), $domain = null, $locale = null)
+    public function trans($id, array $parameters = [], $domain = null, $locale = null)
     {
         if (null === $locale) {
             $locale = $this->getLocale();
@@ -176,8 +176,8 @@ class ThemeTranslator extends BaseTranslator implements WarmableInterface
     {
         $locales = parent::computeFallbackLocales($locale);
 
-        while (false !== strrchr($locale, '_')) {
-            $locale = substr($locale, 0, -strlen(strrchr($locale, '_')));
+        while (false !== mb_strrchr($locale, '_')) {
+            $locale = mb_substr($locale, 0, -mb_strlen(mb_strrchr($locale, '_')));
 
             array_unshift($locales, $locale);
         }

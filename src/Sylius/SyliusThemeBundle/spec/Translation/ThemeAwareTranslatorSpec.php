@@ -79,18 +79,18 @@ final class ThemeAwareTranslatorSpec extends ObjectBehavior
     {
         $themeContext->getTheme()->willReturn(null);
 
-        $translator->trans('id', array('param'), 'domain', null)->willReturn('translated string');
+        $translator->trans('id', ['param'], 'domain', null)->willReturn('translated string');
 
-        $this->trans('id', array('param'), 'domain')->shouldReturn('translated string');
+        $this->trans('id', ['param'], 'domain')->shouldReturn('translated string');
     }
 
     public function it_just_proxies_translating_with_custom_locale(TranslatorInterface $translator, ThemeContextInterface $themeContext)
     {
         $themeContext->getTheme()->willReturn(null);
 
-        $translator->trans('id', array('param'), 'domain', 'customlocale')->willReturn('translated string');
+        $translator->trans('id', ['param'], 'domain', 'customlocale')->willReturn('translated string');
 
-        $this->trans('id', array('param'), 'domain', 'customlocale')->shouldReturn('translated string');
+        $this->trans('id', ['param'], 'domain', 'customlocale')->shouldReturn('translated string');
     }
 
     public function it_proxies_translating_with_modified_default_locale(
@@ -102,9 +102,9 @@ final class ThemeAwareTranslatorSpec extends ObjectBehavior
         $theme->getName()->willReturn('theme/name');
 
         $translator->getLocale()->willReturn('defaultlocale');
-        $translator->trans('id', array('param'), 'domain', 'defaultlocale@theme-name')->willReturn('translated string');
+        $translator->trans('id', ['param'], 'domain', 'defaultlocale@theme-name')->willReturn('translated string');
 
-        $this->trans('id', array('param'), 'domain')->shouldReturn('translated string');
+        $this->trans('id', ['param'], 'domain')->shouldReturn('translated string');
     }
 
     public function it_proxies_translating_with_modified_custom_locale(
@@ -115,27 +115,27 @@ final class ThemeAwareTranslatorSpec extends ObjectBehavior
         $themeContext->getTheme()->willReturn($theme);
         $theme->getName()->willReturn('theme/name');
 
-        $translator->trans('id', array('param'), 'domain', 'customlocale@theme-name')->willReturn('translated string');
+        $translator->trans('id', ['param'], 'domain', 'customlocale@theme-name')->willReturn('translated string');
 
-        $this->trans('id', array('param'), 'domain', 'customlocale')->shouldReturn('translated string');
+        $this->trans('id', ['param'], 'domain', 'customlocale')->shouldReturn('translated string');
     }
 
     public function it_just_proxies_choice_translating(TranslatorInterface $translator, ThemeContextInterface $themeContext)
     {
         $themeContext->getTheme()->willReturn(null);
 
-        $translator->transChoice('id', 2, array('param'), 'domain', null)->willReturn('translated string');
+        $translator->transChoice('id', 2, ['param'], 'domain', null)->willReturn('translated string');
 
-        $this->transChoice('id', 2, array('param'), 'domain')->shouldReturn('translated string');
+        $this->transChoice('id', 2, ['param'], 'domain')->shouldReturn('translated string');
     }
 
     public function it_just_proxies_choice_translating_with_custom_locale(TranslatorInterface $translator, ThemeContextInterface $themeContext)
     {
         $themeContext->getTheme()->willReturn(null);
 
-        $translator->transChoice('id', 2, array('param'), 'domain', 'customlocale')->willReturn('translated string');
+        $translator->transChoice('id', 2, ['param'], 'domain', 'customlocale')->willReturn('translated string');
 
-        $this->transChoice('id', 2, array('param'), 'domain', 'customlocale')->shouldReturn('translated string');
+        $this->transChoice('id', 2, ['param'], 'domain', 'customlocale')->shouldReturn('translated string');
     }
 
     public function it_proxies_choice_translating_with_modified_default_locale(
@@ -147,9 +147,9 @@ final class ThemeAwareTranslatorSpec extends ObjectBehavior
         $theme->getName()->willReturn('theme/name');
 
         $translator->getLocale()->willReturn('defaultlocale');
-        $translator->transChoice('id', 2, array('param'), 'domain', 'defaultlocale@theme-name')->willReturn('translated string');
+        $translator->transChoice('id', 2, ['param'], 'domain', 'defaultlocale@theme-name')->willReturn('translated string');
 
-        $this->transChoice('id', 2, array('param'), 'domain')->shouldReturn('translated string');
+        $this->transChoice('id', 2, ['param'], 'domain')->shouldReturn('translated string');
     }
 
     public function it_proxies_choice_translating_with_modified_custom_locale(
@@ -160,9 +160,9 @@ final class ThemeAwareTranslatorSpec extends ObjectBehavior
         $themeContext->getTheme()->willReturn($theme);
         $theme->getName()->willReturn('theme/name');
 
-        $translator->transChoice('id', 2, array('param'), 'domain', 'customlocale@theme-name')->willReturn('translated string');
+        $translator->transChoice('id', 2, ['param'], 'domain', 'customlocale@theme-name')->willReturn('translated string');
 
-        $this->transChoice('id', 2, array('param'), 'domain', 'customlocale')->shouldReturn('translated string');
+        $this->transChoice('id', 2, ['param'], 'domain', 'customlocale')->shouldReturn('translated string');
     }
 
     public function it_does_not_warm_up_if_decorated_translator_is_not_warmable()

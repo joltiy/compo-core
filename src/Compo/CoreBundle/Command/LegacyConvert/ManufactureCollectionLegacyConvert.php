@@ -85,7 +85,7 @@ class ManufactureCollectionLegacyConvert extends BaseLegacyConvert
         if ($oldDataItem['video']) {
             $oldDataItem['video'] = str_replace('https://www.youtube.com/embed/', '', $oldDataItem['video']);
 
-            $oldImage = $manufactureCollectionAdditionalVideoRepository->findOneBy(array('manufactureCollection' => $oldDataItem['id']));
+            $oldImage = $manufactureCollectionAdditionalVideoRepository->findOneBy(['manufactureCollection' => $oldDataItem['id']]);
 
             if (!$oldImage) {
                 $mediaManager = $this->getCommand()->getMediaManager();
@@ -112,35 +112,35 @@ class ManufactureCollectionLegacyConvert extends BaseLegacyConvert
 
         /*
                 $oldPhotos = $this->getCommand()->getOldConnection()->fetchAll('SELECT * FROM `tovar_files` WHERE tovar_id = ' . $newItem->getId());
-        
+
                 foreach ($oldPhotos as $oldDataPhotos_item) {
-        
+
                     $oldImage = $manufactureCollectionAdditionalFilesRepository->find($oldDataPhotos_item['id']);
-        
+
                     if (!$oldImage) {
-        
+
                         $mediaManager = $this->getCommand()->getMediaManager();
-        
+
                         $video = new Media();
-        
+
                         $video->setName($oldDataPhotos_item['header']);
-        
+
                         $video->setBinaryContent();
                         $video->setContext('default');
                         $video->setProviderName('sonata.media.provider.youtube');
-        
+
                         $mediaManager->save($video);
-        
-        
+
+
                         $photo = new ManufactureCollectionAdditionalImages();
-        
+
                         $this->getCommand()->changeIdGenerator($photo);
-        
+
                         $photo->setId($oldDataPhotos_item['id']);
-        
+
                         $photo->setManufactureCollection($newItem);
                         $photo->setImage($photo_media);
-        
+
                         $this->getEntityManager()->persist($photo);
                     }
                 }

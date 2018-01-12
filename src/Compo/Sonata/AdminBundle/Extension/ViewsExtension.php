@@ -18,9 +18,9 @@ class ViewsExtension extends AbstractAdminExtension
      */
     public function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        if (!$this->isUseEntityTraits($datagridMapper->getAdmin(), array(
+        if (!$this->isUseEntityTraits($datagridMapper->getAdmin(), [
             'Compo\Sonata\AdminBundle\Entity\ViewsEntityTrait',
-        ))) {
+        ])) {
             return;
         }
 

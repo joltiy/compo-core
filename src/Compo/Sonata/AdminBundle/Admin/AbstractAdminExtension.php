@@ -16,7 +16,7 @@ class AbstractAdminExtension extends BaseAbstractAdminExtension
      *
      * @return bool
      */
-    public function isUseEntityTraits($admin, array $traits = array())
+    public function isUseEntityTraits($admin, array $traits = [])
     {
         $traitsAdmin = class_uses($admin->getClass());
 
@@ -38,7 +38,7 @@ class AbstractAdminExtension extends BaseAbstractAdminExtension
      * @param array $options
      * @param array $fieldDescriptionOptions
      */
-    public function replaceFormField(FormMapper $formMapper, $name, $type = null, array $options = array(), array $fieldDescriptionOptions = array())
+    public function replaceFormField(FormMapper $formMapper, $name, $type = null, array $options = [], array $fieldDescriptionOptions = [])
     {
         $admin = $formMapper->getAdmin();
 

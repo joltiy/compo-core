@@ -62,7 +62,7 @@ final class TestThemeConfigurationManager implements TestThemeConfigurationManag
     {
         $this->initializeIfNeeded();
 
-        $configuration = $this->configurationProcessor->process(array($configuration));
+        $configuration = $this->configurationProcessor->process([$configuration]);
         $configuration['path'] = $this->getThemeDirectory($configuration['name']);
 
         $this->initializeTheme($configuration['name']);
@@ -131,7 +131,7 @@ final class TestThemeConfigurationManager implements TestThemeConfigurationManag
 
         $this->filesystem->mkdir($configurationsDirectory);
 
-        $this->save(array());
+        $this->save([]);
     }
 
     /**

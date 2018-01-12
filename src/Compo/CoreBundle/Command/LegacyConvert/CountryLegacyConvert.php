@@ -27,7 +27,7 @@ class CountryLegacyConvert extends BaseLegacyConvert
         $newItem->setEnabled((bool) $oldDataItem['visible']);
         $newItem->setSlug(str_replace('.html', '', $oldDataItem['alt_name']));
         $newItem->setId($oldDataItem['id']);
-        $newItem->setCode(substr($oldDataItem['alt_name'], 0, 2));
+        $newItem->setCode(mb_substr($oldDataItem['alt_name'], 0, 2));
 
         $newItem->setHeader($oldDataItem['ht_h1']);
         $newItem->setDescription($oldDataItem['ht_text'] . '<!--more-->' . $oldDataItem['ht_text_bottom']);

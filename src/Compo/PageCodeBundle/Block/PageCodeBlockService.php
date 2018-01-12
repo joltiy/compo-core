@@ -25,17 +25,17 @@ class PageCodeBlockService extends AbstractBlockService
         $template = $blockContext->getTemplate();
 
         $list = $this->getDoctrineManager()->getRepository(PageCode::class)->findBy(
-            array('enabled' => true, 'layout' => $settigs['layout']),
-            array('position' => 'asc')
+            ['enabled' => true, 'layout' => $settigs['layout']],
+            ['position' => 'asc']
         );
 
         return $this->renderResponse(
             $template,
-            array(
+            [
                 'list' => $list,
                 'block' => $block,
                 'settings' => $settigs,
-            ),
+            ],
             $response
         );
     }
@@ -48,10 +48,10 @@ class PageCodeBlockService extends AbstractBlockService
         $formMapper->add(
             'settings',
             'sonata_type_immutable_array',
-            array(
-                'keys' => array(
-                ),
-            )
+            [
+                'keys' => [
+                ],
+            ]
         );
     }
 
@@ -61,10 +61,10 @@ class PageCodeBlockService extends AbstractBlockService
     public function configureSettings(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'template' => 'CompoPageCodeBundle:Block:page_code.html.twig',
                 'layout' => '',
-            )
+            ]
         );
     }
 }

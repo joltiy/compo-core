@@ -13,7 +13,7 @@ class FeaturesLegacyConvert extends BaseLegacyConvert
     /**
      * @var array
      */
-    public $feature_catalog = array();
+    public $feature_catalog = [];
 
     public function configure()
     {
@@ -57,7 +57,7 @@ class FeaturesLegacyConvert extends BaseLegacyConvert
             $newItem->setType('string');
         }
 
-        if (false !== strpos($oldDataItem['header'], 'Размер дверцы')) {
+        if (false !== mb_strpos($oldDataItem['header'], 'Размер дверцы')) {
             $newItem->setType('decimal');
         }
 
@@ -68,7 +68,7 @@ class FeaturesLegacyConvert extends BaseLegacyConvert
 
         $name = $oldDataItem['header'];
 
-        $name = str_replace(array('(см)', '(кг)', '(мм)'), '', $name);
+        $name = str_replace(['(см)', '(кг)', '(мм)'], '', $name);
 
         $newItem->setName(trim($name));
 
@@ -86,24 +86,24 @@ class FeaturesLegacyConvert extends BaseLegacyConvert
             }
         }
 
-        if (false !== strpos($oldDataItem['header'], '(см)')) {
-            $newItem->setUnit($unitRepos->findOneBy(array('name' => 'Сантиметр')));
+        if (false !== mb_strpos($oldDataItem['header'], '(см)')) {
+            $newItem->setUnit($unitRepos->findOneBy(['name' => 'Сантиметр']));
         }
 
-        if (false !== strpos($oldDataItem['header'], '(кг)')) {
-            $newItem->setUnit($unitRepos->findOneBy(array('name' => 'Килограмм')));
+        if (false !== mb_strpos($oldDataItem['header'], '(кг)')) {
+            $newItem->setUnit($unitRepos->findOneBy(['name' => 'Килограмм']));
         }
 
-        if (false !== strpos($oldDataItem['header'], '(мм)')) {
-            $newItem->setUnit($unitRepos->findOneBy(array('name' => 'Миллиметр')));
+        if (false !== mb_strpos($oldDataItem['header'], '(мм)')) {
+            $newItem->setUnit($unitRepos->findOneBy(['name' => 'Миллиметр']));
         }
 
-        if (false !== strpos($oldDataItem['header'], 'Размер чипа')) {
-            $newItem->setUnit($unitRepos->findOneBy(array('name' => 'Миллиметр')));
+        if (false !== mb_strpos($oldDataItem['header'], 'Размер чипа')) {
+            $newItem->setUnit($unitRepos->findOneBy(['name' => 'Миллиметр']));
         }
 
-        if (false !== strpos($oldDataItem['header'], 'Штук в упаковке')) {
-            $newItem->setUnit($unitRepos->findOneBy(array('name' => 'Штука')));
+        if (false !== mb_strpos($oldDataItem['header'], 'Штук в упаковке')) {
+            $newItem->setUnit($unitRepos->findOneBy(['name' => 'Штука']));
         }
 
         if ('variant' === $oldDataItem['value_type']) {

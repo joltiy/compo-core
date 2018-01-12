@@ -47,8 +47,8 @@ class PageCodeAdmin extends AbstractAdmin
             ->add(
                 '_action',
                 null,
-                array(
-                )
+                [
+                ]
             );
     }
 
@@ -59,16 +59,16 @@ class PageCodeAdmin extends AbstractAdmin
     {
         $formMapper
             ->tab('main')
-            ->with('main', array('name' => false, 'class' => 'col-lg-12'))
+            ->with('main', ['name' => false, 'class' => 'col-lg-12'])
             ->add('id')
             ->add('name')
             ->add('enabled')
             ->add(
                 'layout',
                 'choice',
-                array(
+                [
                     'choices' => $this->getRepository()->getLayoutChoices(),
-                )
+                ]
             )
             ->add('code')
             ->end()

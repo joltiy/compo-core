@@ -15,7 +15,7 @@ class NotificationManager
     /**
      * @var array
      */
-    public $defaultEvents = array();
+    public $defaultEvents = [];
 
     /**
      * @var NotificationEmailAccount
@@ -61,7 +61,7 @@ class NotificationManager
      */
     public function getDefaultEventsByEvent($name)
     {
-        $events = array();
+        $events = [];
 
         foreach ($this->getDefaultEvents() as $event) {
             if ($event['event'] === $name) {
@@ -77,10 +77,10 @@ class NotificationManager
      */
     public function getEmailTransport()
     {
-        return array(
+        return [
             'SMTP' => 'smtp',
             'SendMail' => 'sendmail',
-        );
+        ];
     }
 
     /**
@@ -88,9 +88,9 @@ class NotificationManager
      */
     public function getSmsTransport()
     {
-        return array(
+        return [
             'sms.ru' => 'sms',
-        );
+        ];
     }
 
     /**
@@ -98,10 +98,10 @@ class NotificationManager
      */
     public function getEmailEncryption()
     {
-        return array(
+        return [
             'TLS' => 'tls',
             'SSL' => 'ssl',
-        );
+        ];
     }
 
     /**
@@ -109,11 +109,11 @@ class NotificationManager
      */
     public function getEmailAuthMode()
     {
-        return array(
+        return [
             'Plain' => 'plain',
             'Login' => 'login',
             'Cram-MD5' => 'cram-md5',
-        );
+        ];
     }
 
     /**
@@ -123,7 +123,7 @@ class NotificationManager
      */
     public function getTemplateSource($src)
     {
-        if (0 === strpos($src, 'Compo')) {
+        if (0 === mb_strpos($src, 'Compo')) {
             $parser = $this->getContainer()->get('templating.name_parser');
             $locator = $this->getContainer()->get('templating.loader');
             $path = $locator->load($parser->parse($src));
@@ -141,7 +141,7 @@ class NotificationManager
      */
     public function getEventsChoice()
     {
-        $choice = array();
+        $choice = [];
 
         foreach ($this->getDefaultEvents() as $event_key => $event) {
             $choice[$event['event']] = $event['event'];
@@ -154,12 +154,12 @@ class NotificationManager
      * @param $event
      * @param $vars
      *
-     * @return array
-     *
      * @throws \Exception
      * @throws \Throwable
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Syntax
+     *
+     * @return array
      */
     public function send($event, $vars)
     {
@@ -176,18 +176,15 @@ class NotificationManager
             'compo_notification_email_settings'
         );
 
-        $results = array();
+        $results = [];
 
         foreach ($notifications as $notification) {
             $recipients = $this->prepareEmails($notification->getRecipient(), $vars);
-
 
             foreach ($recipients as $email) {
                 if (!$email) {
                     continue;
                 }
-
-
 
                 $subject = $this->renderTemplate($notification->getSubject(), $vars);
                 $body = $this->renderTemplate($notification->getBody(), $vars);
@@ -200,18 +197,17 @@ class NotificationManager
 
                 $from = $sender->getUsername();
 
-                if ('smtp' === strtolower($sender->getTransport())) {
+                if ('smtp' === mb_strtolower($sender->getTransport())) {
                     $transport = (new \Swift_SmtpTransport($sender->getHostname(), $sender->getPort()))
                         ->setUsername($sender->getUsername())
                         ->setPassword($sender->getPassword());
-                    $transport->setAuthMode(strtolower($sender->getAuthMode()));
-                    $transport->setEncryption(strtolower($sender->getEncryption()));
+                    $transport->setAuthMode(mb_strtolower($sender->getAuthMode()));
+                    $transport->setEncryption(mb_strtolower($sender->getEncryption()));
                     $mailer = new \Swift_Mailer($transport);
                 } else {
                     //$transport = new \Swift_SendmailTransport();
                     $mailer = $this->getContainer()->get('mailer');
                 }
-
 
                 /** @var \Swift_Message $message */
                 $message = $mailer->createMessage();
@@ -223,18 +219,17 @@ class NotificationManager
 
                 $mailer->send($message);
 
-                $results[] = array(
+                $results[] = [
                     'notification' => $notification,
                     'vars' => $vars,
                     'recipient' => $email,
                     'subject' => $subject,
                     'body' => $body,
-                );
+                ];
             }
         }
 
         $notificationsSms = $this->getNotificationsSms($event);
-
 
         foreach ($notificationsSms as $notification) {
             $recipients = $this->prepareEmails($notification->getRecipient(), $vars);
@@ -256,13 +251,13 @@ class NotificationManager
 
                 $transport->send($email, $body);
 
-                $results[] = array(
+                $results[] = [
                     'notification' => $notification,
                     'vars' => $vars,
                     'recipient' => $email,
                     'subject' => '',
                     'body' => $body,
-                );
+                ];
             }
         }
 
@@ -280,19 +275,19 @@ class NotificationManager
             'CompoNotificationBundle:NotificationEmail'
         );
 
-        return $notificationEmailRepository->findBy(array('event' => $event));
+        return $notificationEmailRepository->findBy(['event' => $event]);
     }
 
     /**
      * @param $str
      * @param $vars
      *
-     * @return array
-     *
      * @throws \Exception
      * @throws \Throwable
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Syntax
+     *
+     * @return array
      */
     public function prepareEmails($str, $vars)
     {
@@ -305,12 +300,12 @@ class NotificationManager
      * @param $template
      * @param $vars
      *
-     * @return string
-     *
      * @throws \Exception
      * @throws \Throwable
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Syntax
+     *
+     * @return string
      */
     public function renderTemplate($template, $vars)
     {
@@ -335,7 +330,7 @@ class NotificationManager
             } else {
                 $this->defaultSender = $this->getEntityManager()->getRepository(
                     'CompoNotificationBundle:NotificationEmailAccount'
-                )->findOneBy(array(), array('id' => 'ASC'));
+                )->findOneBy([], ['id' => 'ASC']);
             }
         }
 
@@ -369,6 +364,6 @@ class NotificationManager
             'CompoNotificationBundle:NotificationSms'
         );
 
-        return $notificationEmailRepository->findBy(array('event' => $event));
+        return $notificationEmailRepository->findBy(['event' => $event]);
     }
 }

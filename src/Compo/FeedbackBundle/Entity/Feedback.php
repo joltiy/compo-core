@@ -51,7 +51,7 @@ class Feedback
      * @var string
      * @ORM\Column(type="json", nullable=true)
      */
-    protected $data = array();
+    protected $data = [];
 
     /**
      * @var string
@@ -210,7 +210,7 @@ class Feedback
     public function getData()
     {
         if (null === $this->data) {
-            $this->data = array();
+            $this->data = [];
         }
 
         return $this->data;

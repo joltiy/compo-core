@@ -34,8 +34,8 @@ class AdvantagesAdmin extends AbstractAdmin
         $listMapper
             ->add('id')
             ->addIdentifier('name')
-            ->add('description', null, array(
-            ))
+            ->add('description', null, [
+            ])
             ->add(
                 '_action'
             );
@@ -47,11 +47,11 @@ class AdvantagesAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper->tab('main');
-        $formMapper->with('main', array('name' => false));
+        $formMapper->with('main', ['name' => false]);
 
         $formMapper->add('id');
         $formMapper->add('name');
-        $formMapper->add('description', CKEditorType::class, array('required' => false));
+        $formMapper->add('description', CKEditorType::class, ['required' => false]);
 
         $formMapper->end();
         $formMapper->end();

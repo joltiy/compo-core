@@ -50,11 +50,11 @@ class BaseAdminSettingsSchema implements SchemaInterface
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'action' => $this->getContainer()->get('router')->generate($this->getBaseRouteName() . '_update') . '?',
                 'label_format' => 'form.label_settings_%name%',
                 'translation_domain' => $this->getTranslationDomain(),
-            )
+            ]
         );
     }
 
@@ -107,16 +107,16 @@ class BaseAdminSettingsSchema implements SchemaInterface
     }
 
     /**
-     * @return array
-     *
      * @throws \Exception
+     *
+     * @return array
      */
     public function getDefaultOptions()
     {
-        return array(
+        return [
             'action' => $this->getContainer()->get('router')->generate($this->getBaseRouteName() . '_update') . '?',
             'label_format' => 'form.label_settings_%name%',
             'translation_domain' => $this->getTranslationDomain(),
-        );
+        ];
     }
 }

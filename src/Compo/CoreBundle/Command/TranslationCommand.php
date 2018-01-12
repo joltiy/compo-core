@@ -24,9 +24,9 @@ class TranslationCommand extends ContainerAwareCommand
      * @param InputInterface  $input
      * @param OutputInterface $output
      *
-     * @return null|int null or 0 if everything went fine, or an error code
-     *
      * @throws \Exception
+     *
+     * @return null|int null or 0 if everything went fine, or an error code
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -36,7 +36,7 @@ class TranslationCommand extends ContainerAwareCommand
 
         $bundles = $container->getParameter('kernel.bundles');
 
-        $domains = array('messages');
+        $domains = ['messages'];
 
         foreach ($bundles as $key => $class) {
             $application = new Application($kernel);
@@ -54,21 +54,21 @@ class TranslationCommand extends ContainerAwareCommand
                     mkdir($output_dir);
                 }
 
-                $arguments = array(
+                $arguments = [
                     'command' => 'translation:extract',
-                    'locales' => array('ru'),
-                    '--enable-extractor' => array('compo_admin'),
+                    'locales' => ['ru'],
+                    '--enable-extractor' => ['compo_admin'],
                     '--config' => 'app',
                     '--bundle' => $key,
                     '--output-dir' => $output_dir,
                     '--output-format' => 'yml',
                     '--default-output-format' => 'yml',
-                    '--dir' => array($bundle_dir),
+                    '--dir' => [$bundle_dir],
 
                     '--keep',
-                    '--domain' => array($key),
+                    '--domain' => [$key],
                     '--ignore-domain' => $domains,
-                );
+                ];
 
                 $domains[] = $key;
 

@@ -15,9 +15,9 @@ class NewsController extends Controller
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Throwable
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(Request $request)
     {
@@ -25,7 +25,7 @@ class NewsController extends Controller
 
         $page = $request->get('page', 1);
 
-        $pager = $manager->getPager(array(), $page);
+        $pager = $manager->getPager([], $page);
 
         $totalPages = $pager->getPageCount();
 
@@ -35,35 +35,35 @@ class NewsController extends Controller
         $seoPage->addVar('total_pages', $totalPages);
 
         if (1 !== $page) {
-            $seoPage->setLinkCanonical($manager->getNewsIndexPermalink(array('page' => $page), 0));
+            $seoPage->setLinkCanonical($manager->getNewsIndexPermalink(['page' => $page], 0));
         } else {
-            $seoPage->setLinkCanonical($manager->getNewsIndexPermalink(array(), 0));
+            $seoPage->setLinkCanonical($manager->getNewsIndexPermalink([], 0));
         }
 
         if ($totalPages > 1 && $page < $totalPages) {
-            $seoPage->setLinkNext($manager->getNewsIndexPermalink(array('page' => $page + 1), 0));
+            $seoPage->setLinkNext($manager->getNewsIndexPermalink(['page' => $page + 1], 0));
         }
 
         if ($totalPages > 1 && $page > 1) {
-            $seoPage->setLinkPrev($manager->getNewsIndexPermalink(array('page' => $page - 1), 0));
+            $seoPage->setLinkPrev($manager->getNewsIndexPermalink(['page' => $page - 1], 0));
         }
 
         $seoPage->build();
 
         return $this->render(
             'CompoNewsBundle:News:index.html.twig',
-            array(
+            [
                 'pager' => $pager,
-            )
+            ]
         );
     }
 
     /**
      * @param $slug
      *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Throwable
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showBySlugAction($slug)
     {
@@ -83,12 +83,12 @@ class NewsController extends Controller
 
         $seoPage->addTemplates(
             'news_show',
-            array(
+            [
                 'header' => $article->getHeader(),
                 'title' => $article->getTitle(),
                 'metaKeyword' => $article->getMetaKeyword(),
                 'metaDescription' => $article->getMetaDescription(),
-            )
+            ]
         );
 
         $seoPage->setLinkCanonical($manager->getNewsShowPermalink($article, 0));
@@ -97,9 +97,9 @@ class NewsController extends Controller
 
         return $this->render(
             'CompoNewsBundle:News:show.html.twig',
-            array(
+            [
                 'news' => $article,
-            )
+            ]
         );
     }
 
@@ -118,6 +118,6 @@ class NewsController extends Controller
             throw $this->createNotFoundException('compo_news.exception.not_found_news');
         }
 
-        return $this->redirectToRoute('compo_news_show_by_slug', array('slug' => $article->getSlug()), 301);
+        return $this->redirectToRoute('compo_news_show_by_slug', ['slug' => $article->getSlug()], 301);
     }
 }

@@ -31,7 +31,7 @@ class MenuBlockService extends AbstractBlockService
 
         $menu = null;
 
-        $tree = array();
+        $tree = [];
 
         $factory = new MenuFactory();
 
@@ -46,7 +46,7 @@ class MenuBlockService extends AbstractBlockService
             /** @var MenuItemRepository $repo */
             $repo = $em->getRepository('CompoMenuBundle:MenuItem');
 
-            $tree = $repo->childrenHierarchyWithNodes($repo->findOneBy(array('menu' => $menuObject)));
+            $tree = $repo->childrenHierarchyWithNodes($repo->findOneBy(['menu' => $menuObject]));
         } else {
             $menu = $factory->createItem('');
         }
@@ -57,13 +57,13 @@ class MenuBlockService extends AbstractBlockService
 
         return $this->renderResponse(
             $blockContext->getTemplate(),
-            array(
+            [
                 'nodes' => $tree,
                 'menu' => $renderer->render($menu),
 
                 'block' => $blockContext->getBlock(),
                 'settings' => $blockContext->getSettings(),
-            ),
+            ],
             $response
         );
     }
@@ -94,14 +94,14 @@ class MenuBlockService extends AbstractBlockService
 
                 $item['url'] = $catalogManager->getCatalogShowPermalink($nodeItem->getCatalog());
             } elseif ('page' === $item['type']) {
-                $item['url'] = $this->getContainer()->get('router')->generate('page_slug', array('path' => $nodeItem->getPage()->getUrl()));
+                $item['url'] = $this->getContainer()->get('router')->generate('page_slug', ['path' => $nodeItem->getPage()->getUrl()]);
             } elseif ('tagging' === $item['type']) {
                 if ($nodeItem->getTagging()) {
                     $catalogManager = $this->getContainer()->get('compo_catalog.manager.catalog');
 
                     $item['url'] = $catalogManager->getCatalogTaggingShowPermalink($nodeItem->getTagging()->getSlug());
 
-                    $criteria = array();
+                    $criteria = [];
 
                     $criteria['filter'] = $nodeItem->getTagging()->getFilterData();
 
@@ -125,13 +125,13 @@ class MenuBlockService extends AbstractBlockService
 
                     $item['url'] = $router->generate(
                         'catalog_index',
-                        array(
-                            'country' => array(
-                                'items' => array(
+                        [
+                            'country' => [
+                                'items' => [
                                     $nodeItem->getCountry()->getId() => $nodeItem->getCountry()->getId(),
-                                ),
-                            ),
-                        )
+                                ],
+                            ],
+                        ]
                     );
 
                     $item['country'] = $nodeItem->getCountry();
@@ -151,13 +151,13 @@ class MenuBlockService extends AbstractBlockService
             }
 
             /** @var MenuItem $node */
-            $node = $menu->addChild($item['id'], array('uri' => $item['url']));
+            $node = $menu->addChild($item['id'], ['uri' => $item['url']]);
 
             if ($item['url'] === $this->getRequest()->getRequestUri()) {
                 // URL's completely match
                 $node->setCurrent(true);
             } else {
-                if ($item['url'] && $item['url'] !== $this->getRequest()->getBaseUrl() . '/' && (0 === strpos($this->getRequest()->getRequestUri(), $item['url']))) {
+                if ($item['url'] && $item['url'] !== $this->getRequest()->getBaseUrl() . '/' && (0 === mb_strpos($this->getRequest()->getRequestUri(), $item['url']))) {
                     // URL isn't just "/" and the first container of the URL match
                     $node->setCurrent(true);
                 }
@@ -181,13 +181,13 @@ class MenuBlockService extends AbstractBlockService
         $formMapper->add(
             'settings',
             'sonata_type_immutable_array',
-            array(
-                'keys' => array(
-                    array('id', 'choice', array('required' => true, 'choices' => $this->getMenuRepository()->getChoices())),
-                    array('class', 'text', array('required' => false)),
-                    array('template', 'text', array('required' => false)),
-                ),
-            )
+            [
+                'keys' => [
+                    ['id', 'choice', ['required' => true, 'choices' => $this->getMenuRepository()->getChoices()]],
+                    ['class', 'text', ['required' => false]],
+                    ['template', 'text', ['required' => false]],
+                ],
+            ]
         );
     }
 
@@ -213,11 +213,11 @@ class MenuBlockService extends AbstractBlockService
     public function configureSettings(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'class' => '',
                 'id' => null,
                 'template' => 'CompoMenuBundle:Menu:base_menu.html.twig',
-            )
+            ]
         );
     }
 

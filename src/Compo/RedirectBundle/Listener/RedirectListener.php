@@ -54,10 +54,10 @@ class RedirectListener
 
         /** @var Redirect $redirect */
         $redirect = $redirectRepository->findOneBy(
-            array(
-                'urIn' => array($uri, $pathInfo),
+            [
+                'urIn' => [$uri, $pathInfo],
                 'enabled' => true,
-            )
+            ]
         );
 
         // TODO: Опция, не учитывать параметры в исходном/конечном URL
@@ -70,9 +70,9 @@ class RedirectListener
         $pageRepository = $em->getRepository(Page::class);
 
         $page = $pageRepository->findOneBy(
-            array(
-                'url' => array($pathInfo . '/'),
-            )
+            [
+                'url' => [$pathInfo . '/'],
+            ]
         );
 
         if ($page) {

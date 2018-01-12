@@ -23,15 +23,15 @@ class SocialBlockService extends AbstractBlockService
         /** @var SocialRepository $repo */
         $repo = $em->getRepository('CompoSocialBundle:Social');
 
-        $list = $repo->findBy(array(), array('position' => 'ASC'));
+        $list = $repo->findBy([], ['position' => 'ASC']);
 
         return $this->renderResponse(
             $blockContext->getTemplate(),
-            array(
+            [
                 'list' => $list,
                 'block' => $blockContext->getBlock(),
                 'settings' => $blockContext->getSettings(),
-            ),
+            ],
             $response
         );
     }
@@ -42,9 +42,9 @@ class SocialBlockService extends AbstractBlockService
     public function configureSettings(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'template' => 'CompoSocialBundle:Block:list.html.twig',
-            )
+            ]
         );
     }
 }

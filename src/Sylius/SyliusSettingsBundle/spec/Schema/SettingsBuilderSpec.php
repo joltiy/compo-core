@@ -39,13 +39,13 @@ final class SettingsBuilderSpec extends ObjectBehavior
 
     public function it_initializes_transformers_array_by_default()
     {
-        $this->getTransformers()->shouldReturn(array());
+        $this->getTransformers()->shouldReturn([]);
     }
 
     public function it_sets_transformer_for_parameter_by_name(ParameterTransformerInterface $transformer)
     {
         $this->setTransformer('test', $transformer);
 
-        $this->getTransformers()->shouldReturn(array('test' => $transformer));
+        $this->getTransformers()->shouldReturn(['test' => $transformer]);
     }
 }

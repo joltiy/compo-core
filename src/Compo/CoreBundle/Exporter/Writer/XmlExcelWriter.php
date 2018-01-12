@@ -51,17 +51,11 @@ class XmlExcelWriter implements TypedWriterInterface
     protected $header = '<?xml version="1.0"?><?mso-application progid="Excel.Sheet"?><Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns:x2="http://schemas.microsoft.com/office/excel/2003/xml" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:html="http://www.w3.org/TR/REC-html40" xmlns:c="urn:schemas-microsoft-com:office:component:spreadsheet"><OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office"></OfficeDocumentSettings><ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel"></ExcelWorkbook><Worksheet ss:Name="Sheet 1"><Table>';
     protected $footer = '</Table></Worksheet></Workbook>';
 
-
-
-
     public const LABEL_COLUMN = 1;
-    /** @var  \PHPExcel */
+    /** @var \PHPExcel */
     private $phpExcelObject;
     /** @var array */
     private $headerColumns = [];
-
-
-
 
     /**
      * @param string $filename
@@ -83,13 +77,12 @@ class XmlExcelWriter implements TypedWriterInterface
     }
 
     /**
-     * Create PHPExcel object and set defaults
+     * Create PHPExcel object and set defaults.
      */
     public function open()
     {
         $this->phpExcelObject = new \PHPExcel();
     }
-
 
     /**
      * {@inheritdoc}
@@ -98,26 +91,23 @@ class XmlExcelWriter implements TypedWriterInterface
     {
         //dump($this->position);
 
-        if (0 == $this->position && $this->showHeaders) {
-
+        if (0 === $this->position && $this->showHeaders) {
             $this->init($data);
 
             $this->position = 2;
         }
 
-
         foreach ($data as $header => $value) {
-
             $this->setCellValue($this->getColumn($header), $value);
         }
 
         ++$this->position;
     }
+
     /**
-     *  Set labels
-     * @param $data
+     *  Set labels.
      *
-     * @return void
+     * @param $data
      */
     protected function init($data)
     {
@@ -125,30 +115,36 @@ class XmlExcelWriter implements TypedWriterInterface
         foreach ($data as $header => $value) {
             $column = self::formatColumnName($i);
             $this->setHeader($column, $header);
-            $i++;
+            ++$i;
         }
         $this->setBoldLabels();
     }
+
     /**
-     * Save Excel file
+     * Save Excel file.
      */
     public function close()
     {
         $writer = \PHPExcel_IOFactory::createWriter($this->phpExcelObject, 'Excel2007');
         $writer->save($this->filename);
     }
+
     /**
-     * Returns letter for number based on Excel columns
+     * Returns letter for number based on Excel columns.
+     *
      * @param int $number
+     *
      * @return string
      */
     public static function formatColumnName($number)
     {
-        for ($char = ""; $number >= 0; $number = intval($number / 26) - 1) {
-            $char = chr($number%26 + 0x41) . $char;
+        for ($char = ''; $number >= 0; $number = (int) ($number / 26) - 1) {
+            $char = chr($number % 26 + 0x41) . $char;
         }
+
         return $char;
     }
+
     /**
      * @return \PHPExcel_Worksheet
      */
@@ -156,21 +152,24 @@ class XmlExcelWriter implements TypedWriterInterface
     {
         return $this->phpExcelObject->getActiveSheet();
     }
+
     /**
-     * Makes header bold
+     * Makes header bold.
      */
     private function setBoldLabels()
     {
         $this->getActiveSheet()->getStyle(
             sprintf(
-                "%s1:%s1",
+                '%s1:%s1',
                 reset($this->headerColumns),
                 end($this->headerColumns)
             )
         )->getFont()->setBold(true);
     }
+
     /**
-     * Sets cell value
+     * Sets cell value.
+     *
      * @param string $column
      * @param string $value
      */
@@ -178,28 +177,31 @@ class XmlExcelWriter implements TypedWriterInterface
     {
         $this->getActiveSheet()->setCellValue($column, $value);
     }
+
     /**
-     * Set column label and make column auto size
+     * Set column label and make column auto size.
+     *
      * @param string $column
      * @param string $value
      */
     private function setHeader($column, $value)
     {
-        $this->setCellValue($column.self::LABEL_COLUMN, $value);
+        $this->setCellValue($column . self::LABEL_COLUMN, $value);
         $this->getActiveSheet()->getColumnDimension($column)->setAutoSize(true);
         $this->headerColumns[$value] = $column;
     }
+
     /**
-     * Get column name
+     * Get column name.
+     *
      * @param string $name
+     *
      * @return string
      */
     private function getColumn($name)
     {
-        return $this->headerColumns[$name].$this->position;
+        return $this->headerColumns[$name] . $this->position;
     }
-
-
 
     public function getDefaultMimeType()
     {

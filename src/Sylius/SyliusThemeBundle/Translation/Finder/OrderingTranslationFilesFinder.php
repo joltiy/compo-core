@@ -41,7 +41,7 @@ final class OrderingTranslationFilesFinder implements TranslationFilesFinderInte
             $firstFile = str_replace($path, '', $firstFile);
             $secondFile = str_replace($path, '', $secondFile);
 
-            return strpos($secondFile, 'translations') - strpos($firstFile, 'translations');
+            return mb_strpos($secondFile, 'translations') - mb_strpos($firstFile, 'translations');
         });
 
         return $files;

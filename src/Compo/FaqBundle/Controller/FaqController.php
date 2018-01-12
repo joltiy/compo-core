@@ -15,9 +15,9 @@ class FaqController extends Controller
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Throwable
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(Request $request)
     {
@@ -25,7 +25,7 @@ class FaqController extends Controller
 
         $page = $request->get('page', 1);
 
-        $pager = $manager->getPager(array(), $page);
+        $pager = $manager->getPager([], $page);
         $totalPages = $pager->getPageCount();
 
         $seoPage = $this->get('sonata.seo.page');
@@ -34,35 +34,35 @@ class FaqController extends Controller
         $seoPage->addVar('total_pages', $pager->getPageCount());
 
         if (1 !== $page) {
-            $seoPage->setLinkCanonical($manager->getFaqIndexPermalink(array('page' => $page), 0));
+            $seoPage->setLinkCanonical($manager->getFaqIndexPermalink(['page' => $page], 0));
         } else {
-            $seoPage->setLinkCanonical($manager->getFaqIndexPermalink(array(), 0));
+            $seoPage->setLinkCanonical($manager->getFaqIndexPermalink([], 0));
         }
 
         if ($totalPages > 1 && $page < $totalPages) {
-            $seoPage->setLinkNext($manager->getFaqIndexPermalink(array('page' => $page + 1), 0));
+            $seoPage->setLinkNext($manager->getFaqIndexPermalink(['page' => $page + 1], 0));
         }
 
         if ($totalPages > 1 && $page > 1) {
-            $seoPage->setLinkPrev($manager->getFaqIndexPermalink(array('page' => $page - 1), 0));
+            $seoPage->setLinkPrev($manager->getFaqIndexPermalink(['page' => $page - 1], 0));
         }
 
         $seoPage->build();
 
         return $this->render(
             'CompoFaqBundle:Faq:index.html.twig',
-            array(
+            [
                 'pager' => $pager,
-            )
+            ]
         );
     }
 
     /**
      * @param $slug
      *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Throwable
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showBySlugAction($slug)
     {
@@ -82,12 +82,12 @@ class FaqController extends Controller
 
         $seoPage->addTemplates(
             'faq_show',
-            array(
+            [
                 'header' => $article->getName(),
                 'title' => $article->getName(),
                 'metaKeyword' => $article->getMetaKeyword(),
                 'metaDescription' => $article->getMetaDescription(),
-            )
+            ]
         );
 
         $seoPage->setLinkCanonical($manager->getArticleShowPermalink($article, 0));
@@ -96,9 +96,9 @@ class FaqController extends Controller
 
         return $this->render(
             'CompoFaqBundle:Faq:show.html.twig',
-            array(
+            [
                 'article' => $article,
-            )
+            ]
         );
     }
 
@@ -117,6 +117,6 @@ class FaqController extends Controller
             throw $this->createNotFoundException('compo_faq.exception.not_found_faq');
         }
 
-        return $this->redirectToRoute('compo_faq_show_by_slug', array('slug' => $article->getSlug()), 301);
+        return $this->redirectToRoute('compo_faq_show_by_slug', ['slug' => $article->getSlug()], 301);
     }
 }

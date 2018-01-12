@@ -24,14 +24,11 @@ class ListFieldsExtension extends AbstractAdminExtension
             if (isset($userSettings[$listMapper->getAdmin()->getCode() . '.list.fields'])) {
                 $fields = $userSettings[$listMapper->getAdmin()->getCode() . '.list.fields'];
             } else {
-                $fields = array();
+                $fields = [];
             }
-
         } else {
-            $fields = array();
+            $fields = [];
         }
-
-
 
         if (count($fields)) {
             $keys = $listMapper->keys();
@@ -42,9 +39,9 @@ class ListFieldsExtension extends AbstractAdminExtension
 
                 $_action_options['active'] = true;
 
-                if (in_array($key, array('batch', 'id', 'name', '_action'))) {
+                if (in_array($key, ['batch', 'id', 'name', '_action'], true)) {
                     $_action_options['active'] = true;
-                } elseif (!in_array($key, $fields)) {
+                } elseif (!in_array($key, $fields, true)) {
                     $_action_options['active'] = false;
                 } else {
                     $_action_options['active'] = true;
@@ -83,7 +80,6 @@ class ListFieldsExtension extends AbstractAdminExtension
                 $this->getContainer()->get('doctrine')->getManager()->persist($user);
                 $this->getContainer()->get('doctrine')->getManager()->flush();
             }
-
         }
     }
 }

@@ -16,9 +16,9 @@ class UrlExtension extends Twig_Extension
      */
     public function getFilters()
     {
-        return array(
-            new \Twig_SimpleFilter('parse_url', array($this, 'parseUrl')),
-        );
+        return [
+            new \Twig_SimpleFilter('parse_url', [$this, 'parseUrl']),
+        ];
     }
 
     /**

@@ -24,25 +24,25 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
     /**
      * @var array
      */
-    public $templates = array(
-        'default' => array(
+    public $templates = [
+        'default' => [
             'header' => '{{ page_internal.header|default(page_internal.name) }}',
             'description' => '{{ page_internal.description|default(page_internal.header)|default(page_internal.name) }}',
             'title' => '{{ page_internal.title|default(page_internal.header)|default(page_internal.name) }}',
             'metaDescription' => '{{ page_internal.metaDescription|default(page_internal.header)|default(page_internal.name) }}',
             'metaKeyword' => '{{ page_internal.metaKeyword|default(page_internal.header)|default(page_internal.name) }}',
-        ),
-    );
+        ],
+    ];
 
     /**
      * @var array
      */
-    public $vars = array();
+    public $vars = [];
 
     /**
      * @var array
      */
-    protected $htmlAttributes = array();
+    protected $htmlAttributes = [];
 
     /**
      * @var string
@@ -323,15 +323,15 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
         $templates = array_reverse($this->templates);
 
         /** @var \Compo\SeoBundle\Entity\SeoPage $contextTemplate */
-        $contextTemplate = $container->get('compo_seo.page.manager')->findOneBy(array('context' => $this->context));
+        $contextTemplate = $container->get('compo_seo.page.manager')->findOneBy(['context' => $this->context]);
 
         if ($contextTemplate) {
-            $templates[] = array(
+            $templates[] = [
                 'header' => $contextTemplate->getHeader(),
                 'title' => $contextTemplate->getTitle(),
                 'metaKeyword' => $contextTemplate->getMetaKeyword(),
                 'metaDescription' => $contextTemplate->getMetaDescription(),
-            );
+            ];
         }
 
         $name = '';
@@ -437,11 +437,11 @@ class SeoPage extends \Sonata\SeoBundle\Seo\SeoPage
      * @param $template
      * @param array $vars
      *
-     * @return mixed|string
-     *
      * @throws \Throwable
+     *
+     * @return mixed|string
      */
-    public function buildTemplate($template, array $vars = array())
+    public function buildTemplate($template, array $vars = [])
     {
         // Заменяем переменные в шаблоне
         //$found_template[$key] = preg_replace(array_keys($vars_preg_replace), array_values($vars_preg_replace), $value);

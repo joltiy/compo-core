@@ -16,15 +16,15 @@ class SeoExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
-            new \Twig_SimpleFunction('compo_seo_header', array($this, 'getHeader'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('compo_seo_description', array($this, 'getDescription'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('compo_seo_description_additional', array($this, 'getDescriptionAdditional'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('sonata_seo_link_next', array($this, 'getLinkNext'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('sonata_seo_link_prev', array($this, 'getLinkPrev'), array('is_safe' => array('html'))),
+        return [
+            new \Twig_SimpleFunction('compo_seo_header', [$this, 'getHeader'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('compo_seo_description', [$this, 'getDescription'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('compo_seo_description_additional', [$this, 'getDescriptionAdditional'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('sonata_seo_link_next', [$this, 'getLinkNext'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('sonata_seo_link_prev', [$this, 'getLinkPrev'], ['is_safe' => ['html']]),
 
-            new \Twig_SimpleFunction('compo_core_admin_navbar', array($this, 'getAdminNavBar'), array('is_safe' => array('html'))),
-        );
+            new \Twig_SimpleFunction('compo_core_admin_navbar', [$this, 'getAdminNavBar'], ['is_safe' => ['html']]),
+        ];
     }
 
     /**
@@ -122,9 +122,9 @@ class SeoExtension extends \Twig_Extension
         if ($menu) {
             $menuRenderer = new \Knp\Menu\Renderer\TwigRenderer($this->getContainer()->get('twig'), 'knp_menu.html.twig', new \Knp\Menu\Matcher\Matcher());
 
-            return $menuRenderer->render($menu, array(
+            return $menuRenderer->render($menu, [
                 'template' => 'CompoCoreBundle:Menu:knp_menu_admin.html.twig',
-            ));
+            ]);
         }
     }
 }

@@ -80,24 +80,24 @@ class BreadcrumbBlockService extends BaseBreadcrumbMenuBlockService
 
             $menu->addChild(
                 $parent->getName(),
-                array(
+                [
                     'route' => 'page_slug',
-                    'routeParameters' => array(
+                    'routeParameters' => [
                         'path' => $parent->getUrl(),
-                    ),
-                )
+                    ],
+                ]
             );
         }
 
         if (!$page->isError()) {
             $menu->addChild(
                 $page->getName(),
-                array(
+                [
                     //'route' => 'page_slug',
-                    'routeParameters' => array(
+                    'routeParameters' => [
                         'path' => $page->getUrl(),
-                    ),
-                )
+                    ],
+                ]
             );
         }
 

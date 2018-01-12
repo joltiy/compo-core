@@ -20,7 +20,7 @@ class AdvantagesItemAdmin extends AbstractAdmin
      */
     public function configure()
     {
-        $this->configurePosition(true, array('advantages'));
+        $this->configurePosition(true, ['advantages']);
 
         $this->setParentParentAssociationMapping('advantages');
     }
@@ -81,9 +81,9 @@ class AdvantagesItemAdmin extends AbstractAdmin
         $listMapper
             ->add('id')
             ->addIdentifier('name')
-            ->add('url', null, array(
+            ->add('url', null, [
                 'default' => false,
-            ))
+            ])
             ->add('enabled')
             ->add('_action');
     }
@@ -97,9 +97,9 @@ class AdvantagesItemAdmin extends AbstractAdmin
 
         $formMapper->with(
             'main',
-            array(
+            [
                 'name' => false,
-            )
+            ]
         );
 
         $formMapper->add('id');
@@ -107,7 +107,7 @@ class AdvantagesItemAdmin extends AbstractAdmin
         $formMapper->add('advantages');
         $formMapper->add('name');
         $formMapper->add('title');
-        $formMapper->add('description', CKEditorType::class, array('attr' => array('class' => ''), 'required' => false));
+        $formMapper->add('description', CKEditorType::class, ['attr' => ['class' => ''], 'required' => false]);
         $formMapper->add('url');
         $formMapper->add('image');
 

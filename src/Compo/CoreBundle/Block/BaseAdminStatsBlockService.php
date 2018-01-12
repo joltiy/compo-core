@@ -19,10 +19,7 @@ use Compo\OrderBundle\Entity\Order;
 use Compo\ProductBundle\Entity\Product;
 use Compo\Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Compo\SupplierBundle\Entity\Supplier;
-use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\BlockBundle\Model\BlockInterface;
 use Sonata\CoreBundle\Form\Type\ImmutableArrayType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -34,7 +31,7 @@ class BaseAdminStatsBlockService extends AbstractBlockService
 {
     public function getEntityChoices()
     {
-        return array(
+        return [
             'Заказы' => Order::class,
             'Товары' => Product::class,
             'Производители' => Manufacture::class,
@@ -42,15 +39,14 @@ class BaseAdminStatsBlockService extends AbstractBlockService
             'Страны' => Country::class,
             'Поставщики' => Supplier::class,
             'Обратная связь' => Feedback::class,
-
-        );
+        ];
     }
 
     public function getFieldsChoices($entity = null)
     {
         $entityChoices = $this->getEntityChoices();
 
-        $fieldsChoices = array();
+        $fieldsChoices = [];
 
         $translator = $this->getContainer()->get('translator');
 
@@ -59,27 +55,24 @@ class BaseAdminStatsBlockService extends AbstractBlockService
         $em = $this->getContainer()->get('doctrine')->getManager();
 
         foreach ($entityChoices as $entityChoiceKey => $entityChoice) {
-            if ($entity && $entityChoice != $entity) {
+            if ($entity && $entityChoice !== $entity) {
                 continue;
             }
             $admin = $adminPool->getAdminByClass($entityChoice);
             $translation_domain = $admin->getTranslationDomain();
 
-
             $classMetadata = $em->getClassMetadata($entityChoice);
             $associationMappings = $classMetadata->associationMappings;
             $fieldsMappings = $classMetadata->fieldMappings;
 
-
             foreach ($fieldsMappings as $fieldsMapping) {
                 $fieldsChoices[$fieldsMapping['fieldName']] =
-                    $entityChoiceKey . ' / ' . $translator->trans('form.label_' . $fieldsMapping['columnName'], array(), $translation_domain);
+                    $entityChoiceKey . ' / ' . $translator->trans('form.label_' . $fieldsMapping['columnName'], [], $translation_domain);
             }
 
             foreach ($associationMappings as $associationMapping) {
                 $mapplingFieldName = $associationMapping['fieldName'];
                 $mapplingAdmin = $adminPool->getAdminByClass($associationMapping['targetEntity']);
-
 
                 if (!$mapplingAdmin) {
                     continue;
@@ -87,15 +80,14 @@ class BaseAdminStatsBlockService extends AbstractBlockService
 
                 $mapplingTranslationDomain = $mapplingAdmin->getTranslationDomain();
 
-
                 $classMetadataMapping = $em->getClassMetadata($associationMapping['targetEntity']);
                 $fieldsMappingsMapping = $classMetadataMapping->fieldMappings;
 
                 foreach ($fieldsMappingsMapping as $fieldsMappingAssoc) {
                     $fieldsChoices[$mapplingFieldName . '.' . $fieldsMappingAssoc['fieldName']] =
                         $entityChoiceKey . ' / '
-                        . $translator->trans('form.label_' . $this->camelCaseToUnderscore($mapplingFieldName), array(), $translation_domain) . ' / '
-                        . $translator->trans('form.label_' . $this->camelCaseToUnderscore($fieldsMappingAssoc['fieldName']), array(), $mapplingTranslationDomain);
+                        . $translator->trans('form.label_' . $this->camelCaseToUnderscore($mapplingFieldName), [], $translation_domain) . ' / '
+                        . $translator->trans('form.label_' . $this->camelCaseToUnderscore($fieldsMappingAssoc['fieldName']), [], $mapplingTranslationDomain);
                 }
             }
         }
@@ -103,15 +95,15 @@ class BaseAdminStatsBlockService extends AbstractBlockService
         return $fieldsChoices;
     }
 
-    public function applyDimensions($qb, &$dimensions, $associationMappings, $fieldsMappings, $classMetadata, &$joins) {
-
+    public function applyDimensions($qb, &$dimensions, $associationMappings, $fieldsMappings, $classMetadata, &$joins)
+    {
         foreach ($dimensions as $dimensionItemKey => $dimensionItem) {
             $dimension = $dimensionItem['field'];
             $dimension_name = str_replace('.', '___', $dimension);
 
             $dimensions[$dimensionItemKey]['code_name'] = $dimension_name;
 
-            if (strpos($dimension, '.') !== false) {
+            if (false !== mb_strpos($dimension, '.')) {
                 $dimension_parts = explode('.', $dimension);
                 $dimensions[$dimensionItemKey]['label_name'] = $this->camelCaseToUnderscore($dimension_parts[0]);
 
@@ -125,8 +117,7 @@ class BaseAdminStatsBlockService extends AbstractBlockService
                     $on = 'entity.' . $dimension_parts[0] . ' = ' . $dimension_parts[0] . '_join';
                 }
 
-
-                if (!in_array($associationTargetClass, $joins)) {
+                if (!in_array($associationTargetClass, $joins, true)) {
                     $joins[] = $associationTargetClass;
                     $qb->leftJoin($associationTargetClass, $dimension_parts[0] . '_join', 'WITH', $on);
                 }
@@ -134,10 +125,8 @@ class BaseAdminStatsBlockService extends AbstractBlockService
                 $qb->addSelect(str_replace($dimension_parts[0], $dimension_parts[0] . '_join', $dimension) . ' as ' . $dimension_name);
                 $qb->addGroupBy($dimension_name);
                 $dimensions[$dimensionItemKey]['field_type'] = 'string';
-
             } else {
                 $dimensions[$dimensionItemKey]['label_name'] = $this->camelCaseToUnderscore($dimension);
-
 
                 if (isset($fieldsMappings[$dimension]) && $fieldsMappings[$dimension]['type'] === 'datetime') {
                     $dimensions[$dimensionItemKey]['field_type'] = 'datetime';
@@ -146,27 +135,25 @@ class BaseAdminStatsBlockService extends AbstractBlockService
                     $qb->addSelect('UNIX_TIMESTAMP(DATE_FORMAT(entity.' . $dimension . ', \'%Y-%m-%d\')) as ' . $dimension . '_raw');
 
                     $qb->addGroupBy($dimension);
-
                 } else {
                     $dimensions[$dimensionItemKey]['field_type'] = 'string';
 
                     $qb->addSelect('entity.' . $dimension . ' as ' . $dimension);
 
                     $qb->addGroupBy($dimension);
-
                 }
             }
         }
     }
 
-    public function applyMetrics($qb, &$metrics, $associationMappings, $classMetadata, $joins) {
-
+    public function applyMetrics($qb, &$metrics, $associationMappings, $classMetadata, $joins)
+    {
         foreach ($metrics as $metricItemKey => $metricItem) {
             $metric = $metricItem['field'];
             $metric_name = str_replace('.', '___', $metric) . '___' . $metricItem['aggregation'];
             $metrics[$metricItemKey]['code_name'] = $metric_name;
 
-            if (strpos($metric,'.') !== false) {
+            if (false !== mb_strpos($metric, '.')) {
                 $metric_parts = explode('.', $metric);
                 $metrics[$metricItemKey]['label_name'] = $this->camelCaseToUnderscore($metric_parts[0]);
 
@@ -180,50 +167,48 @@ class BaseAdminStatsBlockService extends AbstractBlockService
                     $on = 'entity.' . $source . ' = ' . $metric_parts[0] . '_join';
                 }
 
-                if (!in_array($associationTargetClass, $joins)) {
+                if (!in_array($associationTargetClass, $joins, true)) {
                     $joins[] = $associationTargetClass;
                     $qb->leftJoin($associationTargetClass, $metric_parts[0] . '_join', 'WITH', $on);
                 }
 
-                $qb->addSelect($metricItem['aggregation'] . '('.$metric.') as ' . $metric_name);
+                $qb->addSelect($metricItem['aggregation'] . '(' . $metric . ') as ' . $metric_name);
             } else {
                 $metrics[$metricItemKey]['label_name'] = $this->camelCaseToUnderscore($metric);
 
-                $qb->addSelect($metricItem['aggregation'] . '('.'entity.' . $metric.') as ' . $metric_name);
+                $qb->addSelect($metricItem['aggregation'] . '(' . 'entity.' . $metric . ') as ' . $metric_name);
             }
         }
 
         return $qb;
     }
 
-    function camelCaseToUnderscore($input)
+    public function camelCaseToUnderscore($input)
     {
-        return strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $input));
+        return mb_strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $input));
     }
 
     public function createDimensions($settings, $fieldsChoices, $mapping = true)
     {
         if ($settings->has('dimensions')) {
-
             $settings->remove('dimensions');
         }
 
-        if ($this->getRequest()->getMethod() == 'POST' && $mapping) {
+        if ('POST' === $this->getRequest()->getMethod() && $mapping) {
             $fieldsChoices = $this->getFieldsChoices();
         }
 
-        $settings->add('dimensions', \Sonata\AdminBundle\Form\Type\CollectionType::class, array(
-            'attr' => array('class' => 'form-stats-dimensions'),
+        $settings->add('dimensions', \Sonata\AdminBundle\Form\Type\CollectionType::class, [
+            'attr' => ['class' => 'form-stats-dimensions'],
             'label' => 'Группировки',
 
             'mapped' => $mapping,
             'allow_add' => true,
             'allow_delete' => true,
             'entry_type' => ImmutableArrayType::class,
-            'entry_options' => array('keys' => array(
-
-                array('field', ChoiceType::class, array(
-                    'attr' => array('class' => 'form-stats-dimensions-field'),
+            'entry_options' => ['keys' => [
+                ['field', ChoiceType::class, [
+                    'attr' => ['class' => 'form-stats-dimensions-field'],
 
                     'label' => 'Имя',
                     'multiple' => false,
@@ -231,16 +216,15 @@ class BaseAdminStatsBlockService extends AbstractBlockService
                     'choice_label' => function ($value, $key, $index) use ($fieldsChoices) {
                         return $fieldsChoices[$value];
                     },
-                )),
+                ]],
 
-                array('label', 'text', array('label' => 'Заголовок', 'required' => false)),
-            )),
-        ));
-
+                ['label', 'text', ['label' => 'Заголовок', 'required' => false]],
+            ]],
+        ]);
     }
 
-    public function applyFormEvents($formMapper, $formModifier) {
-
+    public function applyFormEvents($formMapper, $formModifier)
+    {
         $formMapper->getFormBuilder()->addEventListener(
             FormEvents::PRE_SET_DATA,
             function (FormEvent $event) use ($formModifier) {
@@ -256,7 +240,6 @@ class BaseAdminStatsBlockService extends AbstractBlockService
                 // It's important here to fetch $event->getForm()->getData(), as
                 // $event->getData() will get you the client data (that is, the ID)
                 $data = $event->getForm()->getData();
-
 
                 // since we've added the listener to the child, we'll have to pass on
                 // the parent to the callback functions!
@@ -278,10 +261,10 @@ class BaseAdminStatsBlockService extends AbstractBlockService
                 $settings = $data->getSettings();
 
                 if (isset($settings['dimensions'])) {
-                    $fields = array();
+                    $fields = [];
 
                     foreach ($settings['dimensions'] as $settingKey => $settingValue) {
-                        if (in_array($settingValue['field'], $fields)) {
+                        if (in_array($settingValue['field'], $fields, true)) {
                             unset($settings['dimensions'][$settingKey]);
                         }
                         $fields[] = $settingValue['field'];
@@ -289,20 +272,17 @@ class BaseAdminStatsBlockService extends AbstractBlockService
                 }
 
                 if (isset($settings['metrics'])) {
-                    $fields = array();
+                    $fields = [];
 
                     foreach ($settings['metrics'] as $settingKey => $settingValue) {
-                        if (in_array($settingValue['field'] . $settingValue['aggregation'], $fields)) {
+                        if (in_array($settingValue['field'] . $settingValue['aggregation'], $fields, true)) {
                             unset($settings['metrics'][$settingKey]);
                         }
                         $fields[] = $settingValue['field'] . $settingValue['aggregation'];
                     }
                 }
 
-
-
                 $event->getForm()->get('settings')->setData($settings);
-
             }
         );
 
@@ -317,21 +297,21 @@ class BaseAdminStatsBlockService extends AbstractBlockService
             $settings->remove('metrics');
         }
 
-        if ($this->getRequest()->getMethod() == 'POST' && $mapping) {
+        if ('POST' === $this->getRequest()->getMethod() && $mapping) {
             $fieldsChoices = $this->getFieldsChoices();
         }
 
-        $settings->add('metrics', \Sonata\AdminBundle\Form\Type\CollectionType::class, array(
-            'attr' => array('class' => 'form-stats-metrics'),
+        $settings->add('metrics', \Sonata\AdminBundle\Form\Type\CollectionType::class, [
+            'attr' => ['class' => 'form-stats-metrics'],
             'mapped' => $mapping,
             'label' => 'Метрики',
 
             'allow_add' => true,
             'allow_delete' => true,
             'entry_type' => ImmutableArrayType::class,
-            'entry_options' => array('keys' => array(
-                array('field', ChoiceType::class, array(
-                    'attr' => array('class' => 'form-stats-metrics-field'),
+            'entry_options' => ['keys' => [
+                ['field', ChoiceType::class, [
+                    'attr' => ['class' => 'form-stats-metrics-field'],
 
                     'label' => 'Имя',
                     'multiple' => false,
@@ -339,22 +319,21 @@ class BaseAdminStatsBlockService extends AbstractBlockService
                     'choice_label' => function ($value, $key, $index) use ($fieldsChoices) {
                         return $fieldsChoices[$value];
                     },
-                )),
+                ]],
 
-                array('label', 'text', array('label' => 'Заголовок', 'required' => false)),
+                ['label', 'text', ['label' => 'Заголовок', 'required' => false]],
 
-                array('aggregation', 'choice', array(
+                ['aggregation', 'choice', [
                     'label' => 'Агрегация',
-                    'choices' => array(
+                    'choices' => [
                         'Кол-во' => 'COUNT',
                         'Сумма' => 'SUM',
                         'Среднее арифметическое' => 'AVG',
                         'Минимальное' => 'MIN',
                         'Максимальное' => 'MAX',
-                    )
-                )),
-            )),
-        ));
-
+                    ],
+                ]],
+            ]],
+        ]);
     }
 }

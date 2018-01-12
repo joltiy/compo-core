@@ -33,7 +33,7 @@ class AuditReader extends \Sonata\DoctrineORMAdminBundle\Model\AuditReader
         foreach ($newValues as $key => $value) {
             $key = preg_replace_callback('/(?:^|_)([a-z])/', function ($matches) {
 //       Start or underscore    ^      ^ lowercase character
-                return strtoupper($matches[1]);
+                return mb_strtoupper($matches[1]);
             }, $key);
 
             $setter = sprintf('set%s', ucfirst($key));

@@ -28,9 +28,9 @@ class BaseDeployCommand extends ContainerAwareCommand
     {
         $this->runCommand(
             'doctrine:migrations:migrate',
-            array(
+            [
                 '--no-interaction' => 1,
-            )
+            ]
         );
     }
 
@@ -42,7 +42,7 @@ class BaseDeployCommand extends ContainerAwareCommand
      *
      * @throws \Exception
      */
-    public function runCommand($command, array $arrayInput = array())
+    public function runCommand($command, array $arrayInput = [])
     {
         $application = $this->getApplication();
 
@@ -84,9 +84,9 @@ class BaseDeployCommand extends ContainerAwareCommand
             /* @var $site Site */
             $this->runCommand(
                 'sonata:page:update-core-routes',
-                array(
-                    '--site' => array($site->getId()),
-                )
+                [
+                    '--site' => [$site->getId()],
+                ]
             );
         }
     }
@@ -109,19 +109,19 @@ class BaseDeployCommand extends ContainerAwareCommand
     public function runCreateSnapshots()
     {
         $pages = $this->getContainer()->get('sonata.page.manager.page')->findBy(
-            array(
+            [
                 'edited' => 1,
-            )
+            ]
         );
 
         foreach ($pages as $item) {
             /* @var $item Page */
             $this->getContainer()->get('sonata.notification.backend.runtime')->createAndPublish(
                 'sonata.page.create_snapshot',
-                array(
+                [
                     'pageId' => $item->getId(),
                     'mode' => 'sync',
-                )
+                ]
             );
         }
     }
@@ -140,9 +140,9 @@ class BaseDeployCommand extends ContainerAwareCommand
         } else {
             $this->runCommand(
                 'cache:clear',
-                array(
+                [
                     '--no-warmup' => 1,
-                )
+                ]
             );
         }
     }
@@ -154,17 +154,17 @@ class BaseDeployCommand extends ContainerAwareCommand
     {
         $this->runCommand(
             'assetic:dump',
-            array(
+            [
                 '--env' => 'dev',
-            )
+            ]
         );
 
         $this->runCommand(
             'assetic:dump',
-            array(
+            [
                 '--env' => 'prod',
                 '--no-debug',
-            )
+            ]
         );
     }
 
@@ -179,10 +179,10 @@ class BaseDeployCommand extends ContainerAwareCommand
 
         $this->runCommand(
             'sylius:theme:assets:install',
-            array(
+            [
                 '--symlink' => true,
                 '--relative' => true,
-            )
+            ]
         );
     }
 
@@ -193,10 +193,10 @@ class BaseDeployCommand extends ContainerAwareCommand
     {
         $this->runCommand(
             'doctrine:schema:update',
-            array(
+            [
                 '--force' => true,
                 '--dump-sql' => true,
-            )
+            ]
         );
     }
 
@@ -207,9 +207,9 @@ class BaseDeployCommand extends ContainerAwareCommand
     {
         $this->runCommand(
             'doctrine:fixtures:load',
-            array(
+            [
                 '--append' => true,
-            )
+            ]
         );
     }
 
@@ -233,13 +233,13 @@ class BaseDeployCommand extends ContainerAwareCommand
     {
         $this->runCommand(
             'doctrine:schema:drop',
-            array(
+            [
                 '--no-interaction' => 1,
                 '--force' => 1,
                 '--quiet' => 1,
                 '--no-debug' => 1,
                 '--full-database' => 1,
-            )
+            ]
         );
     }
 

@@ -82,8 +82,8 @@ class MenuItemAdmin extends AbstractAdmin
             ->add(
                 '_action',
                 null,
-                array(
-                )
+                [
+                ]
             );
     }
 
@@ -104,7 +104,7 @@ class MenuItemAdmin extends AbstractAdmin
             $admin = $this->isChild() ? $this->getParent() : $this;
 
             $menu_id = $admin->getRequest()->get('id');
-            $root_menu_item = $this->getDoctrine()->getRepository('CompoMenuBundle:MenuItem')->findOneBy(array('menu' => $menu_id));
+            $root_menu_item = $this->getDoctrine()->getRepository('CompoMenuBundle:MenuItem')->findOneBy(['menu' => $menu_id]);
         }
 
         /** @var MenuItemRepository $repository */
@@ -126,16 +126,16 @@ class MenuItemAdmin extends AbstractAdmin
 
         $formMapper->tab(
             'main_menu',
-            array(
+            [
                 'translation_domain' => $this->getTranslationDomain(),
-            )
+            ]
         );
 
         $formMapper->with(
             'main',
-            array(
+            [
                 'name' => false,
-            )
+            ]
         );
 
         $formMapper
@@ -147,39 +147,39 @@ class MenuItemAdmin extends AbstractAdmin
         $formMapper->add(
             'parent',
             TreeSelectorType::class,
-            array(
+            [
                 'current' => $subject,
                 'model_manager' => $this->getModelManager(),
                 'class' => $this->getClass(),
                 'tree' => $tree,
                 'required' => true,
-            )
+            ]
         );
 
         $formMapper
             ->add(
                 'type',
                 'sonata_type_choice_field_mask',
-                array(
-                    'choices' => array(
+                [
+                    'choices' => [
                         'URL' => 'url',
                         'Страница' => 'page',
                         'Тегирование' => 'tagging',
                         'Категория' => 'catalog',
                         'Страна' => 'country',
                         'Производитель' => 'manufacture',
-                    ),
-                    'map' => array(
-                        'url' => array('url'),
-                        'page' => array('page'),
-                        'tagging' => array('tagging'),
-                        'catalog' => array('catalog'),
-                        'country' => array('country'),
-                        'manufacture' => array('manufacture'),
-                    ),
+                    ],
+                    'map' => [
+                        'url' => ['url'],
+                        'page' => ['page'],
+                        'tagging' => ['tagging'],
+                        'catalog' => ['catalog'],
+                        'country' => ['country'],
+                        'manufacture' => ['manufacture'],
+                    ],
                     'placeholder' => 'Укажите тип',
                     'required' => false,
-                )
+                ]
             );
 
         $query = $this->getDoctrine()->getManager()->createQuery('SELECT p FROM Compo\Sonata\PageBundle\Entity\Page p WHERE p.routeName = \'page_slug\' ORDER BY p.parent ASC, p.position ASC');
@@ -187,10 +187,10 @@ class MenuItemAdmin extends AbstractAdmin
         $formMapper->add(
             'page',
             'sonata_type_model',
-            array(
+            [
                 'required' => false,
                 'query' => $query,
-            )
+            ]
         );
 
         $query = $this->getDoctrine()->getManager()->createQuery('SELECT p FROM Compo\CountryBundle\Entity\Country p ORDER BY p.name ASC');
@@ -198,10 +198,10 @@ class MenuItemAdmin extends AbstractAdmin
         $formMapper->add(
             'country',
             'sonata_type_model',
-            array(
+            [
                 'required' => false,
                 'query' => $query,
-            )
+            ]
         );
 
         $query = $this->getDoctrine()->getManager()->createQuery('SELECT p FROM Compo\ManufactureBundle\Entity\Manufacture p ORDER BY p.name ASC');
@@ -209,10 +209,10 @@ class MenuItemAdmin extends AbstractAdmin
         $formMapper->add(
             'manufacture',
             'sonata_type_model',
-            array(
+            [
                 'required' => false,
                 'query' => $query,
-            )
+            ]
         );
 
         $query = $this->getDoctrine()->getManager()->createQuery('SELECT p FROM Compo\TaggingBundle\Entity\Tagging p ORDER BY p.name ASC');
@@ -220,10 +220,10 @@ class MenuItemAdmin extends AbstractAdmin
         $formMapper->add(
             'tagging',
             'sonata_type_model',
-            array(
+            [
                 'required' => false,
                 'query' => $query,
-            )
+            ]
         );
 
         /** @var \Doctrine\ORM\QueryBuilder $queryBuilder */
@@ -237,12 +237,12 @@ class MenuItemAdmin extends AbstractAdmin
         $formMapper->add(
             'catalog',
             TreeSelectorType::class,
-            array(
+            [
                 'model_manager' => $this->getConfigurationPool()->getContainer()->get('compo_catalog.admin.catalog')->getModelManager(),
                 'class' => $this->getConfigurationPool()->getContainer()->get('compo_catalog.admin.catalog')->getClass(),
                 'tree' => $tree,
                 'required' => true,
-            )
+            ]
         );
 
         $formMapper->add('url');
@@ -250,13 +250,13 @@ class MenuItemAdmin extends AbstractAdmin
         $formMapper->add(
             'target',
             'choice',
-            array(
+            [
                 'required' => false,
-                'choices' => array(
+                'choices' => [
                     'В новом окне' => '_blank',
-                ),
+                ],
                 'multiple' => false,
-            )
+            ]
         );
 
         $formMapper->add('image');
