@@ -1,22 +1,59 @@
 <?php
 
-if (!file_exists(__DIR__ . '/src')) {
-    exit(0);
-}
+$rules = [
+    '@PSR2' => true,
+    '@Symfony' => true,
+    '@Symfony:risky' => true,
+
+    'array_syntax' => ['syntax' => 'short'],
+    'protected_to_private' => false,
+    'concat_space' => ['spacing' => 'one'],
+    'combine_consecutive_issets' => true,
+    'combine_consecutive_unsets' => true,
+    'no_useless_else' => true,
+    'no_useless_return' => true,
+    'ordered_imports' => true,
+    'phpdoc_order' => true,
+    'semicolon_after_instruction' => true,
+    'linebreak_after_opening_tag' => true,
+    'no_php4_constructor' => true,
+    'mb_str_functions' => true,
+    'php_unit_strict' => true,
+    'no_unreachable_default_argument_value' => true,
+    'strict_comparison' => true,
+    'strict_param' => true,
+
+    //'compact_nullable_typehint' => true,
+
+    '@PHP56Migration' => true,
+    '@PHP56Migration:risky' => true,
+    '@PHPUnit57Migration:risky' => true,
+
+    //'@PHP70Migration' => true,
+    //'@PHP70Migration:risky' => true,
+    '@PHPUnit60Migration:risky' => true,
+
+    //'@PHP71Migration' => true,
+    //'@PHP71Migration:risky' => true,
+];
+
+$finder = PhpCsFixer\Finder::create()
+    ->in(__DIR__)
+    ->exclude('var')
+
+    //->exclude('Tests/Fixtures')
+    //->exclude('tests/Fixtures')
+    //->exclude('Resources/skeleton')
+    //->exclude('Resources/public/vendor')
+
+    //->exclude('config')
+    //->exclude('public/bundles')
+    //->exclude('public/build')
+;
 
 return PhpCsFixer\Config::create()
-    ->setRules(array(
-        '@PSR2' => true,
-        '@Symfony' => true,
-        '@Symfony:risky' => true,
-        'array_syntax' => array('syntax' => 'long'),
-        'protected_to_private' => false,
-        'concat_space' => array('spacing' => 'one'),
-    ))
+    ->setRules($rules)
+    ->setFinder($finder)
     ->setRiskyAllowed(true)
-    ->setFinder(
-        PhpCsFixer\Finder::create()
-            ->in(__DIR__ . '/src')
-            ->append(array(__FILE__))
-            ->exclude(array())
-    );
+    ->setUsingCache(true)
+    ->setCacheFile(__DIR__ . '/var/.php_cs.cache');
