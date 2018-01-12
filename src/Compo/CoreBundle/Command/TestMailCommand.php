@@ -34,7 +34,5 @@ class TestMailCommand extends ContainerAwareCommand
             );
 
         $mailer->send($message);
-
-
     }
 }
