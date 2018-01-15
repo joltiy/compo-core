@@ -110,6 +110,7 @@ class SonataImportCommand extends ContainerAwareCommand
             }
 
             foreach ($iterator as $line => $dataRaw) {
+
                 if (0 === $line) {
                     $firstLine = $dataRaw;
                     continue;
@@ -135,6 +136,7 @@ class SonataImportCommand extends ContainerAwareCommand
                 $newValueRawArray = [];
 
                 foreach ($exportFields as $key => $name) {
+
                     if (!isset($data[$key])) {
                         $transLabel = $instance->getExportTranslationLabel($key, $name);
 
@@ -333,7 +335,6 @@ class SonataImportCommand extends ContainerAwareCommand
                         ];
                     }
 
-                    $uow->detach($entity);
 
                     $log->setChanges($changes);
                 } else {
@@ -341,8 +342,11 @@ class SonataImportCommand extends ContainerAwareCommand
                     $log->setStatus(ImportLog::STATUS_ERROR);
                 }
 
+                $this->em->detach($entity);
+
                 $this->em->persist($log);
                 $this->em->flush($log);
+                $this->em->detach($log);
             }
 
             $uploadFile->setStatus(UploadFile::STATUS_SUCCESS);

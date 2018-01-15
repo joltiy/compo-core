@@ -31,14 +31,37 @@ class XlsxFileLoader implements FileLoaderInterface
 
         $rows = [];
 
+        $headers = array();
+
+        $i = 0;
+
         foreach ($sheet->getRowIterator() as $row) {
             $row_item = [];
 
+            $col_i = 1;
+
             foreach ($row->getCellIterator() as $cell) {
+                if ($i > 0 && $col_i > count($headers)) {
+                    break;
+                }
+
+                if ($i === 0) {
+
+                    if (is_null($cell->getValue())) {
+                        break;
+                    }
+
+                    $headers[] = $cell->getValue();
+                }
+
                 $row_item[] = $cell->getValue();
+
+                $col_i++;
             }
 
             $rows[] = $row_item;
+
+            $i++;
         }
 
         return $rows;
