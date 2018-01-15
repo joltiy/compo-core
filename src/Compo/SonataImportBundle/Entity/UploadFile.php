@@ -60,7 +60,7 @@ class UploadFile
     /**
      * @var string
      *
-     * @ORM\Column(name="loader_class", type="string")
+     * @ORM\Column(name="loader_class", type="integer")
      */
     private $loaderClass;
 

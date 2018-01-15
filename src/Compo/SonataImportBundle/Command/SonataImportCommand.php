@@ -45,6 +45,9 @@ class SonataImportCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $batchSize = 100;
+        $i = 1;
+
         $isDryRun = $input->getOption('dry-run');
 
         $this->em = $this->getContainer()->get('doctrine')->getManager();
@@ -87,6 +90,7 @@ class SonataImportCommand extends ContainerAwareCommand
             $identifier = $meta->getSingleIdentifierFieldName();
             $exportFields = $instance->getExportFields();
             //$form = $instance->getFormBuilder();
+            $formBuilder = $instance->getFormBuilder();
 
             $firstLine = [];
 
@@ -171,7 +175,7 @@ class SonataImportCommand extends ContainerAwareCommand
                     //continue;
                     //}
 
-                    $formBuilder = $instance->getFormBuilder();
+
 
                     /*
                      * Многие делают ошибки в стандартной кодировке,
@@ -195,8 +199,25 @@ class SonataImportCommand extends ContainerAwareCommand
                         }
 
                         $field = $formBuilder->get($name);
-                        $value = $this->setValue($entity, $value, $oldValue, $field, $instance);
+
                         $method = $this->getSetMethod($name);
+
+                        /*
+                        if ($method == 'setEnabled') {
+                            dump($method);
+                            dump($value);
+                        }
+                        */
+
+                        $value = $this->setValue($entity, $value, $oldValue, $field, $instance);
+
+                        /*
+                        if ($method == 'setEnabled') {
+                            dump($value);
+                            dump($oldValue);
+                        }
+                        */
+
 
                         if (is_string($value) || null === $value) {
                             if ('setSlug' === $method && '' === $value) {
@@ -204,6 +225,12 @@ class SonataImportCommand extends ContainerAwareCommand
                                 $entity->$method($value);
                             }
 
+
+                            if ($value !== $oldValue) {
+                                $entity->$method($value);
+                            }
+
+                        } elseif (is_bool($oldValue)) {
                             if ($value !== $oldValue) {
                                 $entity->$method($value);
                             }
@@ -248,6 +275,8 @@ class SonataImportCommand extends ContainerAwareCommand
                     $uow->computeChangeSets();
 
                     $aChangeSet = $uow->getEntityChangeSet($entity);
+
+                    //dump($aChangeSet);
 
                     $getScheduledCollectionUpdates = $uow->getScheduledCollectionUpdates();
 

@@ -175,6 +175,14 @@ class XmlExcelWriter implements TypedWriterInterface
      */
     private function setCellValue($column, $value)
     {
+        if (is_bool($value)) {
+            if ($value) {
+                $value = 1;
+            } else {
+                $value = 0;
+            }
+        }
+
         $this->getActiveSheet()->setCellValue($column, $value);
     }
 
