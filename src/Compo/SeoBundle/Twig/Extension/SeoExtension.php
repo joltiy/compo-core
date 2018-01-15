@@ -80,6 +80,12 @@ class SeoExtension extends \Twig_Extension
     {
         $seo_page = $this->getContainer()->get('sonata.seo.page');
 
+        $vars = $seo_page->getVars();
+
+        if (isset($vars['page']) && $vars['page'] > 1) {
+            return '';
+        }
+
         return $seo_page->getDescription();
     }
 
@@ -89,6 +95,12 @@ class SeoExtension extends \Twig_Extension
     public function getDescriptionAdditional()
     {
         $seo_page = $this->getContainer()->get('sonata.seo.page');
+
+        $vars = $seo_page->getVars();
+
+        if (isset($vars['page']) && $vars['page'] > 1) {
+            return '';
+        }
 
         return $seo_page->getDescriptionAdditional();
     }
