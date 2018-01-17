@@ -183,6 +183,7 @@
 {% macro pagespeed(pagespeed) %}
     pagespeed {{ pagespeed }};
     pagespeed Disallow "*/admin/*";
+    pagespeed Disallow "*/phpmyadmin/*";
     pagespeed Disallow "*.svg";
     pagespeed FileCachePath "/var/cache/pagespeed/";
     pagespeed FileCacheSizeKb            102400;
