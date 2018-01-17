@@ -321,28 +321,32 @@ class SonataImportCommand extends ContainerAwareCommand
                                 if (ClassMetadataInfo::MANY_TO_ONE === $associationMappingsItem['type']) {
                                     $type = 'entity';
 
-                                    $repo = $em->getRepository($associationMappingsItem['targetEntity']);
-
-                                    $qb = $repo->createQueryBuilder('entity');
-
-                                    /** @var QueryBuilder $qb */
-                                    $qb = $instance->importFieldHandler($qb, $entity, $name, $value);
-                                    $qb->getQuery()->setCacheable(true);
-                                    $qb->getQuery()->setResultCacheLifetime(120);
-                                    $qb->getQuery()->setQueryCacheLifetime(120);
-                                    $result = $qb->getQuery()->getResult();
-
-                                    if (1 === count($result)) {
-                                        $valueNew = $result[0];
-                                    } else {
+                                    if ($value === '') {
                                         $valueNew = null;
+                                    } else {
+                                        $repo = $em->getRepository($associationMappingsItem['targetEntity']);
 
-                                        throw new InvalidArgumentException(
-                                            sprintf(
-                                                'Edit failed, object with id "%s" not found in association "%s".',
-                                                $value,
-                                                $name)
-                                        );
+                                        $qb = $repo->createQueryBuilder('entity');
+
+                                        /** @var QueryBuilder $qb */
+                                        $qb = $instance->importFieldHandler($qb, $entity, $name, $value);
+                                        $qb->getQuery()->setCacheable(true);
+                                        $qb->getQuery()->setResultCacheLifetime(120);
+                                        $qb->getQuery()->setQueryCacheLifetime(120);
+                                        $result = $qb->getQuery()->getResult();
+
+                                        if (1 === count($result)) {
+                                            $valueNew = $result[0];
+                                        } else {
+                                            $valueNew = null;
+
+                                            throw new InvalidArgumentException(
+                                                sprintf(
+                                                    'Edit failed, object with id "%s" not found in association "%s".',
+                                                    $value,
+                                                    $name)
+                                            );
+                                        }
                                     }
                                 }
                             }
