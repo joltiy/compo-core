@@ -28,6 +28,8 @@ class ImportLog
      */
     private $id;
 
+
+
     /**
      * @var \DateTime
      *
@@ -55,6 +57,7 @@ class ImportLog
      * @ORM\Column(name="line", type="string", length=255)
      */
     private $line;
+
 
     /**
      * @var string

@@ -69,5 +69,46 @@ class XlsxFileLoader implements FileLoaderInterface
 
     public function getIteration()
     {
+        if (!$this->file) {
+            throw new InvalidArgumentException('File not found');
+        }
+
+        $reader = \PHPExcel_IOFactory::createReader('Excel2007');
+
+        $objPHPExcel = $reader->load($this->file->getRealPath());
+
+        $sheet = $objPHPExcel->getActiveSheet();
+
+        $headers = [];
+
+        foreach ($sheet->getRowIterator(1,1) as $row) {
+
+            /** @var \PHPExcel_Cell $cell */
+            foreach ($row->getCellIterator() as $cell) {
+                if (null === $cell->getValue()) {
+                    break;
+                }
+
+                $headers[] = $cell->getValue();
+            }
+        }
+
+        foreach ($sheet->getRowIterator() as $row) {
+            $row_item = [];
+
+            $col_i = 1;
+
+            foreach ($row->getCellIterator() as $cell) {
+                if ($col_i > count($headers)) {
+                    break;
+                }
+
+                $row_item[] = $cell->getValue();
+
+                $col_i++;
+            }
+
+            yield $row_item;
+        }
     }
 }

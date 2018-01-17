@@ -20,11 +20,33 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\HttpFoundation\File\File;
 
+/**
+ * Class SonataImportCommand
+ */
 class SonataImportCommand extends ContainerAwareCommand
 {
-    /** @var EntityManager $this->em */
+    /** @var EntityManager $this ->em */
     protected $em;
 
+    /**
+     * @return EntityManager
+     */
+    public function getEm(): EntityManager
+    {
+        return $this->em;
+    }
+
+    /**
+     * @param EntityManager $em
+     */
+    public function setEm(EntityManager $em): void
+    {
+        $this->em = $em;
+    }
+
+    /**
+     * @inheritdoc
+     */
     protected function configure()
     {
         $this
@@ -39,42 +61,71 @@ class SonataImportCommand extends ContainerAwareCommand
                 'dr',
                 InputOption::VALUE_NONE,
                 'Dry run'
-            )
-        ;
+            );
     }
 
+    /**
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     * @return int|null|void
+     * @throws ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $batchSize = 100;
-        $i = 1;
+        $logs = [];
+
 
         $isDryRun = $input->getOption('dry-run');
 
-        $this->em = $this->getContainer()->get('doctrine')->getManager();
         $uploadFileId = $input->getArgument('csv_file');
         $adminCode = $input->getArgument('admin_code');
         $encode = mb_strtolower($input->getArgument('encode'));
         $fileLoaderId = $input->getArgument('file_loader');
 
+        $container = $this->getContainer();
+
+        $doctrine = $container->get('doctrine');
+
+        /** @var EntityManager $em */
+        $em = $doctrine->getManager();
+
+        $this->setEm($em);
+
         /** @var UploadFile $uploadFile */
-        $uploadFile = $this->em->getRepository('CompoSonataImportBundle:UploadFile')->find($uploadFileId);
-        $fileLoaders = $this->getContainer()->getParameter('compo_sonata_import.class_loaders');
-        $fileLoader = isset($fileLoaders[$fileLoaderId], $fileLoaders[$fileLoaderId]['class']) ?
-            $fileLoaders[$fileLoaderId]['class'] :
-            null;
+        $uploadFile = $em->getRepository(UploadFile::class)->find($uploadFileId);
+
+        if (null === $uploadFile) {
+            throw new \Exception('Upload file not found');
+        }
+
+        $fileLoaders = $container->getParameter('compo_sonata_import.class_loaders');
+
+        $fileLoader = null;
+
+        if (isset($fileLoaders[$fileLoaderId]['class'])) {
+            $fileLoader = $fileLoaders[$fileLoaderId]['class'];
+        }
+
 
         if (!class_exists($fileLoader)) {
             $uploadFile->setStatus(UploadFile::STATUS_ERROR);
             $uploadFile->setMessage('class_loader not found');
-            $this->em->flush($uploadFile);
+
+            $em->flush($uploadFile);
 
             return;
         }
+
         $fileLoader = new $fileLoader();
+
         if (!$fileLoader instanceof FileLoaderInterface) {
             $uploadFile->setStatus(UploadFile::STATUS_ERROR);
             $uploadFile->setMessage('class_loader must be instanceof "FileLoaderInterface"');
-            $this->em->flush($uploadFile);
+
+            $em->flush($uploadFile);
 
             return;
         }
@@ -82,15 +133,20 @@ class SonataImportCommand extends ContainerAwareCommand
         try {
             $fileLoader->setFile(new File($uploadFile->getFile()));
 
-            $pool = $this->getContainer()->get('sonata.admin.pool');
-            /** @var AbstractAdmin $instance */
+            $pool = $container->get('sonata.admin.pool');
+
+            /** @var \Compo\Sonata\AdminBundle\Admin\AbstractAdmin $instance */
             $instance = $pool->getInstance($adminCode);
+
             $entityClass = $instance->getClass();
-            $meta = $this->em->getClassMetadata($entityClass);
+
+            $meta = $em->getClassMetadata($entityClass);
+
             $identifier = $meta->getSingleIdentifierFieldName();
+
             $exportFields = $instance->getExportFields();
-            //$form = $instance->getFormBuilder();
-            $formBuilder = $instance->getFormBuilder();
+
+            $validator = $container->get('validator');
 
             $firstLine = [];
 
@@ -103,16 +159,47 @@ class SonataImportCommand extends ContainerAwareCommand
                 }
             }
 
-            if (0 === $uploadFile->getLoaderClass()) {
-                $iterator = $fileLoader->getRows();
-            } else {
-                $iterator = $fileLoader->getIteration();
-            }
+            $iterator = $fileLoader->getIteration();
+
+            $headers = [];
+            $headersRevert = [];
+            $methods = [];
+
+            $mappings = $container->getParameter('compo_sonata_import.mappings');
+
+            $associationMappings = $meta->associationMappings;
+            $fieldsMappings = $meta->fieldMappings;
+
 
             foreach ($iterator as $line => $dataRaw) {
+                dump($line);
 
                 if (0 === $line) {
                     $firstLine = $dataRaw;
+                    dump($firstLine);
+
+                    foreach ($exportFields as $key => $name) {
+                        $data_key = $key;
+
+                        if (!in_array($data_key, $firstLine, true)) {
+                            $data_key = $instance->getExportTranslationLabel($data_key, $name);
+
+
+                            if (!in_array($data_key, $firstLine, true)) {
+                                continue;
+                            }
+                        }
+
+                        $headers[$key] = $data_key;
+
+                        $headersRevert[$data_key] = $key;
+
+                        $methods[$name] = array(
+                            'set' => $this->getSetMethod($name, 'set'),
+                            'get' => $this->getSetMethod($name, 'get'),
+                        );
+                    }
+
                     continue;
                 }
 
@@ -123,60 +210,53 @@ class SonataImportCommand extends ContainerAwareCommand
                 }
 
                 $log = new ImportLog();
-                $log
-                    ->setLine($line)
-                    ->setUploadFile($uploadFile)
-                ;
 
-                $entity = new $entityClass();
+                $log->setLine($line);
+
+
+                //$log->setUploadFile($uploadFile);
+
+
                 $errors = [];
 
                 $changes = [];
+
                 $oldValueRawArray = [];
                 $newValueRawArray = [];
 
-                foreach ($exportFields as $key => $name) {
 
-                    if (!isset($data[$key])) {
-                        $transLabel = $instance->getExportTranslationLabel($key, $name);
+                $identifier_data_key = $headers[$identifier];
 
-                        if (array_key_exists($transLabel, $data)) {
-                            $data_key = $transLabel;
-                        } else {
-                            continue;
-                        }
-                    } else {
-                        $data_key = $key;
+                $identifier_value = $data[$identifier_data_key];
+
+                if ($identifier_value) {
+                    $entity = $instance->getObject($identifier_value);
+
+                    if (!$entity) {
+                        $errors[] = 'Not found';
                     }
+                } else {
+                    $entity = new $entityClass();
+                }
 
-                    $valueRaw = $value = isset($data[$data_key]) ? $data[$data_key] : '';
 
-                    $newValueRawArray[$name] = $valueRaw;
 
-                    /*
-                     * В случае если указан ID (первый столбец)
-                     * ищем сущность в базе
-                     */
-                    if ($name === $identifier) {
-                        if ($value) {
-                            $oldEntity = $instance->getObject($value);
-
-                            if ($oldEntity) {
-                                $entity = $oldEntity;
-                            }
-                        }
+                foreach ($exportFields as $key => $name) {
+                    if (!array_key_exists($key, $headers)) {
                         continue;
                     }
 
-                    /**
-                     * Поля форм не всегда соответствуют тому, что есть на сайте, и что в админке
-                     * Поэтому если поле не указано в админке, то просто пропускаем его.
-                     */
-                    //if (!$form->has($name)) {
+                    $data_key = $headers[$key];
 
-                    //continue;
-                    //}
+                    $valueRaw = $data[$data_key];
 
+                    $newValueRawArray[$name] = $valueRaw;
+
+                    $value = $valueRaw;
+
+                    if ($name === $identifier) {
+                        continue;
+                    }
 
 
                     /*
@@ -187,57 +267,139 @@ class SonataImportCommand extends ContainerAwareCommand
                         $value = iconv($encode, 'utf8//TRANSLIT', $value);
                     }
 
+
                     try {
-                        $getMethod = $this->getSetMethod($name, 'get');
+                        $getMethod = $methods[$name]['get'];
+                        $setMethod = $methods[$name]['set'];
 
                         $oldValue = $entity->$getMethod();
-                        $oldValueRaw = $oldValue;
 
                         if (isset($exportFieldsAsString[$name])) {
                             $getMethodRaw = $getMethod . 'ExportAsString';
-
-                            $oldValueRaw = $entity->$getMethodRaw();
-                            $oldValueRawArray[$name] = $oldValueRaw;
+                            $oldValueRawArray[$name] = $entity->$getMethodRaw();
                         }
 
-                        $field = $formBuilder->get($name);
+                        try {
+                            $valueNew = null;
 
-                        $method = $this->getSetMethod($name);
+                            $type = '';
 
-                        /*
-                        if ($method == 'setEnabled') {
-                            dump($method);
-                            dump($value);
+                            if (isset($fieldsMappings[$name])) {
+                                $type = $fieldsMappings[$name]['type'];
+                            }
+
+                            if (isset($associationMappings[$name])) {
+                                $associationMappingsItem = $associationMappings[$name];
+
+                                if (ClassMetadataInfo::MANY_TO_MANY === $associationMappingsItem['type']) {
+                                    $valueArray = explode(',', $value);
+
+                                    foreach ($valueArray as $valueArrayKey => $valueArrayItem) {
+                                        $valueArray[$valueArrayKey] = trim($valueArrayItem);
+                                    }
+
+                                    $type = 'many_to_many';
+
+
+                                    $repo = $em->getRepository($associationMappingsItem['targetEntity']);
+
+                                    $valueCollection = [];
+
+                                    foreach ($valueArray as $valueItem) {
+                                        $valueItemObject = $repo->findOneBy([
+                                            'name' => $valueItem,
+                                        ]);
+
+                                        if ($valueItemObject) {
+                                            $valueCollection[$valueItemObject->getId()] = $valueItemObject;
+                                        }
+                                    }
+
+                                    $valueNew = $valueCollection;
+                                }
+
+                                if (ClassMetadataInfo::MANY_TO_ONE === $associationMappingsItem['type']) {
+                                    $type = 'entity';
+
+                                    $repo = $em->getRepository($associationMappingsItem['targetEntity']);
+
+                                    $qb = $repo->createQueryBuilder('entity');
+
+                                    /** @var QueryBuilder $qb */
+                                    $qb = $instance->importFieldHandler($qb, $entity, $name, $value);
+                                    $qb->getQuery()->setCacheable(true);
+                                    $qb->getQuery()->setResultCacheLifetime(120);
+                                    $qb->getQuery()->setQueryCacheLifetime(120);
+                                    $result = $qb->getQuery()->getResult();
+
+                                    if (1 === count($result)) {
+                                        $valueNew = $result[0];
+                                    } else {
+                                        $valueNew = null;
+
+                                        throw new InvalidArgumentException(
+                                            sprintf(
+                                                'Edit failed, object with id "%s" not found in association "%s".',
+                                                $value,
+                                                $name)
+                                        );
+                                    }
+                                }
+                            }
+
+
+
+                            if ('date' === $type || 'datetime' === $type) {
+                                if ($value) {
+                                    $valueNew = new \DateTime($value);
+
+                                    if ($valueNew === $oldValue) {
+                                        $valueNew = $oldValue;
+                                    }
+                                } else {
+                                    $valueNew = null;
+                                }
+                            }
+
+                            if ('boolean' === $type) {
+                                $valueNew = filter_var($value, FILTER_VALIDATE_BOOLEAN);
+                            }
+
+                            if ('integer' === $type) {
+                                $valueNew = (int) $value;
+                            }
+
+                            if ('string' === $type) {
+                                $valueNew = $value;
+                            }
+
+                            if ('decimal' === $type) {
+                                $valueNew = number_format($value, 2, '.', '');
+                            }
+
+                        } catch (ORMException $e) {
+                            throw new InvalidArgumentException('Field name not found: ' . $e->getMessage());
                         }
-                        */
 
-                        $value = $this->setValue($entity, $value, $oldValue, $field, $instance);
 
-                        /*
-                        if ($method == 'setEnabled') {
-                            dump($value);
-                            dump($oldValue);
-                        }
-                        */
 
+                        $value = $valueNew;
 
                         if (is_string($value) || null === $value) {
-                            if ('setSlug' === $method && '' === $value) {
+                            if ('setSlug' === $setMethod && '' === $value) {
                                 $value = null;
-                                $entity->$method($value);
+                                $entity->$setMethod($value);
                             }
-
 
                             if ($value !== $oldValue) {
-                                $entity->$method($value);
+                                $entity->$setMethod($value);
                             }
-
                         } elseif (is_bool($oldValue)) {
                             if ($value !== $oldValue) {
-                                $entity->$method($value);
+                                $entity->$setMethod($value);
                             }
                         } else {
-                            $entity->$method($value);
+                            $entity->$setMethod($value);
                         }
 
                         if (isset($exportFieldsAsString[$name])) {
@@ -250,20 +412,19 @@ class SonataImportCommand extends ContainerAwareCommand
                     }
                 }
 
-                $idMethod = $this->getSetMethod($identifier, 'get');
+
+
+                $idMethod = $methods[$identifier]['get'];
 
                 if ($entity->$idMethod()) {
                     $log->setForeignId($entity->$idMethod());
                 }
 
                 if (!count($errors)) {
-                    $validator = $this->getContainer()->get('validator');
                     $errors = $validator->validate($entity);
                 }
 
                 if (!count($errors)) {
-                    $idMethod = $this->getSetMethod($identifier, 'get');
-
                     /*
                      * Если у сещности нет ID, то она новая - добавляем ее
                      */
@@ -272,13 +433,12 @@ class SonataImportCommand extends ContainerAwareCommand
                     } else {
                         $log->setStatus(ImportLog::STATUS_EXISTS);
                     }
-                    $uow = $this->em->getUnitOfWork();
+
+                    $uow = $em->getUnitOfWork();
 
                     $uow->computeChangeSets();
 
                     $aChangeSet = $uow->getEntityChangeSet($entity);
-
-                    //dump($aChangeSet);
 
                     $getScheduledCollectionUpdates = $uow->getScheduledCollectionUpdates();
 
@@ -286,7 +446,9 @@ class SonataImportCommand extends ContainerAwareCommand
 
                     if (count($aChangeSet) || count($getScheduledCollectionUpdates) || count($getScheduledCollectionDeletions)) {
                         if (!$isDryRun) {
-                            $this->em->flush($entity);
+                            //$em->persist($entity);
+                        } else {
+                            //$em->detach($entity);
                         }
                     } else {
                         if (!$entity->$idMethod()) {
@@ -302,11 +464,16 @@ class SonataImportCommand extends ContainerAwareCommand
                             $log->setChanges($changes);
 
                             if (!$isDryRun) {
-                                $this->em->persist($entity);
-                                $this->em->flush($entity);
+                                $em->persist($entity);
+                                //$this->em->flush($entity);
                                 $log->setForeignId($entity->$idMethod());
+                            } else {
+                                //$em->detach($entity);
                             }
                         } else {
+
+                            //$em->detach($entity);
+
                             $log->setStatus(ImportLog::STATUS_NOCHANGE);
                         }
                     }
@@ -335,22 +502,67 @@ class SonataImportCommand extends ContainerAwareCommand
                         ];
                     }
 
-
                     $log->setChanges($changes);
                 } else {
                     $log->setMessage(json_encode($errors));
                     $log->setStatus(ImportLog::STATUS_ERROR);
                 }
 
-                $this->em->detach($entity);
 
-                $this->em->persist($log);
-                $this->em->flush($log);
-                $this->em->detach($log);
+                $logs[] = $log;
+
+                dump($changes);
+
+
+                //$em->persist($log);
+
+                //$em->flush($log);
+
+                //$em->detach($log);
+
+
+                $em->detach($entity);
+
+                //$em->clear(get_class($entity));
+                //$em->clear(get_class($log));
+
+                $em->clear();
+
+                if (($line % $batchSize) === 0) {
+                    $uploadFile = $em->getRepository(UploadFile::class)->find($uploadFileId);
+
+                    /** @var ImportLog $logItem */
+                    foreach ($logs as $logItem) {
+                        $logItem->setUploadFile($uploadFile);
+                        $em->persist($logItem);
+                    }
+
+                    $logs = [];
+
+                    $em->flush();
+                    $em->clear(); // Detaches all objects from Doctrine!
+                }
             }
 
+            $uploadFile = $em->getRepository(UploadFile::class)->find($uploadFileId);
+
+
             $uploadFile->setStatus(UploadFile::STATUS_SUCCESS);
-            $this->em->flush($uploadFile);
+
+            /** @var ImportLog $logItem */
+            foreach ($logs as $logItem) {
+                $logItem->setUploadFile($uploadFile);
+                $em->persist($logItem);
+            }
+
+            //$em->flush($uploadFile);
+
+            //$uow = $em->getUnitOfWork();
+
+            $em->flush();
+
+            $em->clear();
+
         } catch (\Exception $e) {
             throw $e;
             /*
@@ -358,193 +570,32 @@ class SonataImportCommand extends ContainerAwareCommand
              * В случае бросания ORMException entity manager останавливается
              * и его требуется перезагрузить
              */
-            if (!$this->em->isOpen()) {
-                $this->em = $this->em->create(
-                    $this->em->getConnection(),
-                    $this->em->getConfiguration()
-                );
-                $uploadFile = $this->em->getRepository('CompoSonataImportBundle:UploadFile')->find($uploadFileId);
+
+            /*
+            if (!$em->isOpen()) {
+                    $newEm = $em->create(
+                        $em->getConnection(),
+                        $em->getConfiguration()
+                    );
+
+                $uploadFile = $em->getRepository(UploadFile::class)->find($uploadFileId);
             }
 
             $uploadFile->setStatus(UploadFile::STATUS_ERROR);
             $uploadFile->setMessage($e->getMessage());
-            $this->em->flush($uploadFile);
+            $em->flush($uploadFile);
+             */
         }
     }
 
+    /**
+     * @param        $name
+     * @param string $method
+     * @return string
+     */
     protected function getSetMethod($name, $method = 'set')
     {
         return $method . str_replace(' ', '', ucfirst(implode('', explode('_', $name))));
     }
 
-    protected function setValue($subject, $value, $oldValue, $fieldDescription, AbstractAdmin $admin)
-    {
-        $mappings = $this->getContainer()->getParameter('compo_sonata_import.mappings');
-
-        $originalValue = $value;
-
-        $field = $fieldDescription->getName();
-        $fieldDescriptionType = $fieldDescription->getType();
-
-        if ($fieldDescriptionType->getParent() && 'form' !== $fieldDescriptionType->getParent()->getBlockPrefix()) {
-            $type = $fieldDescriptionType->getParent()->getBlockPrefix();
-        } else {
-            $type = $fieldDescriptionType->getBlockPrefix();
-        }
-
-        $metaData = $admin->getModelManager()
-            ->getEntityManager($admin->getClass())->getClassMetadata($admin->getClass());
-
-        $associationMappings = $metaData->associationMappings;
-        $fieldsMappings = $metaData->fieldMappings;
-
-        if (isset($fieldsMappings[$field])) {
-            $type = $fieldsMappings[$field]['type'];
-        }
-
-        $valueArray = [];
-
-        if (isset($associationMappings[$field])) {
-            $associationMappingsItem = $associationMappings[$field];
-
-            if (ClassMetadataInfo::MANY_TO_MANY === $associationMappingsItem['type']) {
-                $valueArray = explode(',', $value);
-
-                foreach ($valueArray as $valueArrayKey => $valueArrayItem) {
-                    $valueArray[$valueArrayKey] = trim($valueArrayItem);
-                }
-
-                $type = 'many_to_many';
-            }
-
-            if (ClassMetadataInfo::MANY_TO_ONE === $associationMappingsItem['type']) {
-                $type = 'entity';
-            }
-        }
-
-        /*
-         * Проверяем кастомные типы форм на наличие в конфиге.
-         * В случае совпадения, получаем значение из класса, указанного в конфиге
-         */
-        foreach ($mappings as $item) {
-            if ($item['name'] === $type) {
-                if ($this->getContainer()->has($item['class']) && $this->getContainer()->get($item['class']) instanceof ImportInterface) {
-                    /** @var ImportInterface $class */
-                    $class = $this->getContainer()->get($item['class']);
-
-                    return $class->getFormatValue($value);
-                }
-            }
-        }
-
-        if ('date' === $type || 'datetime' === $type) {
-            if ($value) {
-                $value = new \DateTime($value);
-                if ($value === $oldValue) {
-                    $value = $oldValue;
-                }
-            } else {
-                $value = null;
-            }
-        }
-        if ('boolean' === $type) {
-            $value = filter_var($value, FILTER_VALIDATE_BOOLEAN);
-        }
-        if ('integer' === $type) {
-            $value = (int) $value;
-        }
-
-        if ('decimal' === $type) {
-            $value = number_format($value, 2, '.', '');
-        }
-        if ('many_to_many' === $type) {
-            $repo = $admin->getConfigurationPool()->getContainer()->get('doctrine')->getManager()
-                ->getRepository($fieldDescription->getOption('class'));
-
-            $valueCollection = [];
-
-            foreach ($valueArray as $valueItem) {
-                $valueItemObject = $repo->findOneBy([
-                    'name' => $valueItem,
-                ]);
-
-                if ($valueItemObject) {
-                    $valueCollection[$valueItemObject->getId()] = $valueItemObject;
-                }
-            }
-
-            return $valueCollection;
-        }
-
-        if (
-            (
-                'choice' === $type &&
-                $fieldDescription->getOption('class')
-            ) || (
-                'entity' === $type &&
-                $fieldDescription->getOption('class')
-            )
-        ) {
-            if (!$value) {
-                return null;
-            }
-            /** @var \Doctrine\ORM\Mapping\ClassMetadata $metaData */
-            $metaData = $admin->getModelManager()
-                ->getEntityManager($admin->getClass())->getClassMetadata($admin->getClass());
-            $associations = $metaData->getAssociationNames();
-
-            if (!in_array($field, $associations, true)) {
-                throw new InvalidArgumentException(
-                    sprintf(
-                        'Unknown association "%s", association does not exist in entity "%s", available associations are "%s".',
-                        $field,
-                        $admin->getClass(),
-                        implode(', ', $associations)
-                    )
-                );
-            }
-
-            /** @var EntityRepository $repo */
-            $repo = $admin->getConfigurationPool()->getContainer()->get('doctrine')->getManager()
-                ->getRepository($fieldDescription->getOption('class'));
-
-            /*
-             * Если значение число, то пытаемся найти его по ID.
-             * Если значение не число, то ищем его по полю name
-             */
-            if (false && is_numeric($value)) {
-                $value = $repo->find($value);
-            } else {
-                try {
-                    $qb = $repo->createQueryBuilder('entity');
-
-                    /** @var QueryBuilder $qb */
-                    $qb = $admin->importFieldHandler($qb, $subject, $field, $value);
-                    $qb->getQuery()->setCacheable(true);
-                    $qb->getQuery()->setResultCacheLifetime(120);
-                    $qb->getQuery()->setQueryCacheLifetime(120);
-                    $result = $qb->getQuery()->getResult();
-
-                    if (1 === count($result)) {
-                        $value = $result[0];
-                    } else {
-                        $value = null;
-                    }
-                } catch (ORMException $e) {
-                    throw new InvalidArgumentException('Field name not found');
-                }
-            }
-
-            if (!$value) {
-                throw new InvalidArgumentException(
-                    sprintf(
-                        'Edit failed, object with id "%s" not found in association "%s".',
-                        $originalValue,
-                        $field)
-                );
-            }
-        }
-
-        return $value;
-    }
 }

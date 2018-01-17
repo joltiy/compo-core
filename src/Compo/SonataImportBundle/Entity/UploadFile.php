@@ -207,7 +207,7 @@ class UploadFile
     }
 
     /**
-     * @return string
+     * @return integer|null
      */
     public function getLoaderClass()
     {
