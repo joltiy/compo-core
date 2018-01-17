@@ -8,4 +8,4 @@ knp_paginator:
     template:
         #pagination: MopaBootstrapBundle:Pagination:sliding.html.twig     # sliding pagination controls template
         sortable: MopaBootstrapBundle:Pagination:sortable_link.html.twig # sort link template
-        pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig
+        pagination: CompoCoreBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig
