@@ -175,21 +175,4 @@ class NotificationEmailAdmin extends AbstractAdmin
             ->end()
             ->end();
     }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->add('id')
-            ->add('event')
-            ->add('recipient')
-            ->add('subject')
-            ->add('body')
-            ->add('enabled')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ->add('deletedAt');
-    }
 }

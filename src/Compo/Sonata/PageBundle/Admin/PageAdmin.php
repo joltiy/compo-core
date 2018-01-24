@@ -299,24 +299,6 @@ class PageAdmin extends AbstractAdmin
     /**
      * {@inheritdoc}
      */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->add('site')
-            ->add('routeName')
-            ->add('pageAlias')
-            ->add('type')
-            ->add('enabled')
-            ->add('decorate')
-            ->add('name')
-            ->add('slug')
-            ->add('customUrl')
-            ->add('edited');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper

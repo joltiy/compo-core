@@ -644,3 +644,7 @@ text.highcharts-credits {
     width: 50%;
     max-width: 140px;
 }
+
+.sonata-ba-view-container.history-audit-compare td.diff {
+    background: pink;
+}

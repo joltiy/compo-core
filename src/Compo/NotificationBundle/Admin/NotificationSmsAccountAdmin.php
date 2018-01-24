@@ -93,20 +93,4 @@ class NotificationSmsAccountAdmin extends AbstractAdmin
             ->end()
             ->end();
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->add('id')
-            ->add('username')
-            ->add('password')
-            ->add('name')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ->add('deletedAt')
-            ->add('description');
-    }
 }

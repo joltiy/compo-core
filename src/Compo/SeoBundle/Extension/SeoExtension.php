@@ -47,13 +47,6 @@ class SeoExtension extends AbstractAdminExtension
     /**
      * {@inheritdoc}
      */
-    public function configureShowFields(ShowMapper $showMapper)
-    {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function configureFormFields(FormMapper $formMapper)
     {
         if (!$this->isUseEntityTraits($formMapper->getAdmin(), [

@@ -73,17 +73,4 @@ class RedirectAdmin extends AbstractAdmin
             ->end()
             ->end();
     }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->add('id')
-            ->add('urIn')
-            ->add('urOut')
-            ->add('position')
-            ->add('enabled');
-    }
 }

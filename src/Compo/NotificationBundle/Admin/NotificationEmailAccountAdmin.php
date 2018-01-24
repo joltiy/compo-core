@@ -111,21 +111,4 @@ class NotificationEmailAccountAdmin extends AbstractAdmin
     {
         return $this->getContainer()->get('compo_notification.manager.notification');
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->add('id')
-            ->add('username')
-            ->add('password')
-            ->add('hostname')
-            ->add('name')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ->add('deletedAt')
-            ->add('description');
-    }
 }

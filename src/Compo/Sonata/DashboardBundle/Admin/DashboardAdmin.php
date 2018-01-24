@@ -160,18 +160,6 @@ class DashboardAdmin extends AbstractAdmin
     /**
      * {@inheritdoc}
      */
-    protected function configureShowFields(ShowMapper $showMapper): void
-    {
-        $showMapper
-            ->add('enabled')
-            ->add('name')
-            ->add('allowEdit')
-        ;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     protected function configureListFields(ListMapper $listMapper): void
     {
         $listMapper

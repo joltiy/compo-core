@@ -8,7 +8,7 @@ list_tab_menu.tree_mode: ''
 list_mode: ''
 tree_mode: ''
 action_list: 'Список'
-td_revision: 'REV'
+td_revision: 'Изменённое'
 td_current: 'Текущее'
 
 link_action_trash: 'Корзина'

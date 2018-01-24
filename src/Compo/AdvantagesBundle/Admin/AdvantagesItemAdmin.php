@@ -114,20 +114,4 @@ class AdvantagesItemAdmin extends AbstractAdmin
         $formMapper->end();
         $formMapper->end();
     }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->add('id')
-            ->add('title')
-            ->add('url')
-            ->add('name')
-            ->add('enabled')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ->add('deletedAt');
-    }
 }

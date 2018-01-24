@@ -9,6 +9,7 @@ use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Admin\AbstractAdmin as BaseAdmin;
 use Sonata\AdminBundle\Admin\FieldDescriptionInterface;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\DoctrineORMAdminBundle\Admin\FieldDescription;
 use Sonata\DoctrineORMAdminBundle\Model\ModelManager;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -826,5 +827,14 @@ class AbstractAdmin extends BaseAdmin
         $qb->setCacheable(true);
 
         return $qb;
+    }
+
+    protected function configureShowFields(ShowMapper $showMapper)
+    {
+        $array = $this->getFormFieldDescriptions();
+
+        foreach ($array as $item) {
+            $showMapper->add($item->getName());
+        }
     }
 }

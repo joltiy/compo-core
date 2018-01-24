@@ -86,21 +86,4 @@ class ContactsAdmin extends AbstractAdmin
             ->end()
             ->end();
     }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->add('id')
-            ->add('address')
-            ->add('worktime')
-            ->add('phone')
-            ->add('email')
-            ->add('bankprops')
-            ->add('walk_instruction')
-            ->add('car_instruction')
-            ->add('maps_code');
-    }
 }

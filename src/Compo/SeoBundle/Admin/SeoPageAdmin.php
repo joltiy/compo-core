@@ -169,17 +169,4 @@ class SeoPageAdmin extends AbstractAdmin
         $formMapper->end()
             ->end();
     }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->add('id')
-            ->add('context')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ->add('deletedAt');
-    }
 }

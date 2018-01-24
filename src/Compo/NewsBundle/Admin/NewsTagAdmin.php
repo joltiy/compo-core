@@ -74,20 +74,4 @@ class NewsTagAdmin extends AbstractAdmin
         $formMapper->end();
         $formMapper->end();
     }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->add('id')
-            ->add('description')
-            ->add('color')
-            ->add('position')
-            ->add('name')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ->add('deletedAt');
-    }
 }

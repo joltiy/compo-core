@@ -130,21 +130,6 @@ class FaqAdmin extends AbstractAdmin
         $formMapper->end();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->add('id')
-            ->add('name')
-            ->add('description')
-            ->add('enabled')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ->add('publicationAt');
-    }
-
     public function configureAdminNavBar($context, $vars)
     {
         $factory = new MenuFactory();

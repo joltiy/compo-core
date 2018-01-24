@@ -123,15 +123,4 @@ class FeedbackAdmin extends AbstractAdmin
         $formMapper->end()
             ->end();
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->add('id')
-            ->add('createdAt')
-            ->add('updatedAt');
-    }
 }

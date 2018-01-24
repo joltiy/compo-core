@@ -74,17 +74,4 @@ class PageCodeAdmin extends AbstractAdmin
             ->end()
             ->end();
     }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->add('id')
-            ->add('name')
-            ->add('code')
-            ->add('position')
-            ->add('enabled');
-    }
 }

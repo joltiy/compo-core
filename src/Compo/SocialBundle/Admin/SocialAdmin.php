@@ -66,18 +66,4 @@ class SocialAdmin extends AbstractAdmin
         $formMapper->end();
         $formMapper->end();
     }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->add('id')
-            ->add('name')
-            ->add('position')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ->add('deletedAt');
-    }
 }

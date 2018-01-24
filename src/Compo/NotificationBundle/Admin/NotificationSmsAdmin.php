@@ -168,20 +168,4 @@ class NotificationSmsAdmin extends AbstractAdmin
         $formMapper->end()
             ->end();
     }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->add('id')
-            ->add('event')
-            ->add('recipient')
-            ->add('body')
-            ->add('enabled')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ->add('deletedAt');
-    }
 }

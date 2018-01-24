@@ -81,14 +81,4 @@ class BannerAdmin extends AbstractAdmin
             ->end()
             ->end();
     }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->add('id')
-            ->add('name');
-    }
 }

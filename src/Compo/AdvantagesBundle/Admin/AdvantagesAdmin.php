@@ -56,14 +56,4 @@ class AdvantagesAdmin extends AbstractAdmin
         $formMapper->end();
         $formMapper->end();
     }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->add('id')
-            ->add('name');
-    }
 }

@@ -264,24 +264,4 @@ class MenuItemAdmin extends AbstractAdmin
         $formMapper->end();
         $formMapper->end();
     }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->add('id')
-            ->add('title')
-            ->add('url')
-            ->add('name')
-            ->add('enabled')
-            ->add('lft')
-            ->add('lvl')
-            ->add('rgt')
-            ->add('root')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ->add('deletedAt');
-    }
 }
