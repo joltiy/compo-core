@@ -128,6 +128,7 @@ class AppKernel extends Kernel
             new \Compo\FaqBundle\CompoFaqBundle(),
             new \Compo\SocialBundle\CompoSocialBundle(),
             new \Compo\FeedbackBundle\CompoFeedbackBundle(),
+            new \Compo\SynchronizationBundle\CompoSynchronizationBundle(),
 
             new \JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new \JMS\AopBundle\JMSAopBundle(),
