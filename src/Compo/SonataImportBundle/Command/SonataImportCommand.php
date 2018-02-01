@@ -181,11 +181,11 @@ class SonataImportCommand extends ContainerAwareCommand
                     foreach ($exportFields as $key => $name) {
                         $data_key = $key;
 
-                        if (!in_array($data_key, $firstLine, true)) {
+                        if (!in_array($data_key, $firstLine)) {
                             $data_key = $instance->getExportTranslationLabel($data_key, $name);
 
 
-                            if (!in_array($data_key, $firstLine, true)) {
+                            if (!in_array($data_key, $firstLine)) {
                                 continue;
                             }
                         }

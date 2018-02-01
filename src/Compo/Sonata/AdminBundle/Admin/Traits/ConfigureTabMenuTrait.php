@@ -35,7 +35,7 @@ trait ConfigureTabMenuTrait
          *
          */
 
-        if (in_array($action, ['list', 'upload', 'import', 'trash', 'tree', 'create'], true)) {
+        if (in_array($action, ['list', 'upload', 'import', 'trash', 'tree', 'create'])) {
             if ($childAdmin) {
                 $currentLeafChildAdmin = $this->getCurrentLeafChildAdmin();
 
@@ -148,7 +148,7 @@ trait ConfigureTabMenuTrait
             }
         }
 
-        if (in_array($action, ['list', 'upload', 'import', 'tree'], true)) {
+        if (in_array($action, ['list', 'upload', 'import', 'tree'])) {
             if ($childAdmin) {
                 if (method_exists($childAdmin, 'generatePermalink') && $childAdmin->generatePermalink()) {
                     $tabMenu->addChild(
@@ -166,7 +166,7 @@ trait ConfigureTabMenuTrait
             }
         }
 
-        if (in_array($action, ['delete', 'edit', 'history', 'untrash'], true)) {
+        if (in_array($action, ['delete', 'edit', 'history', 'untrash'])) {
             if ($childAdmin) {
                 $currentLeafChildAdmin = $this->getCurrentLeafChildAdmin();
 

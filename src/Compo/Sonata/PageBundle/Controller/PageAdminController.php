@@ -353,7 +353,7 @@ class PageAdminController extends Controller
 
             if (isset($container['blocks']) && count($container['blocks']) > 0) {
                 foreach ($blockServices as $code => $service) {
-                    if (in_array($code, $container['blocks'], true)) {
+                    if (in_array($code, $container['blocks'])) {
                         continue;
                     }
 

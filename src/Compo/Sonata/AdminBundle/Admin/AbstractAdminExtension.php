@@ -22,7 +22,7 @@ class AbstractAdminExtension extends BaseAbstractAdminExtension
 
         foreach ($traits as $trait) {
             if (
-                !in_array($trait, $traitsAdmin, true)
+                !in_array($trait, $traitsAdmin)
             ) {
                 return false;
             }
@@ -58,7 +58,7 @@ class AbstractAdminExtension extends BaseAbstractAdminExtension
             }
 
             foreach ($tb as $tb_key => $tb_item) {
-                if (in_array($group, $tb_item['groups'], true)) {
+                if (in_array($group, $tb_item['groups'])) {
                     $tab = $tb_key;
                 }
             }

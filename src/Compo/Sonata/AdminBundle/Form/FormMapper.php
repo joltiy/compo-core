@@ -123,7 +123,7 @@ class FormMapper extends \Sonata\AdminBundle\Form\FormMapper
             $tabs = $this->getTabs();
         }
 
-        if ($this->currentGroup && isset($tabs[$this->currentTab]) && !in_array($this->currentGroup, $tabs[$this->currentTab]['groups'], true)) {
+        if ($this->currentGroup && isset($tabs[$this->currentTab]) && !in_array($this->currentGroup, $tabs[$this->currentTab]['groups'])) {
             $tabs[$this->currentTab]['groups'][] = $this->currentGroup;
         }
 

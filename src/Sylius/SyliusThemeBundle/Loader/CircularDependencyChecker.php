@@ -29,7 +29,7 @@ final class CircularDependencyChecker implements CircularDependencyCheckerInterf
 
         $previousThemes = array_merge($previousThemes, [$theme]);
         foreach ($theme->getParents() as $parent) {
-            if (in_array($parent, $previousThemes, true)) {
+            if (in_array($parent, $previousThemes)) {
                 throw new CircularDependencyFoundException(array_merge($previousThemes, [$parent]));
             }
 

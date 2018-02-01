@@ -64,7 +64,7 @@ class DashboardAdmin extends AbstractAdmin
         $admin = $this->isChild() ? $this->getParent() : $this;
         $id = $admin->getRequest()->get('id');
 
-        if (in_array($action, ['delete', 'edit', 'history', 'untrash'], true)) {
+        if (in_array($action, ['delete', 'edit', 'history', 'untrash'])) {
             $tabMenu->addChild(
                 $admin->trans('tab_menu.link_render'),
                 ['uri' => $admin->generateUrl('render', ['id' => $admin->getSubject()->getId()])]
@@ -75,7 +75,7 @@ class DashboardAdmin extends AbstractAdmin
             )->setAttribute('icon', 'fa fa-folder');
         }
 
-        if (in_array($action, ['render'], true)) {
+        if (in_array($action, ['render'])) {
             $tabMenuDropdown = $tabMenu->addChild(
                 'tab_menu.list_mode.' . $admin->getLabel(),
                 [
@@ -105,7 +105,7 @@ class DashboardAdmin extends AbstractAdmin
     {
         $list = parent::configureActionButtons($action, $object);
 
-        if (in_array($action, ['show', 'delete', 'acl', 'history', 'render'], true)
+        if (in_array($action, ['show', 'delete', 'acl', 'history', 'render'])
             && $this->canAccessObject('edit', $object)
             && $this->hasRoute('edit')
         ) {

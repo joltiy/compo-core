@@ -109,7 +109,7 @@ class AdminCustomStatsBlockService extends BaseAdminStatsBlockService
                     $result[$resultKey][$key . '_raw'] = $value->getTimestamp();
                 }
 
-                if (in_array($key, $dimensionsKeys, true)) {
+                if (in_array($key, $dimensionsKeys)) {
                     $result[$resultKey][$key] = $translator->trans($value, [], $translation_domain);
                 }
             }

@@ -119,7 +119,7 @@ class AbstractAdmin extends BaseAdmin
         $elements = $this->getList()->getElements();
 
         foreach ($elements as $element) {
-            if (in_array($element->getName(), ['batch', '_action'], true)) {
+            if (in_array($element->getName(), ['batch', '_action'])) {
                 continue;
             }
 
@@ -611,7 +611,7 @@ class AbstractAdmin extends BaseAdmin
 
         $list = [];
 
-        if (in_array($action, ['create', 'acl', 'trash', 'history', 'tree', 'show', 'edit', 'delete', 'list', 'batch', 'settings'], true)
+        if (in_array($action, ['create', 'acl', 'trash', 'history', 'tree', 'show', 'edit', 'delete', 'list', 'batch', 'settings'])
             && $this->hasAccess('create')
             && $this->hasRoute('create')
         ) {
@@ -620,7 +620,7 @@ class AbstractAdmin extends BaseAdmin
             ];
         }
 
-        if (in_array($action, ['edit', 'show', 'trash', 'delete', 'acl', 'history'], true)
+        if (in_array($action, ['edit', 'show', 'trash', 'delete', 'acl', 'history'])
             && $this->canAccessObject('edit', $object)
             && $this->hasRoute('edit')
         ) {
@@ -629,7 +629,7 @@ class AbstractAdmin extends BaseAdmin
             ];
         }
 
-        if (in_array($action, ['history', 'show', 'trash', 'edit', 'acl', 'trash'], true)
+        if (in_array($action, ['history', 'show', 'trash', 'edit', 'acl', 'trash'])
             && $this->canAccessObject('history', $object)
             && $this->hasRoute('history')
         ) {
@@ -650,7 +650,7 @@ class AbstractAdmin extends BaseAdmin
         }
         */
 
-        if (in_array($action, ['create', 'trash', 'list', 'tree', 'history', 'show', 'edit', 'delete', 'acl', 'batch', 'settings'], true)
+        if (in_array($action, ['create', 'trash', 'list', 'tree', 'history', 'show', 'edit', 'delete', 'acl', 'batch', 'settings'])
             && $this->hasAccess('list')
             && $this->hasRoute('list')
         ) {
@@ -660,7 +660,7 @@ class AbstractAdmin extends BaseAdmin
         }
 
         if (
-            in_array($action, ['settings', 'trash', 'batch', 'tree', 'list'], true)
+            in_array($action, ['settings', 'trash', 'batch', 'tree', 'list'])
             && $this->hasAccess('acl') && $this->hasRoute('settings')
         ) {
             $list['settings'] = [
@@ -669,7 +669,7 @@ class AbstractAdmin extends BaseAdmin
         }
 
         if (
-            in_array($action, ['settings', 'trash', 'batch', 'tree', 'list'], true)
+            in_array($action, ['settings', 'trash', 'batch', 'tree', 'list'])
             && $this->hasAccess('acl')
         ) {
             if ($this->isUseEntityTraits(
@@ -699,7 +699,7 @@ class AbstractAdmin extends BaseAdmin
 
         foreach ($traits as $trait) {
             if (
-            !in_array($trait, $traitsAdmin, true)
+            !in_array($trait, $traitsAdmin)
             ) {
                 return false;
             }

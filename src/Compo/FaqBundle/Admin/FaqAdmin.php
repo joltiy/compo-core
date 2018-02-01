@@ -32,7 +32,7 @@ class FaqAdmin extends AbstractAdmin
     {
         $list = [];
 
-        if (in_array($action, ['history', 'acl', 'show', 'delete', 'edit'], true)) {
+        if (in_array($action, ['history', 'acl', 'show', 'delete', 'edit'])) {
             $list['show_on_site'] = [
                 'template' => $this->getTemplate('button_show_on_site'),
                 'uri' => $this->generatePermalink($this->getSubject()),

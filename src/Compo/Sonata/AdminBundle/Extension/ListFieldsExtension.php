@@ -39,9 +39,9 @@ class ListFieldsExtension extends AbstractAdminExtension
 
                 $_action_options['active'] = true;
 
-                if (in_array($key, ['batch', 'id', 'name', '_action'], true)) {
+                if (in_array($key, ['batch', 'id', 'name', '_action'])) {
                     $_action_options['active'] = true;
-                } elseif (!in_array($key, $fields, true)) {
+                } elseif (!in_array($key, $fields)) {
                     $_action_options['active'] = false;
                 } else {
                     $_action_options['active'] = true;

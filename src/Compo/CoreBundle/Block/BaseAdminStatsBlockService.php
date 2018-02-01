@@ -117,7 +117,7 @@ class BaseAdminStatsBlockService extends AbstractBlockService
                     $on = 'entity.' . $dimension_parts[0] . ' = ' . $dimension_parts[0] . '_join';
                 }
 
-                if (!in_array($associationTargetClass, $joins, true)) {
+                if (!in_array($associationTargetClass, $joins)) {
                     $joins[] = $associationTargetClass;
                     $qb->leftJoin($associationTargetClass, $dimension_parts[0] . '_join', 'WITH', $on);
                 }
@@ -167,7 +167,7 @@ class BaseAdminStatsBlockService extends AbstractBlockService
                     $on = 'entity.' . $source . ' = ' . $metric_parts[0] . '_join';
                 }
 
-                if (!in_array($associationTargetClass, $joins, true)) {
+                if (!in_array($associationTargetClass, $joins)) {
                     $joins[] = $associationTargetClass;
                     $qb->leftJoin($associationTargetClass, $metric_parts[0] . '_join', 'WITH', $on);
                 }
@@ -264,7 +264,7 @@ class BaseAdminStatsBlockService extends AbstractBlockService
                     $fields = [];
 
                     foreach ($settings['dimensions'] as $settingKey => $settingValue) {
-                        if (in_array($settingValue['field'], $fields, true)) {
+                        if (in_array($settingValue['field'], $fields)) {
                             unset($settings['dimensions'][$settingKey]);
                         }
                         $fields[] = $settingValue['field'];
@@ -275,7 +275,7 @@ class BaseAdminStatsBlockService extends AbstractBlockService
                     $fields = [];
 
                     foreach ($settings['metrics'] as $settingKey => $settingValue) {
-                        if (in_array($settingValue['field'] . $settingValue['aggregation'], $fields, true)) {
+                        if (in_array($settingValue['field'] . $settingValue['aggregation'], $fields)) {
                             unset($settings['metrics'][$settingKey]);
                         }
                         $fields[] = $settingValue['field'] . $settingValue['aggregation'];

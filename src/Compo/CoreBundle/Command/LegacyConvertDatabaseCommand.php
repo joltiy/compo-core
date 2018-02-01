@@ -86,7 +86,7 @@ class LegacyConvertDatabaseCommand extends BaseLegacyConvertCommand
     public function processLegacyConvert($convertClass, $tables)
     {
         foreach ($tables as $table) {
-            if (in_array($table, $this->tables, true)) {
+            if (in_array($table, $this->tables)) {
                 /** @var BaseLegacyConvert $convert */
                 $convert = new $convertClass();
 

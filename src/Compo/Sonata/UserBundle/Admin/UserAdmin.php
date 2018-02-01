@@ -130,7 +130,7 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
          *
          */
 
-        if (in_array($action, ['list', 'trash', 'tree', 'create'], true)) {
+        if (in_array($action, ['list', 'trash', 'tree', 'create'])) {
             if ($childAdmin) {
                 $currentLeafChildAdmin = $this->getCurrentLeafChildAdmin();
 
@@ -243,7 +243,7 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
             }
         }
 
-        if (in_array($action, ['list', 'tree'], true)) {
+        if (in_array($action, ['list', 'tree'])) {
             if ($childAdmin) {
                 if (method_exists($childAdmin, 'generatePermalink') && $childAdmin->generatePermalink()) {
                     $tabMenu->addChild(
@@ -261,7 +261,7 @@ class UserAdmin extends \Sonata\UserBundle\Admin\Model\UserAdmin
             }
         }
 
-        if (in_array($action, ['delete', 'edit', 'history', 'untrash'], true)) {
+        if (in_array($action, ['delete', 'edit', 'history', 'untrash'])) {
             if ($childAdmin) {
                 $currentLeafChildAdmin = $this->getCurrentLeafChildAdmin();
 

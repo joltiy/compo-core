@@ -37,7 +37,7 @@ class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuil
                             'ROLE_SONATA_MEDIA_ADMIN_MEDIA_CREATE',
                             'ROLE_SONATA_MEDIA_ADMIN_MEDIA_VIEW',
                             'ROLE_SONATA_MEDIA_ADMIN_MEDIA_EDIT',
-                        ], true)) {
+                        ])) {
                             $roles[$role] = $translator->trans($role, [], 'messages');
                         }
                     }
@@ -82,7 +82,7 @@ class EditableRolesBuilder extends \Sonata\UserBundle\Security\EditableRolesBuil
                 'sonata.media.admin.gallery_has_media',
                 'sonata.page.admin.snapshot',
                 'sonata.page.admin.shared_block',
-            ], true)) {
+            ])) {
                 continue;
             }
 

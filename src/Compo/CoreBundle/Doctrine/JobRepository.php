@@ -305,7 +305,7 @@ class JobRepository extends EntityRepository
 
     private function closeJobInternal(Job $job, $finalState, array &$visited = [])
     {
-        if (in_array($job, $visited, true)) {
+        if (in_array($job, $visited)) {
             return;
         }
         $visited[] = $job;

@@ -137,7 +137,7 @@ class AppKernel extends Kernel
         ];
 
         // Бандлы для test/dev окружения
-        if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
+        if (in_array($this->getEnvironment(), ['dev', 'test'])) {
             $bundles[] = new \Symfony\Bundle\DebugBundle\DebugBundle();
             $bundles[] = new \Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new \Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
