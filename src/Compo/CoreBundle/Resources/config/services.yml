@@ -203,3 +203,8 @@ services:
         arguments: [~, ~, CompoCoreBundle:AboutProjectAdmin]
         tags:
             - { name: sonata.admin, manager_type: orm, label: about_project }
+
+    twig.extension.stringloader:
+        class: Twig_Extension_StringLoader
+        tags:
+            - { name: twig.extension }
