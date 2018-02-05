@@ -174,7 +174,7 @@ task(
 
         run('mkdir -p {{release_path}}/var/database/');
 
-        upload($exportDatabasePath, '{{release_path}}/var/database/' . $parameters['parameters']['database_name'] . '.sql');
+        upload($exportDatabasePath, '{{release_path}}/var/database/' . $filename);
 
         runLocally('rm -rf ' . $exportDatabasePath);
 
