@@ -101,6 +101,14 @@ class AbstractAdmin extends BaseAdmin
             $fieldDescription->setTemplate('@CompoSonataAdmin/SonataDoctrineORMAdminBundle/CRUD/list_orm_many_to_many.html.twig');
         }
 
+        if (
+            'orm_many_to_one' === $fieldDescription->getType()
+            &&
+            $fieldDescription->getOption('editable', false)
+        ) {
+            $fieldDescription->setTemplate('@CompoSonataAdmin/SonataDoctrineORMAdminBundle/CRUD/list_orm_many_to_one.html.twig');
+        }
+
         parent::addListFieldDescription($name, $fieldDescription);
     }
 
@@ -786,6 +794,7 @@ class AbstractAdmin extends BaseAdmin
 
         $collection->add('clone', $this->getRouterIdParameter() . '/clone');
         $collection->add('update_many_to_many', $this->getRouterIdParameter() . '/update_many_to_many');
+        $collection->add('update_many_to_one', $this->getRouterIdParameter() . '/update_many_to_one');
 
         //if ($this->manager->hasReader($this->getClass())) {
         $collection->add('history_revert', $this->getRouterIdParameter() . '/history/{revision}/revert');

@@ -604,11 +604,11 @@ th.table-th-id {
     margin-bottom: 10px;
 }
 
-
+.editable-many-to-one,
 .editable-many-to-many {
     visibility: hidden;
 }
-
+.sonata-ba-list tr:hover .editable-many-to-one,
 .sonata-ba-list tr:hover .editable-many-to-many {
     visibility: visible;
 }

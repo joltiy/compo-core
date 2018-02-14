@@ -97,6 +97,51 @@ class CRUDController extends BaseCRUDController
         ]);
     }
 
+    public function updateManyToOneAction(Request $request)
+    {
+        if (!$this->admin->isGranted('EDIT')) {
+            throw new AccessDeniedException('EDIT');
+        }
+
+        $em = $this->getAdmin()->getDoctrine()->getManager();
+        $ids = $request->request->get('value');
+        $id = $request->request->get('pk');
+
+        $object = $this->getAdmin()->getObject($id);
+
+        $field = $request->request->get('field');
+
+        $mm = $this->getAdmin()->getModelManager();
+
+        /** @var \Doctrine\ORM\Mapping\ClassMetadata $ClassMetadata */
+        $ClassMetadata = $mm->getMetadata($this->getAdmin()->getClass());
+
+        $associationMapping = $ClassMetadata->getAssociationMapping($field);
+
+        $items = $em->getRepository($associationMapping['targetEntity'])->find($ids);
+
+        call_user_func_array([$object, 'set' . ucfirst($field)], [
+            $items,
+        ]);
+
+        $this->getAdmin()->update($object);
+
+        $result = [
+        ];
+
+        $associationAdmin = $this->getAdmin()->getConfigurationPool()->getAdminByClass($associationMapping['targetEntity']);
+
+        $result[] = [
+            'id' => $items->getId(),
+            'label' => $items->getName(),
+            'edit_url' => $associationAdmin->generateObjectUrl('edit', $items),
+        ];
+
+        return new JsonResponse([
+            'items' => $result,
+        ]);
+    }
+
     /**
      * @return RedirectResponse
      */
