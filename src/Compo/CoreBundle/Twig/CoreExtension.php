@@ -25,8 +25,42 @@ class CoreExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
+            new \Twig_SimpleFunction('admin_object_target_url', [$this, 'getAdminObjectTargetUrl'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('admin_object_target_name', [$this, 'getAdminObjectTargetName'], ['is_safe' => ['html']]),
+
+            new \Twig_SimpleFunction('admin_object_url', [$this, 'getAdminObjectUrl'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('admin_object_source_name', [$this, 'getAdminObjectSourceName'], ['is_safe' => ['html']]),
+
             new \Twig_SimpleFunction('project_version', [$this, 'getProjectVersion'], ['is_safe' => ['html']]),
         ];
+    }
+
+    public function getAdminObjectSourceName($item)
+    {
+        $admin = $this->getContainer()->get('sonata.admin.pool')->getAdminByClass($item->getSourceClass());
+
+        return $admin->getObject($item->getSourceItemId())->getValue();
+    }
+
+    public function getAdminObjectUrl($item)
+    {
+        $admin = $this->getContainer()->get('sonata.admin.pool')->getAdminByClass($item->getSourceClass());
+
+        return $admin->generateObjectUrl('edit', $admin->getObject($item->getSourceItemId()));
+    }
+
+    public function getAdminObjectTargetName($item)
+    {
+        $admin = $this->getContainer()->get('sonata.admin.pool')->getAdminByClass($item->getClass());
+
+        return $admin->getObject($item->getTargetId())->getName();
+    }
+
+    public function getAdminObjectTargetUrl($item)
+    {
+        $admin = $this->getContainer()->get('sonata.admin.pool')->getAdminByClass($item->getClass());
+
+        return $admin->generateObjectUrl('edit', $admin->getObject($item->getTargetId()));
     }
 
     /**
