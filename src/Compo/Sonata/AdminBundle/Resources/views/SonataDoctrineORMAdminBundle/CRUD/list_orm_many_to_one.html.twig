@@ -24,7 +24,7 @@
 
             var initData{{ field_description.name }}{{ admin.id(object) }} = [
                 {% if value %}
-                {id: {{ value.id }}, label: '{{ value.name }}', edit_url: '{{ field_description.associationadmin.generateObjectUrl(route_name, value, field_description.options.route.parameters) }}'}
+                {id: {{ value.id }}, label: '{{ value|render_relation_element(field_description) }}', edit_url: '{{ field_description.associationadmin.generateObjectUrl(route_name, value, field_description.options.route.parameters) }}'}
                 {% endif %}
             ];
 

@@ -131,9 +131,13 @@ class CRUDController extends BaseCRUDController
 
         $associationAdmin = $this->getAdmin()->getConfigurationPool()->getAdminByClass($associationMapping['targetEntity']);
 
+        $twigSonataAdminExtension = $this->getAdmin()->getContainer()->get('sonata.admin.twig.extension');
+
+        $fieldDescription = $this->getAdmin()->getListFieldDescription($field);
+
         $result[] = [
             'id' => $items->getId(),
-            'label' => $items->getName(),
+            'label' => $twigSonataAdminExtension->renderRelationElement($items, $fieldDescription),
             'edit_url' => $associationAdmin->generateObjectUrl('edit', $items),
         ];
 
