@@ -25,6 +25,8 @@ class CoreExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
+            new \Twig_SimpleFunction('json_pretty_print_unicode', [$this, 'getJsonPrettyPrintUnicode'], ['is_safe' => ['html']]),
+
             new \Twig_SimpleFunction('admin_object_target_url', [$this, 'getAdminObjectTargetUrl'], ['is_safe' => ['html']]),
             new \Twig_SimpleFunction('admin_object_target_name', [$this, 'getAdminObjectTargetName'], ['is_safe' => ['html']]),
 
@@ -63,6 +65,9 @@ class CoreExtension extends \Twig_Extension
         return $admin->generateObjectUrl('edit', $admin->getObject($item->getTargetId()));
     }
 
+    public function getJsonPrettyPrintUnicode($data) {
+        return json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    }
     /**
      * @return string
      */
