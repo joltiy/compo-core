@@ -38,14 +38,14 @@ class HelpType extends AbstractType
             new CallbackTransformer(
                 function ($value) use ($options) {
                     if (isset($options['template']) && $options['template']) {
-                        $value = $options['template'];
+                        if (0 === mb_strpos($options['template'], 'Compo')) {
+                            return $this->getContainer()->get('twig')->render($options['template'], ['value' => $value]);
+                        } else {
+                            return $options['template'];
+                        }
+                    } else {
+                        return $value;
                     }
-
-                    if (0 === mb_strpos($value, 'Compo')) {
-                        return $this->getContainer()->get('twig')->render($options['template']);
-                    }
-
-                    return $options['template'];
                 },
                 function ($value) use ($options) {
                     return '';
