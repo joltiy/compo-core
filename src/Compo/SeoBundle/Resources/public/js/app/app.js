@@ -12,7 +12,7 @@
         .config(['$metrikaProvider', function ($metrikaProvider) {
             $metrikaProvider.configureCounter({
                 id: window.yandexMetrikaId,
-                defer: false,
+                defer: true,
                 clickmap: true,
                 trackLinks: true,
                 accurateTrackBounce: true,
