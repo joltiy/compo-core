@@ -19,6 +19,7 @@ class SeoSettingsSchema extends BaseBundleAdminSettingsSchema
         return [
             'yandex_metrika_id' => null,
             'google_analytics_id' => '',
+            'google_analytics_view_id' => '',
             'google_tag_manager_id' => '',
         ];
     }
@@ -35,6 +36,8 @@ class SeoSettingsSchema extends BaseBundleAdminSettingsSchema
         $googleTab = $this->addTab('google');
 
         $googleTab->add('google_analytics_id', TextType::class);
+        $googleTab->add('google_analytics_view_id', TextType::class);
+
         $googleTab->add('google_tag_manager_id', TextType::class);
     }
 }

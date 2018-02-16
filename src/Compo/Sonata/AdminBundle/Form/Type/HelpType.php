@@ -22,6 +22,7 @@ class HelpType extends AbstractType
     {
         $resolver->setDefaults(
             [
+                'subject' => null,
                 'mapped' => false,
                 'template' => '',
                 'required' => false,
@@ -39,7 +40,7 @@ class HelpType extends AbstractType
                 function ($value) use ($options) {
                     if (isset($options['template']) && $options['template']) {
                         if (0 === mb_strpos($options['template'], 'Compo')) {
-                            return $this->getContainer()->get('twig')->render($options['template'], ['value' => $value]);
+                            return $this->getContainer()->get('twig')->render($options['template'], ['value' => $value, 'options' => $options]);
                         } else {
                             return $options['template'];
                         }

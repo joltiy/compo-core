@@ -179,6 +179,12 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 1000 }
 
+    compo_core.listener.client_id:
+        parent: compo_core.abstract_container_aware
+        class: Compo\CoreBundle\Listener\ClientIdListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 1002 }
+
     compo_core.listener.utm:
         parent: compo_core.abstract_container_aware
         class: Compo\CoreBundle\Listener\UtmListener

@@ -21,3 +21,5 @@ form.label_settings_google_tag_manager_id: 'Google.TagManager ID'
 form.label_settings_google_webmaster_id: 'Google.Webmaster ID'
 tab.label_settings_yandex: 'Яндекс'
 tab.label_settings_google: 'Google'
+
+form.label_settings_google_analytics_view_id: 'Google.Analytics ID представления'

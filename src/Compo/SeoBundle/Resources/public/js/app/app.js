@@ -37,6 +37,37 @@
                 };
             }
 
+            var getClientsId = function() {
+                var clients_id = {
+                    google_analytics_client_id: null,
+                    yandex_metrika_client_id: null,
+                };
+
+                var match = document.cookie.match('(?:^|;)\\s*_ga=([^;]*)');
+
+                var raw = (match) ? decodeURIComponent(match[1]) : null;
+
+                if (raw) {
+                    match = raw.match(/(\d+\.\d+)$/);
+                }
+
+                var gacid = (match) ? match[1] : null;
+
+                if (gacid) {
+                    clients_id.google_analytics_client_id = gacid;
+                }
+
+                var match = document.cookie.match('(?:^|;)\\s*_ym_uid=([^;]*)');
+
+                var raw = (match) ? decodeURIComponent(match[1]) : null;
+
+                if (raw) {
+                    clients_id.yandex_metrika_client_id = gacid;
+                }
+
+                return clients_id;
+            };
+
 
             /**
              * Send content views to the dataLayer
@@ -50,8 +81,12 @@
                     return;
                 }
 
+                var clients_id = getClientsId();
+
                 var params = {
-                    'userId': window.userId
+                    'userId': window.userId,
+                    'google_analytics_client_id': clients_id.google_analytics_client_id,
+                    'yandex_metrika_client_id': clients_id.yandex_metrika_client_id
                 };
 
                 if (window.yandexMetrikaId != undefined && window.yandexMetrikaId) {
@@ -74,7 +109,8 @@
                 dataLayer.push({
                     'event': 'content-view',
                     'content-name': path,
-                    'userId': window.userId
+                    'userId': window.userId,
+                    'params': params
                 });
             });
 
@@ -92,6 +128,8 @@
 
                 properties = properties || {};
 
+                var clients_id = getClientsId();
+
                 var data = {
                     'event': event,
 
@@ -102,7 +140,9 @@
 
                     'interaction-type': properties.noninteraction,
                     'ecommerce': properties.ecommerce,
-                    'userId': window.userId
+                    'userId': window.userId,
+                    'google_analytics_client_id': clients_id.google_analytics_client_id,
+                    'yandex_metrika_client_id': clients_id.yandex_metrika_client_id
                 };
 
                 dataLayer.push(data);
