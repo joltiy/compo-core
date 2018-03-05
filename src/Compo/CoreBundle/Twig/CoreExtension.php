@@ -41,14 +41,18 @@ class CoreExtension extends \Twig_Extension
     {
         $admin = $this->getContainer()->get('sonata.admin.pool')->getAdminByClass($item->getSourceClass());
 
-        return $admin->getObject($item->getSourceItemId())->getValue();
+        if ($admin->getObject($item->getSourceItemId())) {
+            return $admin->getObject($item->getSourceItemId())->getValue();
+        }
     }
 
     public function getAdminObjectUrl($item)
     {
         $admin = $this->getContainer()->get('sonata.admin.pool')->getAdminByClass($item->getSourceClass());
 
-        return $admin->generateObjectUrl('edit', $admin->getObject($item->getSourceItemId()));
+        if ($admin->getObject($item->getSourceItemId())) {
+            return $admin->generateObjectUrl('edit', $admin->getObject($item->getSourceItemId()));
+        }
     }
 
     public function getAdminObjectTargetName($item)
