@@ -35,16 +35,10 @@ services:
 #  security.acl.permission.map:
 #      class: Sonata\AdminBundle\Security\Acl\Permission\AdminPermissionMap
 
-    validator.mapping.cache.doctrine.apcu.dotrine:
+    cache_doctrine_apcu:
         class: Doctrine\Common\Cache\ApcuCache
         calls:
-            - [ setNamespace, [ "%validator.mapping.cache.prefix%" ] ]
-
-
-    validator.mapping.cache.doctrine.apcu:
-        class: Symfony\Component\Validator\Mapping\Cache\DoctrineCache
-        arguments: ["@validator.mapping.cache.doctrine.apcu.dotrine"]
-
+            - [ setNamespace, [ "%database_name%" ] ]
 
     compo_core.abstract_container_aware:
         abstract:  true

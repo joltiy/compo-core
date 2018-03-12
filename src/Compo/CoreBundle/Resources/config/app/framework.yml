@@ -9,12 +9,11 @@ framework:
     csrf_protection:         true
 
     annotations:
-        cache: doctrine_cache.providers.annotation_cache
+        cache: cache_doctrine_apcu
 
     validation:
         enabled: true
         enable_annotations: true
-        cache: validator.mapping.cache.doctrine.apcu
 
     serializer:
         enabled: true
