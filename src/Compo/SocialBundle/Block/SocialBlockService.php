@@ -7,6 +7,7 @@ use Compo\Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Sonata\BlockBundle\Model\BlockInterface;
 
 /**
  * @author     Thomas Rabaix <thomas.rabaix@sonata-project.org>
@@ -46,5 +47,19 @@ class SocialBlockService extends AbstractBlockService
                 'template' => 'CompoSocialBundle:Block:list.html.twig',
             ]
         );
+    }
+
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCacheKeys(BlockInterface $block)
+    {
+        $keys = parent::getCacheKeys($block);
+
+        $keys['updated_at'] = '';
+        $keys['block_id'] = $block->getType();
+
+        return $keys;
     }
 }
