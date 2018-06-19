@@ -39,7 +39,7 @@ before_install:
   - echo "apc.enable_cli = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
 install:
-#  - composer install --no-progress --no-interaction --no-suggest
+  - composer install --no-progress --no-interaction --no-suggest
   - ./bin/simple-phpunit install
 
 script:
