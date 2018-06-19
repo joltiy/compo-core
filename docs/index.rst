@@ -8,8 +8,9 @@ CompoCore
 Demo
 -----------------
 
-* The demo website can be found at http://website.compo-symfony-cms.ru/ - https://github.com/comporu/compo-website-demo
-* The demo e-commerce can be found at http://ecommerce.compo-symfony-cms.ru/ - https://github.com/comporu/compo-ecommerce-demo
+* http://website.compo-symfony-cms.ru/ (https://github.com/comporu/compo-website-demo)
+* http://ecommerce.compo-symfony-cms.ru/ (https://github.com/comporu/compo-ecommerce-demo)
+
 
 .. toctree::
     :caption: Getting Started
