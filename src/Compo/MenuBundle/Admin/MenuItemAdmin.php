@@ -9,7 +9,6 @@
 
 namespace Compo\MenuBundle\Admin;
 
-use Compo\MenuBundle\Entity\MenuItem;
 use Compo\MenuBundle\Entity\MenuItemRepository;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Compo\Sonata\AdminBundle\Form\Type\TreeSelectorType;

@@ -160,7 +160,7 @@ class BaseAdminStatsBlockService extends AbstractBlockService
             } else {
                 $dimensions[$dimensionItemKey]['label_name'] = $this->camelCaseToUnderscore($dimension);
 
-                if (isset($fieldsMappings[$dimension]) && $fieldsMappings[$dimension]['type'] === 'datetime') {
+                if (isset($fieldsMappings[$dimension]) && 'datetime' === $fieldsMappings[$dimension]['type']) {
                     $dimensions[$dimensionItemKey]['field_type'] = 'datetime';
                     $qb->addSelect('DATE_FORMAT(entity.' . $dimension . ', \'%d.%m.%Y\') as ' . $dimension);
 
