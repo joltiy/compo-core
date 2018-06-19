@@ -70,3 +70,5 @@ script:
 
   # this checks that the source code follows the Symfony Code Syntax rules
   - php-cs-fixer fix --diff --dry-run -v
+
+	- cd docs && sphinx-build -W -b html -d _build/doctrees . _build/html
