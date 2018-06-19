@@ -1,4 +1,6 @@
 docs/_build
+composer.lock
+/bin/
 
 ###> compo-dev-kit ###
 # IDE
