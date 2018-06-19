@@ -28,3 +28,4 @@ Demo
     :numbered:
 
     bundles/advantages
+    bundles/articles
