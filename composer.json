@@ -121,5 +121,8 @@
         "friendsofphp/php-cs-fixer": "^2.7",
         "doctrine/doctrine-fixtures-bundle": "^3.0",
         "symfony/dotenv": "^4.0"
+    },
+    "config": {
+        "sort-packages": false
     }
 }
