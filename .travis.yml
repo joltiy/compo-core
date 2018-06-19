@@ -37,10 +37,12 @@ before_install:
   - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - echo "extension = apcu.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - echo "apc.enable_cli = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - mkdir --parents "${HOME}/bin"
+  - wget "https://phar.phpunit.de/phpunit-5.7.phar" --output-document="${HOME}/bin/phpunit"
+  - chmod u+x "${HOME}/bin/phpunit"
 
 install:
   - composer install --no-progress --no-interaction --no-suggest
-  - ./bin/simple-phpunit install
 
 script:
   # this checks that the YAML config files contain no syntax errors
@@ -59,7 +61,7 @@ script:
   # this checks that Doctrine's mapping configurations are valid
   - ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
 
-  - ./bin/simple-phpunit
+  - phpunit -c phpunit.xml.dist --coverage-clover build/logs/clover.xml
 
   # this checks that the source code follows the Symfony Code Syntax rules
   - '[[ "$TRAVIS_PHP_VERSION" == "nightly" ]] || ./bin/php-cs-fixer fix --diff --dry-run -v'
