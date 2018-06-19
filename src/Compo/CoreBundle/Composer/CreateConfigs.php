@@ -10,7 +10,6 @@
 namespace Compo\CoreBundle\Composer;
 
 use Composer\Script\Event;
-use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Dotenv\Dotenv;
 
 class CreateConfigs
@@ -29,11 +28,11 @@ class CreateConfigs
 
         $project_dir = \dirname($vendor);
 
-        if (!\file_exists($project_dir.'/.env')) {
-            copy($project_dir.'/.env.dist', $project_dir.'/.env');
+        if (!\file_exists($project_dir . '/.env')) {
+            copy($project_dir . '/.env.dist', $project_dir . '/.env');
         }
 
-        (new Dotenv())->load($project_dir.'/.env');
+        (new Dotenv())->load($project_dir . '/.env');
 
         $root_dir = \dirname($vendor) . '/app/';
 

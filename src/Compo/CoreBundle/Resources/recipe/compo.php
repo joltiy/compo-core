@@ -43,7 +43,7 @@ set('copy_dirs', ['vendor', 'web/assetic']); // 'web/vendor',
 // Environment vars
 set('env', function () {
     return [
-        'SYMFONY_ENV' => get('symfony_env')
+        'SYMFONY_ENV' => get('symfony_env'),
     ];
 });
 set('shared_dirs', ['var/logs', 'var/sessions', 'web/uploads', 'web/media', 'web/userfiles']);
@@ -278,16 +278,12 @@ task(
         foreach ($parametrs as $parametrs_key => $parametrs_val) {
             $parametrs_array[mb_strtoupper($parametrs_key)] = $parametrs_val;
 
-            run('echo "' . mb_strtoupper($parametrs_key) . '='. $parametrs_val .'" >> {{release_path}}/.env');
+            run('echo "' . mb_strtoupper($parametrs_key) . '=' . $parametrs_val . '" >> {{release_path}}/.env');
         }
 
         $parametrs_array['SYMFONY_ENV'] = 'prod';
 
         set('env_vars', $parametrs_array);
-
-
-
-
     }
 )->setPrivate();
 
