@@ -40,7 +40,7 @@ before_install:
 
 install:
   - composer install --no-progress --no-interaction --no-suggest
-  - ./vendor/bin/simple-phpunit install
+  - ./bin/simple-phpunit install
 
 script:
   # this checks that the YAML config files contain no syntax errors
