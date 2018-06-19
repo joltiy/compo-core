@@ -1,0 +1,92 @@
+{#
+
+This file is part of the Sonata package.
+
+(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
+<!--
+This template can be customized to match your needs. You should only extends the template and used the differents block to customize the view:
+    - sonata_mosaic_default_view
+    - sonata_mosaic_hover_view
+    - sonata_mosaic_description
+-->
+
+
+{% import _self as tree %}
+
+{% macro renderNodes(nodesList, admin, lvl) %}
+    {% import _self as tree %}
+
+    <ul class="tree-list product-catalog-tree">
+        {% for node in nodesList %}
+            {% set aliasName = admin.class|split('\\') %}
+
+            {% if node.__children|length %}
+                {% set node_item_class = 'open-tree' %}
+                {% set folder_icon_class = 'fa-folder' %}
+            {% else %}
+                {% set node_item_class = '' %}
+                {% set folder_icon_class = 'fa-folder-o' %}
+            {% endif %}
+
+            <li data-move-url="{{ admin.routeGenerator.generateUrl(admin, 'move', { id: node.id} ) }}">
+
+                <div class="node">
+                    {% if node.lvl %}
+                        <a class="sort"><i class="fa fa-arrows"></i></a>
+                    {% endif %}
+
+                    <a class="node-item {{ node_item_class }}"
+                       data-id="{{ node.id }}"
+                       data-lvl="{{ node.lvl }}"
+                       data-alias="{{ aliasName[aliasName|length-1] }}"
+                    >
+                        <i class="folder-icon fa {{ folder_icon_class }}"></i>
+                    </a>
+
+                    <a href="{{ admin.routeGenerator.generateUrl(admin, 'edit', { id: node.id} ) }}">{{ node.name }}</a>
+
+                    <div class="pull-right">
+
+                        {% set object = node.node %}
+                        {% for field_description in admin.list.elements if field_description.getOption('active') %}
+                            {% if field_description.name == '_action' %}
+
+                                <div class="btn-group">
+                                    {% for actions in field_description.options.actions %}
+                                        {% include actions.template %}
+                                    {% endfor %}
+                                </div>
+
+                            {% endif %}
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+                {% if node.__children|length %}
+                    {{ tree.renderNodes(node.__children, admin, node.lvl+1 ) }}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endmacro %}
+
+<tr>
+    <td colspan="{{ admin.list.elements|length - (app.request.isXmlHttpRequest ? (admin.list.has('_action') + admin.list.has('batch')) : 0) }}">
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+
+                        <div class="tree">
+                            {{ tree.renderNodes(nodes, admin, 0) }}
+                        </div>
+
+            </div>
+        </div>
+    </td>
+</tr>

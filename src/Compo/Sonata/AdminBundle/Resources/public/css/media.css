@@ -1,0 +1,33 @@
+
+.row-sonata_media_type_widget {
+    margin-top: 7px;
+}
+
+.col-sonata_media_type_widget-form_widget {
+    padding-top: 25px;
+}
+
+.col-sonata_media_type_widget-form_widget input[type="file"] {
+    padding-top: 5px;
+}
+
+div[id*='productAdditionalImages'] div[id*='image_unlink'] {
+    display: none !important;
+}
+
+
+/*
+.field-short-description {
+    max-width: 508px;
+    overflow: hidden;
+}
+*/
+
+.media-description {
+    max-width: 300px;
+    overflow: hidden;
+    display: block;
+
+    font-weight: bold;
+    padding-top: 10px;
+}

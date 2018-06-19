@@ -1,0 +1,37 @@
+{# Миниатюра при добавлении медиа #}
+{% block sonata_media_type_widget %}
+    <div class="row row-sonata_media_type_widget">
+        <div class="col-md-12 pull-left">
+            {% if value is not empty and value.providerReference %}
+                {% if sonata_admin_enabled is defined and sonata_admin_enabled and value %}
+                    <a href="{{ sonata_admin.admin.getConfigurationPool().adminByAdminCode('sonata.media.admin.media').generateObjectUrl('edit', value) }}">
+                        <strong style="word-wrap: break-word">{{ value.name }}</strong>
+                    </a>
+                {% else %}
+                    <strong style="word-wrap: break-word">{{ value.name }}</strong>
+                {% endif %}
+            {% else %}
+                <strong>{{ 'no_linked_media'|trans({}, 'SonataMediaBundle') }}</strong>
+            {% endif %}
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12 pull-left">
+            {% if value is not empty and value.providerReference %}
+                <div class="pull-left" style="margin-right: 5px; margin-top: 10px;">
+                    {% thumbnail value, 'admin' with {'class': 'img-polaroid media-object'} %}
+                </div>
+            {% else %}
+                <div class="pull-left" style="margin-right: 5px; margin-top: 10px;">
+                    <img src="{{ asset('bundles/sonatamedia/grey.png') }}" class="img-polaroid media-object"
+                         style="width: 85px; height: 85px"/>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="col-md-12 pull-left col-sonata_media_type_widget-form_widget">
+            {{ block('form_widget') }}
+        </div>
+    </div>
+{% endblock sonata_media_type_widget %}

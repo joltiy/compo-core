@@ -1,0 +1,36 @@
+{#
+
+This file is part of the Sonata package.
+
+(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+{% extends sonata_page.defaultTemplate %}
+
+{% block title %}{{ "title_page_redirected"|trans({}, 'SonataPageBundle') }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>{{ "title_page_redirected"|trans({}, 'SonataPageBundle') }}</h2>
+
+                <p>
+                    Эта страница настроена на перенаправление конечного пользователя на другую страницу.
+                </p>
+
+                <p>
+                    Данное уведомление, отображается только для администраторов.
+                </p>
+
+                <p>
+                    Нажмите здесь, чтобы перейти к перенаправлению:
+                    <a href="{{ response.headers.get('Location')|raw }}">{{ response.headers.get('Location')|raw }}</a>
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

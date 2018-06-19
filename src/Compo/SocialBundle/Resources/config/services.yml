@@ -1,0 +1,25 @@
+services:
+    compo_social.admin.social:
+        class: Compo\SocialBundle\Admin\SocialAdmin
+        arguments: [~, Compo\SocialBundle\Entity\Social, CompoSocialBundle:SocialAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: social }
+
+    compo_social.block.service.social:
+        class: Compo\SocialBundle\Block\SocialBlockService
+        arguments: ["compo_social.block.service.social", "@templating"]
+        tags:
+            - { name: sonata.block }
+        calls:
+            - [ setContainer, ['@service_container']]
+
+    compo_social.manager.social:
+        class: Compo\SocialBundle\Manager\SocialManager
+        arguments: [Compo\SocialBundle\Entity\Social, "@doctrine"]
+        parent: compo_core.abstract_container_aware
+
+    compo_social.event_listener.clear_cache_subscriber:
+        class: Compo\SocialBundle\EventListener\ClearCacheSubscriber
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: doctrine.event_subscriber }

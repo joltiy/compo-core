@@ -1,0 +1,10 @@
+<div id="sidebar">
+    <div class="row">
+        <div class="col-lg-12">
+            {{ sonata_page_render_container('sidebar', 'global') }}
+            {% if page is defined %}
+                {{ sonata_page_render_container('sidebar', page) }}
+            {% endif %}
+        </div>
+    </div>
+</div>

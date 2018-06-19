@@ -1,0 +1,9 @@
+{% if object is defined %}
+    <a class="btn btn-sm btn-default"
+       title="Показать на сайте"
+       href="{{ admin.generatePermalink(object) }}"
+       target="_blank"
+    >
+        <i class="fa fa-eye"></i>
+    </a>
+{% endif %}

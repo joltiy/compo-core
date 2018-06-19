@@ -1,0 +1,36 @@
+{# @var article \Compo\NewsBundle\Entity\News #}
+{#
+{{ block('heading') }}
+{{ block('list') }}
+{{ block('list_item') }}
+{{ block('publication_at') }}
+{{ block('name') }}
+#}
+<div class="panel panel-default ">
+
+    <div class="panel-heading">
+        {% block heading %}
+            <a href="{{ path('compo_news_index') }}">Новости</a>
+        {% endblock %}
+    </div>
+
+    <div class="panel-body">
+        {% block list %}
+            <ul class="news-preview">
+                {% for article in news %}
+                    {% block list_item %}
+                        <li>
+                            {% block publication_at %}
+                                <div class="date">{{ article.publicationAt|date("d.m.Y") }}</div>
+                            {% endblock %}
+
+                            {% block name %}
+                                <a href="{{ path('compo_news_show_by_slug', {'slug': article.slug}) }}">{{ article.name }}</a>
+                            {% endblock %}
+                        </li>
+                    {% endblock %}
+                {% endfor %}
+            </ul>
+        {% endblock %}
+    </div>
+</div>

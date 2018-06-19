@@ -1,0 +1,122 @@
+{#
+
+This file is part of the Sonata package.
+
+(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+{# @var admin \Compo\Sonata\AdminBundle\Admin\AbstractAdmin #}
+{% extends base_template %}
+
+{%- block actions -%}
+    {% include 'SonataAdminBundle:CRUD:action_buttons.html.twig' %}
+{%- endblock -%}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-5">
+            <div class="box box-primary">
+                <div class="box-body table-responsive no-padding">
+                    <table class="table" id="revisions" data-base-route-path="{{ admin.generateObjectUrl('edit', object) }}">
+                        <thead>
+                        <tr>
+                            <th>Ревизия</th>
+                            <th>{{ 'td_timestamp'|trans({}, 'SonataAdminBundle') }}</th>
+                            <th>{{ 'td_username'|trans({}, 'SonataAdminBundle') }}</th>
+
+                            <th></th>
+                            <th></th>
+
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for revision in revisions %}
+                            <tr class="{% if (currentRevision != false and revision.rev == currentRevision.rev) %}current-revision{% endif %}">
+                                <td>{{ revision.rev }}</td>
+                                <td>{% include get_admin_template('history_revision_timestamp', admin.code) %}</td>
+                                <td>{{ revision.username|default('label_unknown_user'|trans({}, 'SonataAdminBundle')) }}</td>
+
+                                <td><input {% if (currentRevision == false or revision.rev == currentRevision.rev) %}checked="checked"{% endif %} class="revision_compare revision_compare_object" type="radio" name="object" value="{{ revision.rev }}"></td>
+                                <td><input {% if (currentRevision == false or revision.rev == currentRevision.rev) %}checked="checked"{% endif %} class="revision_compare revision_compare_object_compare" type="radio" name="object_compare" value="{{ revision.rev }}"></td>
+
+                                <td>
+                                    {% if (currentRevision == false or revision.rev == currentRevision.rev) %}
+                                        /
+                                    {% else %}
+                                        <a href="{{ admin.generateObjectUrl('history_revert', object, {'revision': revision.rev }) }}" class="btn btn-small btn-danger" rel="{{ revision.rev }}">
+                                            <i class="fa fa-undo"></i>
+                                        </a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="revision-detail" class="col-md-7 revision-detail">
+
+        </div>
+    </div>
+
+    <script>
+        jQuery(document).ready(function() {
+            jQuery('.revision_compare_object, .revision_compare_object_compare').change(function () {
+                var revision_compare_object = jQuery('.revision_compare_object:checked');
+                var revision_compare_object_compare = jQuery('.revision_compare_object_compare:checked');
+
+                if (revision_compare_object.val() === undefined || revision_compare_object_compare.val() === undefined) {
+                    return;
+                }
+
+                var edit_object_path = jQuery('#revisions').data('base-route-path').split("?")[0];
+
+                var url = edit_object_path.replace(/edit/, '') + 'history/' + revision_compare_object.val() + '/' + revision_compare_object_compare.val() + '/compare';
+
+                jQuery('#revision-detail').html('');
+
+
+                jQuery.ajax({
+                    url: url,
+                    dataType: 'html',
+                    success: function(data) {
+                        jQuery('#revision-detail').html(data);
+                    }
+                });
+            });
+
+            jQuery('a.revision-link, a.revision-compare-link').bind('click', function(event) {
+                event.stopPropagation();
+                event.preventDefault();
+
+                var action = jQuery(this).hasClass('revision-link')
+                    ? 'show'
+                    : 'compare';
+
+                jQuery('#revision-detail').html('');
+
+                if(action === 'show'){
+                    jQuery('table#revisions tbody tr').removeClass('current');
+                    jQuery(this).parent('').removeClass('current');
+                }
+
+                jQuery.ajax({
+                    url: jQuery(this).attr('href'),
+                    dataType: 'html',
+                    success: function(data) {
+                        jQuery('#revision-detail').html(data);
+                    }
+                });
+
+                return false;
+            });
+
+        });
+    </script>
+{% endblock %}

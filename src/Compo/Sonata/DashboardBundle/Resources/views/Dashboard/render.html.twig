@@ -1,0 +1,43 @@
+{% extends base_template %}
+
+{% block title %}
+    {{ dashboard.name }}
+{% endblock %}
+
+{% block navbar_title %}
+    {{ block('title') }}
+{% endblock %}
+
+{% block tab_menu %}
+    {% if admin is defined %}
+        {{ knp_menu_render(admin.sidemenu(action), {'currentClass' : 'active', 'template': sonata_admin.adminPool.getTemplate('tab_menu_template')}, 'twig') }}
+    {% endif %}
+{% endblock %}
+
+{%- block actions -%}
+    {% if admin is defined %}
+        {% include 'SonataAdminBundle:CRUD:action_buttons.html.twig' %}
+    {% endif %}
+{%- endblock -%}
+
+{% block content %}
+    <div class="dashboard">
+        <div class="row">
+            <div class="col-md-12">
+                {% for container in containers %}
+                    <div class="row">
+                        <div class="{{ container.settings.class|default('col-lg-12') }}">
+                            <div class="row">
+                                {% for block in container.children %}
+                                    <div class="{{ block.cssClass|default('col-lg-12') }}">
+                                        {{ sonata_block_render(block) }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

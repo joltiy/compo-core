@@ -1,0 +1,80 @@
+{# COMPO Отрисовка дерева, сортировка drag&drop #}
+
+{% extends 'CompoSonataAdminBundle:CRUD:list.html.twig' %}
+
+{% import _self as tree %}
+
+{% macro renderNodes(nodesList, admin, lvl) %}
+    {% import _self as tree %}
+
+    <ul class="tree-list product-catalog-tree">
+        {% for node in nodesList %}
+            {% set aliasName = admin.class|split('\\') %}
+
+            {% if node.__children|length %}
+                {% set node_item_class = 'open-tree' %}
+                {% set folder_icon_class = 'fa-folder' %}
+            {% else %}
+                {% set node_item_class = '' %}
+                {% set folder_icon_class = 'fa-folder-o' %}
+            {% endif %}
+
+            <li data-move-url="{{ admin.routeGenerator.generateUrl(admin, 'move', { id: node.id} ) }}">
+
+                <div class="node">
+                    {% if node.lvl %}
+                        <a class="sort"><i class="fa fa-arrows"></i></a>
+                    {% endif %}
+
+                    <a class="node-item {{ node_item_class }}"
+                       data-id="{{ node.id }}"
+                       data-lvl="{{ node.lvl }}"
+                       data-alias="{{ aliasName[aliasName|length-1] }}"
+                    >
+                        <i class="folder-icon fa {{ folder_icon_class }}"></i>
+                    </a>
+
+                    <a href="{{ admin.routeGenerator.generateUrl(admin, 'edit', { id: node.id} ) }}">{{ node.name }}</a>
+
+                    <div class="pull-right">
+                        <a class="btn btn-sm btn-default"
+                           href="{{ admin.routeGenerator.generateUrl(admin, 'create', { parentId: node.id} ) }}"
+                        >
+                            <i class="fa fa-plus"></i>
+                        </a>
+
+                        <a class="btn btn-sm btn-default"
+                           href="{{ admin.routeGenerator.generateUrl(admin, 'edit', { id: node.id} ) }}"
+                        >
+                            <i class="fa fa-pencil"></i>
+                        </a>
+
+                        <a class="btn btn-sm btn-default"
+                           href="{{ admin.routeGenerator.generateUrl(admin, 'delete', { id: node.id} ) }}"
+                        >
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+
+                {% if node.__children|length %}
+                    {{ tree.renderNodes(node.__children, admin, node.lvl+1 ) }}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endmacro %}
+
+
+
+{% block list_table %}
+    <div class="col-xs-12 col-md-12">
+        <div class="box box-primary">
+            <div class="box-content">
+                <div class="tree tree-nested" data-type="nested">
+                    {{ tree.renderNodes(admin.getTreeNodes(), admin, 0) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,8 @@
+notifications: "Системные уведомления"
+
+tab_menu:
+    title_notifications_list: "Системные уведомления"
+
+filter.label_started_at: 'Время запуска'
+filter.label_completed_at: 'Время завершения'
+filter.label_restart_count: 'Перезапуски'

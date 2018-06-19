@@ -1,0 +1,62 @@
+{% extends '@CompoSonataAdmin/CRUD/list.html.twig' %}
+
+{% import _self as tree %}
+
+{% macro tree(items, admin, lvl) %}
+
+    <ul class="tree-list">
+        {% for item in items if (not item.parent or lvl > 0) %}
+            {% set aliasName = admin.class|split('\\') %}
+
+            {% if item.children|length %}
+                {% set node_item_class = 'open-tree' %}
+                {% set folder_icon_class = 'fa-folder' %}
+            {% else %}
+                {% set node_item_class = '' %}
+                {% set folder_icon_class = 'fa-folder-o' %}
+            {% endif %}
+
+            <li data-move-url="{{ admin.generateUrl('move', { id: item.id} ) }}">
+                <div class="node">
+                    {% if lvl %}
+                        <a class="sort"><i class="fa fa-arrows"></i></a>
+                    {% endif %}
+
+                    <a class="node-item {{ node_item_class }}"
+                       data-id="{{ item.id }}"
+                       data-lvl="{{ lvl }}"
+                       data-alias="{{ aliasName[aliasName|length-1] }}"
+                    >
+                        <i class="folder-icon fa {{ folder_icon_class }}"></i>
+                    </a>
+
+                    <a href="{{ admin.routeGenerator.generateUrl(admin, 'edit', { id: item.id} ) }}">{{ item.name }}</a>
+
+                    <div class="pull-right">
+                        {{ item|render_list_element(admin.getListFieldDescription('_action')) }}
+                    </div>
+                </div>
+
+                {% import _self as macro %}
+
+                {% if item.children|length %}
+                    {{ macro.tree(item.children, admin, lvl+1) }}
+                {% endif %}
+
+            </li>
+        {% endfor %}
+    </ul>
+{% endmacro %}
+
+
+{% block list_table %}
+    <div class="col-xs-12 col-md-12">
+        <div class="box box-primary">
+            <div class="box-content">
+                <div class="tree tree-parent-position">
+                    {{ tree.tree(items, admin, 0) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

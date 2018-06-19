@@ -1,0 +1,19 @@
+compo_seo:
+    pages:
+        - context: 'news_list'
+          title: 'Новости'
+          metaKeyword: 'Новости'
+          metaDescription: 'Новости'
+          header: 'Новости'
+          description: ''
+          descriptionAdditional: ''
+          admin: 'compo_news.admin.news'
+
+        - context: 'news_show'
+          title: '{{ news.name }}'
+          metaKeyword: '{{ news.name }}'
+          metaDescription: '{{ news.name }}'
+          header: '{{ news.header|default(news.name) }}'
+          description: ''
+          descriptionAdditional: ''
+          admin: 'compo_news.admin.news'

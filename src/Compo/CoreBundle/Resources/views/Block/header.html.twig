@@ -1,0 +1,76 @@
+{%- set compo_core_settings = compo_core_manager.settings -%}
+
+<div id="header">
+
+    {% block header_global %}
+        {{ sonata_page_render_container('header', 'global') }}
+    {% endblock %}
+
+    {% block header_page %}
+        {% if page is defined %}
+            {{ sonata_page_render_container('header', page) }}
+        {% endif %}
+    {% endblock %}
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="navbar navbar-default visible-xs-12 hidden-sm hidden-md hidden-lg" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target=".sidebar-nav">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand logo" href="/"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 offcanvas">
+            <div class="row header-top">
+                <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 hidden-xs">
+                    <a href="/" class="logo"></a>
+                </div>
+
+                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                    <!--noindex-->
+                    {% if app.user %}
+                        <div id="compoBasket" class="">
+                            <a href="{{ path('fos_user_profile_show') }}" class="btn btn-info login"><span class="font-icon fa fa-user"></span> Кабинет</a>
+
+                            <button type="button" class="btn btn-info cart"><span class="font-icon fa fa-shopping-cart"></span> 0</button>
+                        </div>
+
+                    {% else %}
+                        <div id="compoBasket" class="">
+                            <a href="{{ path('fos_user_security_login') }}" class="btn btn-info login">
+                                <span class="font-icon fa fa-user"></span> Войти
+                            </a>
+                        </div>
+                    {% endif %}
+                    <!--/noindex-->
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 offcanvas">
+            <div class="menu">
+                <nav class="navbar navbar-default ">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-8 col-lg-8">
+                            {{ sonata_block_render({
+                                'type': 'compo_menu.block.service.menu',
+                                'settings': {
+                                    'id': compo_core_settings.header_menu
+                                }
+                            }) }}
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,28 @@
+services:
+    compo_banner.admin.banner:
+        class: Compo\BannerBundle\Admin\BannerAdmin
+        arguments: [~, Compo\BannerBundle\Entity\Banner, CompoBannerBundle:BannerAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: banner }
+        calls:
+            - [ addChild, ['@compo_banner.admin.banner_item']]
+            - [ addChildAdminMenuItem, ['compo_banner.admin.banner_item']]
+
+    compo_banner.admin.banner_item:
+        class: Compo\BannerBundle\Admin\BannerItemAdmin
+        arguments: [~, Compo\BannerBundle\Entity\BannerItem, CompoBannerBundle:BannerItemAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: banner_item }
+
+    compo_banner.manager.banner:
+        class: Compo\BannerBundle\Manager\BannerManager
+        arguments: [Compo\BannerBundle\Entity\Banner, "@doctrine"]
+        parent: compo_core.abstract_container_aware
+
+    compo_banner.block.service.banner:
+        class: Compo\BannerBundle\Block\BannerBlockService
+        arguments: ["compo_banner.block.service.banner", "@templating"]
+        tags:
+            - { name: sonata.block }
+        calls:
+            - [ setContainer, ['@service_container']]

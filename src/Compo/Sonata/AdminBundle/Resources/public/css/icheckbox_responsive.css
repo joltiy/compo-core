@@ -1,0 +1,5 @@
+@media (min-width: 768px) {
+    .checkbox label, .radio label {
+        margin-left: 0;
+    }
+}

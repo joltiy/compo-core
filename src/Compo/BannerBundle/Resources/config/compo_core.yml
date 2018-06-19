@@ -1,0 +1,4 @@
+compo_core:
+    updated_at_cache_keys:
+        - {entity: Compo\BannerBundle\Entity\Banner, key: banner}
+        - {entity: Compo\BannerBundle\Entity\BannerItem, key: banner}

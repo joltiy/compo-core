@@ -1,0 +1,34 @@
+seo_page: 'SEO страниц'
+
+tab_menu.title_seo_page_list: 'SEO'
+breadcrumb.link_seo_page_list: 'SEO'
+breadcrumb.link_seo_page_create: 'Создание SEO'
+tab_menu.title_seo_page_create: 'Создание SEO'
+form.label_context: 'Страница'
+
+tab_menu.title_seo_page_edit: 'SEO: %name%'
+list.label_context: 'Страница'
+list.label_title: 'Title'
+list.label_description_additionnal: 'Дополнительное описание'
+list.label_meta_description: 'Meta Description'
+list.label_meta_keyword: 'Meta Keywords'
+list.label_header: 'Заголовок'
+
+form.label_settings_yandex_metrika_id: 'Яндекс.Метрика ID'
+form.label_settings_yandex_webmaster_id: 'Яндекс.Вебмастер ID'
+form.label_settings_google_analytics_id: 'Google.Analytics ID'
+form.label_settings_google_tag_manager_id: 'Google.TagManager ID'
+form.label_settings_google_webmaster_id: 'Google.Webmaster ID'
+tab.label_settings_yandex: 'Яндекс'
+tab.label_settings_google: 'Google'
+
+form.label_settings_google_analytics_view_id: 'Google.Analytics ID представления'
+
+filter.label_title: 'Title'
+filter.label_description_additionnal: 'Дополнительное описание'
+filter.label_meta_description: 'Meta Description'
+filter.label_meta_keyword: 'Meta Keywords'
+filter.label_header: 'Заголовок'
+filter.label_slug: 'Slug'
+
+filter.label_context: 'Страница'

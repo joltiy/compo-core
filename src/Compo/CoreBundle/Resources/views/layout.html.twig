@@ -1,0 +1,60 @@
+{#
+Базовый шаблон для всех страниц сайта
+#}
+
+{%- set compo_core_settings = compo_core_manager.settings -%}
+
+<!DOCTYPE html>
+<html {{ sonata_seo_html_attributes() }}>
+{% block head %}
+    <head {{ sonata_seo_head_attributes() }}>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        {{ sonata_seo_title() }}
+
+        {{ sonata_seo_metadatas() }}
+
+        {{ sonata_seo_link_canonical() }}
+        {{ sonata_seo_link_next() }}
+        {{ sonata_seo_link_prev() }}
+
+        {% block stylesheets %}
+            {% include 'CompoCoreBundle:Block:stylesheets.html.twig' %}
+        {% endblock %}
+    </head>
+{% endblock %}
+
+{% set body_class = app.request.get('_route') %}
+
+{% if sonata_page.isEditor or ( app.user and is_granted('ROLE_PREVIOUS_ADMIN') ) %}
+    {% set body_class = body_class ~ ' is-editor' %}
+{% endif %}
+
+{% block body %}
+    <body class="{{ body_class }}">
+    {% block header_admin %}
+        {% include 'CompoCoreBundle:Block:header_admin.html.twig' %}
+    {% endblock %}
+
+    {% block container %}
+        <div id="container" class="container-fluid container-max-width">
+            {% block header %}
+                {% include 'CompoCoreBundle:Block:header.html.twig' %}
+            {% endblock %}
+
+            {% block layout %}
+            {% endblock %}
+
+            {% block footer %}
+                {% include 'CompoCoreBundle:Block:footer.html.twig' %}
+            {% endblock %}
+        </div>
+    {% endblock %}
+
+    {% block javascripts %}
+        {% include 'CompoCoreBundle:Block:javascripts.html.twig' %}
+    {% endblock %}
+    </body>
+{% endblock %}
+</html>

@@ -1,0 +1,61 @@
+Contacts List: Контакты
+contacts: Контакты
+Address: Адрес
+Worktime: Часы работы
+Phone: Телефоны
+Email: E-mail
+BankProps: Реквизиты
+Walk Instruction: Как добраться своим ходом
+Car Instruction: Как добраться на машине
+Maps Code : Код карты
+
+tab_menu:
+  title_contacts_list: Редактирование контактов
+  title_contacts_edit: Редактирование контактов
+
+breadcrumb:
+  link_contacts_list: Редактирование контактов
+
+list:
+  label_worktime: Часы работы
+  label_phone: Телефон
+  label_email: E-mail
+  label_address: Адрес
+
+form:
+  label_address: Адрес
+  label_worktime: Часы работы
+  label_phone: Телефон
+  label_email: E-mail
+  label_bank_props: Реквизиты
+  label_walk_instruction: Как добраться своим ходом
+  label_car_instruction: Как добраться на машине
+  label_maps_code: Код карты
+  group_major: Основные данные
+  group_minor: Дополнительные данные
+  group_car: На машине
+  group_walk: Своим ходом
+  group_links: Ссылки
+  tab_instructions: Как добраться
+  label_cix: Долгота центра карты
+  label_ciy: Широта центра карты
+  tab_map: Карта
+
+
+show:
+  label_address: Адрес
+  label_worktime: Часы работы
+  label_phone: Телефон
+  label_email: E-mail
+  label_bank_props: Реквизиты
+  label_walk_instruction: Как добраться своим ходом
+  label_car_instruction: Как добраться на машине
+  label_maps_code: Код карты
+
+block:
+  title_contacts_main: Отформатированный блок контактов
+  title_feedback_form: Форма обратной связи
+
+
+Name: Имя
+Message: Сообщение

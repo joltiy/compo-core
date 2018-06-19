@@ -1,0 +1,29 @@
+{% extends 'SonataAdminBundle:CRUD:base_list.html.twig' %}
+
+{% block navbar_title %}
+    {% if admin.isChild() %}
+        {% set title_trash = "tab_menu.title_trash" %}
+
+        {{ title_trash|trans({'%name%': admin.getParent().subject}, admin.translationDomain) }}
+    {% else %}
+        {% set title_trash = "tab_menu.title_trash" %}
+        {% set title_trash_name = admin.label|trans({}, admin.translationDomain) %}
+        {{ title_trash|trans({'%name%': title_trash_name}, admin.translationDomain) }}
+    {% endif %}
+{% endblock %}
+
+{% block table_body %}
+    <tbody>
+    {% for object in admin.datagrid.results %}
+        <tr>
+            {% include '@CompoSonataAdmin/CRUD/list_trash_inner_row.html.twig' %}
+        </tr>
+    {% endfor %}
+    </tbody>
+{% endblock %}
+
+{% block batch %}
+{% endblock %}
+
+{% block export %}
+{% endblock %}

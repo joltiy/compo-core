@@ -1,0 +1,150 @@
+services:
+    compo.sonata.admin.extension.configure_list_fields_action:
+        class: Compo\Sonata\AdminBundle\Extension\ConfigureListFieldsActionExtension
+        tags:
+            - { name: sonata.admin.extension, global: true, priority: 1000 }
+
+    compo.sonata.admin.extension.configure_default_filter_values:
+        class: Compo\Sonata\AdminBundle\Extension\ConfigureDefaultFilterValuesExtension
+        tags:
+            - { name: sonata.admin.extension, global: true, priority: 900 }
+
+    compo.sonata.admin.extension.configure_routes:
+        class: Compo\Sonata\AdminBundle\Extension\ConfigureRoutesExtension
+        tags:
+            - { name: sonata.admin.extension, global: true, priority: 800 }
+
+    compo.sonata.admin.extension.configure_tab_menu:
+        class: Compo\Sonata\AdminBundle\Extension\ConfigureTabMenuExtension
+        tags:
+            - { name: sonata.admin.extension, global: true, priority: 700 }
+
+    compo.sonata.admin.extension.configure_tab_menu_current:
+        class: Compo\Sonata\AdminBundle\Extension\ConfigureTabMenuCurrentExtension
+        tags:
+            - { name: sonata.admin.extension, global: true, priority: -600 }
+
+    compo.sonata.admin.extension.configure_list_fields_sortable:
+        class: Compo\Sonata\AdminBundle\Extension\ConfigureListFieldsSortableExtension
+        tags:
+            - { name: sonata.admin.extension, global: true, priority: -700 }
+
+    compo.sonata.admin.extension.configure_show_fields:
+        class: Compo\Sonata\AdminBundle\Extension\ConfigureShowFieldsExtension
+        tags:
+            - { name: sonata.admin.extension, global: true, priority: -800 }
+
+    compo.sonata.admin.extension.configure_datagrid_filters:
+        class: Compo\Sonata\AdminBundle\Extension\ConfigureDatagridFiltersExtension
+        tags:
+            - { name: sonata.admin.extension, global: true, priority: -900 }
+
+    compo.sonata.admin.extension.configure_list_fields_persistent:
+        class: Compo\Sonata\AdminBundle\Extension\ConfigureListFieldsPersistentExtension
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: sonata.admin.extension, global: true, priority: -1000 }
+
+    compo.sonata.admin.extension.configure_list_fields_positions:
+        class: Compo\Sonata\AdminBundle\Extension\ConfigureListFieldsPositionsExtension
+        tags:
+            - { name: sonata.admin.extension, global: true, priority: -1100 }
+
+    compo.sonata.admin.extension.id:
+        class: Compo\Sonata\AdminBundle\Extension\IdExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+
+    compo.sonata.admin.extension.name:
+        class: Compo\Sonata\AdminBundle\Extension\NameExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+
+    compo.sonata.admin.extension.publication_at:
+        class: Compo\Sonata\AdminBundle\Extension\PublicationAtExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+
+    compo.sonata.admin.extension.properties:
+        class: Compo\Sonata\AdminBundle\Extension\PropertiesExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+        parent: compo_core.abstract_container_aware
+
+    compo.sonata.admin.extension.views:
+        class: Compo\Sonata\AdminBundle\Extension\ViewsExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+
+    compo.sonata.admin.extension.show_on_site:
+        class: Compo\Sonata\AdminBundle\Extension\ShowOnSiteExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+        parent: compo_core.abstract_container_aware
+
+    compo.sonata.admin.extension.enabled:
+        class: Compo\Sonata\AdminBundle\Extension\EnabledExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+
+    compo.sonata.admin.extension.position:
+        class: Compo\Sonata\AdminBundle\Extension\PositionExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+
+    compo.sonata.admin.extension.clone:
+        class: Compo\Sonata\AdminBundle\Extension\CloneExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+
+    compo.sonata.admin.extension.color:
+        class: Compo\Sonata\AdminBundle\Extension\ColorExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+
+    compo.sonata.admin.extension.image:
+        class: Compo\Sonata\AdminBundle\Extension\ImageExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+        parent: compo_core.abstract_container_aware
+
+    compo.sonata.admin.extension.update_association:
+        class: Compo\Sonata\AdminBundle\Extension\UpdateAssociationExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+
+    compo.sonata.admin.extension.history:
+        class: Compo\Sonata\AdminBundle\Extension\HistoryExtension
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: sonata.admin.extension, global: true }
+
+    compo.sonata.admin.extension.trash:
+        class: Compo\Sonata\AdminBundle\Extension\TrashExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+
+    compo.sonata.admin.extension.tree:
+        class: Compo\Sonata\AdminBundle\Extension\TreeExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+
+    compo.sonata.admin.extension.tree_parent_position:
+        class: Compo\Sonata\AdminBundle\Extension\TreeParentPositionExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+
+    compo.sonata.admin.extension.tree_nested:
+        class: Compo\Sonata\AdminBundle\Extension\TreeNestedExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+
+    compo.sonata.admin.extension.settings:
+        class: Compo\Sonata\AdminBundle\Extension\SettingsExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+
+    compo.sonata.admin.extension.configure_tab_menu_child_admin:
+        class: Compo\Sonata\AdminBundle\Extension\ConfigureTabMenuChildAdminExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }

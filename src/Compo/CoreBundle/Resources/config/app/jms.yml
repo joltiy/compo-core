@@ -1,0 +1,24 @@
+jms_serializer:
+    metadata:
+        directories:
+            - { path: "%kernel.root_dir%/../vendor/sonata-project/user-bundle/src/Resources/config/serializer/FOSUserBundle", namespace_prefix: 'FOS\UserBundle', name: 'FOS\UserBundle' }
+            - { path: "%kernel.root_dir%/../vendor/sonata-project/datagrid-bundle/src/Resources/config/serializer", namespace_prefix: 'Sonata\DatagridBundle', name: 'Sonata\DatagridBundle' }
+
+jms_translation:
+    configs:
+        app:
+            dirs: ["%kernel.root_dir%/../src/"]
+            output_dir: "%kernel.root_dir%/Resources/translations"
+            ignored_domains: [routes]
+            excluded_names: ["*TestCase.php", "*Test.php"]
+            excluded_dirs: [cache, data, logs]
+            extractors: [compo_admin]
+
+jms_di_extra:
+    annotation_patterns:
+        - JMS\DiExtraBundle\Annotation
+        - Sonata\AdminBundle\Annotation
+
+jms_job_queue:
+    queue_options_defaults:
+        max_concurrent_jobs: 10

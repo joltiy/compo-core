@@ -1,0 +1,51 @@
+<?php
+
+/*
+ * This file is part of the CompoSymfonyCms package.
+ * (c) Compo.ru <info@compo.ru>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Sylius\Bundle\SettingsBundle;
+
+use Sylius\Bundle\ResourceBundle\AbstractResourceBundle;
+use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
+use Sylius\Bundle\SettingsBundle\DependencyInjection\Compiler\RegisterResolversPass;
+use Sylius\Bundle\SettingsBundle\DependencyInjection\Compiler\RegisterSchemasPass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+
+/**
+ * @author Paweł Jędrzejewski <pawel@sylius.org>
+ */
+class SyliusSettingsBundle extends AbstractResourceBundle
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function getSupportedDrivers(): array
+    {
+        return [
+            SyliusResourceBundle::DRIVER_DOCTRINE_ORM,
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function build(ContainerBuilder $container): void
+    {
+        parent::build($container);
+
+        $container->addCompilerPass(new RegisterSchemasPass());
+        $container->addCompilerPass(new RegisterResolversPass());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getModelNamespace(): string
+    {
+        return 'Sylius\Bundle\SettingsBundle\Model';
+    }
+}

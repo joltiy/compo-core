@@ -1,0 +1,10 @@
+mopa_bootstrap:
+    form:
+        horizontal_label_class: ~
+        horizontal_input_wrapper_class: ~
+        render_optional_text: false     # default is true
+        show_child_legend: false
+        render_fieldset: false
+        show_legend: false
+
+    menu: ~  # enables twig helpers for menu

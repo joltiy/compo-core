@@ -1,0 +1,11 @@
+sonata_core:
+    flashmessage: ~
+
+sonata_exporter:
+    exporter:
+        default_writers:
+            - xlsx
+            - csv
+            - xls
+            - xml
+            - json

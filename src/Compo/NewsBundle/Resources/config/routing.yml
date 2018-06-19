@@ -1,0 +1,9 @@
+compo_news_index:
+    path:     /news/
+    defaults: { _controller: "CompoNewsBundle:News:index" }
+    methods:  GET
+
+compo_news_show_by_slug:
+    path:     /news/{slug}.html
+    defaults: { _controller: "CompoNewsBundle:News:showBySlug" }
+    methods:  GET

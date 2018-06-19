@@ -1,0 +1,110 @@
+{% extends '@CompoSonataDashboard/Dashboard/block_base.html.twig' %}
+
+{% block content %}
+    <div id="chart-{{ block.id }}"></div>
+
+    <table
+        {% if settings.tableVisible %}
+
+        {% else %}
+            style="display: none;"
+        {% endif %}
+
+        id="table-stats-{{ block.id }}" class="table table-bordered table-hover table-stats table-stats-custom">
+        <thead>
+        <tr>
+            {% for dimension in dimensions %}
+                {% set default_label = 'form.label_' ~ dimension.label_name %}
+                <th class="no-sort" data-type="dimension" data-field-type="{{ dimension.field_type }}">{{ dimension.label|default(default_label|trans({}, translation_domain)) }}</th>
+            {% endfor %}
+            {% for metric in metrics %}
+                {% set default_label = 'form.label_' ~ metric.label_name %}
+                {% set default_label = default_label|trans({}, translation_domain) %}
+                {% set default_label = default_label ~ ' ('~metric.aggregation|trans({}, 'CompoCoreBundle') ~ ')' %}
+
+                <th data-type="metric" data-field-type="" class="{{ metric.aggregation|lower }}">{{ metric.label|default(default_label) }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for row in stats %}
+            <tr>
+                {% for dimension in dimensions %}
+                    <td class="data-table-dimension" data-raw="{{ attribute(row, dimension.code_name ~ '_raw')|default('') }}">
+                        {{ attribute(row, dimension.code_name)|default('&mdash;')|raw|trans({}, 'CompoCoreBundle') }}
+                    </td>
+                {% endfor %}
+                {% for metric in metrics %}
+                    <td>
+                        {{ attribute(row, metric.code_name)|number_format(0, '', '') }}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+
+        $(function () {
+            {% if settings.chart %}
+            var tableCharts{{ block.id }} = $('#table-stats-{{ block.id }}').clone();
+
+            {% endif %}
+
+            var table{{ block.id }} = $('#table-stats-{{ block.id }}').DataTable({
+                "order": [ ],
+                "info": false,
+                paging: false,
+
+
+
+                searching: false,
+                "columnDefs": [ {
+                    "targets"  : 'no-sort',
+                    "orderable": false,
+                } ],
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Russian.json"
+                },
+                "footerCallback": function (row, data, start, end, display) {
+                    var api = this.api();
+
+
+                }
+            });
+
+            table{{ block.id }}.on("draw", function () {
+                {% if settings.chart %}
+                var order = table{{ block.id }}.order();
+
+                if (order.length) {
+                    var column_id = order[0][0];
+
+                } else {
+                    var column_id = 1;
+                }
+
+
+                if (column_id < {{ dimensions|length }}) {
+                    column_id = {{ dimensions|length }};
+                }
+
+                var timeline = false;
+
+
+                if (timeline) {
+                    createChartStock(tableCharts{{ block.id }}, {{ block.id }}, column_id + 1, {{ dimensions|length }}, timeline);
+
+                } else {
+                    createChart(tableCharts{{ block.id }}, {{ block.id }}, column_id + 1, {{ dimensions|length }}, ['Всего']);
+                }
+                {% endif %}
+            });
+        });
+    </script>
+
+
+{% endblock %}
+
+

@@ -1,0 +1,233 @@
+{% extends base_template %}
+
+{%- block actions -%}
+    {% include 'SonataAdminBundle:CRUD:action_buttons.html.twig' %}
+{%- endblock -%}
+
+{% block tab_menu %}{{ knp_menu_render(admin.sidemenu(action), {'currentClass' : 'active', 'template': sonata_admin.adminPool.getTemplate('tab_menu_template')}, 'twig') }}{% endblock %}
+
+{% block navbar_title %}
+    {% set title_batch = 'tab_menu.title_import' %}
+    {{ title_batch|trans({"%name%": admin.label|trans({}, admin.translationDomain)}, admin.translationDomain) }}
+{% endblock %}
+
+{% block content %}
+    {% if uploadFile.status == 1 %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-primary">
+                            <div class="box-header">
+                                <h4 id="head_h1" class="box-title">
+                                    {{ 'upload.h1.load'|trans({}, 'CompoImportBundle') }}
+                                </h4>
+                            </div>
+                            <div class="box-body">
+                                <div class="sonata-ba-collapsed-fields">
+                                    <div>
+                                        Команда: {{ uploadFile.command }}
+                                    </div>
+                                    <div id="uploading">
+                                        {{ 'upload.upload_entity'|trans({}, 'CompoImportBundle') }} <span class="badge" id="count">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                interval();
+            });
+
+            function interval() {
+                $.ajax({
+                    'url': '{{ admin.generateUrl('importStatus', {import_id: uploadFile.id}) }}',
+                    'dataType': 'JSON',
+                    'success': function (data) {
+                        $('#count').html(data.count);
+                        var head_h1 = $('#head_h1');
+
+                        switch (data.status) {
+                            case 2:
+                                head_h1.html('{{ 'upload.h1.success'|trans({}, 'CompoImportBundle') }}');
+                                window.location.reload();
+                                break;
+                            case 3:
+                                head_h1.html('{{ 'upload.h1.error'|trans({}, 'CompoImportBundle') }}');
+                                $('#uploading').after('<div class="error">{{ 'upload.error'|trans({}, 'CompoImportBundle') }} ' + data.error + '</div>');
+                                window.location.reload();
+                                break;
+                            default:
+                                setTimeout(function () {
+                                    interval();
+                                }, 500);
+                        }
+                    },
+                    'error': function () {
+                        alert('{{ 'upload.error'|trans({}, 'CompoImportBundle') }}');
+                    }
+                });
+            }
+        </script>
+    {% else %}
+        <style>
+            .status a.active {
+                color: black;
+                text-decoration: underline;
+            }
+        </style>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-primary">
+                            <div class="box-header">
+
+                                {% if uploadFile.status == 3 %}
+                                    <h4 id="head_h1 bg-danger" class="box-title" style="display: block">
+                                        {{ 'upload.h1.error'|trans({}, 'CompoImportBundle') }}
+                                    </h4>
+                                    <div class="bg-danger">
+                                        {{ 'upload.error'|trans({}, 'CompoImportBundle') }}: {{ uploadFile.message }}
+                                    </div>
+                                {% else %}
+                                    <h4 id="head_h1" class="box-title">
+                                        {{ 'upload.h1.success'|trans({}, 'CompoImportBundle') }}
+                                    </h4>
+                                {% endif %}
+
+                                {% if uploadFile.isDryRun %}
+                                    <h4 class="box-title">
+                                        <span class="label label-info">Пробный импорт</span>
+                                    </h4>
+                                {% endif %}
+                            </div>
+
+
+                            <div class="box-body">
+                                <div class="sonata-ba-collapsed-fields">
+                                    <div>
+                                        Команда: {{ uploadFile.command }}
+                                    </div>
+
+                                    <div id="uploading">
+                                        {{ 'upload.upload_entity'|trans({}, 'CompoImportBundle') }} <span class="badge" id="count">{{ countImport }}</span>
+                                    </div>
+                                    <h4 id="head_h1">{{ 'upload.log'|trans({}, 'CompoImportBundle') }}</h4>
+
+                                    <div class="status well">
+                                        <a {{ app.request.get('type') == 'all' ? 'class="active"' : '' }}
+                                            href="?page={{ app.request.get('page', 1) }}&type=all">
+                                            Все
+                                        </a> |
+                                        <a {{ app.request.get('type') == 'success' ? 'class="active"' : '' }}
+                                            href="?page={{ app.request.get('page', 1) }}&type=success">
+                                            Успешно загруженные
+                                        </a> |
+                                        <a {{ app.request.get('type') == 'nochanges' ? 'class="active"' : '' }}
+                                            href="?page={{ app.request.get('page', 1) }}&type=nochanges">
+                                            Без изменений
+                                        </a> <span class="badge">{{ stats[0].count }}</span> |
+                                        <a {{ app.request.get('type') == 'new' ? 'class="active"' : '' }}
+                                            href="?page={{ app.request.get('page', 1) }}&type=new">
+                                            Новые
+                                        </a> <span class="badge">{{ stats[1].count }}</span> |
+                                        <a {{ app.request.get('type') == 'update' ? 'class="active"' : '' }}
+                                            href="?page={{ app.request.get('page', 1) }}&type=update">
+                                            Обновленные
+                                        </a> <span class="badge">{{ stats[2].count }}</span> |
+                                        <a {{ app.request.get('type') == 'error' ? 'class="active"' : '' }}
+                                            href="?page={{ app.request.get('page', 1) }}&type=error">
+                                            С ошибкой
+                                        </a> <span class="badge">{{ stats[3].count }}</span>
+                                    </div>
+
+                                    {{ knp_pagination_render(paginator) }}
+
+                                    <table class="table table-striped table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>{{ 'upload.table.line'|trans({}, 'CompoImportBundle') }}</th>
+                                            <th>{{ 'upload.table.status'|trans({}, 'CompoImportBundle') }}</th>
+                                            <th>{{ 'upload.table.entity'|trans({}, 'CompoImportBundle') }}</th>
+                                            <th>#Изменения</th>
+
+                                            <th>{{ 'upload.table.error'|trans({}, 'CompoImportBundle') }}</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        {% for i in paginator %}
+
+                                            <tr>
+                                                <th scope="row">{{ i.line + 1 }}</th>
+                                                <td>
+                                                    {% if i.status == 1 %}
+                                                        <span class="label label-success">
+                                                            {{ 'upload.table.stat.new'|trans({}, 'CompoImportBundle') }}
+                                                        </span>
+                                                    {% elseif i.status == 2 %}
+                                                        <span class="label label-warning">
+                                                        {{ 'upload.table.stat.update'|trans({}, 'CompoImportBundle') }}
+                                                        </span>
+                                                    {% elseif i.status == 3 %}
+                                                        <span class="label label-danger">
+                                                        {{ 'upload.table.stat.error'|trans({}, 'CompoImportBundle') }}
+                                                        </span>
+                                                    {% elseif i.status == 0 %}
+                                                        <span class="label label-default">
+                                                        Без изменений
+                                                        </span>
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if i.foreignId %}
+                                                        <a target="_blank" href="{{ admin.generateUrl('edit', {'id': i.foreignId}) }}">
+                                                            {{ 'upload.table.edit'|trans({}, 'CompoImportBundle') }}
+                                                        </a>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="changes">
+                                                    <table style="width: 100%" class="table table-bordered">
+                                                        {% for changes_key, changes in i.changes %}
+                                                            <tr>
+                                                                <th scope="row" style="min-width: 100px">
+                                                                    {{ admin.translationLabel(changes_key, 'list', 'label')|trans({}, admin.translationDomain) }}:
+                                                                </th>
+                                                                <td class="old bg-danger" style="width: 50%">
+                                                                    {{ changes.old }}
+                                                                </td>
+                                                                <td class="new bg-success" style="width: 50%">
+                                                                    {{ changes.new }}
+                                                                </td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                    </table>
+                                                </td>
+                                                <td>
+                                                    {% set error_message = i.messageEncode %}
+                                                    {% if error_message|length %}
+                                                        {% for im in error_message %}
+                                                            {{ im }}
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

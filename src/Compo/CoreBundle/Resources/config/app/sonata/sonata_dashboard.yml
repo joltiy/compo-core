@@ -1,0 +1,15 @@
+sonata_dashboard:
+    default_container: sonata.dashboard.block.container
+    # Entity Classes
+    class:
+        dashboard: Compo\Sonata\DashboardBundle\Entity\Dashboard
+        block:     Compo\Sonata\DashboardBundle\Entity\Block
+
+doctrine:
+    orm:
+        entity_managers:
+            default:
+                mappings:
+                    CompoSonataDashboardBundle:
+                        type: annotation
+                    SonataDashboardBundle: ~

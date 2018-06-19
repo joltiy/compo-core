@@ -1,0 +1,96 @@
+parameters:
+    env(MEMCACHED_HOST): "memcached"
+    env(SERVER_NAME): "localhost"
+    env(SERVER_SCHEME): "https"
+    env(FOS_ELASTICA_HOST): "elasticsearch"
+    env(FOS_ELASTICA_INDEX_NAME): "project"
+    env(FOS_ELASTICA_PORT): 9200
+    env(DATABASE_NAME): "project"
+    env(DATABASE_DRIVER): "pdo_mysql"
+    env(DATABASE_HOST): "mysql"
+    env(DATABASE_PORT): 3306
+    env(DATABASE_USER): dbuser
+    env(DATABASE_PASSWORD): dbpassword
+    env(FRAMEWORK_SECRET): "ThisTokenIsNotSoSecretChangeItOk"
+    env(COOKIE_DOMAIN): ".localhost"
+    env(SONATA_MEDIA_CDN_HOST): "/uploads/media"
+
+
+    locale: "ru"
+
+    translator.class: Compo\CoreBundle\Translation\FallbackTranslator
+
+    sonata.seo.page.default.class: Compo\SeoBundle\Seo\SeoPage
+
+    sonata.page.service.default.class: Compo\Sonata\PageBundle\Page\Service\DefaultPageService
+    sonata.page.manager.page.class: Compo\Sonata\PageBundle\Entity\PageManager
+
+    sonata.page.admin.page.class: Compo\Sonata\PageBundle\Admin\PageAdmin
+    sonata.page.admin.site.class: Compo\Sonata\PageBundle\Admin\SiteAdmin
+    sonata.page.admin.block.class: Compo\Sonata\PageBundle\Admin\BlockAdmin
+    sonata.page.admin.shared_block.class: Compo\Sonata\PageBundle\Admin\SharedBlockAdmin
+
+    sonata.user.admin.user.class: Compo\Sonata\UserBundle\Admin\UserAdmin
+    sonata.user.admin.group.class: Compo\Sonata\UserBundle\Admin\GroupAdmin
+
+    sonata_user.google_authenticator.server:  compo-standard.localhost.ru
+
+    sonata.media.admin.media.class: Compo\Sonata\MediaBundle\Admin\MediaAdmin
+
+    sonata.formatter.block.formatter.class: Compo\Sonata\FormatterBundle\Block\FormatterBlockService
+    sonata.block.service.text.class: Compo\Sonata\BlockBundle\Block\Service\TextBlockService
+
+    sylius.settings.form_factory.class: Compo\CoreBundle\Form\Factory\SettingsFormFactory
+
+    fos_elastica.property_accessor.class: Compo\CoreBundle\PropertyAccess\QuietPropertyAccessor
+
+    router.request_context.host: '%env(SERVER_NAME)%'
+    router.request_context.scheme: '%env(SERVER_SCHEME)%'
+    router.request_context.base_url: ''
+    sonata.exporter.writer.csv.delimiter: ';'
+    sonata.exporter.writer.csv.with_bom: true
+
+compo_core:
+    theme:
+        name: "comporu/default"
+
+compo_sonata_admin:
+    audited_entities_ignore_columns:
+        - { entity: Compo\Sonata\UserBundle\Entity\User, columns: ['settings', 'last_login', 'lastLogin'] }
+
+services:
+    compo_core.block.service.admin_stats:
+        class: Compo\CoreBundle\Block\AdminStatsBlockService
+        arguments: ["compo_core.block.service.admin_stats", "@templating"]
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: sonata.block }
+
+    compo_core.block.service.admin_custom_stats:
+        class: Compo\CoreBundle\Block\AdminCustomStatsBlockService
+        arguments: ["compo_core.block.service.admin_custom_stats", "@templating"]
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: sonata.block }
+
+    compo_core.block.service.date_stats_admin:
+        class: Compo\CoreBundle\Block\DateStatsAdminBlockService
+        arguments: ["compo_core.block.service.date_stats_admin", "@templating"]
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: sonata.block }
+
+
+    compo_core.listener.clear_cache_subscriber:
+        class: Compo\CoreBundle\Listener\ClearCacheSubscriber
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: doctrine.event_subscriber }
+
+
+
+
+
+liip_monitor:
+    enable_controller: true
+    default_group:        default

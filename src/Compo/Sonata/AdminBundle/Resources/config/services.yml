@@ -1,0 +1,25 @@
+services:
+    compo.sonata.admin.filter.number_range:
+        class: Compo\Sonata\AdminBundle\Filter\NumberRangeFilter
+        tags:
+            - { name: sonata.admin.filter.type, alias: compo_sonata_admin_number_range_filter }
+
+    compo.sonata.admin.form.type.number_range:
+        class: Compo\Sonata\AdminBundle\Form\Type\NumberRangeType
+        tags:
+            - { name: form.type, alias: compo_sonata_admin_number_range }
+
+    compo.sonata.admin.form.type.help:
+        class: Compo\Sonata\AdminBundle\Form\Type\HelpType
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: form.type, alias: compo_sonata_admin_help }
+
+    compo.sonata.admin.form.type.tree_selector:
+        class: Compo\Sonata\AdminBundle\Form\Type\TreeSelectorType
+        arguments: ["@property_accessor"]
+        tags:
+            - { name: form.type, alias: compo_sonata_admin_tree_selector }
+
+
+

@@ -1,0 +1,59 @@
+sonata_notification:
+
+    # Other backends you can use:
+    # sonata.notification.backend.runtime
+    # sonata.notification.backend.postpone
+    # sonata.notification.backend.doctrine
+    # sonata.notification.backend.rabbitmq
+
+    backend:              sonata.notification.backend.doctrine
+
+    queues:
+        - { queue: catchall, default: true }
+
+    backends:
+        doctrine:
+            message_manager:      sonata.notification.manager.message.default
+
+            # The max age in seconds
+            max_age:              86400
+
+            # The delay in microseconds
+            pause:                500000
+
+            # The number of items on each iteration
+            batch_size:           10
+
+            # Raising errors level
+            states:
+                in_progress:          10
+                error:                20
+                open:                 100
+                done:                 10000
+
+    consumers:
+
+        # If set to true, SwiftMailerConsumer and LoggerConsumer will be registered as services
+        register_default:     true
+
+    # Listeners attached to the IterateEvent
+    # Iterate event is thrown on each command iteration
+    #
+    # Iteration listener class must implement Sonata\NotificationBundle\Event\IterationListener
+    # iteration_listeners:  []
+    class:
+        message: Compo\Sonata\NotificationBundle\Entity\Message
+    admin:
+        enabled:              true
+        message:
+            class:                Sonata\NotificationBundle\Admin\MessageAdmin
+            controller:           'SonataNotificationBundle:MessageAdmin'
+            translation:          SonataNotificationBundle
+
+doctrine:
+    orm:
+        entity_managers:
+            default:
+                mappings:
+                    SonataNotificationBundle: ~
+                    CompoSonataNotificationBundle: ~

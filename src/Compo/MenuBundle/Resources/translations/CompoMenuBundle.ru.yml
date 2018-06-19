@@ -1,0 +1,47 @@
+breadcrumb:
+    link_menu_batch: 'Действия над меню'
+    link_menu_create: 'Создание меню'
+    link_menu_delete: 'Удаление меню'
+    link_menu_edit: 'Редактирование меню'
+    link_menu_item_batch: 'Действия над элементами меню'
+    link_menu_item_create: 'Создание элемента меню'
+    link_menu_item_delete: 'Удаление элемента меню'
+    link_menu_item_edit: 'Редактирование элемента меню'
+    link_menu_item_list: 'Список элементов меню'
+    link_menu_item_update: 'Обновление элемента меню'
+    link_menu_list: 'Список меню'
+    link_menu_update: 'Обвновление меню'
+
+form:
+    label_page: Страница
+    label_parent: 'Родительский элемент'
+
+menu: Меню
+
+tab_menu.title_menu_list: 'Меню'
+breadcrumb.link_menu_item_tree: 'Список элементов меню'
+tab_menu.title_menu_item_create: 'Создание элемента меню'
+form.tab_main_menu: 'Элемент меню'
+
+tab_menu.title_menu_menu_item_edit: 'Элемент меню: %name%'
+
+tab_menu.menu: 'Меню'
+tab_menu.link_menu_list: 'Список элементов меню'
+
+tab_menu.title_menu_menu_item_list: 'Элементы меню: %name%'
+
+tab_menu.title_menu_edit: 'Меню: %name%'
+
+tab_menu.title_menu_create: 'Создание меню'
+
+block.title_menu: 'Меню'
+
+form.label_tagging: 'Тегирование'
+
+form.label_catalog: 'Категория'
+form.label_manufacture: 'Производитель'
+form.label_country: 'Страна'
+
+form.label_target: 'Открывать в'
+
+menu_item: 'Элементы меню'

@@ -1,0 +1,36 @@
+#
+# more information can be found here https://sonata-project.org/bundles/user
+#
+# Enable Doctrine to map the provided entities
+doctrine:
+    orm:
+        entity_managers:
+            default:
+                mappings:
+                    CompoSonataUserBundle:
+                        type: annotation
+                    SonataUserBundle: ~
+                    FOSUserBundle: ~
+
+# if you change the class configuration, please also alter the fos_user.yml file
+sonata_user:
+    class:
+        user:  Compo\Sonata\UserBundle\Entity\User
+        group: Compo\Sonata\UserBundle\Entity\Group
+
+    security_acl:             false
+
+    table:
+        user_group:           fos_user_user_group
+
+    impersonating:
+        route:                page_slug
+        parameters:           { path: / }
+
+
+    google_authenticator:
+        server:               "%sonata_user.google_authenticator.server%"
+        enabled:              false
+
+    manager_type:             orm
+

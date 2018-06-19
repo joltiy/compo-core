@@ -1,0 +1,17 @@
+{
+    "name": "compo-core",
+    "dependencies": {
+        "angular": "^1.6.4",
+        "datatable": "latest",
+        "hinclude": "latest",
+        "sisyphus": "latest",
+        "fontawesome": "latest",
+        "seiyria-bootstrap-slider": "latest",
+        "highcharts": "latest",
+        "ilikenwf-nested-sortable": "latest",
+        "bootstrap": "^3.3.7",
+        "codemirror": "latest"
+    },
+    "license": "MIT",
+    "private": true
+}

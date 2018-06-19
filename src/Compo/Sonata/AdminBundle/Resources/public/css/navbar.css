@@ -1,0 +1,55 @@
+
+.navbar-collapse-actions .fa {
+    margin-right: 5px;
+}
+.navbar-collapse-actions .navbar-nav>li>a:focus,
+.navbar-collapse-actions .navbar-nav>li>a:hover {
+    background-color: #e7e7e7;
+}
+
+.sonata-bc .breadcrumb {
+    white-space: nowrap;
+    overflow-x: auto;
+    display: block;
+    width: auto;
+    float: none;
+    border-bottom: 1px solid #eaeaea;
+    margin-bottom: 10px;
+    border-top: 1px solid #eaeaea;
+}
+.sonata-bc .breadcrumb.navbar-top-links li a,
+.sonata-bc .breadcrumb.navbar-top-links li span {
+    padding: 5px;
+    min-height: initial;
+}
+
+
+.navbar-header-admin {
+    display: block;
+    width: 100%;
+}
+
+.navbar-header-admin .navbar-brand {
+    min-height: initial;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 0;
+}
+
+.navbar-collapse.navbar-collapse-actions {
+    border: none;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 10px;
+}
+
+
+.navbar-collapse-actions .navbar-nav>li.dropdown>a {
+    display: inline-block;
+    border-right: 1px solid #DDD;
+}
+.navbar-collapse-actions .navbar-nav>li.dropdown>a.dropdown-toggle {
+    display: inline-block;
+    float: right;
+    border-right: 0 solid #DDD;
+}

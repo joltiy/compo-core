@@ -1,0 +1,81 @@
+{% extends sonata_block.templates.block_base %}
+
+{% import _self as tree %}
+
+{% macro renderNodes(nodesList, lvl, dropdown) %}
+    {% import _self as tree %}
+
+    {% for node in nodesList %}
+        {% if node.__children|length %}
+            {% if loop.index == 1 %}
+                {% set class = 'catalog-list__dropdown-block__column--first' %}
+            {% else %}
+                {% set class = '' %}
+            {% endif %}
+
+            <div class="catalog-list__dropdown-block__column {{ class }} grid-item">
+                <div class="catalog-list__dropdown-block__title">{{ node.name }}</div>
+                <div class="wrap">
+
+
+                    {{ tree.renderNodes(node.__children, node.lvl+1, true) }}
+                </div>
+            </div>
+        {% else %}
+            <div class="catalog-list__dropdown-block__item ">
+
+                <a href="{{ node.url }}" title="{{ node.title|default(node.name) }}" {% if node.target %}target="{{ node.target }}"{% endif %}>
+                    {{ node.name }}
+
+                    {% if node.products_count is defined %}
+                        <span class="count">{{ node.products_count }}</span>
+                    {% endif %}
+                </a>
+            </div>
+
+
+        {% endif %}
+    {% endfor %}
+
+{% endmacro %}
+
+{% block block %}
+    <ul  class="main-navbar main-navbar-dropdown-tabs">
+        {% for node in nodes %}
+            {% if node.__children|length %}
+                <li class=" dropdown ">
+                    <a class="main-navbar__item dropdown-menu-item"  data-id="{{ node.id }}" title="{{ node.title|default(node.name) }}" href="{{ node.url }}" {% if node.target %}target="{{ node.target }}"{% endif %}>
+                        {{ node.name }}
+                    </a>
+
+                </li>
+            {% else %}
+                <li {% if app.request.requestUri == node.url %} class=" active"  {% else %} class="" {% endif %}>
+                    <a class="main-navbar__item" title="{{ node.title|default(node.name) }}" href="{{ node.url }}" {% if node.target %}target="{{ node.target }}"{% endif %}>
+                        {{ node.name }}
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+    {% for node in nodes %}
+        {% if node.__children|length %}
+            <div class="catalog-list__dropdown-block" id="dropdown-block-{{ node.id }}">
+                <div class="container">
+                    <div class="row">
+                        <div class="catalog-list__dropdown-block__flex-wrap grid">
+
+
+                            {{ tree.renderNodes(node.__children, 0) }}
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,78 @@
+page: "Страницы"
+site: "Сайт"
+"Edited Pages": "Изменённых страниц"
+"site_admin": "Сайт"
+breadcrumb.link_page_list: "Список страниц"
+list.label_name: "Название"
+list.label_enabled: "Включена"
+list.label_position: "Позиция"
+filter.label_name: "Название"
+filter.label_page_alias: "Служебное имя"
+pages.list_mode: ""
+pages.compose_label: "блоки"
+breadcrumb.link_page_tree: "Структура"
+list.label_enabled_site: "Включён"
+form_site.label_general: "Основные"
+form_site.label_name: "Название"
+form_site.label_enabled: "Включён"
+form_site.label_host: "Хост"
+breadcrumb.link_site_list: "Сайт"
+help_page_name: ""
+form_page.group_main_label: "Основные"
+form.label_name: "Название"
+form.label_enabled: "Включена"
+form.label_position: "Позиция"
+form.label_template_code: "Шаблон"
+form.label_parent: "Родительская"
+form.label_page_alias: "Служебное имя"
+form.label_slug: "Url"
+sidemenu.link_edit_page: "Редактирование"
+sidemenu.link_compose_page: "Блоки"
+view_page: "Просмотр"
+cancel: "отменить"
+yes: "да"
+composer.remove.confirm: "Удалить блок?"
+page.compose_blocks_label: "{0} блоков|{1} блок|[2,Inf] блоков"
+page.compose_page: "Блоки"
+composer.block.add.type: "Добавить блок"
+form_page.group_advanced_label: "Дополнительные настройки"
+form.label_decorate: "Декорировать"
+blocks: 'блоки'
+composer.remove: 'удалить блок'
+composer.enable: 'включить блок'
+composer.disable: 'отключить блок'
+loading: 'загрузка'
+header.sonata_admin_dashboard: 'Панель управления'
+header.edit_page: 'Редактировать страницу'
+header.view_all_pages: 'Все страницы'
+header.view_all_exceptions: 'Страницы ошибок'
+header.compose_page: 'Блоки'
+header.page: 'Страницы'
+pages.tree_site_label: 'Страницы сайта'
+pages.tree_mode: ''
+page.compose_template_label: 'Шаблон'
+page.composer_preview_error: 'Ошибка препросмотра блока'
+page.composer_update_saving: 'Обновление позиции блока'
+page.composer_update_saved: 'Позиция блока обновлена'
+page.composer_update_error: 'Ошибка обнвление блоков'
+page.composer_status_error: 'Ошибка обновление статуса блока'
+
+
+tab_menu.title_page_edit: 'Страница: %name%'
+shared_block: 'Блок (расширенный)'
+block: 'Страницы (блок)'
+snapshot: 'Страницы (снапшот)'
+
+header.switch_user_exit: 'Развоплотиться'
+
+title_page_redirected: 'Внутреннее перенаправление страницы'
+form.label_title: 'Title'
+form.label_meta_description: 'Meta Description'
+form.label_meta_keyword: 'Meta Keywords'
+
+
+form.group_default: 'Основное'
+form.group_form_site_label_general: 'Основное'
+form.group_form_site_label_seo: 'SEO'
+filter.label_host: 'Хост'
+form.group_form_field_group_general: 'Основное'

@@ -1,0 +1,8 @@
+@media (max-width: 768px) {
+    .sonata-ba-field .field-actions {
+        float: none;
+        display: block;
+        clear: both;
+        padding-top: 15px;
+    }
+}

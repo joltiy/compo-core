@@ -1,0 +1,3 @@
+compo_core:
+    updated_at_cache_keys:
+        - {entity: Compo\ArticlesBundle\Entity\Articles, key: articles}

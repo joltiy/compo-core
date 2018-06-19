@@ -1,0 +1,107 @@
+{#
+Временный фикс. Перегрузка макроса.
+#}
+
+{% extends 'SonataAdminBundle:CRUD:base_show.html.twig' %}
+{% import _self as show_helper3 %}
+
+{% macro render_groups(admin, object, object_compare, elements, groups, has_tab, no_padding = false) %}
+    <div class="row">
+        {{ block('field_row') }}
+    </div>
+{% endmacro %}
+
+{% block field_row %}
+    {% for code in groups %}
+        {% set show_group = admin.showgroups[code] %}
+
+        <div class="{{ show_group.class|default('col-md-12') }} {{ no_padding ? 'nopadding' }}">
+            <div class="{{ show_group.box_class }}">
+                <div class="box-header">
+                    <h4 class="box-title">
+                        {% block show_title %}
+                            {{ show_group.name|trans({}, show_group.translation_domain ?: admin.translationDomain) }}
+                        {% endblock %}
+                    </h4>
+                </div>
+                <div class="box-body table-responsive no-padding">
+                    <table class="table">
+
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>{{ object.updatedAt|date('d.m.Y H:i:s') }}</th>
+                            <th>{{ object_compare.updatedAt|date('d.m.Y H:i:s') }}</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for field_name in show_group.fields %}
+                            {% block show_field %}
+                                <tr class="sonata-ba-view-container history-audit-compare">
+                                    {% if elements[field_name] is defined %}
+                                        {{ elements[field_name]|render_view_element_compare(object, object_compare) }}
+                                    {% endif %}
+                                </tr>
+                            {% endblock %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block show %}
+    <div class="sonata-ba-view">
+
+        {{ sonata_block_render_event('sonata.admin.show.top', { 'admin': admin, 'object': object }) }}
+
+        {% set has_tab = (admin.showtabs|length == 1 and admin.showtabs|keys[0] != 'default') or admin.showtabs|length > 1 %}
+
+        {% if has_tab %}
+
+
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs" role="tablist">
+                    {% for name, show_tab in admin.showtabs %}
+                        <li{% if loop.first %} class="active"{% endif %}>
+                            <a href="#tab_{{ admin.uniqid }}_{{ loop.index }}" data-toggle="tab">
+                                <i class="fa fa-exclamation-circle has-errors hide" aria-hidden="true"></i>
+                                {{ name|trans({}, show_tab.translation_domain ?: admin.translationDomain) }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                <div class="tab-content">
+                    {% for code, show_tab in admin.showtabs %}
+                        <div
+                                class="tab-pane fade{% if loop.first %} in active{% endif %}"
+                                id="tab_{{ admin.uniqid }}_{{ loop.index }}"
+                        >
+                            <div class="box-body  container-fluid">
+                                <div class="sonata-ba-collapsed-fields">
+                                    {% if show_tab.description != false %}
+                                        <p>{{ show_tab.description|raw }}</p>
+                                    {% endif %}
+
+                                    {{ show_helper.render_groups(admin, object, object_compare, elements, show_tab.groups, has_tab) }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% elseif admin.showtabs is iterable %}
+            {{ show_helper3.render_groups(admin, object, object_compare, elements, admin.showtabs.default.groups, has_tab) }}
+        {% endif %}
+
+    </div>
+
+    {{ sonata_block_render_event('sonata.admin.show.bottom', { 'admin': admin, 'object': object }) }}
+{% endblock %}
+
+
+

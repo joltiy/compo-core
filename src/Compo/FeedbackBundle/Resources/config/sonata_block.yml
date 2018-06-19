@@ -1,0 +1,4 @@
+sonata_block:
+    blocks:
+        compo_feedback.block.service.feedback_form:
+            contexts:   [sonata_page_bundle]

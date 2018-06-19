@@ -1,0 +1,40 @@
+services:
+    compo_articles.admin.articles:
+        class: Compo\ArticlesBundle\Admin\ArticlesAdmin
+        arguments: [~, Compo\ArticlesBundle\Entity\Articles, CompoArticlesBundle:ArticlesAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: articles }
+
+    compo_articles.manager.articles:
+        class: Compo\ArticlesBundle\Manager\ArticlesManager
+        arguments: [Compo\ArticlesBundle\Entity\Articles, "@doctrine"]
+        parent: compo_core.abstract_container_aware
+
+    compo_articles.settings.articles:
+        class: Compo\ArticlesBundle\Settings\ArticlesSettingsSchema
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: "sylius.settings_schema", namespace: "compo_articles", admin: compo_articles.admin.articles }
+
+    compo_articles.block.breadcrumb:
+        class: Compo\ArticlesBundle\Block\ArticlesBreadcrumbBlockService
+        arguments: ["compo_articles", compo_articles.block.breadcrumb, "@templating", "@knp_menu.menu_provider", "@knp_menu.factory"]
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: sonata.block }
+            - { name: sonata.breadcrumb }
+
+    compo_articles.block.service.articles_last:
+        class: Compo\ArticlesBundle\Block\ArticlesLastBlockService
+        arguments: ["compo_articles.block.service.articles_last", "@templating"]
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: sonata.block }
+
+    compo_articles.sitemap.subscriber:
+        class:     Compo\ArticlesBundle\Event\SitemapArticlesSubscriber
+        arguments:
+            - "@router"
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: "kernel.event_subscriber", priority: 100 }

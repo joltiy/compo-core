@@ -1,0 +1,59 @@
+{% extends base_template %}
+
+{%- block actions -%}
+    {% include 'SonataAdminBundle:CRUD:action_buttons.html.twig' %}
+{%- endblock -%}
+
+{% block tab_menu %}{{ knp_menu_render(admin.sidemenu('history'), {'currentClass' : 'active', 'template': sonata_admin.adminPool.getTemplate('tab_menu_template')}, 'twig') }}{% endblock %}
+
+{% block title %}
+    {% if admin.id(object) is not null %}
+        {% set title_revert = "tab_menu.title_revert" %}
+        {{ title_revert|trans({'%name%': admin.subject }, admin.translationDomain) }}
+    {% else %}
+        {% set title_revert = "tab_menu.title_revert" %}
+        {% set title_revert_name = admin.label|trans({}, admin.translationDomain) %}
+
+        {% if admin.isChild() %}
+            {{ title_revert|trans({'%name%': admin.getParent().subject}, admin.translationDomain) }}
+        {% else %}
+            {{ title_revert|trans({'%name%': title_revert_name}, admin.translationDomain) }}
+
+        {% endif %}
+
+    {% endif %}
+{% endblock %}
+
+{% block navbar_title %}
+    {{ block('title') }}
+{% endblock %}
+
+
+
+{% block content %}
+    <div class="sonata-ba-delete">
+
+        <div class="box box-danger">
+            <div class="box-header">
+                <h3 class="box-title">{{ 'title_history_revert'|trans({}, 'SonataAdminBundle') }}</h3>
+            </div>
+            <div class="box-body">
+                {{ 'message_history_revert_confirmation'|trans({'%object%': admin.toString(object)}, 'SonataAdminBundle') }}
+            </div>
+            <div class="box-footer clearfix">
+                <form method="POST" action="{{ admin.generateObjectUrl('history_revert', object, {'revision': revision}) }}">
+                    <input type="hidden" name="_sonata_csrf_token" value="{{ csrf_token }}">
+
+                    <button type="submit" class="btn btn-danger"><i class="fa fa-random"></i> {{ 'btn_history_revert'|trans({}, 'SonataAdminBundle') }}</button>
+                    {% if admin.hasRoute('edit') and admin.isGranted('EDIT', object) %}
+                        {{ 'history_revert_or'|trans({}, 'SonataAdminBundle') }}
+
+                        <a class="btn btn-success" href="{{ admin.generateObjectUrl('history', object) }}">
+                            <i class="glyphicon glyphicon-edit"></i>
+                            {{ 'link_action_history_list'|trans({}, 'SonataAdminBundle') }}</a>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% if app.user and is_granted('ROLE_SONATA_ADMIN')  or ( app.user and is_granted('ROLE_PREVIOUS_ADMIN') ) %}
+    <div id="header-admin">
+
+        <header class="sonata-bc sonata-page-top-bar navbar navbar-inverse" role="banner" style="border-radius: 0">
+
+            <div class="container">
+                <ul class="nav navbar-nav navbar-nav-admin">
+                    {% if app.user and is_granted('ROLE_SONATA_ADMIN') %}
+                        <li><a href="{{ path('sonata_admin_dashboard') }}">{{ "header.sonata_admin_dashboard"|trans({}, 'SonataPageBundle') }}</a></li>
+                    {% endif %}
+
+                    {% if app.user and is_granted('ROLE_SONATA_ADMIN') and (is_granted('ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT') or is_granted('ROLE_SUPER_ADMIN')) %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Страница <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                {% if page is defined %}
+                                    <li><a href="{{ sonata_admin.objectUrl('sonata.page.admin.page', 'edit', page) }}" target="_new"><i class="fa fa-pencil"></i> {{ "header.edit_page"|trans({}, 'SonataPageBundle') }}</a></li>
+                                    <li class="divider"></li>
+                                {% endif %}
+                                {% if page is defined %}
+                                    <li>
+                                        <a href="{{ sonata_admin.url('sonata.page.admin.page', 'compose', {'id': page.id}) }}">
+                                            <i class="fa fa-magic"></i>
+                                            {{ 'header.compose_page'|trans({}, 'SonataPageBundle') }}
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                {% endif %}
+
+                                <li><a href="{{ sonata_admin.url('sonata.page.admin.page', 'list') }}" target="_new"><i class="fa fa-list"></i> {{ "header.view_all_pages"|trans({}, 'SonataPageBundle') }}</a></li>
+
+                                {% if error_codes is defined and error_codes|length %}
+                                    <li class="divider"></li>
+                                    <li><a href="{{ path('sonata_page_exceptions_list') }}" target="_new"><i class="fa fa-exclamation-triangle"></i> {{ "header.view_all_exceptions"|trans({}, 'SonataPageBundle') }}</a></li>
+                                {% endif %}
+                            </ul>
+                        </li>
+
+                    {% endif %}
+
+                    {% if page is defined and not page.enabled %}
+                        <li><span style="padding-left: 20px; background: red;"><strong><em>{{ 'header.page_is_disabled'|trans([], 'SonataPageBundle') }}</em></strong></span></li>
+                    {% endif %}
+
+                    {{ compo_core_admin_navbar() }}
+
+                    {% if app.user and is_granted('ROLE_PREVIOUS_ADMIN') %}
+                        <li><a href="{{ url('admin_sonata_user_user_list', {'_switch_user': '_exit'}) }}">{{ "header.switch_user_exit"|trans({}, 'SonataPageBundle') }}</a></li>
+                    {% endif %}
+
+                </ul>
+            </div>
+        </header>
+    </div>
+{% endif %}

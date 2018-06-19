@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="col-lg-12" data-ng-bind-html-unsafe="formResponse" data-ng-controller="FeedbackFormController as feedback" data-ng-cloak>
+
+        <div class="alert alert-success" role="alert" data-ng-show="feedback.showsuccess">Спасибо! Ваш запрос успешно отправлен</div>
+        <div class="alert alert-danger" role="alert" data-ng-show="feedback.showerror">При отправке запроса возникли ошибки. Обновите страницу и попробуйте еще раз.</div>
+
+
+        <form class="contacts__form" name="{{ form.vars.name }}" data-ng-if="!feedback.sent">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="drawing-order__flex-wrap">
+                        {{ form_row(form.name,{ "label_attr": {"class":"drawing-order__label-text"} , 'attr' : {"validator" : "required","class" : "drawing-order__input-text","data-ng-model":"feedback.form.name"  }}  ) }}
+                    </div>
+                </div>
+
+
+                <div class="col-md-12">
+                    <div class="drawing-order__flex-wrap">
+                        {{ form_row(form.email,{ "label_attr": {"class":"drawing-order__label-text"} , 'attr' : {"validator" : "required, email","class" : "drawing-order__input-text","data-ng-model":"feedback.form.email"  }}  ) }}
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="drawing-order__flex-wrap">
+                        {{ form_row(form.phone,{ "label_attr": {"class":"drawing-order__label-text"} , 'attr' : {"validator" : "required","data-ng-phone-mask":"","class" : "drawing-order__input-text" ,"data-ng-model":"feedback.form.phone" }}  ) }}
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="drawing-order__flex-wrap different">
+                {{ form_row(form.message,{ "label_attr": {"class":"drawing-order__label-text"} , 'attr' : {"validator" : "required","class" : "drawing-order__textarea" ,"data-ng-model":"feedback.form.message"  }}  ) }}
+            </div>
+
+            <input type="submit" validation-submit="{{ form.vars.name }}" value="Отправить сообщение" data-ng-disabled="feedback.disablesubmit" data-ng-click="feedback.send()" class="drawing-order__input-submit pull-right">
+
+
+            {{ form_row(form.type, { 'attr' : {"data-ng-model":"feedback.form.type", "data-ng-init":"feedback.form.type='"~form.type.vars.value~"'"  }}  ) }}
+            {{ form_row(form.page, { 'attr' : {"data-ng-model":"feedback.form.page", "data-ng-init":"feedback.form.page='"~form.page.vars.value~"'"  }}  ) }}
+            {{ form_row(form._token, { 'attr' : {"data-ng-model":"feedback.form._token", "data-ng-init":"feedback.form._token='"~form._token.vars.value~"'"  }}  ) }}
+
+        </form>
+
+
+    </div>
+</div>

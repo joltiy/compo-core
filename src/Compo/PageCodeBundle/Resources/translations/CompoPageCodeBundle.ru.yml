@@ -1,0 +1,20 @@
+breadcrumb:
+    link_page_code_batch: 'Дейсвтия над кодами'
+    link_page_code_create: 'Создание кода'
+    link_page_code_delete: 'Удаление кода'
+    link_page_code_edit: 'Редактирование кода'
+    link_page_code_list: 'Список кодов'
+    link_page_code_update: 'Обновление кода'
+
+page_code: 'Код страниц'
+
+
+title_edit_page_code: 'Редактировать код'
+
+tab_menu.title_page_code_list: 'Коды страниц'
+
+tab_menu.title_page_code_edit: 'Код страницы: %name%'
+tab_menu.title_page_code_create: 'Создание кода'
+form.label_code: 'Код'
+list.label_layout: 'Расположение'
+form.label_layout: 'Расположение'

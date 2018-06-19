@@ -1,0 +1,51 @@
+faq: "Вопрос-ответ"
+
+breadcrumb:
+    faq: Вопрос-ответ
+    link_faq_batch: 'Действия над вопрос-ответ'
+    link_faq_create: 'Создание вопрос-ответ'
+    link_faq_delete: 'Удаление вопрос-ответ'
+    link_faq_edit: 'Редактирование вопрос-ответ'
+    link_faq_list: "Вопрос-ответ"
+    link_faq_settings: Настройки
+    link_faq_update: 'Обновление вопрос-ответ'
+
+form:
+    label_settings_faq_per_page: 'Вопрос-ответ на страницу'
+    tab_main: "Вопрос-ответ"
+    label_name: 'Вопрос'
+
+form.label_answer: "Ответ"
+
+no_found_faq: 'Вопрос-ответ не найдены'
+
+settings:
+    header: 'Настройки вопрос-ответ'
+    seo_items_tab: 'SEO вопрос-ответ'
+
+show:
+    label_publication_at: 'Дата публикации'
+
+tab_menu:
+    link_faq_settings: 'Настройки вопрос-ответ'
+    title_faq_action_delete_batch: 'Удалить указанные вопрос-ответ?'
+
+    title_faq_batch_actions:
+        label_disable_batch: 'Выключить указанные вопрос-ответ?'
+        label_enable_batch: 'Включить указанные вопрос-ответ?'
+
+    title_faq_create: 'Создание вопрос-ответ'
+    title_faq_edit: 'Вопрос-ответ: %name%'
+    title_faq_list: "Вопрос-ответ"
+    title_faq_settings: 'Настройки вопрос-ответ'
+
+block:
+  title_faq_last: 'Последние вопрос-ответ'
+
+
+
+
+tab.label_settings_seo_items: 'SEO вопрос-ответ'
+
+
+form.label_username: 'Автор вопроса'

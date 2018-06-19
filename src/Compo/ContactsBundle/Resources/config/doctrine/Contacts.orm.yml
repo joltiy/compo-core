@@ -1,0 +1,45 @@
+Compo\ContactsBundle\Entity\Contacts:
+    type: entity
+    table: contacts
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+             type: string
+             nullable: true
+        address:
+            type: text
+            nullable: true
+        worktime:
+             type: text
+             nullable: true
+        phone:
+             type: text
+             nullable: true
+        email:
+             type: string
+             length: 255
+             nullable: true
+        bankProps:
+             type: text
+             nullable: true
+        walkInstruction:
+             type: text
+             nullable: true
+        carInstruction:
+             type: text
+             nullable: true
+        mapsCode:
+              type: string
+              length: 255
+              nullable: true
+        cix:
+              type: string
+              length: 20
+              nullable: true
+        ciy:
+              type: string
+              ength: 20
+              nullable: true

@@ -1,0 +1,46 @@
+notification: Уведомления
+notification_email: "E-mail уведомления"
+notification_email_account: "E-mail аккаунты"
+
+breadcrumb.link_notification_email_account_list: "Список e-mail аккаунтов"
+tab_menu.title_notification_email_account_list: "Список e-mail аккаунтов"
+breadcrumb.link_notification_email_account_create: "Создание e-mail аккаунта"
+tab_menu.title_notification_email_account_create: "Создание e-mail аккаунта"
+form.label_username: "Имя пользователя"
+form.label_hostname: "Адрес сервера"
+form.label_transport: "Способ отправки"
+form.label_port: "Порт"
+form.label_encryption: "Шифрование"
+form.label_auth_mode: "Способ авторизации"
+tab_menu.title_notification_email_account_edit: "E-mail аккаунт: %name%"
+list.label_username: "Логин"
+list.label_password: "Пароль"
+tab_menu.title_notification_email_list: "Список e-mail уведомлений"
+breadcrumb.link_notification_email_list: "Список e-mail уведомлений"
+breadcrumb.link_notification_email_create: "Создание e-mail уведомления"
+tab_menu.title_notification_email_create: "Создание e-mail уведомления"
+form.label_sender: "E-mail аккаунт"
+form.label_recipient: "Получатель"
+form.label_event: "Событие"
+tab_menu.title_notification_email_edit: "Редактирование e-mail уведомления: %name%"
+form.label_subject: "Заголовок"
+list.label_event: "Событие"
+
+compo_notification_test: "Тестовое уведомление"
+list.label_recipient: "Получатель"
+
+breadcrumb.link_notification_email_settings: "E-mail настройки уведомлений"
+tab_menu.title_notification_email_settings: "E-mail настройки уведомлений"
+
+form.label_settings_notification_email_account_default: "E-mail аккаунт для отправки уведомлений по умолчанию"
+form.label_settings_notification_email_recipient_default: "E-mail адреса получателей уведомлений по умолчанию"
+form.label_settings_footer_contacts: 'Контакты'
+
+compo_notification.test: "Тестовое уведомление"
+
+notifications: 'Уведомления'
+
+notification_sms_account: 'SMS аккаунты'
+sms_sender: 'Отправитель'
+notification_sms: 'SMS уведомления'
+form.choice.auth_mode.plain: 'Плаин'

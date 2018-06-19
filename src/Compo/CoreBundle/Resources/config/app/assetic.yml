@@ -1,0 +1,23 @@
+assetic:
+    debug:                    "%kernel.debug%"
+    use_controller:
+        enabled:              false
+        profiler:             false
+
+    write_to: "%kernel.root_dir%/../web"
+
+    #bundles: []
+    bundles:        [CompoCoreBundle,CompoSonataAdminBundle ]
+
+    filters:
+        cssrewrite: ~
+        less:
+            apply_to: '\.less'
+            node: /usr/bin/node
+            node_paths: [/usr/local/lib/node_modules]
+        compass:
+            sass: /usr/bin/compass
+            apply_to: '\.(scss|sass)$'
+
+    workers:
+        cache_busting: true

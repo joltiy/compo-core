@@ -1,0 +1,44 @@
+compo:
+    resource: routing_compo.yml
+    prefix:   /
+
+sonata:
+    resource: routing_sonata.yml
+    prefix:   /
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+    prefix:   /
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+    prefix:   /
+
+#presta_sitemap:
+#    resource: "@PrestaSitemapBundle/Resources/config/routing.yml"
+#    prefix:   /
+
+_jms_job_queue:
+    resource: "@JMSJobQueueBundle/Controller/"
+    type: annotation
+    prefix: /jobs
+
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"
+
+_liip_monitor:
+    resource: "@LiipMonitorBundle/Resources/config/routing.xml"
+    prefix: /monitor/health
+
+_admin:
+    resource: routing_admin.yml
+    prefix:   /admin
+
+_api:
+    resource: routing_api.yml
+    prefix:   /api
+
+# Internal routing configuration to handle ESI
+#_internal:
+#   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
+#   prefix:   /_internal

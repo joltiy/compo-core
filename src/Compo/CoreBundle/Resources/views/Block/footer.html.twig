@@ -1,0 +1,11 @@
+<div id="footer">
+    {% block footer_page %}
+        {% if page is defined %}
+            {{ sonata_page_render_container('footer', page) }}
+        {% endif %}
+    {% endblock %}
+
+    {% block footer_global %}
+        {{ sonata_page_render_container('footer', 'global') }}
+    {% endblock %}
+</div>

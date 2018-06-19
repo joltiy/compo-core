@@ -1,0 +1,50 @@
+services:
+    compo_feedback.admin.feedback:
+        class: Compo\FeedbackBundle\Admin\FeedbackAdmin
+        arguments: [~, Compo\FeedbackBundle\Entity\Feedback, CompoFeedbackBundle:FeedbackAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: feedback }
+
+    compo_feedback.manager.feedback:
+        class: Compo\FeedbackBundle\Manager\FeedbackManager
+        parent: compo_core.abstract_container_aware
+
+    compo_feedback.admin.feedback_tag:
+        class: Compo\FeedbackBundle\Admin\FeedbackTagAdmin
+        arguments: [~, Compo\FeedbackBundle\Entity\FeedbackTag, CompoFeedbackBundle:FeedbackTagAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: feedback_tag }
+        calls:
+            - [ addChild, ['@compo_feedback.admin.feedback']]
+            - [ addChildAdminMenuItem, ['compo_feedback.admin.feedback']]
+
+    compo_feedback.block.service.feedback_form:
+        class:  Compo\FeedbackBundle\Block\FeedbackFormBlockService
+        parent: compo_core.abstract_container_aware
+        arguments: ["compo_feedback.block.service.feedback_form", "@templating"]
+        tags:
+             - { name: sonata.block }
+
+    compo_feedback.form.type.feedback:
+        class: Compo\FeedbackBundle\Form\FeedbackFormType
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: form.type }
+
+    compo_feedback.form.type.wrtite_to_director:
+        class: Compo\FeedbackBundle\Form\WriteToDirectorFormType
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: form.type }
+
+    compo_feedback.form.type.product_want_lower_cost:
+        class: Compo\FeedbackBundle\Form\ProductWantLowerCostFormType
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: form.type }
+
+    compo_feedback.form.type.callback:
+        class: Compo\FeedbackBundle\Form\CallbackFormType
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: form.type }

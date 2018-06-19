@@ -1,0 +1,14 @@
+compo_articles:
+    resource: "@CompoArticlesBundle/Resources/config/routing.yml"
+
+compo_contacts:
+    resource: "@CompoContactsBundle/Resources/config/routing.yml"
+
+compo_feedback:
+    resource: "@CompoFeedbackBundle/Resources/config/routing.yml"
+
+compo_news:
+    resource: "@CompoNewsBundle/Resources/config/routing.yml"
+
+compo_advantages:
+    resource: "@CompoAdvantagesBundle/Resources/config/routing.yml"

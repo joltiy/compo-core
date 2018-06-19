@@ -1,0 +1,10 @@
+{
+  "name": "compo-feedback",
+  "dependencies": {
+    "angular": "^1.6.4",
+    "angular-resource": "^1.6.4",
+    "angular-validation": "^1.4.3"
+  },
+  "license": "MIT",
+  "private": true
+}

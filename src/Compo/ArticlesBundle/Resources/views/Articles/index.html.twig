@@ -1,0 +1,88 @@
+{# @var article \Compo\ArticlesBundle\Entity\Articles #}
+{#
+{{ block('header') }}
+{{ block('description') }}
+{{ block('list') }}
+{{ block('list_item') }}
+{{ block('thumbnail') }}
+{{ block('publication_at') }}
+{{ block('header_item') }}
+{{ block('description_item') }}
+{{ block('pagination') }}
+{{ block('no_found_articles') }}
+#}
+
+{% block breadcrumb %}
+    {{ sonata_block_render_event('breadcrumb', {
+        'context': 'compo_articles',
+        'current_uri': app.request.requestUri
+    }) }}
+{% endblock %}
+
+{% block content %}
+    <div class="articles_list_content">
+
+        {% block articles__header %}
+            <h1 class="articles__header">
+                {{ compo_seo_header() }}
+            </h1>
+        {% endblock %}
+
+        {% block articles__description %}
+            <div class="articles__description">
+                {{ compo_seo_description() }}
+            </div>
+        {% endblock %}
+
+        {% block articles__list %}
+            <div class="articles__list">
+                {% for article in pager %}
+                    {% block articles__list_item %}
+                        <div class="articles__list_item">
+
+                            {% block articles__list_item_image %}
+                                <div class="articles__list_item_image">
+                                    {% if article.image %}
+                                        <a class="articles__list_item_image_link" href="{{ path('compo_articles_show_by_slug', {'slug': article.slug}) }}">
+                                            {% media article.image, 'reference' with {'alt': article.name, 'class': 'articles__list_item_image_img', 'width': 150 } %}
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            {% endblock %}
+
+                            {% block articles__list_item_publication_at %}
+                                <div class="articles__list_item_publication_at">
+                                    {{ article.publicationAt|date("d.m.Y") }}
+                                </div>
+                            {% endblock %}
+
+                            {% block header_item %}
+                                <div class="articles__list_item_header">
+                                    <a class="articles__list_item_header_link" href="{{ path('compo_articles_show_by_slug', {'slug': article.slug}) }}">
+                                        {{ article.name }}
+                                    </a>
+                                </div>
+                            {% endblock %}
+
+                            {% block articles__list_item_description %}
+                                <div class="articles__list_item_description">
+                                    {{ article.description|raw }}
+                                </div>
+                            {% endblock %}
+                        </div>
+                    {% endblock %}
+                {% else %}
+                    {% block articles__list_not_found %}
+                        <div class="articles__list_not_found">
+                            {{ 'no_found_articles'|trans({}, 'CompoArticlesBundle') }}
+                        </div>
+                    {% endblock %}
+                {% endfor %}
+            </div>
+        {% endblock %}
+
+        {% block articles__pagination %}
+            {{ knp_pagination_render(pager, null, {}, {'pagination_class': 'pagination'}) }}
+        {% endblock %}
+    </div>
+{% endblock %}

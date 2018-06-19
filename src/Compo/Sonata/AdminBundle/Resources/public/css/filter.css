@@ -1,0 +1,20 @@
+
+
+.filter-www .brands-wrap {
+    overflow-y: auto;
+}
+
+.catalog-filter-block .panel-title .font-icon {
+    margin-right: 10px;
+}
+
+.catalog-filter-admin .box-collumns-f.params {
+    margin: 0 20px;
+}
+
+.catalog-filter-admin .price-slider {
+    margin: 0 20px;
+}
+.sonata-filter-form .form-group .btn {
+    margin-bottom: 10px;
+}

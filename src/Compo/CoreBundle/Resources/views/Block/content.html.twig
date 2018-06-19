@@ -1,0 +1,50 @@
+<div id="content">
+
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+
+            {% block content_top_global %}
+                {{ sonata_page_render_container('content_top', 'global') }}
+            {% endblock %}
+
+            {% block content_top_page %}
+                {% if page is defined %}
+                    {{ sonata_page_render_container('content_top', page) }}
+                {% endif %}
+            {% endblock %}
+
+            {% block content_page %}
+                <div id="content_page">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            {% block breadcrumb %}
+                                {% if app.request.requestUri != '/' %}
+                                    {% set sonata_seo_vars = seo_page.getVars() %}
+                                    {{ sonata_block_render_event('breadcrumb', sonata_seo_vars) }}
+                                {% endif %}
+                            {% endblock %}
+
+                            {% if content is defined %}
+                                {{ content|raw }}
+                            {% else %}
+                                {{ sonata_page_render_container('content', page) }}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endblock %}
+
+            {% block content_bottom_global %}
+                {{ sonata_page_render_container('content_bottom', 'global') }}
+            {% endblock %}
+
+            {% block content_bottom_page %}
+                {% if page is defined %}
+                    {{ sonata_page_render_container('content_bottom', page) }}
+                {% endif %}
+            {% endblock %}
+
+        </div>
+    </div>
+
+</div>

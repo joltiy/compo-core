@@ -1,0 +1,42 @@
+articles: Статьи
+
+breadcrumb:
+    articles: Статьи
+    link_articles_batch: 'Действия над статьями'
+    link_articles_create: 'Создание статьи'
+    link_articles_delete: 'Удаление статьи'
+    link_articles_edit: 'Редактирование статьи'
+    link_articles_list: Статьи
+    link_articles_settings: Настройки
+    link_articles_update: 'Обновление статьи'
+
+form:
+    label_settings_articles_per_page: 'Статей на страницу'
+    tab_main: Статья
+
+no_found_articles: 'Статьи не найдены'
+
+settings:
+    header: 'Настройки статей'
+    seo_items_tab: 'SEO статей'
+
+show:
+    label_publication_at: 'Дата публикации'
+
+tab_menu:
+    link_articles_settings: 'Настройки статей'
+    title_articles_action_delete_batch: 'Удалить указанные статьи?'
+
+    title_articles_batch_actions:
+        label_disable_batch: 'Выключить указанные статьи?'
+        label_enable_batch: 'Включить указанные статьи?'
+
+    title_articles_create: 'Создание статьи'
+    title_articles_edit: 'Статья: %name%'
+    title_articles_list: Статьи
+    title_articles_settings: 'Настройки статей'
+
+block:
+  title_articles_last: 'Последние статьи'
+
+tab.label_settings_seo_items: 'SEO статей'

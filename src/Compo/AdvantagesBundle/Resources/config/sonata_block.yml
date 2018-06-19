@@ -1,0 +1,7 @@
+sonata_block:
+    blocks:
+        compo_advantages.block.service.advantages:
+            cache: sonata.cache.memcached
+            contexts: [sonata_page_bundle]
+            templates:
+                - { name: 'Tabs', template: 'CompoAdvantagesBundle:Block:advantages_tabs.html.twig' }

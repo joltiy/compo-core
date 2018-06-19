@@ -1,0 +1,236 @@
+td[class*=_delete] label {
+    display: none;
+}
+
+td[class*=_delete] .checkbox {
+    padding: 0;
+}
+
+.num_pages, .num_results {
+    line-height: 30px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.table > tbody > tr > td,
+.table > tbody > tr > th,
+.table > tfoot > tr > td,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > thead > tr > th {
+    line-height: 28px;
+}
+
+.sonata-ba-list-field-name-_action .btn-group {
+    white-space: nowrap;
+    vertical-align: top;
+}
+
+.sonata-ba-list-field-name-_action .btn-group a {
+    vertical-align: top;
+}
+
+#list_batch_checkbox,
+input[name="all_elements"],
+.sonata-ba-list-field-batch input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    vertical-align: top;
+}
+
+th.sonata-ba-list-field-header.sonata-ba-list-field-header-batch {
+    width: 1%;
+}
+
+.sonata-ba-list-field-header-batch {
+    height: 40px !important;
+    vertical-align: top;
+}
+
+.sonata-ba-list-field-batch {
+    vertical-align: top;
+}
+.sonata-ba-list-field-header-actions {
+    width: 1%;
+    text-align: left;
+}
+
+.sonata-ba-list-field-boolean,
+.sonata-ba-list-field-header-boolean {
+    width: 1%;
+    text-align: center;
+}
+
+.sonata-ba-list-field-actions {
+    white-space: nowrap;
+    min-width: 215px;
+}
+
+
+
+th.table-th-_delete, th.table-th-position {
+    width: 1%;
+    white-space: nowrap;
+}
+
+td[class*='-_delete'],
+td[class*='-position'] {
+    text-align: center;
+}
+
+td[class*='-_delete'] .checkbox-widget {
+    width: 100% !important;
+    padding-right: 0;
+    padding-left: 0;
+    text-align: center;
+    float: none;
+    margin: 0 auto 0 13px;
+}
+
+td[class*='-position'] .sonata-ba-sortable-handler {
+    float: none;
+    margin: 8px auto 0;
+}
+
+.sonata-ba-field-list-natural {
+    white-space: nowrap;
+}
+
+
+
+.table-th-_delete {
+    cursor: pointer;
+    color: #c71616;
+}
+
+.sonata-ba-list-field-header-id {
+    width: 1%;
+}
+
+.sonata-ba-list tr:hover {
+    background-color: #fffce6 !important;
+}
+
+.sonata-ba-list-field-header-_action {
+    width: 1%;
+    text-align: center;
+}
+
+.sonata-ba-list-field-name-_action .btn-group a {
+    float: none;
+}
+
+.sonata-ba-list-field-name-_action .btn-group {
+    white-space: nowrap;
+}
+
+
+th.table-th-quantity {
+    width: 1%;
+    white-space: nowrap;
+    min-width: 100px;
+}
+
+th.table-th-price {
+    width: 1%;
+    white-space: nowrap;
+    min-width: 120px;
+}
+
+th.table-th-total {
+    width: 1%;
+    white-space: nowrap;
+    min-width: 160px;
+}
+
+.sonata-ba-field-standard-natural .field-actions {
+    text-align: right;
+}
+
+
+
+
+.sonata-ba-list-field-name-batch .icheckbox_square-blue,
+.sonata-ba-list-field-name-batch .iradio_square-blue {
+    margin-right: 0;
+    width: 22px;
+}
+
+.sonata-ba-list-field-header-batch .icheckbox_square-blue {
+    margin: 0;
+}
+
+td.td-delete-field .checkbox .checkbox-widget {
+    text-align: center;
+    margin: 0;
+}
+
+td.td-delete-field .checkbox .checkbox-widget .icheckbox_square-blue {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.table-th-enabled {
+    text-align: center;
+}
+
+th.sonata-ba-list-field-header-actions.sonata-ba-list-field-header-_action {
+    width: 1%;
+}
+
+.sonata-ba-list-field-name-_action .btn-group {
+    white-space: nowrap;
+    margin: 0 auto;
+    float: none;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}
+.inner-field-short-description-media img {
+    width: 100%;
+}
+
+.field-short-description {
+    min-width: 230px;
+}
+
+th.sonata-ba-list-field-header-datetime {
+    width: 145px;
+}
+
+
+.sonata-link-identifier-child-list {
+
+}
+
+.sonata-link-identifier-child {
+    opacity: 0;
+    margin-left: 3px;
+}
+
+.sonata-ba-list-field:hover .sonata-link-identifier-child {
+    opacity: 0.7;
+}
+
+.sonata-ba-list-field:hover .sonata-link-identifier-child:hover {
+    opacity: 1;
+}
+
+
+th.table-th-id {
+    min-width: 75px;
+}
+
+.editable-many-to-one,
+.editable-many-to-many {
+    visibility: hidden;
+}
+.sonata-ba-list tr:hover .editable-many-to-one,
+.sonata-ba-list tr:hover .editable-many-to-many {
+    visibility: visible;
+}
+
+.sonata-ba-list-field-orm_many_to_many .field-block {
+    display: inline-block;
+}

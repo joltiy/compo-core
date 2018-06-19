@@ -1,0 +1,26 @@
+
+.table-stats-custom tfoot {
+    background-color: #e5edf3;
+    font-weight: bold;
+}
+
+
+text.highcharts-credits {
+    display: none;
+}
+
+/*
+.highcharts-navigator-series .highcharts-label span {
+    display: none;
+}
+*/
+
+.data-table-dimension {
+    font-weight: bold;
+}
+
+.stats-date-range .form-field-range {
+    display: inline-block;
+    width: 50%;
+    max-width: 140px;
+}

@@ -1,0 +1,7 @@
+feedback_api:
+    type:     rest
+    name_prefix:  api_feedback_
+    prefix:    /feedback
+    resource: "@CompoFeedbackBundle/Controller/Api/FeedbackController.php"
+    options:
+         expose: true

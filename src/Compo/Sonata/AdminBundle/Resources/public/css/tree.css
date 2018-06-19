@@ -1,0 +1,74 @@
+.page-tree {
+    padding-top: 15px;
+}
+
+.tree {
+    padding: 15px;
+    padding-left: 0;
+
+}
+
+.tree ul {
+    list-style: none;
+    padding-left: 23px;
+}
+
+.tree .node-item {
+    cursor: pointer;
+}
+
+.tree ul li > div.node, .tree ul li.node-placeholder {
+    padding: 10px;
+    margin-top: -1px;
+    overflow: hidden;
+    border: 1px solid #e3e3e3;
+}
+
+.tree ul li > div.node {
+    background-color: #FFF;
+}
+
+.tree ul li.node-placeholder {
+    margin: 5px 0;
+    background: #f1f5c9;
+    height: 55px;
+}
+
+.tree ul li > div.node:hover {
+    background: #f5f5f5;
+}
+
+.tree > ul > li ul {
+    display: none;
+}
+
+.tree ul li .node > a > i {
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.tree ul li .node > a {
+    display: inline-block;
+    padding: 5px;
+}
+
+.tree ul li .node > a > i.fa-sort, .tree ul li .node > a > i.fa-arrows {
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.tree li.opened > ul {
+    display: block;
+}
+
+.drop-over {
+    background: #f5f5f5;
+}
+
+.drop-over > .node-item i.fa-folder-o:before {
+    content: "\f07b";
+}
+
+.tree > ul.tree-list.product-catalog-tree.ui-sortable {
+    padding-left: 0;
+}

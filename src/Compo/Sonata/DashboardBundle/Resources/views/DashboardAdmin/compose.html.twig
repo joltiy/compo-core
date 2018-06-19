@@ -1,0 +1,83 @@
+{#
+
+This file is part of the Sonata package.
+
+(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
+{% extends 'SonataAdminBundle:CRUD:action.html.twig' %}
+
+{% block body_attributes %}class="sonata-bc skin-black fixed dashboard-composer-dashboard sonata-ba-no-side-menu"{% endblock %}
+
+{% block navbar_title %}
+    {% if admin.isChild() %}
+        {% set title_list = "tab_menu.title_list" %}
+        {{ title_list|trans({'%name%': admin.getParent().subject}, admin.translationDomain) }}
+    {% else %}
+        {% set title_list = "tab_menu.title_list" %}
+        {% set title_list_name = admin.label|trans({}, admin.translationDomain) %}
+
+        {{ title_list|trans({'%name%': title_list_name}, admin.translationDomain) }}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="dashboard-composer">
+        <h2>{{ 'dashboard.compose_dashboard'|trans({}, 'SonataDashboardBundle') }} "{{ object.name }}"</h2>
+
+        <div class="row row-fluid">
+            <div class="col-md-4 span4">
+                <div class="dashboard-composer__dashboard-preview">
+                    <div class="dashboard-composer__block-container-header">
+                        <label>{{ 'compose.add_container'|trans({}, 'SonataDashboardBundle') }}</label>
+                        <input class="dashboard-composer__block-container-header__input" type="text" />
+                        <a class="btn btn-action btn-small dashboard-composer__block-container-header__confirm"
+                           href="{{ admin.generateObjectUrl('sonata.dashboard.admin.block.create', object, {'composer': true, 'type': admin_pool.getAdminByAdminCode('sonata.dashboard.admin.block').getDefaultContainerType()}) }}"
+                                ><i class="fa fa-plus"></i></a>
+                        <span class="dashboard-composer__block-container-header__loader">{{ 'loading'|trans({}, 'SonataDashboardBundle') }}</span>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="dashboard-composer__dashboard-preview__containers">
+                        {% for container in containers %}
+                            {% if container.block is defined and container.block %}
+                                {% include 'SonataDashboardBundle:BlockAdmin:block_container.html.twig' with {'object': container.block} %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 span8">
+                <div class="dashboard-composer__dyn-content">
+                </div>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function () {
+                var composer = new DashboardComposer({{ object.id }}, {
+                    translations: {
+                        cancel: "{{ 'cancel'|trans({}, 'SonataDashboardBundle') }}",
+                        preview_error: "{{ 'compose.preview_error'|trans({}, 'SonataDashboardBundle') }}",
+                        update_saving: "{{ 'compose.update_saving'|trans({}, 'SonataDashboardBundle') }}",
+                        update_saved: "{{ 'compose.update_saved'|trans({}, 'SonataDashboardBundle') }}",
+                        update_error: "{{ 'compose.update_error'|trans({}, 'SonataDashboardBundle') }}",
+                        status_error: "{{ 'compose.status_error'|trans({}, 'SonataDashboardBundle') }}"
+                    },
+                    routes: {
+                        save_blocks_positions: "{{ admin_pool.getAdminByAdminCode('sonata.dashboard.admin.block').generateUrl('savePosition', { 'block_id': 'BLOCK_ID' }) }}",
+                        block_switch_parent:   "{{ admin_pool.getAdminByAdminCode('sonata.dashboard.admin.block').generateUrl('switchParent') }}",
+                        block_preview:         "{{ admin_pool.getAdminByAdminCode('sonata.dashboard.admin.block').generateUrl('composePreview', { 'block_id': 'BLOCK_ID' }) }}"
+                    }
+                });
+                composer.csrfTokens = {{ csrfTokens|json_encode()|raw }};
+
+                window.SonataDashboardComposer = composer;
+            });
+        </script>
+
+    </div>
+{% endblock %}

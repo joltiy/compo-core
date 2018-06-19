@@ -1,0 +1,96 @@
+{# @var article \Compo\NewsBundle\Entity\News #}
+{#
+{{ block('header') }}
+{{ block('description') }}
+{{ block('list') }}
+{{ block('list_item') }}
+{{ block('thumbnail') }}
+{{ block('publication_at') }}
+{{ block('header_item') }}
+{{ block('description_item') }}
+{{ block('pagination') }}
+{{ block('no_found_news') }}
+#}
+
+{% block content %}
+    <div class="content-block articles-index">
+
+        <div class="row">
+            <div class="col-lg-12">
+                {% block header %}
+                    <h1>
+                        {{ compo_seo_header() }}
+                    </h1>
+                {% endblock %}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                {% block description %}
+                    <div>
+                        {{ compo_seo_description() }}
+                    </div>
+                {% endblock %}
+            </div>
+        </div>
+
+        {% block list %}
+            <div class="list-block articles">
+                {% for article in pager %}
+                    {% block list_item %}
+                        <div class="list-item-block item row">
+                            <div class="col-lg-3 photo">
+                                {% block thumbnail %}
+                                    {% if article.image %}
+                                        <a href="{{ path('compo_news_show_by_slug', {'slug': article.slug}) }}" class="thumbnail-block thumbnail">
+                                            {% media article.image, 'reference' with {'alt': article.name, 'class': 'thumbnail-img', 'width': 150 } %}
+                                        </a>
+                                    {% endif %}
+                                {% endblock %}
+                            </div>
+
+                            <div class="col-lg-9 meta">
+                                <div class="clearfix">
+                                    {% block publication_at %}
+                                        <div class="publication-at-block date pull-right">
+                                            {{ article.publicationAt|date("d.m.Y") }}
+                                        </div>
+                                    {% endblock %}
+
+                                    {% block header_item %}
+                                        <div class="header-item-block header pull-left">
+                                            <a href="{{ path('compo_news_show_by_slug', {'slug': article.slug}) }}">{{ article.name }}</a>
+                                        </div>
+                                    {% endblock %}
+                                </div>
+
+                                {% block description_item %}
+                                    <div class="description-item-block anons">
+                                        {{ article.description|raw }}
+                                    </div>
+                                {% endblock %}
+                            </div>
+                        </div>
+                    {% endblock %}
+                {% else %}
+                    {% block no_found_articles %}
+                        {{ 'no_found_news'|trans({}, 'CompoNewsBundle') }}
+                    {% endblock %}
+                {% endfor %}
+            </div>
+        {% endblock %}
+
+        <div class="pagination-block pagination-wrap">
+            <div class="row">
+                <div class="col-lg-12 clearfix">
+                    {% block pagination %}
+                        <div>
+                            {{ knp_pagination_render(pager, null, {}, {'pagination_class': 'pagination'}) }}
+                        </div>
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

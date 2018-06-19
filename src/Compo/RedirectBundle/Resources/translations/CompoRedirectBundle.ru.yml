@@ -1,0 +1,32 @@
+breadcrumb:
+    link_redirect_batch: 'Дейсвтия над редиректами'
+    link_redirect_create: 'Создание редиректа'
+    link_redirect_delete: 'Удаление редиректа'
+    link_redirect_edit: 'Редактирование редиректа'
+    link_redirect_list: 'Список редиректов'
+    link_redirect_update: 'Обновление редиректа'
+
+filter:
+    label_ur_in: 'URL откуда'
+    label_ur_out: 'URL куда'
+
+form:
+    label_ur_in: 'URL откуда'
+    label_ur_out: 'URL куда'
+
+list:
+    label_ur_in: 'URL откуда'
+    label_ur_out: 'URL куда'
+
+redirect: Редиректы
+
+show:
+    label_ur_in: 'URL откуда'
+    label_ur_out: 'URL куда'
+
+title_edit_redirect: 'Редактировать редирект'
+
+tab_menu.title_redirect_list: 'Редиректы'
+
+tab_menu.title_redirect_edit: 'Редирект: %name%'
+tab_menu.title_redirect_create: 'Создание редиректа'

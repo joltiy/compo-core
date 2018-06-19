@@ -1,0 +1,7 @@
+
+.features-product-item .checkbox div[class^="icheckbox"],
+.features-product-item .checkbox-inline div[class^="icheckbox"],
+.features-product-item .radio div[class^="iradio"],
+.features-product-item .radio-inline div[class^="iradio"] {
+    margin-left: 0 !important;
+}

@@ -1,0 +1,21 @@
+stats_view_more: "Показать все"
+label_view_revision: 'Просмотр ревизии'
+label_compare_revision: 'Сравнение ревизии'
+label_unknown_user: 'Неизвестный пользователь'
+td_compare: 'Сравнение'
+list_tab_menu.list_mode: ''
+list_tab_menu.tree_mode: ''
+list_mode: ''
+tree_mode: ''
+action_list: 'Список'
+td_revision: 'Изменённое'
+td_current: 'Текущее'
+
+export_format_xlsx: 'XLSX'
+
+link_action_trash: 'Корзина'
+
+link_list_fields: 'Столбцы'
+link_untrash: 'Восстановить'
+properties: 'Свойства'
+toggle_navigation: 'Навигация'

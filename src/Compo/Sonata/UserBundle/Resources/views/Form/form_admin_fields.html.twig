@@ -1,0 +1,50 @@
+{% block sonata_security_roles_widget %}
+    {% set attr = attr|merge({'class': attr.class|default('') ~ ' list-unstyled'}) %}
+
+    {% spaceless %}
+        <div class="user-roles-list">
+            <div class="editable">
+                <div class="row row-eq-height">
+                    {% for role_group, role_group_items in roles_groups.groups %}
+                        <div class="col-md-6 col-lg-3">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">{{ role_group|trans }} </div>
+                                <div class="panel-body roles-panel select-all-wrap">
+                                    <ul {{ block('widget_container_attributes') }}>
+                                        <li>
+                                            <div class="checkbox clearfix">
+                                                <label class="control-label col-sm-4 col-md-3">
+                                                    <span class="control-label__text">Выбрать все действия</span>
+                                                </label>
+                                                <div class="  col-sm-8 col-md-9 checkbox-widget">
+                                                    <input type="checkbox" class="select-all-btn"/>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        {% for child in form %}
+                                            {% if child.vars.value in role_group_items %}
+                                                <li>
+                                                    {{ form_widget(child, {'horizontal': false, 'horizontal_input_wrapper_class': ''}) }}
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% if read_only_choices|length > 0 %}
+                <div class="readonly">
+                    <h4>{{ 'field.label_roles_readonly'|trans({}, "SonataUserBundle") }}</h4>
+                    <ul>
+                        {% for choice in read_only_choices %}
+                            <li>{{ choice }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+    {% endspaceless %}
+{% endblock sonata_security_roles_widget %}

@@ -1,0 +1,11 @@
+.user-roles-list .control-label {
+    float: none;
+    text-align: left;
+    width: auto !important;
+    padding-left: 0;
+}
+
+.user-roles-list .checkbox-widget {
+    float: left;
+    width: 60px !important;
+}

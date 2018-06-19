@@ -1,0 +1,46 @@
+services:
+    compo_news.admin.news:
+        class: Compo\NewsBundle\Admin\NewsAdmin
+        arguments: [~, Compo\NewsBundle\Entity\News, CompoNewsBundle:NewsAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: news }
+
+    compo_news.manager.news:
+        class: Compo\NewsBundle\Manager\NewsManager
+        arguments: [Compo\NewsBundle\Entity\News, "@doctrine"]
+        parent: compo_core.abstract_container_aware
+
+    compo_news.settings.news:
+        class: Compo\NewsBundle\Settings\NewsSettingsSchema
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: "sylius.settings_schema", namespace: "compo_news", admin: compo_news.admin.news }
+
+    compo_news.block.breadcrumb:
+        class: Compo\NewsBundle\Block\NewsBreadcrumbBlockService
+        parent: compo_core.abstract_container_aware
+        arguments: ['news', compo_news.block.breadcrumb, "@templating", "@knp_menu.menu_provider", "@knp_menu.factory"]
+        tags:
+            - { name: sonata.block }
+            - { name: sonata.breadcrumb }
+
+    compo_news.block.service.news_last:
+        class: Compo\NewsBundle\Block\NewsLastBlockService
+        arguments: ["compo_news.block.service.news_last", "@templating"]
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: sonata.block }
+
+    compo_news.sitemap.subscriber:
+        class:     Compo\NewsBundle\Event\SitemapNewsSubscriber
+        arguments:
+            - "@router"
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: "kernel.event_subscriber", priority: 100 }
+
+    compo_news.admin.news_tag:
+        class: Compo\NewsBundle\Admin\NewsTagAdmin
+        arguments: [~, Compo\NewsBundle\Entity\NewsTag, CompoNewsBundle:NewsTagAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: news_tag }

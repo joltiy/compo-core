@@ -1,0 +1,9 @@
+
+.CodeMirror.cm-s-default {
+    border: 1px solid #d2d6de;
+}
+
+.CodeMirror {
+    border: 1px solid #eee;
+    height: auto;
+}

@@ -1,0 +1,30 @@
+{% extends sonata_block.templates.block_base %}
+
+{% block block %}
+    {% if list|length > 0 %}
+        <div class="managers-slider">
+            <div class="container">
+                <div class="managers-slider__slider">
+                    {% for item in list %}
+                        <div class="managers-slider__slider__item">
+                            <div class="managers-slider__slider__item_wrap">
+                                <div class="image">
+                                    <img alt="{{ item.name }}" title="{{ item.name }}"  src="{% path item.image, 'big' %}"/>
+                                </div>
+                                <div class="name">
+                                    {{ item.name }}
+                                </div>
+                                <div class="title">
+                                    {{ item.title }}
+                                </div>
+                                <div class="description">
+                                    {{ item.description }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

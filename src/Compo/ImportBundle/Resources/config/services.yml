@@ -1,0 +1,11 @@
+services:
+    compo_import.import.extension:
+        class: Compo\ImportBundle\Extension\ImportExtension
+        tags:
+            - { name: sonata.admin.extension, global: true }
+
+    sonata.exporter.writer.xls:
+        class: Compo\ImportBundle\Exporter\Writer\XmlExcelWriter
+        arguments: ["%sonata.exporter.writer.xls.filename%", "%sonata.exporter.writer.xls.show_headers%"]
+        tags:
+            - { name: sonata.exporter.writer }

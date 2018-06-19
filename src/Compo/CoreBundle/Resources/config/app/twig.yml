@@ -1,0 +1,22 @@
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    # TODO: 404, 403, 500
+#    exception_controller: CompoCoreBundle:Error404:index
+    exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'
+
+    form_themes:
+        - 'SonataDoctrineORMAdminBundle:Form:form_admin_fields.html.twig'
+        - 'SonataFormatterBundle:Form:formatter.html.twig'
+        - 'SonataMediaBundle:Form:media_widgets.html.twig'
+        - 'SonataCoreBundle:Form:datepicker.html.twig'
+        - 'SonataCoreBundle:Form:colorpicker.html.twig'
+        - 'SonataCoreBundle:Form:color.html.twig'
+        - 'MopaBootstrapBundle:Form:fields.html.twig'
+
+    globals:
+        ivory_ck_editor_plugin_manager: "@ivory_ck_editor.plugin_manager"
+        compo_core_manager: "@compo_core.manager"
+
+    base_template_class: Sonata\CacheBundle\Twig\TwigTemplate14

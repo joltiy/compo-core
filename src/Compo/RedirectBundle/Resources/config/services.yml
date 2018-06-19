@@ -1,0 +1,13 @@
+services:
+    compo_redirect.listener.redirect:
+        class: Compo\RedirectBundle\Listener\RedirectListener
+        arguments: ["@doctrine"]
+
+        tags:
+            - { name: kernel.event_listener, lazy:  true, event: kernel.request, method: onKernelRequest, priority: 900 }
+
+    compo_redirect.admin.redirect:
+        class: Compo\RedirectBundle\Admin\RedirectAdmin
+        arguments: [~, Compo\RedirectBundle\Entity\Redirect, CompoRedirectBundle:RedirectAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: redirect }

@@ -1,0 +1,42 @@
+.icheckbox_square-blue, .iradio_square-blue {
+    position: relative;
+    top: -1px;
+    margin-right: 5px;
+}
+
+.col-sm-8.checkbox-widget label.control-label.col-sm-4 {
+    display: none;
+}
+
+.checkbox div[class^="icheckbox"],
+.checkbox-inline div[class^="icheckbox"],
+.radio div[class^="iradio"],
+.radio-inline div[class^="iradio"] {
+    margin-left: -15px;
+}
+
+.sonata-ba-field.sonata-ba-field-standard-natural.checkbox-row > .checkbox {
+    padding: 0;
+}
+
+.sonata-collection-row-without-label .checkbox-widget > .icheckbox_square-blue,
+.sonata-ba-field.sonata-ba-field-standard-natural.checkbox-row > .checkbox .icheckbox_square-blue {
+    margin-left: 0;
+    top: 0;
+    margin-top: 7px;
+}
+
+
+.sonata-ba-field-inline-table .checkbox {
+    padding: 0;
+}
+
+.sonata-ba-field-inline-table .checkbox .control-label {
+    display: none;
+}
+
+.list-unstyled .checkbox.clearfix .checkbox-widget .icheckbox_square-blue {
+    margin-left: 0;
+    top: 0;
+    margin-top: 7px;
+}

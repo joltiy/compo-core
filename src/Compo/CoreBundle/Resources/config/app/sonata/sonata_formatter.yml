@@ -1,0 +1,87 @@
+#
+# more information can be found here https://sonata-project.org/bundles/formatter
+#
+sonata_formatter:
+    default_formatter: richhtml
+    formatters:
+        #text:
+        #    service: sonata.formatter.text.text
+        #    extensions:
+        #        - sonata.formatter.twig.control_flow
+        #        - sonata.formatter.twig.gist
+        #        - sonata.media.formatter.twig
+
+        richhtml:
+            service: sonata.formatter.text.raw
+            extensions:
+                - sonata.formatter.twig.control_flow
+                - sonata.formatter.twig.gist
+                - sonata.media.formatter.twig
+
+    ckeditor:
+        templates:
+            browser: 'SonataFormatterBundle:Ckeditor:browser.html.twig'
+            upload: 'SonataFormatterBundle:Ckeditor:upload.html.twig'
+
+# This section can be used to include the SonataMediaBundle with CKEDITOR
+#  => https://sonata-project.org/bundles/media/master/doc/reference/extra.html#ckeditor-integration
+#  there is also a configuration in the sonata_formatter section (see sonata_formatter.yml)
+ivory_ck_editor:
+    default_config: default
+    configs:
+        default:
+            fontawesomePath: '/bundles/sonatacore/vendor/components-font-awesome/css/font-awesome.min.css'
+            contentsCss: '/bundles/sonatacore/vendor/bootstrap/dist/css/bootstrap.min.css'
+
+            title: false
+            toolbarStartupExpanded: false
+            allowedContent: true
+            extraAllowedContent: '*{*}'
+            toolbar: "compo"
+            extraPlugins: 'widget,lineutils,wysiwygarea,dialog,autocorrect,base64image,basewidget,basicstyles,blockquote,bootstrapVisibility,bt_table,btbutton,button,codemirror,contextmenu,dialogui,elementspath,embedbase,enterkey,entities,filebrowser,filetools,floatingspace,floatpanel,format,glyphicons,horizontalrule,htmlwriter,indent,indentlist,lineheight,list,listblock,maximize,menu,menubutton,notification,notificationaggregator,oembed,panel,pastebase64,pastetext,placeholder,twigexp,twigvar,popup,quicktable,removeformat,resize,richcombo,sourcearea,stylescombo,tab,tabletoolstoolbar,toolbar,undo,uploadwidget,widgetselection,wordcount,wpmore,justify,youtube,panelbutton,colorbutton'
+            enterMode: "CKEDITOR.ENTER_P"
+            disableNativeSpellChecker: false
+            filebrowserBrowseRoute: admin_sonata_media_media_ckeditor_browser
+            filebrowserImageBrowseRoute: admin_sonata_media_media_ckeditor_browser
+            # Display images by default when clicking the image dialog browse button
+            filebrowserImageBrowseRouteParameters:
+                provider: sonata.media.provider.image
+                hide_context: true
+                context: image
+            filebrowserUploadRoute: admin_sonata_media_media_ckeditor_upload
+            filebrowserUploadRouteParameters:
+                provider: sonata.media.provider.file
+                hide_context: true
+                context: file
+            # Upload file as image when sending a file from the image dialog
+            filebrowserImageUploadRoute: admin_sonata_media_media_ckeditor_upload
+            filebrowserImageUploadRouteParameters:
+                provider: sonata.media.provider.image
+                context: image # Optional, to upload in a custom context
+
+            wordcount:
+                showParagraphs: true
+                showWordCount: true
+                showCharCount: true
+                countSpacesAsChars: true
+                countHTML: false
+                maxWordCount: -1
+                maxCharCount: -1
+            codemirror:
+                enableCodeFolding: false
+                moveOnDrag: false
+                dragDrop: false
+
+    toolbars:
+        configs:
+            compo:
+                - ['Source', '-', 'Maximize', 'ShowBlocks', '-', 'Preview', '-', 'Find','Replace','-','SelectAll', '-', 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo']
+                - "/"
+                - ['RemoveFormat', '-', 'Colors', 'Styles','Format','Font','FontSize', 'lineheight', '-',  'Bold','Italic','-', 'Underline','Strike', '-','Subscript','Superscript', '-', 'NumberedList','BulletedList','-','Outdent','Indent','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock', '-','TextColor','BGColor' ]
+                - "/"
+                - [ "WPMore", 'Createtwigvar', 'Createtwigexp','btgrid', 'HorizontalRule','PageBreak', 'Blockquote', 'CreateDiv' , 'Table', 'Link','Unlink','Anchor', 'btbutton', 'Youtube', 'oembed', 'Image','Iframe', 'Smiley', 'ckawesome', 'Glyphicons', 'SpecialChar']
+
+
+
+
+

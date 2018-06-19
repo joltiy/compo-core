@@ -1,0 +1,33 @@
+{% extends sonata_block.templates.block_base %}
+
+{% import _self as tree %}
+
+{% macro renderNodes(nodesList, lvl, dropdown) %}
+    {% import _self as tree %}
+
+    <ul {% if dropdown|default(false) %}class="dropdown-menu"{% else %} class="nav navbar-nav" {% endif %}>
+        {% for node in nodesList %}
+            {% if node.__children|length %}
+                <li class="dropdown">
+                    <a title="{{ node.title|default(node.name) }}" href="{{ node.url }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        {{ node.name }}
+                        <span class="caret"></span>
+                    </a>
+                    {{ tree.renderNodes(node.__children, node.lvl+1, true) }}
+                </li>
+            {% else %}
+                <li {% if app.request.requestUri == node.url %} class="active" {% endif %}>
+                    <a title="{{ node.title|default(node.name) }}" href="{{ node.url }}">
+                        {{ node.name }}
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endmacro %}
+
+{% block block %}
+    <div class="{{ settings.class }}">
+        {{ tree.renderNodes(nodes, 0) }}
+    </div>
+{% endblock %}

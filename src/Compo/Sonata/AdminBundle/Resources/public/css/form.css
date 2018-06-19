@@ -1,0 +1,46 @@
+.form-control {
+    height: 30px;
+}
+
+.form-inline .checkbox div[class^="icheckbox"],
+.form-inline .checkbox-inline div[class^="icheckbox"],
+.form-inline .radio div[class^="iradio"],
+.form-inline .radio-inline div[class^="iradio"] {
+    margin-top: -2px;
+}
+
+
+
+.input-group {
+    width: 100%;
+}
+
+.input-group.date {
+    max-width: 220px;
+}
+
+
+.required {
+    position: relative;
+}
+
+.required:after {
+    position: absolute;
+    top: 0;
+    right: -10px;
+    color: #f00;
+}
+
+.form-horizontal .required:after{
+    right: -5px;
+}
+
+
+
+.sonata-ba-form-actions {
+    padding-bottom: 0;
+}
+
+.sonata-ba-form-actions .btn {
+    margin-bottom: 19px;
+}

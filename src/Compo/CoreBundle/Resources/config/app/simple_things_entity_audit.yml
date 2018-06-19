@@ -1,0 +1,12 @@
+simple_things_entity_audit:
+    global_ignore_columns:
+        - created_at
+        - updated_at
+        - createdAt
+        - updatedAt
+        - updated_by
+        - created_by
+        - updatedBy
+        - createdBy
+        - views
+

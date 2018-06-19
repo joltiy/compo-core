@@ -1,0 +1,104 @@
+sonata_block:
+    context_manager: sonata.page.block.context_manager
+    default_contexts: [sonata_page_bundle]
+    exception:
+        default:
+            filter:                 debug_only
+            renderer:               throw
+
+        filters:
+            debug_only:             sonata.block.exception.filter.debug_only
+            ignore_block_exception: sonata.block.exception.filter.ignore_block_exception
+            keep_all:               sonata.block.exception.filter.keep_all
+            keep_none:              sonata.block.exception.filter.keep_none
+
+        renderers:
+            inline:                 sonata.block.exception.renderer.inline
+            inline_debug:           sonata.block.exception.renderer.inline_debug
+            throw:                  sonata.block.exception.renderer.throw
+
+
+    http_cache:
+        handler: sonata.block.cache.handler.default # default value
+
+        listener: true
+
+    menus: ~
+        #"SonataDemoBundle:Builder:mainMenu": "Main Menu"
+
+    blocks:
+        sonata.admin.block.stats:
+            contexts:   [admin]
+
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
+
+        sonata.admin.block.search_result:
+            contexts:   [admin]
+
+        sonata.admin_doctrine_orm.block.audit:
+            contexts:   [admin]
+
+        # Builtin Block
+        sonata.block.service.text:
+        sonata.block.service.container:
+        sonata.block.service.menu:
+        sonata.block.service.template:
+
+        sonata.formatter.block.formatter:
+            contexts:   [sonata_page_bundle, admin, sonata_dashboard_bundle]
+
+        compo_core.block.service.news_with_articles_last:
+        compo_core.block.service.text_page:
+        compo_core.block.service.error_404:
+
+        # PageBundle's Blocks
+        sonata.page.block.container:
+            # cache: sonata.cache.memcached
+            # cache: sonata.cache.predis
+            # cache: sonata.page.cache.esi # if you are using the PageBundle
+            # cache: sonata.block.cache.esi # if you are using the BlockBundle without the PageBundle
+
+        #sonata.page.block.children_pages:
+        #sonata.page.block.breadcrumb:
+
+        # MediaBundle's Blocks
+        sonata.media.block.media:
+        sonata.media.block.gallery:
+        sonata.media.block.feature_media:
+
+        # TimelineBundle's Blocks
+        sonata.timeline.block.timeline:
+            contexts:   [admin, sonata_dashboard_bundle]
+
+        # UserBundle's Blocks
+        sonata.user.block.account:
+            cache: sonata.page.cache.js_async
+            #cache: sonata.page.cache.esi
+            contexts: [user]
+        sonata.user.block.menu:
+            contexts: [user]
+
+        # SeoBundle's Blocks
+        #sonata.seo.block.breadcrumb.homepage:
+        #sonata.seo.block.email.share_button:
+        #sonata.seo.block.facebook.like_box:
+        #sonata.seo.block.facebook.like_button:
+        #sonata.seo.block.facebook.send_button:
+        #sonata.seo.block.facebook.share_button:
+        #sonata.seo.block.pinterest.pin_button:
+        #sonata.seo.block.twitter.share_button:
+        #sonata.seo.block.twitter.follow_button:
+        #sonata.seo.block.twitter.hashtag_button:
+        #sonata.seo.block.twitter.mention_button:
+        #sonata.seo.block.twitter.embed:
+
+# TODO: Deprecated
+#        compo_core.block.service.admin_stats:
+#           contexts:   [admin, sonata_dashboard_bundle]
+
+        compo_core.block.service.admin_custom_stats:
+            contexts:   [admin, sonata_dashboard_bundle]
+
+        compo_core.block.service.date_stats_admin:
+            contexts:   [admin, sonata_dashboard_bundle]

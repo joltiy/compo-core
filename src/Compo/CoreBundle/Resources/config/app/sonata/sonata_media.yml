@@ -1,0 +1,158 @@
+#
+# more information can be found here https://sonata-project.org/bundles/media
+#
+sonata_media:
+    class:
+        media:             Compo\Sonata\MediaBundle\Entity\Media
+        gallery:           Compo\Sonata\MediaBundle\Entity\Gallery
+        gallery_has_media: Compo\Sonata\MediaBundle\Entity\GalleryHasMedia
+
+    category_manager:       null  # null or "sonata.media.manager.category.default" if classification bundle exists
+    force_disable_category: true
+
+    db_driver:       doctrine_orm
+    default_context: default
+    contexts:
+        default:
+            download:
+                mode: http
+            providers:
+                - sonata.media.provider.youtube
+                - sonata.media.provider.image
+                - sonata.media.provider.file
+            formats:
+                small: { width: 256, quality: 100}
+                medium: { width: 512, quality: 100}
+                big:   { width: 1024 , quality: 100}
+
+        image:
+            download:
+                mode: http
+            providers:
+                - sonata.media.provider.image
+            formats:
+                small: { width: 256, quality: 100}
+                medium: { width: 512, quality: 100}
+                big:   { width: 1024 , quality: 100}
+
+        file:
+            download:
+                mode: http
+            providers:
+                - sonata.media.provider.file
+            formats:
+                small: { width: 256, quality: 100}
+                medium: { width: 512, quality: 100}
+                big:   { width: 1024 , quality: 100}
+
+        video:
+            download:
+                mode: http
+            providers:
+                - sonata.media.provider.youtube
+
+            formats:
+                small: { width: 256, quality: 100}
+                medium: { width: 512, quality: 100}
+                big:   { width: 1024 , quality: 100}
+
+
+
+
+    cdn:
+        # define the public base url for the uploaded media
+        server:
+            path:      "%env(SONATA_MEDIA_CDN_HOST)%"
+
+
+
+
+    filesystem:
+        # define where the uploaded file will be stored
+        local:
+            directory:  "%kernel.root_dir%/../web/uploads/media"
+            create:     true
+
+    providers:
+        # ...
+        file:
+            # the resizer must be set to false, otherwhise this can delete icon files from the fs
+            resizer:    false
+            allowed_extensions:
+              - gif
+              - png
+              - jpeg
+              - jpg
+              - ico
+              - pdf
+            allowed_mime_types:
+              - image/gif
+              - image/png
+              - image/jpeg
+              - image/jpg
+              - image/x-icon
+              - application/pdf
+        image:
+#           thumbnail: sonata.media.thumbnail.liip_imagine
+#           resizer: sonata.media.resizer.square
+           thumbnail: sonata.media.thumbnail.format          # default value
+#           thumbnail: sonata.media.thumbnail.consumer.format # can be used to dispatch the resize action to async task
+#           thumbnail: sonata.media.thumbnail.liip_imagine    # use the LiipImagineBundle to resize the image
+           allowed_extensions:
+              - gif
+              - png
+              - jpeg
+              - jpg
+              - ico
+           allowed_mime_types:
+              - image/gif
+              - image/png
+              - image/jpeg
+              - image/jpg
+              - image/x-icon
+        youtube:
+            thumbnail: sonata.media.thumbnail.format          # default value
+#           thumbnail: sonata.media.thumbnail.consumer.format # can be used to dispatch the resize action to async task
+#           thumbnail: sonata.media.thumbnail.liip_imagine    # use the LiipImagineBundle to resize the image
+
+    pixlr:
+        enabled:  true
+        referrer: Demo - Sonata Project
+
+    resizer:
+        simple:
+            mode:  inset
+
+        square:
+            mode:  inset
+
+liip_imagine:
+    filter_sets:
+        index:
+
+            # adjust the image quality to 75%
+            quality: 100
+
+            # list of transformations to apply (the "filters")
+            filters:
+                # create a thumbnail: set size to 120x90 and use the "outbound" mode
+                # to crop the image when the size ratio of the input differs
+                thumbnail: { size: [262, 158], mode: inset, allow_upscale: true, height: 0 }
+
+                # create a 2px black border: center the thumbnail on a black background
+                # 4px larger to create a 2px border around the final image
+                #background: { size: [262, 158], position: center, color: '#000000' }
+    loaders:
+        default:
+            filesystem:
+                data_root:
+                    - '%kernel.root_dir%/../web'
+
+# Enable Doctrine to map the provided entities
+doctrine:
+    orm:
+        entity_managers:
+            default:
+                mappings:
+                    SonataMediaBundle: ~
+                    CompoSonataMediaBundle: ~

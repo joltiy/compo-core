@@ -1,0 +1,33 @@
+services:
+    compo_seo.seo.extension:
+        class: Compo\SeoBundle\Extension\SeoExtension
+        tags:
+            - { name: sonata.admin.extension, global: true, priority: 70 }
+
+    compo_seo.form.type.seo_vars:
+        class: Compo\SeoBundle\Form\SeoVarsType
+        tags:
+            - { name: form.type }
+
+    compo_seo.page.manager:
+        class: Compo\SeoBundle\Manager\SeoPage
+        parent: compo_core.abstract_container_aware
+        arguments: [Compo\SeoBundle\Entity\SeoPage, "@doctrine"]
+
+    compo_seo.seo.twig.extension:
+        class: Compo\SeoBundle\Twig\Extension\SeoExtension
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: twig.extension }
+
+    compo_seo.admin.seo_page:
+        class: Compo\SeoBundle\Admin\SeoPageAdmin
+        arguments: [~, Compo\SeoBundle\Entity\SeoPage, CompoSeoBundle:SeoPageAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: seo_page }
+
+    compo_seo.settings.seo:
+        class: Compo\SeoBundle\Settings\SeoSettingsSchema
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: "sylius.settings_schema", namespace: "seo", admin: compo_seo.admin.seo_page }

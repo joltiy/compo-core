@@ -1,0 +1,158 @@
+{% extends '@SonataAdmin/standard_layout.html.twig' %}
+
+{% block sonata_page_content_header %}
+    {% block sonata_page_content_nav %}
+        {% if _tab_menu is not empty or _actions is not empty or _list_filters_actions is not empty %}
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="container-fluid">
+                    {% block tab_menu_navbar_header %}
+                        {% if _navbar_title is not empty %}
+                            <div class="clearfix">
+                                <div class="navbar-header navbar-header-admin">
+                                    <a class="navbar-brand" href="#">{{ _navbar_title|raw }}</a>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endblock %}
+
+                    <div class="clearfix" >
+                        <div class="">
+                            {% if _breadcrumb is not empty or action is defined %}
+                                <ol class="nav navbar-top-links breadcrumb">
+                                    {% if _breadcrumb is empty %}
+                                        {% if action is defined %}
+                                            {% for menu in breadcrumbs_builder.breadcrumbs(admin, action) %}
+                                                {%- set translation_domain = menu.extra('translation_domain', 'messages') -%}
+                                                {%- set label = menu.label -%}
+                                                {%- if translation_domain is not same as(false) -%}
+                                                    {%- set label = label|trans(menu.extra('translation_params', {}), translation_domain)|trans(menu.extra('translation_params', {}), translation_domain) -%}
+                                                {%- endif -%}
+
+                                                {% if not loop.last %}
+                                                    <li>
+                                                        {% if menu.uri is not empty %}
+                                                            <a href="{{ menu.uri }}">
+                                                                {% if menu.extra('safe_label', true) %}
+                                                                    {{- label|raw -}}
+                                                                {% else %}
+                                                                    {{- label -}}
+                                                                {% endif %}
+                                                            </a>
+                                                        {% else %}
+                                                            {{ label }}
+                                                        {% endif %}
+                                                    </li>
+                                                {% else %}
+                                                    <li class="active"><span>{{ label }}</span></li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% else %}
+                                        {{ _breadcrumb|raw }}
+                                    {% endif %}
+                                </ol>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="navbar-collapse navbar-collapse-actions">
+                        {% if _tab_menu is not empty %}
+                            <div class="navbar-left">
+                                {{ _tab_menu|raw }}
+                            </div>
+                        {% endif %}
+
+                        {#
+                        {% if admin is defined and action is defined and action == 'list' and admin.listModes|length > 1 %}
+                            <div class="nav navbar-right btn-group">
+                                {% for mode, settings in admin.listModes %}
+                                    <a href="{{ admin.generateUrl('list', app.request.query.all|merge({_list_mode: mode})) }}" class="btn btn-default navbar-btn btn-sm{% if admin.getListMode() == mode %} active{% endif %}"><i class="{{ settings.class }}"></i></a>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        #}
+
+                        {% block sonata_admin_content_actions_wrappers %}
+                            {% if _actions|replace({ '<li>': '', '</li>': '' })|trim is not empty %}
+                                <ul class="nav navbar-nav navbar-right">
+                                    {% if _actions|split('</a>')|length > 2 %}
+                                        <li class="dropdown sonata-actions">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ 'link_actions'|trans({}, 'SonataAdminBundle') }} <b class="caret"></b></a>
+                                            <ul class="dropdown-menu" role="menu">
+                                                {{ _actions|raw }}
+                                            </ul>
+                                        </li>
+                                    {% else %}
+                                        {{ _actions|raw }}
+                                    {% endif %}
+                                </ul>
+                            {% endif %}
+                        {% endblock sonata_admin_content_actions_wrappers %}
+
+                        {% if _list_filters_actions is not empty %}
+                            {{ _list_filters_actions|raw }}
+                        {% endif %}
+                    </div>
+                </div>
+            </nav>
+        {% endif %}
+    {% endblock sonata_page_content_nav %}
+{% endblock sonata_page_content_header %}
+
+{% block side_bar_after_nav %}
+    {# COMPO Ссылка на компанию под навигацией в админке #}
+    <p class="text-center small" style="border-top: 1px solid #444444; padding-top: 10px">
+        {% block side_bar_after_nav_content %}
+            <a href="http://www.compo.ru" rel="noreferrer" target="_blank">www.compo.ru</a>
+        {% endblock %}
+    </p>
+{% endblock %}
+
+{% block body_attributes %}
+    {% if (app.user.settings.admin_sidebar_collapse|default(0) == 1) %}
+        class="sonata-bc skin-black fixed sidebar-collapse" data-collapse="1"
+    {% else %}
+        class="sonata-bc skin-black fixed" data-collapse="0"
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        {% if app.user %}
+            var user_settings = {{ app.user.settings|json_encode|raw }};
+        {% else %}
+            var user_settings = {};
+        {% endif %}
+    </script>
+
+    {{ parent() }}
+
+    {% if app.environment == 'prod' %}
+        {% javascripts
+            'bundles/fosjsrouting/js/router.js'
+            'js/fos_js_routes.js'
+
+            output='assetic/router.js' %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% else %}
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    {% endif %}
+{% endblock %}
+
+{% block sonata_javascript_pool %}
+    {% for javascript in sonata_admin.adminPool.getOption('javascripts', []) %}
+        <script src="{{ asset(javascript) }}?v={{ project_version() }}"></script>
+    {% endfor %}
+{% endblock %}
+
+{% block stylesheets %}
+    {% for stylesheet in sonata_admin.adminPool.getOption('stylesheets', []) %}
+        <link rel="stylesheet" href="{{ asset(stylesheet) }}?v={{ project_version() }}">
+    {% endfor %}
+{% endblock %}
+
+{% block sonata_breadcrumb %}
+
+{% endblock sonata_breadcrumb %}

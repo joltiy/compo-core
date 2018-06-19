@@ -1,0 +1,3 @@
+sonata_block:
+    blocks:
+        compo_news.block.service.news_last:

@@ -1,0 +1,24 @@
+services:
+    compo_menu.admin.menu:
+        class: Compo\MenuBundle\Admin\MenuAdmin
+        arguments: [~, Compo\MenuBundle\Entity\Menu, CompoMenuBundle:MenuAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: menu }
+        calls:
+            - [ addChild, ['@compo_menu.admin.menu_item']]
+            - [ addChildAdminMenuItem, ['compo_menu.admin.menu_item']]
+
+    compo_menu.block.service.menu:
+        class: Compo\MenuBundle\Block\MenuBlockService
+        arguments: ["compo_menu.block.service.menu", "@templating"]
+        parent: compo_core.abstract_container_aware
+        tags:
+            - { name: sonata.block }
+
+    compo_menu.admin.menu_item:
+        class: Compo\MenuBundle\Admin\MenuItemAdmin
+        arguments: [~, Compo\MenuBundle\Entity\MenuItem, CompoMenuBundle:MenuItemAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: menu_item }
+        calls:
+            - [ setParentParentAssociationMapping, ['menu']]

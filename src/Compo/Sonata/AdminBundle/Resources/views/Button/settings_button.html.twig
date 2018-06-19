@@ -1,0 +1,4 @@
+{% set label = label|default('action.link_settings') %}
+{% set uri = uri|default(admin.generateUrl('settings')) %}
+
+<a class="sonata-action-element" href="{{ uri }}"><i class="fa fa-cog"></i> {{ label|trans({}, admin.translationDomain) }}</a>

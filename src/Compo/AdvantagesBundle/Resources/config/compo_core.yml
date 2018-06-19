@@ -1,0 +1,4 @@
+compo_core:
+    updated_at_cache_keys:
+        - { entity: Compo\AdvantagesBundle\Entity\Advantages, key: advantages }
+        - { entity: Compo\AdvantagesBundle\Entity\AdvantagesItem, key: advantages }

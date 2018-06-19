@@ -1,0 +1,13 @@
+{% extends sonata_block.templates.block_base %}
+
+{% block block %}
+    <div class="banners banners-carousel">
+        <div class="carousel slide" data-ride="carousel" id="carousel-example-generic-{{ settings.id }}">
+            <div class="carousel-inner" role="listbox">
+                {% for item in list %}
+                    <div class="item {% if loop.first %}active{% endif %}"><a href="{{ item.url }}"><img alt="" src="{% path item.image, 'reference' %}"/></a></div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

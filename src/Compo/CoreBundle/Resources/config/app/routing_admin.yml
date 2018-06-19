@@ -1,0 +1,28 @@
+admin:
+    resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
+
+sonata_user_admin:
+    resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
+
+sonata_media_pixlr:
+    resource: '@SonataMediaBundle/Resources/config/routing/pixlr.xml'
+    prefix:   /media
+
+_sonata_admin:
+    resource: .
+    type:     sonata_admin
+
+compo_core_update_user_settings:
+    path: /admin/compo_core/update_user_settings
+    defaults: { _controller: "CompoCoreBundle:SettingsAdmin:updateUserSettings", _sonata_admin: 'compo_core.admin.settings' }
+    methods:  POST
+    options:
+        expose: true
+
+
+admin_sonata_dashboard_dashboard_render_block:
+    path: /admin/compo/dashboard/block/render/{id}
+    defaults: { _controller: "CompoSonataDashboardBundle:DashboardAdmin:renderBlock", _sonata_admin: 'sonata.dashboard.admin.dashboard' }
+    methods:  GET
+    options:
+        expose: true

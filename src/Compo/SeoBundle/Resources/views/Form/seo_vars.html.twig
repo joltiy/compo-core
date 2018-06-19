@@ -1,0 +1,64 @@
+{% block seo_vars_widget %}
+    <div class="well">
+        <div>
+            <strong>&#123;&#123; site.name &#125;&#125;</strong> - Имя сайта
+        </div>
+        <div>
+            <strong>&#123;&#123; site.metaKeyword &#125;&#125;</strong> - Ключевые слова сайта
+        </div>
+
+        <div>
+            <strong>&#123;&#123; site.metaDescription &#125;&#125;</strong> - Описание сайта
+        </div>
+    </div>
+
+    <div class="well">
+        <div>
+            <strong>Товары</strong>
+        </div>
+        <div>
+            <strong>&#123;&#123; product.name &#125;&#125;</strong> - Название товар.
+        </div>
+        <div>
+            <strong>&#123;&#123; product.sku &#125;&#125;</strong> - Артикул товар.
+        </div>
+        <div>
+            <strong>&#123;&#123; product.manufacture.name &#125;&#125;</strong> - Производитель товар.
+        </div>
+        <div>
+            <strong>&#123;&#123; product.manufacture.country.name &#125;&#125;</strong> - Страна товар.
+        </div>
+        <div>
+            <strong>&#123;&#123; product.manufactureCollection.name &#125;&#125;</strong> - Коллекция товар.
+        </div>
+        <div>
+            <strong>&#123;&#123; product_features['Длина'] &#125;&#125;x&#123;&#123; product_features['Ширина'] &#125;&#125;</strong> - Характеристики
+        </div>
+
+    </div>
+
+    <div class="well">
+        <div>
+            <strong>Фильтры шаблонизатора</strong>
+        </div>
+        <div>
+            <strong>&#123;&#123; product.name|capitalize &#125;&#125;</strong> - <a href="http://x-twig.ru/filters/capitalize/">Первый символ будет в верхнем регистре остльные в нижнем</a>
+        </div>
+    </div>
+
+    <div class="well">
+        <div>
+            <strong>Twig</strong> - Шаблонизатор.
+        </div>
+        <div>
+            <a href="https://twig.symfony.com/">Twig</a>
+        </div>
+        <div>
+            <a href="http://x-twig.ru/">Twig (rus)</a>
+        </div>
+
+    </div>
+
+
+
+{% endblock %}

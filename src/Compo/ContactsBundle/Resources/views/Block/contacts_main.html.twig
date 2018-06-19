@@ -1,0 +1,39 @@
+{% block block %}
+
+    <h1>{{ block.page.name }}</h1>
+
+    <div class="col-lg-7 col-md-6">
+        {{ settings.contacts.mapsCode }}
+    </div>
+    <div>
+        {{ settings.contacts.address | raw }}
+    </div>
+
+    <div>
+        {{ settings.contacts.worktime | raw }}
+    </div>
+    <div>
+        {{ settings.contacts.phone }}
+    </div>
+    <div>
+        <a href="mailto:{{ settings.contacts.email }} "> {{ settings.contacts.email }} </a>
+    </div>
+
+
+
+    <div>{{ settings.contacts.bankProps }}</div>
+
+
+
+    <div class="col-md-6">
+        <h2>Как добраться на авто:</h2>
+        {{ settings.contacts.carInstruction }}
+
+    </div>
+    <div class="col-md-6">
+        <h2>Как добраться своим ходом:</h2>
+        {{ settings.contacts.walkInstruction }}
+    </div>
+
+
+{% endblock %}

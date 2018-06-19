@@ -1,0 +1,23 @@
+
+.page-composer__block-type-selector label {
+    margin-right: 10px;
+    position: relative;
+    top: 3px;
+}
+
+.page-composer__container__child-count .badge, .page-composer__container__child .badge {
+    top: -1px;
+    margin-left: 5px;
+}
+
+.page-composer__container__child__edit .fa {
+    margin-right: 6px;
+}
+
+.page-composer__container__child h4 {
+    margin-bottom: 10px !important;
+}
+
+.page-composer__container__child__name__input {
+    width: 50%;
+}

@@ -1,0 +1,75 @@
+doctrine:
+    dbal:
+        default_connection: default
+        connections:
+            default:
+                driver:   "%env(DATABASE_DRIVER)%"
+                dbname:   "%env(DATABASE_NAME)%"
+                user:     "%env(DATABASE_USER)%"
+                host:     "%env(DATABASE_HOST)%"
+                port:     "%env(DATABASE_PORT)%"
+                password: "%env(DATABASE_PASSWORD)%"
+                charset:  UTF8
+
+                # An exception occured while establishing a connection to figure out your platform version.
+                # You can circumvent this by setting a 'server_version' configuration value
+                server_version: 5.7
+
+                # TODO: Выяснить, может уже и не нужно
+                mapping_types:
+                    enum:       string
+        types:
+            json:     Sonata\Doctrine\Types\JsonType
+
+    orm:
+        auto_generate_proxy_classes: '%kernel.debug%'
+        default_entity_manager: default
+        entity_managers:
+            default:
+                auto_mapping: true
+                naming_strategy: doctrine.orm.naming_strategy.underscore
+                query_cache_driver:
+                    type:                 "apcu"
+                    namespace: '%env(DATABASE_NAME)%'
+                metadata_cache_driver:
+                    type:                 "apcu"
+                    namespace: '%env(DATABASE_NAME)%'
+                result_cache_driver:
+                    type:                 "apcu"
+                    namespace: '%env(DATABASE_NAME)%'
+                dql:
+                    numeric_functions:
+                        rand: DoctrineExtensions\Query\Mysql\Rand
+
+                    datetime_functions:
+                        DATE_FORMAT: DoctrineExtensions\Query\Mysql\DateFormat
+                        UNIX_TIMESTAMP: DoctrineExtensions\Query\Mysql\UnixTimestamp
+
+                # TODO: Может заменить на свой? Или трейты...
+                #default_repository_class:  Doctrine\ORM\EntityRepository
+
+                filters:
+                    softdeleteable:
+                        class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+                        enabled: true
+                    softdeleteabletrash:
+                        class: Compo\Sonata\AdminBundle\Filter\SoftDeleteableTrashFilter
+                        enabled: false
+
+doctrine_cache:
+    providers:
+        annotation_cache:
+            type: "apcu"
+        sylius_settings:
+            type: "apcu"
+
+doctrine_migrations:
+    dir_name: "%kernel.root_dir%/migrations"
+
+stof_doctrine_extensions:
+    orm:
+        default:
+            sortable:      true
+            timestampable: true
+            blameable: true
+            sluggable: true

@@ -1,0 +1,24 @@
+.sonata-ba-field .select2-container {
+    padding-top: 2px;
+}
+
+.select2-container .select2-choice {
+    height: 30px;
+}
+
+div[id*='catalogAdditionals'].field-container .select2-search-choice {
+    float: none !important;
+    display: block;
+    line-height: 20px;
+}
+
+div[id*='catalogAdditionals'].field-container .select2-search-choice div {
+    line-height: 20px;
+}
+
+div[id*='catalogAdditionals'].field-container .select2-container-multi .select2-search-choice-close {
+    top: 6px;
+}
+.select2-container {
+    min-width: 120px;
+}
