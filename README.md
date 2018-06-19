@@ -7,8 +7,7 @@ CompoSymfonyCms core bundles.
 
 Branch | Travis |
 ------ | ------ |
-develop| [![Build Status](https://travis-ci.com/comporu/mirplitki.svg?token=Wm83L8fqS3rA3qLbfpD2&branch=develop)](https://travis-ci.com/comporu/mirplitki) | 
-master | [![Build Status](https://travis-ci.com/comporu/mirplitki.svg?token=Wm83L8fqS3rA3qLbfpD2&branch=develop)](https://travis-ci.com/comporu/mirplitki) |
+develop| [![Build Status](https://travis-ci.org/comporu/compo-core.svg?branch=develop)](https://travis-ci.org/comporu/compo-core) | 
 
 ## Documentation
 
