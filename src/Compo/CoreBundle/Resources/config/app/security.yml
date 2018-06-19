@@ -98,8 +98,6 @@ security:
         - { path: ^/admin/, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
         - { path: ^/profile/, role: IS_AUTHENTICATED_FULLY }
 
-        - { path: ^/monitor.*, role: ROLE_SUPER_ADMIN }
-
         - { path: ^/api/doc.*, role: ROLE_SUPER_ADMIN }
         - { path: ^/api/media.*, role: ROLE_SUPER_ADMIN }
         - { path: ^/api/notification.*, role: ROLE_SUPER_ADMIN }

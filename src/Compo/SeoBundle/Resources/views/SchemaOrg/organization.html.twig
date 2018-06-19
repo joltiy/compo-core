@@ -8,8 +8,6 @@
 
         <div itemscope itemprop="logo" itemtype="https://schema.org/ImageObject" class="logo-image-object-itemscope">
             <meta itemprop="url" content="{% path  compo_core_settings.logo_image, 'reference' %}"/>
-            <meta itemprop="width" content="{{ media_width(compo_core_settings.logo_image) }}">
-            <meta itemprop="height" content="{{ media_height(compo_core_settings.logo_image) }}">
 
             {% media compo_core_settings.logo_image, 'reference' with {'alt': site.name } %}
         </div>

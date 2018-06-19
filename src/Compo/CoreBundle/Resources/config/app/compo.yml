@@ -86,11 +86,3 @@ services:
         parent: compo_core.abstract_container_aware
         tags:
             - { name: doctrine.event_subscriber }
-
-
-
-
-
-liip_monitor:
-    enable_controller: true
-    default_group:        default

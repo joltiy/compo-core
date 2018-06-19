@@ -23,13 +23,6 @@ _jms_job_queue:
     type: annotation
     prefix: /jobs
 
-_liip_imagine:
-    resource: "@LiipImagineBundle/Resources/config/routing.xml"
-
-_liip_monitor:
-    resource: "@LiipMonitorBundle/Resources/config/routing.xml"
-    prefix: /monitor/health
-
 _admin:
     resource: routing_admin.yml
     prefix:   /admin

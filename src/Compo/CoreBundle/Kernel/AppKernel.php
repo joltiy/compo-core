@@ -43,7 +43,7 @@ class AppKernel extends Kernel
             new \Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
             new \Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
 
-            new \Craue\FormFlowBundle\CraueFormFlowBundle(),
+            //new \Craue\FormFlowBundle\CraueFormFlowBundle(),
 
             new \FOS\UserBundle\FOSUserBundle(),
             new \FOS\RestBundle\FOSRestBundle(),
@@ -60,13 +60,10 @@ class AppKernel extends Kernel
             new \Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new \Pix\SortableBehaviorBundle\PixSortableBehaviorBundle(),
             new \Presta\SitemapBundle\PrestaSitemapBundle(),
-            new \KonstantinKuklin\AsseticStaticGzipBundle\AsseticStaticGzipBundle(),
+            //new \KonstantinKuklin\AsseticStaticGzipBundle\AsseticStaticGzipBundle(),
             new \Debril\RssAtomBundle\DebrilRssAtomBundle(),
             new \Exporter\Bridge\Symfony\Bundle\SonataExporterBundle(),
             new \Evence\Bundle\SoftDeleteableExtensionBundle\EvenceSoftDeleteableExtensionBundle(),
-
-            new \Liip\ImagineBundle\LiipImagineBundle(),
-            new \Liip\MonitorBundle\LiipMonitorBundle(),
 
             new \Sylius\Bundle\SettingsBundle\SyliusSettingsBundle(),
             new \Sylius\Bundle\ResourceBundle\SyliusResourceBundle(),
