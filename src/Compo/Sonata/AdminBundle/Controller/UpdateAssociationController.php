@@ -124,11 +124,13 @@ class UpdateAssociationController extends CRUDController
 
         $fieldDescription = $admin->getListFieldDescription($field);
 
-        $result[] = [
-            'id' => $items->getId(),
-            'label' => $twigSonataAdminExtension->renderRelationElement($items, $fieldDescription),
-            'edit_url' => $associationAdmin->generateObjectUrl('edit', $items),
-        ];
+        if ($items) {
+            $result[] = [
+                'id' => $items->getId(),
+                'label' => $twigSonataAdminExtension->renderRelationElement($items, $fieldDescription),
+                'edit_url' => $associationAdmin->generateObjectUrl('edit', $items),
+            ];
+        }
 
         return new JsonResponse([
             'items' => $result,

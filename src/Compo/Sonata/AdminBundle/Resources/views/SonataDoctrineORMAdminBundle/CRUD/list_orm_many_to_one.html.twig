@@ -29,7 +29,7 @@
             ];
 
             var select2Options = {
-                placeholder: '', // allowClear needs placeholder to work properly
+                placeholder: 'Не указан', // allowClear needs placeholder to work properly
                 allowClear: true,
                 enable: true,
                 readonly: false,
@@ -76,7 +76,7 @@
                             'field':  '{{ field_description.name }}',
                             'subject': {{ object.id }}
                         };
-                    }
+                    },
                 },
                 escapeMarkup: function (m) { return m; } // we do not want to escape markup since we are displaying html in results
             };
@@ -93,16 +93,23 @@
                 if (typeof item.label === 'undefined') {
                     item.label = item.text;
                 }
+
+                console.log(item);
+
                 return jQuery('<div>').text(item.label).prop('innerHTML'); // format selected item '<b>'+item.label+'</b>';
             };
 
             if (window.Select2) {
 
                 select2Options.initSelection = function (element, callback) {
-                    callback(initData{{ field_description.name }}{{ admin.id(object) }});
+                    if (initData{{ field_description.name }}{{ admin.id(object) }}[0] != undefined) {
+                        callback(initData{{ field_description.name }}{{ admin.id(object) }}[0]);
+
+                    }
+
                 };
 
-                select2Options.ajax.results = function (data) {
+                select2Options.ajax.results = function (data, page) {
                     // notice we return the value of more so Select2 knows if more results can be loaded
                     return {results: data.items, more: data.more};
                 };
@@ -112,10 +119,13 @@
 
 
                 select2Options.initSelection = function (element, callback) {
-                    callback(initData{{ field_description.name }}{{ admin.id(object) }});
+                    if (initData{{ field_description.name }}{{ admin.id(object) }}[0] != undefined) {
+                        callback(initData{{ field_description.name }}{{ admin.id(object) }}[0]);
+
+                    }
                 };
 
-                select2Options.ajax.processResults = function (data) {
+                select2Options.ajax.processResults = function (data, params) {
                     return {
                         results: data.items,
                         pagination: {
@@ -129,7 +139,7 @@
 
             //local source
             $('#row-{{ field_description.name }}{{ admin.id(object) }}').editable({
-                display: function() {
+                display: function(value, sourceData) {
 
                     var list = [];
 
