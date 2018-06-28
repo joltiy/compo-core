@@ -46,7 +46,7 @@ install:
   - composer global require sllh/composer-lint:@stable --prefer-dist --no-interaction
   - wget "https://phar.phpunit.de/phpunit-5.7.phar" --output-document="${HOME}/bin/phpunit"
   - chmod u+x "${HOME}/bin/phpunit"
-  - composer update --no-progress --no-interaction --no-suggest
+  - COMPOSER_MEMORY_LIMIT=-1 composer update --no-progress --no-interaction --no-suggest
 
 
 script:
