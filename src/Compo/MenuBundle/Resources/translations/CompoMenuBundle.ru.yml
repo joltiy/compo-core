@@ -45,3 +45,6 @@ form.label_country: 'Страна'
 form.label_target: 'Открывать в'
 
 menu_item: 'Элементы меню'
+form.label_target_id: 'Назначение'
+
+menu_type.url: 'URL'

@@ -10,10 +10,36 @@
 namespace Compo\MenuBundle\Controller;
 
 use Compo\Sonata\AdminBundle\Controller\CRUDController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * {@inheritdoc}
  */
 class MenuAdminController extends CRUDController
 {
+    public function menuTargetItemsAction()
+    {
+        $result = [];
+
+        $request = $this->getRequest();
+
+        $type = $request->get('type', false);
+
+        if ('url' !== $type) {
+            $menuManager = $this->get('compo_menu.manager');
+
+            $menuType = $menuManager->getMenuType($type);
+
+            $choices = $menuType->getChoices();
+
+            foreach ($choices as $name => $id) {
+                $result[] = [
+                    'id' => $id,
+                    'text' => $name,
+                ];
+            }
+        }
+
+        return new JsonResponse($result);
+    }
 }

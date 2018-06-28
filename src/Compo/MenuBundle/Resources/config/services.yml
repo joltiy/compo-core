@@ -22,3 +22,8 @@ services:
             - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: menu_item }
         calls:
             - [ setParentParentAssociationMapping, ['menu']]
+
+    compo_menu.manager:
+        class: Compo\MenuBundle\Manager\MenuManager
+        parent: compo_core.abstract_container_aware
+        public: true

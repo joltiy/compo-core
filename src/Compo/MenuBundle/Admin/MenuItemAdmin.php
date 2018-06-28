@@ -17,6 +17,7 @@ use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
  * {@inheritdoc}
@@ -117,94 +118,41 @@ class MenuItemAdmin extends AbstractAdmin
             ]
         );
 
+        $menuManager = $this->getContainer()->get('compo_menu.manager');
+
+        $choices = $menuManager->getMenuTypeChoices();
+
+        $choices = array_merge(['menu_type.url' => 'url'], $choices);
+
         $formMapper
             ->add(
                 'type',
                 'sonata_type_choice_field_mask',
                 [
-                    'choices' => [
-                        'URL' => 'url',
-                        'Страница' => 'page',
-                        'Тегирование' => 'tagging',
-                        'Категория' => 'catalog',
-                        'Страна' => 'country',
-                        'Производитель' => 'manufacture',
-                    ],
-                    'map' => [
-                        'url' => ['url'],
-                        'page' => ['page'],
-                        'tagging' => ['tagging'],
-                        'catalog' => ['catalog'],
-                        'country' => ['country'],
-                        'manufacture' => ['manufacture'],
-                    ],
-                    'placeholder' => 'Укажите тип',
-                    'required' => false,
+                    'choices' => $choices,
+                    'choice_translation_domain' => 'CompoMenuBundle',
+                    'required' => true,
+                    'attr' => ['class' => 'menu-type-select'],
                 ]
             );
 
-        $query = $this->getDoctrine()->getManager()->createQuery('SELECT p FROM Compo\Sonata\PageBundle\Entity\Page p WHERE p.routeName = \'page_slug\' ORDER BY p.parent ASC, p.position ASC');
+        $choicesTarget = [];
 
-        $formMapper->add(
-            'page',
-            'sonata_type_model',
-            [
-                'required' => false,
-                'query' => $query,
-            ]
-        );
+        if ($this->getSubject() && !$this->isCurrentRoute('create')) {
+            $type = $this->getSubject()->getType();
 
-        $query = $this->getDoctrine()->getManager()->createQuery('SELECT p FROM Compo\CountryBundle\Entity\Country p ORDER BY p.name ASC');
+            if ('url' !== $type) {
+                $menuType = $menuManager->getMenuType($type);
 
-        $formMapper->add(
-            'country',
-            'sonata_type_model',
-            [
-                'required' => false,
-                'query' => $query,
-            ]
-        );
+                $choicesTarget = $menuType->getChoices();
+            }
+        }
 
-        $query = $this->getDoctrine()->getManager()->createQuery('SELECT p FROM Compo\ManufactureBundle\Entity\Manufacture p ORDER BY p.name ASC');
-
-        $formMapper->add(
-            'manufacture',
-            'sonata_type_model',
-            [
-                'required' => false,
-                'query' => $query,
-            ]
-        );
-
-        $query = $this->getDoctrine()->getManager()->createQuery('SELECT p FROM Compo\TaggingBundle\Entity\Tagging p ORDER BY p.name ASC');
-
-        $formMapper->add(
-            'tagging',
-            'sonata_type_model',
-            [
-                'required' => false,
-                'query' => $query,
-            ]
-        );
-
-        /** @var \Doctrine\ORM\QueryBuilder $queryBuilder */
-        $queryBuilder = $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager()->getRepository('CompoCatalogBundle:Catalog')->createQueryBuilder('c');
-
-        $queryBuilder->select('c')
-            ->orderBy('c.root, c.lft', 'ASC');
-
-        $tree = $queryBuilder->getQuery()->getResult();
-
-        $formMapper->add(
-            'catalog',
-            TreeSelectorType::class,
-            [
-                'model_manager' => $this->getConfigurationPool()->getContainer()->get('compo_catalog.admin.catalog')->getModelManager(),
-                'class' => $this->getConfigurationPool()->getContainer()->get('compo_catalog.admin.catalog')->getClass(),
-                'tree' => $tree,
-                'required' => true,
-            ]
-        );
+        $formMapper->add('targetId', ChoiceType::class, [
+            'choices' => $choicesTarget,
+            'required' => false,
+            'attr' => ['class' => 'menu-target-id'],
+        ]);
 
         $formMapper->add('url');
 

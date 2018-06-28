@@ -9,6 +9,8 @@
 
 namespace Compo\MenuBundle;
 
+use Compo\MenuBundle\DependencyInjection\Compiler\MenuCompilerPass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
@@ -16,4 +18,10 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class CompoMenuBundle extends Bundle
 {
+    public function build(ContainerBuilder $container)
+    {
+        parent::build($container);
+
+        $container->addCompilerPass(new MenuCompilerPass());
+    }
 }

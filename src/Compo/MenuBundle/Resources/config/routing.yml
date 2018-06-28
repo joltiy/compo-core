@@ -1,0 +1,5 @@
+menu_target_items:
+    path: /admin/compo/menu/menu/menu-items
+    defaults: {_controller: CompoMenuBundle:MenuAdmin:MenuTargetItems, , _sonata_admin: 'compo_menu.admin.menu'}
+    options:
+        expose: true

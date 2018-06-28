@@ -104,6 +104,8 @@ sonata_admin:
             - bundles/composonataadmin/js/btn_batch.js
             - bundles/composonataadmin/js/tree.js
 
+            - bundles/compomenu/js/admin/menu.js
+
             - bundles/compomanufacture/js/admin/fill_manufacture_collection.js
 
             - bundles/compoorder/js/admin/update_order.js

@@ -118,6 +118,11 @@ class MenuItem
     protected $type;
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $targetId;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Compo\Sonata\PageBundle\Entity\Page")
      * @ORM\JoinColumn(name="page_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
@@ -152,6 +157,22 @@ class MenuItem
      * @ORM\Column(type="string", nullable=true)
      */
     protected $target;
+
+    /**
+     * @return mixed
+     */
+    public function getTargetId()
+    {
+        return $this->targetId;
+    }
+
+    /**
+     * @param mixed $targetId
+     */
+    public function setTargetId($targetId): void
+    {
+        $this->targetId = $targetId;
+    }
 
     /**
      * Get lft.

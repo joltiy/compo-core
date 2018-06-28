@@ -1,0 +1,6 @@
+services:
+  compo_sonata_page.menu_type.page:
+    class: Compo\Sonata\PageBundle\Menu\PageMenuType
+    parent: compo_core.abstract_container_aware
+    tags:
+      - { name: compo_menu.menu_type }

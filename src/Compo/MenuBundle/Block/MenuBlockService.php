@@ -84,6 +84,8 @@ class MenuBlockService extends AbstractBlockService
      */
     public function renderMenu($menu, $nodesList)
     {
+        $menuManger = $this->getContainer()->get('compo_menu.manager');
+
         foreach ($nodesList as $key => $item) {
             /** @var \Compo\MenuBundle\Entity\MenuItem $nodeItem */
             $nodeItem = $item['node'];
@@ -93,58 +95,15 @@ class MenuBlockService extends AbstractBlockService
                 continue;
             }
 
-            if ('catalog' === $item['type']) {
-                if (!$nodeItem->getCatalog()) {
-                    continue;
-                }
+            $targetId = $nodeItem->getTargetId();
+            $type = $nodeItem->getType();
 
-                $catalogManager = $this->getContainer()->get('compo_catalog.manager.catalog');
+            if ('url' !== $type && $targetId) {
+                $menuType = $menuManger->getMenuType($type);
 
-                $item['url'] = $catalogManager->getCatalogShowPermalink($nodeItem->getCatalog());
-            } elseif ('page' === $item['type']) {
-                $item['url'] = $this->getContainer()->get('router')->generate('page_slug', ['path' => $nodeItem->getPage()->getUrl()]);
-            } elseif ('tagging' === $item['type']) {
-                if ($nodeItem->getTagging()) {
-                    $catalogManager = $this->getContainer()->get('compo_catalog.manager.catalog');
-
-                    $item['url'] = $catalogManager->getCatalogTaggingShowPermalink($nodeItem->getTagging()->getSlug());
-
-                    $criteria = [];
-
-                    $criteria['filter'] = $nodeItem->getTagging()->getFilterData();
-
-                    $filter = $catalogManager->getFilter($criteria);
-
-                    $item['tagging'] = $nodeItem->getTagging();
-
-                    $item['products_count'] = $filter['products_count'];
-                }
-            } elseif ('manufacture' === $item['type']) {
-                if ($nodeItem->getManufacture()) {
-                    $manufactureManager = $this->getContainer()->get('compo_manufacture.manager.manufacture');
-
-                    $item['url'] = $manufactureManager->getManufactureShowPermalink($nodeItem->getManufacture());
-
-                    $item['manufacture'] = $nodeItem->getManufacture();
-                }
-            } elseif ('country' === $item['type']) {
-                if ($nodeItem->getCountry()) {
-                    $router = $this->getContainer()->get('router');
-
-                    $item['url'] = $router->generate(
-                        'catalog_index',
-                        [
-                            'country' => [
-                                'items' => [
-                                    $nodeItem->getCountry()->getId() => $nodeItem->getCountry()->getId(),
-                                ],
-                            ],
-                        ]
-                    );
-
-                    $item['country'] = $nodeItem->getCountry();
-                }
+                $menuType->fillMenuItem($item);
             } else {
+                $nodeItem->setType('url');
                 $item['url'] = $nodeItem->getUrl();
             }
 
