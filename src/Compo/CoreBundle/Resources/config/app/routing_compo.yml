@@ -15,3 +15,6 @@ compo_advantages:
 
 compo_menu:
     resource: "@CompoMenuBundle/Resources/config/routing.yml"
+
+compo_faq:
+    resource: "@CompoFaqBundle/Resources/config/routing.yml"
