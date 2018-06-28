@@ -30,3 +30,16 @@ Demo
 
     bundles/advantages
     bundles/articles
+    bundles/banner
+    bundles/contacts
+    bundles/core
+    bundles/faq
+    bundles/feedback
+    bundles/import
+    bundles/menu
+    bundles/news
+    bundles/notification
+    bundles/pagecode
+    bundles/redirect
+    bundles/seo
+    bundles/social
