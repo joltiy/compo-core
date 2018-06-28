@@ -123,36 +123,6 @@ class MenuItem
     protected $targetId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Compo\Sonata\PageBundle\Entity\Page")
-     * @ORM\JoinColumn(name="page_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
-     */
-    protected $page;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Compo\CountryBundle\Entity\Country")
-     * @ORM\JoinColumn(name="country_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
-     */
-    protected $country;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Compo\ManufactureBundle\Entity\Manufacture")
-     * @ORM\JoinColumn(name="manufacture_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
-     */
-    protected $manufacture;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Compo\TaggingBundle\Entity\Tagging")
-     * @ORM\JoinColumn(name="tagging_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
-     */
-    protected $tagging;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Compo\CatalogBundle\Entity\Catalog")
-     * @ORM\JoinColumn(name="catalog_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
-     */
-    protected $catalog;
-
-    /**
      * @var string
      * @ORM\Column(type="string", nullable=true)
      */
@@ -337,54 +307,6 @@ class MenuItem
     }
 
     /**
-     * @return mixed
-     */
-    public function getCatalog()
-    {
-        return $this->catalog;
-    }
-
-    /**
-     * @param mixed $catalog
-     */
-    public function setCatalog($catalog)
-    {
-        $this->catalog = $catalog;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCountry()
-    {
-        return $this->country;
-    }
-
-    /**
-     * @param mixed $country
-     */
-    public function setCountry($country)
-    {
-        $this->country = $country;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getManufacture()
-    {
-        return $this->manufacture;
-    }
-
-    /**
-     * @param mixed $manufacture
-     */
-    public function setManufacture($manufacture)
-    {
-        $this->manufacture = $manufacture;
-    }
-
-    /**
      * @return string
      */
     public function getType()
@@ -398,38 +320,6 @@ class MenuItem
     public function setType($type)
     {
         $this->type = $type;
-    }
-
-    /**
-     * @return Tagging
-     */
-    public function getTagging()
-    {
-        return $this->tagging;
-    }
-
-    /**
-     * @param mixed $tagging
-     */
-    public function setTagging($tagging)
-    {
-        $this->tagging = $tagging;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPage()
-    {
-        return $this->page;
-    }
-
-    /**
-     * @param mixed $page
-     */
-    public function setPage($page)
-    {
-        $this->page = $page;
     }
 
     /**
