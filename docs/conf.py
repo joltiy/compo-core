@@ -249,7 +249,10 @@ latex_elements = {
 html_context = {
     "display_github": True, # Integrate GitHub
     "github_user": "comporu", # Username
-    "github_repo": "compo-docs", # Repo name
+    "github_repo": "compo-core", # Repo name
     "github_version": "master", # Version
     "conf_py_path": "/docs/", # Path in the checkout to the docs root
+    "css_files": [
+        "_static/default.css",  # overrides for wide tables in RTD theme
+    ]
 }
