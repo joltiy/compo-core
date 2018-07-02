@@ -14,8 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * Class MenuCompilerPass
- * @package Compo\MenuBundle\DependencyInjection\Compiler
+ * Class MenuCompilerPass.
  */
 class MenuCompilerPass implements CompilerPassInterface
 {

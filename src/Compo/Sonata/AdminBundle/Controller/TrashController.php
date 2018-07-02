@@ -106,7 +106,7 @@ class TrashController extends CRUDController
             $softdeleteabletrash->disableForEntity($parentEntityClass);
 
             $softdeleteable->disableForEntity($admin->getClass());
-        } else if ($filters->isEnabled('softdeleteable')) {
+        } elseif ($filters->isEnabled('softdeleteable')) {
             $filters->disable('softdeleteable');
             $filters->enable('softdeleteabletrash');
         }

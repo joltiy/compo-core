@@ -12,7 +12,7 @@ namespace Compo\FeedbackBundle\Manager;
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 
 /**
- * Class FeedbackManager
+ * Class FeedbackManager.
  */
 class FeedbackManager
 {

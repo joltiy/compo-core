@@ -13,8 +13,7 @@ use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
 use Compo\MenuBundle\Menu\MenuItemType;
 
 /**
- * Class MenuManager
- * @package Compo\MenuBundle\Manager
+ * Class MenuManager.
  */
 class MenuManager
 {
@@ -67,6 +66,7 @@ class MenuManager
 
     /**
      * @param $name
+     *
      * @return mixed
      */
     public function getMenuType($name)

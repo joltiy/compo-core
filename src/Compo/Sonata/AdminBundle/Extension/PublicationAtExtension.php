@@ -30,10 +30,10 @@ class PublicationAtExtension extends AbstractAdminExtension
         if ($this->isUseEntityTraits($admin, [
                 'Compo\Sonata\AdminBundle\Entity\PublicationAtEntityTrait',
             ]) && $listMapper->has('publicationAt')) {
-                $publicationAt = $listMapper->get('publicationAt');
-                $publicationAt->setOption('sortable', true);
-                $publicationAt->setOption('pattern', 'dd.MM.y HH:mm:ss');
-            }
+            $publicationAt = $listMapper->get('publicationAt');
+            $publicationAt->setOption('sortable', true);
+            $publicationAt->setOption('pattern', 'dd.MM.y HH:mm:ss');
+        }
     }
 
     /**

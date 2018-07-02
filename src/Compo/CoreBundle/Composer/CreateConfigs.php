@@ -13,7 +13,7 @@ use Composer\Script\Event;
 use Symfony\Component\Dotenv\Dotenv;
 
 /**
- * Class CreateConfigs
+ * Class CreateConfigs.
  */
 class CreateConfigs
 {
