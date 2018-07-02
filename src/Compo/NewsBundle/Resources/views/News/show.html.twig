@@ -12,6 +12,12 @@
 {{ block('article_body') }}
 {{ block('back_to_list') }}
 #}
+{% block breadcrumb %}
+    {{ sonata_block_render_event('breadcrumb', {
+        'context': 'news',
+        'news': news
+    }) }}
+{% endblock %}
 
 {% block content %}
     <div class="content-block articles-index">

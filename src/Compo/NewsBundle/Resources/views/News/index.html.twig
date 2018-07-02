@@ -12,6 +12,12 @@
 {{ block('no_found_news') }}
 #}
 
+{% block breadcrumb %}
+    {{ sonata_block_render_event('breadcrumb', {
+        'context': 'news'
+    }) }}
+{% endblock %}
+
 {% block content %}
     <div class="content-block articles-index">
 
