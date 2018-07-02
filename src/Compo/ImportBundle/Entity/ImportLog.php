@@ -20,12 +20,24 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ImportLog
 {
+    /**
+     * STATUS_NOCHANGE
+     */
     public const STATUS_NOCHANGE = 0;
 
+    /**
+     * STATUS_SUCCESS
+     */
     public const STATUS_SUCCESS = 1;
 
+    /**
+     * STATUS_EXISTS
+     */
     public const STATUS_EXISTS = 2;
 
+    /**
+     * STATUS_ERROR
+     */
     public const STATUS_ERROR = 3;
 
     /**

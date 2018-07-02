@@ -9,8 +9,6 @@
 
 namespace Compo\CoreBundle\Command;
 
-use Compo\Sonata\PageBundle\Entity\Page;
-use Compo\Sonata\PageBundle\Entity\Site;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
@@ -85,17 +83,12 @@ class BaseDeployCommand extends ContainerAwareCommand
      */
     public function runUpdateRoutes()
     {
-        $sites = $this->getSites();
-
-        foreach ($sites as $site) {
-            /* @var $site Site */
-            $this->runCommand(
-                'sonata:page:update-core-routes',
-                [
-                    '--site' => [$site->getId()],
-                ]
-            );
-        }
+        $this->runCommand(
+            'sonata:page:update-core-routes',
+            [
+                '--site' => ['all'],
+            ]
+        );
     }
 
     /**
@@ -115,22 +108,12 @@ class BaseDeployCommand extends ContainerAwareCommand
      */
     public function runCreateSnapshots()
     {
-        $pages = $this->getContainer()->get('sonata.page.manager.page')->findBy(
+        $this->runCommand(
+            'sonata:page:create-snapshots',
             [
-                'edited' => 1,
+                '--site' => ['all'],
             ]
         );
-
-        foreach ($pages as $item) {
-            /* @var $item Page */
-            $this->getContainer()->get('sonata.notification.backend')->createAndPublish(
-                'sonata.page.create_snapshot',
-                [
-                    'pageId' => $item->getId(),
-                    'mode' => 'sync',
-                ]
-            );
-        }
     }
 
     /**

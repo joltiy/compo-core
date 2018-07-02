@@ -132,6 +132,9 @@ class CoreManager
         }
     }
 
+    /**
+     * @return bool
+     */
     public function isDisplayNotify()
     {
         $settings = $this->getSettings();

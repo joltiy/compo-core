@@ -22,10 +22,19 @@ class NotificationManager
 {
     use ContainerAwareTrait;
 
+    /**
+     * EMAIL_AUTH_MODE_PLAIN
+     */
     public const EMAIL_AUTH_MODE_PLAIN = 'plain';
 
+    /**
+     * EMAIL_AUTH_MODE_LOGIN
+     */
     public const EMAIL_AUTH_MODE_LOGIN = 'login';
 
+    /**
+     * EMAIL_AUTH_MODE_CRAM_MD5
+     */
     public const EMAIL_AUTH_MODE_CRAM_MD5 = 'cram-md5';
 
     /**
@@ -207,6 +216,10 @@ class NotificationManager
 
                 if (!$sender) {
                     $sender = $this->getDefaultSender();
+                }
+
+                if (!$sender) {
+                    continue;
                 }
 
                 $from = $sender->getUsername();

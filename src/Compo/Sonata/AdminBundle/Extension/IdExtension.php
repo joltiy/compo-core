@@ -35,27 +35,6 @@ class IdExtension extends AbstractAdminExtension
         }
 
         $listMapper->get('id')->setTemplate('SonataIntlBundle:CRUD:list_integer.html.twig');
-
-        return;
-        $keys = $listMapper->keys();
-
-        usort($keys, function ($a, $b) {
-            if (\in_array($a, ['batch', '_action'], true) || \in_array($b, ['batch', '_action'], true)) {
-                return 0;
-            }
-
-            if ('id' === $a) {
-                return -1;
-            }
-
-            if ('id' === $b) {
-                return 1;
-            }
-
-            return 0;
-        });
-
-        $listMapper->reorder($keys);
     }
 
     /**

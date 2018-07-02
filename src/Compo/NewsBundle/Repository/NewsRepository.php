@@ -19,6 +19,9 @@ use Compo\NewsBundle\Entity\News;
  */
 class NewsRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @return News[]
+     */
     public function findAllPublicated()
     {
         $qb = $this->createQueryBuilder('p');

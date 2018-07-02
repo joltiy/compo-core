@@ -100,7 +100,7 @@ class InstallCommand extends BaseDeployCommand
                 [
                     'command' => 'sonata:page:create-site',
                     '--enabled' => true,
-                    '--name' => 'localhost',
+                    '--name' => 'WebSiteDemo',
                     '--locale' => '-',
                     '--host' => 'localhost',
                     '--relativePath' => '/',

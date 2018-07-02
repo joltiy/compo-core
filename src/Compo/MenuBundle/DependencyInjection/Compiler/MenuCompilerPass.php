@@ -13,8 +13,15 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
+/**
+ * Class MenuCompilerPass
+ * @package Compo\MenuBundle\DependencyInjection\Compiler
+ */
 class MenuCompilerPass implements CompilerPassInterface
 {
+    /**
+     * @param ContainerBuilder $container
+     */
     public function process(ContainerBuilder $container)
     {
         $definition = $container->getDefinition('compo_menu.manager');

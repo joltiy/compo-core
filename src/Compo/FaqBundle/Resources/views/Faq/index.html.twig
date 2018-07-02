@@ -14,7 +14,6 @@
 
 {% block content %}
     <div class="main-content">
-        <div class="container">
 
 
             <div class="content-block faq-index">
@@ -45,11 +44,12 @@
                             {% block list_item %}
 
                                 <div class="faq__item">
-                                    <div class="faq__date">
+                                    <div class="faq__date label label-default">
                                         {{ article.publicationAt|date("d.m.Y") }}
                                     </div>
                                     <div class="faq__title">
-                                        <span>{{ article.name }}</span>
+
+                                        <a href="{{ path('compo_faq_show_by_slug', {'slug': article.slug}) }}">{{ article.name }}</a>
                                     </div>
                                 </div>
 
@@ -78,5 +78,4 @@
             </div>
 
         </div>
-    </div>
 {% endblock %}

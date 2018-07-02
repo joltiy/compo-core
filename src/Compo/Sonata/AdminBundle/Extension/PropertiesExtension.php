@@ -30,23 +30,11 @@ class PropertiesExtension extends AbstractAdminExtension
         if ($this->isUseEntityTraits($admin, [
             'Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait',
         ])) {
-            if (!$listMapper->has('createdBy')) {
-                /*
-                $listMapper->add('createdBy', null, [
-                    'sortable' => true,
-                ]);
-                */
-            } else {
+            if ($listMapper->has('createdBy')) {
                 $listMapper->get('createdBy')->setOption('sortable', true);
             }
 
-            if (!$listMapper->has('updatedBy')) {
-                /*
-                $listMapper->add('updatedBy', null, [
-                    'sortable' => true,
-                ]);
-                */
-            } else {
+            if ($listMapper->has('updatedBy')) {
                 $listMapper->get('updatedBy')->setOption('sortable', true);
             }
         }
@@ -54,28 +42,14 @@ class PropertiesExtension extends AbstractAdminExtension
         if ($this->isUseEntityTraits($admin, [
             'Compo\Sonata\AdminBundle\Entity\TimestampableEntityTrait',
         ])) {
-            if (!$listMapper->has('createdAt')) {
-                /*
-                $listMapper->add('createdAt', null, [
-                    'sortable' => true,
-                    'pattern' => 'dd.MM.y HH:mm:ss',
-                ]);
-                */
-            } else {
+            if ($listMapper->has('createdAt')) {
                 $createdAt = $listMapper->get('createdAt');
 
                 $createdAt->setOption('sortable', true);
                 $createdAt->setOption('pattern', 'dd.MM.y HH:mm:ss');
             }
 
-            if (!$listMapper->has('updatedAt')) {
-                /*
-                $listMapper->add('updatedAt', null, [
-                    'sortable' => true,
-                    'pattern' => 'dd.MM.y HH:mm:ss',
-                ]);
-                */
-            } else {
+            if ($listMapper->has('updatedAt')) {
                 $updatedAt = $listMapper->get('updatedAt');
 
                 $updatedAt->setOption('sortable', true);
@@ -84,22 +58,13 @@ class PropertiesExtension extends AbstractAdminExtension
         }
 
         if ($this->isUseEntityTraits($admin, [
-            'Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity',
-        ])) {
-            if (!$listMapper->has('deletedAt')) {
-                /*
-                $listMapper->add('deletedAt', null, [
-                    'sortable' => true,
-                    'pattern' => 'dd.MM.y HH:mm:ss',
-                ]);
-                */
-            } else {
+                'Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity',
+            ]) && $listMapper->has('deletedAt')) {
                 $deletedAt = $listMapper->get('deletedAt');
 
                 $deletedAt->setOption('sortable', true);
                 $deletedAt->setOption('pattern', 'dd.MM.y HH:mm:ss');
             }
-        }
     }
 
     /**

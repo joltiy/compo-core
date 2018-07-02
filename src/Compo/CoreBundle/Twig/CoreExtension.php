@@ -48,6 +48,7 @@ class CoreExtension extends \Twig_Extension
 
     /**
      * @param SynchronizationImportLog $item
+     * @return null
      */
     public function getAdminObjectSourceName($item)
     {

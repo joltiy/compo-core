@@ -56,6 +56,7 @@ class SitemapArticlesSubscriber implements EventSubscriberInterface
      */
     public function registerItems(SitemapPopulateEvent $event)
     {
+        /** @var Articles[] $posts */
         $posts = $this->manager->getRepository(Articles::class)->findAllPublicated();
 
         foreach ($posts as $post) {

@@ -9,6 +9,7 @@
 
 namespace Compo\NewsBundle\Event;
 
+use Compo\NewsBundle\Entity\News;
 use Doctrine\Common\Persistence\ObjectManager;
 use Presta\SitemapBundle\Event\SitemapPopulateEvent;
 use Presta\SitemapBundle\Sitemap\Url\UrlConcrete;
@@ -55,6 +56,7 @@ class SitemapNewsSubscriber implements EventSubscriberInterface
      */
     public function registerItems(SitemapPopulateEvent $event)
     {
+        /** @var News[] $posts */
         $posts = $this->manager->getRepository('CompoNewsBundle:News')->findAllPublicated();
 
         foreach ($posts as $post) {

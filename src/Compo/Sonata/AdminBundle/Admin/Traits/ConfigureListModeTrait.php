@@ -31,16 +31,26 @@ trait ConfigureListModeTrait
         }
     }
 
+    /**
+     * @param $mode
+     */
     public function setListMode($mode)
     {
         if (!$this->hasRequest()) {
             throw new \RuntimeException(sprintf('No request attached to the current admin: %s', $this->getCode()));
         }
 
+        /** @var Request $request */
+        $request = $this->getRequest();
+
+        $session = $request->getSession();
+
         if ($this->getCurrentLeafChildAdmin()) {
-            $this->getRequest()->getSession()->set(sprintf('%s.list_mode', $this->getCurrentLeafChildAdmin()->getCode()), $mode);
+            /** @var AbstractAdmin $admin */
+            $admin = $this->getCurrentLeafChildAdmin();
+            $session->set(sprintf('%s.list_mode', $admin->getCode()), $mode);
         } else {
-            $this->getRequest()->getSession()->set(sprintf('%s.list_mode', $this->getCode()), $mode);
+            $session->set(sprintf('%s.list_mode', $this->getCode()), $mode);
         }
     }
 

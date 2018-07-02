@@ -48,6 +48,13 @@ trait BaseAdminTrait
             ],
         ];
 
+        $this->datagridValues = [
+            '_page' => 1,
+            '_per_page' => 50,
+            '_sort_order' => 'DESC',
+            '_sort_by' => 'id',
+        ];
+
         // Доступные действия для элементов в результатах поиска
         $this->searchResultActions = ['edit'];
 

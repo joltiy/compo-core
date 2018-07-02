@@ -64,7 +64,9 @@ class SocialBlockService extends AbstractBlockService
     {
         $keys = parent::getCacheKeys($block);
 
-        $keys['updated_at'] = $this->getContainer()->get('compo_core.manager')->getUpdatedAtCache(Social::class)->format('U');
+        $keys['block_id'] = '';
+
+        $keys['updated_at'] = $this->getContainer()->get('compo_core.manager')->getUpdatedAtCacheAsString(Social::class);
 
         return $keys;
     }

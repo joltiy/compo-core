@@ -4,6 +4,8 @@ services:
         arguments: [~, Compo\NewsBundle\Entity\News, CompoNewsBundle:NewsAdmin]
         tags:
             - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: news }
+        calls:
+            - [ setParentParentAssociationMapping, ['tags']]
 
     compo_news.manager.news:
         class: Compo\NewsBundle\Manager\NewsManager
@@ -44,3 +46,6 @@ services:
         arguments: [~, Compo\NewsBundle\Entity\NewsTag, CompoNewsBundle:NewsTagAdmin]
         tags:
             - { name: sonata.admin, manager_type: orm, trash: true, audit: true, label: news_tag }
+        calls:
+            - [ addChild, ['@compo_news.admin.news']]
+            - [ addChildAdminMenuItem, ['compo_news.admin.news']]

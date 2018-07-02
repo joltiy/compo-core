@@ -1,0 +1,9 @@
+.advantages {
+    margin-bottom: 20px;
+}
+
+
+.advantages .buttons img {
+    max-height: 32px;
+    width: auto;
+}

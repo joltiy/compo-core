@@ -9,6 +9,7 @@
 
 namespace Compo\FeedbackBundle\Admin;
 
+use Compo\FeedbackBundle\Entity\FeedbackTag;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -155,6 +156,7 @@ class FeedbackAdmin extends AbstractAdmin
                     $datagrid->setValue($property, null, $value);
                 },
                 'to_string_callback' => function ($entity, $property) {
+                    /** @var $entity FeedbackTag */
                     return $entity->getName();
                 },
             ]

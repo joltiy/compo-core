@@ -11,6 +11,7 @@ namespace Compo\Sonata\AdminBundle\Extension;
 
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdminExtension;
+use Doctrine\Common\Persistence\ObjectManager;
 use Sonata\AdminBundle\Admin\AdminInterface;
 
 /**
@@ -26,15 +27,15 @@ class ConfigureDefaultFilterValuesExtension extends AbstractAdminExtension
     {
         /* @var AbstractAdmin $admin */
 
-        $admin->setPerPageOptions([50, 100, 500, 1000, 10000]);
+        $admin->setPerPageOptions([10, 50, 100, 500, 1000, 10000]);
         $admin->setMaxPerPage(50);
         $admin->setMaxPageLinks(50);
 
         $datagridValues = [
             '_page' => 1,
             '_per_page' => 50,
-            '_sort_order' => 'DESC',
-            '_sort_by' => 'id',
+            //'_sort_order' => 'DESC',
+            //'_sort_by' => 'id',
         ];
 
         $filterValues = array_merge(
@@ -63,6 +64,8 @@ class ConfigureDefaultFilterValuesExtension extends AbstractAdminExtension
                     if (isset($filter['_per_page'])) {
                         $filterValues['_per_page'] = $userSettings[$key] = $filter['_per_page'];
                         $user->setSettings($userSettings);
+
+                        /** @var ObjectManager $em */
                         $em = $admin->getContainer()->get('doctrine')->getManager();
 
                         $em->persist($user);

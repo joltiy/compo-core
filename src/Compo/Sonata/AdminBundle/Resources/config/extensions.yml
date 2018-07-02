@@ -34,21 +34,11 @@ services:
         tags:
             - { name: sonata.admin.extension, global: true, priority: -800 }
 
-    compo.sonata.admin.extension.configure_datagrid_filters:
-        class: Compo\Sonata\AdminBundle\Extension\ConfigureDatagridFiltersExtension
-        tags:
-            - { name: sonata.admin.extension, global: true, priority: -900 }
-
     compo.sonata.admin.extension.configure_list_fields_persistent:
         class: Compo\Sonata\AdminBundle\Extension\ConfigureListFieldsPersistentExtension
         parent: compo_core.abstract_container_aware
         tags:
             - { name: sonata.admin.extension, global: true, priority: -1000 }
-
-    compo.sonata.admin.extension.configure_list_fields_positions:
-        class: Compo\Sonata\AdminBundle\Extension\ConfigureListFieldsPositionsExtension
-        tags:
-            - { name: sonata.admin.extension, global: true, priority: -1100 }
 
     compo.sonata.admin.extension.id:
         class: Compo\Sonata\AdminBundle\Extension\IdExtension

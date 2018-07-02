@@ -10,7 +10,15 @@
         "highcharts": "latest",
         "ilikenwf-nested-sortable": "latest",
         "bootstrap": "^3.3.7",
-        "codemirror": "latest"
+        "codemirror": "latest",
+        "jQuery": "latest",
+        "jquery-ui": "^1.12.1",
+        "slick-carousel": "latest",
+        "flag-icon-css": "latest",
+        "fancybox": "latest",
+        "jquery-smoothscroll": "latest",
+        "jQuery.mmenu": "6.1.7",
+        "jquery-maskedinput": "latest"
     },
     "license": "MIT",
     "private": true

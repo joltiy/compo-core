@@ -22,6 +22,9 @@ class NotificationEmailAccountRepository extends EntityRepository
 {
     use ChoicesTrait;
 
+    /**
+     * @return null
+     */
     public function getDefaultId()
     {
         $currency = $this->findOneBy([], ['id' => 'ASC']);

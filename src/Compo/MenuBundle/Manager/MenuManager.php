@@ -10,7 +10,12 @@
 namespace Compo\MenuBundle\Manager;
 
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
+use Compo\MenuBundle\Menu\MenuItemType;
 
+/**
+ * Class MenuManager
+ * @package Compo\MenuBundle\Manager
+ */
 class MenuManager
 {
     use ContainerAwareTrait;
@@ -36,22 +41,34 @@ class MenuManager
         $this->menuTypes = $menuTypes;
     }
 
+    /**
+     * @param MenuItemType $menuType
+     */
     public function addMenuType($menuType): void
     {
         $this->menuTypes[$menuType->getName()] = $menuType;
     }
 
+    /**
+     * @return array
+     */
     public function getMenuTypeChoices()
     {
         $choices = [];
 
         foreach ($this->menuTypes as $menuType) {
-            $choices['menu_type.' . $menuType->getName()] = $menuType->getName();
+            $name = $menuType->getName();
+
+            $choices['menu_type.' . $name] = $name;
         }
 
         return $choices;
     }
 
+    /**
+     * @param $name
+     * @return mixed
+     */
     public function getMenuType($name)
     {
         return $this->menuTypes[$name];

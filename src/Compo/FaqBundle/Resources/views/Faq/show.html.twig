@@ -56,13 +56,15 @@
             {% endif %}
                 {% endblock %}
 
+                <div>
                 {% block date_published %}
-                    <time itemprop="datePublished" datetime="{{ article.publicationAt|date("Y-m-d\TH:i:sP") }}" class="date pull-left">{{ article.publicationAt|date("d.m.Y") }}</time>
+                    <time itemprop="datePublished" datetime="{{ article.publicationAt|date("Y-m-d\TH:i:sP") }}" class="date label label-default">{{ article.publicationAt|date("d.m.Y") }}</time>
                 {% endblock %}
 
                 {% block date_modified %}
                     <meta itemprop="dateModified" content="{{ article.updatedAt|date("Y-m-d\TH:i:sP") }}"/>
                 {% endblock %}
+                </div>
 
                 <div class="text">
                     {% block description %}
@@ -88,7 +90,7 @@
 
                         <div class="back-to-list clearfix">
                             {% block back_to_list %}
-                                <a class="btn btn-default pull-right" href="{{ path('compo_faq_index') }}">К списку статей</a>
+                                <a class="btn btn-default pull-right" href="{{ path('compo_faq_index') }}">К списку вопросов</a>
                             {% endblock %}
                         </div>
 

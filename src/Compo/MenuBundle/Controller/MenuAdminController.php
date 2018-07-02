@@ -17,6 +17,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  */
 class MenuAdminController extends CRUDController
 {
+    /**
+     * @return JsonResponse
+     */
     public function menuTargetItemsAction()
     {
         $result = [];

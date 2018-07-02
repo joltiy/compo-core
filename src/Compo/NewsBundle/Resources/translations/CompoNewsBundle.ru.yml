@@ -51,3 +51,4 @@ block.title_news_last: 'Последние новости'
 news_tag: 'Метки новостей'
 form.label_tags: Метки
 list.label_tags: 'Метки'
+filter.label_tags: 'Метки'

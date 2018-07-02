@@ -1,3 +1,60 @@
 <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
 
+{% javascripts
+    'vendor/jquery/jquery.min.js'
+    'vendor/jquery-ui/jquery-ui.min.js'
+    'vendor/slick-carousel/slick/slick.min.js'
+
+    'vendor/jquery-smoothscroll/jquery-smoothscroll.js'
+    'vendor/fancybox/dist/jquery.fancybox.js'
+
+    'vendor/bootstrap/dist/js/bootstrap.min.js'
+
+    'vendor/jQuery.mmenu/dist/jquery.mmenu.all.js'
+    'vendor/sisyphus/sisyphus.min.js'
+    'vendor/hinclude/hinclude.js'
+    'vendor/jquery-maskedinput/dist/jquery.maskedinput.min.js'
+
+    'vendor/angular/angular.min.js'
+    'vendor/angular-resource/angular-resource.min.js'
+    'vendor/angular-validation/dist/angular-validation.min.js'
+    'vendor/angular-validation/dist/angular-validation-rule.min.js'
+    'vendor/angulartics/dist/angulartics.min.js'
+    'vendor/angularjs-yandex-metrika/dist/metrika.min.js'
+
+    output='assetic/vendor.js' %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+
+
+{% if app.environment == 'prod' %}
+    {% javascripts
+        'bundles/fosjsrouting/js/router.js'
+        'js/fos_js_routes.js'
+
+        output='assetic/router.js' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% else %}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+{% endif %}
+
+{% javascripts
+    'bundles/app/js/app/app.js'
+    'bundles/compocore/js/app/app.js'
+
+    'bundles/composeo/js/app/app.js'
+    'bundles/composeo/js/app/services/Seo.js'
+
+    'bundles/compofeedback/js/app/app.js'
+    'bundles/compofeedback/js/app/directives/app.directives.js'
+    'bundles/compofeedback/js/app/directives/ngPhoneMask.directive.js'
+    'bundles/compofeedback/js/app/services/FeedbackApi.js'
+    'bundles/compofeedback/js/app/controllers/FeedbackForm.controller.js'
+
+    output='assetic/main.js' %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}

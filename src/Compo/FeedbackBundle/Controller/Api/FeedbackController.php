@@ -51,9 +51,9 @@ class FeedbackController extends Controller
      */
     public function postAction(Request $request)
     {
-        if (!$request->isXmlHttpRequest()) {
-            throw new \HttpRequestMethodException('Not isXmlHttpRequest');
-        }
+        //if (!$request->isXmlHttpRequest()) {
+            //throw new \HttpRequestMethodException('Not isXmlHttpRequest');
+        //}
 
         $request_params = $this->getJsonParams($request);
 

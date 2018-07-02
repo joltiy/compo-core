@@ -7,10 +7,10 @@
 
                 <div class="buttons row">
                     {% for item in list %}
-                        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 text-center">
                             <button type="button" class="btn btn-default task" data-target-tab="advantages-tab-{{ item.id }}" data-toggle="modal" data-target="#advantages-modal">
                                 <span class="image-icon" style="width: 100px;text-align: center;">
-                                    <img alt="" src="{% path item.image, 'reference' %}" style="    width: 32px;"/>
+                                    <img alt="" src="{% path item.image, 'reference' %}" />
                                 </span>
                                 <span class="title"><span>{{ item.name }}</span></span>
                             </button>
@@ -29,10 +29,10 @@
 
                                     <ul class="nav nav-tabs nav-justified" role="tablist">
                                         {% for item in list %}
-                                            <li role="presentation" class="active">
+                                            <li role="presentation" {% if loop.index == 1 %} class="active" {% endif %}>
                                                 <a href="#advantages-tab-{{ item.id }}" class="" data-toggle="tab">
-                                                    <div class="image-icon" style="width: 100px; text-align: center;">
-                                                        <img alt="" src="{% path item.image, 'reference' %}" style="width: 100px;"/>
+                                                    <div class="image-icon">
+                                                        <img alt="" src="{% path item.image, 'reference' %}" />
                                                     </div>
                                                     <span class="title"><span>{{ item.name }}</span></span>
                                                 </a>
@@ -42,7 +42,7 @@
 
                                     <div class="tab-content">
                                         {% for item in list %}
-                                            <div role="tabpanel" class="tab-pane active" id="advantages-tab-{{ item.id }}">
+                                            <div role="tabpanel" class="tab-pane {% if loop.index == 1 %}active{% endif %}" id="advantages-tab-{{ item.id }}">
                                                 <div class="popup-title h4 text-uppercase">{{ item.name }}</div>
                                                 {{ item.description|raw }}
                                             </div>

@@ -23,10 +23,19 @@ class UploadFile
     use \Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\TimestampableEntityTrait;
 
+    /**
+     * STATUS_LOAD
+     */
     public const STATUS_LOAD = 1;
 
+    /**
+     * STATUS_SUCCESS
+     */
     public const STATUS_SUCCESS = 2;
 
+    /**
+     * STATUS_ERROR
+     */
     public const STATUS_ERROR = 3;
 
     /**

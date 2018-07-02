@@ -10,6 +10,7 @@
 namespace Compo\NewsBundle\Admin;
 
 use Compo\NewsBundle\Entity\News;
+use Compo\NewsBundle\Entity\NewsTag;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Doctrine\ORM\QueryBuilder;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
@@ -58,6 +59,30 @@ class NewsAdmin extends AbstractAdmin
             ->add('name')
             ->add('description')
             ->add('enabled')
+            ->add(
+                'tags',
+                'doctrine_orm_model_autocomplete',
+                [],
+                null,
+                [
+                    'multiple' => true,
+                    'property' => 'name',
+                    'minimum_input_length' => 0,
+                    'cache' => true,
+                    'items_per_page' => 0,
+                    'callback' => function ($admin, $property, $value) {
+                        /** @var AbstractAdmin $admin */
+                        $datagrid = $admin->getDatagrid();
+
+                        /** @var QueryBuilder $queryBuilder */
+                        $queryBuilder = $datagrid->getQuery();
+
+                        $queryBuilder->orderBy($queryBuilder->getRootAliases()[0] . '.name', 'ASC');
+                        $datagrid->setValue($property, null, $value);
+                    },
+                ]
+            )
+
             ->add('createdAt')
             ->add('updatedAt')
             ->add('publicationAt');

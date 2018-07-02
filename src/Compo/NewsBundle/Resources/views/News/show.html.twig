@@ -57,7 +57,9 @@
                 {% endblock %}
 
                 {% block date_published %}
-                    <time itemprop="datePublished" datetime="{{ news.publicationAt|date("Y-m-d\TH:i:sP") }}" class="date pull-left">{{ news.publicationAt|date("d.m.Y") }}</time>
+                    <div>
+                        <time itemprop="datePublished" datetime="{{ news.publicationAt|date("Y-m-d\TH:i:sP") }}" class="date label label-default">{{ news.publicationAt|date("d.m.Y") }}</time>
+                    </div>
                 {% endblock %}
 
                 {% block date_modified %}

@@ -18,8 +18,3 @@ services:
         arguments: [Compo\SocialBundle\Entity\Social, "@doctrine"]
         parent: compo_core.abstract_container_aware
 
-    compo_social.event_listener.clear_cache_subscriber:
-        class: Compo\SocialBundle\EventListener\ClearCacheSubscriber
-        parent: compo_core.abstract_container_aware
-        tags:
-            - { name: doctrine.event_subscriber }

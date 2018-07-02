@@ -118,10 +118,10 @@
 
 {% block javascripts %}
     <script>
+        var user_settings = {};
+
         {% if app.user %}
-            var user_settings = {{ app.user.settings|json_encode|raw }};
-        {% else %}
-            var user_settings = {};
+            user_settings = {{ app.user.settings|json_encode|raw }};
         {% endif %}
     </script>
 

@@ -121,15 +121,13 @@ class ConfigureTabMenuExtension extends AbstractAdminExtension
                         ]
                     )->setAttribute('icon', 'fa fa-pencil');
                 }
-            } else {
-                if ($admin->hasAccess('edit', $admin->getSubject())) {
-                    $tabMenu->addChild(
-                        $admin->trans('tab_menu.link_edit'),
-                        [
-                            'uri' => $admin->generateUrl('edit', ['id' => $id]),
-                        ]
-                    )->setAttribute('icon', 'fa fa-pencil');
-                }
+            } else if ($admin->hasAccess('edit', $admin->getSubject())) {
+                $tabMenu->addChild(
+                    $admin->trans('tab_menu.link_edit'),
+                    [
+                        'uri' => $admin->generateUrl('edit', ['id' => $id]),
+                    ]
+                )->setAttribute('icon', 'fa fa-pencil');
             }
         }
     }

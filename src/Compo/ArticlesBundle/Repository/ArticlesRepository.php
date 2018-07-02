@@ -19,6 +19,9 @@ use Compo\ArticlesBundle\Entity\Articles;
  */
 class ArticlesRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @return mixed
+     */
     public function findAllPublicated()
     {
         $qb = $this->createQueryBuilder('p');

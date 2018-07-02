@@ -14,7 +14,7 @@ use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\CoreBundle\Form\Type\ColorType;
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
 
 /**
  * {@inheritdoc}

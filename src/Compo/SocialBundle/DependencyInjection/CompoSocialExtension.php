@@ -41,5 +41,7 @@ class CompoSocialExtension extends Extension implements PrependExtensionInterfac
     {
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('sonata_block.yml');
+        $loader->load('compo_core.yml');
+
     }
 }

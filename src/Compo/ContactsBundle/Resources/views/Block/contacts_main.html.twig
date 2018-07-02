@@ -1,38 +1,110 @@
 {% block block %}
-
-    <h1>{{ block.page.name }}</h1>
-
-    <div class="col-lg-7 col-md-6">
-        {{ settings.contacts.mapsCode }}
-    </div>
-    <div>
-        {{ settings.contacts.address | raw }}
-    </div>
-
-    <div>
-        {{ settings.contacts.worktime | raw }}
-    </div>
-    <div>
-        {{ settings.contacts.phone }}
-    </div>
-    <div>
-        <a href="mailto:{{ settings.contacts.email }} "> {{ settings.contacts.email }} </a>
-    </div>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 
 
+    <ul class="nav nav-tabs" role="tablist">
+        {% for contact in contacts %}
+            <li role="presentation" class="{{ (loop.index == 1) ? 'active' }}">
+                <a href="#contacts-{{ contact.id }}" aria-controls="home" role="tab" data-toggle="tab">{{ contact.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
 
-    <div>{{ settings.contacts.bankProps }}</div>
+    <div class="tab-content">
 
+        {% for contact in contacts %}
+            <div role="tabpanel" class="tab-pane {{ (loop.index == 1) ? 'active' }}" id="contacts-{{ contact.id }}">
+                <div class="contacts">
+                    <div class="row">
+                        <div class="col-lg-7 col-md-6">
+                            {% if contact.mapsCode %}
+                                {{ contact.mapsCode | raw }}
+                            {% else %}
+                                <div class="contacts__map" id="map{{ contact.id }}"></div>
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-5 col-md-6 col-contacts-items">
+                            <div class="contacts__item">
+                                <strong class="contacts__item__title">
+                                    Адрес:
+                                </strong>
+                                <div class="contacts__item__text">
+                                    {{ contact.address | raw }}
+                                </div>
+                            </div>
+                            <div class="contacts__item">
+                                <strong class="contacts__item__title">
+                                    Телефоны:
+                                </strong>
+                                <div class="contacts__item__text">
+                                    {{ contact.phone|raw }}
+                                </div>
+                            </div>
+                            <div class="contacts__item">
+                                <strong class="contacts__item__title">
+                                    Режим работы:
+                                </strong>
+                                <div class="contacts__item__text">
+                                    {{ contact.worktime | raw }}
+                                </div>
+                            </div>
 
+                            <div class="contacts__item">
+                                <strong class="contacts__item__title">
+                                    E-mail:
+                                </strong>
+                                <div class="contacts__item__text">
+                                    <a href="mailto:{{ contact.email }} "> {{ contact.email }} </a>
+                                </div>
+                            </div>
+                            <div class="contacts__item">
+                                <strong class="contacts__item__title">
+                                    Реквизиты:
+                                </strong>
+                                <div class="contacts__item__text">
+                                    {{ contact.bankProps | raw }}
+                                </div>
+                            </div>
+                        </div>
 
-    <div class="col-md-6">
-        <h2>Как добраться на авто:</h2>
-        {{ settings.contacts.carInstruction }}
+                    </div>
+                    <div class="row">
+                        {% if contact.carinstruction %}
+                            <div class="col-md-6">
+                                <h2>Как добраться на авто:</h2>
+                                {{ contact.carInstruction | raw }}
+                            </div>
+                        {% endif %}
 
-    </div>
-    <div class="col-md-6">
-        <h2>Как добраться своим ходом:</h2>
-        {{ settings.contacts.walkInstruction }}
+                        {% if contact.walkinstruction %}
+                            <div class="col-md-6">
+                                <h2>Как добраться своим ходом:</h2>
+                                {{ contact.walkInstruction | raw }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+                    <script>
+                        ymaps.ready(init);
+                        var myMap,
+                            myPlacemark;
+
+                        function init() {
+                            myMap = new ymaps.Map("map{{ contact.id }}", {
+                                center: [{{ contact.cix }}, {{ contact.ciy }}],
+                                zoom: 16,
+                                controls: []
+                            });
+                            myMap.behaviors.disable('scrollZoom');
+                            myPlacemark = new ymaps.Placemark([{{ contact.cix }}, {{ contact.ciy }}], {balloonContent: ' {{ contact.address | striptags }}'});
+                            myMap.geoObjects.add(myPlacemark);
+                        }
+                    </script>
+                </div>
+            </div>
+        {% endfor %}
+
     </div>
 
 

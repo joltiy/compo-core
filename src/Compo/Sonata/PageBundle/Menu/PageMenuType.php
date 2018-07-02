@@ -10,12 +10,19 @@
 namespace Compo\Sonata\PageBundle\Menu;
 
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
+use Compo\MenuBundle\Entity\MenuItem;
 use Compo\Sonata\PageBundle\Entity\Page;
 
+/**
+ * Class PageMenuType
+ */
 class PageMenuType
 {
     use ContainerAwareTrait;
 
+    /**
+     * @return array
+     */
     public function getChoices()
     {
         $repository = $this->getContainer()->get('doctrine')->getRepository(Page::class);
@@ -32,15 +39,24 @@ class PageMenuType
         return $choices;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'page';
     }
 
+    /**
+     * @param $item
+     */
     public function fillMenuItem(&$item)
     {
         $repository = $this->getContainer()->get('doctrine')->getRepository(Page::class);
 
-        $item['url'] = $this->getContainer()->get('router')->generate('page_slug', ['path' => $repository->find($item['node']->getTargetId())->getUrl()]);
+        /** @var MenuItem $node */
+        $node = $item['node'];
+
+        $item['url'] = $this->getContainer()->get('router')->generate('page_slug', ['path' => $repository->find($node->getTargetId())->getUrl()]);
     }
 }

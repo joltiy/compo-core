@@ -192,7 +192,11 @@ class Feedback
      */
     public function __toString()
     {
-        return $this->getCreatedAt()->format('Y-m-d H:i:s');
+        if ($this->getCreatedAt()) {
+            return $this->getCreatedAt()->format('Y-m-d H:i:s');
+        }
+
+        return 'New';
     }
 
     /**

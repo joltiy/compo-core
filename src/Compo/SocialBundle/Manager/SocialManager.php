@@ -18,20 +18,4 @@ use Sonata\CoreBundle\Model\BaseEntityManager;
 class SocialManager extends BaseEntityManager
 {
     use ContainerAwareTrait;
-
-    /**
-     * @throws \Psr\Cache\InvalidArgumentException
-     */
-    public function clearUpdatedAtCacheKey()
-    {
-        $this->getContainer()->get('compo_core.manager')->clearUpdatedAtCacheKey('social_updated_at');
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getUpdatedAtCacheKey()
-    {
-        return $this->getContainer()->get('compo_core.manager')->getUpdatedAtCacheKey('social_updated_at');
-    }
 }

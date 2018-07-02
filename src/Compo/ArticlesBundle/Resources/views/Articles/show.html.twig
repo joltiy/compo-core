@@ -1,4 +1,4 @@
-{# @var article \Compo\ArticlesBundle\Entity\Articles #}
+{# @var article \Compo\NewsBundle\Entity\News #}
 {#
 {{ block('news_article') }}
 {{ block('main_entity_of_page') }}
@@ -13,84 +13,89 @@
 {{ block('back_to_list') }}
 #}
 
-{% block breadcrumb %}
-    {{ sonata_block_render_event('breadcrumb', {
-        'context': 'compo_articles',
-        'article': article
-    }) }}
-{% endblock %}
-
 {% block content %}
-<div class="articles_show_content">
+    <div class="content-block articles-index">
 
-    {% block article %}
-    <div class="article" itemscope itemtype="http://schema.org/NewsArticle">
+        <div class="row">
+            <div class="col-lg-12">
 
-        {% block article__main_entity_of_page %}
-            <meta itemscope itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="{{ path('compo_articles_show_by_slug', {'slug': article.slug}) }}"/>
-        {% endblock %}
+                {% block news_article %}
+                    <div itemscope itemtype="http://schema.org/NewsArticle" class="articles-item">
 
-        {% block article__publisher %}
-            {% include 'CompoSeoBundle:SchemaOrg:organization.html.twig' %}
-        {% endblock %}
+                        {% block main_entity_of_page %}
+                            <meta itemscope itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="{{ path('compo_articles_show_by_slug', {'slug': article.slug}) }}"/>
+                        {% endblock %}
 
-        {% block article__author %}
-            {% if article.createdBy %}
-                <div class="article__author" itemscope itemprop="author" itemtype="https://schema.org/Person">
-                    <div class="article__author-name" itemprop="name">
-                        <span class="article__author-first-name">{{ article.createdBy.firstName }}</span>
-                        <span class="article__author-last-name">{{ article.createdBy.lastName }}</span>
+                        {% block publisher %}
+                            {% include 'CompoSeoBundle:SchemaOrg:organization.html.twig' %}
+                        {% endblock %}
+
+                        {% block author %}
+                            {% if article.createdBy %}
+                                <div itemscope itemprop="author" itemtype="https://schema.org/Person" class="hidden">
+                                    <div itemprop="name">{{ article.createdBy.firstName }} {{ article.createdBy.lastName }}</div>
+                                </div>
+                            {% endif %}
+                        {% endblock %}
+
+                        {% block headline %}
+                            <h1 itemprop="headline">
+                                {{ compo_seo_header() }}
+                            </h1>
+                        {% endblock %}
+
+                        {% block image %}
+                            {% if article.image %}
+                                <div itemscope itemtype="https://schema.org/ImageObject" itemprop="image" class="photo">
+                                    <meta itemprop="url" content="{% path  article.image, 'reference' %}">
+                                    <meta itemprop="width" content="{{ article.image.width }}">
+                                    <meta itemprop="height" content="{{ article.image.height }}">
+
+                                    {% media article.image, 'reference' with {'alt': article.name, 'class': 'thumbnail pull-right'} %}
+                                </div>
+                            {% endif %}
+                        {% endblock %}
+
+                        {% block date_published %}
+                            <div>
+                                <time itemprop="datePublished" datetime="{{ article.publicationAt|date("Y-m-d\TH:i:sP") }}" class="date label label-default">{{ article.publicationAt|date("d.m.Y") }}</time>
+                            </div>
+                        {% endblock %}
+
+                        {% block date_modified %}
+                            <meta itemprop="dateModified" content="{{ article.updatedAt|date("Y-m-d\TH:i:sP") }}"/>
+                        {% endblock %}
+
+                        <div class="text">
+                            {% block description %}
+                                <div itemprop="description">
+                                    {{ article.description|raw }}
+                                </div>
+                            {% endblock %}
+
+                            {% block article_body %}
+                                <div itemprop="articleBody">
+                                    {{ article.body|raw }}
+                                </div>
+                            {% endblock %}
+                        </div>
                     </div>
+                {% endblock %}
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="back-to-list clearfix">
+                    {% block back_to_list %}
+                        <a class="btn btn-default pull-right" href="{{ path('compo_articles_index') }}">К списку статей</a>
+                    {% endblock %}
                 </div>
-            {% endif %}
-        {% endblock %}
 
-        {% block article__headline %}
-            <h1 class="article__headline" itemprop="headline">
-                {{ compo_seo_header() }}
-            </h1>
-        {% endblock %}
-
-        {% block article__image %}
-        {% if article.image %}
-        <div class="article__image" itemscope itemtype="https://schema.org/ImageObject" itemprop="image">
-            <meta itemprop="url" content="{% path  article.image, 'reference' %}"/>
-            <meta itemprop="width" content="{{ article.image.width }}"/>
-            <meta itemprop="height" content="{{ article.image.height }}"/>
-
-            {% media article.image, 'reference' with {'alt': article.name, 'class': 'article__image-img', 'width': 200 } %}
+            </div>
         </div>
-        {% endif %}
-        {% endblock %}
 
-        {% block article__date_published %}
-            <time class="article__date-published" itemprop="datePublished" datetime="{{ article.publicationAt|date("Y-m-d\TH:i:sP") }}">
-                {{ article.publicationAt|date("d.m.Y") }}
-            </time>
-        {% endblock %}
-
-        {% block article__date_modified %}
-            <meta itemprop="dateModified" content="{{ article.updatedAt|date("Y-m-d\TH:i:sP") }}"/>
-        {% endblock %}
-
-        {% block article__description %}
-            <div class="article__description" itemprop="description">
-                {{ article.description|raw }}
-            </div>
-        {% endblock %}
-
-        {% block article__body %}
-            <div class="article__body" itemprop="articleBody">
-                {{ article.body|raw }}
-            </div>
-        {% endblock %}
     </div>
-    {% endblock %}
-
-    {% block back_to_list %}
-        <div class="back_to_list">
-            <a class="back_to_list__btn" href="{{ path('compo_articles_index') }}">К списку статей</a>
-        </div>
-    {% endblock %}
-</div>
 {% endblock %}

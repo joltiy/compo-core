@@ -363,7 +363,7 @@ form.label_last_job: 'Последний статус задачи'
 flash_history_revert_successfull: 'Элемент успешно восстановлен на указанную ревизию'
 flash_history_revert_error: 'Ошибка восстановления элемента на указанную ревизию'
 flash_untrash_error: 'Ошибка восстановления'
-
+list.label_color: 'Цвет'
 Template: 'Шаблон'
 
 ROLE_LIST: 'Список'

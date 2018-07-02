@@ -32,13 +32,13 @@
 {% endif %}
 
 {% block body %}
-    <body class="{{ body_class }}">
+    <body class="{{ body_class }}" data-ng-app="app">
     {% block header_admin %}
         {% include 'CompoCoreBundle:Block:header_admin.html.twig' %}
     {% endblock %}
 
     {% block container %}
-        <div id="container" class="container-fluid container-max-width">
+        <div id="container" class="container">
             {% block header %}
                 {% include 'CompoCoreBundle:Block:header.html.twig' %}
             {% endblock %}

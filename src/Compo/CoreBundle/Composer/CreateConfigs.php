@@ -12,6 +12,9 @@ namespace Compo\CoreBundle\Composer;
 use Composer\Script\Event;
 use Symfony\Component\Dotenv\Dotenv;
 
+/**
+ * Class CreateConfigs
+ */
 class CreateConfigs
 {
     /**

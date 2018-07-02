@@ -42,11 +42,7 @@ $(function ($) {
                     return true;
                 }
 
-                if (placeholderParent === undefined) {
-                    return false;
-                }
-
-                return true;
+                return placeholderParent !== undefined;
             },
             stop: function (event, ui) {
 

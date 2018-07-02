@@ -12,7 +12,6 @@ namespace Compo\Sonata\AdminBundle\Extension;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
-use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\DoctrineORMAdminBundle\Model\ModelManager;
 
 /**
@@ -20,43 +19,6 @@ use Sonata\DoctrineORMAdminBundle\Model\ModelManager;
  */
 class NameExtension extends AbstractAdminExtension
 {
-    /**
-     * @param ListMapper $listMapper
-     */
-    public function configureListFields(ListMapper $listMapper)
-    {
-        if (!$this->isUseEntityTraits($listMapper->getAdmin(), [
-            'Compo\Sonata\AdminBundle\Entity\NameEntityTrait',
-        ])) {
-            return;
-        }
-
-        return;
-        if (!$listMapper->has('name')) {
-            $listMapper->add('name');
-
-            $keys = $listMapper->keys();
-
-            usort($keys, function ($a, $b) {
-                if (\in_array($a, ['id', 'batch', '_action'], true) || \in_array($b, ['id', 'batch', '_action'], true)) {
-                    return 0;
-                }
-
-                if ('name' === $a) {
-                    return -1;
-                }
-
-                if ('name' === $b) {
-                    return 1;
-                }
-
-                return 0;
-            });
-
-            $listMapper->reorder($keys);
-        }
-    }
-
     /**
      * @param DatagridMapper $datagridMapper
      */

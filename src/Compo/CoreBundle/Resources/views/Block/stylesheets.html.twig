@@ -1,1 +1,27 @@
+{% stylesheets
+    'vendor/jquery-ui/themes/base/jquery-ui.min.css'
+    'vendor/bootstrap/dist/css/bootstrap.min.css'
+    'vendor/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css'
+    'vendor/jQuery.mmenu/dist/jquery.mmenu.all.css'
+    'vendor/slick-carousel/slick/slick.css'
+    'vendor/slick-carousel/slick/slick-theme.css'
+    'vendor/flag-icon-css/css/flag-icon.min.css'
+    'vendor/fancybox/dist/jquery.fancybox.css'
 
+    output='assetic/vendor.css' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+{% endstylesheets %}
+
+{% stylesheets
+    'bundles/compocore/css/admin-navbar.css'
+
+    'bundles/compoadvantages/css/advantages.css'
+    'bundles/compobanner/css/banner.css'
+    'bundles/compocontacts/css/contacts.css'
+    'bundles/compofeedback/css/feedback.css'
+
+    'bundles/componews/css/news.css'
+
+    output='assetic/main.css' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+{% endstylesheets %}

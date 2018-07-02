@@ -28,19 +28,19 @@ class DefaultPageService extends \Sonata\PageBundle\Page\Service\DefaultPageServ
     /**
      * Updates the SEO page values for given page instance.
      *
-     * @param PageInterface $pageIterface
+     * @param PageInterface $pageInterface
      *
      * @throws \Throwable
      */
-    protected function updateSeoPage(PageInterface $pageIterface)
+    protected function updateSeoPage(PageInterface $pageInterface)
     {
         /** @var SeoPage $seoPage */
         $seoPage = $this->seoPage;
 
-        if ($pageIterface instanceof SnapshotPageProxy) {
-            $page = $pageIterface->getPage();
+        if ($pageInterface instanceof SnapshotPageProxy) {
+            $page = $pageInterface->getPage();
         } else {
-            $page = $pageIterface;
+            $page = $pageInterface;
         }
 
         $seoPage->addVar('page_internal', $page);

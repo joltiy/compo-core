@@ -10,6 +10,7 @@
 namespace Compo\Sonata\AdminBundle\Repository;
 
 use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * Trait OrderByNameTrait.
@@ -21,7 +22,10 @@ trait OrderByNameTrait
      */
     public function createQueryBuilderOrderByName()
     {
-        $qb = parent::createQueryBuilder('c');
+        /** @var EntityRepository $repository */
+        $repository = $this;
+
+        $qb = $repository->createQueryBuilder('c');
 
         /* @var QueryBuilder $qb */
         $qb->select('c');
