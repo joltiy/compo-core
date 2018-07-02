@@ -19,6 +19,19 @@
         {{ sonata_seo_link_next() }}
         {{ sonata_seo_link_prev() }}
 
+
+        {{ sonata_block_render({
+            'type': 'compo_page_code.block.service.page_code',
+            'settings': {
+                'layout': 'pre_head_end'
+            }
+        }) }}
+
+
+        {% include 'CompoSeoBundle:Block:user_id.html.twig' %}
+        {% include 'CompoSeoBundle:Block:yandex_metrika_id.html.twig' %}
+        {% include 'CompoSeoBundle:Block:google_tag_manager.html.twig' %}
+
         {% block stylesheets %}
             {% include 'CompoCoreBundle:Block:stylesheets.html.twig' %}
         {% endblock %}
@@ -33,6 +46,10 @@
 
 {% block body %}
     <body class="{{ body_class }}" data-ng-app="app">
+
+    {% include 'CompoSeoBundle:Block:google_tag_manager_noscript.html.twig' %}
+    {% include 'CompoSeoBundle:Block:yandex_metrika_noscript.html.twig' %}
+
     {% block header_admin %}
         {% include 'CompoCoreBundle:Block:header_admin.html.twig' %}
     {% endblock %}
@@ -55,6 +72,15 @@
     {% block javascripts %}
         {% include 'CompoCoreBundle:Block:javascripts.html.twig' %}
     {% endblock %}
+
+    {% include 'CompoCoreBundle:Block:javascripts_templates.html.twig' %}
+
+    {{ sonata_block_render({
+        'type': 'compo_page_code.block.service.page_code',
+        'settings': {
+            'layout': 'pre_body_end'
+        }
+    }) }}
     </body>
 {% endblock %}
 </html>
