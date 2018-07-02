@@ -14,7 +14,7 @@ use Compo\MenuBundle\Entity\MenuItem;
 use Compo\Sonata\PageBundle\Entity\Page;
 
 /**
- * Class PageMenuType
+ * Class PageMenuType.
  */
 class PageMenuType
 {

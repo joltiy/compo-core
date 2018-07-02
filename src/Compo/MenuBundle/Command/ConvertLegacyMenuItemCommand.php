@@ -1,4 +1,11 @@
-<?php /** @noinspection PhpUndefinedMethodInspection */
+<?php
+
+/*
+ * This file is part of the CompoSymfonyCms package.
+ * (c) Compo.ru <info@compo.ru>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 /*
  * This file is part of the CompoSymfonyCms package.
@@ -15,7 +22,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class ConvertLegacyMenuItemCommand
+ * Class ConvertLegacyMenuItemCommand.
  */
 class ConvertLegacyMenuItemCommand extends ContainerAwareCommand
 {

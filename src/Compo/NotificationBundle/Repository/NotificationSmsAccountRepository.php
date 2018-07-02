@@ -19,9 +19,6 @@ use Doctrine\ORM\EntityRepository;
  */
 class NotificationSmsAccountRepository extends EntityRepository
 {
-    /**
-     * @return null
-     */
     public function getDefaultId()
     {
         $currency = $this->findOneBy([], ['id' => 'ASC']);

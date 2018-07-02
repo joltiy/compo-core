@@ -15,7 +15,7 @@ namespace Compo\CoreBundle\Twig;
 class ColorExtension extends \Twig_Extension
 {
     /**
-     * COLOR_PERCENT
+     * COLOR_PERCENT.
      */
     public const COLOR_PERCENT = 2.55;
 

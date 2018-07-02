@@ -156,7 +156,7 @@ class FeedbackAdmin extends AbstractAdmin
                     $datagrid->setValue($property, null, $value);
                 },
                 'to_string_callback' => function ($entity, $property) {
-                    /** @var $entity FeedbackTag */
+                    /* @var $entity FeedbackTag */
                     return $entity->getName();
                 },
             ]

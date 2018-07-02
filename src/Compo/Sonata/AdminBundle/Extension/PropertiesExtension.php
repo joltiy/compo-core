@@ -60,11 +60,11 @@ class PropertiesExtension extends AbstractAdminExtension
         if ($this->isUseEntityTraits($admin, [
                 'Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity',
             ]) && $listMapper->has('deletedAt')) {
-                $deletedAt = $listMapper->get('deletedAt');
+            $deletedAt = $listMapper->get('deletedAt');
 
-                $deletedAt->setOption('sortable', true);
-                $deletedAt->setOption('pattern', 'dd.MM.y HH:mm:ss');
-            }
+            $deletedAt->setOption('sortable', true);
+            $deletedAt->setOption('pattern', 'dd.MM.y HH:mm:ss');
+        }
     }
 
     /**

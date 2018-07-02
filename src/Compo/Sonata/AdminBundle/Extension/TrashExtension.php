@@ -64,7 +64,7 @@ class TrashExtension extends AbstractAdminExtension
                         ['uri' => $currentLeafChildAdmin->generateUrl('trash', [])]
                     )->setAttribute('icon', 'fa fa-trash');
                 }
-            } else if ($admin->hasRoute('trash') && $admin->hasAccess('undelete')) {
+            } elseif ($admin->hasRoute('trash') && $admin->hasAccess('undelete')) {
                 $tabMenu->addChild(
                     $admin->getTranslator()->trans('tab_menu.link_trash'),
                     ['uri' => $admin->generateUrl('trash', [])]

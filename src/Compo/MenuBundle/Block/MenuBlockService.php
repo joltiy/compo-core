@@ -123,7 +123,7 @@ class MenuBlockService extends AbstractBlockService
             if ($item['url'] === $this->getRequest()->getRequestUri()) {
                 // URL's completely match
                 $node->setCurrent(true);
-            } else if ($item['url'] && $item['url'] !== $this->getRequest()->getBaseUrl() . '/' && (0 === mb_strpos($this->getRequest()->getRequestUri(), $item['url']))) {
+            } elseif ($item['url'] && $item['url'] !== $this->getRequest()->getBaseUrl() . '/' && (0 === mb_strpos($this->getRequest()->getRequestUri(), $item['url']))) {
                 // URL isn't just "/" and the first container of the URL match
                 $node->setCurrent(true);
             }

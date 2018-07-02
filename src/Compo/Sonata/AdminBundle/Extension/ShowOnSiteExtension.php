@@ -78,7 +78,7 @@ class ShowOnSiteExtension extends AbstractAdminExtension
                         ['uri' => $currentLeafChildAdmin->generatePermalink($currentLeafChildAdmin->getSubject()), 'linkAttributes' => ['target' => '_blank']]
                     )->setAttribute('icon', 'fa fa-eye');
                 }
-            } else if (method_exists($admin, 'generatePermalink') && $admin->generatePermalink($admin->getSubject())) {
+            } elseif (method_exists($admin, 'generatePermalink') && $admin->generatePermalink($admin->getSubject())) {
                 $tabMenu->addChild(
                     $admin->trans('tab_menu.link_show_on_site'),
                     ['uri' => $admin->generatePermalink($admin->getSubject()), 'linkAttributes' => ['target' => '_blank']]

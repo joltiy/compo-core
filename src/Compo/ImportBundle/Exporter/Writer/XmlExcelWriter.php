@@ -56,7 +56,7 @@ class XmlExcelWriter implements TypedWriterInterface
     protected $footer = '</Table></Worksheet></Workbook>';
 
     /**
-     * LABEL_COLUMN
+     * LABEL_COLUMN.
      */
     public const LABEL_COLUMN = 1;
 

@@ -121,7 +121,7 @@ class ConfigureTabMenuExtension extends AbstractAdminExtension
                         ]
                     )->setAttribute('icon', 'fa fa-pencil');
                 }
-            } else if ($admin->hasAccess('edit', $admin->getSubject())) {
+            } elseif ($admin->hasAccess('edit', $admin->getSubject())) {
                 $tabMenu->addChild(
                     $admin->trans('tab_menu.link_edit'),
                     [
