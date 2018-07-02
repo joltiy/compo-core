@@ -10,7 +10,6 @@
 namespace Compo\NewsBundle\Admin;
 
 use Compo\NewsBundle\Entity\News;
-use Compo\NewsBundle\Entity\NewsTag;
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
 use Doctrine\ORM\QueryBuilder;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
