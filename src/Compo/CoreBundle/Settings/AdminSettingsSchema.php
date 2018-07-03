@@ -105,6 +105,7 @@ class AdminSettingsSchema extends BaseBundleAdminSettingsSchema
         $options['popup_notify'] = '';
         $options['popup_notify_enabled'] = false;
         $options['popup_notify_header'] = '';
+
         return $options;
     }
 
@@ -235,10 +236,8 @@ class AdminSettingsSchema extends BaseBundleAdminSettingsSchema
 
         $notify_tab->add('popup_notify', CKEditorType::class);
 
-
         $notify_tab->add('popup_notify_enabled', CheckboxType::class, [
             'required' => false,
-
         ]);
 
         $builder->add($notify_tab);
