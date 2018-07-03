@@ -16,6 +16,7 @@ use Mopa\Bundle\BootstrapBundle\Form\Type\TabType;
 use Sonata\MediaBundle\Form\Type\MediaType;
 use Sylius\Bundle\SettingsBundle\Schema\SettingsBuilderInterface;
 use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -101,7 +102,9 @@ class AdminSettingsSchema extends BaseBundleAdminSettingsSchema
 
             'logo_image' => null,
         ];
-
+        $options['popup_notify'] = '';
+        $options['popup_notify_enabled'] = false;
+        $options['popup_notify_header'] = '';
         return $options;
     }
 
@@ -218,6 +221,27 @@ class AdminSettingsSchema extends BaseBundleAdminSettingsSchema
         );
 
         $logo_tab->get('logo_image')->addModelTransformer($media_transformer);
+
+        $notify_tab = $builder->create(
+            'notify_tab',
+            TabType::class,
+            [
+                'label' => 'settings.popup_notify_tab',
+                'inherit_data' => true,
+            ]
+        );
+
+        $notify_tab->add('popup_notify_header', TextType::class);
+
+        $notify_tab->add('popup_notify', CKEditorType::class);
+
+
+        $notify_tab->add('popup_notify_enabled', CheckboxType::class, [
+            'required' => false,
+
+        ]);
+
+        $builder->add($notify_tab);
     }
 
     /**
