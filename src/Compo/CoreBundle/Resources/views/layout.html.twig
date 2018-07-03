@@ -73,7 +73,9 @@
         {% include 'CompoCoreBundle:Block:javascripts.html.twig' %}
     {% endblock %}
 
-    {% include 'CompoCoreBundle:Block:javascripts_templates.html.twig' %}
+    {% block javascripts_templates %}
+        {% include 'CompoCoreBundle:Block:javascripts_templates.html.twig' %}
+    {% endblock %}
 
     {{ sonata_block_render({
         'type': 'compo_page_code.block.service.page_code',
