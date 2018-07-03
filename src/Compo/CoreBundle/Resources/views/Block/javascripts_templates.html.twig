@@ -19,140 +19,12 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
-
-
     <script>
         $('#popup_notify_modal').modal('show')
 
     </script>
 
 {% endif %}
-
-<script type="text/ng-template" id="add-to-basket-dialog.html">
-    <div
-        data-ng-controller="ProductsOfferController as products_offer_controller"
-
-
-    >
-        <div class="modal-header">
-            <button type="button" class="close" data-ng-click="$ctrl.closeModal()" data-dismiss="modal">&times;</button>
-            <h3 class="modal-title">{{ '{{ $ctrl.product.name }}' }}</h3>
-        </div>
-        <div class="modal-body">
-
-            <div class="col-sm-4 col-md-4">
-
-                <img style="max-height: 160px;max-width: 180px;" data-ng-src="{{ '{{$ctrl.product.image}}' }}" alt="{{ '{{ $ctrl.product.name }}' }}" title="{{ '{{ $ctrl.product.name }}' }}">
-            </div>
-            <div class="col-sm-8 col-md-8">
-
-                {#
-                <div class="goods-card__price">
-                   <div class="goods-card__price-text">{{ '{{$ctrl.product.price.formated}}' }} <span class="product-currency">{{ '{{ $ctrl.product.currency }}' }}</span> / <b data-ng-bind-html="$ctrl.product.unit | unsafe"></b></div>
-                </div>
-                <br/>
-               #}
-
-                <div class="goods-card__quantity">
-
-                    <div class="counter counter-item"
-                         data-ng-class='{active:price_unit.active}'
-                         data-ng-repeat="price_unit in products_offer_controller.offers[$ctrl.product.id].price_units"
-                    >
-                        <span
-                            class="counter__btn counter__btn--minus"
-                            data-ng-click="products_offer_controller.decreaseQuantity($ctrl.product.id,price_unit.unit.literal_name_international)"
-                        >
-                            <i class="fa fa-minus" aria-hidden="true"></i>
-                        </span>
-
-                        <input
-                            type="number"
-                            step="any"
-
-                            data-ng-min="{{ '{{price_unit.step}}' }}"
-                            data-ng-step="any"
-
-                            data-ng-model="price_unit.quantity"
-                            data-ng-change="products_offer_controller.changeQuantity($ctrl.product.id,price_unit.unit.literal_name_international)"
-                            data-ng-init="price_unit.quantity=price_unit.step"
-                            data-ng-model-options='{ debounce: 700 }'
-                            data-ng-value="{{ '{{price_unit.step}}' }}"
-                        />
-
-                        <span class="counter__btn counter__btn--plus"
-                              data-ng-click="products_offer_controller.increaseQuantity($ctrl.product.id,price_unit.unit.literal_name_international)"
-                        >
-                            <i class="fa fa-plus" aria-hidden="true"></i>
-                        </span>
-                    </div>
-
-
-                    <div class="quantity-per-unit">
-                        <span class="label label-info quantity-per-unit-item"
-                              data-ng-click="products_offer_controller.changePriceUnit($ctrl.product.id,price_unit.unit.literal_name_international)"
-                              data-ng-class='{active:price_unit.active}' data-ng-repeat="price_unit in $ctrl.offers[$ctrl.product.id].price_units"
-                        >
-                            <span class="quantity-per-unit-value"
-                                  data-ng-bind="(price_unit.quantity) | customNumber"
-
-                            >
-                                1
-                            </span>
-                            <span class="quantity-per-unit-unit"
-                                  data-ng-bind-html="price_unit.unit.short_name_national|unsafe"
-                            >
-                                шт
-                            </span>
-                        </span>
-                    </div>
-
-                </div>
-                <div class="goods-card__price">
-                    <div class="goods-card__price-text">
-                        <span class="total-price"
-                              data-ng-bind="(products_offer_controller.offers[$ctrl.product.id].price_units[products_offer_controller.products[$ctrl.product.id].unit.literal_name_international].price * products_offer_controller.offers[$ctrl.product.id].price_units[products_offer_controller.products[$ctrl.product.id].unit.literal_name_international].quantity)|customCurrency"
-                        >
-
-                        </span>
-
-                        {% if catalog_manager.currency %}
-                        <span class="product-currency">{{ catalog_manager.currency.symbol|raw }}</span>
-                        {% endif %}
-                    </div>
-                </div>
-
-
-
-            </div>
-            <br style="clear: both;"/>
-        </div>
-        <div class="modal-footer" style="text-align: center">
-
-            <div  class="col-xs-12 col-sm-6">
-                <button style="width:170px; background-color: #FF5D44; border-color: #FF5D44" data-ng-click="$ctrl.addItemToBasket($ctrl.product.id,1)" class="btn btn-success btn-add-to-cart" type="button"><i class="fa fa-shopping-cart" aria-hidden="true"></i> В корзину</button>
-            </div>
-            <div  class="col-xs-12 col-sm-6">
-                <button style="width:170px;background-color: #00C4D2; border-color: #00C4D2" title="товар добавится в корзину" class="btn btn-primary"  type="button" data-ng-click="$ctrl.addItemToBasket($ctrl.product.id,0)">Продолжить покупки</button>
-                <div style="font-size: 11px; color:#878787;letter-spacing: 0.3pt">товар добавится в корзину</div>
-            </div>
-
-
-        </div>
-    </div>
-
-</script>
-
-<script type="text/ng-template" id="add-to-basket.html">
-    <div class="modal-header">
-        <h3 class="modal-title">Товар добавлен в корзину</h3>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" type="button" data-ng-click="$ctrl.closeModal()">Продолжить покупки</button>
-        <a href="{{ path('compo_basket_cart') }}" class="btn btn-warning" type="button">Оформить заказ</a>
-    </div>
-</script>
-
 
 <div id="callback" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -172,7 +44,6 @@
         </div>
     </div>
 </div>
-
 
 <div id="write_to_director" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
