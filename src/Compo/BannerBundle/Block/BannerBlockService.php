@@ -82,8 +82,8 @@ class BannerBlockService extends AbstractBlockService
                         'choice',
                         [
                             'choices' => $list,
-                            'label' => 'form.label_banner'
-                        ]
+                            'label' => 'form.label_banner',
+                        ],
                     ],
                 ],
             ]
