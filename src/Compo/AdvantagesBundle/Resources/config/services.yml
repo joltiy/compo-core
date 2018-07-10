@@ -19,6 +19,6 @@ services:
     compo_advantages.block.service.advantages:
         class: Compo\AdvantagesBundle\Block\AdvantagesBlockService
         parent: compo_core.abstract_container_aware
-        arguments: ["compo_advantages.block.service.advantages", "@templating"]
+        arguments: ["compo_advantages.block.service.advantages", "@sonata.templating"]
         tags:
             - { name: sonata.block }

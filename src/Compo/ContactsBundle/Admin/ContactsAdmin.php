@@ -99,8 +99,8 @@ class ContactsAdmin extends AbstractAdmin
 
         $formMapper
             ->add('mapsCode', 'textarea', ['required' => false, 'attr' => ['class' => 'highlight-src']])
-            ->add('cix')
-            ->add('ciy')
+            ->add('latitude')
+            ->add('longitude')
         ;
 
         $formMapper->end();

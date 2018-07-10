@@ -62,6 +62,9 @@ sonata_block:
         #sonata.page.block.children_pages:
         #sonata.page.block.breadcrumb:
 
+        sonata.page.block.shared_block:
+            contexts:   [sonata_page_bundle, admin, sonata_dashboard_bundle]
+
         # MediaBundle's Blocks
         sonata.media.block.media:
         sonata.media.block.gallery:

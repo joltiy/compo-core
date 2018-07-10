@@ -6,15 +6,12 @@
     'vendor/jquery-ui/jquery-ui.min.js'
     'vendor/slick-carousel/slick/slick.min.js'
 
-    'vendor/jquery-smoothscroll/jquery-smoothscroll.js'
     'vendor/fancybox/dist/jquery.fancybox.js'
 
     'vendor/bootstrap/dist/js/bootstrap.min.js'
 
     'vendor/jQuery.mmenu/dist/jquery.mmenu.all.js'
     'vendor/sisyphus/sisyphus.min.js'
-    'vendor/hinclude/hinclude.js'
-    'vendor/jquery-maskedinput/dist/jquery.maskedinput.min.js'
 
     'vendor/angular/angular.min.js'
     'vendor/angular-resource/angular-resource.min.js'
@@ -43,6 +40,7 @@
 {% endif %}
 
 {% javascripts
+
     'bundles/app/js/app/app.js'
     'bundles/compocore/js/app/app.js'
 
@@ -54,6 +52,8 @@
     'bundles/compofeedback/js/app/directives/ngPhoneMask.directive.js'
     'bundles/compofeedback/js/app/services/FeedbackApi.js'
     'bundles/compofeedback/js/app/controllers/FeedbackForm.controller.js'
+
+    'bundles/compobanner/js/banner.js'
 
     output='assetic/main.js' %}
     <script src="{{ asset_url }}"></script>

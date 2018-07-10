@@ -3,3 +3,5 @@ sonata_block:
         compo_banner.block.service.banner:
             cache: sonata.cache.memcached
             contexts:   [sonata_page_bundle]
+            templates:
+                - { name: 'banner.template.slick', template: 'CompoBannerBundle:Block:slick.html.twig' }

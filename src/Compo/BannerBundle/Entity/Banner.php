@@ -29,7 +29,6 @@ class Banner
 {
     use \Compo\Sonata\AdminBundle\Entity\IdEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\NameEntityTrait;
-    use \Compo\Sonata\AdminBundle\Entity\DescriptionEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\BlameableEntityTrait;
     use \Compo\Sonata\AdminBundle\Entity\TimestampableEntityTrait;
 

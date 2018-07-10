@@ -77,15 +77,14 @@ class BannerBlockService extends AbstractBlockService
             'sonata_type_immutable_array',
             [
                 'keys' => [
-                    ['id', 'choice', ['choices' => $list, 'label' => 'Баннеры']],
-                    ['template', 'choice', [
-                        'choices' => [
-                            'Обычный' => 'CompoBannerBundle:Block:slider.html.twig',
-                            'Zoom' => 'CompoBannerBundle:Block:zoom.html.twig',
-                            'Менеджеры' => 'CompoBannerBundle:Block:managers.html.twig',
-                        ],
-                        'label' => 'Шаблон',
-                    ]],
+                    [
+                        'id',
+                        'choice',
+                        [
+                            'choices' => $list,
+                            'label' => 'form.label_banner'
+                        ]
+                    ],
                 ],
             ]
         );

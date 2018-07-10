@@ -21,7 +21,7 @@ services:
 
     compo_banner.block.service.banner:
         class: Compo\BannerBundle\Block\BannerBlockService
-        arguments: ["compo_banner.block.service.banner", "@templating"]
+        arguments: ["compo_banner.block.service.banner", "@sonata.templating"]
         tags:
             - { name: sonata.block }
         calls:

@@ -59,7 +59,7 @@ page.composer_status_error: 'Ошибка обновление статуса б
 
 
 tab_menu.title_page_edit: 'Страница: %name%'
-shared_block: 'Блок (расширенный)'
+shared_block: 'Блок (общий)'
 block: 'Страницы (блок)'
 snapshot: 'Страницы (снапшот)'
 

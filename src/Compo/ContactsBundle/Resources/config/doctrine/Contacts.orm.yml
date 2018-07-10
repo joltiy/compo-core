@@ -35,11 +35,13 @@ Compo\ContactsBundle\Entity\Contacts:
               type: string
               length: 255
               nullable: true
-        cix:
+        latitude:
               type: string
               length: 20
               nullable: true
-        ciy:
-              type: string
+        longitude:
+              type: decimal
               ength: 20
               nullable: true
+              precision: 10
+              scale: 6

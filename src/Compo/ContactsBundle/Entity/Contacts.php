@@ -63,14 +63,16 @@ class Contacts
      * @var string
      */
     private $mapsCode;
+
     /**
-     * @var string
+     * @var float
      */
-    private $cix;
+    private $latitude;
+
     /**
-     * @var string
+     * @var float
      */
-    private $ciy;
+    private $longitude;
 
     /**
      * Get id.
@@ -283,54 +285,6 @@ class Contacts
     }
 
     /**
-     * Get cix.
-     *
-     * @return string
-     */
-    public function getCix()
-    {
-        return $this->cix;
-    }
-
-    /**
-     * Set cix.
-     *
-     * @param string $cix
-     *
-     * @return Contacts
-     */
-    public function setCix($cix)
-    {
-        $this->cix = $cix;
-
-        return $this;
-    }
-
-    /**
-     * Get ciy.
-     *
-     * @return string
-     */
-    public function getCiy()
-    {
-        return $this->ciy;
-    }
-
-    /**
-     * Set ciy.
-     *
-     * @param string $ciy
-     *
-     * @return Contacts
-     */
-    public function setCiy($ciy)
-    {
-        $this->ciy = $ciy;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getName()
@@ -345,4 +299,38 @@ class Contacts
     {
         $this->name = $name;
     }
+
+    /**
+     * @return float
+     */
+    public function getLatitude(): float
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * @param float $latitude
+     */
+    public function setLatitude(float $latitude): void
+    {
+        $this->latitude = $latitude;
+    }
+
+    /**
+     * @return float
+     */
+    public function getLongitude(): float
+    {
+        return $this->longitude;
+    }
+
+    /**
+     * @param float $longitude
+     */
+    public function setLongitude(float $longitude): void
+    {
+        $this->longitude = $longitude;
+    }
+
+
 }

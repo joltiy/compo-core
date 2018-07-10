@@ -1,62 +1,32 @@
-Advantages
-============
+Advantages - Приемущества
+==========================
 
 Позволяет создавать списки приемуществ, для краткой информации о особенностях, сервисах магазина или другой полезной для покупателя информации.
+
 Размещать на страницах сайта, в модальных окнах, уведомлениях и письмах.
+
 Возможность вывода в различных шаблонах.
+
 Можно использовать изображения, иконки.
 
-Install
+Отображаются только включённые элементы списка приемуществ.
+
+Возможна сортировка элементов по позиции.
+
+Панель управления
 -------------------
 
-* Add CompoAdvantagesBundle to your AppKernel:
+* Список
 
-.. code-block:: php
-
-    <?php
-
-    // app/AppKernel.php
-
-    // ...
-    public function registerBundles()
-    {
-        return array(
-            // ...
-            new \Compo\AdvantagesBundle\CompoAdvantagesBundle(),
-            // ...
-        );
-    }
-
-* Add compo_advantages.admin.advantages to sonata_admin:
-
-.. code-block:: yaml
-
-    sonata_admin:
-        dashboard:
-            groups:
-                sonata.admin.group.site_builder:
-                    label:           site
-                    label_catalogue: CompoCoreBundle
-                    icon:            '<i class="fa fa-puzzle-piece"></i>'
-                    items:
-                        - compo_advantages.admin.advantages
-
-* Update database schema by running command ``php app/console doctrine:schema:update --force``
-
-Admin
--------------------
-
-* List
-
-.. figure:: ../images/advantages/advantages_list.png
+.. figure:: ../images/advantages/list.png
     :align: center
 
-* Edit
+* Редактирование
 
-.. figure:: ../images/advantages/advantages_advantagesitem_edit.png
+.. figure:: ../images/advantages/item_edit.png
     :align: center
 
-Block
+Блоки
 -------------------
 
 .. code-block:: bash
@@ -64,9 +34,26 @@ Block
     {{ sonata_block_render({
         'type': 'compo_advantages.block.service.advantages',
         'settings': {
-            'id': 134
+            'id': 123,
+            'template': 'CompoAdvantagesBundle:Block:advantages.html.twig'
         }
     }) }}
 
-.. figure:: ../images/advantages/advantages_block.png
+.. figure:: ../images/advantages/block.png
     :align: center
+
+.. figure:: ../images/advantages/block_edit.png
+    :align: center
+
+Шаблоны
+-------------------
+
+.. code-block:: yaml
+
+    sonata_block:
+        blocks:
+            compo_advantages.block.service.advantages:
+                cache: sonata.cache.memcached
+                contexts: [sonata_page_bundle]
+                templates:
+                    - { name: 'advantages.template.simple', template: 'CompoAdvantagesBundle:Block:advantages_simple.html.twig' }

@@ -4,4 +4,4 @@ sonata_block:
             cache: sonata.cache.memcached
             contexts: [sonata_page_bundle]
             templates:
-                - { name: 'Tabs', template: 'CompoAdvantagesBundle:Block:advantages_tabs.html.twig' }
+                - { name: 'advantages.template.simple', template: 'CompoAdvantagesBundle:Block:advantages_simple.html.twig' }

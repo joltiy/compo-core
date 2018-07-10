@@ -37,8 +37,8 @@ form:
   group_walk: Своим ходом
   group_links: Ссылки
   tab_instructions: Как добраться
-  label_cix: Долгота центра карты
-  label_ciy: Широта центра карты
+  label_longitude: Долгота центра карты
+  label_latitude: Широта центра карты
   tab_map: Карта
 
 

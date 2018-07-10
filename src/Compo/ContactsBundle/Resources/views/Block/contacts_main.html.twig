@@ -5,7 +5,7 @@
     <ul class="nav nav-tabs" role="tablist">
         {% for contact in contacts %}
             <li role="presentation" class="{{ (loop.index == 1) ? 'active' }}">
-                <a href="#contacts-{{ contact.id }}" aria-controls="home" role="tab" data-toggle="tab">{{ contact.name }}</a>
+                <a href="#contacts-{{ block.id }}-{{ contact.id }}" aria-controls="home" role="tab" data-toggle="tab">{{ contact.name }}</a>
             </li>
         {% endfor %}
     </ul>
@@ -13,14 +13,14 @@
     <div class="tab-content">
 
         {% for contact in contacts %}
-            <div role="tabpanel" class="tab-pane {{ (loop.index == 1) ? 'active' }}" id="contacts-{{ contact.id }}">
+            <div role="tabpanel" class="tab-pane {{ (loop.index == 1) ? 'active' }}" id="contacts-{{ block.id }}-{{ contact.id }}">
                 <div class="contacts">
                     <div class="row">
                         <div class="col-lg-7 col-md-6">
                             {% if contact.mapsCode %}
                                 {{ contact.mapsCode | raw }}
                             {% else %}
-                                <div class="contacts__map" id="map{{ contact.id }}"></div>
+                                <div class="contacts__map" id="map-{{ block.id }}-{{ contact.id }}"></div>
                             {% endif %}
                         </div>
                         <div class="col-lg-5 col-md-6 col-contacts-items">
@@ -91,13 +91,13 @@
                             myPlacemark;
 
                         function init() {
-                            myMap = new ymaps.Map("map{{ contact.id }}", {
-                                center: [{{ contact.cix }}, {{ contact.ciy }}],
+                            myMap = new ymaps.Map("map-{{ block.id }}-{{ contact.id }}", {
+                                center: [{{ contact.latitude }}, {{ contact.longitude }}],
                                 zoom: 16,
                                 controls: []
                             });
                             myMap.behaviors.disable('scrollZoom');
-                            myPlacemark = new ymaps.Placemark([{{ contact.cix }}, {{ contact.ciy }}], {balloonContent: ' {{ contact.address | striptags }}'});
+                            myPlacemark = new ymaps.Placemark([{{ contact.latitude }}, {{ contact.longitude }}], {balloonContent: ' {{ contact.address | striptags }}'});
                             myMap.geoObjects.add(myPlacemark);
                         }
                     </script>

@@ -2,3 +2,4 @@ sonata_block:
     blocks:
         compo_social.block.service.social:
             cache: sonata.cache.memcached
+            contexts: [sonata_page_bundle]

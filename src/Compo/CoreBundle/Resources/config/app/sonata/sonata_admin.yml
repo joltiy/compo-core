@@ -99,6 +99,8 @@ sonata_admin:
                     - route:        admin_sonata_page_page_tree
                       label:        sonata_page_admin_page
                       roles: [ROLE_SUPER_ADMIN,ROLE_SONATA_PAGE_ADMIN_PAGE_LIST]
+                    - sonata.page.admin.shared_block
+
                     - compo_page_code.admin.page_code
                     - compo_core.admin.settings
                     - compo_menu.admin.menu

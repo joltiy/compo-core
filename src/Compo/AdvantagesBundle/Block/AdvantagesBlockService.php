@@ -34,6 +34,10 @@ class AdvantagesBlockService extends AbstractBlockService
 
         $em = $this->getDoctrineManager();
 
+        $advantagesRepository = $em->getRepository(Advantages::class);
+
+        $advantages = $advantagesRepository->find($settings['id']);
+
         $repository = $em->getRepository(AdvantagesItem::class);
 
         $list = $repository->findBy(
@@ -49,6 +53,7 @@ class AdvantagesBlockService extends AbstractBlockService
         return $this->renderResponse(
             $settings['template'],
             [
+                'advantages' => $advantages,
                 'list' => $list,
                 'context' => $blockContext,
                 'block' => $block,
@@ -83,6 +88,7 @@ class AdvantagesBlockService extends AbstractBlockService
                             'translation_domain' => 'CompoAdvantagesBundle',
                         ],
                     ],
+
                 ],
             ]
         );

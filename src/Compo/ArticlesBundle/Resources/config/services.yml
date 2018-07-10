@@ -18,7 +18,7 @@ services:
 
     compo_articles.block.breadcrumb:
         class: Compo\ArticlesBundle\Block\ArticlesBreadcrumbBlockService
-        arguments: ["compo_articles", compo_articles.block.breadcrumb, "@templating", "@knp_menu.menu_provider", "@knp_menu.factory"]
+        arguments: ["compo_articles", compo_articles.block.breadcrumb, "@sonata.templating", "@knp_menu.menu_provider", "@knp_menu.factory"]
         parent: compo_core.abstract_container_aware
         tags:
             - { name: sonata.block }
@@ -26,7 +26,7 @@ services:
 
     compo_articles.block.service.articles_last:
         class: Compo\ArticlesBundle\Block\ArticlesLastBlockService
-        arguments: ["compo_articles.block.service.articles_last", "@templating"]
+        arguments: ["compo_articles.block.service.articles_last", "@sonata.templating"]
         parent: compo_core.abstract_container_aware
         tags:
             - { name: sonata.block }

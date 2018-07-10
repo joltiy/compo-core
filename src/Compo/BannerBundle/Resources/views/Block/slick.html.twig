@@ -1,0 +1,23 @@
+{% extends sonata_block.templates.block_base %}
+
+{% block block %}
+    <div class="banners banners-carousel">
+        <div class="slick-items" id="carousel-example-generic-{{ block.id }}-{{ settings.id }}" data-slick="{{ banner.options|default('{}') }}">
+
+            {% for item in list %}
+                <div class="item {% if loop.first %}active{% endif %}">
+                    {% if item.url %}
+                        <a href="{{ item.url }}"><img alt="{{ item.title|default(item.name) }}" style="width: 100%" src="{% path item.image, 'reference' %}"/></a>
+                    {% else %}
+                        <img alt="{{ item.title|default(item.name) }}" style="width: 100%" src="{% path item.image, 'reference' %}"/>
+                    {% endif %}
+
+                    <div class="caption">
+                        <h3>{{ item.name }}</h3>
+                        <div>{{ item.description }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

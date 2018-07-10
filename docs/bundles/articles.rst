@@ -1,8 +1,13 @@
 Articles - Статьи
 =================
 
+"Статьи" предназначены для управления сайте различными информационными материалами.
 
-Элемент списка преимуществ, имеет следующие поля:
+Статьи могут содержать произвольный текст, картинки, ссылки, таблицы, видео и другие объекты.
+
+Для более удобной работы со статьями используется встроенный визуальный редактор, который позволяет с легкостью, как и в MS Word, редактировать содержимое статьи.
+
+Статья, имеет следующие поля:
 
 * Включить/Выключить
 * Название
@@ -14,73 +19,27 @@ Articles - Статьи
 * Seo настройки
 
 На сайте выводятся список статей с постраничной навигацией.
+
 Отображаются только включённые статьи и с датой публикации меньше текущей даты.
 
+Имеется блок, для отображения последних опубликованных статей.
 
-Install
+Панель управления
 -------------------
 
-* Add CompoArticlesBundle to your AppKernel:
-
-.. code-block:: php
-
-    <?php
-
-    // app/AppKernel.php
-
-    // ...
-    public function registerBundles()
-    {
-        return array(
-            // ...
-            new \Compo\ArticlesBundle\CompoArticlesBundle(),
-            // ...
-        );
-    }
-
-* Add compo_articles.admin.articles to sonata_admin:
-
-.. code-block:: yaml
-
-    sonata_admin:
-        dashboard:
-            groups:
-                sonata.admin.group.site_builder:
-                    label:           site
-                    label_catalogue: CompoCoreBundle
-                    icon:            '<i class="fa fa-puzzle-piece"></i>'
-                    items:
-                        - compo_articles.admin.articles
-
-* Add CompoArticlesBundle routes to your application routing.yml:
-
-.. code-block:: yaml
-
-    # app/config/routing.yml
-
-    articles:
-        resource: '@CompoArticlesBundle/Resources/config/routing.yml'
-        prefix: /articles
-
-* Update database schema by running command ``php app/console doctrine:schema:update --force``
-
-
-Admin
--------------------
-
-* List
+* Список
 
 По умолчанию отсортировано по дате публикации, по убыванию.
 
-.. figure:: ../images/articles/articles_list.png
+.. figure:: ../images/articles/list.png
     :align: center
 
-* Edit
+* Редактирование
 
-.. figure:: ../images/articles/articles_edit.png
+.. figure:: ../images/articles/edit.png
     :align: center
 
-Block
+Блоки
 -------------------
 
 .. code-block:: twig
@@ -89,12 +48,15 @@ Block
         'type': 'compo_articles.block.service.articles_last',
         'settings': {
             'limit': 5
+            'template': 'CompoArticlesBundle:Block:articles_last.html.twig'
         }
     }) }}
 
-.. figure:: ../images/articles/articles_block.png
+.. figure:: ../images/articles/block.png
     :align: center
 
+.. figure:: ../images/articles/block_edit.png
+    :align: center
 
 Permalink
 -------------------
@@ -111,10 +73,16 @@ Controller
         defaults: { _controller: "CompoArticlesBundle:Articles:index" }
         methods:  GET
 
+.. figure:: ../images/articles/index.png
+    :align: center
+
     compo_articles_show_by_slug:
         path:     /articles/{slug}.html
         defaults: { _controller: "CompoArticlesBundle:Articles:showBySlug" }
         methods:  GET
+
+.. figure:: ../images/articles/show.png
+    :align: center
 
 AdminNavBar
 -------------------
@@ -143,6 +111,16 @@ Templates
 * Articles/show.html.twig
 * Block/articles_last.html.twig
 
+.. code-block:: yaml
+
+    sonata_block:
+        blocks:
+            compo_articles.block.service.articles_last:
+                cache: sonata.cache.memcached
+                contexts: [sonata_page_bundle]
+                templates:
+                    - { name: 'articles.template.articles_last.custom', template: 'CompoArticlesBundle:Block:articles_last_custom.html.twig' }
+
 Seo
 -------------------
 
@@ -151,4 +129,3 @@ Seo
 * Title
 * Description
 * Keywords
-

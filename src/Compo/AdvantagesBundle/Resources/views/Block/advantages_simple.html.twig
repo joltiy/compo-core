@@ -1,0 +1,38 @@
+{# @var block \Sonata\BlockBundle\Model\Block #}
+{# @var advantages \Compo\AdvantagesBundle\Entity\Advantages #}
+{# @var item \Compo\AdvantagesBundle\Entity\\Compo\AdvantagesBundle\Entity\AdvantagesItem #}
+
+{% extends sonata_block.templates.block_base %}
+
+{% block block %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="advantages" id="advantages-list-{{ block.id }}-{{ advantages.id }}">
+
+                <div class="row row-advantages-buttons">
+                    {% for item in list %}
+                        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 text-center">
+                            {% if item.url %}
+                                <a class="btn btn-default" title="{{ item.title|default(item.name) }}" href="{{ item.url|default('javascript:void(0)') }}">
+                                    {% if item.image %}
+                                        <span class="image-icon" style="width: 100px;text-align: center;">
+                                            <img alt="{{ item.title|default(item.name) }}" src="{% path item.image, 'reference' %}" />
+                                        </span>
+                                    {% endif %}
+                                    <span class="title">{{ item.name }}</span>
+                                </a>
+                            {% else %}
+                                <button class="btn btn-default" title="{{ item.title|default(item.name) }}">
+                                    <span class="image-icon" style="width: 100px;text-align: center;">
+                                        <img alt="{{ item.title|default(item.name) }}" src="{% path item.image, 'reference' %}" />
+                                    </span>
+                                    <span class="title">{{ item.name }}</span>
+                                </button>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

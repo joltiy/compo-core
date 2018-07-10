@@ -1,4 +1,0 @@
-compo_advantages_render:
-    path:     /_advantages/{id}
-    defaults: { _controller: "CompoAdvantagesBundle:Advantages:render" }
-    methods:  GET
