@@ -10,7 +10,6 @@
 namespace Compo\AdvantagesBundle\Admin;
 
 use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
-use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
