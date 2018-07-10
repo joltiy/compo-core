@@ -27,7 +27,6 @@ class AdvantagesAdmin extends AbstractAdmin
         $listMapper
             ->add('id')
             ->addIdentifier('name')
-            ->add('description', 'html')
             ->add('createdAt')
             ->add('updatedAt')
             ->add('deletedAt')
@@ -48,7 +47,6 @@ class AdvantagesAdmin extends AbstractAdmin
 
         $formMapper->add('id');
         $formMapper->add('name');
-        $formMapper->add('description', CKEditorType::class, ['required' => false]);
 
         $formMapper->end();
         $formMapper->end();
