@@ -41,6 +41,7 @@ class Banner
     protected $options;
 
     /**
+     * @ORM\OrderBy({"position" = "ASC"})
      * @ORM\OneToMany(targetEntity="Compo\BannerBundle\Entity\BannerItem", mappedBy="banner", cascade={"all"}))
      */
     protected $items;
@@ -62,7 +63,9 @@ class Banner
      */
     public function addItem(BannerItem $item)
     {
-        $this->items[] = $item;
+        $item->setBanner($this);
+
+        $this->getItems()->add($item);
 
         return $this;
     }
@@ -74,7 +77,9 @@ class Banner
      */
     public function removeItem(BannerItem $item)
     {
-        $this->items->removeElement($item);
+        $item->setBanner(null);
+
+        $this->getItems()->removeElement($item);
     }
 
     /**

@@ -62,6 +62,8 @@ class Advantages
      */
     public function addItem(AdvantagesItem $item)
     {
+        $item->setAdvantages($this);
+
         $this->getItems()->add($item);
 
         return $this;
@@ -74,6 +76,8 @@ class Advantages
      */
     public function removeItem(AdvantagesItem $item)
     {
+        $item->setAdvantages(null);
+
         $this->getItems()->removeElement($item);
     }
 
