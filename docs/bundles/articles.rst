@@ -76,6 +76,8 @@ Controller
 .. figure:: ../images/articles/index.png
     :align: center
 
+.. code-block:: yaml
+
     compo_articles_show_by_slug:
         path:     /articles/{slug}.html
         defaults: { _controller: "CompoArticlesBundle:Articles:showBySlug" }
