@@ -88,7 +88,6 @@ class AdvantagesBlockService extends AbstractBlockService
                             'translation_domain' => 'CompoAdvantagesBundle',
                         ],
                     ],
-
                 ],
             ]
         );

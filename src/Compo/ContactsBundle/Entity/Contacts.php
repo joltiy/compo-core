@@ -331,6 +331,4 @@ class Contacts
     {
         $this->longitude = $longitude;
     }
-
-
 }
