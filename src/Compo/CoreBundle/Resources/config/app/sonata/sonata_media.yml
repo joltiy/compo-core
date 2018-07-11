@@ -85,6 +85,10 @@ sonata_media:
               - jpg
               - ico
               - pdf
+              - csv
+              - xlsx
+              - xls
+              - xml
             allowed_mime_types:
               - image/gif
               - image/png
@@ -92,6 +96,7 @@ sonata_media:
               - image/jpg
               - image/x-icon
               - application/pdf
+              - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
         image:
 #           thumbnail: sonata.media.thumbnail.liip_imagine
 #           resizer: sonata.media.resizer.square
