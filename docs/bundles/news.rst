@@ -72,12 +72,12 @@ Admin
 
 По умолчанию отсортировано по дате публикации, по убыванию.
 
-.. figure:: ../images/articles/articles_list.png
+.. figure:: ../images/articles/list.png
     :align: center
 
 * Edit
 
-.. figure:: ../images/articles/articles_edit.png
+.. figure:: ../images/articles/edit.png
     :align: center
 
 Block
@@ -92,7 +92,7 @@ Block
         }
     }) }}
 
-.. figure:: ../images/articles/articles_block.png
+.. figure:: ../images/articles/block.png
     :align: center
 
 
