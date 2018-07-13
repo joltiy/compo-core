@@ -58,8 +58,6 @@ trait BaseAdminTrait
         // Доступные действия для элементов в результатах поиска
         $this->searchResultActions = ['edit'];
 
-        $this->setTemplate('button_settings', 'CompoSonataAdminBundle:Button:settings_button.html.twig');
-
         parent::initialize();
     }
 

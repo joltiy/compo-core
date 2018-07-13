@@ -31,15 +31,15 @@ sonata-ba-list-field-name-{{ field_description.name }}
         <a class="sonata-link-identifier" href="{{ admin.generateObjectUrl(route, object, field_description.options.route.parameters) }}">
             {%- block field %}
                 {% spaceless %}
-                    {% if field_description.options.collapse is defined %}
-                        {% set collapse = field_description.options.collapse %}
-                        <div class="sonata-readmore"
-                             data-readmore-height="{{ collapse.height|default(40) }}"
-                             data-readmore-more="{{ collapse.more|default('read_more')|trans({}, 'SonataAdminBundle') }}"
-                             data-readmore-less="{{ collapse.less|default('read_less')|trans({}, 'SonataAdminBundle') }}">{{ value }}</div>
-                    {% else %}
-                        {{ value }}
-                    {% endif %}
+                {% if field_description.options.collapse is defined %}
+                    {% set collapse = field_description.options.collapse %}
+                    <div class="sonata-readmore"
+                          data-readmore-height="{{ collapse.height|default(40) }}"
+                          data-readmore-more="{{ collapse.more|default('read_more')|trans({}, 'SonataAdminBundle') }}"
+                          data-readmore-less="{{ collapse.less|default('read_less')|trans({}, 'SonataAdminBundle') }}">{{ value }}</div>
+                {% else %}
+                    {{ value }}
+                {% endif %}
                 {% endspaceless %}
             {% endblock -%}
         </a>

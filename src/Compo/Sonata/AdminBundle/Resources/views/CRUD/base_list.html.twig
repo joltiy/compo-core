@@ -12,10 +12,15 @@ file that was distributed with this source code.
 {% extends base_template %}
 
 {%- block actions -%}
-    {% include 'SonataAdminBundle:CRUD:action_buttons.html.twig' %}
+    {% include '@SonataAdmin/CRUD/action_buttons.html.twig' %}
 {%- endblock -%}
 
-{% block tab_menu %}{{ knp_menu_render(admin.sidemenu(action), {'currentClass' : 'active', 'template': sonata_admin.adminPool.getTemplate('tab_menu_template')}, 'twig') }}{% endblock %}
+{%- block tab_menu -%}
+    {{ knp_menu_render(admin.sidemenu(action), {
+        'currentClass': 'active',
+        'template': get_global_template('tab_menu_template')
+    }, 'twig') }}
+{%- endblock -%}
 
 {% block title %}
     {#
@@ -68,7 +73,7 @@ file that was distributed with this source code.
                                             {% if field_description.options.sortable is defined and field_description.options.sortable %}
                                                 {% set sortable             = true %}
                                                 {% set sort_parameters      = admin.modelmanager.sortparameters(field_description, admin.datagrid) %}
-                                                {% set current              = admin.datagrid.values._sort_by == field_description or admin.datagrid.values._sort_by.fieldName == sort_parameters.filter._sort_by %}
+                                                {% set current              = admin.datagrid.values._sort_by == field_description or admin.datagrid.values._sort_by.name == sort_parameters.filter._sort_by %}
                                                 {% set sort_active_class    = current ? 'sonata-ba-list-field-order-active' : '' %}
                                                 {% set sort_by              = current ? admin.datagrid.values._sort_order : field_description.options._sort_order %}
                                             {% endif %}
@@ -91,7 +96,7 @@ file that was distributed with this source code.
 
                         {% block table_body %}
                             <tbody>
-                                {% include admin.getTemplate('outer_list_rows_' ~ admin.getListMode()) %}
+                                {% include get_admin_template('outer_list_rows_' ~ admin.getListMode(), admin.code) %}
                             </tbody>
                         {% endblock %}
 
@@ -105,12 +110,12 @@ file that was distributed with this source code.
                             <div class="info-box-content">
                                 <span class="info-box-text">{{ 'no_result'|trans({}, 'SonataAdminBundle') }}</span>
                                 <div class="progress">
-                                    <div class="progress-bar" style="width: 0"></div>
+                                    <div class="progress-bar" style="width: 0%"></div>
                                 </div>
                                 <span class="progress-description">
                                     {% if not app.request.xmlHttpRequest %}
                                     <ul class="list-unstyled">
-                                        {% include 'SonataAdminBundle:Button:create_button.html.twig' %}
+                                        {% include get_admin_template('button_create', admin.code) %}
                                     </ul>
                                     {% endif %}
                                 </span>
@@ -209,7 +214,7 @@ file that was distributed with this source code.
                                     {% endblock %}
 
                                     {% block pager_results %}
-                                        {% include admin.getTemplate('pager_results') %}
+                                        {% include get_admin_template('pager_results', admin.code) %}
                                     {% endblock %}
                                 </div>
                             {% endif %}
@@ -218,7 +223,7 @@ file that was distributed with this source code.
                         {% block pager_links %}
                             {% if admin.datagrid.pager.haveToPaginate() %}
                                 <hr/>
-                                {% include admin.getTemplate('pager_links') %}
+                                {% include get_admin_template('pager_links', admin.code) %}
                             {% endif %}
                         {% endblock %}
                     </div>
@@ -291,7 +296,7 @@ file that was distributed with this source code.
 
 {% block list_filters %}
     {% if admin.datagrid.filters %}
-        {% form_theme form admin.getTemplate('filter') %}
+        {% form_theme form get_admin_template('filter', admin.code) %}
 
         <div class="col-xs-12 col-md-12 sonata-filters-box" style="display: {{ admin.datagrid.hasDisplayableFilters ? 'block' : 'none' }}" id="filter-container-{{ admin.uniqid() }}">
             <div class="box box-primary" >
@@ -307,16 +312,16 @@ file that was distributed with this source code.
                                     {% set filterVisible = filter.options['show_filter'] is same as(true) or filter.options['show_filter'] is null %}
                                     <div class="form-group {% block sonata_list_filter_group_class %}{% endblock %}" id="filter-{{ admin.uniqid }}-{{ filter.name }}" sonata-filter="{{ filterVisible ? 'true' : 'false' }}" style="display: {% if filterActive %}block{% else %}none{% endif %}">
                                         {% if filter.label is not same as(false) %}
-                                            <label for="{{ form.children[filter.formName].children['value'].vars.id }}" class="col-sm-3 control-label">{{ filter.label|trans({}, filter.translationDomain ?: admin.translationDomain) }}</label>
+                                            <label for="{{ form[filter.formName].children['value'].vars.id }}" class="col-sm-3 control-label">{{ filter.label|trans({}, filter.translationDomain ?: admin.translationDomain) }}</label>
                                         {% endif %}
-                                        {% set attr = form.children[filter.formName].children['type'].vars.attr|default({}) %}
+                                        {% set attr = form[filter.formName].children['type'].vars.attr|default({}) %}
 
                                         <div class="col-sm-4 advanced-filter">
-                                            {{ form_widget(form.children[filter.formName].children['type'], {'attr':  attr}) }}
+                                            {{ form_widget(form[filter.formName].children['type'], {'attr':  attr}) }}
                                         </div>
 
                                         <div class="col-sm-4">
-                                            {{ form_widget(form.children[filter.formName].children['value']) }}
+                                            {{ form_widget(form[filter.formName].children['value']) }}
                                         </div>
 
                                         <div class="col-sm-1">
@@ -336,7 +341,7 @@ file that was distributed with this source code.
                             <div class="col-sm-3 text-center">
                                 <input type="hidden" name="filter[_page]" id="filter__page" value="1">
 
-                                {% set foo = form.children['_page'].setRendered() %}
+                                {% set foo = form['_page'].setRendered() %}
                                 {{ form_rest(form) }}
 
                                 <div class="form-group">

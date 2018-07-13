@@ -21,16 +21,6 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 class ShowOnSiteExtension extends AbstractAdminExtension
 {
     /**
-     * @param \Sonata\AdminBundle\Admin\AdminInterface $admin
-     */
-    public function configureTemplates($admin)
-    {
-        /* @var AbstractAdmin $admin */
-
-        $admin->setTemplate('button_show_on_site', 'CompoSonataAdminBundle:Button:show_on_site_button.html.twig');
-    }
-
-    /**
      * @param ListMapper $listMapper
      */
     public function configureListFields(ListMapper $listMapper)

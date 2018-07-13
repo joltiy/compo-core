@@ -110,7 +110,6 @@ class TreeNestedExtension extends AbstractAdminExtension
             /* @var AbstractAdmin $admin */
             $admin->setTemplate('list', 'CompoSonataAdminBundle:Tree:tree_nested.html.twig');
 
-            $admin->setTemplate('button_tree', 'CompoSonataAdminBundle:Button:tree_button.html.twig');
             $admin->setTemplate('outer_list_rows_tree', 'CompoSonataAdminBundle:CRUD:outer_list_rows_tree.html.twig');
         }
     }
