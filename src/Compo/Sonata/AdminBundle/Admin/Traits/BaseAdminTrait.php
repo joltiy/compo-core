@@ -105,6 +105,9 @@ trait BaseAdminTrait
         $this->menu = $menu;
     }
 
+    /**
+     *
+     */
     protected function buildList()
     {
         parent::buildList();
@@ -221,5 +224,16 @@ trait BaseAdminTrait
         $configurationPool = $this->getConfigurationPool();
 
         return $configurationPool->getContainer();
+    }
+
+    /**
+     * @return array
+     */
+    public function getFormTheme()
+    {
+        return array_merge(
+            parent::getFormTheme(),
+            ['@CompoSonataAdmin/Form/form_admin_fields_extend.html.twig']
+        );
     }
 }

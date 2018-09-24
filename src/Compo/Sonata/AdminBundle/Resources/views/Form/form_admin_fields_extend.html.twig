@@ -1,3 +1,54 @@
+{% block sonata_type_immutable_array_widget %}
+    {% spaceless %}
+        <div {{ block('widget_container_attributes') }}>
+            {{ block('sonata_help') }}
+
+            {{ form_errors(form) }}
+
+            {% for key, child in form %}
+                {{ block('sonata_type_immutable_array_widget_row') }}
+            {% endfor %}
+
+            {{ form_rest(form) }}
+        </div>
+    {% endspaceless %}
+{% endblock sonata_type_immutable_array_widget %}
+
+{% block sonata_type_immutable_array_widget_row %}
+    {# For checkbox #}
+    {% spaceless %}
+        <div class="form-group{% if child.vars.errors|length > 0%} has-error{%endif%}" id="sonata-ba-field-container-{{ id }}-{{ key }}">
+            {{ form_label(child) }}
+
+            {% set div_class = "" %}
+
+            {% if sonata_admin.options['form_type'] == 'horizontal' %}
+                {% if child.vars.label is same as(false) or child.vars.checked is defined %}
+                    {% if 'collection' in child.parent.vars.block_prefixes %}
+                        {% set div_class = div_class ~ ' col-sm-12' %}
+                    {% else %}
+                        {% set div_class = div_class ~ ' col-sm-9 col-sm-offset-3' %}
+                    {% endif %}
+                {% else %}
+                    {% set div_class = div_class ~ ' col-sm-9' %}
+                {% endif %}
+            {% endif%}
+
+            <div class="{{ div_class }} sonata-ba-field sonata-ba-field-{{ sonata_admin.edit }}-{{ sonata_admin.inline }} {% if child.vars.errors|length > 0 %}sonata-ba-field-error{% endif %}">
+                {{ form_widget(child, {'horizontal': false, 'horizontal_input_wrapper_class': ''}) }} {# {'horizontal': false, 'horizontal_input_wrapper_class': ''} needed to avoid MopaBootstrapBundle messing with the DOM #}
+                {% set sonata_help = child.vars.sonata_help %}
+                {{ block('sonata_help') }}
+            </div>
+
+            {% if child.vars.errors|length > 0 %}
+                <div class="help-block sonata-ba-field-error-messages">
+                    {{ form_errors(child) }}
+                </div>
+            {% endif %}
+        </div>
+    {% endspaceless %}
+{% endblock %}
+
 {% block compo_sonata_admin_number_range_widget %}
     {% spaceless %}
         <div {{ block('widget_container_attributes') }}>
