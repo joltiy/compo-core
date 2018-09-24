@@ -97,6 +97,7 @@ sonata_media:
               - image/x-icon
               - application/pdf
               - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+              - text/plain
         image:
 #           thumbnail: sonata.media.thumbnail.liip_imagine
 #           resizer: sonata.media.resizer.square
