@@ -105,7 +105,7 @@ final class ParameterTransformerListener
             }
         }
 
-        $classMetadata = $entityManager->getClassMetadata(get_class($settings));
+        $classMetadata = $entityManager->getClassMetadata(\get_class($settings));
         $entityManager->getUnitOfWork()->recomputeSingleEntityChangeSet($classMetadata, $settings);
     }
 

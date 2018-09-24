@@ -40,11 +40,11 @@ final class CircularDependencyFoundException extends \DomainException
      */
     private function getCycleFromArray(array $themes)
     {
-        while (reset($themes) !== end($themes) || 1 === count($themes)) {
+        while (reset($themes) !== end($themes) || 1 === \count($themes)) {
             array_shift($themes);
         }
 
-        if (0 === count($themes)) {
+        if (0 === \count($themes)) {
             throw new \InvalidArgumentException('There is no cycle within given themes.');
         }
 

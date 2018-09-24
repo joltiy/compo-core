@@ -37,7 +37,7 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
         if (!$translator instanceof TranslatorBagInterface) {
             throw new \InvalidArgumentException(sprintf(
                 'The Translator "%s" must implement TranslatorInterface and TranslatorBagInterface.',
-                get_class($translator)
+                \get_class($translator)
             ));
         }
 

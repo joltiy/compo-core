@@ -39,7 +39,7 @@ final class ListCommand extends ContainerAwareCommand
         /** @var ThemeInterface[] $themes */
         $themes = $this->getContainer()->get('sylius.repository.theme')->findAll();
 
-        if (0 === count($themes)) {
+        if (0 === \count($themes)) {
             $output->writeln('<error>There are no themes.</error>');
 
             return;

@@ -143,7 +143,7 @@ final class AssetsInstaller implements AssetsInstallerInterface
                 continue;
             }
 
-            $this->filesystem->mkdir(dirname($targetFile));
+            $this->filesystem->mkdir(\dirname($targetFile));
 
             $effectiveSymlinkMask = min(
                 $effectiveSymlinkMask,
@@ -177,7 +177,7 @@ final class AssetsInstaller implements AssetsInstallerInterface
     {
         if (AssetsInstallerInterface::RELATIVE_SYMLINK === $symlinkMask) {
             try {
-                $targetDirname = realpath(is_dir($target) ? $target : dirname($target));
+                $targetDirname = realpath(is_dir($target) ? $target : \dirname($target));
                 $relativeOrigin = rtrim($this->filesystem->makePathRelative($origin, $targetDirname), '/');
 
                 $this->doInstallAsset($relativeOrigin, $target, true);
