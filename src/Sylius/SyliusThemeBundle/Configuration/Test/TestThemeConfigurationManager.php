@@ -91,7 +91,7 @@ final class TestThemeConfigurationManager implements TestThemeConfigurationManag
      */
     public function clear()
     {
-        $configurationsDirectory = dirname($this->configurationsFile);
+        $configurationsDirectory = \dirname($this->configurationsFile);
 
         if ($this->filesystem->exists($configurationsDirectory)) {
             $this->filesystem->remove($configurationsDirectory);
@@ -125,7 +125,7 @@ final class TestThemeConfigurationManager implements TestThemeConfigurationManag
 
     private function initialize()
     {
-        $configurationsDirectory = dirname($this->configurationsFile);
+        $configurationsDirectory = \dirname($this->configurationsFile);
 
         $this->filesystem->mkdir($configurationsDirectory);
 
@@ -163,6 +163,6 @@ final class TestThemeConfigurationManager implements TestThemeConfigurationManag
      */
     private function getThemeDirectory($themeName)
     {
-        return rtrim(dirname($this->configurationsFile), '/') . '/' . $themeName;
+        return rtrim(\dirname($this->configurationsFile), '/') . '/' . $themeName;
     }
 }

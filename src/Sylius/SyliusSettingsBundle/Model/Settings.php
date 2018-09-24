@@ -137,7 +137,7 @@ class Settings implements SettingsInterface
      */
     public function count()
     {
-        return count($this->parameters);
+        return \count($this->parameters);
     }
 
     /**

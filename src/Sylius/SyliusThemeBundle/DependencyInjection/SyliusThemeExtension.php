@@ -126,7 +126,7 @@ final class SyliusThemeExtension extends Extension implements PrependExtensionIn
                         $configurationSourceFactory->getName(),
                         Reference::class,
                         Definition::class,
-                        is_object($configurationProvider) ? get_class($configurationProvider) : gettype($configurationProvider)
+                        \is_object($configurationProvider) ? \get_class($configurationProvider) : \gettype($configurationProvider)
                     ));
                 }
 

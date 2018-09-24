@@ -45,7 +45,7 @@ final class ThemeTranslationResource implements TranslationResourceInterface
         $this->name = $filepath;
 
         $parts = explode('.', basename($filepath), 3);
-        if (3 !== count($parts)) {
+        if (3 !== \count($parts)) {
             throw new \InvalidArgumentException(sprintf(
                 'Could not create a translation resource with filepath "%s".',
                 $filepath

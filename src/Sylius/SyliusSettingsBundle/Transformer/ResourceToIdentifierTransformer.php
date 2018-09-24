@@ -42,7 +42,7 @@ final class ResourceToIdentifierTransformer implements ParameterTransformerInter
      */
     public function transform($value)
     {
-        if (!is_object($value)) {
+        if (!\is_object($value)) {
             return null;
         }
 

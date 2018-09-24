@@ -105,9 +105,6 @@ trait BaseAdminTrait
         $this->menu = $menu;
     }
 
-    /**
-     *
-     */
     protected function buildList()
     {
         parent::buildList();
