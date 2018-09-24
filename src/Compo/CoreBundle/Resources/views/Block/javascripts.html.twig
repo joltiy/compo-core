@@ -25,6 +25,7 @@
 {% endjavascripts %}
 
 
+<script src="https://cdn.jsdelivr.net/npm/suggestions-jquery@latest/dist/js/jquery.suggestions.min.js" type="text/javascript"></script>
 
 {% if app.environment == 'prod' %}
     {% javascripts
@@ -43,6 +44,8 @@
 
     'bundles/app/js/app/app.js'
     'bundles/compocore/js/app/app.js'
+    'bundles/compocore/js/app/directives/app.directives2.js'
+    'bundles/compocore/js/app/directives/ngSuggestionsName.directive.js'
 
     'bundles/composeo/js/app/app.js'
     'bundles/composeo/js/app/services/Seo.js'
