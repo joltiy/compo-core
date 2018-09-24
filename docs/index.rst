@@ -4,7 +4,7 @@ CompoCore
 CompoCore a set of basic bundles CompoCymfonyCms. Based on Symfony, Sonata.
 
 * `CompoDocs <http://docs.compo-symfony-cms.ru>`_: main documentation.
-* `CompoCore <http://docs.compo-symfony-cms.ru/projects/compo-core>`_: contains core libraries, services and bundles.
+* CompoCore: contains core libraries, services and bundles.
 * `CompoEcommerce <http://docs.compo-symfony-cms.ru/projects/compo-ecommerce>`_: contains e-commerce bundles
 
 Demo
