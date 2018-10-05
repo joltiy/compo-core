@@ -85,10 +85,14 @@ class CoreExtension extends \Twig_Extension
      */
     public function getAdminObjectTargetName($item)
     {
-        /** @var AbstractAdmin $admin */
-        $admin = $this->getContainer()->get('sonata.admin.pool')->getAdminByClass($item->getClass());
+        if ($item->getTargetId()) {
+            /** @var AbstractAdmin $admin */
+            $admin = $this->getContainer()->get('sonata.admin.pool')->getAdminByClass($item->getClass());
 
-        return $admin->getObject($item->getTargetId())->getName();
+            return $admin->getObject($item->getTargetId())->getName();
+        } else {
+            return '';
+        }
     }
 
     /**
@@ -98,10 +102,14 @@ class CoreExtension extends \Twig_Extension
      */
     public function getAdminObjectTargetUrl($item)
     {
-        /** @var AbstractAdmin $admin */
-        $admin = $this->getContainer()->get('sonata.admin.pool')->getAdminByClass($item->getClass());
+        if ($item->getTargetId()) {
+            /** @var AbstractAdmin $admin */
+            $admin = $this->getContainer()->get('sonata.admin.pool')->getAdminByClass($item->getClass());
 
-        return $admin->generateObjectUrl('edit', $admin->getObject($item->getTargetId()));
+            return $admin->generateObjectUrl('edit', $admin->getObject($item->getTargetId()));
+        } else {
+            return '';
+        }
     }
 
     /**
