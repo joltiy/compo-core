@@ -86,7 +86,7 @@
             // Select2 v3/v4 special options.
             // NEXT_MAJOR: Remove this BC layer while upgrading to v4.
             var templateResult = function (item) {
-                return jQuery('<div class="">').text(item.label).prop('outerHTML'); // format of one dropdown item
+                return jQuery('<div class="">').html(item.label).prop('outerHTML'); // format of one dropdown item
             };
             var templateSelection = function (item) {
                 // Select2 v4 BC select pre-selection.
@@ -94,9 +94,7 @@
                     item.label = item.text;
                 }
 
-                console.log(item);
-
-                return jQuery('<div>').text(item.label).prop('innerHTML'); // format selected item '<b>'+item.label+'</b>';
+                return jQuery('<div>').html(item.label).prop('innerHTML'); // format selected item '<b>'+item.label+'</b>';
             };
 
             if (window.Select2) {
