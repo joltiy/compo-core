@@ -98,6 +98,7 @@ sonata_media:
               - application/pdf
               - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
               - text/plain
+              - application/vnd.ms-excel
         image:
 #           thumbnail: sonata.media.thumbnail.liip_imagine
 #           resizer: sonata.media.resizer.square
