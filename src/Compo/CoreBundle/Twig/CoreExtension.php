@@ -90,9 +90,9 @@ class CoreExtension extends \Twig_Extension
             $admin = $this->getContainer()->get('sonata.admin.pool')->getAdminByClass($item->getClass());
 
             return $admin->getObject($item->getTargetId())->getName();
-        } else {
-            return '';
         }
+
+        return '';
     }
 
     /**
@@ -107,9 +107,9 @@ class CoreExtension extends \Twig_Extension
             $admin = $this->getContainer()->get('sonata.admin.pool')->getAdminByClass($item->getClass());
 
             return $admin->generateObjectUrl('edit', $admin->getObject($item->getTargetId()));
-        } else {
-            return '';
         }
+
+        return '';
     }
 
     /**
