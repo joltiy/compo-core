@@ -118,6 +118,8 @@ class AppKernel extends Kernel
             new \Compo\BasketBundle\CompoBasketBundle(),
             new \Compo\TaggingBundle\CompoTaggingBundle(),
             new \Compo\DiscountBundle\CompoDiscountBundle(),
+            new \Compo\PromoCodeBundle\CompoPromoCodeBundle(),
+
             new \Compo\UnitBundle\CompoUnitBundle(),
             new \Compo\YandexMarketBundle\CompoYandexMarketBundle(),
             new \Compo\GoogleMerchantBundle\CompoGoogleMerchantBundle(),

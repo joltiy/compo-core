@@ -85,6 +85,10 @@ sonata_media:
               - jpg
               - ico
               - pdf
+              - csv
+              - xlsx
+              - xls
+              - xml
             allowed_mime_types:
               - image/gif
               - image/png
@@ -92,6 +96,8 @@ sonata_media:
               - image/jpg
               - image/x-icon
               - application/pdf
+              - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+              - text/plain
         image:
 #           thumbnail: sonata.media.thumbnail.liip_imagine
 #           resizer: sonata.media.resizer.square
@@ -110,6 +116,7 @@ sonata_media:
               - image/jpeg
               - image/jpg
               - image/x-icon
+
         youtube:
             thumbnail: sonata.media.thumbnail.format          # default value
 #           thumbnail: sonata.media.thumbnail.consumer.format # can be used to dispatch the resize action to async task

@@ -172,11 +172,9 @@ class SonataImportCommand extends ContainerAwareCommand
 
 
             foreach ($iterator as $line => $dataRaw) {
-                dump($line);
 
                 if (0 === $line) {
                     $firstLine = $dataRaw;
-                    dump($firstLine);
 
                     foreach ($exportFields as $key => $name) {
                         $data_key = $key;
@@ -272,12 +270,17 @@ class SonataImportCommand extends ContainerAwareCommand
                         $getMethod = $methods[$name]['get'];
                         $setMethod = $methods[$name]['set'];
 
+                        if (!method_exists($entity, $getMethod)) {
+                            continue;
+                        }
+
                         $oldValue = $entity->$getMethod();
 
                         if (isset($exportFieldsAsString[$name])) {
                             $getMethodRaw = $getMethod . 'ExportAsString';
                             $oldValueRawArray[$name] = $entity->$getMethodRaw();
                         }
+
 
                         try {
                             $valueNew = null;
@@ -328,6 +331,7 @@ class SonataImportCommand extends ContainerAwareCommand
 
                                         $qb = $repo->createQueryBuilder('entity');
 
+
                                         /** @var QueryBuilder $qb */
                                         $qb = $instance->importFieldHandler($qb, $entity, $name, $value);
                                         $qb->getQuery()->setCacheable(true);
@@ -335,7 +339,12 @@ class SonataImportCommand extends ContainerAwareCommand
                                         $qb->getQuery()->setQueryCacheLifetime(120);
                                         $result = $qb->getQuery()->getResult();
 
+
+
+
                                         if (1 === count($result)) {
+
+
                                             $valueNew = $result[0];
                                         } else {
                                             $valueNew = null;
@@ -379,6 +388,8 @@ class SonataImportCommand extends ContainerAwareCommand
 
                             if ('decimal' === $type) {
                                 $valueNew = number_format($value, 2, '.', '');
+                                $oldValue = number_format($oldValue, 2, '.', '');
+
                             }
 
                         } catch (ORMException $e) {
@@ -396,14 +407,31 @@ class SonataImportCommand extends ContainerAwareCommand
                             }
 
                             if ($value !== $oldValue) {
-                                $entity->$setMethod($value);
+
+
+                                if ($type === 'string' && (!$value && !$oldValue)) {
+
+                                } else {
+                                    $entity->$setMethod($value);
+                                }
+
                             }
                         } elseif (is_bool($oldValue)) {
                             if ($value !== $oldValue) {
+
                                 $entity->$setMethod($value);
                             }
+
                         } else {
-                            $entity->$setMethod($value);
+                            if ($value !== $oldValue) {
+
+                               
+
+                                $entity->$setMethod($value);
+
+                            }
+
+
                         }
 
                         if (isset($exportFieldsAsString[$name])) {
@@ -523,6 +551,12 @@ class SonataImportCommand extends ContainerAwareCommand
                 //$em->flush($log);
 
                 //$em->detach($log);
+
+if (!$isDryRun) {
+
+                    $em->persist($entity);
+                    $em->flush($entity);
+                }
 
 
                 $em->detach($entity);

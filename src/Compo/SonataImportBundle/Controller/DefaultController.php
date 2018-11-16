@@ -81,6 +81,8 @@ class DefaultController extends CRUDController
 
         $process = new Process($command);
         $process->run();
+
+
     }
 
     /**
@@ -126,6 +128,9 @@ class DefaultController extends CRUDController
             $request->query->getInt('page', 1),
             100
         );
+        $pagination->setCustomParameters(['type' => $request->get('type', 'all')]);
+
+        $pagination->setParam('type', $request->get('type', 'all'));
 
         $stats = [
             0 => [

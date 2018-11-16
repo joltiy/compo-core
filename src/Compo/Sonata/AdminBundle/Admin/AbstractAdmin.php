@@ -141,6 +141,13 @@ class AbstractAdmin extends BaseAdmin
             } elseif (ClassMetadataInfo::MANY_TO_MANY === $element->getMappingType()) {
                 $fields[$element->getName()] = $element->getName() . 'ExportAsString';
             } elseif (null === $element->getMappingType()) {
+                $fields[$element->getName()] = $element->getName();
+
+                if (method_exists($this->getClass(), $element->getName() . 'ExportAsString')) {
+                    $fields[$element->getName()] = $element->getName() . 'ExportAsString';
+                }
+
+
             } else {
                 $fields[$element->getName()] = $element->getName();
             }

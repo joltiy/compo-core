@@ -250,11 +250,12 @@ function initOrderElements(subject) {
 }
 
 function initOrderTotal() {
-    $('.order_total, .order_delivery_cost').change(function () {
+    $('.order_total, .order_delivery_cost, .order_lift_cost').change(function () {
         var order_total = $('.order_total');
         var order_delivery_cost = $('.order_delivery_cost');
+        var order_lift_cost = $('.order_lift_cost');
 
-        $('.order_total_cost').val(parseFloat(order_total.val().replace(',', '.')) + parseFloat(order_delivery_cost.val().replace(',', '.')));
+        $('.order_total_cost').val(parseFloat(order_lift_cost.val().replace(',', '.')) + parseFloat(order_total.val().replace(',', '.')) + parseFloat(order_delivery_cost.val().replace(',', '.')));
 
         $('.order_total_cost').val(number_format($('.order_total_cost').val(), 2, ',', ''));
     });
@@ -415,12 +416,13 @@ $(document).ready(function () {
         }
     });
 
-    $('.order_delivery_cost').change(function () {
+    $('.order_delivery_cost, .order_lift_cost').change(function () {
+        var order_lift_cost = $('.order_lift_cost');
 
         var order_delivery_cost = $('.order_delivery_cost');
         var order_total = $('.order_total');
 
-        $('.order_total_cost').val(parseFloat(order_delivery_cost.val()) + parseFloat(order_total.val()));
+        $('.order_total_cost').val(parseFloat(order_lift_cost.val()) + parseFloat(order_delivery_cost.val()) + parseFloat(order_total.val()));
     });
 
 

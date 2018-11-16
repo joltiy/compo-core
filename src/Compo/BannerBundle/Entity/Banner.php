@@ -27,4 +27,28 @@ class Banner
 
     use \Gedmo\Timestampable\Traits\TimestampableEntity;
     use \Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+
+
+    /**
+     *
+     * @var string
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $options;
+
+    /**
+     * @return string
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
+     * @param string $options
+     */
+    public function setOptions($options)
+    {
+        $this->options = $options;
+    }
 }

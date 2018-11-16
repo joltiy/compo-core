@@ -49,8 +49,9 @@ class DashboardAdmin extends AbstractAdmin
 
         $query->leftJoin($query->getRootAliases()[0] . '.userGroups', 'ug');
 
-        $query->andWhere('ug.id = :group_id');
-        $query->setParameter('group_id', $user->getGroups());
+       // $query->andWhere('ug.id = :group_id');
+
+        //$query->setParameter('group_id', $user->getGroups());
 
         return $query;
     }

@@ -3,6 +3,7 @@
 namespace Compo\BannerBundle\Block;
 
 use Compo\BannerBundle\Entity\Banner;
+use Compo\BannerBundle\Entity\BannerItem;
 use Compo\BannerBundle\Entity\BannerItemRepository;
 use Compo\BannerBundle\Entity\BannerRepository;
 use Compo\Sonata\BlockBundle\Block\Service\AbstractBlockService;
@@ -22,22 +23,30 @@ class BannerBlockService extends AbstractBlockService
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
-        $em = $this->container->get('doctrine.orm.entity_manager');
+        $em = $this->getEntityManager();
 
         $settings = $blockContext->getSettings();
 
-        /** @var BannerItemRepository $repo */
-        $repo = $em->getRepository('CompoBannerBundle:BannerItem');
+        $bannerItemRepository = $em->getRepository(BannerItem::class);
+
+        $bannerRepository = $em->getRepository(Banner::class);
 
         $list = [];
 
+        $banner = null;
+
         if ($settings['id']) {
-            $list = $repo->findBy(['banner' => $settings['id'], 'enabled' => true], ['position' => 'asc']);
+            $banner = $bannerRepository->find($settings['id']);
+
+            if ($banner) {
+                $list = $bannerItemRepository->findBy(['banner' => $banner, 'enabled' => true], ['position' => 'asc']);
+            }
         }
 
         return $this->renderResponse(
             $settings['template'],
             [
+                'banner' => $banner,
                 'list' => $list,
                 'block' => $blockContext->getBlock(),
                 'settings' => $blockContext->getSettings(),

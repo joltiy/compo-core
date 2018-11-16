@@ -1,8 +1,17 @@
 <?php
 
+/*
+ * This file is part of the CompoSymfonyCms package.
+ * (c) Compo.ru <info@compo.ru>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Compo\CoreBundle\Twig;
 
 use Compo\CoreBundle\DependencyInjection\ContainerAwareTrait;
+use Compo\Sonata\AdminBundle\Admin\AbstractAdmin;
+use Compo\SynchronizationBundle\Entity\SynchronizationImportLog;
 
 /**
  * Class CoreExtension.
@@ -37,41 +46,84 @@ class CoreExtension extends \Twig_Extension
         ];
     }
 
+    /**
+     * @param SynchronizationImportLog $item
+     */
     public function getAdminObjectSourceName($item)
     {
+        /** @var AbstractAdmin $admin */
         $admin = $this->getContainer()->get('sonata.admin.pool')->getAdminByClass($item->getSourceClass());
 
         if ($admin->getObject($item->getSourceItemId())) {
             return $admin->getObject($item->getSourceItemId())->getValue();
         }
+
+        return null;
     }
 
+    /**
+     * @param SynchronizationImportLog $item
+     *
+     * @return null|string
+     */
     public function getAdminObjectUrl($item)
     {
+        /** @var AbstractAdmin $admin */
         $admin = $this->getContainer()->get('sonata.admin.pool')->getAdminByClass($item->getSourceClass());
 
         if ($admin->getObject($item->getSourceItemId())) {
             return $admin->generateObjectUrl('edit', $admin->getObject($item->getSourceItemId()));
         }
+
+        return null;
     }
 
+    /**
+     * @param SynchronizationImportLog $item
+     *
+     * @return mixed
+     */
     public function getAdminObjectTargetName($item)
     {
-        $admin = $this->getContainer()->get('sonata.admin.pool')->getAdminByClass($item->getClass());
+        if ($item->getTargetId()) {
+            /** @var AbstractAdmin $admin */
+            $admin = $this->getContainer()->get('sonata.admin.pool')->getAdminByClass($item->getClass());
 
-        return $admin->getObject($item->getTargetId())->getName();
+            return $admin->getObject($item->getTargetId())->getName();
+        } else {
+            return '';
+        }
+
     }
 
+    /**
+     * @param SynchronizationImportLog $item
+     *
+     * @return string
+     */
     public function getAdminObjectTargetUrl($item)
     {
-        $admin = $this->getContainer()->get('sonata.admin.pool')->getAdminByClass($item->getClass());
+        if ($item->getTargetId()) {
+            /** @var AbstractAdmin $admin */
+            $admin = $this->getContainer()->get('sonata.admin.pool')->getAdminByClass($item->getClass());
 
-        return $admin->generateObjectUrl('edit', $admin->getObject($item->getTargetId()));
+            return $admin->generateObjectUrl('edit', $admin->getObject($item->getTargetId()));
+        } else {
+            return '';
+        }
+
     }
 
-    public function getJsonPrettyPrintUnicode($data) {
+    /**
+     * @param $data
+     *
+     * @return string
+     */
+    public function getJsonPrettyPrintUnicode($data)
+    {
         return json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
+
     /**
      * @return string
      */

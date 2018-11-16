@@ -75,7 +75,11 @@ class BannerAdmin extends AbstractAdmin
             ->with('main', ['name' => false])
             ->add('id')
             ->add('name')
-            ->add('description', CKEditorType::class, ['attr' => ['class' => ''], 'required' => false]);
+            ->add('description', CKEditorType::class, ['attr' => ['class' => ''], 'required' => false])
+
+            ->add('options', 'textarea', ['required' => false, 'attr' => ['class' => 'highlight-src']])
+
+        ;
 
         $formMapper
             ->end()

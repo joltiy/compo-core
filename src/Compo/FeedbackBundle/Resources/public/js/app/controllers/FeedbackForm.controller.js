@@ -12,10 +12,10 @@
         .module('app.feedback')
         .controller('FeedbackFormController', FeedbackFormController);
 
-    FeedbackFormController.$inject = ['FeedbackApi'];
+    FeedbackFormController.$inject = ['FeedbackApi', '$analytics'];
 
     /* @ngInject */
-    function FeedbackFormController(FeedbackApi) {
+    function FeedbackFormController(FeedbackApi, $analytics) {
 
         var vm = this;
         var api = FeedbackApi.send;
@@ -29,6 +29,12 @@
 
         function send() {
             vm.disablesubmit = true;
+
+            $analytics.eventTrack(vm.form.type, {
+                'category': 'feedback',
+                'action': 'send',
+                'label': vm.form.type
+            });
 
             api.save({
                 data: vm.form

@@ -135,11 +135,13 @@ class CRUDController extends BaseCRUDController
 
         $fieldDescription = $this->getAdmin()->getListFieldDescription($field);
 
-        $result[] = [
-            'id' => $items->getId(),
-            'label' => $twigSonataAdminExtension->renderRelationElement($items, $fieldDescription),
-            'edit_url' => $associationAdmin->generateObjectUrl('edit', $items),
-        ];
+        if ($items) {
+            $result[] = [
+                'id' => $items->getId(),
+                'label' => $twigSonataAdminExtension->renderRelationElement($items, $fieldDescription),
+                'edit_url' => $associationAdmin->generateObjectUrl('edit', $items),
+            ];
+        }
 
         return new JsonResponse([
             'items' => $result,
@@ -886,11 +888,6 @@ class CRUDController extends BaseCRUDController
             foreach ($selectedModelQuery->getQuery()->iterate() as $pos => $object) {
                 $object[0]->setEnabled(false);
                 $modelManager->update($object[0]);
-
-                if (0 === (++$i % 100)) {
-                    $entityManager->flush();
-                    $entityManager->clear();
-                }
             }
 
             $entityManager->flush();
@@ -992,17 +989,28 @@ class CRUDController extends BaseCRUDController
         /* @var QueryBuilder $selectedModelQuery */
         $selectedModelQuery->select('DISTINCT ' . $selectedModelQuery->getRootAliases()[0]);
 
+//$this->container->get('stof_doctrine_extensions.listener.blameable')
+                            //->setUserValue($uploadFile->getCreatedBy());
+
+
+
+
         try {
             $entityManager = $modelManager->getEntityManager($this->admin->getClass());
+//        $entityManager->getFilters()->disable('blameable');
+
 
             $i = 0;
             foreach ($selectedModelQuery->getQuery()->iterate() as $pos => $object) {
                 $object[0]->setEnabled(true);
+
+
                 $modelManager->update($object[0]);
 
                 if (0 === (++$i % 100)) {
-                    $entityManager->flush();
-                    $entityManager->clear();
+                    //$entityManager->flush();
+                   // $entityManager->clear();
+
                 }
             }
 

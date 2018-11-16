@@ -17,7 +17,7 @@ sonata_page:
         page:     Compo\Sonata\PageBundle\Entity\Page
         block:    Compo\Sonata\PageBundle\Entity\Block
 
-    direct_publication: true
+    direct_publication: false
     hide_disabled_blocks: true
     multisite:             host
     use_streamed_response: true # set the value to false in debug mode or if the reverse proxy does not handle streamed response
