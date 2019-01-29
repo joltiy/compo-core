@@ -31,7 +31,7 @@ class CreateConfigs
 
         $project_dir = \dirname($vendor);
 
-        if (!\file_exists($project_dir . '/.env')) {
+        if (!file_exists($project_dir . '/.env')) {
             copy($project_dir . '/.env.dist', $project_dir . '/.env');
         }
 

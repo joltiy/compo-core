@@ -51,7 +51,7 @@ trait TreeTrait
 
     /**
      * @param null       $startNode
-     * @param null|array $options
+     * @param array|null $options
      *
      * @return array
      */

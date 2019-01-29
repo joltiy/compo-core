@@ -7,7 +7,6 @@
  * file that was distributed with this source code.
  */
 
-use Symfony\Component\Yaml\Yaml;
 use function Deployer\after;
 use function Deployer\commandExist;
 use function Deployer\download;
@@ -20,6 +19,7 @@ use function Deployer\task;
 use function Deployer\test;
 use function Deployer\upload;
 use function Deployer\writeln;
+use Symfony\Component\Yaml\Yaml;
 
 require 'recipe/symfony.php';
 

@@ -64,7 +64,7 @@ class CoreExtension extends \Twig_Extension
     /**
      * @param SynchronizationImportLog $item
      *
-     * @return null|string
+     * @return string|null
      */
     public function getAdminObjectUrl($item)
     {

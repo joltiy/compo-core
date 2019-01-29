@@ -231,7 +231,7 @@ class BaseAdminStatsBlockService extends AbstractBlockService
     /**
      * @param $input
      *
-     * @return mixed|null|string|string[]
+     * @return mixed|string|string[]|null
      */
     public function camelCaseToUnderscore($input)
     {

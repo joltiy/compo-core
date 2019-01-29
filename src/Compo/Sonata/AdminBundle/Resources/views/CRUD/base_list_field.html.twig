@@ -44,9 +44,11 @@ sonata-ba-list-field-name-{{ field_description.name }}
             {% endblock -%}
         </a>
 
+
+
         {% if (admin.children) %}
             <span class="sonata-link-identifier-child-list">
-            {% for child in admin.children if admin.hasChildAdminMenuItem(child.code)  %}
+            {% for child in admin.children %}
                 <a class="sonata-link-identifier sonata-link-identifier-child"
                    href="{{ admin.generateUrl(   child.code ~ '.list',{'id': object.id} ) }}">
                         <span class="badge badge-default">{{ child.label|trans({}, child.translationDomain) }}</span>

@@ -93,7 +93,7 @@ trait ParentAssociationMappingTrait
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getParentAssociationMappingType()
     {
@@ -134,7 +134,7 @@ trait ParentAssociationMappingTrait
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getParentAssociationMapping()
     {

@@ -76,7 +76,7 @@ class ImportCommand extends ContainerAwareCommand
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
      *
-     * @return int|null|void
+     * @return int|void|null
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

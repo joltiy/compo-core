@@ -25,7 +25,7 @@ class ThemeManager implements ThemeContextInterface
     public $themeName = 'default';
 
     /**
-     * @return null|\Sylius\Bundle\ThemeBundle\Model\ThemeInterface
+     * @return \Sylius\Bundle\ThemeBundle\Model\ThemeInterface|null
      */
     public function getTheme()
     {

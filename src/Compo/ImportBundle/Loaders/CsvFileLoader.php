@@ -44,7 +44,7 @@ class CsvFileLoader implements FileLoaderInterface
             throw new InvalidArgumentException('File not found');
         }
 
-        $file = fopen($this->file->getRealPath(), 'rb');
+        $file = fopen($this->file->getRealPath(), 'r');
         while (false !== ($line = fgetcsv($file, 0, ';'))) {
             foreach ($line as $key => $col) {
                 $col = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $col);
