@@ -97,7 +97,7 @@ class SitemapsDumpCommand extends ContainerAwareCommand implements CronCommand
 
         $targetDir = $kernel->getProjectDir() . '/web/';
 
-        $host = $this->getContainer()->getParameter('server_name');
+        $host = getenv('server_name');
 
         $container->get('router.request_context')->setHost($host);
         $container->get('router.request_context')->setScheme('https');
@@ -143,27 +143,26 @@ class SitemapsDumpCommand extends ContainerAwareCommand implements CronCommand
      */
     private function getBaseUrl()
     {
-        $context = $this->getContainer()->get('router.request_context');
-
-        if ('' === $host = $context->getHost()) {
+                    
+        if ('' === $host = getenv('SERVER_NAME')) {
             throw new \RuntimeException(
                 'Router host must be configured to be able to dump the sitemap, please see documentation.'
             );
         }
-
+        
         // $scheme = $context->getScheme();
 
         $port = '';
 
         $scheme = 'https';
-
-        if ('http' === $scheme && 80 !== $context->getHttpPort()) {
-            $port = ':' . $context->getHttpPort();
-        } elseif ('https' === $scheme && 443 !== $context->getHttpsPort()) {
-            $port = ':' . $context->getHttpsPort();
+        
+        if ('http' === $scheme && 80 !== getenv('SERVER_PORT')) {
+            $port = ':' . getenv('SERVER_PORT');
+        } elseif ('https' === $scheme && 443 !== getenv('SERVER_PORT')) {
+            $port = ':' . getenv('SERVER_PORT');
         }
 
-        $host = $this->getContainer()->getParameter('server_name');
+        $host = getenv('SERVER_NAME');
 
         return rtrim($scheme . '://' . $host . $port, '/') . '/';
     }
