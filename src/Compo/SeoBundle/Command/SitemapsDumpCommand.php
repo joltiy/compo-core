@@ -143,19 +143,18 @@ class SitemapsDumpCommand extends ContainerAwareCommand implements CronCommand
      */
     private function getBaseUrl()
     {
-                    
         if ('' === $host = getenv('SERVER_NAME')) {
             throw new \RuntimeException(
                 'Router host must be configured to be able to dump the sitemap, please see documentation.'
             );
         }
-        
+
         // $scheme = $context->getScheme();
 
         $port = '';
 
         $scheme = 'https';
-        
+
         if ('http' === $scheme && 80 !== getenv('SERVER_PORT')) {
             $port = ':' . getenv('SERVER_PORT');
         } elseif ('https' === $scheme && 443 !== getenv('SERVER_PORT')) {
