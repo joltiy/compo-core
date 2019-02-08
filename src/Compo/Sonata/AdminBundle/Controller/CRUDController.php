@@ -13,7 +13,9 @@ use Compo\Sonata\AdminBundle\Controller\Traits\BaseCRUDControllerTrait;
 use Sonata\AdminBundle\Controller\CRUDController as BaseCRUDController;
 use Sylius\Bundle\SettingsBundle\Form\Factory\SettingsFormFactoryInterface;
 use Sylius\Bundle\SettingsBundle\Manager\SettingsManagerInterface;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * {@inheritdoc}
@@ -21,6 +23,83 @@ use Symfony\Component\HttpFoundation\Request;
 class CRUDController extends BaseCRUDController
 {
     use BaseCRUDControllerTrait;
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function listAction(Request $request = null)
+    {
+        return $this->listActionCustom($request);
+    }
+
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function listActionCustom(Request $request = null)
+    {
+        $this->admin->checkAccess('list');
+
+        $preResponse = $this->preList($request);
+        if (null !== $preResponse) {
+            return $preResponse;
+        }
+
+        if ($listMode = $request->get('_list_mode')) {
+            $this->admin->setListMode($listMode);
+        }
+
+        $datagrid = $this->admin->getDatagrid();
+        $formView = $datagrid->getForm()->createView();
+
+        return $this->render($this->admin->getTemplate('list'), [
+            'action' => 'list',
+            'form' => $formView,
+            'batch_action_forms' => $this->getBatchActionFormViews(),
+
+            'datagrid' => $datagrid,
+            'csrf_token' => $this->getCsrfToken('sonata.batch'),
+            'export_formats' =>
+                $this->admin->getExportFormats(),
+        ], null);
+    }
+
+    /**
+     * @param $name
+     *
+     * @return FormBuilderInterface
+     */
+    public function createBatchActionForm($name)
+    {
+        return $this->get('form.factory')
+            ->createNamedBuilder($name, 'form', [], [
+                'label_format' => 'form.label_%name%',
+                'translation_domain' => $this->admin->getTranslationDomain(),
+            ]);
+    }
+
+    public function configureBatchActionForms()
+    {
+        $actionForms = [];
+
+        return $actionForms;
+    }
+
+    public function getBatchActionFormViews()
+    {
+        $actionForms = [];
+
+        foreach ($this->configureBatchActionForms() as $formName => $form) {
+            $actionForms[$formName] = $form->getForm()->createView();
+        }
+
+        return $actionForms;
+    }
+
 
     /**
      * @param Request $request
