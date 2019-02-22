@@ -150,6 +150,7 @@ sonata_admin:
             - bundles/composonataadmin/css/logo.css
             - bundles/composonataadmin/css/tree.css
             - bundles/composonataadmin/css/code_mirror.css
+            - bundles/composonataadmin/css/layout.css
 
             - bundles/compotagging/css/catalog_filter_admin.css
 
