@@ -79,7 +79,7 @@ class FormMapper extends \Sonata\AdminBundle\Form\FormMapper
         $code = $name;
 
         // Open
-        if (array_key_exists('tab', $options) && $options['tab']) {
+        if (\array_key_exists('tab', $options) && $options['tab']) {
             $tabs = $this->getTabs();
 
             if ($this->currentTab) {
