@@ -32,7 +32,7 @@ class PositionORMHandler extends PositionHandler
         ));
         $result = $query->getResult();
 
-        if (array_key_exists(0, $result)) {
+        if (\array_key_exists(0, $result)) {
             return (int) $result[0][1];
         }
 

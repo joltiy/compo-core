@@ -49,7 +49,7 @@ final class TranslatorResourceProviderPass implements CompilerPassInterface
         try {
             $options = $symfonyTranslator->getArgument(3);
 
-            if (!array_key_exists('resource_files', $options)) {
+            if (!\array_key_exists('resource_files', $options)) {
                 $options = $symfonyTranslator->getArgument(4);
             }
         } catch (OutOfBoundsException $exception) {
