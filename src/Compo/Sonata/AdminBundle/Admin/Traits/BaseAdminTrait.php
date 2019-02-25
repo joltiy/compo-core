@@ -223,14 +223,4 @@ trait BaseAdminTrait
         return $configurationPool->getContainer();
     }
 
-    /**
-     * @return array
-     */
-    public function getFormTheme()
-    {
-        return array_merge(
-            parent::getFormTheme(),
-            ['@CompoSonataAdmin/Form/form_admin_fields_extend.html.twig']
-        );
-    }
 }
