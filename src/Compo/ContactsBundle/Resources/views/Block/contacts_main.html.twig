@@ -1,110 +1,131 @@
 {% block block %}
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 
+    <div class="main-content">
+        <div class="container">
 
-    <ul class="nav nav-tabs" role="tablist">
-        {% for contact in contacts %}
-            <li role="presentation" class="{{ (loop.index == 1) ? 'active' }}">
-                <a href="#contacts-{{ block.id }}-{{ contact.id }}" aria-controls="home" role="tab" data-toggle="tab">{{ contact.name }}</a>
-            </li>
-        {% endfor %}
-    </ul>
+            <h1>{{ compo_seo_header() }}</h1>
 
-    <div class="tab-content">
+            <ul class="nav nav-tabs" role="tablist">
+                {% for contact in contacts %}
+                    <li role="presentation" class="{{ (loop.index == 1) ? 'active' }}">
+                        <a href="#contacts-{{ contact.id }}" aria-controls="home" role="tab" data-toggle="tab">{{ contact.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
 
-        {% for contact in contacts %}
-            <div role="tabpanel" class="tab-pane {{ (loop.index == 1) ? 'active' }}" id="contacts-{{ block.id }}-{{ contact.id }}">
-                <div class="contacts">
-                    <div class="row">
-                        <div class="col-lg-7 col-md-6">
-                            {% if contact.mapsCode %}
-                                {{ contact.mapsCode | raw }}
-                            {% else %}
-                                <div class="contacts__map" id="map-{{ block.id }}-{{ contact.id }}"></div>
-                            {% endif %}
+            <div class="tab-content">
+
+                {% for contact in contacts %}
+                    <div role="tabpanel" class="tab-pane {{ (loop.index == 1) ? 'active' }}" id="contacts-{{ contact.id }}">
+                        <div class="contacts">
+                            <div class="row">
+                                <div class="col-lg-7 col-md-6">
+                                    {% if contact.mapsCode %}
+                                        {{ contact.mapsCode | raw }}
+                                    {% else %}
+                                        <div class="contacts__map" id="map{{ contact.id }}"></div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-lg-5 col-md-6">
+                                    <div class="contacts__item">
+                                        <div class="contacts__item__title">
+                                            Адрес:
+                                        </div>
+                                        <div class="contacts__item__text">
+                                            {{ contact.address | raw }}
+                                        </div>
+                                    </div>
+                                    <div class="contacts__item">
+                                        <div class="contacts__item__title">
+                                            Телефоны:
+                                        </div>
+                                        <div class="contacts__item__text">
+                                            {{ contact.phone|raw }}
+                                        </div>
+                                    </div>
+                                    <div class="contacts__item">
+                                        <div class="contacts__item__title">
+                                            Режим работы:
+                                        </div>
+                                        <div class="contacts__item__text">
+                                            {{ contact.worktime | raw }}
+                                        </div>
+                                    </div>
+
+                                    <div class="contacts__item">
+                                        <div class="contacts__item__title">
+                                            E-mail:
+                                        </div>
+                                        <div class="contacts__item__text">
+                                            <a href="mailto:{{ contact.email }} "> {{ contact.email }} </a>
+                                        </div>
+                                    </div>
+                                    <div class="contacts__item">
+                                        <div class="contacts__item__title">
+                                            Мы в сети:
+                                        </div>
+                                        <div class="contacts__item__text">
+
+                                            {{ sonata_block_render({
+                                                'type': 'compo_social.block.service.social',
+                                                'settings': {
+                                                    'template': 'CompoSocialBundle:Block:contacts.html.twig'
+                                                }
+                                            }) }}
+                                        </div>
+                                    </div>
+                                    <div class="contacts__item">
+                                        <div class="contacts__item__title">
+                                            Реквизиты:
+                                        </div>
+                                        <div class="contacts__item__text">
+                                            {{ contact.bankProps | raw }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                {% if contact.carinstruction %}
+                                    <div class="col-md-6">
+                                        <h2>Как добраться на авто:</h2>
+                                        {{ contact.carInstruction | raw }}
+                                    </div>
+                                {% endif %}
+
+                                {% if contact.walkinstruction %}
+                                    <div class="col-md-6">
+                                        <h2>Как добраться своим ходом:</h2>
+                                        {{ contact.walkInstruction | raw }}
+                                    </div>
+                                {% endif %}
+
+                            </div>
+
+                            <script>
+                                ymaps.ready(init);
+                                var myMap,
+                                    myPlacemark;
+
+                                function init() {
+                                    myMap = new ymaps.Map("map{{ contact.id }}", {
+                                        center: [{{ contact.latitude }}, {{ contact.longitude }}],
+                                        zoom: 16,
+                                        controls: []
+                                    });
+                                    myMap.behaviors.disable('scrollZoom');
+                                    myPlacemark = new ymaps.Placemark([{{ contact.latitude }}, {{ contact.longitude }}], {balloonContent: ' {{ contact.address | striptags }}'});
+                                    myMap.geoObjects.add(myPlacemark);
+                                }
+                            </script>
                         </div>
-                        <div class="col-lg-5 col-md-6 col-contacts-items">
-                            <div class="contacts__item">
-                                <strong class="contacts__item__title">
-                                    Адрес:
-                                </strong>
-                                <div class="contacts__item__text">
-                                    {{ contact.address | raw }}
-                                </div>
-                            </div>
-                            <div class="contacts__item">
-                                <strong class="contacts__item__title">
-                                    Телефоны:
-                                </strong>
-                                <div class="contacts__item__text">
-                                    {{ contact.phone|raw }}
-                                </div>
-                            </div>
-                            <div class="contacts__item">
-                                <strong class="contacts__item__title">
-                                    Режим работы:
-                                </strong>
-                                <div class="contacts__item__text">
-                                    {{ contact.worktime | raw }}
-                                </div>
-                            </div>
-
-                            <div class="contacts__item">
-                                <strong class="contacts__item__title">
-                                    E-mail:
-                                </strong>
-                                <div class="contacts__item__text">
-                                    <a href="mailto:{{ contact.email }} "> {{ contact.email }} </a>
-                                </div>
-                            </div>
-                            <div class="contacts__item">
-                                <strong class="contacts__item__title">
-                                    Реквизиты:
-                                </strong>
-                                <div class="contacts__item__text">
-                                    {{ contact.bankProps | raw }}
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
-                    <div class="row">
-                        {% if contact.carinstruction %}
-                            <div class="col-md-6">
-                                <h2>Как добраться на авто:</h2>
-                                {{ contact.carInstruction | raw }}
-                            </div>
-                        {% endif %}
+                {% endfor %}
 
-                        {% if contact.walkinstruction %}
-                            <div class="col-md-6">
-                                <h2>Как добраться своим ходом:</h2>
-                                {{ contact.walkInstruction | raw }}
-                            </div>
-                        {% endif %}
-
-                    </div>
-
-                    <script>
-                        ymaps.ready(init);
-                        var myMap,
-                            myPlacemark;
-
-                        function init() {
-                            myMap = new ymaps.Map("map-{{ block.id }}-{{ contact.id }}", {
-                                center: [{{ contact.latitude }}, {{ contact.longitude }}],
-                                zoom: 16,
-                                controls: []
-                            });
-                            myMap.behaviors.disable('scrollZoom');
-                            myPlacemark = new ymaps.Placemark([{{ contact.latitude }}, {{ contact.longitude }}], {balloonContent: ' {{ contact.address | striptags }}'});
-                            myMap.geoObjects.add(myPlacemark);
-                        }
-                    </script>
-                </div>
             </div>
-        {% endfor %}
 
+        </div>
     </div>
 
 

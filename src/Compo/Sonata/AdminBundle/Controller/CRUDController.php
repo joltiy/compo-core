@@ -34,7 +34,6 @@ class CRUDController extends BaseCRUDController
         return $this->listActionCustom($request);
     }
 
-
     /**
      * @param Request $request
      *
@@ -63,8 +62,7 @@ class CRUDController extends BaseCRUDController
 
             'datagrid' => $datagrid,
             'csrf_token' => $this->getCsrfToken('sonata.batch'),
-            'export_formats' =>
-                $this->admin->getExportFormats(),
+            'export_formats' => $this->admin->getExportFormats(),
         ], null);
     }
 
@@ -99,7 +97,6 @@ class CRUDController extends BaseCRUDController
 
         return $actionForms;
     }
-
 
     /**
      * @param Request $request

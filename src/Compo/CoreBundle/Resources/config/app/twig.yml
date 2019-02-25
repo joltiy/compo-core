@@ -14,10 +14,6 @@ twig:
         - 'SonataCoreBundle:Form:colorpicker.html.twig'
         - 'SonataCoreBundle:Form:color.html.twig'
         - 'MopaBootstrapBundle:Form:fields.html.twig'
-        - 'CompoSonataAdminBundle:Form:form_admin_fields_extend.html.twig'
-
-    paths:
-        '%kernel.root_dir%/../vendor/comporu/compo-core/src/Compo/CoreBundle/Resources/views/Form/themes': AngularForm
 
     globals:
         ivory_ck_editor_plugin_manager: "@ivory_ck_editor.plugin_manager"
