@@ -97,7 +97,8 @@ class SitemapsDumpCommand extends ContainerAwareCommand implements CronCommand
 
         $targetDir = $kernel->getProjectDir() . '/web/';
 
-        $host = getenv('server_name');
+        /*$host = getenv('server_name');*/
+        $host = $kernel->getContainer()->getParameter('env(SERVER_NAME)');
 
         $container->get('router.request_context')->setHost($host);
         $container->get('router.request_context')->setScheme('https');
