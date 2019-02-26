@@ -157,7 +157,7 @@ class Settings implements SettingsInterface
      */
     public function has($name)
     {
-        return array_key_exists($name, $this->parameters);
+        return \array_key_exists($name, $this->parameters);
     }
 
     /**

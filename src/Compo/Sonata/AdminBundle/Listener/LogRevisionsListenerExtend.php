@@ -449,7 +449,7 @@ class LogRevisionsListenerExtend implements EventSubscriber
             }
 
             foreach ($class->fieldNames as $field) {
-                if (array_key_exists($field, $fields)) {
+                if (\array_key_exists($field, $fields)) {
                     continue;
                 }
 
@@ -526,7 +526,7 @@ class LogRevisionsListenerExtend implements EventSubscriber
         }
 
         foreach ($class->fieldNames as $field) {
-            if (array_key_exists($field, $fields)) {
+            if (\array_key_exists($field, $fields)) {
                 continue;
             }
 
