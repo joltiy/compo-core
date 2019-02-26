@@ -49,15 +49,15 @@ class SoftDeleteableTrashFilter extends SQLFilter
     {
         $class = $targetEntity->getName();
 
-        if (\count($this->enabled) && !(array_key_exists($class, $this->enabled) && true === $this->enabled[$class])) {
+        if (\count($this->enabled) && !(\array_key_exists($class, $this->enabled) && true === $this->enabled[$class])) {
             return '';
         }
 
-        if (array_key_exists($class, $this->disabled) && true === $this->disabled[$class]) {
+        if (\array_key_exists($class, $this->disabled) && true === $this->disabled[$class]) {
             return '';
         }
 
-        if (array_key_exists($targetEntity->rootEntityName, $this->disabled) && true === $this->disabled[$targetEntity->rootEntityName]) {
+        if (\array_key_exists($targetEntity->rootEntityName, $this->disabled) && true === $this->disabled[$targetEntity->rootEntityName]) {
             return '';
         }
 
