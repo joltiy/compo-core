@@ -31,7 +31,7 @@ class NumberRangeFilter extends Filter
         /* @var QueryBuilder $queryBuilder */
         // check data sanity
 
-        if (!$data || !\is_array($data) || !array_key_exists('value', $data)) {
+        if (!$data || !\is_array($data) || !\array_key_exists('value', $data)) {
             return;
         }
 
@@ -46,13 +46,13 @@ class NumberRangeFilter extends Filter
             //return;
             //}
 
-            if (array_key_exists('start', $data['value']) && $data['value']['start']) {
+            if (\array_key_exists('start', $data['value']) && $data['value']['start']) {
                 $startQuantity = $this->getNewParameterName($queryBuilder);
                 $this->applyWhere($queryBuilder, sprintf('%s.%s %s :%s', $alias, $field, '>=', $startQuantity));
                 $queryBuilder->setParameter($startQuantity, $data['value']['start']);
             }
 
-            if (array_key_exists('end', $data['value']) && $data['value']['end']) {
+            if (\array_key_exists('end', $data['value']) && $data['value']['end']) {
                 $endQuantity = $this->getNewParameterName($queryBuilder);
                 $this->applyWhere($queryBuilder, sprintf('%s.%s %s :%s', $alias, $field, '<=', $endQuantity));
                 $queryBuilder->setParameter($endQuantity, $data['value']['end']);

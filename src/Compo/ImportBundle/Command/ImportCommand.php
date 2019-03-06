@@ -244,7 +244,7 @@ class ImportCommand extends ContainerAwareCommand
                 $valueRawArray = [];
 
                 foreach ($exportFields as $key => $name) {
-                    if (!array_key_exists($key, $headers)) {
+                    if (!\array_key_exists($key, $headers)) {
                         continue;
                     }
 
