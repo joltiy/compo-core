@@ -21,7 +21,7 @@ final class ThemeScreenshotFactory implements ThemeScreenshotFactoryInterface
      */
     public function createFromArray(array $data)
     {
-        if (!array_key_exists('path', $data)) {
+        if (!\array_key_exists('path', $data)) {
             throw new \InvalidArgumentException('Screenshot path is required.');
         }
 
