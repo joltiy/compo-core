@@ -14,7 +14,6 @@ namespace Compo\Sonata\PageBundle\Admin;
  */
 class BlockAdmin extends \Sonata\PageBundle\Admin\BlockAdmin
 {
-
     /**
      * {@inheritdoc}
      */
@@ -31,6 +30,4 @@ class BlockAdmin extends \Sonata\PageBundle\Admin\BlockAdmin
             ]
         );
     }
-
-
 }
