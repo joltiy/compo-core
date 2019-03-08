@@ -45,17 +45,25 @@ class HelpType extends AbstractType
         $builder->addModelTransformer(
             new CallbackTransformer(
                 function ($value) use ($options) {
+
                     if (!empty($options['template'])) {
+
+
+
+
                         if (0 === mb_strpos($options['template'], 'Compo')) {
+
+
                             return $this->getContainer()->get('twig')->render($options['template'], ['value' => $value, 'options' => $options]);
                         }
-
                         return $options['template'];
                     }
 
                     return $value;
                 },
                 function ($value) use ($options) {
+
+
                     return '';
                 }
             )
