@@ -9,12 +9,28 @@
 
 namespace Compo\Sonata\PageBundle\Admin;
 
-use Compo\Sonata\AdminBundle\Admin\Traits\BaseAdminTrait;
-
 /**
  * {@inheritdoc}
  */
 class BlockAdmin extends \Sonata\PageBundle\Admin\BlockAdmin
 {
-    use BaseAdminTrait;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function postUpdate($object)
+    {
+        parent::postUpdate($object);
+
+        $container = $this->getConfigurationPool()->getContainer();
+
+        $container->get('sonata.notification.backend.runtime')->createAndPublish(
+            'sonata.page.create_snapshot',
+            [
+                'pageId' => $object->getPage()->getId(),
+            ]
+        );
+    }
+
+
 }
