@@ -155,14 +155,14 @@ class SitemapsDumpCommand extends ContainerAwareCommand implements CronCommand
 
         $scheme = 'https';
 
-        if ('http' === $scheme && 80 !== getenv('SERVER_PORT')) {
+        /*if ('http' === $scheme && 80 !== getenv('SERVER_PORT')) {
             $port = ':' . getenv('SERVER_PORT');
         } elseif ('https' === $scheme && 443 !== getenv('SERVER_PORT')) {
             $port = ':' . getenv('SERVER_PORT');
-        }
+        }*/
 
         $host = getenv('SERVER_NAME');
 
-        return rtrim($scheme . '://' . $host . $port, '/') . '/';
+        return rtrim($scheme . '://' . $host, '/') . '/';
     }
 }
